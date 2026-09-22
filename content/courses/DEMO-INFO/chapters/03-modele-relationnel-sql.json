@@ -1,0 +1,1702 @@
+{
+  "course": "DEMO-INFO",
+  "chapter": 3,
+  "concepts": [
+    {
+      "id": "c3-relation",
+      "term": "Relation",
+      "definition": "Ensemble de n-uplets partageant le même schéma : un nom de table et une liste d'attributs typés.",
+      "whyItMatters": "C'est l'unité de base du modèle : tout — jointure, agrégation, contrainte — s'exprime comme une opération sur des relations.",
+      "commonMisconception": "Croire que les lignes d'une table ont un ordre. Une relation est un ensemble : sans ORDER BY, l'ordre des résultats n'est pas garanti et peut changer d'une exécution à l'autre.",
+      "objectiveId": "obj3-relation",
+      "source": {
+        "file": "demo-diapos-cours03.pdf",
+        "page": 5,
+        "locator": "Diapositive 5"
+      }
+    },
+    {
+      "id": "c3-domaine",
+      "term": "Domaine",
+      "definition": "Ensemble des valeurs admissibles pour un attribut : INTEGER, TEXT, DATE, etc.",
+      "whyItMatters": "Le domaine est la première contrainte d'intégrité : il empêche d'écrire une chaîne dans une colonne d'entiers, avant même toute règle métier.",
+      "commonMisconception": "Confondre domaine et contrainte. Le domaine dit « ceci est un entier » ; une contrainte CHECK dit « cet entier doit être positif ». Ce sont deux niveaux distincts.",
+      "objectiveId": "obj3-relation",
+      "source": {
+        "file": "demo-notes-sql.pdf",
+        "page": 3
+      }
+    },
+    {
+      "id": "c3-cle-primaire",
+      "term": "Clé primaire",
+      "definition": "Attribut ou groupe d'attributs identifiant de façon unique chaque n-uplet d'une relation. Toujours unique et non nulle.",
+      "whyItMatters": "Sans elle, impossible de désigner une ligne précise pour la modifier ou la référencer : c'est le point d'ancrage de toutes les relations entre tables.",
+      "commonMisconception": "Croire qu'une clé primaire doit être un entier auto-incrémenté. Elle peut être naturelle (un NIP, un ISBN) ou composée de plusieurs attributs ; les seules exigences sont l'unicité et la non-nullité.",
+      "objectiveId": "obj3-cles",
+      "source": {
+        "file": "demo-diapos-cours03.pdf",
+        "page": 11,
+        "locator": "Diapositive 11"
+      }
+    },
+    {
+      "id": "c3-cle-etrangere",
+      "term": "Clé étrangère",
+      "definition": "Attribut d'une relation dont les valeurs doivent exister comme clé primaire dans une autre relation.",
+      "whyItMatters": "C'est le seul mécanisme déclaratif qui empêche les données orphelines — un livre rattaché à un auteur inexistant.",
+      "commonMisconception": "Croire qu'une clé étrangère doit être unique. C'est le contraire : elle se répète, et c'est cette répétition qui exprime la cardinalité « un auteur, plusieurs livres ».",
+      "objectiveId": "obj3-cles",
+      "source": {
+        "file": "demo-notes-sql.pdf",
+        "page": 6,
+        "locator": "Section 3.3"
+      }
+    },
+    {
+      "id": "c3-integrite",
+      "term": "Intégrité référentielle",
+      "definition": "Garantie que toute valeur non nulle de clé étrangère correspond à une clé primaire existante dans la table référencée.",
+      "whyItMatters": "Elle déplace la cohérence des données du code applicatif vers le SGBD, qui la fait respecter pour tous les clients sans exception.",
+      "commonMisconception": "Penser que la contrainte n'agit qu'à l'insertion. Elle bloque aussi la suppression d'une ligne référencée — d'où l'erreur au moment de supprimer un auteur qui possède encore des livres.",
+      "objectiveId": "obj3-cles",
+      "source": {
+        "file": "demo-notes-sql.pdf",
+        "page": 8
+      }
+    },
+    {
+      "id": "c3-ordre-eval",
+      "term": "Ordre d'évaluation d'une requête",
+      "definition": "FROM/JOIN → WHERE → GROUP BY → HAVING → SELECT → ORDER BY → LIMIT. L'ordre d'écriture n'est pas l'ordre d'exécution.",
+      "whyItMatters": "Il explique d'un coup deux règles qui semblent arbitraires : pas d'agrégat dans WHERE, et pas d'alias de SELECT dans WHERE (mais oui dans ORDER BY).",
+      "commonMisconception": "Supposer que SELECT s'exécute en premier parce qu'il s'écrit en premier. Il n'intervient qu'en avant-dernier, une fois les lignes filtrées et les groupes formés.",
+      "objectiveId": "obj3-select",
+      "source": {
+        "file": "demo-diapos-cours03.pdf",
+        "page": 22,
+        "locator": "Diapositive 22"
+      }
+    },
+    {
+      "id": "c3-jointure",
+      "term": "Jointure",
+      "definition": "Opération associant les lignes de deux relations selon une condition, le plus souvent l'égalité entre clé étrangère et clé primaire.",
+      "whyItMatters": "Les données sont réparties sur plusieurs tables pour éviter la redondance ; la jointure est ce qui permet de les recomposer à la lecture.",
+      "commonMisconception": "Oublier la condition de jointure et produire un produit cartésien. Le symptôme est un nombre de lignes égal au produit des tailles des deux tables.",
+      "objectiveId": "obj3-jointure",
+      "source": {
+        "file": "demo-notes-sql.pdf",
+        "page": 13,
+        "locator": "Section 3.5"
+      }
+    },
+    {
+      "id": "c3-having",
+      "term": "HAVING",
+      "definition": "Clause filtrant les groupes formés par GROUP BY, à la différence de WHERE qui filtre les lignes avant tout regroupement.",
+      "whyItMatters": "C'est le seul endroit où une condition peut porter sur un agrégat, parce qu'il s'évalue après la formation des groupes.",
+      "commonMisconception": "Écrire WHERE COUNT(*) >= 3. Au moment où WHERE s'exécute, aucun groupe n'existe : la requête est rejetée par le SGBD.",
+      "objectiveId": "obj3-agregat",
+      "source": {
+        "file": "demo-notes-sql.pdf",
+        "page": 19,
+        "locator": "Section 3.7"
+      }
+    }
+  ],
+  "tables": [
+    {
+      "id": "t3-clauses",
+      "title": "Les clauses de SELECT : ordre d'écriture et ordre d'évaluation",
+      "kind": "reference",
+      "caption": "La colonne « évaluée en » explique la plupart des erreurs de débutant.",
+      "columns": [
+        {
+          "key": "clause",
+          "label": "Clause",
+          "mono": true
+        },
+        {
+          "key": "role",
+          "label": "Rôle"
+        },
+        {
+          "key": "ecrite",
+          "label": "Écrite en",
+          "mono": true
+        },
+        {
+          "key": "evaluee",
+          "label": "Évaluée en",
+          "mono": true
+        }
+      ],
+      "rows": [
+        {
+          "clause": "SELECT",
+          "role": "choisit et calcule les colonnes",
+          "ecrite": "1",
+          "evaluee": "5"
+        },
+        {
+          "clause": "FROM / JOIN",
+          "role": "désigne les tables et les associe",
+          "ecrite": "2",
+          "evaluee": "1"
+        },
+        {
+          "clause": "WHERE",
+          "role": "filtre les lignes",
+          "ecrite": "3",
+          "evaluee": "2"
+        },
+        {
+          "clause": "GROUP BY",
+          "role": "forme les groupes",
+          "ecrite": "4",
+          "evaluee": "3"
+        },
+        {
+          "clause": "HAVING",
+          "role": "filtre les groupes",
+          "ecrite": "5",
+          "evaluee": "4"
+        },
+        {
+          "clause": "ORDER BY",
+          "role": "trie le résultat",
+          "ecrite": "6",
+          "evaluee": "6"
+        },
+        {
+          "clause": "LIMIT",
+          "role": "tronque le résultat",
+          "ecrite": "7",
+          "evaluee": "7"
+        }
+      ],
+      "source": {
+        "file": "demo-diapos-cours03.pdf",
+        "page": 22
+      }
+    },
+    {
+      "id": "t3-jointures",
+      "title": "Types de jointures",
+      "kind": "comparison",
+      "caption": "Sur A JOIN B, avec |A| = 5 lignes dont 2 sans correspondance dans B.",
+      "columns": [
+        {
+          "key": "type",
+          "label": "Type",
+          "mono": true
+        },
+        {
+          "key": "conserve",
+          "label": "Lignes conservées"
+        },
+        {
+          "key": "resultat",
+          "label": "Résultat sur l'exemple",
+          "mono": true
+        },
+        {
+          "key": "usage",
+          "label": "Quand l'employer"
+        }
+      ],
+      "rows": [
+        {
+          "type": "INNER JOIN",
+          "conserve": "uniquement les appariées",
+          "resultat": "3 lignes",
+          "usage": "on ne veut que les correspondances réelles"
+        },
+        {
+          "type": "LEFT JOIN",
+          "conserve": "toutes celles de gauche",
+          "resultat": "5 lignes, 2 avec NULL",
+          "usage": "« tous les auteurs, même ceux sans livre »"
+        },
+        {
+          "type": "RIGHT JOIN",
+          "conserve": "toutes celles de droite",
+          "resultat": "symétrique du LEFT",
+          "usage": "rare — on inverse plutôt les tables"
+        },
+        {
+          "type": "CROSS JOIN",
+          "conserve": "toutes les combinaisons",
+          "resultat": "|A| × |B| lignes",
+          "usage": "volontairement, pour générer des combinaisons"
+        }
+      ],
+      "source": {
+        "file": "demo-notes-sql.pdf",
+        "page": 15
+      }
+    },
+    {
+      "id": "t3-agregats",
+      "title": "Fonctions d'agrégation et valeurs NULL",
+      "kind": "cheatsheet",
+      "columns": [
+        {
+          "key": "fonction",
+          "label": "Fonction",
+          "mono": true
+        },
+        {
+          "key": "calcule",
+          "label": "Calcule"
+        },
+        {
+          "key": "null",
+          "label": "Traitement des NULL"
+        }
+      ],
+      "rows": [
+        {
+          "fonction": "COUNT(*)",
+          "calcule": "le nombre de lignes du groupe",
+          "null": "les compte (la ligne existe)"
+        },
+        {
+          "fonction": "COUNT(col)",
+          "calcule": "le nombre de valeurs non nulles",
+          "null": "les ignore"
+        },
+        {
+          "fonction": "SUM(col)",
+          "calcule": "la somme",
+          "null": "les ignore ; retourne NULL si le groupe est vide"
+        },
+        {
+          "fonction": "AVG(col)",
+          "calcule": "la moyenne",
+          "null": "les exclut du diviseur"
+        },
+        {
+          "fonction": "MIN / MAX(col)",
+          "calcule": "le minimum / maximum",
+          "null": "les ignore"
+        }
+      ],
+      "source": {
+        "file": "demo-notes-sql.pdf",
+        "page": 20
+      }
+    }
+  ],
+  "quiz": {
+    "title": "Quiz — vérification rapide",
+    "estimatedMinutes": 12,
+    "questions": [
+      {
+        "id": "q3-01",
+        "objectiveId": "obj3-relation",
+        "bloomLevel": "recall",
+        "type": "mcq",
+        "difficulty": 1,
+        "prompt": "Dans le vocabulaire du modèle relationnel, qu'est-ce qu'un n-uplet ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Une ligne de la table."
+          },
+          {
+            "id": "b",
+            "text": "Une colonne de la table."
+          },
+          {
+            "id": "c",
+            "text": "L'ensemble des valeurs admissibles d'une colonne."
+          },
+          {
+            "id": "d",
+            "text": "Le nom de la table et la liste de ses attributs."
+          }
+        ],
+        "correct": "a",
+        "explanation": "Un n-uplet est une ligne : une valeur pour chacun des n attributs de la relation.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Une colonne est un attribut."
+          },
+          {
+            "optionId": "c",
+            "why": "C'est la définition du domaine de l'attribut."
+          },
+          {
+            "optionId": "d",
+            "why": "C'est le schéma de relation."
+          }
+        ],
+        "source": {
+          "file": "demo-diapos-cours03.pdf",
+          "page": 5
+        }
+      },
+      {
+        "id": "q3-02",
+        "objectiveId": "obj3-cles",
+        "bloomLevel": "understand",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Quelles sont les deux propriétés obligatoires d'une clé primaire ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Unicité et non-nullité."
+          },
+          {
+            "id": "b",
+            "text": "Unicité et type entier."
+          },
+          {
+            "id": "c",
+            "text": "Non-nullité et auto-incrémentation."
+          },
+          {
+            "id": "d",
+            "text": "Unicité et tri croissant des valeurs."
+          }
+        ],
+        "correct": "a",
+        "explanation": "Une clé primaire doit identifier une ligne et une seule (unicité) et exister toujours (non-nullité). Rien d'autre n'est imposé : le type, l'auto-incrémentation et l'ordre sont des choix d'implémentation.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Le type est libre : un ISBN en TEXT ou un couple (id_cours, id_etudiant) sont des clés primaires parfaitement valides."
+          },
+          {
+            "optionId": "c",
+            "why": "L'auto-incrémentation est une commodité fournie par le SGBD, pas une exigence du modèle."
+          },
+          {
+            "optionId": "d",
+            "why": "Une relation est un ensemble non ordonné ; aucun tri n'est exigé ni garanti."
+          }
+        ]
+      },
+      {
+        "id": "q3-03",
+        "objectiveId": "obj3-cles",
+        "bloomLevel": "understand",
+        "type": "true-false",
+        "difficulty": 2,
+        "prompt": "Dans la table `livre`, la clé étrangère `id_auteur` doit être unique.",
+        "options": [
+          {
+            "id": "v",
+            "text": "Vrai"
+          },
+          {
+            "id": "f",
+            "text": "Faux"
+          }
+        ],
+        "correct": "f",
+        "explanation": "C'est même l'inverse qui est recherché : la répétition de `id_auteur` est ce qui exprime qu'un auteur possède plusieurs livres. Seule la clé primaire de `auteur` est unique.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "v",
+            "why": "Imposer l'unicité limiterait chaque auteur à un seul livre — ce serait une relation un-à-un, pas un-à-plusieurs."
+          }
+        ]
+      },
+      {
+        "id": "q3-04",
+        "objectiveId": "obj3-select",
+        "bloomLevel": "apply",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Quelle requête retourne les titres des livres parus après 2000, du plus récent au plus ancien ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "SELECT titre FROM livre WHERE annee > 2000 ORDER BY annee DESC;"
+          },
+          {
+            "id": "b",
+            "text": "SELECT titre FROM livre ORDER BY annee DESC WHERE annee > 2000;"
+          },
+          {
+            "id": "c",
+            "text": "SELECT titre FROM livre WHERE annee > 2000 ORDER BY annee ASC;"
+          },
+          {
+            "id": "d",
+            "text": "SELECT titre FROM livre HAVING annee > 2000 ORDER BY annee DESC;"
+          }
+        ],
+        "correct": "a",
+        "explanation": "WHERE filtre, puis ORDER BY trie, et DESC donne l'ordre décroissant. L'ordre d'écriture des clauses est imposé par la grammaire de SQL.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "WHERE ne peut pas suivre ORDER BY : la requête est rejetée par l'analyseur syntaxique."
+          },
+          {
+            "optionId": "c",
+            "why": "ASC trie du plus ancien au plus récent, l'inverse de ce qui est demandé."
+          },
+          {
+            "optionId": "d",
+            "why": "HAVING filtre des groupes, or il n'y a pas de GROUP BY ici. La condition porte sur des lignes, c'est WHERE qu'il faut."
+          }
+        ]
+      },
+      {
+        "id": "q3-05",
+        "objectiveId": "obj3-select",
+        "bloomLevel": "analyze",
+        "type": "mcq",
+        "difficulty": 3,
+        "prompt": "Pourquoi `SELECT annee * 2 AS double_annee FROM livre WHERE double_annee > 4000;` échoue-t-elle ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Parce que WHERE s'évalue avant SELECT : l'alias n'existe pas encore."
+          },
+          {
+            "id": "b",
+            "text": "Parce qu'un alias ne peut pas contenir de souligné."
+          },
+          {
+            "id": "c",
+            "text": "Parce qu'une multiplication est interdite dans SELECT."
+          },
+          {
+            "id": "d",
+            "text": "Parce qu'il manque un GROUP BY."
+          }
+        ],
+        "correct": "a",
+        "explanation": "L'ordre d'évaluation est FROM → WHERE → GROUP BY → HAVING → SELECT → ORDER BY. Quand WHERE s'exécute, la colonne calculée n'a pas encore été produite. Il faut répéter l'expression : `WHERE annee * 2 > 4000`. Le même alias fonctionnerait dans ORDER BY, qui s'évalue après SELECT.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Le souligné est parfaitement légal dans un identifiant SQL."
+          },
+          {
+            "optionId": "c",
+            "why": "Les expressions arithmétiques sont autorisées dans SELECT ; c'est un usage courant."
+          },
+          {
+            "optionId": "d",
+            "why": "Aucune agrégation n'intervient ici, donc aucun GROUP BY n'est requis."
+          }
+        ],
+        "source": {
+          "file": "demo-diapos-cours03.pdf",
+          "page": 23
+        }
+      },
+      {
+        "id": "q3-06",
+        "objectiveId": "obj3-jointure",
+        "bloomLevel": "apply",
+        "type": "short-answer",
+        "difficulty": 2,
+        "prompt": "La table `livre` contient 1 000 lignes et `auteur` en contient 200. Combien de lignes produit `SELECT * FROM livre, auteur;` (sans condition de jointure) ? (un nombre)",
+        "correct": "200000",
+        "acceptableAnswers": [
+          "200 000",
+          "200'000"
+        ],
+        "explanation": "Sans condition, c'est le produit cartésien : 1 000 × 200 = 200 000 lignes, chaque livre étant apparié à chaque auteur. C'est le symptôme classique de la condition de jointure oubliée.",
+        "source": {
+          "file": "demo-notes-sql.pdf",
+          "page": 13
+        }
+      },
+      {
+        "id": "q3-07",
+        "objectiveId": "obj3-jointure",
+        "bloomLevel": "understand",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "On veut la liste de TOUS les auteurs, avec leurs livres s'ils en ont. Quelle jointure employer ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "LEFT JOIN, avec `auteur` à gauche."
+          },
+          {
+            "id": "b",
+            "text": "INNER JOIN."
+          },
+          {
+            "id": "c",
+            "text": "CROSS JOIN."
+          },
+          {
+            "id": "d",
+            "text": "LEFT JOIN, avec `livre` à gauche."
+          }
+        ],
+        "correct": "a",
+        "explanation": "LEFT JOIN conserve toutes les lignes de la table de gauche. En plaçant `auteur` à gauche, les auteurs sans livre apparaissent avec NULL dans les colonnes de `livre`.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "INNER JOIN ne garde que les lignes appariées : les auteurs sans livre disparaîtraient du résultat."
+          },
+          {
+            "optionId": "c",
+            "why": "CROSS JOIN apparie chaque auteur à chaque livre, sans tenir compte de qui a écrit quoi."
+          },
+          {
+            "optionId": "d",
+            "why": "Avec `livre` à gauche, ce sont tous les livres qui sont conservés — y compris ceux sans auteur, ce qui n'est pas la question posée."
+          }
+        ]
+      },
+      {
+        "id": "q3-08",
+        "objectiveId": "obj3-agregat",
+        "bloomLevel": "understand",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Quelle est la différence entre WHERE et HAVING ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "WHERE filtre les lignes avant regroupement, HAVING filtre les groupes après."
+          },
+          {
+            "id": "b",
+            "text": "HAVING filtre les lignes, WHERE filtre les colonnes."
+          },
+          {
+            "id": "c",
+            "text": "Ce sont deux synonymes ; HAVING s'emploie avec JOIN."
+          },
+          {
+            "id": "d",
+            "text": "WHERE ne fonctionne que sur les colonnes indexées."
+          }
+        ],
+        "correct": "a",
+        "explanation": "WHERE s'évalue avant GROUP BY, sur des lignes individuelles ; HAVING s'évalue après, sur les groupes formés. C'est pourquoi seul HAVING peut contenir une fonction d'agrégation.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Le choix des colonnes est le rôle de SELECT (la projection) ; aucune des deux clauses ne filtre des colonnes."
+          },
+          {
+            "optionId": "c",
+            "why": "Elles ne sont pas interchangeables : elles s'exécutent à deux étapes différentes et n'opèrent pas sur les mêmes objets."
+          },
+          {
+            "optionId": "d",
+            "why": "WHERE s'applique à n'importe quelle colonne. Un index accélère l'exécution mais ne conditionne pas la validité de la requête."
+          }
+        ]
+      },
+      {
+        "id": "q3-09",
+        "objectiveId": "obj3-agregat",
+        "bloomLevel": "analyze",
+        "type": "multi",
+        "difficulty": 3,
+        "prompt": "Dans une requête avec `GROUP BY a.id, a.nom`, quelles expressions sont valides dans le SELECT ? (plusieurs réponses)",
+        "options": [
+          {
+            "id": "a",
+            "text": "a.nom"
+          },
+          {
+            "id": "b",
+            "text": "COUNT(l.id)"
+          },
+          {
+            "id": "c",
+            "text": "l.titre"
+          },
+          {
+            "id": "d",
+            "text": "l.annee"
+          }
+        ],
+        "correct": [
+          "a",
+          "b"
+        ],
+        "explanation": "Le SELECT ne peut contenir que des colonnes figurant dans le GROUP BY, ou des fonctions d'agrégation. `a.nom` est groupée ; `COUNT(l.id)` agrège le groupe.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "c",
+            "why": "Un groupe peut contenir plusieurs livres : `l.titre` n'a pas de valeur unique pour le groupe. Il faudrait l'agréger, par exemple MIN(l.titre)."
+          },
+          {
+            "optionId": "d",
+            "why": "Même raison : plusieurs années possibles par auteur. Il faudrait MIN(l.annee) ou MAX(l.annee)."
+          }
+        ]
+      },
+      {
+        "id": "q3-10",
+        "objectiveId": "obj3-agregat",
+        "bloomLevel": "apply",
+        "type": "fill-blank",
+        "difficulty": 2,
+        "prompt": "Compléter : pour ne garder que les auteurs ayant publié au moins 3 livres, la condition `COUNT(l.id) >= 3` doit être écrite dans la clause ____ .",
+        "correct": "HAVING",
+        "acceptableAnswers": [
+          "having",
+          "la clause HAVING"
+        ],
+        "explanation": "La condition porte sur un agrégat, donc sur un groupe déjà formé. Seule HAVING s'évalue après GROUP BY ; écrire cette condition dans WHERE provoque une erreur du SGBD."
+      },
+      {
+        "id": "q3-11",
+        "objectiveId": "obj3-relation",
+        "bloomLevel": "understand",
+        "type": "true-false",
+        "difficulty": 2,
+        "prompt": "Sans clause ORDER BY, l'ordre des lignes retournées par un SELECT est garanti stable d'une exécution à l'autre.",
+        "options": [
+          {
+            "id": "v",
+            "text": "Vrai"
+          },
+          {
+            "id": "f",
+            "text": "Faux"
+          }
+        ],
+        "correct": "f",
+        "explanation": "Une relation est un ensemble : le modèle ne définit aucun ordre. Le SGBD est libre de retourner les lignes dans l'ordre qui l'arrange, et cet ordre peut changer selon le plan d'exécution ou l'ajout d'un index. Sans ORDER BY, aucun ordre n'est garanti.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "v",
+            "why": "L'ordre observé en pratique reflète le stockage physique du moment. Il n'est pas contractuel et peut changer sans prévenir."
+          }
+        ]
+      },
+      {
+        "id": "q3-12",
+        "objectiveId": "obj3-agregat",
+        "bloomLevel": "analyze",
+        "type": "mcq",
+        "difficulty": 3,
+        "prompt": "Dans un LEFT JOIN entre `auteur` et `livre`, quelle valeur retourne `COUNT(l.id)` pour un auteur sans aucun livre ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "0"
+          },
+          {
+            "id": "b",
+            "text": "1"
+          },
+          {
+            "id": "c",
+            "text": "NULL"
+          },
+          {
+            "id": "d",
+            "text": "L'auteur n'apparaît pas dans le résultat."
+          }
+        ],
+        "correct": "a",
+        "explanation": "Le LEFT JOIN produit une ligne pour cet auteur, avec NULL dans toutes les colonnes de `livre`. COUNT(l.id) ignore les NULL et retourne donc 0 — la réponse voulue. COUNT(*), lui, retournerait 1, puisqu'il compte la ligne.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "C'est le résultat de COUNT(*), qui compte les lignes sans regarder leur contenu. C'est le piège classique de cette requête."
+          },
+          {
+            "optionId": "c",
+            "why": "COUNT ne retourne jamais NULL : sur un ensemble vide de valeurs, il retourne 0. SUM, en revanche, retournerait NULL."
+          },
+          {
+            "optionId": "d",
+            "why": "Ce serait le comportement d'un INNER JOIN. Le LEFT JOIN conserve justement les lignes de gauche sans correspondance."
+          }
+        ],
+        "source": {
+          "file": "demo-notes-sql.pdf",
+          "page": 20
+        }
+      }
+    ]
+  },
+  "test": {
+    "title": "Test du chapitre 3",
+    "instructions": "20 questions couvrant tout le chapitre. Plus long et plus difficile que le quiz.",
+    "estimatedMinutes": 40,
+    "questions": [
+      {
+        "id": "t3-01",
+        "objectiveId": "obj3-relation",
+        "bloomLevel": "recall",
+        "type": "mcq",
+        "difficulty": 1,
+        "prompt": "Que désigne le schéma `Livre(id INTEGER, titre TEXT, annee INTEGER)` ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Le nom de la relation et ses attributs avec leurs domaines."
+          },
+          {
+            "id": "b",
+            "text": "Une ligne de la table Livre."
+          },
+          {
+            "id": "c",
+            "text": "Le contenu complet de la table."
+          },
+          {
+            "id": "d",
+            "text": "Les contraintes d'intégrité de la table."
+          }
+        ],
+        "correct": "a",
+        "explanation": "C'est la définition du schéma de relation : la structure, indépendamment des données qu'elle contient.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Une ligne est un n-uplet, elle contiendrait des valeurs concrètes et non des types."
+          },
+          {
+            "optionId": "c",
+            "why": "Le contenu est l'ensemble des n-uplets ; le schéma décrit seulement leur forme."
+          },
+          {
+            "optionId": "d",
+            "why": "Les domaines sont une forme de contrainte, mais clés et CHECK n'apparaissent pas ici."
+          }
+        ]
+      },
+      {
+        "id": "t3-02",
+        "objectiveId": "obj3-cles",
+        "bloomLevel": "apply",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "On tente de supprimer l'auteur d'identifiant 3, alors que deux livres le référencent par `id_auteur`. Que se passe-t-il si l'intégrité référentielle est active, sans ON DELETE CASCADE ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "La suppression est refusée par le SGBD."
+          },
+          {
+            "id": "b",
+            "text": "L'auteur et ses deux livres sont supprimés."
+          },
+          {
+            "id": "c",
+            "text": "L'auteur est supprimé et les livres gardent id_auteur = 3."
+          },
+          {
+            "id": "d",
+            "text": "L'auteur est supprimé et les livres passent à id_auteur = NULL."
+          }
+        ],
+        "correct": "a",
+        "explanation": "La contrainte interdit de laisser des lignes orphelines. Sans règle explicite (CASCADE ou SET NULL), le SGBD refuse la suppression et lève une erreur.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "C'est le comportement de ON DELETE CASCADE, qui doit être déclaré explicitement."
+          },
+          {
+            "optionId": "c",
+            "why": "Ce serait précisément la violation que la contrainte existe pour empêcher : des livres référençant un auteur inexistant."
+          },
+          {
+            "optionId": "d",
+            "why": "C'est le comportement de ON DELETE SET NULL, également à déclarer explicitement."
+          }
+        ],
+        "source": {
+          "file": "demo-notes-sql.pdf",
+          "page": 9
+        }
+      },
+      {
+        "id": "t3-03",
+        "objectiveId": "obj3-select",
+        "bloomLevel": "apply",
+        "type": "code-output",
+        "difficulty": 2,
+        "prompt": "La table `livre` contient : (1, 'A', 1995), (2, 'B', 2005), (3, 'C', 2010), (4, 'D', 1999).\n\nQue retourne cette requête ? Donner les titres séparés par une virgule, dans l'ordre produit.",
+        "code": {
+          "lang": "sql",
+          "value": "SELECT titre FROM livre\nWHERE annee > 2000\nORDER BY annee DESC;"
+        },
+        "correct": "C, B",
+        "acceptableAnswers": [
+          "C,B",
+          "C, B",
+          "'C', 'B'"
+        ],
+        "explanation": "Le filtre `annee > 2000` retient B (2005) et C (2010). Le tri décroissant place 2010 avant 2005, donc C puis B. A (1995) et D (1999) sont exclus."
+      },
+      {
+        "id": "t3-04",
+        "objectiveId": "obj3-jointure",
+        "bloomLevel": "apply",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Quelle requête liste le titre de chaque livre avec le nom de son auteur ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "SELECT l.titre, a.nom FROM livre l JOIN auteur a ON l.id_auteur = a.id;"
+          },
+          {
+            "id": "b",
+            "text": "SELECT l.titre, a.nom FROM livre l JOIN auteur a ON l.id = a.id;"
+          },
+          {
+            "id": "c",
+            "text": "SELECT l.titre, a.nom FROM livre l, auteur a;"
+          },
+          {
+            "id": "d",
+            "text": "SELECT l.titre, a.nom FROM livre l JOIN auteur a ON l.id_auteur = a.nom;"
+          }
+        ],
+        "correct": "a",
+        "explanation": "La condition doit apparier la clé étrangère `livre.id_auteur` à la clé primaire `auteur.id`. C'est le sens même de la clé étrangère.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Apparie l'identifiant du livre à celui de l'auteur : le livre 3 serait attribué à l'auteur 3, ce qui n'a aucun sens — deux identifiants sans rapport."
+          },
+          {
+            "optionId": "c",
+            "why": "Produit cartésien : chaque livre apparaîtrait avec chaque auteur, faute de condition de jointure."
+          },
+          {
+            "optionId": "d",
+            "why": "Compare un entier à une chaîne. Selon le SGBD, erreur de type ou comparaison toujours fausse — dans les deux cas, résultat inutilisable."
+          }
+        ]
+      },
+      {
+        "id": "t3-05",
+        "objectiveId": "obj3-jointure",
+        "bloomLevel": "analyze",
+        "type": "short-answer",
+        "difficulty": 3,
+        "prompt": "`auteur` contient 5 lignes, dont 2 auteurs sans aucun livre. `livre` contient 9 lignes, toutes rattachées à un auteur existant. Combien de lignes retourne `SELECT * FROM auteur a LEFT JOIN livre l ON l.id_auteur = a.id;` ? (un nombre)",
+        "correct": "11",
+        "acceptableAnswers": [],
+        "explanation": "Les 9 livres produisent 9 lignes appariées. Les 2 auteurs sans livre sont conservés par le LEFT JOIN et produisent 1 ligne chacun, avec NULL côté livre. Total : 9 + 2 = 11. Un INNER JOIN n'en aurait retourné que 9.",
+        "source": {
+          "file": "demo-notes-sql.pdf",
+          "page": 15
+        }
+      },
+      {
+        "id": "t3-06",
+        "objectiveId": "obj3-agregat",
+        "bloomLevel": "apply",
+        "type": "code-output",
+        "difficulty": 2,
+        "prompt": "Les emprunts contiennent : ('Ana', 3 livres), ('Bo', 1 livre), ('Cy', 5 livres).\n\nCombien de lignes retourne cette requête ?",
+        "code": {
+          "lang": "sql",
+          "value": "SELECT emprunteur, COUNT(*) AS n\nFROM emprunt\nGROUP BY emprunteur\nHAVING COUNT(*) >= 3;"
+        },
+        "correct": "2",
+        "acceptableAnswers": [
+          "2 lignes"
+        ],
+        "explanation": "GROUP BY forme trois groupes (Ana, Bo, Cy). HAVING ne retient que ceux d'au moins 3 emprunts : Ana (3) et Cy (5). Bo (1) est écarté. Le résultat compte donc 2 lignes, une par groupe retenu — et non 8, le nombre d'emprunts."
+      },
+      {
+        "id": "t3-07",
+        "objectiveId": "obj3-agregat",
+        "bloomLevel": "understand",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Quelle différence y a-t-il entre `COUNT(*)` et `COUNT(colonne)` ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "COUNT(*) compte les lignes ; COUNT(colonne) compte les valeurs non NULL."
+          },
+          {
+            "id": "b",
+            "text": "Aucune, ce sont deux écritures équivalentes."
+          },
+          {
+            "id": "c",
+            "text": "COUNT(*) compte les colonnes ; COUNT(colonne) compte les lignes."
+          },
+          {
+            "id": "d",
+            "text": "COUNT(*) est plus lent et donne le même résultat."
+          }
+        ],
+        "correct": "a",
+        "explanation": "La distinction n'est visible que s'il y a des NULL — typiquement après un LEFT JOIN sans correspondance. Pour un auteur sans livre, COUNT(*) donne 1 et COUNT(l.id) donne 0.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Elles coïncident seulement quand la colonne ne contient aucun NULL ; c'est un cas particulier, pas une équivalence."
+          },
+          {
+            "optionId": "c",
+            "why": "COUNT ne compte jamais de colonnes. L'étoile signifie « la ligne entière », pas « toutes les colonnes à additionner »."
+          },
+          {
+            "optionId": "d",
+            "why": "La performance n'est pas le critère, et les résultats diffèrent dès qu'un NULL apparaît."
+          }
+        ]
+      },
+      {
+        "id": "t3-08",
+        "objectiveId": "obj3-select",
+        "bloomLevel": "analyze",
+        "type": "mcq",
+        "difficulty": 3,
+        "prompt": "Pourquoi un alias défini dans SELECT est-il utilisable dans ORDER BY mais pas dans WHERE ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Parce que ORDER BY s'évalue après SELECT, et WHERE avant."
+          },
+          {
+            "id": "b",
+            "text": "Parce que ORDER BY accepte les chaînes et WHERE seulement les nombres."
+          },
+          {
+            "id": "c",
+            "text": "Parce que WHERE exige un index sur la colonne."
+          },
+          {
+            "id": "d",
+            "text": "C'est une particularité de SQLite, pas une règle générale."
+          }
+        ],
+        "correct": "a",
+        "explanation": "L'ordre d'évaluation est FROM → WHERE → GROUP BY → HAVING → SELECT → ORDER BY. L'alias naît dans SELECT : il n'existe pas encore quand WHERE s'exécute, mais il est disponible quand ORDER BY s'exécute.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Les deux clauses acceptent tous les types ; la distinction n'a rien à voir avec le typage."
+          },
+          {
+            "optionId": "c",
+            "why": "WHERE fonctionne sans aucun index — l'index ne change que la vitesse d'exécution."
+          },
+          {
+            "optionId": "d",
+            "why": "C'est le comportement standard de SQL, identique sur PostgreSQL, MySQL, Oracle et SQLite."
+          }
+        ],
+        "source": {
+          "file": "demo-diapos-cours03.pdf",
+          "page": 23
+        }
+      },
+      {
+        "id": "t3-09",
+        "objectiveId": "obj3-cles",
+        "bloomLevel": "analyze",
+        "type": "multi",
+        "difficulty": 3,
+        "prompt": "Quelles affirmations sur les clés sont correctes ? (plusieurs réponses)",
+        "options": [
+          {
+            "id": "a",
+            "text": "Une clé primaire peut être composée de plusieurs attributs."
+          },
+          {
+            "id": "b",
+            "text": "Une clé étrangère peut contenir NULL si la relation est facultative."
+          },
+          {
+            "id": "c",
+            "text": "Une table peut avoir plusieurs clés primaires."
+          },
+          {
+            "id": "d",
+            "text": "Une clé primaire peut contenir NULL si l'autre attribut est renseigné."
+          }
+        ],
+        "correct": [
+          "a",
+          "b"
+        ],
+        "explanation": "Une clé composée est fréquente dans les tables d'association, par exemple `Inscription(id_etudiant, id_cours)`. Une clé étrangère NULL signifie « pas de lien », ce qui est légitime — un livre sans auteur connu.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "c",
+            "why": "Une seule clé primaire par table, par définition. Les autres candidats à l'unicité se déclarent avec UNIQUE."
+          },
+          {
+            "optionId": "d",
+            "why": "La non-nullité vaut pour tous les attributs de la clé primaire, y compris quand elle est composée."
+          }
+        ]
+      },
+      {
+        "id": "t3-10",
+        "objectiveId": "obj3-agregat",
+        "bloomLevel": "apply",
+        "type": "fill-blank",
+        "difficulty": 2,
+        "prompt": "Compléter la requête donnant le nombre de livres par auteur :\n\n    SELECT a.nom, COUNT(l.id) FROM auteur a LEFT JOIN livre l ON l.id_auteur = a.id ____ a.id, a.nom;",
+        "correct": "GROUP BY",
+        "acceptableAnswers": [
+          "group by",
+          "GROUP BY"
+        ],
+        "explanation": "Sans GROUP BY, la fonction d'agrégation s'appliquerait à toutes les lignes d'un coup et retournerait une seule valeur globale. GROUP BY découpe le résultat en groupes, un par auteur, et COUNT s'applique à chacun."
+      },
+      {
+        "id": "t3-11",
+        "objectiveId": "obj3-relation",
+        "bloomLevel": "understand",
+        "type": "true-false",
+        "difficulty": 2,
+        "prompt": "Le domaine d'un attribut et une contrainte CHECK expriment la même chose.",
+        "options": [
+          {
+            "id": "v",
+            "text": "Vrai"
+          },
+          {
+            "id": "f",
+            "text": "Faux"
+          }
+        ],
+        "correct": "f",
+        "explanation": "Le domaine est le type : « cet attribut contient des entiers ». La contrainte CHECK ajoute une règle sur les valeurs de ce type : « cet entier doit être strictement positif ». Le second se superpose au premier, il ne le remplace pas.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "v",
+            "why": "Les deux niveaux sont distincts : INTEGER autorise −5, un CHECK peut l'interdire. Le domaine seul ne sait pas exprimer cette règle."
+          }
+        ]
+      },
+      {
+        "id": "t3-12",
+        "objectiveId": "obj3-jointure",
+        "bloomLevel": "understand",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Quel est le symptôme typique d'une condition de jointure oubliée ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Un résultat bien plus volumineux que prévu, avec des associations incohérentes."
+          },
+          {
+            "id": "b",
+            "text": "Une erreur de syntaxe signalée par le SGBD."
+          },
+          {
+            "id": "c",
+            "text": "Un résultat vide."
+          },
+          {
+            "id": "d",
+            "text": "Des valeurs NULL dans toutes les colonnes de droite."
+          }
+        ],
+        "correct": "a",
+        "explanation": "Le produit cartésien apparie chaque ligne de gauche à chaque ligne de droite : |A| × |B| lignes, chaque livre se retrouvant attribué à tous les auteurs. La requête est syntaxiquement valide, donc aucune erreur n'est signalée — c'est ce qui rend le bogue traître.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "`FROM a, b` est parfaitement légal : c'est l'ancienne syntaxe du CROSS JOIN. Le SGBD n'a aucune raison de protester."
+          },
+          {
+            "optionId": "c",
+            "why": "Un résultat vide indique plutôt une condition trop restrictive ou un INNER JOIN sans correspondance."
+          },
+          {
+            "optionId": "d",
+            "why": "C'est le symptôme d'un LEFT JOIN sans correspondance, pas d'une jointure manquante."
+          }
+        ]
+      },
+      {
+        "id": "t3-13",
+        "objectiveId": "obj3-select",
+        "bloomLevel": "apply",
+        "type": "code-output",
+        "difficulty": 3,
+        "prompt": "La table contient les années : 1995, 2005, NULL, 2010.\n\nQue retourne cette requête ?",
+        "code": {
+          "lang": "sql",
+          "value": "SELECT COUNT(*) FROM livre WHERE annee <> 2005;"
+        },
+        "correct": "2",
+        "acceptableAnswers": [],
+        "explanation": "1995 et 2010 satisfont la condition. La ligne NULL ne la satisfait PAS : `NULL <> 2005` s'évalue à NULL, pas à vrai, et WHERE ne retient que les conditions vraies. C'est le piège de la logique ternaire : pour inclure les NULL, il faut écrire `WHERE annee <> 2005 OR annee IS NULL`.",
+        "source": {
+          "file": "demo-notes-sql.pdf",
+          "page": 11
+        }
+      },
+      {
+        "id": "t3-14",
+        "objectiveId": "obj3-agregat",
+        "bloomLevel": "analyze",
+        "type": "mcq",
+        "difficulty": 3,
+        "prompt": "Dans `SELECT a.nom, COUNT(l.id) FROM auteur a JOIN livre l ON l.id_auteur = a.id WHERE l.annee >= 1900 GROUP BY a.id, a.nom HAVING COUNT(l.id) >= 3;`, que compte exactement le COUNT ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Les livres de l'auteur parus à partir de 1900."
+          },
+          {
+            "id": "b",
+            "text": "Tous les livres de l'auteur, toutes années confondues."
+          },
+          {
+            "id": "c",
+            "text": "Les auteurs ayant publié depuis 1900."
+          },
+          {
+            "id": "d",
+            "text": "Les livres parus avant 1900."
+          }
+        ],
+        "correct": "a",
+        "explanation": "WHERE s'exécute avant GROUP BY : les livres antérieurs à 1900 sont écartés avant que les groupes ne soient formés. Le COUNT ne voit donc que les lignes survivantes. Un auteur avec 10 livres dont 2 depuis 1900 comptera 2, et sera éliminé par le HAVING.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Ce serait le cas si le filtre était dans HAVING ou absent. Ici WHERE a déjà retiré les lignes avant le regroupement."
+          },
+          {
+            "optionId": "c",
+            "why": "Le COUNT s'applique à l'intérieur de chaque groupe, et chaque groupe est un auteur. Il compte des livres, pas des auteurs."
+          },
+          {
+            "optionId": "d",
+            "why": "La condition est `>= 1900`, elle conserve les livres récents et écarte les anciens."
+          }
+        ]
+      },
+      {
+        "id": "t3-15",
+        "objectiveId": "obj3-cles",
+        "bloomLevel": "recall",
+        "type": "fill-blank",
+        "difficulty": 1,
+        "prompt": "Compléter : la garantie que toute valeur non nulle de clé étrangère correspond à une clé primaire existante s'appelle l'intégrité ____ .",
+        "correct": "référentielle",
+        "acceptableAnswers": [
+          "referentielle",
+          "référentielle",
+          "de référence"
+        ],
+        "explanation": "Intégrité référentielle. Elle est déclarée par REFERENCES et vérifiée par le SGBD à l'insertion, à la mise à jour et à la suppression."
+      },
+      {
+        "id": "t3-16",
+        "objectiveId": "obj3-select",
+        "bloomLevel": "understand",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Que fait la clause SELECT dans le vocabulaire de l'algèbre relationnelle ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Une projection : elle choisit les colonnes."
+          },
+          {
+            "id": "b",
+            "text": "Une sélection : elle choisit les lignes."
+          },
+          {
+            "id": "c",
+            "text": "Une jointure entre deux relations."
+          },
+          {
+            "id": "d",
+            "text": "Un tri des n-uplets."
+          }
+        ],
+        "correct": "a",
+        "explanation": "Le vocabulaire est contre-intuitif : en algèbre relationnelle, la *sélection* (σ) filtre les lignes — c'est ce que fait WHERE — tandis que la *projection* (π) choisit les colonnes, ce que fait le SELECT de SQL.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "La sélection au sens de l'algèbre correspond à WHERE, malgré le nom du mot-clé SQL. C'est le faux ami le plus fréquent du chapitre."
+          },
+          {
+            "optionId": "c",
+            "why": "La jointure est un opérateur distinct (⋈), rendu par JOIN."
+          },
+          {
+            "optionId": "d",
+            "why": "L'algèbre relationnelle ne définit pas de tri : une relation est un ensemble non ordonné. ORDER BY est un ajout de SQL."
+          }
+        ]
+      },
+      {
+        "id": "t3-17",
+        "objectiveId": "obj3-jointure",
+        "bloomLevel": "apply",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Quelle requête liste les auteurs n'ayant publié aucun livre ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "SELECT a.nom FROM auteur a LEFT JOIN livre l ON l.id_auteur = a.id WHERE l.id IS NULL;"
+          },
+          {
+            "id": "b",
+            "text": "SELECT a.nom FROM auteur a JOIN livre l ON l.id_auteur = a.id WHERE l.id IS NULL;"
+          },
+          {
+            "id": "c",
+            "text": "SELECT a.nom FROM auteur a LEFT JOIN livre l ON l.id_auteur = a.id WHERE l.id = 0;"
+          },
+          {
+            "id": "d",
+            "text": "SELECT a.nom FROM auteur a WHERE a.id IS NULL;"
+          }
+        ],
+        "correct": "a",
+        "explanation": "C'est le motif « anti-jointure » : le LEFT JOIN conserve tous les auteurs, et les lignes sans correspondance portent NULL côté `livre`. Filtrer sur `l.id IS NULL` isole exactement ces auteurs-là.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Un INNER JOIN a déjà éliminé les lignes sans correspondance : la condition `l.id IS NULL` ne peut plus être satisfaite, le résultat est toujours vide."
+          },
+          {
+            "optionId": "c",
+            "why": "Une absence de correspondance produit NULL, pas 0. Et `= NULL` ne fonctionnerait pas davantage : il faut IS NULL."
+          },
+          {
+            "optionId": "d",
+            "why": "Teste la clé primaire de l'auteur, qui est non nulle par définition : le résultat est toujours vide."
+          }
+        ],
+        "source": {
+          "file": "demo-notes-sql.pdf",
+          "page": 16
+        }
+      },
+      {
+        "id": "t3-18",
+        "objectiveId": "obj3-relation",
+        "bloomLevel": "analyze",
+        "type": "mcq",
+        "difficulty": 3,
+        "prompt": "Pourquoi répartir les données sur plusieurs tables reliées par des clés, plutôt que de tout mettre dans une seule grande table ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Pour éviter la redondance et les incohérences qu'elle entraîne lors des mises à jour."
+          },
+          {
+            "id": "b",
+            "text": "Parce qu'une table est limitée à un nombre fixe de colonnes."
+          },
+          {
+            "id": "c",
+            "text": "Pour que les requêtes s'exécutent toujours plus vite."
+          },
+          {
+            "id": "d",
+            "text": "Parce que SQL interdit de mélanger plusieurs types dans une table."
+          }
+        ],
+        "correct": "a",
+        "explanation": "Avec une table unique, le nom de l'auteur serait répété sur chacun de ses livres. Une correction d'orthographe devrait alors être appliquée partout, et le moindre oubli créerait deux auteurs différents pour une même personne. En séparant, le nom n'existe qu'à un seul endroit.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Les limites de colonnes existent mais sont très élevées ; ce n'est jamais la raison de la décomposition."
+          },
+          {
+            "optionId": "c",
+            "why": "C'est plutôt l'inverse : la décomposition impose des jointures, donc un coût de lecture. On échange de la performance contre de la cohérence."
+          },
+          {
+            "optionId": "d",
+            "why": "Une table mélange couramment INTEGER, TEXT et DATE ; rien ne l'interdit."
+          }
+        ]
+      },
+      {
+        "id": "t3-19",
+        "objectiveId": "obj3-select",
+        "bloomLevel": "apply",
+        "type": "short-answer",
+        "difficulty": 2,
+        "prompt": "Quel mot-clé ajouter après SELECT pour éliminer les lignes en double du résultat ? (un mot)",
+        "correct": "DISTINCT",
+        "acceptableAnswers": [
+          "distinct"
+        ],
+        "explanation": "`SELECT DISTINCT pays FROM auteur;` retourne chaque pays une seule fois. Ce mot-clé est nécessaire parce que SQL, contrairement au modèle relationnel théorique, autorise les doublons dans ses résultats."
+      },
+      {
+        "id": "t3-20",
+        "objectiveId": "obj3-agregat",
+        "bloomLevel": "analyze",
+        "type": "true-false",
+        "difficulty": 3,
+        "prompt": "Déplacer une condition de WHERE vers HAVING produit toujours le même résultat, à condition que la syntaxe reste valide.",
+        "options": [
+          {
+            "id": "v",
+            "text": "Vrai"
+          },
+          {
+            "id": "f",
+            "text": "Faux"
+          }
+        ],
+        "correct": "f",
+        "explanation": "Les deux clauses s'appliquent à des étapes différentes. `WHERE annee >= 1900` écarte des lignes avant le regroupement, donc change la valeur des COUNT. La même condition dans HAVING s'appliquerait à des groupes déjà formés sur toutes les années. Les résultats diffèrent dès qu'un agrégat est calculé.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "v",
+            "why": "L'équivalence ne vaut que s'il n'y a ni GROUP BY ni agrégat — cas où la distinction n'a de toute façon pas d'objet."
+          }
+        ],
+        "source": {
+          "file": "demo-notes-sql.pdf",
+          "page": 19
+        }
+      }
+    ]
+  },
+  "flashcards": [
+    {
+      "id": "f3-01",
+      "objectiveId": "obj3-relation",
+      "front": "Attribut, domaine, n-uplet, schéma : que désigne chacun ?",
+      "back": "Attribut = colonne. Domaine = valeurs admissibles de la colonne. N-uplet = ligne. Schéma = nom de la relation + attributs typés.",
+      "source": {
+        "file": "demo-diapos-cours03.pdf",
+        "page": 5
+      }
+    },
+    {
+      "id": "f3-02",
+      "objectiveId": "obj3-cles",
+      "front": "Les deux propriétés d'une clé primaire ?",
+      "back": "Unique et non nulle.",
+      "extra": "Elle peut être composée de plusieurs attributs, et n'a pas besoin d'être un entier auto-incrémenté."
+    },
+    {
+      "id": "f3-03",
+      "objectiveId": "obj3-cles",
+      "front": "Une clé étrangère doit-elle être unique ?",
+      "back": "Non. Sa répétition est justement ce qui exprime la cardinalité « un auteur, plusieurs livres ».",
+      "extra": "Elle peut aussi valoir NULL quand la relation est facultative."
+    },
+    {
+      "id": "f3-04",
+      "objectiveId": "obj3-cles",
+      "front": "Qu'est-ce que l'intégrité référentielle ?",
+      "back": "Toute valeur non nulle de clé étrangère doit correspondre à une clé primaire existante dans la table référencée.",
+      "extra": "Elle bloque aussi la suppression d'une ligne encore référencée."
+    },
+    {
+      "id": "f3-05",
+      "objectiveId": "obj3-select",
+      "front": "Ordre réel d'évaluation d'une requête SELECT ?",
+      "back": "FROM/JOIN → WHERE → GROUP BY → HAVING → SELECT → ORDER BY → LIMIT",
+      "extra": "Explique l'interdiction des alias de SELECT dans WHERE, et des agrégats dans WHERE.",
+      "source": {
+        "file": "demo-diapos-cours03.pdf",
+        "page": 22
+      }
+    },
+    {
+      "id": "f3-06",
+      "objectiveId": "obj3-select",
+      "front": "Un alias de SELECT est-il utilisable dans WHERE ? Dans ORDER BY ?",
+      "back": "Pas dans WHERE (évalué avant SELECT), mais oui dans ORDER BY (évalué après)."
+    },
+    {
+      "id": "f3-07",
+      "objectiveId": "obj3-agregat",
+      "front": "WHERE ou HAVING ?",
+      "back": "WHERE filtre les LIGNES avant le regroupement. HAVING filtre les GROUPES après.",
+      "extra": "Seul HAVING peut contenir une fonction d'agrégation."
+    },
+    {
+      "id": "f3-08",
+      "objectiveId": "obj3-agregat",
+      "front": "COUNT(*) vs COUNT(colonne) ?",
+      "back": "COUNT(*) compte les lignes. COUNT(colonne) compte les valeurs non NULL.",
+      "extra": "Après un LEFT JOIN, pour un auteur sans livre : COUNT(*) = 1, COUNT(l.id) = 0."
+    },
+    {
+      "id": "f3-09",
+      "objectiveId": "obj3-jointure",
+      "front": "INNER JOIN vs LEFT JOIN ?",
+      "back": "INNER ne garde que les lignes appariées des deux côtés. LEFT garde toutes celles de gauche, avec NULL à droite si aucune correspondance."
+    },
+    {
+      "id": "f3-10",
+      "objectiveId": "obj3-jointure",
+      "front": "Comment lister les auteurs sans aucun livre ?",
+      "back": "LEFT JOIN puis WHERE l.id IS NULL — le motif « anti-jointure ».",
+      "extra": "Avec un INNER JOIN, le résultat serait toujours vide."
+    },
+    {
+      "id": "f3-11",
+      "objectiveId": "obj3-jointure",
+      "front": "Symptôme d'une condition de jointure oubliée ?",
+      "back": "Produit cartésien : |A| × |B| lignes, avec des associations incohérentes. Aucune erreur de syntaxe n'est signalée."
+    },
+    {
+      "id": "f3-12",
+      "objectiveId": "obj3-select",
+      "front": "En algèbre relationnelle, que font la sélection et la projection ?",
+      "back": "Sélection (σ) = filtrer les lignes, ce que fait WHERE. Projection (π) = choisir les colonnes, ce que fait SELECT.",
+      "extra": "Faux ami : le mot-clé SELECT réalise une projection, pas une sélection."
+    },
+    {
+      "id": "f3-13",
+      "objectiveId": "obj3-relation",
+      "front": "Sans ORDER BY, l'ordre des lignes est-il garanti ?",
+      "back": "Non. Une relation est un ensemble : le SGBD retourne les lignes dans l'ordre qui l'arrange, et cet ordre peut changer."
+    }
+  ],
+  "exercises": [
+    {
+      "id": "e3-01",
+      "objectiveId": "obj3-select",
+      "difficulty": 1,
+      "mode": "run",
+      "language": "sql",
+      "title": "Filtrer et trier",
+      "statement": "Écrire une requête qui retourne le `titre` et l'`annee` des livres parus **à partir de 2000**, du plus récent au plus ancien.\n\nLa colonne `annee` doit s'appeler `annee` dans le résultat.",
+      "setupSql": "CREATE TABLE auteur (id INTEGER PRIMARY KEY, nom TEXT NOT NULL, pays TEXT);\nCREATE TABLE livre (id INTEGER PRIMARY KEY, titre TEXT NOT NULL, annee INTEGER, id_auteur INTEGER REFERENCES auteur(id));\nINSERT INTO auteur VALUES (1,'Hébert','Canada'),(2,'Duval','France'),(3,'Moreau','France'),(4,'Sansregret','Canada');\nINSERT INTO livre VALUES\n (1,'Les arbres binaires',1998,1),\n (2,'Complexité pratique',2005,2),\n (3,'Listes et pointeurs',2010,2),\n (4,'Bases de données',2001,1),\n (5,'Algorithmes gloutons',1995,3),\n (6,'SQL avancé',2018,3),\n (7,'Récursion',2000,1);",
+      "starterCode": "SELECT titre, annee\nFROM livre\n-- filtrer puis trier\n;",
+      "hints": [
+        "« À partir de 2000 » inclut l'année 2000 : l'opérateur est >= et non >.",
+        "Le tri décroissant s'obtient avec le mot-clé DESC après le nom de la colonne.",
+        "SELECT titre, annee FROM livre WHERE annee >= 2000 ORDER BY annee DESC;"
+      ],
+      "solution": "SELECT titre, annee\nFROM livre\nWHERE annee >= 2000\nORDER BY annee DESC;",
+      "solutionExplanation": "Piège de l'énoncé : « à partir de 2000 » est inclusif, donc >= . Avec >, le livre « Récursion » (2000) disparaîtrait du résultat. Lire attentivement la borne est la moitié du travail sur ce genre de question.",
+      "tests": [
+        {
+          "name": "5 livres sont retenus",
+          "call": "SELECT COUNT(*) FROM resultat;",
+          "expected": "5",
+          "hidden": false
+        },
+        {
+          "name": "le plus recent apparait en premier",
+          "call": "SELECT titre FROM resultat ORDER BY rowid LIMIT 1;",
+          "expected": "SQL avancé",
+          "hidden": false
+        },
+        {
+          "name": "l annee 2000 est incluse",
+          "call": "SELECT COUNT(*) FROM resultat WHERE annee = 2000;",
+          "expected": "1",
+          "hidden": false
+        },
+        {
+          "name": "le plus ancien apparait en dernier",
+          "call": "SELECT titre FROM resultat ORDER BY rowid DESC LIMIT 1;",
+          "expected": "Récursion",
+          "hidden": false
+        },
+        {
+          "name": "la colonne annee est bien projetee",
+          "call": "SELECT COUNT(annee) FROM resultat;",
+          "expected": "5",
+          "hidden": true
+        }
+      ],
+      "source": {
+        "file": "demo-tp03-enonce.pdf",
+        "page": 1,
+        "locator": "Exercice 1"
+      }
+    },
+    {
+      "id": "e3-02",
+      "objectiveId": "obj3-jointure",
+      "difficulty": 2,
+      "mode": "run",
+      "language": "sql",
+      "title": "Jointure avec filtre",
+      "statement": "Écrire une requête qui retourne le `titre` de chaque livre et le `nom` de son auteur, **uniquement pour les auteurs de France**, triés par titre croissant.\n\nColonnes attendues : `titre`, `nom`.",
+      "setupSql": "CREATE TABLE auteur (id INTEGER PRIMARY KEY, nom TEXT NOT NULL, pays TEXT);\nCREATE TABLE livre (id INTEGER PRIMARY KEY, titre TEXT NOT NULL, annee INTEGER, id_auteur INTEGER REFERENCES auteur(id));\nINSERT INTO auteur VALUES (1,'Hébert','Canada'),(2,'Duval','France'),(3,'Moreau','France'),(4,'Sansregret','Canada');\nINSERT INTO livre VALUES\n (1,'Les arbres binaires',1998,1),\n (2,'Complexité pratique',2005,2),\n (3,'Listes et pointeurs',2010,2),\n (4,'Bases de données',2001,1),\n (5,'Algorithmes gloutons',1995,3),\n (6,'SQL avancé',2018,3),\n (7,'Récursion',2000,1);",
+      "starterCode": "SELECT l.titre, a.nom\nFROM livre AS l\n-- joindre auteur, puis filtrer sur le pays\n;",
+      "hints": [
+        "La condition de jointure apparie la clé étrangère à la clé primaire : l.id_auteur = a.id.",
+        "Le filtre sur le pays porte sur des lignes, il va donc dans WHERE, après le ON.",
+        "SELECT l.titre, a.nom FROM livre AS l JOIN auteur AS a ON l.id_auteur = a.id WHERE a.pays = 'France' ORDER BY l.titre;"
+      ],
+      "solution": "SELECT l.titre, a.nom\nFROM livre AS l\nJOIN auteur AS a ON l.id_auteur = a.id\nWHERE a.pays = 'France'\nORDER BY l.titre;",
+      "solutionExplanation": "Le ON exprime la relation structurelle entre les deux tables ; le WHERE exprime le filtre métier. Les confondre fonctionne sur un INNER JOIN mais donne des résultats différents sur un LEFT JOIN — d'où l'intérêt de garder les deux séparés dès maintenant.",
+      "tests": [
+        {
+          "name": "4 livres d auteurs francais",
+          "call": "SELECT COUNT(*) FROM resultat;",
+          "expected": "4",
+          "hidden": false
+        },
+        {
+          "name": "premier titre par ordre alphabetique",
+          "call": "SELECT titre FROM resultat ORDER BY rowid LIMIT 1;",
+          "expected": "Algorithmes gloutons",
+          "hidden": false
+        },
+        {
+          "name": "les deux auteurs francais apparaissent",
+          "call": "SELECT COUNT(DISTINCT nom) FROM resultat;",
+          "expected": "2",
+          "hidden": false
+        },
+        {
+          "name": "aucun auteur canadien n a ete retenu",
+          "call": "SELECT COUNT(*) FROM resultat WHERE nom = 'Hébert';",
+          "expected": "0",
+          "hidden": true
+        }
+      ],
+      "source": {
+        "file": "demo-tp03-enonce.pdf",
+        "page": 2,
+        "locator": "Exercice 3"
+      }
+    },
+    {
+      "id": "e3-03",
+      "objectiveId": "obj3-agregat",
+      "difficulty": 3,
+      "mode": "run",
+      "language": "sql",
+      "title": "Agrégation avec LEFT JOIN",
+      "statement": "Écrire une requête qui retourne, pour **chaque auteur** (y compris ceux qui n'ont publié aucun livre), son `nom` et son nombre de livres sous l'alias `nb`.\n\nTrier par `nb` décroissant, puis par `nom` croissant.\n\nAttention : un auteur sans livre doit afficher 0, pas 1.",
+      "setupSql": "CREATE TABLE auteur (id INTEGER PRIMARY KEY, nom TEXT NOT NULL, pays TEXT);\nCREATE TABLE livre (id INTEGER PRIMARY KEY, titre TEXT NOT NULL, annee INTEGER, id_auteur INTEGER REFERENCES auteur(id));\nINSERT INTO auteur VALUES (1,'Hébert','Canada'),(2,'Duval','France'),(3,'Moreau','France'),(4,'Sansregret','Canada');\nINSERT INTO livre VALUES\n (1,'Les arbres binaires',1998,1),\n (2,'Complexité pratique',2005,2),\n (3,'Listes et pointeurs',2010,2),\n (4,'Bases de données',2001,1),\n (5,'Algorithmes gloutons',1995,3),\n (6,'SQL avancé',2018,3),\n (7,'Récursion',2000,1);",
+      "starterCode": "SELECT a.nom, ____ AS nb\nFROM auteur AS a\n-- conserver TOUS les auteurs, regrouper, trier\n;",
+      "hints": [
+        "Pour conserver les auteurs sans livre, il faut un LEFT JOIN avec `auteur` à gauche.",
+        "COUNT(*) compterait la ligne produite par le LEFT JOIN et donnerait 1 pour un auteur sans livre. Quelle variante ignore les NULL ?",
+        "COUNT(l.id) ignore les NULL et retourne donc 0. Ne pas oublier GROUP BY a.id, a.nom."
+      ],
+      "solution": "SELECT a.nom, COUNT(l.id) AS nb\nFROM auteur AS a\nLEFT JOIN livre AS l ON l.id_auteur = a.id\nGROUP BY a.id, a.nom\nORDER BY nb DESC, a.nom ASC;",
+      "solutionExplanation": "Trois pièges tiennent dans cette requête : LEFT JOIN et non INNER (sinon Sansregret disparaît), COUNT(l.id) et non COUNT(*) (sinon Sansregret affiche 1), et GROUP BY sur a.id en plus de a.nom (deux auteurs homonymes resteraient ainsi distincts). L'alias `nb` est utilisable dans ORDER BY parce que celui-ci s'évalue après SELECT.",
+      "tests": [
+        {
+          "name": "les 4 auteurs sont presents",
+          "call": "SELECT COUNT(*) FROM resultat;",
+          "expected": "4",
+          "hidden": false
+        },
+        {
+          "name": "l auteur sans livre affiche 0 et non 1",
+          "call": "SELECT nb FROM resultat WHERE nom = 'Sansregret';",
+          "expected": "0",
+          "hidden": false
+        },
+        {
+          "name": "le plus prolifique arrive en premier",
+          "call": "SELECT nom FROM resultat ORDER BY rowid LIMIT 1;",
+          "expected": "Hébert",
+          "hidden": false
+        },
+        {
+          "name": "a egalite, l ordre alphabetique departage",
+          "call": "SELECT nom FROM resultat ORDER BY rowid LIMIT 1 OFFSET 1;",
+          "expected": "Duval",
+          "hidden": false
+        },
+        {
+          "name": "Duval a bien 2 livres",
+          "call": "SELECT nb FROM resultat WHERE nom = 'Duval';",
+          "expected": "2",
+          "hidden": true
+        }
+      ],
+      "source": {
+        "file": "demo-tp03-enonce.pdf",
+        "page": 3,
+        "locator": "Exercice 5"
+      }
+    },
+    {
+      "id": "e3-04",
+      "objectiveId": "obj3-agregat",
+      "difficulty": 2,
+      "mode": "run",
+      "language": "javascript",
+      "title": "Reproduire un GROUP BY en JavaScript",
+      "statement": "Pour bien comprendre ce que fait `GROUP BY`, on le réimplémente à la main.\n\nÉcrire `compterParAuteur(livres)` qui reçoit un tableau d'objets `{ titre, idAuteur }` et retourne un objet associant chaque `idAuteur` au nombre de ses livres.\n\nExemple : `[{titre:'A', idAuteur:1}, {titre:'B', idAuteur:1}]` donne `{1: 2}`.",
+      "starterCode": "function compterParAuteur(livres) {\n  // Retourner un objet { idAuteur: nombre de livres }\n}\n",
+      "hints": [
+        "Parcourir le tableau et maintenir un objet accumulateur.",
+        "Pour chaque livre, incrémenter la case correspondant à son idAuteur — en l'initialisant à 0 si elle n'existe pas encore.",
+        "`acc[l.idAuteur] = (acc[l.idAuteur] || 0) + 1;` traite les deux cas en une seule ligne."
+      ],
+      "solution": "function compterParAuteur(livres) {\n  const acc = {};\n  for (const l of livres) {\n    acc[l.idAuteur] = (acc[l.idAuteur] || 0) + 1;\n  }\n  return acc;\n}\n",
+      "solutionExplanation": "C'est exactement l'algorithme d'un GROUP BY : un seul parcours, une table d'association clé → agrégat, donc Θ(n). Le SGBD fait la même chose, à ceci près qu'il peut aussi trier d'abord puis regrouper les lignes adjacentes quand un index rend le tri gratuit.",
+      "tests": [
+        {
+          "name": "tableau vide",
+          "call": "JSON.stringify(compterParAuteur([]))",
+          "expected": "{}"
+        },
+        {
+          "name": "un seul auteur",
+          "call": "JSON.stringify(compterParAuteur([{titre:'A',idAuteur:1},{titre:'B',idAuteur:1}]))",
+          "expected": "{\"1\":2}"
+        },
+        {
+          "name": "plusieurs auteurs",
+          "call": "JSON.stringify(compterParAuteur([{titre:'A',idAuteur:1},{titre:'B',idAuteur:2},{titre:'C',idAuteur:1}]))",
+          "expected": "{\"1\":2,\"2\":1}"
+        },
+        {
+          "name": "tient sur 500 livres",
+          "call": "Object.keys(compterParAuteur(Array.from({length:500},(_,i)=>({titre:'t'+i,idAuteur:i%7})))).length",
+          "expected": "7",
+          "hidden": true
+        }
+      ],
+      "source": {
+        "file": "demo-tp03-enonce.pdf",
+        "page": 4,
+        "locator": "Exercice 6"
+      }
+    },
+    {
+      "id": "e3-05",
+      "objectiveId": "obj3-cles",
+      "difficulty": 2,
+      "mode": "find-bug",
+      "language": "sql",
+      "title": "Trouver le bogue — un schéma qui laisse passer l'incohérence",
+      "statement": "Ce schéma est censé garantir qu'un emprunt porte toujours sur un livre existant, et qu'un même livre ne peut pas être emprunté deux fois le même jour. Il ne remplit ni l'une ni l'autre de ces promesses.\n\nIdentifier les deux défauts et donner le schéma corrigé.",
+      "starterCode": "CREATE TABLE livre (\n    id    INTEGER PRIMARY KEY,\n    titre TEXT NOT NULL\n);\n\nCREATE TABLE emprunt (\n    id         INTEGER,\n    id_livre   INTEGER,\n    emprunteur TEXT NOT NULL,\n    date_pret  TEXT NOT NULL\n);",
+      "hints": [
+        "Regarder la colonne `id` de `emprunt` : qu'est-ce qui manque par rapport à celle de `livre` ?",
+        "Regarder `id_livre` : rien n'oblige cette valeur à désigner un livre qui existe vraiment.",
+        "Pour la règle « pas deux fois le même jour », il faut une contrainte portant sur le couple (id_livre, date_pret)."
+      ],
+      "solution": "PRIMARY KEY sur emprunt.id, REFERENCES livre(id) sur id_livre, et UNIQUE (id_livre, date_pret)",
+      "expectedOutput": "Défaut 1 — aucune clé primaire sur `emprunt`.\n`id INTEGER` n'est qu'une colonne ordinaire : deux emprunts peuvent porter le même id, ou un id NULL. Aucune ligne n'est identifiable de façon fiable.\n\nDéfaut 2 — `id_livre` n'est pas une clé étrangère.\nRien n'empêche d'insérer un emprunt avec id_livre = 999 alors qu'aucun livre ne porte ce numéro : l'intégrité référentielle n'est pas déclarée, donc pas vérifiée.\n\n(La règle « pas deux emprunts du même livre le même jour » n'est elle non plus exprimée nulle part : il manque une contrainte UNIQUE.)\n\nSchéma corrigé :\n\nCREATE TABLE emprunt (\n    id         INTEGER PRIMARY KEY,\n    id_livre   INTEGER NOT NULL REFERENCES livre(id),\n    emprunteur TEXT NOT NULL,\n    date_pret  TEXT NOT NULL,\n    UNIQUE (id_livre, date_pret)\n);",
+      "solutionExplanation": "Le NOT NULL ajouté sur `id_livre` est délibéré : un emprunt sans livre n'a pas de sens, alors qu'un livre sans auteur connu peut légitimement porter un id_auteur NULL. Une clé étrangère nullable ou non est une décision métier, pas un automatisme. Quant à la contrainte UNIQUE composée, elle illustre qu'une règle métier peut se déclarer dans le schéma plutôt que dans le code applicatif — et qu'elle sera alors respectée par tous les clients, sans exception.",
+      "source": {
+        "file": "demo-tp03-enonce.pdf",
+        "page": 3,
+        "locator": "Exercice 4"
+      }
+    }
+  ]
+}

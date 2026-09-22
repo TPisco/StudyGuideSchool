@@ -1,0 +1,241 @@
+---
+course: DEMO-INFO
+number: 3
+title: Le modèle relationnel et SQL
+summary: >-
+  Représenter des données par des relations, garantir leur cohérence par des
+  clés, et les interroger en SQL — du SELECT simple à la jointure avec
+  agrégation.
+estimatedMinutes: 180
+sample: true
+prerequisites:
+  - "Chapitre 1 — notation asymptotique (pour la discussion sur les index)"
+  - "Notion d'ensemble et de produit cartésien"
+objectives:
+  - id: obj3-relation
+    text: Définir relation, attribut, domaine, n-uplet et schéma de relation.
+    bloom: understand
+  - id: obj3-cles
+    text: Identifier une clé primaire et une clé étrangère, et expliquer l'intégrité référentielle.
+    bloom: understand
+  - id: obj3-select
+    text: Écrire une requête SELECT avec filtrage, tri et projection.
+    bloom: apply
+  - id: obj3-jointure
+    text: Écrire une jointure entre deux tables et prévoir le nombre de lignes produites.
+    bloom: apply
+  - id: obj3-agregat
+    text: Utiliser GROUP BY, les fonctions d'agrégation et HAVING, et les distinguer de WHERE.
+    bloom: analyze
+sources:
+  - file: demo-diapos-cours03.pdf
+    page: 2
+    locator: "Diapositives 2 à 41 — Modèle relationnel et SQL"
+  - file: demo-notes-sql.pdf
+    page: 1
+    locator: "Chapitre 3, sections 3.1 à 3.7"
+  - file: demo-tp03-enonce.pdf
+    page: 1
+    locator: "Exercices 1 à 6"
+---
+
+## 1. La relation
+
+Une **relation** (une « table ») est un ensemble de **n-uplets** partageant la
+même structure. Le vocabulaire est précis et il vaut la peine de le fixer :
+
+- **Attribut** : une colonne, avec un nom. Exemple : `titre`.
+- **Domaine** : l'ensemble des valeurs admissibles d'un attribut. Exemple :
+  `INTEGER`, `TEXT`, `DATE`.
+- **N-uplet** : une ligne, c'est-à-dire une valeur par attribut.
+- **Schéma de relation** : le nom de la relation et la liste de ses attributs
+  avec leurs domaines. Exemple :
+  `Livre(id INTEGER, titre TEXT, annee INTEGER, id_auteur INTEGER)`.
+
+<Callout type="note" title="Une relation est un ensemble">
+Mathématiquement, une relation est un ensemble de n-uplets : il n'y a donc **ni
+ordre ni doublon**. En pratique, SQL s'écarte de ce modèle sur les deux points —
+une table peut contenir des lignes identiques, et `SELECT` sans `ORDER BY` ne
+garantit aucun ordre. Ne jamais compter sur l'ordre « naturel » des lignes.
+</Callout>
+
+<Source file="demo-diapos-cours03.pdf" page={5} />
+
+## 2. Les clés et l'intégrité
+
+### 2.1 Clé primaire
+
+La **clé primaire** est l'attribut (ou le groupe d'attributs) qui identifie de
+façon unique chaque n-uplet. Deux propriétés obligatoires : **unicité** et
+**non-nullité**.
+
+### 2.2 Clé étrangère
+
+Une **clé étrangère** est un attribut qui référence la clé primaire d'une autre
+relation. C'est le mécanisme qui relie les tables.
+
+L'**intégrité référentielle** est la garantie que toute valeur de clé étrangère
+existe bien dans la table référencée : il ne peut pas exister un livre dont
+`id_auteur` vaut 7 si aucun auteur ne porte l'identifiant 7.
+
+<Mermaid caption="Schéma de la base utilisée dans tout ce chapitre." chart={`
+erDiagram
+    AUTEUR ||--o{ LIVRE : "ecrit"
+    AUTEUR {
+        int id PK
+        text nom
+        text pays
+    }
+    LIVRE {
+        int id PK
+        text titre
+        int annee
+        int id_auteur FK
+    }
+    LIVRE ||--o{ EMPRUNT : "fait l objet de"
+    EMPRUNT {
+        int id PK
+        int id_livre FK
+        text emprunteur
+        text date_retour
+    }
+`} />
+
+```sql
+CREATE TABLE auteur (
+    id   INTEGER PRIMARY KEY,
+    nom  TEXT NOT NULL,
+    pays TEXT
+);
+
+CREATE TABLE livre (
+    id        INTEGER PRIMARY KEY,
+    titre     TEXT NOT NULL,
+    annee     INTEGER,
+    id_auteur INTEGER REFERENCES auteur(id)   -- cle etrangere
+);
+```
+
+<Callout type="misconception" title="Erreur classique">
+Croire qu'une clé étrangère doit être unique. C'est l'inverse : du côté « un »
+(l'auteur), la clé primaire est unique ; du côté « plusieurs » (les livres), la
+clé étrangère se **répète** — c'est précisément ce qui permet à un auteur
+d'avoir plusieurs livres.
+</Callout>
+
+<Source file="demo-notes-sql.pdf" page={6} locator="Section 3.3" />
+
+## 3. Interroger : SELECT
+
+### 3.1 La forme générale
+
+```sql
+SELECT   colonnes          -- projection : quelles colonnes
+FROM     table             -- source
+WHERE    condition         -- filtrage ligne par ligne
+GROUP BY colonnes          -- regroupement
+HAVING   condition         -- filtrage des groupes
+ORDER BY colonnes          -- tri du resultat
+LIMIT    n;                -- troncature
+```
+
+### 3.2 L'ordre d'évaluation n'est pas l'ordre d'écriture
+
+C'est la source de confusion numéro un. SQL s'**écrit** en commençant par
+`SELECT`, mais il s'**évalue** dans cet ordre :
+
+<Mermaid caption="Ordre réel d'évaluation d'une requête. SELECT n'intervient qu'en avant-dernier — d'où l'impossibilité d'utiliser un alias de SELECT dans le WHERE." chart={`
+flowchart LR
+    A["FROM<br/>+ JOIN"] --> B["WHERE<br/>filtre les lignes"]
+    B --> C["GROUP BY<br/>forme les groupes"]
+    C --> D["HAVING<br/>filtre les groupes"]
+    D --> E["SELECT<br/>projette / calcule"]
+    E --> F["ORDER BY<br/>trie"]
+    F --> G["LIMIT"]
+`} />
+
+Deux conséquences immédiates :
+
+- un alias défini dans `SELECT` n'est pas utilisable dans `WHERE` (il n'existe
+  pas encore), mais il l'est dans `ORDER BY` ;
+- `WHERE` ne peut pas contenir de fonction d'agrégation, puisque les groupes
+  n'existent pas encore. C'est le rôle de `HAVING`.
+
+<Source file="demo-diapos-cours03.pdf" page={22} locator="Diapositive 22" />
+
+## 4. Les jointures
+
+Une **jointure** associe les lignes de deux tables selon une condition,
+typiquement l'égalité entre une clé étrangère et une clé primaire.
+
+```sql
+SELECT l.titre, a.nom
+FROM livre AS l
+JOIN auteur AS a ON l.id_auteur = a.id
+WHERE a.pays = 'France'
+ORDER BY l.annee;
+```
+
+<Callout type="warning" title="Oublier la condition de jointure">
+Sans le `ON`, ou avec un `WHERE` de jointure absent dans l'ancienne syntaxe
+`FROM livre, auteur`, on obtient le **produit cartésien** : chaque livre
+apparié à chaque auteur. Avec 1 000 livres et 200 auteurs, cela fait 200 000
+lignes au lieu de 1 000. Le symptôme typique est un résultat gigantesque et des
+valeurs qui ne correspondent à rien.
+</Callout>
+
+### 4.1 INNER JOIN vs LEFT JOIN
+
+| Jointure | Ce qu'elle conserve |
+| --- | --- |
+| `JOIN` (= `INNER JOIN`) | uniquement les lignes appariées des deux côtés |
+| `LEFT JOIN` | toutes les lignes de gauche, `NULL` à droite si aucune correspondance |
+
+Un auteur sans livre disparaît d'un `INNER JOIN` mais apparaît dans un
+`LEFT JOIN`, avec `NULL` dans les colonnes de `livre`.
+
+<Source file="demo-notes-sql.pdf" page={14} locator="Section 3.5" />
+
+## 5. Agrégation : GROUP BY et HAVING
+
+Les fonctions d'agrégation — `COUNT`, `SUM`, `AVG`, `MIN`, `MAX` — réduisent un
+groupe de lignes à une seule valeur.
+
+```sql
+SELECT   a.nom, COUNT(l.id) AS nb_livres
+FROM     auteur AS a
+JOIN     livre  AS l ON l.id_auteur = a.id
+WHERE    l.annee >= 1900          -- filtre les LIGNES, avant regroupement
+GROUP BY a.id, a.nom
+HAVING   COUNT(l.id) >= 3         -- filtre les GROUPES, apres regroupement
+ORDER BY nb_livres DESC;
+```
+
+<Callout type="misconception" title="Erreur classique">
+Écrire `WHERE COUNT(l.id) >= 3`. Impossible : au moment où `WHERE` s'exécute,
+les groupes n'existent pas encore et `COUNT` n'a rien à compter. La règle
+tient en une phrase : **`WHERE` filtre des lignes, `HAVING` filtre des
+groupes.**
+</Callout>
+
+### 5.1 COUNT(*) et COUNT(colonne) diffèrent
+
+- `COUNT(*)` compte les **lignes** du groupe.
+- `COUNT(colonne)` compte les lignes où cette colonne **n'est pas NULL**.
+
+La distinction devient visible avec un `LEFT JOIN` : pour un auteur sans livre,
+`COUNT(*)` retourne 1 (la ligne existe, avec des `NULL`) tandis que
+`COUNT(l.id)` retourne 0 — qui est la réponse voulue.
+
+<Source file="demo-notes-sql.pdf" page={19} locator="Section 3.7" />
+
+## 6. Un mot sur les index
+
+Sans index, retrouver les lignes vérifiant `WHERE id = 42` exige un parcours
+complet de la table : $\Theta(n)$. Un index (généralement un arbre équilibré)
+ramène cette recherche à $\Theta(\log n)$ — exactement le gain de la recherche
+dichotomique du chapitre 1.
+
+Le compromis est le même que partout : l'index accélère les lectures et
+ralentit les écritures, puisqu'il doit être maintenu à chaque `INSERT`,
+`UPDATE` et `DELETE`.

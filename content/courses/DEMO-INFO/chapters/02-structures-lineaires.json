@@ -1,0 +1,910 @@
+{
+  "course": "DEMO-INFO",
+  "chapter": 2,
+  "concepts": [
+    {
+      "id": "c2-contigu",
+      "term": "Tableau contigu",
+      "definition": "Zone mémoire d'un seul tenant où les n éléments occupent des adresses consécutives, ce qui permet de calculer l'adresse de la case i.",
+      "whyItMatters": "C'est la contiguïté, et elle seule, qui rend l'accès indexé possible en Θ(1) : adresse(i) = base + i × taille.",
+      "commonMisconception": "Croire que l'accès est rapide « parce que c'est un tableau ». Il est rapide parce que les cases se suivent ; une structure indexée non contiguë n'a pas cette propriété.",
+      "objectiveId": "obj2-memoire",
+      "source": { "file": "demo-diapos-cours02.pdf", "page": 6, "locator": "Diapositive 6" }
+    },
+    {
+      "id": "c2-noeud",
+      "term": "Nœud",
+      "definition": "Cellule contenant une valeur et l'adresse du nœud suivant. C'est l'unité de construction d'une liste chaînée.",
+      "whyItMatters": "Le nœud explique à la fois la force et le coût des listes chaînées : on gagne le rebranchement en Θ(1) et on paie un pointeur par élément.",
+      "commonMisconception": "Penser que les nœuds d'une liste sont voisins en mémoire. Ils sont alloués séparément et peuvent être n'importe où — c'est pourquoi aucun calcul d'adresse n'est possible.",
+      "objectiveId": "obj2-memoire",
+      "source": { "file": "demo-notes-structures.pdf", "page": 7, "locator": "Section 2.3" }
+    },
+    {
+      "id": "c2-tete",
+      "term": "Tête de liste",
+      "definition": "Référence vers le premier nœud de la liste. C'est le seul point d'entrée conservé ; une liste vide a une tête à null.",
+      "whyItMatters": "Tout parcours part de la tête. C'est ce qui impose le Θ(n) de l'accès indexé et le Θ(1) de l'insertion en tête.",
+      "commonMisconception": "Perdre la tête lors d'une insertion : si l'on écrit `nouveau.suivant = tete` après avoir déjà fait `tete = nouveau`, le nœud pointe sur lui-même et le reste de la liste est perdu. L'ordre des deux affectations est critique.",
+      "objectiveId": "obj2-liste",
+      "source": { "file": "demo-notes-structures.pdf", "page": 8 }
+    },
+    {
+      "id": "c2-decalage",
+      "term": "Décalage (insertion dans un tableau)",
+      "definition": "Déplacement d'un cran de tous les éléments situés après la position d'insertion, pour libérer une case.",
+      "whyItMatters": "C'est l'unique raison du Θ(n) de l'insertion en tête d'un tableau, et donc l'argument décisif en faveur de la liste chaînée pour ce cas d'usage.",
+      "commonMisconception": "Décaler de la gauche vers la droite, ce qui écrase les valeurs au fur et à mesure. Il faut parcourir du dernier indice vers le premier.",
+      "objectiveId": "obj2-tableau",
+      "source": { "file": "demo-notes-structures.pdf", "page": 4, "locator": "Section 2.2" }
+    },
+    {
+      "id": "c2-amorti",
+      "term": "Coût amorti",
+      "definition": "Coût moyen d'une opération sur une longue suite d'opérations, même si certaines sont occasionnellement coûteuses.",
+      "whyItMatters": "C'est ce qui justifie d'annoncer `append` en Θ(1) alors qu'il doit parfois réallouer et recopier tout le tableau : le doublement de capacité répartit ce coût sur n opérations.",
+      "commonMisconception": "Confondre amorti et cas moyen. L'amorti ne suppose aucune probabilité : c'est une garantie sur toute suite d'opérations, y compris la plus défavorable.",
+      "objectiveId": "obj2-tableau",
+      "source": { "file": "demo-diapos-cours02.pdf", "page": 14, "locator": "Diapositive 14" }
+    },
+    {
+      "id": "c2-pile",
+      "term": "Pile (LIFO)",
+      "definition": "Structure à accès unique par le sommet : empiler, dépiler et lire le sommet, toutes en Θ(1). Dernier entré, premier sorti.",
+      "whyItMatters": "Dès qu'un problème exige de traiter « le plus récent d'abord » — parenthésage, retour arrière, appels de fonctions — la pile est la structure qui le résout naturellement.",
+      "commonMisconception": "Croire qu'une pile permet de consulter un élément au milieu. Par définition, seul le sommet est accessible ; si l'on a besoin d'atteindre le milieu, la pile n'est pas la bonne structure.",
+      "objectiveId": "obj2-pile",
+      "source": { "file": "demo-diapos-cours02.pdf", "page": 22, "locator": "Diapositive 22" }
+    },
+    {
+      "id": "c2-pile-appels",
+      "term": "Pile d'appels",
+      "definition": "Pile gérée par le système d'exécution : chaque appel de fonction y empile un cadre (paramètres, variables locales, adresse de retour) qui est dépilé au retour.",
+      "whyItMatters": "Elle explique concrètement le débordement de pile d'une récursion sans cas de base, et le coût mémoire Θ(profondeur) de tout algorithme récursif.",
+      "commonMisconception": "Croire qu'un algorithme récursif ne consomme pas de mémoire supplémentaire. Une récursion de profondeur n occupe Θ(n) sur la pile, même si elle ne crée aucune structure de données.",
+      "objectiveId": "obj2-pile",
+      "source": { "file": "demo-diapos-cours02.pdf", "page": 26 }
+    },
+    {
+      "id": "c2-localite",
+      "term": "Localité mémoire",
+      "definition": "Propriété d'un accès à des adresses proches les unes des autres, que le cache du processeur exploite en chargeant des blocs entiers.",
+      "whyItMatters": "Elle explique pourquoi un parcours de tableau bat souvent un parcours de liste chaînée alors que les deux sont en Θ(n) : la complexité ne modélise pas le cache.",
+      "commonMisconception": "Conclure de « même complexité » à « même vitesse ». Θ(n) et Θ(n) peuvent différer d'un facteur 5 en pratique à cause des défauts de cache.",
+      "objectiveId": "obj2-choisir",
+      "source": { "file": "demo-notes-structures.pdf", "page": 12, "locator": "Section 2.5, encadré" }
+    }
+  ],
+  "tables": [
+    {
+      "id": "t2-comparaison",
+      "title": "Tableau contigu vs liste simplement chaînée",
+      "kind": "comparison",
+      "caption": "Coûts dans le pire cas. n est le nombre d'éléments, i la position visée.",
+      "columns": [
+        { "key": "operation", "label": "Opération" },
+        { "key": "tableau", "label": "Tableau contigu", "mono": true },
+        { "key": "liste", "label": "Liste chaînée", "mono": true },
+        { "key": "pourquoi", "label": "Pourquoi" }
+      ],
+      "rows": [
+        { "operation": "Accès à l'élément i", "tableau": "Θ(1)", "liste": "Θ(n)", "pourquoi": "adresse calculée vs i pointeurs à suivre" },
+        { "operation": "Insertion en tête", "tableau": "Θ(n)", "liste": "Θ(1)", "pourquoi": "décalage de n éléments vs 3 affectations" },
+        { "operation": "Insertion en queue", "tableau": "Θ(1) amorti", "liste": "Θ(n)", "pourquoi": "écriture directe vs parcours jusqu'au dernier nœud" },
+        { "operation": "Insertion après un nœud connu", "tableau": "Θ(n)", "liste": "Θ(1)", "pourquoi": "décalage obligatoire vs simple rebranchement" },
+        { "operation": "Suppression en tête", "tableau": "Θ(n)", "liste": "Θ(1)", "pourquoi": "décalage vers la gauche vs tete = tete.suivant" },
+        { "operation": "Recherche d'une valeur", "tableau": "Θ(n)", "liste": "Θ(n)", "pourquoi": "parcours séquentiel dans les deux cas" },
+        { "operation": "Mémoire par élément", "tableau": "valeur seule", "liste": "valeur + 1 pointeur", "pourquoi": "le chaînage se paie en espace" }
+      ],
+      "source": { "file": "demo-notes-structures.pdf", "page": 11, "locator": "Tableau 2.1" }
+    },
+    {
+      "id": "t2-pile-api",
+      "title": "Opérations d'une pile",
+      "kind": "syntax",
+      "caption": "Équivalences entre la notation du cours et les implémentations Python et Java.",
+      "columns": [
+        { "key": "operation", "label": "Opération du cours", "mono": true },
+        { "key": "effet", "label": "Effet" },
+        { "key": "python", "label": "Python (list)", "mono": true },
+        { "key": "java", "label": "Java (Deque)", "mono": true },
+        { "key": "cout", "label": "Coût", "mono": true }
+      ],
+      "rows": [
+        { "operation": "empiler(x)", "effet": "pose x au sommet", "python": "pile.append(x)", "java": "pile.push(x)", "cout": "Θ(1)" },
+        { "operation": "depiler()", "effet": "retire et retourne le sommet", "python": "pile.pop()", "java": "pile.pop()", "cout": "Θ(1)" },
+        { "operation": "sommet()", "effet": "lit sans retirer", "python": "pile[-1]", "java": "pile.peek()", "cout": "Θ(1)" },
+        { "operation": "est_vide()", "effet": "teste l'absence d'élément", "python": "len(pile) == 0", "java": "pile.isEmpty()", "cout": "Θ(1)" }
+      ],
+      "source": { "file": "demo-diapos-cours02.pdf", "page": 23 }
+    }
+  ],
+  "quiz": {
+    "title": "Quiz — vérification rapide",
+    "estimatedMinutes": 12,
+    "questions": [
+      {
+        "id": "q2-01",
+        "objectiveId": "obj2-memoire",
+        "bloomLevel": "recall",
+        "type": "mcq",
+        "difficulty": 1,
+        "prompt": "Pourquoi l'accès à `tableau[i]` est-il en Θ(1) ?",
+        "options": [
+          { "id": "a", "text": "Parce que les éléments sont contigus, donc l'adresse se calcule." },
+          { "id": "b", "text": "Parce que le processeur garde tout le tableau en cache." },
+          { "id": "c", "text": "Parce que le tableau est trié." },
+          { "id": "d", "text": "Parce que chaque case connaît l'adresse de la suivante." }
+        ],
+        "correct": "a",
+        "explanation": "adresse(i) = base + i × taille : une multiplication et une addition, indépendamment de i et de n. C'est la contiguïté qui rend ce calcul possible.",
+        "perDistractorExplanation": [
+          { "optionId": "b", "why": "Le cache améliore la constante, pas la complexité — et un tableau d'un million d'éléments ne tient pas en cache, pourtant l'accès reste Θ(1)." },
+          { "optionId": "c", "why": "Le tri ne joue aucun rôle dans l'accès indexé ; il n'intervient que pour la recherche dichotomique." },
+          { "optionId": "d", "why": "C'est la description d'une liste chaînée, et c'est justement ce qui la force à Θ(n) pour l'accès indexé." }
+        ],
+        "source": { "file": "demo-diapos-cours02.pdf", "page": 6 }
+      },
+      {
+        "id": "q2-02",
+        "objectiveId": "obj2-tableau",
+        "bloomLevel": "understand",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Quel est le coût de l'insertion d'un élément en position 0 dans un tableau contigu de n éléments ?",
+        "options": [
+          { "id": "a", "text": "Θ(n), car il faut décaler les n éléments existants." },
+          { "id": "b", "text": "Θ(1), car on connaît l'adresse de la case 0." },
+          { "id": "c", "text": "Θ(log n), car l'insertion procède par dichotomie." },
+          { "id": "d", "text": "Θ(n²), car chaque décalage en provoque un autre." }
+        ],
+        "correct": "a",
+        "explanation": "La case 0 est occupée. Pour la libérer sans perdre de donnée, il faut déplacer chacun des n éléments d'un cran vers la droite : n écritures, donc Θ(n).",
+        "perDistractorExplanation": [
+          { "optionId": "b", "why": "Connaître l'adresse ne suffit pas : y écrire directement écraserait la valeur présente. Le coût vient du décalage, pas de la localisation." },
+          { "optionId": "c", "why": "Aucune division par deux n'intervient dans un décalage ; la dichotomie sert à chercher, pas à insérer." },
+          { "optionId": "d", "why": "Chaque élément n'est déplacé qu'une seule fois : la boucle est simple, pas imbriquée." }
+        ]
+      },
+      {
+        "id": "q2-03",
+        "objectiveId": "obj2-liste",
+        "bloomLevel": "understand",
+        "type": "true-false",
+        "difficulty": 2,
+        "prompt": "Dans une liste simplement chaînée, accéder au 500ᵉ élément coûte le même prix qu'accéder au 2ᵉ.",
+        "options": [
+          { "id": "v", "text": "Vrai" },
+          { "id": "f", "text": "Faux" }
+        ],
+        "correct": "f",
+        "explanation": "Il faut suivre les pointeurs un par un depuis la tête : 499 sauts contre 1. Le coût est Θ(i), donc Θ(n) dans le pire cas. C'est exactement l'inverse du tableau.",
+        "perDistractorExplanation": [
+          { "optionId": "v", "why": "Ce serait vrai pour un tableau contigu, où l'adresse se calcule. Dans une liste, aucune arithmétique d'adresse n'est possible : les nœuds sont dispersés." }
+        ]
+      },
+      {
+        "id": "q2-04",
+        "objectiveId": "obj2-liste",
+        "bloomLevel": "apply",
+        "type": "code-output",
+        "difficulty": 2,
+        "prompt": "Qu'affiche ce programme ?",
+        "code": {
+          "lang": "python",
+          "value": "class Noeud:\n    def __init__(self, v, s=None):\n        self.valeur = v\n        self.suivant = s\n\ntete = None\nfor x in [1, 2, 3]:\n    tete = Noeud(x, tete)\n\nsortie = []\nn = tete\nwhile n is not None:\n    sortie.append(n.valeur)\n    n = n.suivant\nprint(sortie)"
+        },
+        "correct": "[3, 2, 1]",
+        "acceptableAnswers": ["[3,2,1]"],
+        "explanation": "Chaque insertion se fait en tête : après 1, 2 puis 3, la tête est le nœud 3 qui pointe vers 2 qui pointe vers 1. Le parcours depuis la tête restitue donc l'ordre inverse de l'insertion — propriété à connaître, car elle surprend au premier TP."
+      },
+      {
+        "id": "q2-05",
+        "objectiveId": "obj2-choisir",
+        "bloomLevel": "analyze",
+        "type": "mcq",
+        "difficulty": 3,
+        "prompt": "Un programme lit un fichier de journalisation et doit, pour chaque nouvelle ligne, l'ajouter au début d'une collection, puis afficher l'ensemble une fois à la fin. Quelle structure choisir ?",
+        "options": [
+          { "id": "a", "text": "Une liste chaînée : n insertions en tête en Θ(1) chacune, soit Θ(n) au total." },
+          { "id": "b", "text": "Un tableau contigu : l'insertion en position 0 y est immédiate." },
+          { "id": "c", "text": "Un tableau contigu : l'affichage final exige un accès indexé." },
+          { "id": "d", "text": "Peu importe : les deux structures donnent Θ(n) au total." }
+        ],
+        "correct": "a",
+        "explanation": "L'usage est fait d'insertions en tête et d'un unique parcours séquentiel — jamais d'accès par indice. La liste chaînée donne Θ(n) au total, le tableau Θ(n²) à cause des n décalages successifs.",
+        "perDistractorExplanation": [
+          { "optionId": "b", "why": "L'insertion en position 0 dans un tableau est justement l'opération la plus coûteuse : Θ(n) de décalage, répété n fois." },
+          { "optionId": "c", "why": "Un affichage séquentiel ne demande aucun accès indexé : parcourir une liste du premier au dernier nœud suffit." },
+          { "optionId": "d", "why": "Les totaux diffèrent : n × Θ(1) = Θ(n) pour la liste, contre n × Θ(n) = Θ(n²) pour le tableau." }
+        ],
+        "source": { "file": "demo-notes-structures.pdf", "page": 11 }
+      },
+      {
+        "id": "q2-06",
+        "objectiveId": "obj2-pile",
+        "bloomLevel": "recall",
+        "type": "fill-blank",
+        "difficulty": 1,
+        "prompt": "Compléter : une pile suit la discipline ____ , c'est-à-dire que le dernier élément entré est le premier à sortir.",
+        "correct": "LIFO",
+        "acceptableAnswers": ["lifo", "Last In First Out", "dernier entré premier sorti", "DEPS"],
+        "explanation": "LIFO — Last In, First Out. Cette discipline s'oppose à FIFO (First In, First Out), celle de la file d'attente, où l'on sort par l'autre bout."
+      },
+      {
+        "id": "q2-07",
+        "objectiveId": "obj2-pile",
+        "bloomLevel": "apply",
+        "type": "short-answer",
+        "difficulty": 2,
+        "prompt": "On exécute : empiler(4), empiler(7), depiler(), empiler(2), empiler(9), depiler(). Quelle valeur se trouve au sommet à la fin ? (un nombre)",
+        "correct": "2",
+        "explanation": "État après chaque opération : [4] → [4,7] → [4] (7 sort) → [4,2] → [4,2,9] → [4,2] (9 sort). Le sommet est 2. Chaque dépilement retire toujours le plus récemment empilé.",
+        "acceptableAnswers": []
+      },
+      {
+        "id": "q2-08",
+        "objectiveId": "obj2-pile",
+        "bloomLevel": "analyze",
+        "type": "mcq",
+        "difficulty": 3,
+        "prompt": "Pour vérifier le parenthésage de `([)]`, pourquoi un simple comptage des ouvrantes et des fermantes échoue-t-il ?",
+        "options": [
+          { "id": "a", "text": "Parce que le comptage ignore l'ordre d'imbrication, que seule une pile vérifie." },
+          { "id": "b", "text": "Parce que le comptage est en Θ(n²) et trop lent." },
+          { "id": "c", "text": "Parce qu'il faut d'abord trier les caractères." },
+          { "id": "d", "text": "Parce que le comptage ne fonctionne qu'avec un seul type de parenthèse." }
+        ],
+        "correct": "a",
+        "explanation": "`([)]` contient bien deux ouvrantes et deux fermantes : le comptage le déclare correct. Mais `)` ferme alors que `[` est la dernière ouverte. La pile détecte l'erreur parce qu'elle compare la fermeture au sommet, c'est-à-dire à la dernière ouverture non refermée.",
+        "perDistractorExplanation": [
+          { "optionId": "b", "why": "Le comptage est en Θ(n), parfaitement rapide. Son défaut est d'être faux, pas d'être lent." },
+          { "optionId": "c", "why": "Trier détruirait l'information d'ordre, qui est précisément ce qu'il faut vérifier." },
+          { "optionId": "d", "why": "Le comptage échoue déjà avec un seul type : `)(` a une ouvrante et une fermante et reste incorrect." }
+        ]
+      },
+      {
+        "id": "q2-09",
+        "objectiveId": "obj2-tableau",
+        "bloomLevel": "understand",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "On dit que `append` sur une liste Python est en « Θ(1) amorti ». Que signifie « amorti » ici ?",
+        "options": [
+          { "id": "a", "text": "Le coût moyen sur une longue suite d'appels est constant, même si certains appels réallouent." },
+          { "id": "b", "text": "Le coût est constant en moyenne sur des entrées aléatoires." },
+          { "id": "c", "text": "Le coût devient constant une fois le programme compilé." },
+          { "id": "d", "text": "Le coût est constant sauf sur les tableaux triés." }
+        ],
+        "correct": "a",
+        "explanation": "Quand la capacité est atteinte, le tableau est réalloué au double et recopié : cet appel-là coûte Θ(n). Mais il ne survient qu'une fois toutes les n insertions, donc le coût réparti sur la suite d'opérations reste constant.",
+        "perDistractorExplanation": [
+          { "optionId": "b", "why": "C'est la définition du cas moyen. L'amorti ne suppose aucune distribution : la garantie vaut pour toute suite d'opérations, y compris la pire." },
+          { "optionId": "c", "why": "La compilation ne change rien à la stratégie de réallocation, qui est une propriété de la structure de données." },
+          { "optionId": "d", "why": "L'ordre des valeurs n'a aucune influence sur le coût d'un ajout en fin de tableau." }
+        ],
+        "source": { "file": "demo-diapos-cours02.pdf", "page": 14 }
+      },
+      {
+        "id": "q2-10",
+        "objectiveId": "obj2-choisir",
+        "bloomLevel": "analyze",
+        "type": "multi",
+        "difficulty": 3,
+        "prompt": "Dans quels cas la liste chaînée est-elle le meilleur choix ? (plusieurs réponses)",
+        "options": [
+          { "id": "a", "text": "Insertions et suppressions fréquentes en tête." },
+          { "id": "b", "text": "Insertion répétée après un nœud dont on a déjà la référence." },
+          { "id": "c", "text": "Recherche dichotomique dans une collection triée." },
+          { "id": "d", "text": "Accès fréquent à l'élément du milieu par son indice." }
+        ],
+        "correct": ["a", "b"],
+        "explanation": "La liste gagne quand on manipule des nœuds déjà atteints : rebrancher deux pointeurs est Θ(1) et ne décale rien. Elle perd dès qu'un indice entre en jeu, puisqu'elle doit repartir de la tête.",
+        "perDistractorExplanation": [
+          { "optionId": "c", "why": "La dichotomie exige d'atteindre le milieu en Θ(1). Dans une liste, atteindre le milieu coûte déjà Θ(n), ce qui annule tout le bénéfice de l'algorithme." },
+          { "optionId": "d", "why": "L'accès indexé est la faiblesse structurelle de la liste : Θ(n) contre Θ(1) pour un tableau." }
+        ]
+      },
+      {
+        "id": "q2-11",
+        "objectiveId": "obj2-memoire",
+        "bloomLevel": "apply",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Un tableau d'entiers de 4 octets commence à l'adresse 2000. À quelle adresse se trouve `tableau[6]` ?",
+        "options": [
+          { "id": "a", "text": "2024" },
+          { "id": "b", "text": "2006" },
+          { "id": "c", "text": "2028" },
+          { "id": "d", "text": "2020" }
+        ],
+        "correct": "a",
+        "explanation": "adresse(6) = 2000 + 6 × 4 = 2024. Il faut multiplier l'indice par la taille d'un élément, pas l'ajouter directement.",
+        "perDistractorExplanation": [
+          { "optionId": "b", "why": "Erreur classique : ajouter l'indice à l'adresse de base en oubliant la taille de l'élément. Cela ne serait juste que pour des éléments d'un octet." },
+          { "optionId": "c", "why": "C'est l'adresse de tableau[7] : un élément de trop, comme si l'indexation commençait à 1." },
+          { "optionId": "d", "why": "C'est l'adresse de tableau[5] : un élément trop tôt." }
+        ]
+      },
+      {
+        "id": "q2-12",
+        "objectiveId": "obj2-pile",
+        "bloomLevel": "understand",
+        "type": "true-false",
+        "difficulty": 2,
+        "prompt": "Un algorithme récursif de profondeur n consomme Θ(n) de mémoire supplémentaire, même s'il ne crée aucune structure de données.",
+        "options": [
+          { "id": "v", "text": "Vrai" },
+          { "id": "f", "text": "Faux" }
+        ],
+        "correct": "v",
+        "explanation": "Chaque appel en attente occupe un cadre sur la pile d'appels (paramètres, variables locales, adresse de retour). n appels imbriqués signifient n cadres simultanément vivants, d'où Θ(n) en mémoire — et le débordement de pile quand n devient trop grand.",
+        "perDistractorExplanation": [
+          { "optionId": "f", "why": "L'erreur est d'oublier que la pile d'appels est de la mémoire. Elle est gérée automatiquement, ce qui la rend invisible, mais elle n'est pas gratuite." }
+        ],
+        "source": { "file": "demo-diapos-cours02.pdf", "page": 26 }
+      }
+    ]
+  },
+  "test": {
+    "title": "Test du chapitre 2",
+    "instructions": "20 questions couvrant tout le chapitre. Plus long et plus difficile que le quiz.",
+    "estimatedMinutes": 40,
+    "questions": [
+      {
+        "id": "t2-01",
+        "objectiveId": "obj2-memoire",
+        "bloomLevel": "recall",
+        "type": "mcq",
+        "difficulty": 1,
+        "prompt": "Que contient un nœud de liste simplement chaînée ?",
+        "options": [
+          { "id": "a", "text": "Une valeur et l'adresse du nœud suivant." },
+          { "id": "b", "text": "Une valeur, l'adresse du suivant et celle du précédent." },
+          { "id": "c", "text": "Une valeur et son indice dans la liste." },
+          { "id": "d", "text": "Uniquement une valeur ; le chaînage est implicite." }
+        ],
+        "correct": "a",
+        "explanation": "« Simplement chaînée » signifie un seul lien, vers l'avant. Le dernier nœud pointe vers null.",
+        "perDistractorExplanation": [
+          { "optionId": "b", "why": "Deux liens décrivent une liste *doublement* chaînée, qui permet de remonter mais coûte un pointeur de plus par nœud." },
+          { "optionId": "c", "why": "Un nœud ne connaît pas son indice : c'est précisément pourquoi l'accès par indice exige un parcours depuis la tête." },
+          { "optionId": "d", "why": "Sans lien explicite, rien ne relie les nœuds — ils sont dispersés en mémoire, le chaînage ne peut pas être implicite." }
+        ]
+      },
+      {
+        "id": "t2-02",
+        "objectiveId": "obj2-tableau",
+        "bloomLevel": "apply",
+        "type": "code-output",
+        "difficulty": 2,
+        "prompt": "Qu'affiche ce programme ?",
+        "code": {
+          "lang": "python",
+          "value": "t = [10, 20, 30, 40]\nfor i in range(len(t) - 1, 0, -1):\n    t[i] = t[i - 1]\nt[0] = 99\nprint(t)"
+        },
+        "correct": "[99, 10, 20, 30]",
+        "acceptableAnswers": ["[99,10,20,30]"],
+        "explanation": "C'est le décalage vers la droite, parcouru du dernier indice vers le premier pour ne rien écraser : 40 est remplacé par 30, 30 par 20, 20 par 10, puis la case 0 reçoit 99. La valeur 40 est perdue, ce qui est normal — dans une vraie insertion, on aurait d'abord agrandi le tableau."
+      },
+      {
+        "id": "t2-03",
+        "objectiveId": "obj2-tableau",
+        "bloomLevel": "analyze",
+        "type": "mcq",
+        "difficulty": 3,
+        "prompt": "Quel est le coût total d'une boucle qui effectue n appels à `liste.insert(0, x)` sur une liste Python ?",
+        "options": [
+          { "id": "a", "text": "Θ(n²)" },
+          { "id": "b", "text": "Θ(n)" },
+          { "id": "c", "text": "Θ(n log n)" },
+          { "id": "d", "text": "Θ(1) amorti" }
+        ],
+        "correct": "a",
+        "explanation": "Une `list` Python est un tableau contigu : `insert(0, x)` décale tous les éléments présents. Le i-ème appel coûte Θ(i), et la somme 1 + 2 + … + n vaut n(n+1)/2, soit Θ(n²). C'est l'erreur de performance la plus fréquente en TP.",
+        "perDistractorExplanation": [
+          { "optionId": "b", "why": "Θ(n) supposerait un coût constant par insertion. Ce serait le cas d'une liste chaînée, ou de `append`, mais pas de `insert(0, …)`." },
+          { "optionId": "c", "why": "Aucune division par deux n'intervient ici ; le facteur log n n'a pas d'origine." },
+          { "optionId": "d", "why": "L'amorti Θ(1) s'applique à `append`, qui n'a rien à décaler. `insert(0, …)` décale à chaque appel, sans exception." }
+        ],
+        "source": { "file": "demo-notes-structures.pdf", "page": 5 }
+      },
+      {
+        "id": "t2-04",
+        "objectiveId": "obj2-liste",
+        "bloomLevel": "apply",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Quel est le coût de l'insertion d'un nœud en **queue** d'une liste simplement chaînée dont on ne connaît que la tête ?",
+        "options": [
+          { "id": "a", "text": "Θ(n), car il faut parcourir jusqu'au dernier nœud." },
+          { "id": "b", "text": "Θ(1), car l'insertion dans une liste chaînée est toujours constante." },
+          { "id": "c", "text": "Θ(log n), car on peut couper la liste en deux." },
+          { "id": "d", "text": "Θ(n²), car chaque nœud doit être rebranché." }
+        ],
+        "correct": "a",
+        "explanation": "Le rebranchement est bien en Θ(1), mais il faut d'abord atteindre le dernier nœud, ce qui impose de suivre n pointeurs. C'est le parcours qui domine. Conserver une référence vers la queue ramènerait l'opération à Θ(1).",
+        "perDistractorExplanation": [
+          { "optionId": "b", "why": "Le Θ(1) n'est vrai que si l'on dispose *déjà* du nœud précédent. Ici il faut le trouver, et c'est ce parcours qui coûte." },
+          { "optionId": "c", "why": "Rien ne permet de sauter au milieu d'une liste chaînée : il n'y a pas d'accès indexé, donc pas de découpage dichotomique possible." },
+          { "optionId": "d", "why": "Un seul nœud est rebranché ; les autres ne sont pas modifiés, seulement traversés." }
+        ]
+      },
+      {
+        "id": "t2-05",
+        "objectiveId": "obj2-liste",
+        "bloomLevel": "analyze",
+        "type": "mcq",
+        "difficulty": 3,
+        "prompt": "Dans une insertion en tête, quelle conséquence a l'inversion des deux affectations — écrire `tete = nouveau` avant `nouveau.suivant = tete` ?",
+        "options": [
+          { "id": "a", "text": "Le nouveau nœud pointe sur lui-même et le reste de la liste devient inaccessible." },
+          { "id": "b", "text": "La liste est inversée." },
+          { "id": "c", "text": "Aucune conséquence : l'ordre des affectations est indifférent." },
+          { "id": "d", "text": "Le dernier nœud est perdu, les autres restent accessibles." }
+        ],
+        "correct": "a",
+        "explanation": "Après `tete = nouveau`, la variable `tete` désigne déjà le nouveau nœud. L'affectation suivante écrit donc `nouveau.suivant = nouveau` : le nœud boucle sur lui-même, et l'ancienne tête n'est plus référencée nulle part — toute la liste est perdue.",
+        "perDistractorExplanation": [
+          { "optionId": "b", "why": "Aucune inversion : il n'y a qu'une seule insertion, et elle ne parcourt rien." },
+          { "optionId": "c", "why": "L'ordre est critique : il faut lire l'ancienne valeur de `tete` avant de l'écraser." },
+          { "optionId": "d", "why": "Ce n'est pas le dernier nœud qui est perdu mais tous : plus rien ne référence l'ancienne tête." }
+        ]
+      },
+      {
+        "id": "t2-06",
+        "objectiveId": "obj2-choisir",
+        "bloomLevel": "understand",
+        "type": "true-false",
+        "difficulty": 2,
+        "prompt": "Parcourir n éléments coûte Θ(n) pour un tableau comme pour une liste chaînée ; les deux parcours prennent donc le même temps en pratique.",
+        "options": [
+          { "id": "v", "text": "Vrai" },
+          { "id": "f", "text": "Faux" }
+        ],
+        "correct": "f",
+        "explanation": "Les classes sont identiques, les constantes non. Les cases d'un tableau sont contiguës, donc chargées par blocs entiers dans le cache ; les nœuds d'une liste sont dispersés et chaque saut peut provoquer un défaut de cache. Le parcours de tableau est souvent plusieurs fois plus rapide.",
+        "perDistractorExplanation": [
+          { "optionId": "v", "why": "L'égalité des classes asymptotiques ne dit rien des constantes. Θ ignore délibérément les facteurs constants, y compris ceux qui valent 5 en pratique." }
+        ],
+        "source": { "file": "demo-notes-structures.pdf", "page": 12 }
+      },
+      {
+        "id": "t2-07",
+        "objectiveId": "obj2-pile",
+        "bloomLevel": "apply",
+        "type": "code-output",
+        "difficulty": 2,
+        "prompt": "Qu'affiche ce programme ?",
+        "code": {
+          "lang": "python",
+          "value": "pile = []\nfor c in \"abc\":\n    pile.append(c)\nsortie = \"\"\nwhile pile:\n    sortie += pile.pop()\nprint(sortie)"
+        },
+        "correct": "cba",
+        "explanation": "La pile inverse l'ordre : 'a', 'b', 'c' sont empilés, puis dépilés dans l'ordre inverse. C'est l'usage le plus simple d'une pile — inverser une séquence sans indice ni calcul.",
+        "acceptableAnswers": []
+      },
+      {
+        "id": "t2-08",
+        "objectiveId": "obj2-pile",
+        "bloomLevel": "apply",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Que retourne `parentheses_equilibrees(\"(()\")` et pourquoi ?",
+        "options": [
+          { "id": "a", "text": "False, car la pile n'est pas vide à la fin." },
+          { "id": "b", "text": "True, car chaque fermante a trouvé son ouvrante." },
+          { "id": "c", "text": "False, car une fermante arrive sans ouvrante." },
+          { "id": "d", "text": "True, car la chaîne commence par une ouvrante." }
+        ],
+        "correct": "a",
+        "explanation": "Les deux premières ouvrantes sont empilées, la fermante en dépile une. Il reste une ouvrante sur la pile : le test final `len(pile) == 0` échoue. C'est précisément le rôle de ce test — sans lui, `(((` serait jugé correct.",
+        "perDistractorExplanation": [
+          { "optionId": "b", "why": "C'est vrai mais insuffisant : l'appariement des fermantes ne garantit pas que toutes les ouvrantes ont été refermées." },
+          { "optionId": "c", "why": "Il n'y a qu'une fermante et elle trouve bien une ouvrante sur la pile. Ce cas décrirait plutôt `())`." },
+          { "optionId": "d", "why": "Le premier caractère n'a aucune valeur de preuve ; seule la vérification complète tranche." }
+        ]
+      },
+      {
+        "id": "t2-09",
+        "objectiveId": "obj2-memoire",
+        "bloomLevel": "analyze",
+        "type": "mcq",
+        "difficulty": 3,
+        "prompt": "Sur une machine 64 bits (pointeur : 8 octets), quelle mémoire occupe une liste chaînée d'un million d'entiers de 4 octets, comparée au tableau équivalent ?",
+        "options": [
+          { "id": "a", "text": "Environ 3 fois plus, car chaque nœud ajoute un pointeur de 8 octets." },
+          { "id": "b", "text": "Exactement la même, seule l'organisation change." },
+          { "id": "c", "text": "Environ 2 fois moins, la liste n'allouant que le nécessaire." },
+          { "id": "d", "text": "Environ 8 fois plus, un pointeur remplaçant chaque valeur." }
+        ],
+        "correct": "a",
+        "explanation": "Tableau : 4 octets par élément, soit 4 Mo. Liste : 4 octets de valeur + 8 de pointeur = 12 octets par nœud, soit 12 Mo (avant même de compter le surcoût d'allocation de chaque nœud). Le chaînage se paie en espace.",
+        "perDistractorExplanation": [
+          { "optionId": "b", "why": "Le pointeur est une donnée supplémentaire bien réelle, stockée dans chaque nœud." },
+          { "optionId": "c", "why": "La liste alloue *plus*, pas moins : elle n'économise rien sur les valeurs et ajoute un lien par élément." },
+          { "optionId": "d", "why": "Le pointeur s'ajoute à la valeur, il ne la remplace pas — sinon la liste ne stockerait plus de données." }
+        ]
+      },
+      {
+        "id": "t2-10",
+        "objectiveId": "obj2-tableau",
+        "bloomLevel": "recall",
+        "type": "fill-blank",
+        "difficulty": 1,
+        "prompt": "Compléter la formule d'adressage : adresse(i) = adresse_de_base + i × ____ .",
+        "correct": "taille d'un élément",
+        "acceptableAnswers": ["taille d un element", "taille de l'élément", "taille element", "sizeof(element)", "la taille d'un élément"],
+        "explanation": "La taille d'un élément en octets (4 pour un int 32 bits, 8 pour un double). C'est ce facteur qui traduit un indice en déplacement mémoire."
+      },
+      {
+        "id": "t2-11",
+        "objectiveId": "obj2-choisir",
+        "bloomLevel": "analyze",
+        "type": "multi",
+        "difficulty": 3,
+        "prompt": "Une application maintient un classement de 100 000 joueurs, consulté par position (« qui est 42ᵉ ? ») des milliers de fois par seconde, et mis à jour une fois par jour. Quelles affirmations sont correctes ? (plusieurs réponses)",
+        "options": [
+          { "id": "a", "text": "Le tableau contigu convient, car l'accès par position y est en Θ(1)." },
+          { "id": "b", "text": "Le coût élevé de la mise à jour importe peu, vu sa rareté." },
+          { "id": "c", "text": "La liste chaînée convient mieux, car la mise à jour y est en Θ(1)." },
+          { "id": "d", "text": "La liste chaînée convient mieux, car elle économise de la mémoire." }
+        ],
+        "correct": ["a", "b"],
+        "explanation": "L'opération dominante est l'accès par position, des milliers de fois par seconde : c'est elle qui doit être optimisée, donc le tableau. Une reconstruction quotidienne en Θ(n) est négligeable à cette fréquence. Choisir la structure, c'est optimiser l'opération la plus fréquente.",
+        "perDistractorExplanation": [
+          { "optionId": "c", "why": "La mise à jour n'est Θ(1) que si l'on dispose déjà du nœud ; et surtout, elle est mille fois moins fréquente que la lecture, donc elle ne doit pas dicter le choix." },
+          { "optionId": "d", "why": "C'est l'inverse : la liste consomme davantage de mémoire, un pointeur par élément s'ajoutant à chaque valeur." }
+        ]
+      },
+      {
+        "id": "t2-12",
+        "objectiveId": "obj2-liste",
+        "bloomLevel": "apply",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Comment supprimer le premier nœud d'une liste chaînée non vide, et à quel coût ?",
+        "options": [
+          { "id": "a", "text": "`tete = tete.suivant`, en Θ(1)." },
+          { "id": "b", "text": "Parcourir jusqu'au dernier nœud puis rebrancher, en Θ(n)." },
+          { "id": "c", "text": "Décaler tous les nœuds d'un cran, en Θ(n)." },
+          { "id": "d", "text": "`tete.valeur = null`, en Θ(1)." }
+        ],
+        "correct": "a",
+        "explanation": "Faire pointer la tête sur le deuxième nœud suffit : l'ancien premier n'est plus référencé et sera récupéré par le ramasse-miettes. Une seule affectation, donc Θ(1).",
+        "perDistractorExplanation": [
+          { "optionId": "b", "why": "Décrit la suppression du *dernier* nœud, qui exige effectivement d'atteindre l'avant-dernier." },
+          { "optionId": "c", "why": "Le décalage est une opération de tableau. Dans une liste, aucun nœud ne bouge : seuls les liens changent." },
+          { "optionId": "d", "why": "Effacer la valeur laisse le nœud dans la chaîne : la liste aurait toujours le même nombre d'éléments, avec un trou." }
+        ]
+      },
+      {
+        "id": "t2-13",
+        "objectiveId": "obj2-pile",
+        "bloomLevel": "understand",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Quelle situation provoque un débordement de pile (stack overflow) ?",
+        "options": [
+          { "id": "a", "text": "Une récursion dont le cas de base n'est jamais atteint." },
+          { "id": "b", "text": "Un tableau dont on dépasse l'indice maximal." },
+          { "id": "c", "text": "Une boucle `while` infinie sans appel de fonction." },
+          { "id": "d", "text": "Une allocation dynamique trop volumineuse." }
+        ],
+        "correct": "a",
+        "explanation": "Chaque appel non terminé empile un cadre. Sans cas de base, les cadres s'accumulent jusqu'à épuiser l'espace réservé à la pile d'appels.",
+        "perDistractorExplanation": [
+          { "optionId": "b", "why": "C'est un dépassement de tableau : comportement indéfini en C, exception en Java ou Python, mais sans rapport avec la pile d'appels." },
+          { "optionId": "c", "why": "Une boucle infinie sans appel n'empile aucun cadre : le programme tourne indéfiniment sans jamais déborder." },
+          { "optionId": "d", "why": "Une allocation trop grosse épuise le tas (heap), pas la pile — l'erreur signalée est un manque de mémoire." }
+        ]
+      },
+      {
+        "id": "t2-14",
+        "objectiveId": "obj2-memoire",
+        "bloomLevel": "apply",
+        "type": "short-answer",
+        "difficulty": 2,
+        "prompt": "Un tableau de `double` (8 octets chacun) commence à l'adresse 4000. Quelle est l'adresse de `tableau[3]` ? (un nombre)",
+        "correct": "4024",
+        "acceptableAnswers": [],
+        "explanation": "4000 + 3 × 8 = 4024. Seule la taille de l'élément change par rapport à un tableau d'entiers ; la formule reste identique.",
+        "source": { "file": "demo-diapos-cours02.pdf", "page": 7 }
+      },
+      {
+        "id": "t2-15",
+        "objectiveId": "obj2-tableau",
+        "bloomLevel": "understand",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Pourquoi un tableau dynamique double-t-il sa capacité plutôt que de l'augmenter de 1 à chaque fois ?",
+        "options": [
+          { "id": "a", "text": "Pour que le coût des recopies, réparti sur les insertions, reste constant en moyenne." },
+          { "id": "b", "text": "Pour que le tableau reste trié après agrandissement." },
+          { "id": "c", "text": "Parce que la mémoire ne s'alloue que par puissances de deux." },
+          { "id": "d", "text": "Pour réduire la mémoire consommée." }
+        ],
+        "correct": "a",
+        "explanation": "Doubler rend les réallocations exponentiellement rares : n insertions n'en provoquent que log n, et le total des recopies reste Θ(n). Augmenter de 1 forcerait une recopie à chaque insertion, soit Θ(n²) au total.",
+        "perDistractorExplanation": [
+          { "optionId": "b", "why": "L'agrandissement ne réorganise rien ; le tri n'a aucun rapport avec la gestion de capacité." },
+          { "optionId": "c", "why": "Un allocateur peut fournir n'importe quelle taille. Le doublement est une stratégie logicielle, pas une contrainte matérielle." },
+          { "optionId": "d", "why": "Le doublement consomme au contraire jusqu'à deux fois la place utile : c'est un compromis assumé, on échange de la mémoire contre du temps." }
+        ]
+      },
+      {
+        "id": "t2-16",
+        "objectiveId": "obj2-pile",
+        "bloomLevel": "analyze",
+        "type": "short-answer",
+        "difficulty": 3,
+        "prompt": "Quelle est la taille maximale atteinte par la pile lors de la vérification de `((()))` ? (un nombre)",
+        "correct": "3",
+        "acceptableAnswers": [],
+        "explanation": "Les trois ouvrantes sont empilées avant qu'aucune fermante n'arrive : la pile atteint 3, puis redescend à 0. Le pic correspond à la profondeur maximale d'imbrication — d'où le coût mémoire Θ(n) dans le pire cas `((((((`.",
+        "source": { "file": "demo-diapos-cours02.pdf", "page": 25 }
+      },
+      {
+        "id": "t2-17",
+        "objectiveId": "obj2-choisir",
+        "bloomLevel": "understand",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Quelle opération a exactement le même coût asymptotique dans un tableau contigu et dans une liste simplement chaînée ?",
+        "options": [
+          { "id": "a", "text": "La recherche d'une valeur non triée." },
+          { "id": "b", "text": "L'accès au i-ème élément." },
+          { "id": "c", "text": "L'insertion en tête." },
+          { "id": "d", "text": "La suppression en tête." }
+        ],
+        "correct": "a",
+        "explanation": "Sans hypothèse de tri, les deux structures doivent examiner les éléments un par un jusqu'à trouver : Θ(n) des deux côtés. Toutes les autres opérations de la liste diffèrent.",
+        "perDistractorExplanation": [
+          { "optionId": "b", "why": "Θ(1) pour le tableau (adresse calculée) contre Θ(n) pour la liste (pointeurs suivis un à un)." },
+          { "optionId": "c", "why": "Θ(n) pour le tableau (décalage) contre Θ(1) pour la liste (rebranchement)." },
+          { "optionId": "d", "why": "Θ(n) pour le tableau contre Θ(1) pour la liste, pour la même raison qu'à l'insertion." }
+        ]
+      },
+      {
+        "id": "t2-18",
+        "objectiveId": "obj2-liste",
+        "bloomLevel": "analyze",
+        "type": "code-output",
+        "difficulty": 3,
+        "prompt": "Qu'affiche ce programme ?",
+        "code": {
+          "lang": "python",
+          "value": "class Noeud:\n    def __init__(self, v, s=None):\n        self.valeur = v\n        self.suivant = s\n\ntete = Noeud(1, Noeud(2, Noeud(3)))\n\nprecedent = None\ncourant = tete\nwhile courant is not None:\n    apres = courant.suivant\n    courant.suivant = precedent\n    precedent = courant\n    courant = apres\ntete = precedent\n\nsortie = []\nn = tete\nwhile n:\n    sortie.append(n.valeur)\n    n = n.suivant\nprint(sortie)"
+        },
+        "correct": "[3, 2, 1]",
+        "acceptableAnswers": ["[3,2,1]"],
+        "explanation": "C'est l'inversion d'une liste chaînée en place. Chaque nœud voit son lien retourné vers le précédent ; la variable `apres` est indispensable pour ne pas perdre la suite de la liste avant de réécrire le lien. Coût : Θ(n) en temps, Θ(1) en mémoire."
+      },
+      {
+        "id": "t2-19",
+        "objectiveId": "obj2-tableau",
+        "bloomLevel": "apply",
+        "type": "fill-blank",
+        "difficulty": 2,
+        "prompt": "Pour décaler les éléments vers la droite sans en écraser aucun, la boucle doit parcourir les indices du ____ vers le premier.",
+        "correct": "dernier",
+        "acceptableAnswers": ["dernier indice", "plus grand", "dernier élément", "de la fin"],
+        "explanation": "En partant du début, chaque écriture écraserait la valeur qui n'a pas encore été déplacée. Il faut donc commencer par la fin — d'où `range(len(t) - 1, 0, -1)` en Python."
+      },
+      {
+        "id": "t2-20",
+        "objectiveId": "obj2-choisir",
+        "bloomLevel": "analyze",
+        "type": "mcq",
+        "difficulty": 3,
+        "prompt": "On doit implémenter une pile. Tableau dynamique ou liste chaînée ?",
+        "options": [
+          { "id": "a", "text": "Les deux donnent Θ(1) par opération ; le tableau est souvent préféré pour sa localité mémoire." },
+          { "id": "b", "text": "Seule la liste chaînée permet Θ(1), le tableau imposant des décalages." },
+          { "id": "c", "text": "Seul le tableau permet Θ(1), le parcours de la liste étant en Θ(n)." },
+          { "id": "d", "text": "Aucun des deux : une pile exige une structure dédiée." }
+        ],
+        "correct": "a",
+        "explanation": "Une pile n'agit qu'à un seul bout. Côté tableau, c'est la fin : `append`/`pop` sans décalage, Θ(1) amorti. Côté liste, c'est la tête : Θ(1) strict. À complexité égale, le tableau gagne en pratique grâce au cache et à l'absence d'allocation par élément.",
+        "perDistractorExplanation": [
+          { "optionId": "b", "why": "Aucun décalage n'a lieu : on ajoute et retire en *fin* de tableau, pas en tête. Le décalage ne concerne que les insertions au milieu ou au début." },
+          { "optionId": "c", "why": "La pile ne parcourt jamais la liste : elle n'agit que sur la tête, qui est immédiatement accessible." },
+          { "optionId": "d", "why": "Une pile est un type abstrait, implémentable sur l'une ou l'autre structure — c'est justement l'objet de la question." }
+        ],
+        "source": { "file": "demo-notes-structures.pdf", "page": 14 }
+      }
+    ]
+  },
+  "flashcards": [
+    {
+      "id": "f2-01",
+      "objectiveId": "obj2-memoire",
+      "front": "Formule d'adressage dans un tableau contigu ?",
+      "back": "adresse(i) = adresse_de_base + i × taille_d_un_élément",
+      "extra": "C'est cette formule, rendue possible par la contiguïté, qui donne l'accès en Θ(1).",
+      "source": { "file": "demo-diapos-cours02.pdf", "page": 6 }
+    },
+    {
+      "id": "f2-02",
+      "objectiveId": "obj2-tableau",
+      "front": "Tableau contigu : coût de l'accès à l'indice i ?",
+      "back": "Θ(1)"
+    },
+    {
+      "id": "f2-03",
+      "objectiveId": "obj2-tableau",
+      "front": "Tableau contigu : coût de l'insertion en tête ?",
+      "back": "Θ(n) — il faut décaler les n éléments d'un cran vers la droite."
+    },
+    {
+      "id": "f2-04",
+      "objectiveId": "obj2-liste",
+      "front": "Liste chaînée : coût de l'accès à l'indice i ?",
+      "back": "Θ(n) — aucun calcul d'adresse possible, il faut suivre i pointeurs depuis la tête."
+    },
+    {
+      "id": "f2-05",
+      "objectiveId": "obj2-liste",
+      "front": "Liste chaînée : coût de l'insertion en tête ?",
+      "back": "Θ(1) — créer le nœud, le faire pointer sur l'ancienne tête, déplacer la tête.",
+      "extra": "L'ordre des affectations est critique : lire `tete` avant de l'écraser."
+    },
+    {
+      "id": "f2-06",
+      "objectiveId": "obj2-liste",
+      "front": "« L'insertion dans une liste chaînée est en Θ(1) » — à quelle condition ?",
+      "back": "Uniquement si l'on dispose déjà du nœud précédent. S'il faut l'atteindre depuis la tête, c'est Θ(n)."
+    },
+    {
+      "id": "f2-07",
+      "objectiveId": "obj2-tableau",
+      "front": "Que signifie « Θ(1) amorti » pour append ?",
+      "back": "Le coût réparti sur une longue suite d'opérations est constant, même si une insertion sur n déclenche une réallocation en Θ(n).",
+      "extra": "Amorti ≠ cas moyen : aucune hypothèse probabiliste n'est faite."
+    },
+    {
+      "id": "f2-08",
+      "objectiveId": "obj2-pile",
+      "front": "Les trois opérations d'une pile et leur coût ?",
+      "back": "empiler(x), depiler(), sommet() — toutes en Θ(1).",
+      "source": { "file": "demo-diapos-cours02.pdf", "page": 23 }
+    },
+    {
+      "id": "f2-09",
+      "objectiveId": "obj2-pile",
+      "front": "Pourquoi une pile pour vérifier le parenthésage ?",
+      "back": "Parce que la dernière parenthèse ouverte est la première à devoir se fermer — c'est exactement la discipline LIFO.",
+      "extra": "Un simple comptage échoue sur `([)]` : il ignore l'ordre."
+    },
+    {
+      "id": "f2-10",
+      "objectiveId": "obj2-pile",
+      "front": "Coût mémoire d'une récursion de profondeur n ?",
+      "back": "Θ(n) sur la pile d'appels — un cadre par appel en attente.",
+      "extra": "C'est l'origine du débordement de pile."
+    },
+    {
+      "id": "f2-11",
+      "objectiveId": "obj2-choisir",
+      "front": "Tableau ou liste chaînée : la règle de décision ?",
+      "back": "Beaucoup de lectures par indice → tableau. Beaucoup d'insertions/suppressions en tête avec parcours séquentiel → liste chaînée."
+    },
+    {
+      "id": "f2-12",
+      "objectiveId": "obj2-choisir",
+      "front": "Pourquoi un parcours de tableau bat-il un parcours de liste, à Θ(n) égal ?",
+      "back": "Localité mémoire : les cases contiguës sont chargées par blocs dans le cache, alors que les nœuds dispersés provoquent des défauts de cache.",
+      "extra": "La notation Θ ne modélise pas le cache."
+    }
+  ],
+  "exercises": [
+    {
+      "id": "e2-01",
+      "objectiveId": "obj2-liste",
+      "difficulty": 2,
+      "mode": "run",
+      "language": "python",
+      "title": "Construire et parcourir une liste chaînée",
+      "statement": "Compléter la classe `ListeChainee` avec deux méthodes :\n\n- `inserer_en_tete(valeur)` : ajoute un nœud au début, en Θ(1) ;\n- `vers_liste()` : retourne une liste Python contenant les valeurs, de la tête vers la fin.\n\nAttention à l'ordre des affectations dans l'insertion.",
+      "starterCode": "class Noeud:\n    def __init__(self, valeur, suivant=None):\n        self.valeur = valeur\n        self.suivant = suivant\n\nclass ListeChainee:\n    def __init__(self):\n        self.tete = None\n\n    def inserer_en_tete(self, valeur):\n        pass\n\n    def vers_liste(self):\n        pass\n",
+      "hints": [
+        "Pour l'insertion : créer le nœud en lui passant l'ancienne tête comme suivant, puis déplacer la tête. Une seule ligne suffit.",
+        "Pour le parcours : partir de self.tete et avancer avec `n = n.suivant` tant que n n'est pas None.",
+        "Insertion : `self.tete = Noeud(valeur, self.tete)`. La partie droite est évaluée avant l'affectation, l'ancienne tête est donc bien capturée."
+      ],
+      "solution": "class Noeud:\n    def __init__(self, valeur, suivant=None):\n        self.valeur = valeur\n        self.suivant = suivant\n\nclass ListeChainee:\n    def __init__(self):\n        self.tete = None\n\n    def inserer_en_tete(self, valeur):\n        self.tete = Noeud(valeur, self.tete)\n\n    def vers_liste(self):\n        valeurs = []\n        n = self.tete\n        while n is not None:\n            valeurs.append(n.valeur)\n            n = n.suivant\n        return valeurs\n",
+      "solutionExplanation": "L'insertion ne touche à aucun nœud existant : trois écritures au plus, donc Θ(1) quel que soit n. Le parcours visite chaque nœud une fois, donc Θ(n). Les valeurs ressortent dans l'ordre inverse de l'insertion, ce qui est la conséquence normale d'un empilement en tête.",
+      "tests": [
+        { "name": "liste vide", "call": "ListeChainee().vers_liste()", "expected": "[]" },
+        { "name": "un seul element", "call": "(lambda l: (l.inserer_en_tete(5), l.vers_liste())[1])(ListeChainee())", "expected": "[5]" },
+        { "name": "l ordre est inverse de l insertion", "call": "(lambda l: ([l.inserer_en_tete(x) for x in [1, 2, 3]], l.vers_liste())[1])(ListeChainee())", "expected": "[3, 2, 1]" },
+        { "name": "tient sur 1000 insertions", "call": "(lambda l: ([l.inserer_en_tete(x) for x in range(1000)], len(l.vers_liste()))[1])(ListeChainee())", "expected": "1000", "hidden": true }
+      ],
+      "source": { "file": "demo-tp02-enonce.pdf", "page": 1, "locator": "Exercice 1" }
+    },
+    {
+      "id": "e2-02",
+      "objectiveId": "obj2-pile",
+      "difficulty": 2,
+      "mode": "run",
+      "language": "python",
+      "title": "Parenthésage équilibré",
+      "statement": "Écrire `equilibre(texte)` qui retourne `True` si les parenthèses `()`, crochets `[]` et accolades `{}` du texte sont correctement imbriqués, `False` sinon.\n\nLes autres caractères sont ignorés. Trois cas d'échec à couvrir : une fermeture qui ne correspond pas à la dernière ouverture, une fermeture sans ouverture, et une ouverture jamais refermée.",
+      "starterCode": "def equilibre(texte):\n    paires = {')': '(', ']': '[', '}': '{'}\n    pile = []\n    for c in texte:\n        pass\n    return False\n",
+      "hints": [
+        "Deux cas seulement à traiter dans la boucle : le caractère est une ouvrante (empiler), ou une fermante (vérifier le sommet).",
+        "Sur une fermante, deux échecs possibles : la pile est vide (fermeture sans ouverture), ou le sommet dépilé ne correspond pas à `paires[c]`.",
+        "Ne pas oublier le test final : il doit rester `len(pile) == 0`, sinon `(((` passerait pour équilibré."
+      ],
+      "solution": "def equilibre(texte):\n    paires = {')': '(', ']': '[', '}': '{'}\n    pile = []\n    for c in texte:\n        if c in '([{':\n            pile.append(c)\n        elif c in paires:\n            if not pile or pile.pop() != paires[c]:\n                return False\n    return len(pile) == 0\n",
+      "solutionExplanation": "La pile retient les ouvertures en attente ; son sommet est toujours la dernière ouverture non refermée, donc la seule que la fermante courante ait le droit de refermer. Coût : Θ(n) en temps, Θ(n) en mémoire dans le pire cas. Le test final est la partie que l'on oublie le plus souvent.",
+      "tests": [
+        { "name": "chaine vide", "call": "equilibre('')", "expected": "True" },
+        { "name": "imbrication simple", "call": "equilibre('({[]})')", "expected": "True" },
+        { "name": "mauvaise imbrication", "call": "equilibre('([)]')", "expected": "False" },
+        { "name": "ouverture jamais refermee", "call": "equilibre('(()')", "expected": "False" },
+        { "name": "fermeture sans ouverture", "call": "equilibre('())')", "expected": "False" },
+        { "name": "les autres caracteres sont ignores", "call": "equilibre('si (x[0] > 1) { faire(); }')", "expected": "True" },
+        { "name": "nombres egaux mais ordre faux", "call": "equilibre(')(')", "expected": "False", "hidden": true }
+      ],
+      "source": { "file": "demo-tp02-enonce.pdf", "page": 2, "locator": "Exercice 3" }
+    },
+    {
+      "id": "e2-03",
+      "objectiveId": "obj2-tableau",
+      "difficulty": 2,
+      "mode": "fill-blank",
+      "language": "python",
+      "title": "Compléter le décalage",
+      "statement": "Cette fonction insère une valeur en position 0 d'un tableau, en décalant les éléments existants. Un fragment manque. Le compléter, puis expliquer pourquoi la boucle ne peut pas être parcourue dans l'autre sens.",
+      "starterCode": "def inserer_au_debut(t, valeur):\n    t.append(None)                  # agrandir d'une case\n    for i in range(____, 0, ____):  # a completer\n        t[i] = t[i - 1]\n    t[0] = valeur\n    return t\n",
+      "hints": [
+        "Le premier argument de range est l'indice de départ, le troisième est le pas.",
+        "Le tableau a été agrandi : son dernier indice vaut maintenant len(t) - 1.",
+        "Il faut aller de la fin vers le début, donc un pas de -1."
+      ],
+      "solution": "for i in range(len(t) - 1, 0, -1):",
+      "expectedOutput": "Complétion : `for i in range(len(t) - 1, 0, -1):`\n\nPourquoi ce sens et pas l'autre :\nen parcourant du début vers la fin, la première écriture `t[1] = t[0]` écraserait t[1] avant qu'il n'ait été recopié en t[2]. Toutes les valeurs suivantes seraient remplacées par la première.\n\nEn partant de la fin, chaque case écrite est toujours une case déjà recopiée (ou la case vide ajoutée), donc aucune donnée n'est perdue.\n\nCoût : n écritures, soit Θ(n).",
+      "solutionExplanation": "La borne d'arrêt 0 est exclue par range, ce qui est correct : la case 0 est écrasée juste après par la valeur insérée. Écrire `range(len(t) - 1, -1, -1)` provoquerait un accès à t[-1], qui en Python désigne le dernier élément — une erreur silencieuse, sans exception.",
+      "source": { "file": "demo-tp02-enonce.pdf", "page": 2, "locator": "Exercice 2" }
+    },
+    {
+      "id": "e2-04",
+      "objectiveId": "obj2-liste",
+      "difficulty": 3,
+      "mode": "find-bug",
+      "language": "java",
+      "title": "Trouver le bogue — insertion en tête",
+      "statement": "Cette méthode Java doit insérer un élément en tête de liste chaînée. Elle contient un défaut. Identifier la ligne fautive, décrire l'état de la liste après un appel, et donner la correction.",
+      "starterCode": "public class ListeChainee {\n    Noeud tete;\n\n    public void insererEnTete(int valeur) {\n        Noeud nouveau = new Noeud(valeur);\n        tete = nouveau;              // <-- ligne A\n        nouveau.suivant = tete;      // <-- ligne B\n    }\n}",
+      "hints": [
+        "Dérouler l'exécution sur une liste contenant déjà un nœud, par exemple [12].",
+        "Que vaut la variable `tete` au moment où la ligne B s'exécute ?",
+        "La ligne B doit capturer l'*ancienne* tête. Que faut-il faire avant de l'écraser ?"
+      ],
+      "solution": "nouveau.suivant = tete; puis tete = nouveau;",
+      "expectedOutput": "Ligne fautive : l'ordre des lignes A et B est inversé.\n\nÉtat après un appel sur la liste [12] :\n  ligne A : tete pointe désormais sur `nouveau`\n  ligne B : nouveau.suivant = tete, or tete vaut déjà `nouveau`\n  → nouveau.suivant = nouveau : le nœud pointe sur lui-même.\n\nConséquences : le nœud 12 n'est plus référencé par personne, toute la liste est perdue ; et tout parcours de la liste boucle indéfiniment sur le nouveau nœud.\n\nCorrection — inverser les deux lignes :\n    nouveau.suivant = tete;   // capturer l'ancienne tete\n    tete = nouveau;           // puis la remplacer\n\nRègle générale : lire l'ancienne valeur avant de l'écraser.",
+      "solutionExplanation": "C'est l'erreur canonique de l'insertion en tête, et elle est sournoise : le programme ne lève aucune exception. Il perd silencieusement des données, et le parcours suivant part en boucle infinie — un symptôme qui apparaît loin de la ligne fautive. En Python, `self.tete = Noeud(valeur, self.tete)` évite le piège, parce que la partie droite est entièrement évaluée avant l'affectation.",
+      "source": { "file": "demo-tp02-enonce.pdf", "page": 3, "locator": "Exercice 4" }
+    },
+    {
+      "id": "e2-05",
+      "objectiveId": "obj2-memoire",
+      "difficulty": 2,
+      "mode": "trace",
+      "language": "c",
+      "title": "Tracer l'arithmétique des pointeurs",
+      "statement": "Le tableau `t` commence à l'adresse 3000 et contient des `int` de 4 octets. Tracer le programme : donner la valeur de `p` (une adresse) et celle de `*p` après chaque instruction, puis dire ce qu'affiche la dernière ligne.",
+      "starterCode": "#include <stdio.h>\n\nint main(void) {\n    int t[5] = {10, 20, 30, 40, 50};   /* t commence a l'adresse 3000 */\n    int *p = t;\n    p = p + 2;\n    p = p + 1;\n    printf(\"%d\\n\", *p);\n    return 0;\n}\n",
+      "hints": [
+        "En C, ajouter 1 à un pointeur ne fait pas avancer d'un octet : l'arithmétique se fait en nombre d'éléments.",
+        "Un `int` occupe 4 octets, donc `p + 1` avance l'adresse de 4.",
+        "Après `p = p + 2` puis `p = p + 1`, p a avancé de 3 éléments depuis le début du tableau."
+      ],
+      "solution": "40",
+      "expectedOutput": "Trace :\n  int *p = t;      p = 3000   *p = 10   (p pointe sur t[0])\n  p = p + 2;       p = 3008   *p = 30   (3000 + 2 × 4 octets)\n  p = p + 1;       p = 3012   *p = 40   (3008 + 1 × 4 octets)\n\nAffichage : 40\n\nPoint clé : l'arithmétique des pointeurs est comptée en éléments, pas en octets. Le compilateur multiplie automatiquement par sizeof(int) = 4. C'est exactement la formule adresse(i) = base + i × taille, appliquée de façon incrémentale.",
+      "solutionExplanation": "L'erreur fréquente est de calculer 3000 + 2 = 3002, puis 3003, et de conclure à une valeur indéterminée. En C, `p + 2` signifie « deux int plus loin », soit 8 octets. C'est aussi ce qui explique que `t[i]` et `*(t + i)` soient strictement équivalents.",
+      "source": { "file": "demo-tp02-enonce.pdf", "page": 4, "locator": "Exercice 5" }
+    }
+  ]
+}
