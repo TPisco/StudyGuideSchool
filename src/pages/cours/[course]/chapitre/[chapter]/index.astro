@@ -1,0 +1,206 @@
+---
+import { render } from 'astro:content';
+import Base from '../../../../../layouts/Base.astro';
+import Callout from '../../../../../components/astro/Callout.astro';
+import Figure from '../../../../../components/astro/Figure.astro';
+import Mermaid from '../../../../../components/astro/Mermaid.astro';
+import Source from '../../../../../components/astro/Source.astro';
+import ChapterTools from '../../../../../components/react/ChapterTools';
+import SortableTable from '../../../../../components/react/SortableTable';
+import { getAllBundles } from '../../../../../lib/content';
+import { routes } from '../../../../../lib/paths';
+
+export async function getStaticPaths() {
+  const bundles = await getAllBundles();
+  return bundles.flatMap((b) =>
+    b.chapters.map((ch, i) => ({
+      params: { course: b.id, chapter: ch.slug },
+      props: {
+        bundle: b,
+        chapter: ch,
+        prev: b.chapters[i - 1] ?? null,
+        next: b.chapters[i + 1] ?? null,
+      },
+    })),
+  );
+}
+
+const { bundle, chapter, prev, next } = Astro.props;
+const { Content } = await render(chapter.entry);
+const front = chapter.entry.data;
+const data = chapter.data;
+
+const runnable = data.exercises.filter((e) => e.mode === 'run').length;
+---
+
+<Base
+  title={`${chapter.number}. ${chapter.title}`}
+  description={front.summary}
+  accent={bundle.course.accent}
+>
+  <nav aria-label="Fil d'Ariane" class="mb-5 flex flex-wrap items-center gap-1.5 text-sm" style="color: var(--text-faint);">
+    <a href={routes.courses()} class="hover:underline">Cours</a>
+    <span aria-hidden="true">/</span>
+    <a href={routes.course(bundle.id)} class="hover:underline">{bundle.course.code}</a>
+    <span aria-hidden="true">/</span>
+    <span>Chapitre {chapter.number}</span>
+  </nav>
+
+  <header class="mb-7">
+    <div class="mb-2 flex flex-wrap items-center gap-1.5">
+      <span class="chip chip-accent">Chapitre {chapter.number}</span>
+      <span class="chip">{front.estimatedMinutes} min</span>
+      <span class="chip">{data.concepts.length} concepts</span>
+      {front.sample && <span class="chip chip-warn">contenu de démonstration</span>}
+    </div>
+    <h1 class="text-2xl font-bold tracking-tight sm:text-3xl">{chapter.title}</h1>
+    <p class="mt-2 text-[1.02rem] leading-relaxed" style="color: var(--text-muted);">{front.summary}</p>
+
+    {
+      front.prerequisites.length > 0 && (
+        <p class="mt-3 flex flex-wrap items-center gap-1.5 text-xs" style="color: var(--text-faint);">
+          <span>Prérequis&nbsp;:</span>
+          {front.prerequisites.map((p) => <span class="chip">{p}</span>)}
+        </p>
+      )
+    }
+  </header>
+
+  <div class="mb-7">
+    <ChapterTools chapterKey={chapter.key} objectives={front.objectives} trackOpen client:load />
+  </div>
+
+  <!-- quick actions -->
+  <div class="no-print mb-9 grid gap-2 sm:grid-cols-3">
+    <a href={routes.quiz(bundle.id, chapter.slug)} class="card p-3.5 transition-colors hover:border-[var(--accent)]">
+      <p class="font-medium">Quiz</p>
+      <p class="text-xs" style="color: var(--text-faint);">{data.quiz.questions.length} questions · vérification rapide</p>
+    </a>
+    <a href={routes.test(bundle.id, chapter.slug)} class="card p-3.5 transition-colors hover:border-[var(--accent)]">
+      <p class="font-medium">Test</p>
+      <p class="text-xs" style="color: var(--text-faint);">{data.test.questions.length} questions · plus difficile</p>
+    </a>
+    <a href={routes.exercises(bundle.id, chapter.slug)} class="card p-3.5 transition-colors hover:border-[var(--accent)]">
+      <p class="font-medium">Exercices</p>
+      <p class="text-xs" style="color: var(--text-faint);">
+        {data.exercises.length} exercices{runnable > 0 && ` · ${runnable} exécutable(s)`}
+      </p>
+    </a>
+  </div>
+
+  <!-- study notes -->
+  <article class="prose-notes prose">
+    <Content components={{ Callout, Source, Figure, Mermaid }} />
+  </article>
+
+  <!-- summary tables -->
+  {
+    data.tables.length > 0 && (
+      <section class="mt-14">
+        <h2 class="mb-4 border-t pt-6 text-xl font-semibold tracking-tight" style="border-color: var(--border);">
+          Tableaux de synthèse
+        </h2>
+        <div class="space-y-5">
+          {data.tables.map((t) => (
+            <SortableTable table={t} client:visible />
+          ))}
+        </div>
+      </section>
+    )
+  }
+
+  <!-- key concepts -->
+  <section class="mt-14">
+    <h2 class="mb-1 border-t pt-6 text-xl font-semibold tracking-tight" style="border-color: var(--border);">
+      Concepts clés
+    </h2>
+    <p class="mb-5 text-sm" style="color: var(--text-faint);">
+      Chaque concept devient automatiquement une carte mémoire dans la file de révision.
+    </p>
+    <div class="space-y-3">
+      {
+        data.concepts.map((c) => (
+          <article id={`concept-${c.id}`} class="card scroll-mt-24 p-4 sm:p-5">
+            <h3 class="text-[1.05rem] font-semibold tracking-tight">{c.term}</h3>
+            <p class="mt-1.5 text-[0.95rem] leading-relaxed">{c.definition}</p>
+
+            <dl class="mt-3 space-y-2 text-[0.88rem]">
+              <div>
+                <dt class="inline font-semibold" style="color: var(--ok);">
+                  Pourquoi c'est important&nbsp;:
+                </dt>
+                <dd class="ml-1 inline" style="color: var(--text-muted);">
+                  {c.whyItMatters}
+                </dd>
+              </div>
+              <div>
+                <dt class="inline font-semibold" style="color: var(--bad);">
+                  Piège courant&nbsp;:
+                </dt>
+                <dd class="ml-1 inline" style="color: var(--text-muted);">
+                  {c.commonMisconception}
+                </dd>
+              </div>
+            </dl>
+
+            <p class="mt-3 text-xs" style="color: var(--text-faint);">
+              Source&nbsp;: {c.source.file}
+              {c.source.page !== undefined && `, p. ${c.source.page}`}
+              {c.source.locator && ` · ${c.source.locator}`}
+            </p>
+          </article>
+        ))
+      }
+    </div>
+  </section>
+
+  <!-- sources -->
+  <section class="mt-12 border-t pt-6" style="border-color: var(--border);">
+    <h2 class="mb-2 text-sm font-semibold uppercase tracking-wide" style="color: var(--text-muted);">
+      Documents sources de ce chapitre
+    </h2>
+    <ul class="space-y-1 text-sm" style="color: var(--text-faint);">
+      {
+        front.sources.map((s) => (
+          <li>
+            ◆ {s.file}
+            {s.page !== undefined && `, p. ${s.page}`}
+            {s.locator && ` — ${s.locator}`}
+          </li>
+        ))
+      }
+    </ul>
+    <p class="mt-2 text-xs" style="color: var(--text-faint);">
+      Ces fichiers restent dans <code>content/sources/</code>, en local. Ils ne sont jamais publiés.
+    </p>
+  </section>
+
+  <!-- prev / next -->
+  <nav class="no-print mt-10 grid gap-2 sm:grid-cols-2" aria-label="Navigation entre chapitres">
+    {
+      prev ? (
+        <a href={routes.chapter(bundle.id, prev.slug)} class="card p-4 transition-colors hover:border-[var(--accent)]">
+          <p class="text-xs" style="color: var(--text-faint);">
+            ← Chapitre {prev.number}
+          </p>
+          <p class="mt-0.5 font-medium">{prev.title}</p>
+        </a>
+      ) : (
+        <div />
+      )
+    }
+    {
+      next && (
+        <a
+          href={routes.chapter(bundle.id, next.slug)}
+          class="card p-4 text-right transition-colors hover:border-[var(--accent)]"
+        >
+          <p class="text-xs" style="color: var(--text-faint);">
+            Chapitre {next.number} →
+          </p>
+          <p class="mt-0.5 font-medium">{next.title}</p>
+        </a>
+      )
+    }
+  </nav>
+</Base>

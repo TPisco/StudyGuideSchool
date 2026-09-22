@@ -1,0 +1,40 @@
+---
+import Base from '../../../../../layouts/Base.astro';
+import QuizEngine from '../../../../../components/react/QuizEngine';
+import { getAllBundles } from '../../../../../lib/content';
+import { routes } from '../../../../../lib/paths';
+
+export async function getStaticPaths() {
+  const bundles = await getAllBundles();
+  return bundles.flatMap((b) =>
+    b.chapters.map((ch) => ({ params: { course: b.id, chapter: ch.slug }, props: { bundle: b, chapter: ch } })),
+  );
+}
+
+const { bundle, chapter } = Astro.props;
+const quiz = chapter.data.quiz;
+const questions = quiz.questions.map((q) => ({ ...q, chapterKey: chapter.key, chapterNumber: chapter.number }));
+---
+
+<Base title={`Quiz — ${chapter.title}`} accent={bundle.course.accent}>
+  <nav aria-label="Fil d'Ariane" class="mb-5 flex flex-wrap items-center gap-1.5 text-sm" style="color: var(--text-faint);">
+    <a href={routes.course(bundle.id)} class="hover:underline">{bundle.course.code}</a>
+    <span aria-hidden="true">/</span>
+    <a href={routes.chapter(bundle.id, chapter.slug)} class="hover:underline">Chapitre {chapter.number}</a>
+    <span aria-hidden="true">/</span>
+    <span>Quiz</span>
+  </nav>
+
+  <h1 class="mb-5 text-2xl font-bold tracking-tight">{quiz.title ?? 'Quiz'} — {chapter.title}</h1>
+
+  <QuizEngine
+    client:load
+    courseId={bundle.id}
+    mode="quiz"
+    title={quiz.title ?? `Quiz du chapitre ${chapter.number}`}
+    instructions={quiz.instructions}
+    questions={questions}
+    chapterKey={chapter.key}
+    homeHref={routes.chapter(bundle.id, chapter.slug)}
+  />
+</Base>
