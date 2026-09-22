@@ -1,0 +1,41 @@
+---
+import Base from '../../../layouts/Base.astro';
+import RoadmapView from '../../../components/react/RoadmapView';
+import { getAllBundles, objectiveIndexFor } from '../../../lib/content';
+import { BASE, routes } from '../../../lib/paths';
+
+export async function getStaticPaths() {
+  const bundles = await getAllBundles();
+  return bundles.map((b) => ({ params: { course: b.id }, props: { bundle: b } }));
+}
+
+const { bundle } = Astro.props;
+const chapters = bundle.chapters.map((ch) => ({
+  slug: ch.slug,
+  number: ch.number,
+  title: ch.title,
+  objectiveIds: ch.objectiveIds,
+}));
+---
+
+<Base title={`Parcours — ${bundle.course.title}`} accent={bundle.course.accent}>
+  <nav aria-label="Fil d'Ariane" class="mb-5 text-sm" style="color: var(--text-faint);">
+    <a href={routes.courses()} class="hover:underline">Cours</a>
+    <span aria-hidden="true"> / </span>
+    <a href={routes.course(bundle.id)} class="hover:underline">{bundle.course.code}</a>
+    <span aria-hidden="true"> / </span>
+    <span>Parcours</span>
+  </nav>
+
+  <h1 class="mb-6 text-2xl font-bold tracking-tight sm:text-3xl">Parcours d'apprentissage</h1>
+
+  <RoadmapView
+    client:load
+    courseId={bundle.id}
+    title={bundle.course.roadmap.title}
+    steps={bundle.course.roadmap.steps}
+    chapters={chapters}
+    objectives={objectiveIndexFor(bundle)}
+    base={BASE}
+  />
+</Base>

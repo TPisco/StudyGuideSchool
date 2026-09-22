@@ -1,0 +1,37 @@
+---
+import Base from '../../../layouts/Base.astro';
+import ExamBuilder from '../../../components/react/ExamBuilder';
+import { getAllBundles, questionPool } from '../../../lib/content';
+import { routes } from '../../../lib/paths';
+
+export async function getStaticPaths() {
+  const bundles = await getAllBundles();
+  return bundles.map((b) => ({ params: { course: b.id }, props: { bundle: b } }));
+}
+
+const { bundle } = Astro.props;
+const pool = questionPool(bundle);
+const chapters = bundle.chapters.map((ch) => ({ slug: ch.slug, number: ch.number, title: ch.title }));
+---
+
+<Base title={`Examen blanc — ${bundle.course.title}`} accent={bundle.course.accent}>
+  <nav aria-label="Fil d'Ariane" class="mb-5 text-sm" style="color: var(--text-faint);">
+    <a href={routes.courses()} class="hover:underline">Cours</a>
+    <span aria-hidden="true"> / </span>
+    <a href={routes.course(bundle.id)} class="hover:underline">{bundle.course.code}</a>
+    <span aria-hidden="true"> / </span>
+    <span>Examen blanc</span>
+  </nav>
+
+  <h1 class="mb-6 text-2xl font-bold tracking-tight sm:text-3xl">Examen blanc</h1>
+
+  <ExamBuilder
+    client:load
+    courseId={bundle.id}
+    courseTitle={bundle.course.title}
+    questions={pool}
+    chapters={chapters}
+    defaults={bundle.course.exam}
+    homeHref={routes.course(bundle.id)}
+  />
+</Base>

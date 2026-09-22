@@ -1,0 +1,80 @@
+---
+import Base from '../layouts/Base.astro';
+import HomePanel from '../components/react/HomePanel';
+import { allCards, allObjectives, getAllBundles } from '../lib/content';
+import { BASE, routes } from '../lib/paths';
+
+const bundles = await getAllBundles();
+const objectives = await allObjectives();
+const cards = await allCards();
+
+const courses = bundles.map((b) => ({
+  id: b.id,
+  code: b.course.code,
+  title: b.course.title,
+  accent: b.course.accent,
+  sample: b.course.sample,
+  term: b.course.term,
+  description: b.course.description,
+  chapters: b.chapters.map((ch) => ({
+    slug: ch.slug,
+    number: ch.number,
+    title: ch.title,
+    objectiveIds: ch.objectiveIds,
+  })),
+}));
+
+const cardKeys = cards.map((c) => ({ key: c.key, courseId: c.courseId }));
+const chapterCount = courses.reduce((n, c) => n + c.chapters.length, 0);
+---
+
+<Base title="Accueil" description="Plateforme d'étude personnelle générée à partir de mes documents de cours." wide>
+  <header class="mb-8">
+    <h1 class="text-3xl font-bold tracking-tight sm:text-4xl">Réviser</h1>
+    <p class="mt-2 max-w-2xl text-[1.02rem]" style="color: var(--text-muted);">
+      {courses.length} cours · {chapterCount} chapitres · {cards.length} cartes mémoire. Tout reste
+      consultable hors ligne une fois la page chargée.
+    </p>
+  </header>
+
+  <div class="mb-10">
+    <HomePanel client:load courses={courses} objectives={objectives} cardKeys={cardKeys} base={BASE} />
+  </div>
+
+  <section>
+    <h2 class="mb-4 text-xl font-semibold tracking-tight">Mes cours</h2>
+    <div class="grid gap-3 sm:grid-cols-2">
+      {
+        courses.map((c) => (
+          <a
+            href={routes.course(c.id)}
+            class="card p-5 transition-colors hover:border-[var(--accent)]"
+            data-accent={c.accent}
+          >
+            <div class="mb-2 flex flex-wrap items-center gap-1.5">
+              <span class="chip chip-accent">{c.code}</span>
+              <span class="chip">{c.term}</span>
+              <span class="chip">{c.chapters.length} chapitres</span>
+              {c.sample && <span class="chip chip-warn">démonstration</span>}
+            </div>
+            <h3 class="text-lg font-semibold leading-snug tracking-tight">{c.title}</h3>
+            <p class="mt-1.5 line-clamp-3 text-sm" style="color: var(--text-muted);">
+              {c.description}
+            </p>
+          </a>
+        ))
+      }
+    </div>
+  </section>
+
+  <section class="mt-10 border-t pt-6" style="border-color: var(--border);">
+    <h2 class="mb-3 text-sm font-semibold uppercase tracking-wide" style="color: var(--text-muted);">
+      Ajouter un cours
+    </h2>
+    <p class="text-sm" style="color: var(--text-muted);">
+      Déposer les documents dans <code>content/sources/&lt;CODE-DU-COURS&gt;/</code>, puis lancer
+      <code>/add-course &lt;CODE-DU-COURS&gt;</code> dans Claude Code. Les fichiers sources restent
+      locaux : ils ne sont jamais committés ni déployés.
+    </p>
+  </section>
+</Base>

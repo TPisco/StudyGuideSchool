@@ -1,0 +1,37 @@
+---
+import Base from '../layouts/Base.astro';
+import Dashboard from '../components/react/Dashboard';
+import { allCards, allObjectives, getAllBundles } from '../lib/content';
+import { BASE } from '../lib/paths';
+
+const bundles = await getAllBundles();
+const objectives = await allObjectives();
+const cards = await allCards();
+
+const courses = bundles.map((b) => ({
+  id: b.id,
+  code: b.course.code,
+  title: b.course.title,
+  accent: b.course.accent,
+  chapters: b.chapters.map((ch) => ({
+    slug: ch.slug,
+    number: ch.number,
+    title: ch.title,
+    objectiveIds: ch.objectiveIds,
+  })),
+}));
+
+const cardKeys = cards.map((c) => ({ key: c.key, courseId: c.courseId }));
+---
+
+<Base title="Tableau de bord" wide>
+  <header class="mb-6">
+    <h1 class="text-2xl font-bold tracking-tight sm:text-3xl">Tableau de bord</h1>
+    <p class="mt-2 text-sm" style="color: var(--text-muted);">
+      Maîtrise par objectif d'apprentissage, détection automatique des sujets faibles, et historique
+      des tentatives.
+    </p>
+  </header>
+
+  <Dashboard client:load courses={courses} objectives={objectives} cardKeys={cardKeys} base={BASE} />
+</Base>
