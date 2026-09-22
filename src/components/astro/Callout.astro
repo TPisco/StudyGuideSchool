@@ -1,0 +1,34 @@
+---
+interface Props {
+  type?: 'note' | 'warning' | 'misconception' | 'example' | 'tip';
+  title?: string;
+}
+const { type = 'note', title } = Astro.props;
+
+const styles = {
+  note:          { color: 'var(--info)',   icon: 'i',  fallback: 'À retenir' },
+  tip:           { color: 'var(--ok)',     icon: '+',  fallback: 'Astuce' },
+  warning:       { color: 'var(--warn)',   icon: '!',  fallback: 'Attention' },
+  misconception: { color: 'var(--bad)',    icon: '✗',  fallback: 'Erreur classique' },
+  example:       { color: 'var(--accent)', icon: '▸',  fallback: 'Exemple' },
+} as const;
+
+const s = styles[type] ?? styles.note;
+---
+
+<aside
+  class="not-prose my-6 rounded-xl border p-4 sm:p-5"
+  style={`border-color: color-mix(in srgb, ${s.color} 38%, transparent); background: color-mix(in srgb, ${s.color} 9%, transparent);`}
+>
+  <p class="mb-2 flex items-center gap-2 text-[0.92rem] font-semibold" style={`color: ${s.color};`}>
+    <span
+      aria-hidden="true"
+      class="grid h-5 w-5 shrink-0 place-items-center rounded-md text-[0.7rem] font-bold"
+      style={`background: color-mix(in srgb, ${s.color} 20%, transparent);`}>{s.icon}</span
+    >
+    {title ?? s.fallback}
+  </p>
+  <div class="callout-body text-[0.95rem] leading-relaxed [&>p]:my-2 [&>p:first-child]:mt-0 [&>p:last-child]:mb-0 [&_ul]:my-2 [&_ul]:list-disc [&_ul]:pl-5 [&_li]:my-1">
+    <slot />
+  </div>
+</aside>

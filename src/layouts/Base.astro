@@ -1,0 +1,142 @@
+---
+import '../styles/global.css';
+import 'katex/dist/katex.min.css';
+import { routes, BASE } from '../lib/paths';
+
+interface Props {
+  title: string;
+  description?: string;
+  accent?: string;
+  /** Wider layout for reading; default is the standard content column. */
+  wide?: boolean;
+}
+
+const { title, description, accent = 'indigo', wide = false } = Astro.props;
+const fullTitle = title === 'Accueil' ? 'Révisions' : `${title} · Révisions`;
+
+const nav = [
+  { href: routes.home(), label: 'Accueil', match: /^\/?$/ },
+  { href: routes.courses(), label: 'Cours', match: /^\/cours/ },
+  { href: routes.review(), label: 'Révision', match: /^\/revision/ },
+  { href: routes.dashboard(), label: 'Tableau de bord', match: /^\/tableau-de-bord/ },
+  { href: routes.search(), label: 'Recherche', match: /^\/recherche/ },
+  { href: routes.data(), label: 'Données', match: /^\/donnees/ },
+];
+
+const current = Astro.url.pathname.replace(BASE, '') || '/';
+---
+
+<!doctype html>
+<html lang="fr" data-theme="dark" data-accent={accent}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{fullTitle}</title>
+    {description && <meta name="description" content={description} />}
+    <meta name="robots" content="noindex, nofollow" />
+    <meta name="color-scheme" content="dark light" />
+    <link rel="icon" href={`${BASE}/favicon.svg`} type="image/svg+xml" />
+    <!-- Applied before first paint so the chosen theme never flashes. -->
+    <script is:inline>
+      (function () {
+        try {
+          var t = localStorage.getItem('studyguide.theme');
+          if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t;
+        } catch (e) {
+          /* storage blocked — stay on the dark default */
+        }
+      })();
+    </script>
+  </head>
+
+  <body>
+    <a
+      href="#contenu"
+      class="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-50 focus:rounded-lg focus:px-4 focus:py-2"
+      style="background: var(--accent); color: #0b1020;">Aller au contenu</a
+    >
+
+    <nav
+      class="site-nav sticky top-0 z-40 border-b backdrop-blur"
+      style="background: color-mix(in srgb, var(--surface) 88%, transparent); border-color: var(--border);"
+    >
+      <div class="mx-auto flex max-w-6xl items-center gap-3 px-4 py-2.5">
+        <a href={routes.home()} class="flex shrink-0 items-center gap-2 font-semibold tracking-tight">
+          <span
+            class="grid h-7 w-7 place-items-center rounded-lg text-sm font-bold"
+            style="background: var(--accent-soft); color: var(--accent);">R</span
+          >
+          <span class="hidden sm:inline">Révisions</span>
+        </a>
+
+        <div class="-mx-1 flex min-w-0 flex-1 items-center gap-0.5 overflow-x-auto px-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+          {
+            nav.slice(1).map((item) => (
+              <a
+                href={item.href}
+                class="shrink-0 rounded-lg px-2.5 py-1.5 text-sm transition-colors"
+                style={
+                  item.match.test(current)
+                    ? 'background: var(--accent-soft); color: var(--accent); font-weight: 600;'
+                    : 'color: var(--text-muted);'
+                }
+              >
+                {item.label}
+              </a>
+            ))
+          }
+        </div>
+
+        <button
+          id="theme-toggle"
+          type="button"
+          class="btn btn-sm btn-ghost shrink-0"
+          aria-label="Basculer le thème clair / sombre"
+          title="Thème clair / sombre"
+        >
+          <span aria-hidden="true" class="theme-icon-dark">☾</span>
+          <span aria-hidden="true" class="theme-icon-light hidden">☀</span>
+        </button>
+      </div>
+    </nav>
+
+    <main id="contenu" class={`mx-auto w-full px-4 py-7 sm:py-10 ${wide ? 'max-w-6xl' : 'max-w-4xl'}`}>
+      <slot />
+    </main>
+
+    <footer class="site-footer mt-16 border-t py-7 text-center text-xs" style="border-color: var(--border); color: var(--text-faint);">
+      <p>
+        Plateforme d'étude personnelle · contenu généré à partir de mes propres documents de cours.
+      </p>
+      <p class="mt-1.5">
+        Les documents sources restent locaux et ne sont jamais publiés.
+        <a href={routes.data()} class="underline underline-offset-2">Sauvegarder ma progression</a>
+      </p>
+    </footer>
+
+    <script is:inline>
+      (function () {
+        var btn = document.getElementById('theme-toggle');
+        if (!btn) return;
+        function sync() {
+          var dark = document.documentElement.dataset.theme !== 'light';
+          var d = btn.querySelector('.theme-icon-dark');
+          var l = btn.querySelector('.theme-icon-light');
+          if (d) d.classList.toggle('hidden', !dark);
+          if (l) l.classList.toggle('hidden', dark);
+        }
+        btn.addEventListener('click', function () {
+          var next = document.documentElement.dataset.theme === 'light' ? 'dark' : 'light';
+          document.documentElement.dataset.theme = next;
+          try {
+            localStorage.setItem('studyguide.theme', next);
+          } catch (e) {
+            /* ignore */
+          }
+          sync();
+        });
+        sync();
+      })();
+    </script>
+  </body>
+</html>

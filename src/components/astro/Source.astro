@@ -1,0 +1,29 @@
+---
+/**
+ * Inline citation chip. Fidelity rule 1: every concept, formula and example
+ * carries its origin, and the UI shows it.
+ */
+interface Props {
+  file: string;
+  page?: number | string;
+  locator?: string;
+  quote?: string;
+  inline?: boolean;
+}
+const { file, page, locator, quote, inline = false } = Astro.props;
+
+const bits = [file];
+if (page !== undefined) bits.push(`p. ${page}`);
+if (locator) bits.push(locator);
+const label = bits.join(' · ');
+---
+
+<span
+  class:list={['chip', !inline && 'not-prose my-3 inline-flex']}
+  style="font-weight: 500; font-size: 0.7rem;"
+  title={quote ? `« ${quote} »` : `Source : ${label}`}
+>
+  <span aria-hidden="true" style="opacity: 0.7;">◆</span>
+  <span class="sr-only">Source&nbsp;:</span>
+  {label}
+</span>
