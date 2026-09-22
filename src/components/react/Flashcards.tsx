@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState, type FormEvent } from 'react';
+import { useCallback, useEffect, useMemo, useState, type SyntheticEvent } from 'react';
 import type { StudyCard } from '../../lib/content';
 import { addCustomCard, cardKey, removeCustomCard, touchStreak, update } from '../../lib/progress';
 import type { CardState } from '../../lib/progress';
@@ -392,7 +392,7 @@ function AddCardForm({ courses, onDone }: { courses: { id: string; code: string 
   const [back, setBack] = useState('');
   const [courseId, setCourseId] = useState(courses[0]?.id ?? 'perso');
 
-  const submit = (e: FormEvent<HTMLFormElement>) => {
+  const submit = (e: SyntheticEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!front.trim() || !back.trim()) return;
     addCustomCard({ courseId, objectiveId: 'perso', front: front.trim(), back: back.trim() });
