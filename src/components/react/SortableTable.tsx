@@ -59,7 +59,7 @@ export default function SortableTable({ table }: { table: SummaryTable }) {
           <h3 className="font-semibold tracking-tight">{table.title}</h3>
           {table.caption && (
             <p className="mt-0.5 text-xs" style={{ color: 'var(--text-faint)' }}>
-              {table.caption}
+              <MathText text={table.caption} />
             </p>
           )}
         </div>
