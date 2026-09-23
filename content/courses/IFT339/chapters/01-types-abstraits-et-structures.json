@@ -1,0 +1,975 @@
+{
+  "course": "IFT339",
+  "chapter": 1,
+  "concepts": [
+    {
+      "id": "c1-tda",
+      "term": "Type de données abstrait (TDA)",
+      "definition": "Spécifications d'un ensemble d'objets de même type et d'un ensemble d'opérations possibles sur ces objets : une vue logique des données, indépendante de toute implantation.",
+      "whyItMatters": "C'est le contrat entre celui qui développe la structure et celui qui l'utilise. Il permet de concevoir sans être encombré de détails techniques et de repousser les décisions de représentation physique aux étapes ultérieures.",
+      "commonMisconception": "Croire qu'un TDA décrit comment les données sont stockées. Il spécifie le type des données contenues et les opérations possibles ; il ne dit ni comment les données sont stockées, ni comment les méthodes sont implémentées.",
+      "objectiveId": "obj1-tda-sd",
+      "source": { "file": "IFT339-1-Abstraction de données (3).pdf", "page": 8, "locator": "Diapositives 8 et 9" }
+    },
+    {
+      "id": "c1-structure-donnees",
+      "term": "Structure de données",
+      "definition": "Implémentation d'un TDA dans un langage donné. Elle inclut la représentation des objets, l'implémentation des algorithmes des opérations spécifiées, et des opérations non spécifiées, cachées.",
+      "whyItMatters": "C'est le niveau où les choix concrets se font. Un même TDA peut avoir plusieurs structures de données, et c'est ce qui rend l'implantation remplaçable sans casser le code client.",
+      "commonMisconception": "Confondre structure de données et TDA parce qu'en C++ les deux vivent dans la même classe. Le .h porte la partie contractuelle (publique), le .cpp la partie implantation (cachée) : la frontière existe même si le fichier est unique.",
+      "objectiveId": "obj1-tda-sd",
+      "source": { "file": "IFT339-1-Abstraction de données (3).pdf", "page": 15, "locator": "Diapositives 15 et 16" }
+    },
+    {
+      "id": "c1-contrat",
+      "term": "Type abstrait = contrat",
+      "definition": "Définition formelle du comportement d'une structure de données : la relation entre les valeurs des paramètres et le retour des opérations. Il dit ce que doit faire la structure, pas comment le faire.",
+      "whyItMatters": "Le développeur y vérifie que sa réalisation respecte les propriétés ; l'usager y connaît le comportement a priori, sans les détails d'implantation.",
+      "commonMisconception": "Écrire dans la spécification une contrainte d'implantation — « stocké dans un tableau », « trié à l'insertion ». Les notes exigent explicitement d'éviter de poser des contraintes d'implantation : cela ferme des choix qui ne devraient l'être qu'à l'étape suivante.",
+      "objectiveId": "obj1-specifier",
+      "source": { "file": "IFT339-1-Abstraction de données (3).pdf", "page": 11, "locator": "Diapositives 11 à 13" }
+    },
+    {
+      "id": "c1-caracteristiques",
+      "term": "Caractéristiques d'un TDA",
+      "definition": "Trois éléments à fournir : l'identité (le nom du type), le type des données (le domaine), et les opérations sous la forme « paramètres ➔ retour ».",
+      "whyItMatters": "C'est la grille à appliquer pour spécifier un TDA de zéro ; l'exercice 1 du chapitre (le bottin d'entreprise) demande exactement nom, domaine, prototype et sémantique.",
+      "commonMisconception": "Donner les prototypes sans le domaine. Sans domaine, « créer : Réel x Réel ➔ Point2D » ne dit pas quelles valeurs sont admissibles, et la sémantique des opérations devient invérifiable.",
+      "objectiveId": "obj1-specifier",
+      "source": { "file": "IFT339-1-Abstraction de données (3).pdf", "page": 10, "locator": "Diapositive 10" }
+    },
+    {
+      "id": "c1-bijection",
+      "term": "Bijection représentation ↔ éléments",
+      "definition": "Critère d'une bonne représentation : à chaque élément du type correspond exactement une représentation, et à chaque représentation exactement un élément.",
+      "whyItMatters": "Les deux façons d'échouer ont des symptômes distincts : un élément sans représentation est inexprimable ; deux représentations pour un même élément cassent l'égalité.",
+      "commonMisconception": "Ne vérifier qu'un seul sens. Une représentation polaire (rayon, angle) couvre bien tous les points, mais (1, π/4) et (1, 5π/4) désignent le même point : estÉgal retourne faux sur deux représentations du même élément.",
+      "objectiveId": "obj1-representation",
+      "source": { "file": "IFT339-1-Abstraction de données (3).pdf", "page": 26, "locator": "Diapositives 26 à 28" }
+    },
+    {
+      "id": "c1-abstraction-procedurale",
+      "term": "Abstraction procédurale",
+      "definition": "Séparation entre la description du comportement des types — prototypes et sémantique des opérations — et les algorithmes qui réalisent ces opérations.",
+      "whyItMatters": "C'est le mécanisme par lequel la POO réalise la programmation par type abstrait, au même titre que la modularité et l'encapsulation.",
+      "commonMisconception": "Confondre abstraction procédurale et encapsulation. L'encapsulation cache la représentation des données dans la définition du type ; l'abstraction procédurale sépare le comportement annoncé de l'algorithme qui le réalise.",
+      "objectiveId": "obj1-poo",
+      "source": { "file": "IFT339-1-Abstraction de données (3).pdf", "page": 24, "locator": "Diapositive 24" }
+    },
+    {
+      "id": "c1-types-primitifs",
+      "term": "Types primitifs et types usagers",
+      "definition": "Les types primitifs sont prédéfinis dans le langage ; les types usagers sont les nouveaux types intégrés au langage par le programmeur.",
+      "whyItMatters": "L'objectif de la POO énoncé par le cours est l'intégration harmonieuse des types usagers, en utilisant l'architecture et les types existants, pour que le compilateur les traite avec la même cohérence.",
+      "commonMisconception": "Croire que les types primitifs échappent à la logique du TDA. Le document « Exemple TAD entier » spécifie le type Entier comme un TDA à part entière, avec domaine et opérations.",
+      "objectiveId": "obj1-poo",
+      "source": { "file": "IFT339-1-Abstraction de données (3).pdf", "page": 25, "locator": "Diapositive 25" }
+    },
+    {
+      "id": "c1-complement-deux",
+      "term": "Complément à deux",
+      "definition": "Procédé d'inversion d'un entier sur n bits : prendre le complément à 1 de la représentation (inverser chaque bit), puis additionner 1.",
+      "whyItMatters": "C'est ce qui permet de représenter les négatifs sans bit de signe séparé, et ce qui explique l'intervalle asymétrique [−2ⁿ⁻¹, 2ⁿ⁻¹ − 1].",
+      "commonMisconception": "Compléter avec des zéros lors du passage de 8 à 16 bits. Pour −46 (11010010) cela donnerait 0000000011010010, soit +210. Il faut propager le bit de poids fort sur les nouveaux bits.",
+      "objectiveId": "obj1-entiers",
+      "source": { "file": "Exemple TAD entier (3).pdf", "page": 8 }
+    }
+  ],
+  "tables": [
+    {
+      "id": "t1-tda-vs-sd",
+      "title": "TDA et structure de données : qui répond de quoi",
+      "kind": "comparison",
+      "caption": "La colonne de gauche est le contrat ; celle de droite est une réalisation parmi d'autres.",
+      "columns": [
+        { "key": "aspect", "label": "Aspect" },
+        { "key": "tda", "label": "Type de données abstrait" },
+        { "key": "sd", "label": "Structure de données" }
+      ],
+      "rows": [
+        { "aspect": "Rôle", "tda": "spécifie le comportement", "sd": "implémente le comportement" },
+        { "aspect": "Contient", "tda": "identité, domaine, opérations (paramètres ➔ retour)", "sd": "représentation des objets + algorithmes des opérations" },
+        { "aspect": "Opérations cachées", "tda": "aucune — tout est spécifié", "sd": "peut en ajouter, non visibles de l'usager" },
+        { "aspect": "Dépend du langage", "tda": "non", "sd": "oui — implémentation dans un langage donné" },
+        { "aspect": "Vue", "tda": "vue d'utilisation, spécifications visibles", "sd": "vue de conception, spécifications cachées" },
+        { "aspect": "En C++", "tda": "partie publique du .h", "sd": "partie privée du .h et le .cpp" }
+      ],
+      "source": { "file": "IFT339-1-Abstraction de données (3).pdf", "page": 17, "locator": "Diapositives 15 à 17" }
+    },
+    {
+      "id": "t1-avantages",
+      "title": "Programmation par type abstrait : avantages et inconvénients",
+      "kind": "comparison",
+      "caption": "« Efficacité » figure des deux côtés dans les notes : efficacité de développement contre efficacité d'exécution.",
+      "columns": [
+        { "key": "avantage", "label": "Avantages" },
+        { "key": "inconvenient", "label": "Inconvénients" }
+      ],
+      "rows": [
+        { "avantage": "Encapsulation", "inconvenient": "Efficacité" },
+        { "avantage": "Abstraction", "inconvenient": "Complexité" },
+        { "avantage": "Indépendance de la structure de données", "inconvenient": "Courbe d'apprentissage" },
+        { "avantage": "Dissimulation d'informations", "inconvenient": "Flexibilité limitée" },
+        { "avantage": "Modularité", "inconvenient": "Coût de développement" },
+        { "avantage": "Réutilisabilité", "inconvenient": "—" },
+        { "avantage": "Efficacité", "inconvenient": "—" }
+      ],
+      "source": { "file": "IFT339-1-Abstraction de données (3).pdf", "page": 20, "locator": "Diapositive 20" }
+    },
+    {
+      "id": "t1-entiers",
+      "title": "Entiers sur n bits : non signés et signés",
+      "kind": "reference",
+      "caption": "Même nombre de représentations (2ⁿ), intervalles différents.",
+      "columns": [
+        { "key": "cas", "label": "Cas" },
+        { "key": "intervalle", "label": "Intervalle", "mono": true },
+        { "key": "regle", "label": "Règle de lecture" },
+        { "key": "ex4", "label": "Sur 4 bits", "mono": true }
+      ],
+      "rows": [
+        {
+          "cas": "Non signé",
+          "intervalle": "[0, 2ⁿ − 1]",
+          "regle": "somme des bᵢ × 2ⁱ",
+          "ex4": "1111 = 15"
+        },
+        {
+          "cas": "Signé, positif ou nul",
+          "intervalle": "[0, 2ⁿ⁻¹ − 1]",
+          "regle": "bit de poids fort bₙ₋₁ = 0",
+          "ex4": "0111 = 7"
+        },
+        {
+          "cas": "Signé, négatif",
+          "intervalle": "[−2ⁿ⁻¹, −1]",
+          "regle": "bₙ₋₁ = 1 ; valeur = somme − 2ⁿ",
+          "ex4": "1000 = −8"
+        }
+      ],
+      "source": { "file": "Exemple TAD entier (3).pdf", "page": 4 }
+    }
+  ],
+  "quiz": {
+    "title": "Quiz — vérification rapide",
+    "estimatedMinutes": 14,
+    "questions": [
+      {
+        "id": "q1-01",
+        "objectiveId": "obj1-tda-sd",
+        "bloomLevel": "recall",
+        "type": "mcq",
+        "difficulty": 1,
+        "prompt": "Selon les notes, qu'est-ce qu'un TDA ne spécifie PAS ?",
+        "options": [
+          { "id": "a", "text": "La façon dont les données sont stockées et comment les méthodes sont implémentées." },
+          { "id": "b", "text": "Le type des données contenues." },
+          { "id": "c", "text": "Les opérations qui peuvent être effectuées sur les données." },
+          { "id": "d", "text": "Le nom du type." }
+        ],
+        "correct": "a",
+        "explanation": "La diapositive 9 oppose explicitement les deux colonnes : un TDA spécifie le type des données contenues et une description détaillée des opérations ; il ne spécifie ni le stockage, ni l'implémentation des méthodes.",
+        "perDistractorExplanation": [
+          { "optionId": "b", "why": "Le type des données contenues — le domaine — fait justement partie de ce que le TDA spécifie." },
+          { "optionId": "c", "why": "La description détaillée des opérations est le cœur du TDA : c'est le contrat." },
+          { "optionId": "d", "why": "Le nom est l'identité, l'une des trois caractéristiques à fournir avec le domaine et les opérations." }
+        ],
+        "source": { "file": "IFT339-1-Abstraction de données (3).pdf", "page": 9 }
+      },
+      {
+        "id": "q1-02",
+        "objectiveId": "obj1-specifier",
+        "bloomLevel": "recall",
+        "type": "multi",
+        "difficulty": 1,
+        "prompt": "Quelles sont les caractéristiques à fournir pour décrire un TDA ? (plusieurs réponses)",
+        "options": [
+          { "id": "a", "text": "L'identité" },
+          { "id": "b", "text": "Le type des données (domaine)" },
+          { "id": "c", "text": "Les opérations, sous la forme paramètres ➔ retour" },
+          { "id": "d", "text": "La complexité de chaque opération" }
+        ],
+        "correct": ["a", "b", "c"],
+        "explanation": "La diapositive 10 donne exactement ces trois caractéristiques : identité, type des données (domaine), et opérations « paramètres ➔ retour ».",
+        "perDistractorExplanation": [
+          { "optionId": "d", "why": "La complexité est une propriété de l'implantation, donc de la structure de données. La faire figurer dans le TDA reviendrait à poser une contrainte d'implantation, ce que les notes interdisent explicitement." }
+        ],
+        "source": { "file": "IFT339-1-Abstraction de données (3).pdf", "page": 10 }
+      },
+      {
+        "id": "q1-03",
+        "objectiveId": "obj1-tda-sd",
+        "bloomLevel": "understand",
+        "type": "true-false",
+        "difficulty": 2,
+        "prompt": "Un même TDA peut être implanté par plusieurs structures de données différentes.",
+        "options": [
+          { "id": "v", "text": "Vrai" },
+          { "id": "f", "text": "Faux" }
+        ],
+        "correct": "v",
+        "explanation": "C'est l'exemple central du chapitre : le TDA Point2D « points dans un plan » admet une représentation par coordonnées (tableau de 2 Réels) et une représentation polaire (rayon, angle). Le contrat est le même ; les structures diffèrent.",
+        "perDistractorExplanation": [
+          { "optionId": "f", "why": "Ce serait nier l'indépendance du TDA vis-à-vis de la représentation, qui est précisément ce qui rend l'implantation remplaçable." }
+        ],
+        "source": { "file": "IFT339-1-Abstraction de données (3).pdf", "page": 18 }
+      },
+      {
+        "id": "q1-04",
+        "objectiveId": "obj1-representation",
+        "bloomLevel": "analyze",
+        "type": "mcq",
+        "difficulty": 3,
+        "prompt": "Un TDA Point2D a pour domaine les points du plan à coordonnées réelles. On propose la représentation « abscisse : Entier, ordonnée : Entier ». Quel est le défaut ?",
+        "options": [
+          { "id": "a", "text": "Des éléments du type n'ont aucune représentation — le point (1 ; 1,5) est inexprimable." },
+          { "id": "b", "text": "Un même point a plusieurs représentations possibles." },
+          { "id": "c", "text": "La représentation occupe trop de mémoire." },
+          { "id": "d", "text": "Aucun défaut : un entier est un cas particulier de réel." }
+        ],
+        "correct": "a",
+        "explanation": "La bijection est rompue dans le sens élément → représentation. Le domaine annoncé contient des points à coordonnées réelles ; la représentation n'en couvre qu'une partie. Le code compile et les tests sur des points entiers passent : le défaut est dans la représentation, pas dans le code qui l'utilise.",
+        "perDistractorExplanation": [
+          { "optionId": "b", "why": "C'est l'autre façon d'échouer, illustrée par la représentation polaire où (1, π/4) et (1, 5π/4) désignent le même point. Ici chaque point entier n'a bien qu'une représentation." },
+          { "optionId": "c", "why": "Un entier occupe autant ou moins qu'un réel. La mémoire n'est pas le critère : le critère est la bijection." },
+          { "optionId": "d", "why": "L'inclusion va dans l'autre sens — tout entier est un réel, mais la représentation doit couvrir tout le domaine, pas un sous-ensemble." }
+        ],
+        "source": { "file": "IFT339-1-Abstraction de données (3).pdf", "page": 27 }
+      },
+      {
+        "id": "q1-05",
+        "objectiveId": "obj1-entiers",
+        "bloomLevel": "apply",
+        "type": "short-answer",
+        "difficulty": 2,
+        "prompt": "En appliquant l'algorithme des notes, quelle est la représentation binaire de 46 sur 8 bits ? (8 chiffres)",
+        "correct": "00101110",
+        "acceptableAnswers": ["0010 1110"],
+        "explanation": "L'algorithme donne b5 = 1 (46/32 = 1, reste 14), b3 = 1 (14/8 = 1, reste 6), b2 = 1 (6/4 = 1, reste 2), b1 = 1 (2/2 = 1, reste 0), les autres à 0. D'où 00101110, soit 32 + 8 + 4 + 2 = 46.",
+        "source": { "file": "Exemple TAD entier (3).pdf", "page": 7 }
+      },
+      {
+        "id": "q1-06",
+        "objectiveId": "obj1-entiers",
+        "bloomLevel": "apply",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "La représentation de 46 sur 8 bits est 00101110. Quelle est celle de −46 ?",
+        "options": [
+          { "id": "a", "text": "11010010" },
+          { "id": "b", "text": "11010001" },
+          { "id": "c", "text": "10101110" },
+          { "id": "d", "text": "10010111" }
+        ],
+        "correct": "a",
+        "explanation": "Complément à 1 de 00101110 → 11010001, puis on additionne 1 → 11010010. Les deux étapes sont indissociables.",
+        "perDistractorExplanation": [
+          { "optionId": "b", "why": "C'est le complément à 1, sans l'addition de 1. L'étape est à moitié faite : 11010001 vaut −47, pas −46." },
+          { "optionId": "c", "why": "C'est 00101110 avec le seul bit de poids fort basculé, comme s'il s'agissait d'un bit de signe indépendant. Ce n'est pas la convention du complément à deux." },
+          { "optionId": "d", "why": "Ne correspond à aucune étape de l'algorithme ; les bits ne sont ni le complément ni le résultat de l'addition." }
+        ],
+        "source": { "file": "Exemple TAD entier (3).pdf", "page": 8 }
+      },
+      {
+        "id": "q1-07",
+        "objectiveId": "obj1-poo",
+        "bloomLevel": "understand",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Selon les notes, qu'est-ce que l'abstraction procédurale ?",
+        "options": [
+          { "id": "a", "text": "La séparation entre la description du comportement des types et les algorithmes des opérations." },
+          { "id": "b", "text": "Le fait de cacher la représentation des données dans la définition du type." },
+          { "id": "c", "text": "Le découpage d'un programme en un ensemble de types interagissant entre eux." },
+          { "id": "d", "text": "Le remplacement des boucles par des appels de fonctions." }
+        ],
+        "correct": "a",
+        "explanation": "La diapositive 24 distingue trois mécanismes par lesquels la POO réalise la programmation par type abstrait : modularité, encapsulation, et abstraction procédurale — cette dernière étant la séparation entre comportement annoncé et algorithme réalisant.",
+        "perDistractorExplanation": [
+          { "optionId": "b", "why": "C'est l'encapsulation, l'un des deux autres mécanismes cités sur la même diapositive." },
+          { "optionId": "c", "why": "C'est la modularité, le troisième mécanisme de la même liste." },
+          { "optionId": "d", "why": "Aucune des notes ne définit l'abstraction procédurale par le remplacement de structures de contrôle." }
+        ],
+        "source": { "file": "IFT339-1-Abstraction de données (3).pdf", "page": 24 }
+      },
+      {
+        "id": "q1-08",
+        "objectiveId": "obj1-specifier",
+        "bloomLevel": "analyze",
+        "type": "mcq",
+        "difficulty": 3,
+        "prompt": "Dans une spécification de TDA, laquelle de ces lignes viole la consigne « éviter de poser des contraintes d'implantation » ?",
+        "options": [
+          { "id": "a", "text": "« Les éléments sont conservés dans un tableau trié à l'insertion. »" },
+          { "id": "b", "text": "« taille : Conteneur ➔ entier positif — retourne le nombre d'éléments. »" },
+          { "id": "c", "text": "« estVide(d) = vrai SSI taille(d) = 0, faux sinon. »" },
+          { "id": "d", "text": "« créer : Ø ➔ Conteneur — le conteneur créé est vide. »" }
+        ],
+        "correct": "a",
+        "explanation": "« Tableau » et « trié à l'insertion » sont des décisions de représentation et d'algorithme : elles appartiennent à la structure de données. Les trois autres lignes décrivent uniquement la relation entre paramètres et retour, sans rien imposer sur le comment.",
+        "perDistractorExplanation": [
+          { "optionId": "b", "why": "Un prototype avec sa sémantique : exactement la forme attendue. Rien n'y contraint la façon de compter." },
+          { "optionId": "c", "why": "Une relation entre deux opérations du contrat. C'est de la sémantique pure, indépendante de toute implantation." },
+          { "optionId": "d", "why": "Décrit l'effet du constructeur sans dire comment l'état vide est réalisé en mémoire." }
+        ],
+        "source": { "file": "IFT339-1-Abstraction de données (3).pdf", "page": 11 }
+      },
+      {
+        "id": "q1-09",
+        "objectiveId": "obj1-tda-sd",
+        "bloomLevel": "understand",
+        "type": "fill-blank",
+        "difficulty": 1,
+        "prompt": "Compléter : la ____ de données est l'implémentation d'un TDA dans un langage donné.",
+        "correct": "structure",
+        "acceptableAnswers": ["structure de données", "structure de donnees"],
+        "explanation": "Structure de données. Elle inclut la représentation des objets, l'implémentation des algorithmes des opérations spécifiées, et d'éventuelles opérations non spécifiées et cachées.",
+        "source": { "file": "IFT339-1-Abstraction de données (3).pdf", "page": 15 }
+      },
+      {
+        "id": "q1-10",
+        "objectiveId": "obj1-entiers",
+        "bloomLevel": "apply",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Sur 4 bits en représentation signée, quelle valeur représente 1000 ?",
+        "options": [
+          { "id": "a", "text": "−8" },
+          { "id": "b", "text": "8" },
+          { "id": "c", "text": "−0" },
+          { "id": "d", "text": "−7" }
+        ],
+        "correct": "a",
+        "explanation": "Le bit de poids fort vaut 1, donc la valeur est négative : 1×2³ − 2⁴ = 8 − 16 = −8. C'est la borne inférieure de l'intervalle [−2ⁿ⁻¹, 2ⁿ⁻¹ − 1] = [−8, 7].",
+        "perDistractorExplanation": [
+          { "optionId": "b", "why": "8 serait la lecture non signée. En signé sur 4 bits, 8 sort de l'intervalle [−8, 7] et n'est pas représentable." },
+          { "optionId": "c", "why": "Le complément à deux n'a pas de zéro négatif — c'est précisément son avantage sur les représentations à bit de signe séparé, et la raison de l'asymétrie de l'intervalle." },
+          { "optionId": "d", "why": "−7 s'écrit 1001. L'écart d'une unité vient d'un complément à deux appliqué à l'envers." }
+        ],
+        "source": { "file": "Exemple TAD entier (3).pdf", "page": 5 }
+      },
+      {
+        "id": "q1-11",
+        "objectiveId": "obj1-poo",
+        "bloomLevel": "understand",
+        "type": "true-false",
+        "difficulty": 2,
+        "prompt": "Dans les notes, « efficacité » est présentée à la fois comme un avantage et comme un inconvénient de la programmation par type abstrait.",
+        "options": [
+          { "id": "v", "text": "Vrai" },
+          { "id": "f", "text": "Faux" }
+        ],
+        "correct": "v",
+        "explanation": "La diapositive 20 fait bien figurer « Efficacité » dans les deux colonnes. On gagne en efficacité de développement — réutiliser un type bien conçu — et on perd en efficacité d'exécution, par les couches d'indirection et des opérations générales là où un code spécialisé serait plus court.",
+        "perDistractorExplanation": [
+          { "optionId": "f", "why": "La liste des avantages et celle des inconvénients contiennent toutes deux le mot. Ce n'est pas une coquille : les deux efficacités ne portent pas sur la même chose." }
+        ],
+        "source": { "file": "IFT339-1-Abstraction de données (3).pdf", "page": 20 }
+      },
+      {
+        "id": "q1-12",
+        "objectiveId": "obj1-representation",
+        "bloomLevel": "analyze",
+        "type": "mcq",
+        "difficulty": 3,
+        "prompt": "Une représentation polaire (rayon, angle) sans normalisation de l'angle couvre tous les points du plan. Pourquoi les notes la donnent-elles quand même comme mauvaise représentation ?",
+        "options": [
+          { "id": "a", "text": "Parce qu'un même point admet plusieurs représentations, ce qui casse l'égalité." },
+          { "id": "b", "text": "Parce que certains points n'ont aucune représentation." },
+          { "id": "c", "text": "Parce que les calculs trigonométriques sont trop lents." },
+          { "id": "d", "text": "Parce qu'un angle ne peut pas être stocké dans un Réel." }
+        ],
+        "correct": "a",
+        "explanation": "(1, π/4) et (1, 5π/4) sont deux représentations distinctes du même point. La bijection est rompue dans le sens représentation → élément : estÉgal comparant les représentations retournerait faux pour un même point.",
+        "perDistractorExplanation": [
+          { "optionId": "b", "why": "C'est l'autre défaut, celui de la représentation par coordonnées entières. En polaire, la couverture est complète ; c'est l'unicité qui manque." },
+          { "optionId": "c", "why": "La performance n'est pas le critère de la bijection. Le cours la traite séparément, sous « représentation avec laquelle les opérations utilisées seront les plus efficaces »." },
+          { "optionId": "d", "why": "Un angle se stocke sans difficulté dans un Réel — c'est exactement ce que la représentation fautive fait." }
+        ],
+        "source": { "file": "IFT339-1-Abstraction de données (3).pdf", "page": 28 }
+      }
+    ]
+  },
+  "test": {
+    "title": "Test du chapitre 1",
+    "instructions": "20 questions couvrant tout le chapitre. Plus long et plus difficile que le quiz.",
+    "estimatedMinutes": 45,
+    "questions": [
+      {
+        "id": "t1-01",
+        "objectiveId": "obj1-tda-sd",
+        "bloomLevel": "recall",
+        "type": "mcq",
+        "difficulty": 1,
+        "prompt": "Dans quel fichier C++ les notes placent-elles la représentation des objets ?",
+        "options": [
+          { "id": "a", "text": "Dans la partie privée de Point.h" },
+          { "id": "b", "text": "Dans la partie publique de Point.h" },
+          { "id": "c", "text": "Dans Point.cpp uniquement" },
+          { "id": "d", "text": "Dans un troisième fichier, séparé du .h et du .cpp" }
+        ],
+        "correct": "a",
+        "explanation": "La diapositive 16 détaille le contenu de Point.h en cinq points : identité, domaine et prototypes des opérations du TDA en public ; représentation des objets et prototypes des opérations non spécifiées en privé.",
+        "perDistractorExplanation": [
+          { "optionId": "b", "why": "La partie publique porte ce qui relève du contrat. Y exposer la représentation détruirait l'encapsulation." },
+          { "optionId": "c", "why": "Le .cpp contient l'implémentation des algorithmes, pas la déclaration de la représentation." },
+          { "optionId": "d", "why": "Les notes ne décrivent que deux fichiers : Point.h et Point.cpp." }
+        ],
+        "source": { "file": "IFT339-1-Abstraction de données (3).pdf", "page": 16 }
+      },
+      {
+        "id": "t1-02",
+        "objectiveId": "obj1-tda-sd",
+        "bloomLevel": "understand",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Quelle est la différence entre la « vue d'utilisation » et la « vue de conception » ?",
+        "options": [
+          { "id": "a", "text": "La vue d'utilisation ne voit que les opérations du TDA ; la vue de conception a accès à la représentation et aux détails." },
+          { "id": "b", "text": "La vue d'utilisation est celle du compilateur ; la vue de conception est celle du programmeur." },
+          { "id": "c", "text": "La vue d'utilisation concerne le .cpp ; la vue de conception concerne le .h." },
+          { "id": "d", "text": "Il s'agit de deux noms pour la même chose." }
+        ],
+        "correct": "a",
+        "explanation": "La diapositive 17 oppose les deux : côté utilisation, opérations visibles du TDA, spécifications visibles, aucun accès à la représentation ni aux détails internes ; côté conception, accès à la représentation et aux détails, spécifications cachées.",
+        "perDistractorExplanation": [
+          { "optionId": "b", "why": "Les deux vues sont celles de deux rôles humains — celui qui utilise le type et celui qui le développe — et non celles d'outils." },
+          { "optionId": "c", "why": "L'association est inversée et trop grossière : c'est la partie publique du .h qui porte la vue d'utilisation." },
+          { "optionId": "d", "why": "C'est justement la frontière entre les deux qui rend l'implantation remplaçable sans casser le code client." }
+        ],
+        "source": { "file": "IFT339-1-Abstraction de données (3).pdf", "page": 17 }
+      },
+      {
+        "id": "t1-03",
+        "objectiveId": "obj1-specifier",
+        "bloomLevel": "apply",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Dans la notation du cours, comment se lit « distance : Point2D x Point2D ➔ Réel » ?",
+        "options": [
+          { "id": "a", "text": "Une opération prenant deux Point2D en paramètres et retournant un Réel." },
+          { "id": "b", "text": "Une opération transformant un Point2D en un autre Point2D puis en Réel." },
+          { "id": "c", "text": "Un attribut de type Réel calculé à partir de deux Point2D." },
+          { "id": "d", "text": "Une opération retournant deux Point2D et un Réel." }
+        ],
+        "correct": "a",
+        "explanation": "La notation des notes est « opération : paramètres ➔ retour », le × séparant les paramètres. Ici deux Point2D en entrée, un Réel en sortie.",
+        "perDistractorExplanation": [
+          { "optionId": "b", "why": "Le × est un produit cartésien de domaines de paramètres, pas une composition d'étapes successives." },
+          { "optionId": "c", "why": "Un TDA liste des opérations, pas des attributs calculés ; les attributs relèvent de la représentation, donc de la structure de données." },
+          { "optionId": "d", "why": "Ce qui suit la flèche est le retour, et lui seul : un Réel." }
+        ],
+        "source": { "file": "IFT339-1-Abstraction de données (3).pdf", "page": 19 }
+      },
+      {
+        "id": "t1-04",
+        "objectiveId": "obj1-entiers",
+        "bloomLevel": "apply",
+        "type": "code-output",
+        "difficulty": 2,
+        "prompt": "En appliquant l'algorithme des notes, quelle est la représentation binaire de 37 sur 8 bits ? (8 chiffres)",
+        "code": {
+          "lang": "text",
+          "value": "Pour i de n-1 à 0, faire\n    bi <- x / 2^i          (division entiere)\n    Si bi == 1\n        x <- x - 2^i",
+          "caption": "Algorithme de la diapositive 7 du document « Exemple TAD entier »."
+        },
+        "correct": "00100101",
+        "acceptableAnswers": ["0010 0101"],
+        "explanation": "b5 = 37/32 = 1, reste 5 ; b2 = 5/4 = 1, reste 1 ; b0 = 1/1 = 1, reste 0. Les autres bits sont nuls. D'où 00100101 = 32 + 4 + 1 = 37.",
+        "source": { "file": "Exemple TAD entier (3).pdf", "page": 7 }
+      },
+      {
+        "id": "t1-05",
+        "objectiveId": "obj1-entiers",
+        "bloomLevel": "analyze",
+        "type": "mcq",
+        "difficulty": 3,
+        "prompt": "Pourquoi l'intervalle des entiers signés sur n bits, [−2ⁿ⁻¹, 2ⁿ⁻¹ − 1], est-il asymétrique ?",
+        "options": [
+          { "id": "a", "text": "Parce que la représentation du zéro occupe une place du côté des positifs." },
+          { "id": "b", "text": "Parce qu'un bit est réservé au signe et ne peut pas servir à la valeur." },
+          { "id": "c", "text": "Parce que le complément à deux perd une représentation lors de l'addition de 1." },
+          { "id": "d", "text": "Parce que les négatifs sont stockés sur un bit de moins que les positifs." }
+        ],
+        "correct": "a",
+        "explanation": "Les 2ⁿ représentations se partagent en deux moitiés selon le bit de poids fort. La moitié bₙ₋₁ = 0 couvre [0, 2ⁿ⁻¹ − 1] : elle contient le zéro, donc 2ⁿ⁻¹ − 1 valeurs strictement positives. La moitié bₙ₋₁ = 1 couvre [−2ⁿ⁻¹, −1], soit 2ⁿ⁻¹ valeurs, toutes négatives. D'où une valeur négative de plus.",
+        "perDistractorExplanation": [
+          { "optionId": "b", "why": "Le bit de poids fort n'est pas un simple drapeau mis de côté : il contribue à la valeur, avec un poids négatif. C'est ce qui distingue le complément à deux d'une représentation à signe séparé." },
+          { "optionId": "c", "why": "L'addition de 1 fait partie de l'inversion d'un nombre donné ; elle ne retire aucune représentation de l'ensemble des 2ⁿ." },
+          { "optionId": "d", "why": "Positifs et négatifs occupent exactement le même nombre de bits — n. Seule la répartition des 2ⁿ représentations est déséquilibrée." }
+        ],
+        "source": { "file": "Exemple TAD entier (3).pdf", "page": 4 }
+      },
+      {
+        "id": "t1-06",
+        "objectiveId": "obj1-entiers",
+        "bloomLevel": "apply",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "On passe la représentation de −46 sur 8 bits (11010010) à une représentation sur 16 bits. Que faut-il écrire ?",
+        "options": [
+          { "id": "a", "text": "1111111111010010" },
+          { "id": "b", "text": "0000000011010010" },
+          { "id": "c", "text": "1101001000000000" },
+          { "id": "d", "text": "1000000011010010" }
+        ],
+        "correct": "a",
+        "explanation": "On propage le bit de poids fort sur les nouveaux bits de poids fort. Comme il vaut 1, les huit bits ajoutés valent 1.",
+        "perDistractorExplanation": [
+          { "optionId": "b", "why": "Compléter par des zéros donne +210 : le signe est perdu. C'est l'erreur la plus fréquente sur cette opération." },
+          { "optionId": "c", "why": "Les bits existants ont été décalés vers la gauche, ce qui multiplie la valeur au lieu de la préserver." },
+          { "optionId": "d", "why": "Recopier le bit de signe une seule fois et compléter le reste par des zéros ne préserve pas la valeur : seule la propagation sur tous les nouveaux bits le fait." }
+        ],
+        "source": { "file": "Exemple TAD entier (3).pdf", "page": 8 }
+      },
+      {
+        "id": "t1-07",
+        "objectiveId": "obj1-poo",
+        "bloomLevel": "recall",
+        "type": "multi",
+        "difficulty": 1,
+        "prompt": "Par quels mécanismes la POO réalise-t-elle la programmation par type abstrait ? (plusieurs réponses)",
+        "options": [
+          { "id": "a", "text": "Modularité" },
+          { "id": "b", "text": "Encapsulation" },
+          { "id": "c", "text": "Abstraction procédurale" },
+          { "id": "d", "text": "Compilation séparée" }
+        ],
+        "correct": ["a", "b", "c"],
+        "explanation": "La diapositive 24 énumère exactement ces trois mécanismes : modularité (un ensemble de types interagissant), encapsulation (représentation et opérations cachées dans la définition des types), abstraction procédurale (comportement séparé des algorithmes).",
+        "perDistractorExplanation": [
+          { "optionId": "d", "why": "La compilation séparée .h / .cpp est un moyen technique d'organiser le code ; les notes ne la comptent pas parmi les mécanismes de la POO réalisant la programmation par type abstrait." }
+        ],
+        "source": { "file": "IFT339-1-Abstraction de données (3).pdf", "page": 24 }
+      },
+      {
+        "id": "t1-08",
+        "objectiveId": "obj1-representation",
+        "bloomLevel": "understand",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Outre la bijection, quel second critère les notes donnent-elles pour choisir une représentation ?",
+        "options": [
+          { "id": "a", "text": "Celle avec laquelle les opérations effectivement utilisées seront les plus efficaces." },
+          { "id": "b", "text": "Celle qui occupe le moins de mémoire, quel que soit l'usage." },
+          { "id": "c", "text": "Celle qui utilise le plus de types primitifs." },
+          { "id": "d", "text": "Celle qui se code avec le moins de lignes." }
+        ],
+        "correct": "a",
+        "explanation": "La diapositive 26 pose deux exigences : la bijection, et le choix « en fonction de l'utilisation (problème à traiter) » — la représentation avec laquelle les opérations utilisées seront les plus efficaces.",
+        "perDistractorExplanation": [
+          { "optionId": "b", "why": "La mémoire seule ne décide pas : une représentation compacte mais coûteuse pour l'opération dominante est un mauvais choix." },
+          { "optionId": "c", "why": "Le nombre de types primitifs employés n'apparaît nulle part comme critère." },
+          { "optionId": "d", "why": "La concision du code est une propriété de l'implantation, pas un critère de choix de représentation dans les notes." }
+        ],
+        "source": { "file": "IFT339-1-Abstraction de données (3).pdf", "page": 26 }
+      },
+      {
+        "id": "t1-09",
+        "objectiveId": "obj1-tda-sd",
+        "bloomLevel": "analyze",
+        "type": "mcq",
+        "difficulty": 3,
+        "prompt": "Une équipe remplace la représentation cartésienne de Point2D par une représentation polaire. Quel code doit être modifié ?",
+        "options": [
+          { "id": "a", "text": "L'implémentation des opérations, mais pas le code qui utilise le TDA." },
+          { "id": "b", "text": "Le code qui utilise le TDA, mais pas l'implémentation." },
+          { "id": "c", "text": "Ni l'un ni l'autre : le changement est purement documentaire." },
+          { "id": "d", "text": "Les deux, puisque la représentation apparaît dans la signature des opérations." }
+        ],
+        "correct": "a",
+        "explanation": "C'est l'intérêt de la frontière d'abstraction : le TDA — les prototypes des opérations — ne change pas, donc le code client compile sans modification. Seule la structure de données, c'est-à-dire la représentation et les algorithmes, est réécrite.",
+        "perDistractorExplanation": [
+          { "optionId": "b", "why": "C'est exactement l'inverse : l'usager n'a pas accès à la représentation, donc rien de ce qu'il écrit n'en dépend." },
+          { "optionId": "c", "why": "Les algorithmes des opérations doivent être réécrits : calculer une distance depuis un rayon et un angle n'est pas le même code que depuis deux coordonnées." },
+          { "optionId": "d", "why": "La représentation n'apparaît pas dans les signatures : la diapositive 18 montre les deux variantes avec le même TDA. Seules les opérations spécifiques de mutation diffèrent." }
+        ],
+        "source": { "file": "IFT339-1-Abstraction de données (3).pdf", "page": 18 }
+      },
+      {
+        "id": "t1-10",
+        "objectiveId": "obj1-specifier",
+        "bloomLevel": "understand",
+        "type": "true-false",
+        "difficulty": 2,
+        "prompt": "Selon les notes, un utilisateur peut modifier un TDA pour l'adapter à son besoin.",
+        "options": [
+          { "id": "v", "text": "Vrai" },
+          { "id": "f", "text": "Faux" }
+        ],
+        "correct": "f",
+        "explanation": "La diapositive 10 est explicite : il est impossible pour un utilisateur de modifier un TDA, au risque d'introduire des incohérences. L'usager consomme le contrat ; il ne le réécrit pas.",
+        "perDistractorExplanation": [
+          { "optionId": "v", "why": "Modifier le contrat du côté de l'usager invaliderait les garanties sur lesquelles reposent toutes les autres utilisations du type." }
+        ],
+        "source": { "file": "IFT339-1-Abstraction de données (3).pdf", "page": 10 }
+      },
+      {
+        "id": "t1-11",
+        "objectiveId": "obj1-tda-sd",
+        "bloomLevel": "recall",
+        "type": "fill-blank",
+        "difficulty": 1,
+        "prompt": "Compléter : les notes présentent le type abstrait comme un ____ entre la personne qui utilise la structure de données et celle qui la développe.",
+        "correct": "contrat",
+        "acceptableAnswers": ["un contrat"],
+        "explanation": "Contrat. Il définit la relation entre les valeurs des paramètres et le retour des opérations : il dit ce que doit faire la structure, pas comment le faire.",
+        "source": { "file": "IFT339-1-Abstraction de données (3).pdf", "page": 11 }
+      },
+      {
+        "id": "t1-12",
+        "objectiveId": "obj1-poo",
+        "bloomLevel": "understand",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Quel est l'objectif de la POO concernant les types usagers, selon les notes ?",
+        "options": [
+          { "id": "a", "text": "Les intégrer harmonieusement en utilisant l'architecture et les types existants." },
+          { "id": "b", "text": "Les rendre plus rapides que les types primitifs." },
+          { "id": "c", "text": "Remplacer progressivement tous les types primitifs du langage." },
+          { "id": "d", "text": "Les rendre modifiables par l'utilisateur final." }
+        ],
+        "correct": "a",
+        "explanation": "La diapositive 25 vise la cohérence de traitement : le compilateur vérifie que l'objet placé dans une variable correspond à son type déclaré, et l'objectif est que les types usagers s'intègrent de la même façon que les types prédéfinis.",
+        "perDistractorExplanation": [
+          { "optionId": "b", "why": "La performance n'est pas visée ; les notes rangent au contraire l'efficacité parmi les inconvénients de l'approche." },
+          { "optionId": "c", "why": "Les types usagers s'ajoutent aux types primitifs et s'appuient sur eux ; il n'est jamais question de les remplacer." },
+          { "optionId": "d", "why": "Les notes affirment l'inverse : il est impossible pour un utilisateur de modifier un TDA." }
+        ],
+        "source": { "file": "IFT339-1-Abstraction de données (3).pdf", "page": 25 }
+      },
+      {
+        "id": "t1-13",
+        "objectiveId": "obj1-entiers",
+        "bloomLevel": "recall",
+        "type": "mcq",
+        "difficulty": 1,
+        "prompt": "Quelle relation les notes garantissent-elles entre les tailles de short, int et long ?",
+        "options": [
+          { "id": "a", "text": "short ≤ int ≤ long" },
+          { "id": "b", "text": "short < int < long, strictement" },
+          { "id": "c", "text": "short = 16, int = 32, long = 64 sur toute architecture" },
+          { "id": "d", "text": "Aucune : les trois tailles sont indépendantes." }
+        ],
+        "correct": "a",
+        "explanation": "L'ordre large est garanti, mais les valeurs dépendent de l'architecture : sur 16 bits, short = int = 16 et long = 32 ; sur 32 bits, short = 16 et int = long = 32.",
+        "perDistractorExplanation": [
+          { "optionId": "b", "why": "L'inégalité stricte est fausse : sur une architecture 16 bits, short et int valent tous deux 16, et sur 32 bits, int et long valent tous deux 32." },
+          { "optionId": "c", "why": "C'est précisément ce que les notes contredisent : les définitions dépendent de l'architecture. C'est la raison d'être des noms int8_t/int16_t/int32_t introduits en C++11." },
+          { "optionId": "d", "why": "L'ordre large est garanti ; seules les valeurs exactes varient." }
+        ],
+        "source": { "file": "Exemple TAD entier (3).pdf", "page": 1 }
+      },
+      {
+        "id": "t1-14",
+        "objectiveId": "obj1-entiers",
+        "bloomLevel": "apply",
+        "type": "short-answer",
+        "difficulty": 2,
+        "prompt": "Combien de représentations distinctes existe-t-il sur 6 bits ? (un nombre)",
+        "correct": "64",
+        "acceptableAnswers": ["2^6"],
+        "explanation": "2ⁿ avec n = 6, donc 64. En non signé elles couvrent [0, 63] ; en signé, [−32, 31]. Le nombre de représentations est le même, seule leur interprétation change.",
+        "source": { "file": "Exemple TAD entier (3).pdf", "page": 2 }
+      },
+      {
+        "id": "t1-15",
+        "objectiveId": "obj1-representation",
+        "bloomLevel": "apply",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "On veut représenter un TDA Date (jour, mois, année). Quelle représentation rompt la bijection ?",
+        "options": [
+          { "id": "a", "text": "Trois entiers jour, mois, année, sans contrainte de validité — 31 février est représentable." },
+          { "id": "b", "text": "Un entier comptant les jours écoulés depuis une date de référence." },
+          { "id": "c", "text": "Trois entiers jour, mois, année avec validation à la construction." },
+          { "id": "d", "text": "Une chaîne normalisée AAAA-MM-JJ validée à la construction." }
+        ],
+        "correct": "a",
+        "explanation": "Sans contrainte, des représentations ne correspondent à aucun élément du domaine « dates » : 31 février, mois 13, jour 0. La bijection est rompue dans le sens représentation → élément, exactement comme les exemples de la diapositive 28.",
+        "perDistractorExplanation": [
+          { "optionId": "b", "why": "Chaque date correspond à un entier et chaque entier de l'intervalle à une date : la correspondance est bien bijective." },
+          { "optionId": "c", "why": "La validation à la construction élimine justement les triplets sans élément correspondant." },
+          { "optionId": "d", "why": "Le format normalisé et validé assure l'unicité comme la couverture ; une même date ne s'écrit que d'une façon." }
+        ],
+        "source": { "file": "IFT339-1-Abstraction de données (3).pdf", "page": 26 }
+      },
+      {
+        "id": "t1-16",
+        "objectiveId": "obj1-tda-sd",
+        "bloomLevel": "understand",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Que peut contenir une structure de données que le TDA correspondant ne mentionne pas ?",
+        "options": [
+          { "id": "a", "text": "Des opérations non visibles par les utilisateurs et leur implémentation." },
+          { "id": "b", "text": "Des opérations publiques supplémentaires, ajoutées au contrat." },
+          { "id": "c", "text": "Rien : elle doit correspondre exactement au TDA." },
+          { "id": "d", "text": "Un second domaine, différent de celui du TDA." }
+        ],
+        "correct": "a",
+        "explanation": "La diapositive 15 liste trois contenus pour la structure de données, dont « des opérations non visibles par les utilisateurs (non spécifiées) et leur implémentation ». Ce sont les fonctions auxiliaires privées.",
+        "perDistractorExplanation": [
+          { "optionId": "b", "why": "Une opération publique supplémentaire étendrait le contrat sans passer par le TDA, ce qui contredit le rôle du TDA comme spécification de référence." },
+          { "optionId": "c", "why": "La correspondance est exacte sur la partie spécifiée ; les opérations cachées sont explicitement prévues en plus." },
+          { "optionId": "d", "why": "Le domaine est fixé par le TDA ; la structure de données choisit sa représentation, pas un autre domaine." }
+        ],
+        "source": { "file": "IFT339-1-Abstraction de données (3).pdf", "page": 15 }
+      },
+      {
+        "id": "t1-17",
+        "objectiveId": "obj1-specifier",
+        "bloomLevel": "analyze",
+        "type": "multi",
+        "difficulty": 3,
+        "prompt": "Dans l'exemple des polygones, quelles affirmations sont correctes ? (plusieurs réponses)",
+        "options": [
+          { "id": "a", "text": "Le type Point2D est réutilisé pour tous les types de figures." },
+          { "id": "b", "text": "Rectangle, Triangle, Losange et Carré sont des TDA distincts avec chacun leur identité." },
+          { "id": "c", "text": "EnsemblePolygones doit stocker ses éléments dans un tableau." },
+          { "id": "d", "text": "L'opération aire doit retourner un Point2D." }
+        ],
+        "correct": ["a", "b"],
+        "explanation": "La diapositive 23 montre Point2D réutilisé par toutes les figures — c'est l'argument de réutilisabilité — et chaque figure particulière constitue bien un TDA avec sa propre identité et son propre domaine.",
+        "perDistractorExplanation": [
+          { "optionId": "c", "why": "Le choix du conteneur est une décision de représentation, donc de structure de données. L'imposer dans le TDA serait précisément la contrainte d'implantation que les notes interdisent." },
+          { "optionId": "d", "why": "Le prototype donné est « aire : Polygone ➔ Réel ». Une aire est une grandeur scalaire, pas un point." }
+        ],
+        "source": { "file": "IFT339-1-Abstraction de données (3).pdf", "page": 23 }
+      },
+      {
+        "id": "t1-18",
+        "objectiveId": "obj1-poo",
+        "bloomLevel": "analyze",
+        "type": "mcq",
+        "difficulty": 3,
+        "prompt": "Le document « Exemple TAD entier » spécifie le type Entier comme un TDA appuyé sur un second TDA Chaine_bin. Quel principe du chapitre cela illustre-t-il ?",
+        "options": [
+          { "id": "a", "text": "La réutilisation : un TDA se construit à partir d'autres TDA, y compris pour un type primitif." },
+          { "id": "b", "text": "Que les types primitifs échappent à la logique des TDA." },
+          { "id": "c", "text": "Que tout TDA doit avoir exactement deux niveaux." },
+          { "id": "d", "text": "Que la représentation binaire est imposée par le TDA Entier." }
+        ],
+        "correct": "a",
+        "explanation": "C'est le même mécanisme que Point2D réutilisé par toutes les figures, appliqué cette fois à un type primitif : Entier délègue les opérations de bas niveau — complément, décaler — au TDA Chaine_bin.",
+        "perDistractorExplanation": [
+          { "optionId": "b", "why": "Le document démontre l'inverse : même int peut être spécifié comme un TDA, avec domaine et opérations." },
+          { "optionId": "c", "why": "Aucune contrainte de profondeur n'existe ; deux niveaux ne sont que ce que cet exemple particulier utilise." },
+          { "optionId": "d", "why": "Le TDA Entier annonce un domaine et des opérations ; c'est la structure de données qui retient la chaîne binaire comme représentation." }
+        ],
+        "source": { "file": "Exemple TAD entier (3).pdf", "page": 10 }
+      },
+      {
+        "id": "t1-19",
+        "objectiveId": "obj1-representation",
+        "bloomLevel": "understand",
+        "type": "true-false",
+        "difficulty": 2,
+        "prompt": "Une représentation qui couvre tous les éléments du domaine est nécessairement une bonne représentation.",
+        "options": [
+          { "id": "v", "text": "Vrai" },
+          { "id": "f", "text": "Faux" }
+        ],
+        "correct": "f",
+        "explanation": "La couverture ne suffit pas : il faut aussi l'unicité. La représentation polaire couvre tous les points du plan et reste mauvaise, parce que (1, π/4) et (1, 5π/4) désignent le même point. La bijection exige les deux sens.",
+        "perDistractorExplanation": [
+          { "optionId": "v", "why": "Ne vérifier qu'un seul sens est l'erreur type. Le second défaut — plusieurs représentations pour un même élément — casse l'égalité et passe longtemps inaperçu." }
+        ],
+        "source": { "file": "IFT339-1-Abstraction de données (3).pdf", "page": 28 }
+      },
+      {
+        "id": "t1-20",
+        "objectiveId": "obj1-entiers",
+        "bloomLevel": "apply",
+        "type": "code-output",
+        "difficulty": 3,
+        "prompt": "Quelle valeur décimale signée représente cette suite de 8 bits ?",
+        "code": {
+          "lang": "text",
+          "value": "11111111"
+        },
+        "correct": "-1",
+        "acceptableAnswers": ["−1"],
+        "explanation": "Le bit de poids fort vaut 1, donc la valeur est négative. La somme des bits vaut 255, et l'on retranche 2⁸ = 256 : 255 − 256 = −1. Vérification par l'inversion : le complément à 1 de 11111111 est 00000000, plus 1 donne 00000001, soit 1 — l'opposé de −1.",
+        "source": { "file": "Exemple TAD entier (3).pdf", "page": 5 }
+      }
+    ]
+  },
+  "flashcards": [
+    {
+      "id": "f1-01",
+      "objectiveId": "obj1-tda-sd",
+      "front": "Un TDA spécifie quoi — et ne spécifie pas quoi ?",
+      "back": "Il spécifie le type des données contenues et une description détaillée des opérations. Il ne spécifie ni la façon dont les données sont stockées, ni comment les méthodes sont implémentées.",
+      "source": { "file": "IFT339-1-Abstraction de données (3).pdf", "page": 9 }
+    },
+    {
+      "id": "f1-02",
+      "objectiveId": "obj1-specifier",
+      "front": "Les trois caractéristiques d'un TDA ?",
+      "back": "Identité · Type des données (domaine) · Opérations sous la forme « paramètres ➔ retour »."
+    },
+    {
+      "id": "f1-03",
+      "objectiveId": "obj1-tda-sd",
+      "front": "Qu'est-ce qu'une structure de données ?",
+      "back": "L'implémentation d'un TDA dans un langage donné : représentation des objets, algorithmes des opérations spécifiées, et opérations non spécifiées cachées."
+    },
+    {
+      "id": "f1-04",
+      "objectiveId": "obj1-representation",
+      "front": "Quel est le critère d'une bonne représentation ?",
+      "back": "Une bijection entre l'ensemble des éléments du type et l'ensemble des représentations — plus le choix de celle avec laquelle les opérations utilisées seront les plus efficaces.",
+      "extra": "Deux façons d'échouer : un élément sans représentation, ou plusieurs représentations pour un même élément."
+    },
+    {
+      "id": "f1-05",
+      "objectiveId": "obj1-poo",
+      "front": "Par quels trois mécanismes la POO réalise-t-elle la programmation par type abstrait ?",
+      "back": "Modularité · Encapsulation · Abstraction procédurale.",
+      "source": { "file": "IFT339-1-Abstraction de données (3).pdf", "page": 24 }
+    },
+    {
+      "id": "f1-06",
+      "objectiveId": "obj1-poo",
+      "front": "Encapsulation ou abstraction procédurale ?",
+      "back": "Encapsulation : la représentation et les opérations sont cachées dans la définition du type. Abstraction procédurale : le comportement annoncé est séparé des algorithmes qui le réalisent."
+    },
+    {
+      "id": "f1-07",
+      "objectiveId": "obj1-entiers",
+      "front": "Entiers signés sur n bits : quel intervalle ?",
+      "back": "[−2ⁿ⁻¹, 2ⁿ⁻¹ − 1] — asymétrique, car la moitié contenant le zéro a une valeur strictement positive de moins."
+    },
+    {
+      "id": "f1-08",
+      "objectiveId": "obj1-entiers",
+      "front": "Les deux étapes du complément à deux ?",
+      "back": "1. Prendre le complément à 1 (inverser chaque bit). 2. Additionner 1.",
+      "extra": "46 = 00101110 → 11010001 → +1 → 11010010 = −46.",
+      "source": { "file": "Exemple TAD entier (3).pdf", "page": 8 }
+    },
+    {
+      "id": "f1-09",
+      "objectiveId": "obj1-entiers",
+      "front": "Comment passer d'une représentation 8 bits à 16 bits ?",
+      "back": "Propager le bit de poids fort sur les nouveaux bits. Compléter par des zéros détruirait le signe des nombres négatifs."
+    },
+    {
+      "id": "f1-10",
+      "objectiveId": "obj1-tda-sd",
+      "front": "En C++, où va la représentation des objets ?",
+      "back": "Dans la partie privée du .h. La partie publique porte l'identité, le domaine et les prototypes des opérations du TDA ; le .cpp porte les algorithmes."
+    },
+    {
+      "id": "f1-11",
+      "objectiveId": "obj1-specifier",
+      "front": "Pourquoi une spécification de TDA ne doit-elle pas dire « stocké dans un tableau » ?",
+      "back": "Parce que c'est une contrainte d'implantation. Le TDA doit éviter d'en poser : il ferme sinon un choix qui appartient à l'étape de la structure de données."
+    },
+    {
+      "id": "f1-12",
+      "objectiveId": "obj1-tda-sd",
+      "front": "Portrait hiérarchique : quelles structures sont linéaires, lesquelles ne le sont pas ?",
+      "back": "Linéaires : tableaux, piles, files, listes chaînées. Non-linéaires : graphes, arbres, tables de hachage.",
+      "source": { "file": "IFT339-1-Abstraction de données (3).pdf", "page": 5 }
+    }
+  ],
+  "exercises": [
+    {
+      "id": "e1-01",
+      "objectiveId": "obj1-specifier",
+      "difficulty": 2,
+      "mode": "fill-blank",
+      "language": "pseudocode",
+      "title": "Compléter la spécification d'un TDA",
+      "statement": "Voici une spécification partielle du TDA Point2D, dans la notation du cours. Compléter les quatre trous, puis vérifier qu'aucune ligne ne laisse filtrer un choix d'implantation.",
+      "starterCode": "Point2D\n    ____                              <- (1) le domaine, en une ligne\n    creer    : Reel x Reel ____ Point2D    <- (2) le symbole du cours\n    creer    : ____ -> Point2D             <- (3) constructeur sans parametre\n    estEgal  : Point2D x Point2D -> ____   <- (4) le type de retour\n    distance : Point2D x Point2D -> Reel",
+      "hints": [
+        "Le domaine est la phrase qui décrit ce que le type contient. Dans les diapositives, sous « Point2D », il tient en quatre mots.",
+        "Le cours n'utilise pas -> mais un autre symbole pour séparer les paramètres du retour ; et l'ensemble vide a une notation dédiée.",
+        "estÉgal compare deux points : son retour est le type des valeurs de vérité tel que nommé dans les diapositives (pas le mot C++)."
+      ],
+      "solution": "Point2D / Points dans un plan ; créer : Réel x Réel ➔ Point2D ; créer : Ø ➔ Point2D ; estÉgal : Point2D x Point2D ➔ Booléen",
+      "expectedOutput": "Point2D\n    Points dans un plan                        <- (1) le domaine\n    créer    : Réel x Réel ➔ Point2D           <- (2) le symbole ➔\n    créer    : Ø ➔ Point2D                     <- (3) Ø pour « aucun paramètre »\n    estÉgal  : Point2D x Point2D ➔ Booléen     <- (4) Booléen\n    distance : Point2D x Point2D ➔ Réel\n\nAucune ligne ne mentionne de tableau, de coordonnées, de rayon ni d'angle :\nla spécification ne contraint pas l'implantation. C'est ce qui permet aux deux\nstructures de données de la diapositive 18 — cartésienne et polaire — de\nréaliser toutes deux ce même TDA.",
+      "solutionExplanation": "Le point à retenir est la ligne du domaine. Écrire « coordonnées : tableau de 2 Réels » à cette place serait l'erreur : ce n'est pas le domaine du TDA mais la représentation d'une structure de données particulière. Le domaine dit quels objets le type contient ; la représentation dit comment on les code.",
+      "source": { "file": "IFT339-1-Abstraction de données (3).pdf", "page": 19, "locator": "Diapositive 19" }
+    },
+    {
+      "id": "e1-02",
+      "objectiveId": "obj1-representation",
+      "difficulty": 3,
+      "mode": "find-bug",
+      "language": "cpp",
+      "title": "Trouver le défaut — une représentation qui ment",
+      "statement": "Ce TDA annonce un domaine, et la structure de données qui l'implante ne peut pas le tenir. Identifier la contradiction, nommer laquelle des deux façons d'échouer à la bijection est en cause, et proposer la correction.\n\nLe code compile et les tests écrits par l'équipe passent tous.",
+      "starterCode": "// --- Le TDA annonce ---\n// Point2D\n//     Points dans un plan, coordonnees Reelles\n//     creer    : Reel x Reel -> Point2D\n//     estEgal  : Point2D x Point2D -> Booleen\n//     distance : Point2D x Point2D -> Reel\n\n// --- La structure de donnees livree ---\nclass Point2D\n{\nprivate:\n    int abscisse;     // <-- ligne suspecte\n    int ordonnee;     // <-- ligne suspecte\npublic:\n    Point2D(float a, float o);\n    bool estEgal(const Point2D&) const;\n    float distance(const Point2D&) const;\n};\n\nPoint2D::Point2D(float a, float o)\n{\n    abscisse = a;     // conversion float -> int, silencieuse\n    ordonnee = o;\n}\n\n// Le test de l'equipe :\n//   Point2D p(3, 4), q(0, 0);\n//   assert(p.distance(q) == 5);   // passe",
+      "hints": [
+        "Comparer mot à mot le domaine annoncé par le TDA et le type des attributs de la représentation.",
+        "Construire Point2D(1, 1.5) et redemander l'ordonnée. Que vaut-elle ? Le point construit est-il celui demandé ?",
+        "Des deux façons d'échouer à la bijection — un élément sans représentation, ou plusieurs représentations pour un même élément — laquelle se produit ici ?"
+      ],
+      "solution": "int abscisse; int ordonnee; doivent être des float (ou double) : le domaine est Réel.",
+      "expectedOutput": "Contradiction : le TDA annonce des coordonnées Réelles, la représentation les stocke en int.\n\nFaçon d'échouer : des éléments du type n'ont AUCUNE représentation.\nC'est le défaut de la diapositive 27 — pas celui de la diapositive 28.\n\nDémonstration :\n    Point2D p(1, 1.5);\n    // le constructeur convertit 1.5 en int -> 1\n    // p est en réalité le point (1, 1), silencieusement\n    // le point (1 ; 1,5) est inexprimable dans cette structure\n\nPourquoi les tests passent : (3, 4) et (0, 0) sont à coordonnées entières,\ndonc dans le sous-ensemble que la représentation couvre correctement. Le test\nne visite jamais la partie du domaine qui manque.\n\nCorrection :\n    float abscisse;\n    float ordonnee;\n\n(ou double, selon la précision exigée par le domaine.)\n\nNoter que le défaut n'est PAS dans le code qui utilise le type, ni dans les\nopérations : il est dans le choix de représentation, à un seul endroit.",
+      "solutionExplanation": "L'exercice reproduit la situation réelle : une conversion implicite float → int ne produit ni avertissement bloquant ni exception, et une suite de tests écrite sur des valeurs entières ne la révèle jamais. C'est pourquoi les notes font de la bijection un critère à vérifier au moment de choisir la représentation, et non un bogue à attendre à l'exécution.",
+      "source": { "file": "IFT339-1-Abstraction de données (3).pdf", "page": 27, "locator": "Diapositive 27" }
+    },
+    {
+      "id": "e1-03",
+      "objectiveId": "obj1-entiers",
+      "difficulty": 2,
+      "mode": "trace",
+      "language": "pseudocode",
+      "title": "Tracer la conversion binaire",
+      "statement": "Dérouler l'algorithme des notes pour x = 100 sur 8 bits. Donner, pour chaque i de 7 à 0, la valeur de bᵢ et la nouvelle valeur de x, puis la représentation finale.",
+      "starterCode": "Pour i de n-1 a 0, faire\n    bi <- x / 2^i          (division entiere)\n    Si bi == 1\n        x <- x - 2^i\n\nx = 100,  n = 8",
+      "hints": [
+        "Les puissances de 2 utiles : 2⁷ = 128, 2⁶ = 64, 2⁵ = 32, 2⁴ = 16, 2³ = 8, 2² = 4, 2¹ = 2, 2⁰ = 1.",
+        "La division est entière : 100 / 128 = 0, donc b₇ = 0 et x ne change pas.",
+        "Après b₆ = 1, x devient 100 − 64 = 36. Continuer avec 36."
+      ],
+      "solution": "01100100",
+      "expectedOutput": "i = 7 : 100 / 128 = 0   -> b7 = 0,  x reste 100\ni = 6 : 100 / 64  = 1   -> b6 = 1,  x = 100 - 64 = 36\ni = 5 :  36 / 32  = 1   -> b5 = 1,  x =  36 - 32 =  4\ni = 4 :   4 / 16  = 0   -> b4 = 0,  x reste 4\ni = 3 :   4 / 8   = 0   -> b3 = 0,  x reste 4\ni = 2 :   4 / 4   = 1   -> b2 = 1,  x =   4 -  4 =  0\ni = 1 :   0 / 2   = 0   -> b1 = 0,  x reste 0\ni = 0 :   0 / 1   = 0   -> b0 = 0,  x reste 0\n\nReprésentation de 100 sur 8 bits : 01100100\n\nVérification : 64 + 32 + 4 = 100.\n\nLe bit de poids fort vaut 0, donc 100 est bien représentable en signé sur\n8 bits — l'intervalle est [-128, 127].",
+      "solutionExplanation": "L'algorithme est glouton : à chaque rang il prend la plus grande puissance de 2 qui tient encore dans x. C'est pourquoi la soustraction n'a lieu que lorsque bᵢ = 1 — le test « Si bᵢ == 1 » n'est pas décoratif. L'oublier laisserait x inchangé et produirait 11111111 pour toute entrée non nulle.",
+      "source": { "file": "Exemple TAD entier (3).pdf", "page": 7 }
+    },
+    {
+      "id": "e1-04",
+      "objectiveId": "obj1-entiers",
+      "difficulty": 2,
+      "mode": "predict-output",
+      "language": "cpp",
+      "title": "Prédire la sortie — dépassement de capacité",
+      "statement": "Le C++ ne s'exécute pas dans un navigateur : cet exercice se fait de tête, puis on vérifie.\n\nSur une architecture où int8_t est signé sur 8 bits, qu'affiche ce programme ? Expliquer le résultat à partir de l'intervalle des entiers signés.",
+      "starterCode": "#include <iostream>\n#include <cstdint>\n\nint main()\n{\n    int8_t x = 127;\n    x = x + 1;\n    std::cout << static_cast<int>(x) << std::endl;\n    return 0;\n}",
+      "hints": [
+        "Quel est l'intervalle représentable par un entier signé sur 8 bits ?",
+        "Écrire 127 en binaire sur 8 bits, puis ajouter 1 bit à bit.",
+        "Le résultat a un bit de poids fort à 1. Comment se lit une telle représentation en signé ?"
+      ],
+      "solution": "-128",
+      "expectedOutput": "Affichage : -128\n\nExplication :\n  127 sur 8 bits   = 01111111\n  + 1              = 10000000\n\nLa retenue se propage jusqu'au bit de poids fort, qui passe à 1. En\nreprésentation signée, cette suite se lit :\n  1 x 2^7 - 2^8 = 128 - 256 = -128\n\nL'intervalle des entiers signés sur 8 bits est [-128, 127]. En ajoutant 1 à la\nborne supérieure, on ne sort pas de l'ensemble des 2^8 representations : on\nrevient a l'autre bout. Le compilateur ne signale rien.\n\nLe static_cast<int> est necessaire pour l'affichage : sans lui, std::cout\ntraiterait int8_t comme un char et afficherait un caractere, pas un nombre.",
+      "solutionExplanation": "Cet exercice relie les deux moitiés du chapitre. Le dépassement n'est pas un accident : c'est la conséquence directe du choix de représentation, qui fait correspondre 2⁸ éléments à 2⁸ représentations et referme l'intervalle sur lui-même. Le TDA Entier des notes annonce d'ailleurs son domaine explicitement — « entiers compris entre −2ⁿ⁻¹ et 2ⁿ⁻¹ » — et 128 n'en fait pas partie.",
+      "source": { "file": "Exemple TAD entier (3).pdf", "page": 4 }
+    },
+    {
+      "id": "e1-05",
+      "objectiveId": "obj1-tda-sd",
+      "difficulty": 3,
+      "mode": "find-bug",
+      "language": "cpp",
+      "title": "Trouver le défaut — une frontière d'abstraction percée",
+      "statement": "Cette classe prétend implanter un TDA Pile. Trois lignes trahissent la frontière entre le TDA et la structure de données. Les identifier et expliquer, pour chacune, ce que l'usager peut faire qu'il ne devrait pas pouvoir faire.",
+      "starterCode": "class Pile\n{\npublic:\n    int* donnees;          // <-- A\n    size_t sommet;         // <-- B\n\n    Pile(size_t capacite);\n    void empiler(int v);\n    int  depiler();\n    bool estVide() const;\n    void redimensionnerTableau(size_t n);   // <-- C\n};",
+      "hints": [
+        "Reprendre la diapositive 16 : qu'est-ce qui doit être public dans le .h, et qu'est-ce qui doit être privé ?",
+        "Un usager qui voit `donnees` et `sommet` peut-il encore être empêché de contourner empiler et depiler ?",
+        "Le nom `redimensionnerTableau` révèle quelque chose que le contrat ne devrait pas laisser deviner. Quoi ?"
+      ],
+      "solution": "A et B doivent être privés (représentation) ; C doit être privée et renommée sans référence au tableau.",
+      "expectedOutput": "A — `int* donnees;` public\n    C'est la REPRÉSENTATION, elle appartient à la structure de données et doit\n    être privée. Exposée, l'usager peut écrire pile.donnees[5] = 42 et\n    contourner entièrement empiler/depiler : le contrat ne garantit plus rien.\n\nB — `size_t sommet;` public\n    Même défaut. Pire : l'usager peut écrire pile.sommet = 0 et « vider » la\n    pile sans passer par aucune opération, laissant les données en place.\n    L'invariant du type devient invérifiable.\n\nC — `void redimensionnerTableau(size_t);` public\n    Double défaut. D'abord c'est une opération non spécifiée par le TDA Pile :\n    elle doit donc être cachée (diapositive 15 : « opérations non visibles par\n    les utilisateurs et leur implémentation »). Ensuite son nom même annonce\n    la représentation choisie — un tableau. Un TDA Pile ne doit pas laisser\n    deviner s'il est réalisé par un tableau ou par une liste chaînée.\n\nCorrection :\n\n    class Pile\n    {\n    private:\n        int*   donnees;\n        size_t sommet;\n        void   redimensionner(size_t n);   // cachée et renommée\n\n    public:\n        Pile(size_t capacite);\n        void empiler(int v);\n        int  depiler();\n        bool estVide() const;\n    };\n\nLa partie publique est alors exactement le TDA ; la partie privée est\nexactement la structure de données.",
+      "solutionExplanation": "Le défaut C est le plus instructif : il ne casse pas l'encapsulation des données, il casse l'indépendance vis-à-vis de la représentation. Si l'équipe remplace un jour le tableau par une liste chaînée, l'opération n'a plus de sens — et tout code client qui l'appelait cesse de compiler. C'est précisément ce que la frontière du chapitre 1 existe pour éviter : changer de structure de données sans toucher au code qui utilise le TDA.",
+      "source": { "file": "IFT339-1-Abstraction de données (3).pdf", "page": 15, "locator": "Diapositives 15 à 17" }
+    }
+  ]
+}

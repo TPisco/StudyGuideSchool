@@ -1,0 +1,125 @@
+{
+  "code": "IFT339",
+  "title": "Structures de données",
+  "term": "Automne 2026",
+  "language": "fr",
+  "accent": "emerald",
+  "sample": false,
+  "description": "Notes de cours de Marie-Flavie Auclair-Fortier, d'après Aida Ouangraoua et Jean Goulet. Le cours construit de nouveaux types à partir des types primitifs : d'abord la notion de type de données abstrait (TDA) et sa séparation d'avec la structure de données, puis les mécanismes du C++ qui permettent de la réaliser — classes, héritage, généricité, pointeurs, allocation dynamique — et enfin les conteneurs de la bibliothèque normalisée et les tableaux statiques.",
+  "chapters": [
+    { "number": 1, "slug": "01-types-abstraits-et-structures", "title": "Types abstraits et structures de données" },
+    { "number": 2, "slug": "02-abstraction-en-cpp", "title": "Mécanisme d'abstraction en C++" },
+    { "number": 3, "slug": "03-allocation-dynamique", "title": "Gestion de la mémoire et allocation dynamique" },
+    { "number": 4, "slug": "04-bibliotheque-normalisee", "title": "La bibliothèque normalisée en C++" },
+    { "number": 5, "slug": "05-tableaux-statiques", "title": "Les tableaux statiques" }
+  ],
+  "roadmap": {
+    "title": "Parcours d'apprentissage",
+    "steps": [
+      {
+        "id": "prereq-cpp",
+        "title": "Bases du C++ (IFT159)",
+        "description": "Variables, types primitifs, conditions, boucles, fonctions, et notion de classe. Le cours s'ouvre sur un « Rappel » qui suppose ce socle acquis.",
+        "estimatedMinutes": 240,
+        "prerequisites": [],
+        "external": true,
+        "externalNote": "Non couvert par les documents fournis. Les diapositives renvoient explicitement à IFT159 — Analyse et programmation (notes de Gabriel Girard). Réviser les classes, la syntaxe des fonctions et la compilation séparée .h / .cpp avant le thème 3."
+      },
+      {
+        "id": "ch1",
+        "title": "Types abstraits et structures de données",
+        "description": "Distinguer le TDA (le contrat) de la structure de données (l'implantation). Identité, domaine, opérations. Représentation des entiers en binaire et en complément à deux.",
+        "chapter": 1,
+        "estimatedMinutes": 165,
+        "prerequisites": ["prereq-cpp"]
+      },
+      {
+        "id": "ch1-check",
+        "title": "Point de contrôle — spécifier un TDA de zéro",
+        "description": "Devant un énoncé en français (le bottin d'entreprise de l'exercice 1), produire un TDA complet : nom, domaine, prototypes et sémantique des opérations, sans laisser filtrer de choix d'implantation.",
+        "estimatedMinutes": 45,
+        "prerequisites": ["ch1"],
+        "checkpoint": true
+      },
+      {
+        "id": "theme2-complexite",
+        "title": "Notion de complexité (thème 2)",
+        "description": "Coût en temps et en mémoire des opérations, notation 𝒪. Le thème 2 est référencé par les diapositives mais son document n'a pas été fourni.",
+        "estimatedMinutes": 120,
+        "prerequisites": ["ch1"],
+        "external": true,
+        "externalNote": "MANQUANT dans les documents fournis. Le thème 1 renvoie à « Notion de complexité : Thème 2 » (diapositive 31) et le thème 6 utilise 𝒪(1) et 𝒪(n) sans les définir. Récupérer les diapositives du thème 2 auprès du professeur, ou réviser la notation asymptotique ailleurs, avant le chapitre 5."
+      },
+      {
+        "id": "ch2",
+        "title": "Mécanisme d'abstraction en C++",
+        "description": "Les outils du langage qui réalisent le TDA : classe, héritage, classe abstraite, généricité, pointeurs, passage de paramètres, et les six opérations de base d'un type.",
+        "chapter": 2,
+        "estimatedMinutes": 240,
+        "prerequisites": ["ch1-check"]
+      },
+      {
+        "id": "ch2-check",
+        "title": "Point de contrôle — écrire une classe complète",
+        "description": "Écrire la classe Point avec constructeurs (dont par copie), destructeur, affectateur, convertisseur et opérateurs surchargés, en justifiant chaque const.",
+        "estimatedMinutes": 60,
+        "prerequisites": ["ch2"],
+        "checkpoint": true
+      },
+      {
+        "id": "ch3",
+        "title": "Gestion de la mémoire et allocation dynamique",
+        "description": "Le modèle de la pile d'exécution, la récursivité tracée cadre par cadre, puis new/delete et la sémantique de déplacement.",
+        "chapter": 3,
+        "estimatedMinutes": 150,
+        "prerequisites": ["ch2"]
+      },
+      {
+        "id": "ch3-check",
+        "title": "Point de contrôle — tracer une pile d'exécution",
+        "description": "Dérouler la pile d'exécution d'un appel récursif inconnu, cadre par cadre, jusqu'au retour final (exercice « récursion mystère »).",
+        "estimatedMinutes": 45,
+        "prerequisites": ["ch3"],
+        "checkpoint": true
+      },
+      {
+        "id": "ch4",
+        "title": "La bibliothèque normalisée en C++",
+        "description": "Les quatre groupes de conteneurs et les opérations que tous partagent : construction, affectation, comparaison, itération.",
+        "chapter": 4,
+        "estimatedMinutes": 90,
+        "prerequisites": ["ch3"]
+      },
+      {
+        "id": "ch5",
+        "title": "Les tableaux statiques",
+        "description": "Tableaux primitifs à une et deux dimensions, passage en paramètre, les quatre algorithmes de recherche, et le conteneur array.",
+        "chapter": 5,
+        "estimatedMinutes": 165,
+        "prerequisites": ["ch4", "theme2-complexite"]
+      },
+      {
+        "id": "ch5-check",
+        "title": "Point de contrôle — choisir et justifier un algorithme de recherche",
+        "description": "Devant un tableau trié ou non, choisir entre recherche naïve, améliorée, avec sentinelle et dichotomique, et justifier par le coût.",
+        "estimatedMinutes": 45,
+        "prerequisites": ["ch5"],
+        "checkpoint": true
+      },
+      {
+        "id": "revision",
+        "title": "Révision finale",
+        "description": "Examen blanc chronométré couvrant les cinq chapitres, pondéré vers les objectifs faibles détectés par la plateforme.",
+        "estimatedMinutes": 120,
+        "prerequisites": ["ch1-check", "ch2-check", "ch3-check", "ch5-check"],
+        "checkpoint": true
+      }
+    ]
+  },
+  "exam": {
+    "defaultMinutes": 90,
+    "defaultQuestionCount": 30,
+    "mirrorsPastExam": false,
+    "formatNote": "Aucun examen antérieur n'a été fourni pour ce cours. Le format par défaut (30 questions, 90 minutes) est une convention de la plateforme : il ne reproduit pas le format d'un examen réel et ne prédit rien de ce qui sera évalué."
+  }
+}

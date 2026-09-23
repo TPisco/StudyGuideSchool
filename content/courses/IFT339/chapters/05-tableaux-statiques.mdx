@@ -1,0 +1,401 @@
+---
+course: IFT339
+number: 5
+title: Les tableaux statiques
+summary: >-
+  Le tableau primitif du C++, sa disposition en mémoire, son absence totale de
+  garde-fou — puis les quatre algorithmes de recherche du cours, et enfin le
+  conteneur array qui formalise tout cela en TDA.
+estimatedMinutes: 165
+prerequisites:
+  - "Chapitre 2 — pointeurs et arithmétique d'adresses"
+  - "Chapitre 4 — opérations communes des conteneurs"
+  - "Notion de complexité (thème 2, non fourni)"
+objectives:
+  - id: obj5-primitifs
+    text: Déclarer un tableau primitif à une ou deux dimensions et accéder à ses éléments.
+    bloom: apply
+  - id: obj5-memoire
+    text: Expliquer la disposition en mémoire d'un tableau et les conséquences de l'absence de vérification des bornes.
+    bloom: analyze
+  - id: obj5-passage
+    text: Passer un tableau en paramètre correctement, à une et deux dimensions.
+    bloom: apply
+  - id: obj5-recherche
+    text: Comparer les quatre algorithmes de recherche du cours et choisir le bon selon les hypothèses.
+    bloom: analyze
+  - id: obj5-array
+    text: Énoncer les complexités et les limites du conteneur array.
+    bloom: understand
+sources:
+  - file: "IFT339-6-Tableaux statiques.pdf"
+    page: 1
+    locator: "Thème 6 — Les tableaux statiques, diapositives 1 à 21"
+---
+
+## 1. Le tableau primitif
+
+Une **série de cases mémoire contiguës**.
+
+```cpp
+Type id[dim];
+```
+
+- `id` : une **adresse** — un **pointeur non modifiable** sur le début du tableau.
+- `dim` : le nombre d'éléments réservés.
+
+C'est une **allocation statique** de `dim` `Type` contigus, **libérés à `}`**.
+
+<Callout type="note" title="id est un pointeur, pas une variable comme les autres">
+C'est la clé de tout le chapitre. Le nom d'un tableau *est* l'adresse de son
+premier élément, et cette adresse n'est pas modifiable. Tout le reste —
+l'accès, le passage en paramètre, l'absence de bornes — en découle.
+</Callout>
+
+### 1.1 Accéder aux éléments
+
+Deux écritures **équivalentes** :
+
+```cpp
+id[nb]       // acces a l'element nb
+*(id + nb)   // dereference : meme chose
+```
+
+L'indice est un entier entre 0 et `dim` — le type employé par le cours est
+`size_t`. Le compilateur **sait de combien d'octets il doit additionner** —
+selon le type — pour se rendre au bon élément.
+
+<Source file="IFT339-6-Tableaux statiques.pdf" page={4} locator="Diapositives 3 et 4" />
+
+## 2. Les tableaux à deux dimensions
+
+```cpp
+int tab2[4][5];
+tab2[2][4] = 7;
+```
+
+Lignes : `0 ≤ li < dim1`. Colonnes : `0 ≤ co < dim2`. Les deux en `size_t`.
+
+### 2.1 La disposition réelle en mémoire
+
+Un tableau 2D n'est pas un rectangle : c'est **dim1 × dim2 cellules
+contiguës**, les lignes mises bout à bout.
+
+<Figure caption="int tab2[4][5] — la vue logique et la disposition réelle. Les repères tab2+5, tab2+2×5 sont ceux des diapositives.">
+<svg viewBox="0 0 680 290" role="img" aria-label="Un tableau 4 par 5 vu comme une grille puis comme une suite contiguë de 20 cellules">
+  <text x="16" y="20" font-size="13" font-weight="600" fill="currentColor">Vue logique</text>
+  <g font-size="11">
+    <rect x="30" y="34" width="34" height="26" fill="#818cf8" fill-opacity="0.12" stroke="#818cf8" />
+    <rect x="64" y="34" width="34" height="26" fill="#818cf8" fill-opacity="0.12" stroke="#818cf8" />
+    <rect x="98" y="34" width="34" height="26" fill="#818cf8" fill-opacity="0.12" stroke="#818cf8" />
+    <rect x="132" y="34" width="34" height="26" fill="#818cf8" fill-opacity="0.12" stroke="#818cf8" />
+    <rect x="166" y="34" width="34" height="26" fill="#818cf8" fill-opacity="0.12" stroke="#818cf8" />
+    <text x="8" y="52" fill="currentColor" opacity="0.7">L0</text>
+
+    <rect x="30" y="60" width="34" height="26" fill="#818cf8" fill-opacity="0.12" stroke="#818cf8" />
+    <rect x="64" y="60" width="34" height="26" fill="#818cf8" fill-opacity="0.12" stroke="#818cf8" />
+    <rect x="98" y="60" width="34" height="26" fill="#818cf8" fill-opacity="0.12" stroke="#818cf8" />
+    <rect x="132" y="60" width="34" height="26" fill="#818cf8" fill-opacity="0.12" stroke="#818cf8" />
+    <rect x="166" y="60" width="34" height="26" fill="#818cf8" fill-opacity="0.12" stroke="#818cf8" />
+    <text x="8" y="78" fill="currentColor" opacity="0.7">L1</text>
+
+    <rect x="30" y="86" width="34" height="26" fill="#818cf8" fill-opacity="0.12" stroke="#818cf8" />
+    <rect x="64" y="86" width="34" height="26" fill="#818cf8" fill-opacity="0.12" stroke="#818cf8" />
+    <rect x="98" y="86" width="34" height="26" fill="#818cf8" fill-opacity="0.12" stroke="#818cf8" />
+    <rect x="132" y="86" width="34" height="26" fill="#818cf8" fill-opacity="0.12" stroke="#818cf8" />
+    <rect x="166" y="86" width="34" height="26" fill="#34d399" fill-opacity="0.35" stroke="#34d399" stroke-width="1.6" />
+    <text x="183" y="104" text-anchor="middle" fill="currentColor" font-weight="700">7</text>
+    <text x="8" y="104" fill="currentColor" opacity="0.7">L2</text>
+
+    <rect x="30" y="112" width="34" height="26" fill="#818cf8" fill-opacity="0.12" stroke="#818cf8" />
+    <rect x="64" y="112" width="34" height="26" fill="#818cf8" fill-opacity="0.12" stroke="#818cf8" />
+    <rect x="98" y="112" width="34" height="26" fill="#818cf8" fill-opacity="0.12" stroke="#818cf8" />
+    <rect x="132" y="112" width="34" height="26" fill="#818cf8" fill-opacity="0.12" stroke="#818cf8" />
+    <rect x="166" y="112" width="34" height="26" fill="#818cf8" fill-opacity="0.12" stroke="#818cf8" />
+    <text x="8" y="130" fill="currentColor" opacity="0.7">L3</text>
+  </g>
+  <text x="30" y="156" font-size="12" fill="#34d399">tab2[2][4] = 7</text>
+
+  <text x="16" y="196" font-size="13" font-weight="600" fill="currentColor">En mémoire — 4 × 5 = 20 cellules contiguës</text>
+  <g font-size="9">
+    <rect x="30" y="210" width="160" height="24" fill="#818cf8" fill-opacity="0.12" stroke="#818cf8" />
+    <text x="110" y="226" text-anchor="middle" fill="currentColor">ligne 0</text>
+    <rect x="190" y="210" width="160" height="24" fill="#818cf8" fill-opacity="0.12" stroke="#818cf8" />
+    <text x="270" y="226" text-anchor="middle" fill="currentColor">ligne 1</text>
+    <rect x="350" y="210" width="128" height="24" fill="#818cf8" fill-opacity="0.12" stroke="#818cf8" />
+    <text x="414" y="226" text-anchor="middle" fill="currentColor">ligne 2</text>
+    <rect x="478" y="210" width="32" height="24" fill="#34d399" fill-opacity="0.35" stroke="#34d399" stroke-width="1.6" />
+    <text x="494" y="226" text-anchor="middle" fill="currentColor" font-weight="700">7</text>
+    <rect x="510" y="210" width="160" height="24" fill="#818cf8" fill-opacity="0.12" stroke="#818cf8" />
+    <text x="590" y="226" text-anchor="middle" fill="currentColor">ligne 3</text>
+  </g>
+  <g font-size="10.5" fill="currentColor" opacity="0.75">
+    <text x="30" y="250">tab2</text>
+    <text x="190" y="250">tab2+5</text>
+    <text x="350" y="250">tab2+2×5</text>
+    <text x="478" y="264">tab2+2×5+4</text>
+    <text x="510" y="250">tab2+3×5</text>
+  </g>
+</svg>
+</Figure>
+
+<Source file="IFT339-6-Tableaux statiques.pdf" page={6} locator="Diapositives 5 et 6" />
+
+## 3. Passer un tableau en paramètre
+
+Le point essentiel : **le pointeur du premier élément est passé, et non le
+tableau comme tel**.
+
+```cpp
+void fct(type[]);              // signature — un pointeur vers un bloc contigu
+void fct(type id[]){ … };      // code
+fct(nomTab);                   // appel
+```
+
+La signature **n'indique pas combien de cellules**. Il faut donc transmettre la
+dimension à part :
+
+```cpp
+void fct(type tab[], size_t dim);
+fct(tab1, 5);
+```
+
+<Callout type="misconception" title="Erreur classique">
+Écrire `fct(tab1[5]);` en croyant passer « un tableau de 5 éléments ». C'est un
+**appel avec l'élément à l'indice 5** du tableau — donc une **erreur de
+compilation** si `fct` attend un tableau. Les crochets à l'appel *sélectionnent*,
+ils ne dimensionnent pas.
+</Callout>
+
+Pour un tableau 2D, la **seconde dimension doit figurer dans la signature** :
+
+```cpp
+void fct(type[][dim2]);
+void fct(type tab[][dim2], size_t dim1, size_t dim2);
+fct(tab2, 4, 5);
+```
+
+<Callout type="note" title="Pourquoi dim2 et pas dim1">
+Parce que c'est `dim2` qui permet de calculer l'adresse : l'élément `[li][co]`
+se trouve à `tab2 + li*dim2 + co`. Sans connaître la longueur d'une ligne, le
+compilateur ne peut pas passer à la ligne suivante. `dim1`, lui, ne sert qu'à
+savoir quand s'arrêter — d'où son passage en paramètre ordinaire.
+</Callout>
+
+<Source file="IFT339-6-Tableaux statiques.pdf" page={8} locator="Diapositives 7 et 8" />
+
+## 4. Aucune vérification des bornes
+
+Le tableau primitif offre une **rapidité d'accès** — accès direct — et **fait
+partie du langage de base**. En contrepartie : **aucune vérification des
+bornes**.
+
+Il est donc **possible d'écrire** :
+
+```cpp
+tab1[8];     // meme si tab1 n'a que 5 cases
+tab1[-2];    // indice negatif
+```
+
+Et sur un tableau à plusieurs dimensions, **certaines équivalences sont
+possibles quand on sort des bornes déclarées** :
+
+| Écriture | Adresse calculée | Équivaut à |
+| --- | --- | --- |
+| `tab2[2][4]` | `tab2 + 2*5 + 4` | la case légitime, valeur 7 |
+| `tab2[3][-1]` | `tab2 + 3*5 - 1` | `tab2[2][4]` — la même case ! |
+| `tab2[1][9]` | `tab2 + 5 + 9` | `tab2[2][4]` — encore la même |
+
+<Callout type="warning" title="Ce ne sont pas des erreurs, ce sont des adresses">
+`tab2[3][-1]` et `tab2[1][9]` ne « plantent » pas : ils calculent une adresse
+parfaitement valide, qui se trouve désigner une autre case du tableau. Le
+programme lit ou écrit la mauvaise donnée, silencieusement. C'est le prix de
+l'accès direct sans garde-fou — et l'argument principal en faveur du TDA
+Tableau de la section 6.
+</Callout>
+
+<Source file="IFT339-6-Tableaux statiques.pdf" page={9} locator="Diapositive 9" />
+
+## 5. Itérer et chercher
+
+### 5.1 L'itérateur, version tableau primitif
+
+Un **itérateur** est un objet qui permet d'accéder à un élément particulier
+d'un conteneur. Pour les tableaux primitifs, le cours le présente comme
+l'**abstraction du type `int` ou `size_t`** :
+
+| Notion | Sur un tableau primitif |
+| --- | --- |
+| début / premier élément | `i = 0` |
+| dernier élément | `i = dim - 1` |
+| **fin** | `i = dim` — **après** le dernier élément |
+| avancer | `i++`, `++i` |
+| reculer | `i--`, `--i` |
+| est-on à la fin ? | `i == dim` |
+| est-on avant la fin ? | `i < dim` |
+| est-on au début ? | `i == 0` |
+
+```cpp
+for (int i = 0; i < dim; i++)      // du debut a la fin
+for (int i = dim-1; i >= 0; i--)   // de la fin au debut
+tab[i];                            // acces avec l'iterateur
+```
+
+### 5.2 Quatre algorithmes pour trouver un élément
+
+Le cours les présente comme une **progression**, chacun corrigeant un défaut du
+précédent.
+
+**1. Algorithme naïf** — traverser tout le tableau, conserver l'indice dès
+qu'on trouve.
+
+```cpp
+const size_t NB {1000};
+double tab[NB];
+size_t i, pos{NB};
+for(i=0; i<NB; i++){
+    if (tab[i]==valeur)
+        pos = i;        // element trouve
+}
+if(pos!=NB)...
+```
+
+Défaut : il continue **même après avoir trouvé**.
+
+**2. Algorithme amélioré** — traverser **jusqu'au repérage** de l'élément.
+
+```cpp
+size_t pos{NB};
+for(pos=0; pos<NB && tab[pos]!=valeur; pos++)
+{ }    // rien a faire dans la boucle, tout est dans l'entete
+if(pos!=NB) …
+```
+
+Défaut restant : il teste **la fin à chaque itération** (`pos<NB`).
+
+**3. Algorithme amélioré avec sentinelle** — éviter de tester la fin à chaque
+tour, en plaçant la valeur cherchée **après** le dernier élément.
+
+```cpp
+double tab[NB+1];     // une case de plus
+tab[NB]=valeur;       // sentinelle
+size_t pos{NB};
+for(pos=0; tab[pos]!=valeur; pos++)
+{ }
+if(pos!=NB) …
+```
+
+> Si l'élément n'est pas dans le tableau au départ, on le trouvera assurément à
+> la fin (après le dernier élément) ➫ arrête la recherche.
+
+**4. Recherche dans un tableau trié** — la même boucle, mais la condition
+devient `tab[pos] < valeur` : dès qu'on dépasse, inutile de continuer.
+
+```cpp
+for(pos=0; tab[pos]<valeur; pos++)
+{ }
+if(pos!=NB) …
+```
+
+<Source file="IFT339-6-Tableaux statiques.pdf" page={15} locator="Diapositives 12 à 15" />
+
+### 5.3 La recherche dichotomique
+
+Elle exige un **tableau trié** et procède par réduction de la zone de
+recherche.
+
+```cpp
+size_t deb {0}, fin{NB};   // delimite la zone de recherche
+size_t med;
+while (deb<fin)
+{
+    med=(deb+fin)/2;            // element a mi-chemin entre deb et fin
+    if (tab[med]>valeur)
+        fin=med;                // change la fin de la zone de recherche
+    else if (tab[med]<valeur)
+        deb=med+1;              // change le debut de la zone de recherche
+    else
+        fin = deb - 1;          // element trouve a l'indice med,
+                                // on s'assure de sortir de la boucle
+}
+if (fin<deb) …                  // la valeur est a l'indice med
+```
+
+<Callout type="warning" title="Point à vérifier avec le professeur">
+Les bornes sont déclarées `size_t`, donc **non signées**. Si l'élément est
+trouvé alors que `deb` vaut encore 0, la ligne `fin = deb - 1;` calcule `0 - 1`
+en arithmétique non signée, ce qui donne la **plus grande valeur** représentable
+plutôt que −1. La condition de sortie `fin < deb` n'est alors pas satisfaite.
+Le comportement diffère de celui obtenu avec des entiers signés — cela vaut la
+peine de le tracer soi-même et d'en parler au cours. Un exercice de cette page
+y revient.
+</Callout>
+
+<Source file="IFT339-6-Tableaux statiques.pdf" page={16} locator="Diapositive 16" />
+
+Le cours conclut cette section en signalant qu'on peut aussi **trier le
+tableau pour faciliter la recherche**, avec « plusieurs algorithmes, pas tous
+équivalents en efficacité mémoire et de traitement ».
+
+## 6. Le TDA Tableau statique
+
+Le tableau primitif **formalisé** :
+
+- **capacité statique** fixée à la déclaration ;
+- **mêmes usages**, **mêmes caractéristiques** — mémoire contiguë, taille fixe ;
+- **ajout de l'encapsulation** ;
+- **ajout de fonctionnalités abstraites** : facilité d'utilisation pour la
+  copie, la protection, le passage de paramètres, le retour de fonction…
+
+<Callout type="note" title="Ce que l'encapsulation rachète">
+Reprendre la section 4 : le tableau primitif ne se copie pas, ne se retourne
+pas, ne connaît pas sa taille et ne vérifie pas ses bornes. Le TDA Tableau ne
+change ni la représentation ni la complexité — il ajoute un contrat autour de
+la même mémoire contiguë.
+</Callout>
+
+### 6.1 Le conteneur `array`
+
+L'un des **conteneurs séquentiels** de la bibliothèque normalisée.
+
+| | |
+| --- | --- |
+| **Représentation** | tableau alloué **statiquement**, éléments **contigus** |
+| **Accès au i-ième élément** | $\mathcal{O}(1)$ |
+| **Recherche par valeur** | $\mathcal{O}(n)$ |
+| **Ajout ou retrait** | **aucun possible** |
+
+<Callout type="warning" title="Le thème 2 manque toujours">
+Les notations $\mathcal{O}(1)$ et $\mathcal{O}(n)$ apparaissent ici sans avoir
+été définies : elles relevaient du **thème 2**, qui n'a pas été fourni. Voir le
+rapport de couverture.
+</Callout>
+
+### 6.2 Opérations propres aux conteneurs séquentiels
+
+En plus des opérations communes du chapitre 4 — et de `tailleMax : Conteneur ➔
+entier positif`, que les notes ajoutent ici à la liste commune :
+
+```
+opérateur[] : Conteneur x entier positif ➔ Type
+    retourne un élément identifié par sa position (non vérifiée)
+
+élément     : Conteneur x entier positif ➔ Type
+    retourne un élément identifié par sa position
+
+premier     : Conteneur ➔ Type
+    retourne le premier élément
+
+dernier     : Conteneur ➔ Type
+    retourne le dernier élément
+```
+
+<Callout type="misconception" title="Erreur classique">
+Croire que `opérateur[]` et `élément` sont redondants. La différence est dans la
+spécification : `opérateur[]` retourne un élément à une position **non
+vérifiée** — il hérite du comportement du tableau primitif —, alors qu'`élément`
+vérifie. C'est précisément la « fonctionnalité abstraite » que le TDA ajoute, et
+c'est un choix laissé à l'usager entre vitesse et sûreté.
+</Callout>
+
+<Source file="IFT339-6-Tableaux statiques.pdf" page={21} locator="Diapositives 19 à 21" />

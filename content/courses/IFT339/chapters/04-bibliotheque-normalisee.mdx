@@ -1,0 +1,191 @@
+---
+course: IFT339
+number: 4
+title: La bibliothèque normalisée en C++
+summary: >-
+  Les conteneurs de la bibliothèque standard vus comme des TDA : quatre groupes,
+  un socle d'opérations communes, et une spécification algébrique qui dit ce que
+  chaque opération garantit.
+estimatedMinutes: 90
+prerequisites:
+  - "Chapitre 1 — TDA, domaine, opérations"
+  - "Chapitre 2 — classes génériques (template)"
+objectives:
+  - id: obj4-groupes
+    text: Distinguer les quatre groupes de conteneurs et le critère qui les sépare.
+    bloom: understand
+  - id: obj4-communes
+    text: Énoncer les opérations communes à tous les conteneurs et leur rôle.
+    bloom: recall
+  - id: obj4-semantique
+    text: Lire et appliquer une spécification algébrique d'opération.
+    bloom: analyze
+  - id: obj4-iterateurs
+    text: Expliquer le rôle des itérateurs début et fin dans l'abstraction d'un conteneur.
+    bloom: understand
+sources:
+  - file: "IFT339-5-BibliothequeNormaliseeC++.pdf"
+    page: 1
+    locator: "Thème 5 — La bibliothèque normalisée en C++, diapositives 1 à 7"
+---
+
+## 1. Des TDA choisis par un comité
+
+La bibliothèque normalisée fournit des **classes génériques de conteneurs**.
+Le cours les présente exactement comme le chapitre 1 présentait les TDA :
+
+> Implémentation de types de données abstraits → choix fait par les équipes de
+> standardisation.
+
+Autrement dit, quelqu'un a spécifié le contrat et arrêté la représentation à
+notre place. Ce qui est **uniforme** et ce qui **diffère** est donc ce qu'il
+faut savoir lire :
+
+| Uniforme d'un conteneur à l'autre | Différent d'un conteneur à l'autre |
+| --- | --- |
+| la **définition** | l'**implémentation**, les structures utilisées |
+| les **opérations de base en commun** | la **complexité des opérations** |
+
+<Callout type="note" title="C'est exactement la thèse du chapitre 1">
+Même TDA, plusieurs structures de données. Ici : même jeu d'opérations, des
+implantations différentes — et donc des complexités différentes. Choisir un
+conteneur, c'est choisir une structure de données, pas un contrat.
+</Callout>
+
+<Source file="IFT339-5-BibliothequeNormaliseeC++.pdf" page={2} locator="Diapositive 2" />
+
+## 2. Les quatre groupes
+
+Le critère qui les sépare est **qui décide de l'ordre des éléments**.
+
+<Mermaid caption="Les quatre groupes de conteneurs et leur critère de classement (diapositive 3)." chart={`
+flowchart TD
+    C["Conteneurs"]
+    C --> S["Sequentiels<br/>ordre defini par l'usager"]
+    C --> A["Associatifs<br/>ordre defini par le conteneur"]
+    C --> N["Associatifs non ordonnes<br/>aucun ordre defini"]
+    C --> D["Adaptes<br/>un autre conteneur sert de representation"]
+    S --> S1["ajouts au debut, a la fin,<br/>ou a une position donnee"]
+    A --> A1["ajouts en fonction<br/>de leur valeur"]
+`} />
+
+- **Séquentiels** — l'ordre des éléments est défini par **l'usager** ; les
+  ajouts se font au début, à la fin, ou à une position donnée du conteneur.
+- **Associatifs** — l'ordre est défini par **le conteneur** ; les ajouts se
+  font **en fonction de leur valeur**.
+- **Associatifs non ordonnés** — **aucun ordre** n'est défini sur les éléments.
+- **Adaptés** — **un autre conteneur est utilisé comme représentation**.
+
+<Callout type="misconception" title="Erreur classique">
+Lire « associatif » comme « indexé par une clé ». Le critère donné par les
+notes n'est pas la présence d'une clé mais **qui décide de la place d'un
+élément** : dans un conteneur associatif, l'usager ne choisit pas où insérer,
+c'est la valeur qui détermine la position.
+</Callout>
+
+<Source file="IFT339-5-BibliothequeNormaliseeC++.pdf" page={3} locator="Diapositive 3" />
+
+## 3. Les opérations communes
+
+C'est le socle que **tous** les conteneurs partagent. Le cours les donne dans la
+notation des TDA du chapitre 1 — `paramètres ➔ retour` — et non en syntaxe C++.
+
+### 3.1 Celles qui informent sur l'instance
+
+```
+taille   : Conteneur ➔ entier positif
+    retourne le nombre d'éléments contenus dans le conteneur
+
+estVide  : Conteneur ➔ booléen
+    estVide(d) = vrai SSI taille(d) = 0, faux sinon
+```
+
+<Callout type="tip" title="Lire une spécification algébrique">
+`estVide(d) = vrai SSI taille(d) = 0` ne décrit aucun algorithme. Elle énonce
+une **relation entre deux opérations du contrat** — exactement ce que le
+chapitre 1 exigeait d'un TDA : dire ce que fait la structure, pas comment. Une
+implantation qui maintiendrait un compteur et une autre qui parcourrait les
+éléments satisfont toutes deux cette spécification.
+</Callout>
+
+### 3.2 Les constructeurs
+
+```
+créer : Ø ➔ Conteneur
+    estVide(créer()) = vrai                            (conteneur vide)
+
+créer : entier positif ➔ Conteneur
+    taille(créer(n)) = n                               (conteneur de n éléments)
+
+créer : Conteneur ➔ Conteneur                          (par copie)
+    taille(créer(d)) = taille(d)
+    et ∀i, 0 ≤ i < taille(d),  créer(d)[i] = d[i]
+```
+
+La spécification du constructeur par copie est la plus instructive : elle
+exige **deux** choses — même taille **et** mêmes éléments, un à un. C'est la
+définition formelle de ce que « copier » veut dire pour un conteneur.
+
+### 3.3 Celles qui modifient l'instance
+
+```
+affecter : Conteneur x Conteneur ➔ Conteneur
+    estÉgal(d1 ← d, d) = vrai
+
+nettoyer : Conteneur ➔ Conteneur
+    nettoyer(d) = créer()
+    libère toute la mémoire allouée dynamiquement,
+    ramène le conteneur à l'état de création avec le constructeur sans paramètre
+
+détruire : Conteneur ➔ Ø
+    appelle nettoyer avant de détruire l'instance
+
+échanger : Conteneur x Conteneur ➔ Conteneur
+    échange le contenu des deux conteneurs
+```
+
+<Callout type="note" title="nettoyer(d) = créer()">
+Une seule ligne qui dit tout : après nettoyage, le conteneur est
+**indiscernable** d'un conteneur fraîchement construit sans paramètre. Et
+« détruire appelle nettoyer avant de détruire l'instance » — c'est la règle du
+chapitre 3, énoncée cette fois dans le contrat : ce que le constructeur a pris,
+le destructeur le rend.
+</Callout>
+
+### 3.4 Les autres
+
+```
+comparer (=, ≠, <, …) : Conteneur x Conteneur ➔ booléen
+    compare les éléments un à un :
+    ordre lexicographique du Type générique du contenu
+
+début, fin : Conteneur ➔ Itérateur
+    itérateurs sur les éléments de début et de fin
+
+avance, recule : Itérateur ➔ Itérateur
+    avance ou recule d'un élément dans le conteneur
+```
+
+<Source file="IFT339-5-BibliothequeNormaliseeC++.pdf" page={7} locator="Diapositives 4 à 7" />
+
+## 4. Les itérateurs
+
+Le couple `début` / `fin` est ce qui rend un conteneur **parcourable sans
+connaître sa représentation**. Peu importe que les éléments soient contigus ou
+chaînés : `avance` sait passer au suivant.
+
+C'est la généralisation de ce que le chapitre 5 appellera, pour un tableau
+primitif, « l'abstraction du type `int` ou `size_t` » — l'indice cesse d'être
+un entier pour devenir un objet qui sait se déplacer.
+
+<Callout type="warning" title="La complexité, elle, n'est pas uniforme">
+Les notes le disent en ouverture : ce qui diffère d'un conteneur à l'autre,
+c'est « l'implémentation, les structures utilisées » et **la complexité des
+opérations**. Deux conteneurs offrant le même `opérateur[]` peuvent le faire en
+$\mathcal{O}(1)$ ou en $\mathcal{O}(n)$. Le contrat ne le dit pas — c'est à la
+documentation de chaque conteneur de le préciser.
+</Callout>
+
+La diapositive se termine sur une note ouverte : « Des opérations spécialisées
+seront ajoutées plus tard. » Le chapitre 5 en donne le premier exemple avec les
+opérations propres aux conteneurs **séquentiels**.

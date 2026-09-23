@@ -1,0 +1,1716 @@
+{
+  "course": "IFT339",
+  "chapter": 5,
+  "concepts": [
+    {
+      "id": "c5-tableau-primitif",
+      "term": "Tableau primitif",
+      "definition": "Série de cases mémoire contiguës déclarée Type id[dim]. id est une adresse — un pointeur non modifiable sur le début du tableau — et dim le nombre d'éléments réservés.",
+      "whyItMatters": "Le fait que le nom du tableau soit une adresse explique tout le reste : l'accès par calcul, le passage en paramètre qui perd la taille, et l'absence de vérification des bornes.",
+      "commonMisconception": "Traiter id comme une variable ordinaire qu'on pourrait réaffecter. C'est un pointeur non modifiable : il désigne le début du tableau pour toute la durée de vie de celui-ci.",
+      "objectiveId": "obj5-primitifs",
+      "source": {
+        "file": "IFT339-6-Tableaux statiques.pdf",
+        "page": 3,
+        "locator": "Diapositive 3"
+      }
+    },
+    {
+      "id": "c5-equivalence-acces",
+      "term": "id[nb] et *(id+nb)",
+      "definition": "Deux écritures équivalentes pour accéder à l'élément nb. Le compilateur sait de combien d'octets, selon le type, il doit additionner pour se rendre au bon élément.",
+      "whyItMatters": "L'équivalence montre que l'indexation n'est pas une opération primitive mais une arithmétique d'adresses — d'où sa rapidité, et d'où l'absence de contrôle.",
+      "commonMisconception": "Croire que id+nb avance de nb octets. L'arithmétique des pointeurs compte en éléments : le compilateur multiplie par la taille du type.",
+      "objectiveId": "obj5-primitifs",
+      "source": {
+        "file": "IFT339-6-Tableaux statiques.pdf",
+        "page": 4,
+        "locator": "Diapositive 4"
+      }
+    },
+    {
+      "id": "c5-2d-memoire",
+      "term": "Disposition d'un tableau 2D",
+      "definition": "Un tableau int tab2[4][5] occupe dim1 × dim2 cellules contiguës, les lignes mises bout à bout. L'élément [li][co] se trouve à tab2 + li*dim2 + co.",
+      "whyItMatters": "C'est cette formule qui explique pourquoi la seconde dimension doit figurer dans la signature d'une fonction recevant un tableau 2D : sans elle, impossible de passer à la ligne suivante.",
+      "commonMisconception": "Se représenter un tableau 2D comme un rectangle en mémoire, ou comme un tableau de pointeurs vers des lignes. Ce sont dim1 × dim2 cellules d'un seul tenant.",
+      "objectiveId": "obj5-memoire",
+      "source": {
+        "file": "IFT339-6-Tableaux statiques.pdf",
+        "page": 6,
+        "locator": "Diapositives 5 et 6"
+      }
+    },
+    {
+      "id": "c5-bornes",
+      "term": "Absence de vérification des bornes",
+      "definition": "Le tableau primitif ne contrôle aucun indice. tab1[8] sur un tableau de 5 cases, ou tab1[-2], sont des écritures possibles qui calculent une adresse.",
+      "whyItMatters": "Sur un tableau à plusieurs dimensions, des équivalences apparaissent hors bornes : tab2[3][-1] et tab2[1][9] désignent tous deux tab2[2][4]. Le programme lit la mauvaise donnée, silencieusement.",
+      "commonMisconception": "Croire qu'un indice hors bornes provoque une erreur. Il calcule une adresse parfaitement valide ; rien ne signale que ce n'était pas la case voulue.",
+      "objectiveId": "obj5-memoire",
+      "source": {
+        "file": "IFT339-6-Tableaux statiques.pdf",
+        "page": 9,
+        "locator": "Diapositive 9"
+      }
+    },
+    {
+      "id": "c5-passage",
+      "term": "Passage d'un tableau en paramètre",
+      "definition": "Le pointeur du premier élément est passé, et non le tableau comme tel. La signature void fct(type[]) indique un pointeur vers un bloc de mémoire contiguë, mais n'indique pas combien de cellules.",
+      "whyItMatters": "C'est pourquoi la dimension doit être transmise séparément : void fct(type tab[], size_t dim). La fonction n'a aucun moyen de la déduire.",
+      "commonMisconception": "Écrire fct(tab1[5]) en croyant passer un tableau de 5 éléments. C'est un appel avec l'élément d'indice 5 — donc une erreur de compilation. Les crochets sélectionnent, ils ne dimensionnent pas.",
+      "objectiveId": "obj5-passage",
+      "source": {
+        "file": "IFT339-6-Tableaux statiques.pdf",
+        "page": 7,
+        "locator": "Diapositive 7"
+      }
+    },
+    {
+      "id": "c5-sentinelle",
+      "term": "Sentinelle",
+      "definition": "Valeur cherchée placée délibérément après le dernier élément, dans une case supplémentaire, afin de garantir que la recherche s'arrête sans avoir à tester la fin du tableau à chaque itération.",
+      "whyItMatters": "Elle supprime un test par tour de boucle : l'en-tête passe de « pos<NB && tab[pos]!=valeur » à « tab[pos]!=valeur ».",
+      "commonMisconception": "Oublier de déclarer le tableau avec une case de plus. Le cours écrit double tab[NB+1] : écrire la sentinelle dans tab[NB] d'un tableau de taille NB serait justement l'écriture hors bornes de la diapositive 9.",
+      "objectiveId": "obj5-recherche",
+      "source": {
+        "file": "IFT339-6-Tableaux statiques.pdf",
+        "page": 14,
+        "locator": "Diapositive 14"
+      }
+    },
+    {
+      "id": "c5-tad-tableau",
+      "term": "TDA Tableau statique",
+      "definition": "Formalisation du tableau primitif : capacité statique fixée à la déclaration, mêmes usages et mêmes caractéristiques — mémoire contiguë, taille fixe — avec ajout de l'encapsulation et de fonctionnalités abstraites.",
+      "whyItMatters": "Il rachète ce que le tableau primitif ne sait pas faire : copie, protection, passage de paramètres et retour de fonction deviennent possibles et sûrs.",
+      "commonMisconception": "Croire que le TDA Tableau change la représentation ou la complexité. Il conserve la même mémoire contiguë et la même taille fixe : ce qu'il ajoute, c'est un contrat autour.",
+      "objectiveId": "obj5-array",
+      "source": {
+        "file": "IFT339-6-Tableaux statiques.pdf",
+        "page": 18,
+        "locator": "Diapositive 18"
+      }
+    },
+    {
+      "id": "c5-array",
+      "term": "Conteneur array",
+      "definition": "Conteneur séquentiel de la bibliothèque normalisée, représenté par un tableau alloué statiquement à éléments contigus. Accès au i-ième élément en 𝒪(1), recherche par valeur en 𝒪(n), aucun ajout ni retrait possible.",
+      "whyItMatters": "C'est le premier conteneur concret du cours, et il illustre le principe du chapitre 4 : le contrat commun est respecté, mais la complexité et les limites lui sont propres.",
+      "commonMisconception": "Chercher à y ajouter un élément. Les notes sont explicites : « Ajout ou retrait : aucun possible ». La capacité est fixée à la déclaration, comme pour le tableau primitif.",
+      "objectiveId": "obj5-array",
+      "source": {
+        "file": "IFT339-6-Tableaux statiques.pdf",
+        "page": 19,
+        "locator": "Diapositive 19"
+      }
+    }
+  ],
+  "tables": [
+    {
+      "id": "t5-recherches",
+      "title": "Les quatre algorithmes de recherche du cours",
+      "kind": "comparison",
+      "caption": "Chacun corrige un défaut du précédent. La dichotomie est traitée à part.",
+      "columns": [
+        {
+          "key": "algo",
+          "label": "Algorithme"
+        },
+        {
+          "key": "entete",
+          "label": "En-tête de boucle",
+          "mono": true
+        },
+        {
+          "key": "hyp",
+          "label": "Hypothèse"
+        },
+        {
+          "key": "defaut",
+          "label": "Défaut corrigé / restant"
+        }
+      ],
+      "rows": [
+        {
+          "algo": "1. Naïf",
+          "entete": "for(i=0; i<NB; i++)",
+          "hyp": "aucune",
+          "defaut": "continue même après avoir trouvé"
+        },
+        {
+          "algo": "2. Amélioré",
+          "entete": "for(pos=0; pos<NB && tab[pos]!=valeur; pos++)",
+          "hyp": "aucune",
+          "defaut": "s'arrête au repérage, mais teste la fin à chaque tour"
+        },
+        {
+          "algo": "3. Avec sentinelle",
+          "entete": "for(pos=0; tab[pos]!=valeur; pos++)",
+          "hyp": "une case de plus, tab[NB] = valeur",
+          "defaut": "plus de test de fin ; exige tab[NB+1]"
+        },
+        {
+          "algo": "4. Tableau trié",
+          "entete": "for(pos=0; tab[pos]<valeur; pos++)",
+          "hyp": "tableau trié",
+          "defaut": "s'arrête dès qu'on dépasse la valeur"
+        },
+        {
+          "algo": "5. Dichotomique",
+          "entete": "while (deb<fin) { med=(deb+fin)/2; … }",
+          "hyp": "tableau trié",
+          "defaut": "divise la zone de recherche à chaque tour"
+        }
+      ],
+      "source": {
+        "file": "IFT339-6-Tableaux statiques.pdf",
+        "page": 16,
+        "locator": "Diapositives 12 à 16"
+      }
+    },
+    {
+      "id": "t5-iterateur",
+      "title": "L'itérateur sur un tableau primitif",
+      "kind": "syntax",
+      "caption": "L'abstraction du type int ou size_t, telle que formulée par les notes.",
+      "columns": [
+        {
+          "key": "notion",
+          "label": "Notion"
+        },
+        {
+          "key": "code",
+          "label": "Sur un tableau primitif",
+          "mono": true
+        }
+      ],
+      "rows": [
+        {
+          "notion": "début, premier élément",
+          "code": "i = 0"
+        },
+        {
+          "notion": "dernier élément",
+          "code": "i = dim - 1"
+        },
+        {
+          "notion": "fin (après le dernier)",
+          "code": "i = dim"
+        },
+        {
+          "notion": "avancer",
+          "code": "i++, ++i"
+        },
+        {
+          "notion": "reculer",
+          "code": "i--, --i"
+        },
+        {
+          "notion": "est-on à la fin ?",
+          "code": "i == dim"
+        },
+        {
+          "notion": "est-on avant la fin ?",
+          "code": "i < dim"
+        },
+        {
+          "notion": "est-on au début ?",
+          "code": "i == 0"
+        }
+      ],
+      "source": {
+        "file": "IFT339-6-Tableaux statiques.pdf",
+        "page": 10,
+        "locator": "Diapositive 10"
+      }
+    },
+    {
+      "id": "t5-array",
+      "title": "Le conteneur array",
+      "kind": "complexity",
+      "columns": [
+        {
+          "key": "aspect",
+          "label": "Aspect"
+        },
+        {
+          "key": "valeur",
+          "label": "Valeur",
+          "mono": true
+        }
+      ],
+      "rows": [
+        {
+          "aspect": "Groupe",
+          "valeur": "conteneur séquentiel"
+        },
+        {
+          "aspect": "Représentation",
+          "valeur": "tableau alloué statiquement, éléments contigus"
+        },
+        {
+          "aspect": "Accès au i-ième élément",
+          "valeur": "𝒪(1)"
+        },
+        {
+          "aspect": "Recherche par valeur",
+          "valeur": "𝒪(n)"
+        },
+        {
+          "aspect": "Ajout ou retrait",
+          "valeur": "aucun possible"
+        }
+      ],
+      "source": {
+        "file": "IFT339-6-Tableaux statiques.pdf",
+        "page": 19
+      }
+    }
+  ],
+  "quiz": {
+    "title": "Quiz — vérification rapide",
+    "estimatedMinutes": 15,
+    "questions": [
+      {
+        "id": "q5-01",
+        "objectiveId": "obj5-primitifs",
+        "bloomLevel": "recall",
+        "type": "mcq",
+        "difficulty": 1,
+        "prompt": "Dans `Type id[dim];`, que désigne id ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Une adresse — un pointeur non modifiable sur le début du tableau."
+          },
+          {
+            "id": "b",
+            "text": "Le premier élément du tableau, accessible directement par son nom."
+          },
+          {
+            "id": "c",
+            "text": "Le nombre d'éléments réservés lors de la déclaration du tableau."
+          },
+          {
+            "id": "d",
+            "text": "Une copie complète du tableau, distincte de l'original en mémoire."
+          }
+        ],
+        "correct": "a",
+        "explanation": "C'est la définition de la diapositive 3, et elle commande tout le chapitre : l'accès par calcul d'adresse, la perte de la taille au passage en paramètre, et l'absence de contrôle des bornes.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "id désigne l'adresse du premier élément, pas sa valeur. Pour obtenir celle-ci il faut déréférencer : *id ou id[0]."
+          },
+          {
+            "optionId": "c",
+            "why": "C'est dim, le nombre d'éléments réservés."
+          },
+          {
+            "optionId": "d",
+            "why": "Aucune copie n'existe : un tableau primitif ne se copie d'ailleurs pas par affectation."
+          }
+        ],
+        "source": {
+          "file": "IFT339-6-Tableaux statiques.pdf",
+          "page": 3
+        }
+      },
+      {
+        "id": "q5-02",
+        "objectiveId": "obj5-primitifs",
+        "bloomLevel": "understand",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "À quoi `id[nb]` est-il équivalent ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "*(id + nb)"
+          },
+          {
+            "id": "b",
+            "text": "id + nb"
+          },
+          {
+            "id": "c",
+            "text": "&(id + nb)"
+          },
+          {
+            "id": "d",
+            "text": "*id + nb"
+          }
+        ],
+        "correct": "a",
+        "explanation": "L'indexation est une arithmétique d'adresses suivie d'un déréférencement. Le compilateur sait de combien d'octets, selon le type, il doit additionner pour atteindre le bon élément.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "id + nb est une adresse, pas la valeur qui s'y trouve. Il manque le déréférencement."
+          },
+          {
+            "optionId": "c",
+            "why": "& produit une adresse à partir d'une variable ; appliqué à une adresse, cela n'a pas le sens recherché."
+          },
+          {
+            "optionId": "d",
+            "why": "Les priorités changent tout : ceci déréférence d'abord id — donc lit id[0] — puis ajoute nb à la valeur lue."
+          }
+        ],
+        "source": {
+          "file": "IFT339-6-Tableaux statiques.pdf",
+          "page": 4
+        }
+      },
+      {
+        "id": "q5-03",
+        "objectiveId": "obj5-memoire",
+        "bloomLevel": "apply",
+        "type": "short-answer",
+        "difficulty": 2,
+        "prompt": "Soit `int tab2[4][5];`. Combien de cellules contiguës occupe-t-il en mémoire ? (un nombre)",
+        "correct": "20",
+        "acceptableAnswers": [
+          "20 cellules"
+        ],
+        "explanation": "dim1 × dim2 = 4 × 5 = 20 cellules d'un seul tenant, les lignes mises bout à bout. Ce n'est ni un rectangle en mémoire, ni un tableau de pointeurs vers des lignes.",
+        "source": {
+          "file": "IFT339-6-Tableaux statiques.pdf",
+          "page": 6
+        }
+      },
+      {
+        "id": "q5-04",
+        "objectiveId": "obj5-memoire",
+        "bloomLevel": "analyze",
+        "type": "mcq",
+        "difficulty": 3,
+        "prompt": "Pour `int tab2[4][5];`, à quelle case `tab2[3][-1]` accède-t-il réellement ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "tab2[2][4] — l'adresse calculée est tab2 + 3*5 - 1"
+          },
+          {
+            "id": "b",
+            "text": "Nulle part : l'indice négatif provoque une erreur."
+          },
+          {
+            "id": "c",
+            "text": "tab2[3][0] — l'indice négatif est ramené à 0."
+          },
+          {
+            "id": "d",
+            "text": "tab2[0][0] — l'accès repart du début."
+          }
+        ],
+        "correct": "a",
+        "explanation": "L'adresse se calcule par tab2 + li*dim2 + co, soit tab2 + 15 - 1 = tab2 + 14, qui est exactement l'adresse de tab2[2][4]. Les notes donnent cette équivalence telle quelle.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Aucune vérification des bornes n'a lieu : l'expression calcule une adresse parfaitement valide et le programme lit ce qui s'y trouve."
+          },
+          {
+            "optionId": "c",
+            "why": "Aucun ajustement n'est fait ; l'indice entre tel quel dans le calcul d'adresse."
+          },
+          {
+            "optionId": "d",
+            "why": "Il n'y a pas de retour au début : l'adresse est obtenue par une simple addition."
+          }
+        ],
+        "source": {
+          "file": "IFT339-6-Tableaux statiques.pdf",
+          "page": 9
+        }
+      },
+      {
+        "id": "q5-05",
+        "objectiveId": "obj5-passage",
+        "bloomLevel": "understand",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Pourquoi faut-il passer la dimension en paramètre séparé à une fonction recevant un tableau ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Parce que seul le pointeur du premier élément est passé, et la signature n'indique pas combien de cellules."
+          },
+          {
+            "id": "b",
+            "text": "Parce que le tableau est copié et que la copie perd sa taille."
+          },
+          {
+            "id": "c",
+            "text": "Parce que sizeof ne fonctionne pas en C++."
+          },
+          {
+            "id": "d",
+            "text": "Parce que la dimension doit être connue à l'exécution seulement."
+          }
+        ],
+        "correct": "a",
+        "explanation": "C'est le pointeur du premier élément qui est passé, et non le tableau comme tel. La signature void fct(type[]) indique un pointeur vers un bloc de mémoire contiguë, sans en préciser la longueur.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Aucune copie n'est faite — c'est justement l'intérêt et la limite du mécanisme : on transmet une adresse."
+          },
+          {
+            "optionId": "c",
+            "why": "sizeof existe, mais appliqué au paramètre il mesurerait le pointeur, pas le tableau d'origine."
+          },
+          {
+            "optionId": "d",
+            "why": "La dimension est souvent connue à la compilation ; elle se perd néanmoins au passage, ce qui est un fait de mécanisme et non de moment."
+          }
+        ],
+        "source": {
+          "file": "IFT339-6-Tableaux statiques.pdf",
+          "page": 7
+        }
+      },
+      {
+        "id": "q5-06",
+        "objectiveId": "obj5-passage",
+        "bloomLevel": "apply",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Que fait réellement l'appel `fct(tab1[5]);` si fct attend un tableau ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Il passe l'élément d'indice 5 — donc une erreur de compilation."
+          },
+          {
+            "id": "b",
+            "text": "Il passe les 5 premiers éléments du tableau."
+          },
+          {
+            "id": "c",
+            "text": "Il passe le tableau en indiquant sa taille."
+          },
+          {
+            "id": "d",
+            "text": "Il passe l'adresse du tableau, comme fct(tab1)."
+          }
+        ],
+        "correct": "a",
+        "explanation": "Les crochets sélectionnent un élément, ils ne dimensionnent pas. Les notes l'écrivent explicitement : ce n'est « pas un appel avec un tableau de 5 éléments », c'est un appel avec l'élément à l'index 5, d'où l'erreur de compilation.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Aucune syntaxe ne permet de passer une tranche d'un tableau primitif ; il faudrait passer l'adresse et une longueur."
+          },
+          {
+            "optionId": "c",
+            "why": "C'est l'intention de celui qui écrit cela, et précisément ce que le langage ne fait pas. La taille se transmet en paramètre séparé."
+          },
+          {
+            "optionId": "d",
+            "why": "fct(tab1) passe bien l'adresse ; fct(tab1[5]) passe une valeur d'élément, ce qui est un type différent."
+          }
+        ],
+        "source": {
+          "file": "IFT339-6-Tableaux statiques.pdf",
+          "page": 7
+        }
+      },
+      {
+        "id": "q5-07",
+        "objectiveId": "obj5-recherche",
+        "bloomLevel": "understand",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Quel défaut l'algorithme « amélioré » corrige-t-il par rapport à l'algorithme naïf ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Le naïf continue de parcourir même après avoir trouvé l'élément."
+          },
+          {
+            "id": "b",
+            "text": "Le naïf ne trouve pas l'élément s'il est en dernière position."
+          },
+          {
+            "id": "c",
+            "text": "Le naïf exige un tableau trié."
+          },
+          {
+            "id": "d",
+            "text": "Le naïf sort des bornes du tableau."
+          }
+        ],
+        "correct": "a",
+        "explanation": "L'algorithme naïf traverse tout le tableau et conserve l'indice dès qu'il trouve ; il ne s'arrête pas. L'amélioré met la condition d'arrêt dans l'en-tête de boucle : « pos<NB && tab[pos]!=valeur ».",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Il la trouve très bien : il parcourt justement l'intégralité du tableau."
+          },
+          {
+            "optionId": "c",
+            "why": "Aucun des deux n'exige un tri ; c'est le quatrième algorithme qui pose cette hypothèse."
+          },
+          {
+            "optionId": "d",
+            "why": "La boucle du naïf est bornée par i<NB : elle reste dans les limites."
+          }
+        ],
+        "source": {
+          "file": "IFT339-6-Tableaux statiques.pdf",
+          "page": 13
+        }
+      },
+      {
+        "id": "q5-08",
+        "objectiveId": "obj5-recherche",
+        "bloomLevel": "analyze",
+        "type": "mcq",
+        "difficulty": 3,
+        "prompt": "Quel est le rôle exact de la sentinelle `tab[NB] = valeur;` ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Garantir que la boucle s'arrête, ce qui permet de supprimer le test de fin à chaque itération."
+          },
+          {
+            "id": "b",
+            "text": "Marquer la fin du tableau pour les autres fonctions."
+          },
+          {
+            "id": "c",
+            "text": "Accélérer la comparaison des éléments."
+          },
+          {
+            "id": "d",
+            "text": "Trier le tableau avant la recherche."
+          }
+        ],
+        "correct": "a",
+        "explanation": "Si l'élément n'est pas dans le tableau au départ, on le trouvera assurément après le dernier élément. L'arrêt étant garanti, l'en-tête passe de « pos<NB && tab[pos]!=valeur » à « tab[pos]!=valeur » : un test de moins par tour.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "La sentinelle vaut la valeur cherchée, qui change à chaque recherche ; elle ne marque rien de durable."
+          },
+          {
+            "optionId": "c",
+            "why": "Chaque comparaison reste identique ; c'est leur nombre total de tests qui diminue, pas leur coût unitaire."
+          },
+          {
+            "optionId": "d",
+            "why": "Aucun tri n'intervient ; la sentinelle fonctionne sur un tableau quelconque."
+          }
+        ],
+        "source": {
+          "file": "IFT339-6-Tableaux statiques.pdf",
+          "page": 14
+        }
+      },
+      {
+        "id": "q5-09",
+        "objectiveId": "obj5-array",
+        "bloomLevel": "recall",
+        "type": "mcq",
+        "difficulty": 1,
+        "prompt": "Quelle opération le conteneur array ne permet-il pas ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "L'ajout ou le retrait d'éléments"
+          },
+          {
+            "id": "b",
+            "text": "L'accès au i-ième élément"
+          },
+          {
+            "id": "c",
+            "text": "La recherche par valeur"
+          },
+          {
+            "id": "d",
+            "text": "La comparaison avec un autre array"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Les notes l'écrivent littéralement : « Ajout ou retrait : aucun possible ». La capacité est fixée à la déclaration, exactement comme pour le tableau primitif dont array conserve la représentation.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "C'est au contraire son point fort : accès au i-ième élément en 𝒪(1), grâce à la contiguïté."
+          },
+          {
+            "optionId": "c",
+            "why": "Elle est possible, en 𝒪(n) — il faut parcourir."
+          },
+          {
+            "optionId": "d",
+            "why": "La comparaison fait partie des opérations communes à tous les conteneurs, vues au chapitre 4."
+          }
+        ],
+        "source": {
+          "file": "IFT339-6-Tableaux statiques.pdf",
+          "page": 19
+        }
+      },
+      {
+        "id": "q5-10",
+        "objectiveId": "obj5-recherche",
+        "bloomLevel": "apply",
+        "type": "fill-blank",
+        "difficulty": 2,
+        "prompt": "Compléter l'en-tête de la recherche dans un tableau trié : `for(pos=0; tab[pos] ____ valeur; pos++)`",
+        "correct": "<",
+        "acceptableAnswers": [
+          "< ",
+          "inférieur",
+          "plus petit que"
+        ],
+        "explanation": "L'opérateur < remplace le != de la version avec sentinelle. Sur un tableau trié, dès que l'élément courant atteint ou dépasse la valeur cherchée, il est inutile de continuer : ce qui suit est encore plus grand.",
+        "source": {
+          "file": "IFT339-6-Tableaux statiques.pdf",
+          "page": 15
+        }
+      },
+      {
+        "id": "q5-11",
+        "objectiveId": "obj5-array",
+        "bloomLevel": "understand",
+        "type": "true-false",
+        "difficulty": 2,
+        "prompt": "Le TDA Tableau statique change la représentation du tableau primitif.",
+        "options": [
+          {
+            "id": "v",
+            "text": "Vrai"
+          },
+          {
+            "id": "f",
+            "text": "Faux"
+          }
+        ],
+        "correct": "f",
+        "explanation": "Les notes insistent : « mêmes usages, mêmes caractéristiques — mémoire contiguë, taille fixe définie à la déclaration ». Ce que le TDA ajoute, c'est l'encapsulation et des fonctionnalités abstraites : copie, protection, passage de paramètres, retour de fonction.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "v",
+            "why": "Ce serait changer de structure de données. Ici la représentation est conservée et c'est le contrat qui s'enrichit — la distinction même du chapitre 1."
+          }
+        ],
+        "source": {
+          "file": "IFT339-6-Tableaux statiques.pdf",
+          "page": 18
+        }
+      },
+      {
+        "id": "q5-12",
+        "objectiveId": "obj5-primitifs",
+        "bloomLevel": "apply",
+        "type": "code-output",
+        "difficulty": 2,
+        "prompt": "Qu'affiche ce programme ?",
+        "code": {
+          "lang": "cpp",
+          "value": "#include <iostream>\n\nint main()\n{\n    int tab[5] = {10, 20, 30, 40, 50};\n    std::cout << tab[2] << \" \" << *(tab + 2) << std::endl;\n    return 0;\n}"
+        },
+        "correct": "30 30",
+        "acceptableAnswers": [
+          "30 30 "
+        ],
+        "explanation": "Les deux écritures sont équivalentes : tab[2] est exactement *(tab + 2). L'arithmétique des pointeurs compte en éléments, donc tab + 2 avance de deux int — et non de deux octets.",
+        "source": {
+          "file": "IFT339-6-Tableaux statiques.pdf",
+          "page": 4
+        }
+      }
+    ]
+  },
+  "test": {
+    "title": "Test du chapitre 5",
+    "instructions": "20 questions couvrant tout le chapitre. Plus long et plus difficile que le quiz.",
+    "estimatedMinutes": 45,
+    "questions": [
+      {
+        "id": "t5-01",
+        "objectiveId": "obj5-primitifs",
+        "bloomLevel": "recall",
+        "type": "mcq",
+        "difficulty": 1,
+        "prompt": "Quand la mémoire d'un tableau primitif déclaré dans un bloc est-elle libérée ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "À la fermeture du bloc — les notes écrivent « libérés à } »."
+          },
+          {
+            "id": "b",
+            "text": "Lors d'un appel explicite à delete."
+          },
+          {
+            "id": "c",
+            "text": "À la fin du programme."
+          },
+          {
+            "id": "d",
+            "text": "Dès que le dernier élément n'est plus utilisé."
+          }
+        ],
+        "correct": "a",
+        "explanation": "C'est une allocation statique de dim Type contigus, soumise au mécanisme des blocs du chapitre 3 : allocation à la déclaration, libération à la fermeture.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "delete concerne la mémoire obtenue par new. Un tableau primitif n'est pas alloué dynamiquement."
+          },
+          {
+            "optionId": "c",
+            "why": "Ce serait le cas d'une variable globale ; ici la portée est celle du bloc."
+          },
+          {
+            "optionId": "d",
+            "why": "Aucun suivi d'utilisation n'existe : c'est la structure en blocs qui décide."
+          }
+        ],
+        "source": {
+          "file": "IFT339-6-Tableaux statiques.pdf",
+          "page": 3
+        }
+      },
+      {
+        "id": "t5-02",
+        "objectiveId": "obj5-memoire",
+        "bloomLevel": "apply",
+        "type": "short-answer",
+        "difficulty": 2,
+        "prompt": "Pour `int tab2[4][5];`, quel déplacement depuis tab2 correspond à l'élément tab2[2][4] ? Donner le nombre d'éléments. (un nombre)",
+        "correct": "14",
+        "acceptableAnswers": [
+          "14 éléments"
+        ],
+        "explanation": "L'adresse se calcule par li*dim2 + co = 2×5 + 4 = 14. Les notes écrivent ce repère « tab2+2*5+4 ». Attention : 14 éléments, ce qui fait 56 octets pour des int de 4 octets.",
+        "source": {
+          "file": "IFT339-6-Tableaux statiques.pdf",
+          "page": 9
+        }
+      },
+      {
+        "id": "t5-03",
+        "objectiveId": "obj5-passage",
+        "bloomLevel": "apply",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Quelle signature permet de recevoir le tableau `int tab2[4][5];` ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "void fct(int tab[][5], size_t dim1, size_t dim2);"
+          },
+          {
+            "id": "b",
+            "text": "void fct(int tab[][], size_t dim1, size_t dim2);"
+          },
+          {
+            "id": "c",
+            "text": "void fct(int tab[4][], size_t dim1, size_t dim2);"
+          },
+          {
+            "id": "d",
+            "text": "void fct(int tab[], size_t dim1, size_t dim2);"
+          }
+        ],
+        "correct": "a",
+        "explanation": "La seconde dimension doit figurer dans la signature, parce que c'est elle qui permet de calculer l'adresse d'un élément : tab + li*dim2 + co. Sans elle, impossible de passer à la ligne suivante.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Les deux dimensions omises : le compilateur ne peut calculer aucune adresse de ligne."
+          },
+          {
+            "optionId": "c",
+            "why": "C'est la mauvaise dimension qui est fournie. dim1 ne sert qu'à savoir quand s'arrêter, et se passe en paramètre ordinaire."
+          },
+          {
+            "optionId": "d",
+            "why": "C'est une signature de tableau à une dimension ; elle ne permet pas l'écriture tab[li][co]."
+          }
+        ],
+        "source": {
+          "file": "IFT339-6-Tableaux statiques.pdf",
+          "page": 8
+        }
+      },
+      {
+        "id": "t5-04",
+        "objectiveId": "obj5-memoire",
+        "bloomLevel": "analyze",
+        "type": "multi",
+        "difficulty": 3,
+        "prompt": "Pour `int tab2[4][5];`, quelles écritures désignent la même case que tab2[2][4] ? (plusieurs réponses)",
+        "options": [
+          {
+            "id": "a",
+            "text": "tab2[3][-1]"
+          },
+          {
+            "id": "b",
+            "text": "tab2[1][9]"
+          },
+          {
+            "id": "c",
+            "text": "tab2[2][5]"
+          },
+          {
+            "id": "d",
+            "text": "tab2[4][4]"
+          }
+        ],
+        "correct": [
+          "a",
+          "b"
+        ],
+        "explanation": "L'adresse vaut li*5 + co. tab2[2][4] → 14. tab2[3][-1] → 15 − 1 = 14. tab2[1][9] → 5 + 9 = 14. Les notes donnent exactement ces deux équivalences.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "c",
+            "why": "2×5 + 5 = 15, soit la case suivante — c'est-à-dire tab2[3][0], et non tab2[2][4]."
+          },
+          {
+            "optionId": "d",
+            "why": "4×5 + 4 = 24, soit au-delà des 20 cellules du tableau : une adresse hors du tableau entier."
+          }
+        ],
+        "source": {
+          "file": "IFT339-6-Tableaux statiques.pdf",
+          "page": 9
+        }
+      },
+      {
+        "id": "t5-05",
+        "objectiveId": "obj5-recherche",
+        "bloomLevel": "understand",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Pourquoi le tableau doit-il être déclaré `double tab[NB+1];` dans la version avec sentinelle ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Pour disposer d'une case supplémentaire où écrire la sentinelle sans sortir des bornes."
+          },
+          {
+            "id": "b",
+            "text": "Pour que la recherche soit plus rapide."
+          },
+          {
+            "id": "c",
+            "text": "Parce que les indices commencent à 1."
+          },
+          {
+            "id": "d",
+            "text": "Pour stocker la taille du tableau dans la dernière case."
+          }
+        ],
+        "correct": "a",
+        "explanation": "La sentinelle s'écrit en tab[NB], ce qui serait hors bornes pour un tableau de taille NB — exactement l'écriture non vérifiée de la diapositive 9. D'où la case supplémentaire.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Le gain de vitesse vient de la suppression du test de fin, pas de la taille du tableau."
+          },
+          {
+            "optionId": "c",
+            "why": "Les indices commencent bien à 0 ; c'est pourquoi la case d'indice NB est la (NB+1)-ième."
+          },
+          {
+            "optionId": "d",
+            "why": "La dernière case reçoit la valeur cherchée, pas la taille."
+          }
+        ],
+        "source": {
+          "file": "IFT339-6-Tableaux statiques.pdf",
+          "page": 14
+        }
+      },
+      {
+        "id": "t5-06",
+        "objectiveId": "obj5-recherche",
+        "bloomLevel": "apply",
+        "type": "code-output",
+        "difficulty": 2,
+        "prompt": "Le tableau trié est {2, 5, 9, 14, 20} et on cherche valeur = 9. Quelle valeur de pos la boucle produit-elle ?",
+        "code": {
+          "lang": "cpp",
+          "value": "size_t pos;\nfor(pos = 0; tab[pos] < valeur; pos++)\n{ }\n// tab = {2, 5, 9, 14, 20}, valeur = 9"
+        },
+        "correct": "2",
+        "acceptableAnswers": [],
+        "explanation": "tab[0]=2 < 9 → pos devient 1. tab[1]=5 < 9 → pos devient 2. tab[2]=9, la condition 9 < 9 est fausse → arrêt. pos vaut 2, l'indice de la valeur cherchée.",
+        "source": {
+          "file": "IFT339-6-Tableaux statiques.pdf",
+          "page": 15
+        }
+      },
+      {
+        "id": "t5-07",
+        "objectiveId": "obj5-recherche",
+        "bloomLevel": "analyze",
+        "type": "mcq",
+        "difficulty": 3,
+        "prompt": "Sur le tableau trié {2, 5, 9, 14, 20}, la boucle `for(pos=0; tab[pos]<valeur; pos++)` est lancée avec valeur = 10. Que vaut pos à l'arrêt, et qu'en conclure ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "pos = 3, et il faut encore vérifier que tab[pos] vaut bien la valeur cherchée."
+          },
+          {
+            "id": "b",
+            "text": "pos = 5, la boucle ayant parcouru le tableau entier sans trouver 10."
+          },
+          {
+            "id": "c",
+            "text": "pos = 2, la boucle s'arrêtant sur l'élément le plus proche de 10."
+          },
+          {
+            "id": "d",
+            "text": "La boucle ne s'arrête pas, aucun élément ne valant exactement 10."
+          }
+        ],
+        "correct": "a",
+        "explanation": "La boucle s'arrête dès que tab[pos] ≥ valeur : tab[3] = 14 ≥ 10. pos vaut donc 3 — mais 14 n'est pas 10. L'arrêt signale seulement qu'on a atteint ou dépassé la valeur ; le test d'égalité reste à faire.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "La boucle ne va pas jusqu'au bout : elle s'arrête dès le premier élément supérieur ou égal, c'est tout son intérêt sur un tableau trié."
+          },
+          {
+            "optionId": "c",
+            "why": "tab[2] = 9 est strictement inférieur à 10, donc la condition est vraie et pos est incrémenté."
+          },
+          {
+            "optionId": "d",
+            "why": "Elle s'arrête en 3 tours ; sur un tableau trié où toutes les valeurs seraient inférieures, c'est la sentinelle qui garantirait l'arrêt."
+          }
+        ],
+        "source": {
+          "file": "IFT339-6-Tableaux statiques.pdf",
+          "page": 15
+        }
+      },
+      {
+        "id": "t5-08",
+        "objectiveId": "obj5-array",
+        "bloomLevel": "recall",
+        "type": "mcq",
+        "difficulty": 1,
+        "prompt": "Quelle est la complexité de l'accès au i-ième élément d'un array ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "𝒪(1)"
+          },
+          {
+            "id": "b",
+            "text": "𝒪(n)"
+          },
+          {
+            "id": "c",
+            "text": "𝒪(log n)"
+          },
+          {
+            "id": "d",
+            "text": "𝒪(n log n)"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Les éléments sont contigus, donc l'adresse du i-ième se calcule directement — c'est l'équivalence id[nb] = *(id+nb) de la section 1. La recherche par valeur, elle, est en 𝒪(n).",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "𝒪(n) est la complexité de la recherche par valeur, qui exige un parcours."
+          },
+          {
+            "optionId": "c",
+            "why": "𝒪(log n) évoque une recherche dichotomique, qui suppose en outre un tableau trié."
+          },
+          {
+            "optionId": "d",
+            "why": "𝒪(n log n) n'apparaît pas dans les notes du thème 6."
+          }
+        ],
+        "source": {
+          "file": "IFT339-6-Tableaux statiques.pdf",
+          "page": 19
+        }
+      },
+      {
+        "id": "t5-09",
+        "objectiveId": "obj5-array",
+        "bloomLevel": "understand",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Quelle différence de spécification les notes établissent-elles entre `opérateur[]` et `élément` ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "opérateur[] retourne un élément à une position non vérifiée ; élément vérifie la position."
+          },
+          {
+            "id": "b",
+            "text": "opérateur[] est plus rapide car il retourne une référence."
+          },
+          {
+            "id": "c",
+            "text": "élément ne fonctionne que sur les conteneurs associatifs."
+          },
+          {
+            "id": "d",
+            "text": "Aucune : ce sont deux écritures de la même opération."
+          }
+        ],
+        "correct": "a",
+        "explanation": "La diapositive 21 précise « retourne un élément identifié par sa position (non vérifiée) » pour opérateur[] et « retourne un élément identifié par sa position » pour élément. C'est un choix laissé à l'usager entre vitesse et sûreté.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "La différence annoncée porte sur la vérification, pas sur le mode de retour."
+          },
+          {
+            "optionId": "c",
+            "why": "Les deux figurent parmi les opérations communes des conteneurs séquentiels."
+          },
+          {
+            "optionId": "d",
+            "why": "La mention « (non vérifiée) » n'apparaît que sur l'une des deux : c'est précisément ce qui les distingue."
+          }
+        ],
+        "source": {
+          "file": "IFT339-6-Tableaux statiques.pdf",
+          "page": 21
+        }
+      },
+      {
+        "id": "t5-10",
+        "objectiveId": "obj5-primitifs",
+        "bloomLevel": "recall",
+        "type": "fill-blank",
+        "difficulty": 1,
+        "prompt": "Compléter : dans la notion d'itérateur sur un tableau primitif, la « fin » correspond à i = ____ , c'est-à-dire après le dernier élément.",
+        "correct": "dim",
+        "acceptableAnswers": [
+          "dim ",
+          "la dimension"
+        ],
+        "explanation": "Le dernier élément est à dim−1 ; la fin est à dim, une position au-delà. C'est la même convention que début/fin du chapitre 4 : fin ne désigne pas un élément mais une borne.",
+        "source": {
+          "file": "IFT339-6-Tableaux statiques.pdf",
+          "page": 10
+        }
+      },
+      {
+        "id": "t5-11",
+        "objectiveId": "obj5-recherche",
+        "bloomLevel": "analyze",
+        "type": "mcq",
+        "difficulty": 3,
+        "prompt": "Les quatre algorithmes de recherche du cours forment une progression. Quel est le principe de cette progression ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Chacun supprime un travail que le précédent faisait inutilement, au prix d'une hypothèse supplémentaire."
+          },
+          {
+            "id": "b",
+            "text": "Chacun réduit la mémoire utilisée par rapport au précédent algorithme."
+          },
+          {
+            "id": "c",
+            "text": "Chacun trie davantage le tableau afin d'accélérer la recherche suivante."
+          },
+          {
+            "id": "d",
+            "text": "Chacun ajoute une vérification des bornes que le précédent n'avait pas."
+          }
+        ],
+        "correct": "a",
+        "explanation": "Le naïf ne s'arrête pas → l'amélioré s'arrête, mais teste la fin à chaque tour → la sentinelle supprime ce test, au prix d'une case de plus → la version triée s'arrête dès qu'on dépasse, au prix de l'hypothèse de tri.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "La version avec sentinelle consomme au contraire une case de plus : la mémoire est le prix payé, pas le gain."
+          },
+          {
+            "optionId": "c",
+            "why": "Aucun des algorithmes ne trie ; le tri est une hypothèse préalable pour le quatrième, et le cours le traite séparément."
+          },
+          {
+            "optionId": "d",
+            "why": "Aucune vérification des bornes n'est ajoutée — c'est justement ce que le TDA Tableau apportera plus tard."
+          }
+        ],
+        "source": {
+          "file": "IFT339-6-Tableaux statiques.pdf",
+          "page": 14
+        }
+      },
+      {
+        "id": "t5-12",
+        "objectiveId": "obj5-recherche",
+        "bloomLevel": "apply",
+        "type": "code-output",
+        "difficulty": 3,
+        "prompt": "Tableau trié {1, 4, 7, 11, 15, 22}, NB = 6, on cherche valeur = 11. Quelle est la valeur de med au tour où l'élément est trouvé ?",
+        "code": {
+          "lang": "cpp",
+          "value": "size_t deb {0}, fin{NB};\nsize_t med;\nwhile (deb<fin)\n{\n    med=(deb+fin)/2;\n    if (tab[med]>valeur)      fin=med;\n    else if (tab[med]<valeur) deb=med+1;\n    else                      fin = deb - 1;\n}"
+        },
+        "correct": "3",
+        "acceptableAnswers": [
+          "med = 3"
+        ],
+        "explanation": "Tour 1 : deb=0, fin=6, med=3, tab[3]=11 — égal à la valeur cherchée, trouvé dès le premier tour à l'indice 3. Noter qu'à ce moment deb vaut encore 0 : c'est exactement le cas signalé dans le chapitre, où « fin = deb - 1 » s'évalue en arithmétique non signée.",
+        "source": {
+          "file": "IFT339-6-Tableaux statiques.pdf",
+          "page": 16
+        }
+      },
+      {
+        "id": "t5-13",
+        "objectiveId": "obj5-memoire",
+        "bloomLevel": "understand",
+        "type": "true-false",
+        "difficulty": 2,
+        "prompt": "Un indice hors bornes sur un tableau primitif provoque une erreur signalée à l'exécution.",
+        "options": [
+          {
+            "id": "v",
+            "text": "Vrai"
+          },
+          {
+            "id": "f",
+            "text": "Faux"
+          }
+        ],
+        "correct": "f",
+        "explanation": "« Aucune vérification des bornes » : l'expression calcule une adresse parfaitement valide et le programme lit ou écrit ce qui s'y trouve. Les notes donnent tab1[8] et tab1[-2] comme écritures possibles, pas comme erreurs.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "v",
+            "why": "C'est le comportement d'un conteneur qui vérifie, comme l'opération « élément » du TDA Tableau. Le tableau primitif, lui, échange le contrôle contre la rapidité d'accès."
+          }
+        ],
+        "source": {
+          "file": "IFT339-6-Tableaux statiques.pdf",
+          "page": 9
+        }
+      },
+      {
+        "id": "t5-14",
+        "objectiveId": "obj5-array",
+        "bloomLevel": "analyze",
+        "type": "mcq",
+        "difficulty": 3,
+        "prompt": "Pourquoi array n'autorise-t-il ni ajout ni retrait, alors que d'autres conteneurs séquentiels le permettent ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Parce que sa représentation est un tableau alloué statiquement, de capacité fixée à la déclaration."
+          },
+          {
+            "id": "b",
+            "text": "Parce que ces opérations ne figurent pas dans les opérations communes des conteneurs."
+          },
+          {
+            "id": "c",
+            "text": "Parce que le contrat des conteneurs séquentiels les interdit."
+          },
+          {
+            "id": "d",
+            "text": "Parce qu'elles seraient en 𝒪(n), ce qui est jugé trop lent."
+          }
+        ],
+        "correct": "a",
+        "explanation": "C'est la distinction du chapitre 4 : le contrat commun est partagé, la représentation ne l'est pas. array conserve les caractéristiques du tableau statique — mémoire contiguë, taille fixe définie à la déclaration — ce qui rend l'ajout matériellement impossible.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Les opérations communes ne contiennent effectivement pas l'ajout, mais chaque groupe reçoit des opérations spécialisées — et d'autres conteneurs séquentiels en disposent."
+          },
+          {
+            "optionId": "c",
+            "why": "Le contrat des séquentiels prévoit au contraire « ajouts au début, à la fin ou à une position donnée » ; c'est la représentation d'array qui l'en empêche."
+          },
+          {
+            "optionId": "d",
+            "why": "La lenteur n'interdit rien ; la recherche par valeur est en 𝒪(n) et reste disponible."
+          }
+        ],
+        "source": {
+          "file": "IFT339-6-Tableaux statiques.pdf",
+          "page": 19
+        }
+      },
+      {
+        "id": "t5-15",
+        "objectiveId": "obj5-passage",
+        "bloomLevel": "understand",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Que signifie exactement la signature `void fct(type[]);` ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Elle indique un pointeur vers un bloc de mémoire contiguë."
+          },
+          {
+            "id": "b",
+            "text": "Elle indique une copie complète du tableau."
+          },
+          {
+            "id": "c",
+            "text": "Elle indique un tableau de taille quelconque, dont la taille est transmise implicitement."
+          },
+          {
+            "id": "d",
+            "text": "Elle est équivalente à void fct(type);"
+          }
+        ],
+        "correct": "a",
+        "explanation": "C'est la formulation exacte des notes. Les crochets vides signalent au lecteur qu'on attend un bloc contigu, mais ce qui est réellement transmis est l'adresse du premier élément.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Aucune copie n'a lieu : c'est le pointeur du premier élément qui est passé, et non le tableau comme tel."
+          },
+          {
+            "optionId": "c",
+            "why": "Rien n'est transmis implicitement — c'est précisément pourquoi il faut ajouter un paramètre size_t dim."
+          },
+          {
+            "optionId": "d",
+            "why": "void fct(type) recevrait une valeur du type, pas une adresse vers une suite de valeurs."
+          }
+        ],
+        "source": {
+          "file": "IFT339-6-Tableaux statiques.pdf",
+          "page": 7
+        }
+      },
+      {
+        "id": "t5-16",
+        "objectiveId": "obj5-primitifs",
+        "bloomLevel": "apply",
+        "type": "code-output",
+        "difficulty": 2,
+        "prompt": "Qu'affiche ce programme ?",
+        "code": {
+          "lang": "cpp",
+          "value": "#include <iostream>\n\nint main()\n{\n    int tab2[3][4] = {{1,2,3,4},{5,6,7,8},{9,10,11,12}};\n    int* p = &tab2[0][0];\n    std::cout << p[6] << std::endl;\n    return 0;\n}"
+        },
+        "correct": "7",
+        "acceptableAnswers": [],
+        "explanation": "Les 12 cellules sont contiguës, lignes mises bout à bout : 1,2,3,4,5,6,7,8,9,10,11,12. L'élément d'indice 6 est donc 7 — ce qui correspond à tab2[1][2], puisque 1×4 + 2 = 6. C'est la même arithmétique que les repères tab2+li*dim2+co des notes.",
+        "source": {
+          "file": "IFT339-6-Tableaux statiques.pdf",
+          "page": 6
+        }
+      },
+      {
+        "id": "t5-17",
+        "objectiveId": "obj5-array",
+        "bloomLevel": "understand",
+        "type": "multi",
+        "difficulty": 2,
+        "prompt": "Qu'ajoute le TDA Tableau statique par rapport au tableau primitif ? (plusieurs réponses)",
+        "options": [
+          {
+            "id": "a",
+            "text": "L'encapsulation"
+          },
+          {
+            "id": "b",
+            "text": "Des fonctionnalités abstraites : copie, protection, passage de paramètres, retour de fonction"
+          },
+          {
+            "id": "c",
+            "text": "Une capacité modifiable à l'exécution"
+          },
+          {
+            "id": "d",
+            "text": "Une mémoire non contiguë"
+          }
+        ],
+        "correct": [
+          "a",
+          "b"
+        ],
+        "explanation": "La diapositive 18 énumère : mêmes usages, mêmes caractéristiques (mémoire contiguë, taille fixe), ajout de l'encapsulation, ajout de fonctionnalités abstraites pour la facilité d'utilisation.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "c",
+            "why": "La capacité reste statique, fixée à la déclaration — c'est l'une des « mêmes caractéristiques » conservées."
+          },
+          {
+            "optionId": "d",
+            "why": "La mémoire contiguë est justement conservée ; c'est ce qui préserve l'accès en 𝒪(1)."
+          }
+        ],
+        "source": {
+          "file": "IFT339-6-Tableaux statiques.pdf",
+          "page": 18
+        }
+      },
+      {
+        "id": "t5-18",
+        "objectiveId": "obj5-recherche",
+        "bloomLevel": "understand",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Dans la recherche dichotomique, que fait la ligne `deb = med + 1;` ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Elle change le début de la zone de recherche, la valeur cherchée étant plus grande que tab[med]."
+          },
+          {
+            "id": "b",
+            "text": "Elle change la fin de la zone de recherche, la valeur étant plus petite."
+          },
+          {
+            "id": "c",
+            "text": "Elle signale que l'élément a été trouvé et force la sortie de boucle."
+          },
+          {
+            "id": "d",
+            "text": "Elle avance d'un seul élément dans le tableau, comme un itérateur."
+          }
+        ],
+        "correct": "a",
+        "explanation": "Cette branche s'exécute quand tab[med] < valeur : tout ce qui est à gauche de med, med compris, est trop petit. Le +1 exclut med, déjà testé.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "C'est la branche fin = med, qui s'exécute quand tab[med] > valeur."
+          },
+          {
+            "optionId": "c",
+            "why": "C'est la branche else, fin = deb - 1, dont le commentaire précise « on s'assure de sortir de la boucle »."
+          },
+          {
+            "optionId": "d",
+            "why": "La dichotomie ne progresse pas d'un élément mais réduit l'intervalle de moitié — c'est tout son intérêt."
+          }
+        ],
+        "source": {
+          "file": "IFT339-6-Tableaux statiques.pdf",
+          "page": 16
+        }
+      },
+      {
+        "id": "t5-19",
+        "objectiveId": "obj5-memoire",
+        "bloomLevel": "analyze",
+        "type": "mcq",
+        "difficulty": 3,
+        "prompt": "Pourquoi les équivalences hors bornes d'un tableau 2D sont-elles particulièrement dangereuses ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Parce que l'adresse calculée reste dans le tableau : le programme lit une donnée valide mais fausse, sans aucun signal."
+          },
+          {
+            "id": "b",
+            "text": "Parce qu'elles provoquent systématiquement un arrêt du programme."
+          },
+          {
+            "id": "c",
+            "text": "Parce qu'elles modifient la dimension du tableau."
+          },
+          {
+            "id": "d",
+            "text": "Parce qu'elles empêchent la compilation."
+          }
+        ],
+        "correct": "a",
+        "explanation": "tab2[3][-1] et tab2[1][9] désignent tous deux tab2[2][4], une case parfaitement légitime du tableau. Rien ne distingue cette lecture d'une lecture correcte : le résultat est simplement la mauvaise donnée.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Aucun arrêt : l'adresse est valide. Un arrêt supposerait une vérification, que le tableau primitif ne fait pas."
+          },
+          {
+            "optionId": "c",
+            "why": "La dimension est fixée à la déclaration et n'est modifiée par aucun accès."
+          },
+          {
+            "optionId": "d",
+            "why": "Le code compile : les indices ne sont pas contrôlés à la compilation non plus."
+          }
+        ],
+        "source": {
+          "file": "IFT339-6-Tableaux statiques.pdf",
+          "page": 9
+        }
+      },
+      {
+        "id": "t5-20",
+        "objectiveId": "obj5-array",
+        "bloomLevel": "apply",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Quelle opération les notes ajoutent-elles à la liste des opérations communes au moment d'aborder array ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "tailleMax : Conteneur ➔ entier positif"
+          },
+          {
+            "id": "b",
+            "text": "trier : Conteneur ➔ Conteneur"
+          },
+          {
+            "id": "c",
+            "text": "ajouter : Conteneur x Type ➔ Conteneur"
+          },
+          {
+            "id": "d",
+            "text": "redimensionner : Conteneur x entier ➔ Conteneur"
+          }
+        ],
+        "correct": "a",
+        "explanation": "La diapositive 20 reprend la liste des opérations communes du thème 5 en y intégrant tailleMax, aux côtés de taille et estVide. Cela a du sens pour un conteneur à capacité fixe, où taille et capacité peuvent différer.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Le tri est évoqué comme un moyen de faciliter la recherche, jamais comme une opération commune des conteneurs."
+          },
+          {
+            "optionId": "c",
+            "why": "L'ajout est justement impossible sur array : « Ajout ou retrait : aucun possible »."
+          },
+          {
+            "optionId": "d",
+            "why": "Redimensionner contredirait la capacité statique fixée à la déclaration."
+          }
+        ],
+        "source": {
+          "file": "IFT339-6-Tableaux statiques.pdf",
+          "page": 20
+        }
+      }
+    ]
+  },
+  "flashcards": [
+    {
+      "id": "f5-01",
+      "objectiveId": "obj5-primitifs",
+      "front": "Dans Type id[dim], que sont id et dim ?",
+      "back": "id : une adresse — un pointeur NON MODIFIABLE sur le début du tableau. dim : le nombre d'éléments réservés.",
+      "source": {
+        "file": "IFT339-6-Tableaux statiques.pdf",
+        "page": 3
+      }
+    },
+    {
+      "id": "f5-02",
+      "objectiveId": "obj5-primitifs",
+      "front": "id[nb] est équivalent à quoi ?",
+      "back": "*(id + nb). Le compilateur sait de combien d'octets — selon le type — il doit additionner."
+    },
+    {
+      "id": "f5-03",
+      "objectiveId": "obj5-memoire",
+      "front": "Comment int tab2[4][5] est-il rangé en mémoire ?",
+      "back": "En 4 × 5 = 20 cellules contiguës, les lignes mises bout à bout. L'élément [li][co] est à tab2 + li*dim2 + co."
+    },
+    {
+      "id": "f5-04",
+      "objectiveId": "obj5-memoire",
+      "front": "Que valent tab2[3][-1] et tab2[1][9] pour int tab2[4][5] ?",
+      "back": "Tous deux tab2[2][4] : 15−1 = 14 et 5+9 = 14. Aucune vérification des bornes n'a lieu.",
+      "source": {
+        "file": "IFT339-6-Tableaux statiques.pdf",
+        "page": 9
+      }
+    },
+    {
+      "id": "f5-05",
+      "objectiveId": "obj5-passage",
+      "front": "Que passe-t-on réellement en passant un tableau en paramètre ?",
+      "back": "Le pointeur du premier élément, et non le tableau comme tel. La signature n'indique pas combien de cellules : il faut ajouter un paramètre size_t dim."
+    },
+    {
+      "id": "f5-06",
+      "objectiveId": "obj5-passage",
+      "front": "Pour un tableau 2D, quelle dimension doit figurer dans la signature ?",
+      "back": "La seconde : void fct(type[][dim2], size_t dim1, size_t dim2). C'est dim2 qui permet de calculer l'adresse d'une ligne."
+    },
+    {
+      "id": "f5-07",
+      "objectiveId": "obj5-primitifs",
+      "front": "Itérateur sur un tableau primitif : début, dernier, fin ?",
+      "back": "début : i = 0. Dernier élément : i = dim − 1. Fin : i = dim, APRÈS le dernier élément."
+    },
+    {
+      "id": "f5-08",
+      "objectiveId": "obj5-recherche",
+      "front": "Les quatre algorithmes de recherche, dans l'ordre ?",
+      "back": "1. Naïf (parcourt tout) — 2. Amélioré (s'arrête au repérage) — 3. Avec sentinelle (supprime le test de fin) — 4. Tableau trié (s'arrête dès qu'on dépasse)."
+    },
+    {
+      "id": "f5-09",
+      "objectiveId": "obj5-recherche",
+      "front": "À quoi sert la sentinelle et quel est son coût ?",
+      "back": "Elle garantit l'arrêt, ce qui permet de supprimer le test de fin à chaque tour. Coût : une case de plus — double tab[NB+1]."
+    },
+    {
+      "id": "f5-10",
+      "objectiveId": "obj5-recherche",
+      "front": "En-tête de la recherche dichotomique ?",
+      "back": "while (deb<fin) { med=(deb+fin)/2; si tab[med]>valeur → fin=med ; si tab[med]<valeur → deb=med+1 ; sinon → fin=deb-1 }",
+      "extra": "Exige un tableau trié.",
+      "source": {
+        "file": "IFT339-6-Tableaux statiques.pdf",
+        "page": 16
+      }
+    },
+    {
+      "id": "f5-11",
+      "objectiveId": "obj5-array",
+      "front": "Complexités du conteneur array ?",
+      "back": "Accès au i-ième élément : 𝒪(1). Recherche par valeur : 𝒪(n). Ajout ou retrait : aucun possible."
+    },
+    {
+      "id": "f5-12",
+      "objectiveId": "obj5-array",
+      "front": "Qu'ajoute le TDA Tableau au tableau primitif ?",
+      "back": "L'encapsulation et des fonctionnalités abstraites — copie, protection, passage de paramètres, retour de fonction. Mêmes représentation et caractéristiques : mémoire contiguë, taille fixe."
+    },
+    {
+      "id": "f5-13",
+      "objectiveId": "obj5-array",
+      "front": "opérateur[] ou élément ?",
+      "back": "opérateur[] retourne un élément à une position NON VÉRIFIÉE. élément vérifie la position. Choix entre vitesse et sûreté."
+    }
+  ],
+  "exercises": [
+    {
+      "id": "e5-01",
+      "objectiveId": "obj5-memoire",
+      "difficulty": 2,
+      "mode": "trace",
+      "language": "cpp",
+      "title": "Tracer l'adressage d'un tableau 2D",
+      "statement": "Pour `int tab[3][4];`, calculer le déplacement en nombre d'éléments depuis tab pour chacun des accès ci-dessous, en appliquant la formule li × dim2 + co. Dire ensuite lesquels désignent la même case, et lesquels sortent du tableau.",
+      "starterCode": "int tab[3][4];   // dim1 = 3, dim2 = 4  ->  12 cellules contigues\n\n  (a) tab[0][0]\n  (b) tab[1][2]\n  (c) tab[0][6]\n  (d) tab[2][3]\n  (e) tab[3][0]",
+      "hints": [
+        "La formule est déplacement = li × dim2 + co, avec dim2 = 4 ici.",
+        "Le tableau occupe 12 cellules, d'indices 0 à 11. Tout déplacement hors de cet intervalle sort du tableau.",
+        "Deux accès de la liste donnent le même déplacement : comparer (b) et (c)."
+      ],
+      "solution": "(a) 0 · (b) 6 · (c) 6 · (d) 11 · (e) 12 — hors tableau",
+      "expectedOutput": "Formule : deplacement = li * dim2 + co,  avec dim2 = 4\n\n  (a) tab[0][0]  ->  0 * 4 + 0 =  0     dans le tableau\n  (b) tab[1][2]  ->  1 * 4 + 2 =  6     dans le tableau\n  (c) tab[0][6]  ->  0 * 4 + 6 =  6     dans le tableau (!)\n  (d) tab[2][3]  ->  2 * 4 + 3 = 11     dans le tableau — derniere case\n  (e) tab[3][0]  ->  3 * 4 + 0 = 12     HORS du tableau\n\nMemes cases : (b) et (c) designent tous deux la cellule 6.\n  tab[0][6] est hors des bornes DECLAREES pour la colonne (co doit etre < 4),\n  mais l'adresse calculee tombe dans le tableau. C'est exactement\n  l'equivalence signalee par les notes : « certaines equivalences sont\n  possibles quand on sort des bornes declarees ».\n\nHors tableau : (e). Le tableau a 12 cellules, d'indices 0 a 11 ; le\ndeplacement 12 designe la cellule qui suit immediatement le tableau. Rien ne\nle signale : ni le compilateur, ni l'execution.\n\nRemarque : (d) tab[2][3] est la DERNIERE case valide. Le nombre de cellules\nest dim1 * dim2 = 12, donc le dernier indice est 11.",
+      "solutionExplanation": "Le cas (c) est l'essentiel : tab[0][6] a un indice de colonne manifestement illégal — 6 alors que dim2 vaut 4 — et pourtant il lit une case parfaitement réelle du tableau. Aucune erreur, aucune alerte, simplement la mauvaise donnée. Le cas (e) montre l'autre issue : on sort du tableau entier, et là encore le programme continue. C'est tout l'argument des notes en faveur d'un TDA qui vérifie.",
+      "source": {
+        "file": "IFT339-6-Tableaux statiques.pdf",
+        "page": 9,
+        "locator": "Diapositives 6 et 9"
+      }
+    },
+    {
+      "id": "e5-02",
+      "objectiveId": "obj5-recherche",
+      "difficulty": 2,
+      "mode": "predict-output",
+      "language": "cpp",
+      "title": "Prédire le nombre de comparaisons",
+      "statement": "Pour chacun des trois algorithmes du cours, donner le nombre de tests effectués sur le tableau ci-dessous, avec valeur = 7. Compter séparément les tests de fin (pos<NB) et les comparaisons d'éléments.\n\nConclure sur ce que la sentinelle fait gagner.",
+      "starterCode": "double tab[5] = {2, 5, 7, 11, 20};   // NB = 5\ndouble valeur = 7;\n\n// 1. Naif\nfor(i=0; i<NB; i++){ if (tab[i]==valeur) pos = i; }\n\n// 2. Ameliore\nfor(pos=0; pos<NB && tab[pos]!=valeur; pos++) { }\n\n// 3. Avec sentinelle   (tab declare de taille NB+1, tab[NB] = valeur)\nfor(pos=0; tab[pos]!=valeur; pos++) { }",
+      "hints": [
+        "Pour le naïf, la boucle va jusqu'au bout quoi qu'il arrive : combien de tours, et combien de tests par tour ?",
+        "Pour l'amélioré, la valeur 7 est à l'indice 2. La boucle s'arrête dès que tab[pos]==valeur — compter les évaluations de l'en-tête, y compris celle qui échoue.",
+        "Pour la sentinelle, l'en-tête ne contient plus qu'un seul test. Le nombre de tours est-il différent de celui de l'amélioré ?"
+      ],
+      "solution": "Naïf : 5 tests de fin + 5 comparaisons. Amélioré : 3 + 3. Sentinelle : 0 + 3.",
+      "expectedOutput": "1. ALGORITHME NAIF\n   La boucle ne s'arrete jamais en avance : 5 tours complets.\n     tests de fin (i<NB)      : 5   (+1 pour le test final qui echoue = 6)\n     comparaisons d'elements  : 5\n   Il trouve la valeur au tour 3, puis continue pour rien sur 11 et 20.\n\n2. ALGORITHME AMELIORE\n   La valeur 7 est a l'indice 2, la boucle s'arrete des qu'elle la trouve.\n     pos=0 : 0<5 vrai, tab[0]=2 != 7  -> continue\n     pos=1 : 1<5 vrai, tab[1]=5 != 7  -> continue\n     pos=2 : 2<5 vrai, tab[2]=7 == 7  -> ARRET\n     tests de fin (pos<NB)    : 3\n     comparaisons d'elements  : 3\n\n3. AVEC SENTINELLE\n   Meme progression, mais l'en-tete ne contient plus le test de fin.\n     pos=0 : tab[0]=2 != 7  -> continue\n     pos=1 : tab[1]=5 != 7  -> continue\n     pos=2 : tab[2]=7 == 7  -> ARRET\n     tests de fin             : 0\n     comparaisons d'elements  : 3\n\nCE QUE LA SENTINELLE FAIT GAGNER\n   Elle ne reduit PAS le nombre de comparaisons d'elements (3 dans les deux\n   cas) ni le nombre de tours. Elle supprime UN TEST PAR TOUR — le pos<NB.\n   Le gain est donc proportionnel au nombre de tours, et il est nul sur le\n   nombre d'elements examines.\n\n   Son cout : une case memoire supplementaire (tab[NB+1]) et l'ecriture de la\n   sentinelle avant chaque recherche.",
+      "solutionExplanation": "La conclusion est celle qu'on attend le moins : la sentinelle n'accélère pas la recherche au sens où elle regarderait moins d'éléments. Elle supprime un test de boucle, c'est tout. C'est un gain sur le facteur constant, pas sur la classe de complexité — ce que le thème 2 aurait permis de formuler précisément, et qui manque ici.",
+      "source": {
+        "file": "IFT339-6-Tableaux statiques.pdf",
+        "page": 14,
+        "locator": "Diapositives 12 à 14"
+      }
+    },
+    {
+      "id": "e5-03",
+      "objectiveId": "obj5-recherche",
+      "difficulty": 3,
+      "mode": "trace",
+      "language": "cpp",
+      "title": "Tracer la recherche dichotomique — et son cas limite",
+      "statement": "Dérouler la boucle dichotomique du cours sur le tableau ci-dessous, pour deux recherches successives. Donner à chaque tour les valeurs de deb, fin et med.\n\nPour le second cas, observer attentivement ce que devient fin, sachant que deb et fin sont déclarés `size_t`, donc non signés.",
+      "starterCode": "double tab[8] = {1, 3, 5, 7, 9, 11, 13, 15};   // NB = 8, trie\n\nsize_t deb {0}, fin{NB};\nsize_t med;\nwhile (deb<fin)\n{\n    med=(deb+fin)/2;\n    if (tab[med]>valeur)      fin=med;\n    else if (tab[med]<valeur) deb=med+1;\n    else                      fin = deb - 1;\n}\nif (fin<deb) { /* la valeur est a l'indice med */ }\n\nCas A : valeur = 13\nCas B : valeur = 9",
+      "hints": [
+        "med = (deb+fin)/2 en division entière. Commencer avec deb=0 et fin=8.",
+        "Pour le cas A, la valeur est dans la moitié droite : la branche deb = med+1 va s'appliquer au moins une fois.",
+        "Pour le cas B, la valeur 9 est à l'indice 4 et se trouve dès le premier med. Que vaut deb à cet instant, et que donne alors deb - 1 en arithmétique non signée ?"
+      ],
+      "solution": "Cas A : trouvé à med=6 avec deb=5. Cas B : trouvé à med=4 alors que deb vaut encore 0 — fin = 0-1 déborde.",
+      "expectedOutput": "CAS A : valeur = 13\n\n  Tour 1 : deb=0, fin=8   med=(0+8)/2=4   tab[4]=9  < 13  -> deb=5\n  Tour 2 : deb=5, fin=8   med=(5+8)/2=6   tab[6]=13 == 13 -> fin=deb-1=4\n  Test   : deb=5, fin=4   ->  5<4 faux  -> sortie de boucle\n  Apres  : fin<deb  (4<5) vrai  ->  la valeur est a l'indice med = 6\n\n  Correct : tab[6] vaut bien 13.\n  Ici deb valait 5, donc deb-1 = 4 se calcule sans probleme.\n\nCAS B : valeur = 9\n\n  Tour 1 : deb=0, fin=8   med=(0+8)/2=4   tab[4]=9 == 9  -> fin = deb-1\n                                                            avec deb = 0\n\n  C'est le cas limite. deb et fin sont declares size_t, donc NON SIGNES.\n  L'expression 0 - 1 ne vaut pas -1 : elle vaut la plus grande valeur\n  representable par un size_t (SIZE_MAX).\n\n  Consequence : fin devient enorme au lieu d'etre inferieur a deb.\n     * la condition de boucle deb<fin  ->  0 < SIZE_MAX  ->  VRAIE\n       la boucle continue au lieu de s'arreter ;\n     * au tour suivant med=(0+SIZE_MAX)/2, un indice tres au-dela du\n       tableau : l'acces tab[med] sort des bornes, sans aucun controle\n       (diapositive 9) ;\n     * et le test final fin<deb serait faux.\n\n  Avec des entiers SIGNES, deb-1 vaudrait -1, fin<deb serait vrai, et la\n  sortie se ferait correctement.\n\nA RETENIR : l'algorithme fonctionne des que la valeur est trouvee avec deb > 0\n(cas A), et se comporte differemment quand elle est trouvee alors que deb vaut\nencore 0 (cas B). A verifier avec le professeur : le code de la diapositive 16\ndeclare bien size_t deb {0}.",
+      "solutionExplanation": "Le cas A montre que l'algorithme est juste dans son principe : la zone de recherche est bien divisée par deux à chaque tour, et la convention « fin = deb − 1 » sert uniquement à forcer la sortie. Le cas B isole une condition précise — trouver l'élément alors que deb vaut encore 0 — qui survient dès que la valeur cherchée tombe sur le premier med. Cela vaut la peine d'être tracé soi-même et soumis au professeur plutôt que supposé : c'est exactement le genre de détail qu'une trace à la main révèle et qu'une lecture rapide laisse passer.",
+      "source": {
+        "file": "IFT339-6-Tableaux statiques.pdf",
+        "page": 16,
+        "locator": "Diapositive 16"
+      }
+    },
+    {
+      "id": "e5-04",
+      "objectiveId": "obj5-passage",
+      "difficulty": 2,
+      "mode": "find-bug",
+      "language": "cpp",
+      "title": "Trouver les bogues — passer un tableau en paramètre",
+      "statement": "Cette fonction doit afficher tous les éléments d'un tableau. Trois choses ne vont pas, dans la fonction ou dans son appel. Les identifier et corriger.",
+      "starterCode": "#include <iostream>\n\nvoid afficher(int tab[])\n{\n    size_t dim = sizeof(tab) / sizeof(int);   // (1)\n    for (size_t i = 0; i <= dim; i++)          // (2)\n        std::cout << tab[i] << \" \";\n    std::cout << std::endl;\n}\n\nint main()\n{\n    int t[5] = {10, 20, 30, 40, 50};\n    afficher(t[5]);                            // (3)\n    return 0;\n}",
+      "hints": [
+        "Ligne (1) : que reçoit réellement la fonction ? Les notes disent que « le pointeur du premier élément est passé, et non le tableau comme tel ».",
+        "Ligne (2) : quel est le dernier indice valide d'un tableau de dim éléments ?",
+        "Ligne (3) : relire ce que les notes disent de l'écriture fct(tab1[5])."
+      ],
+      "solution": "Passer la dimension en paramètre ; i < dim ; appeler afficher(t, 5).",
+      "expectedOutput": "(1) size_t dim = sizeof(tab) / sizeof(int);\n    FAUX. Le parametre tab n'est PAS un tableau : c'est un pointeur vers le\n    premier element. sizeof(tab) mesure donc la taille d'un POINTEUR (8 octets\n    sur une machine 64 bits), pas celle du tableau. dim vaudrait 2, pas 5.\n    Les notes : la signature « n'indique pas combien de cellules ».\n    Correction : passer la dimension en parametre separe.\n\n(2) for (size_t i = 0; i <= dim; i++)\n    FAUX. Avec <=, la boucle atteint l'indice dim, soit une case APRES le\n    dernier element (qui est a dim-1). C'est un acces hors bornes — non\n    verifie, donc silencieux.\n    Rappel des notes sur l'iterateur : fin correspond a i = dim, « apres le\n    dernier element » ; la condition « est-on avant la fin ? » s'ecrit i < dim.\n    Correction : i < dim.\n\n(3) afficher(t[5]);\n    FAUX. Ce n'est pas un appel avec un tableau de 5 elements : c'est un appel\n    avec l'ELEMENT d'indice 5 — lequel n'existe d'ailleurs pas, le dernier\n    etant d'indice 4. Les crochets selectionnent, ils ne dimensionnent pas.\n    Erreur de compilation (int passe la ou un int* est attendu).\n    Correction : afficher(t, 5);\n\nVersion corrigee :\n\n    void afficher(int tab[], size_t dim)\n    {\n        for (size_t i = 0; i < dim; i++)\n            std::cout << tab[i] << \" \";\n        std::cout << std::endl;\n    }\n\n    int main()\n    {\n        int t[5] = {10, 20, 30, 40, 50};\n        afficher(t, 5);\n        return 0;\n    }",
+      "solutionExplanation": "Les trois défauts viennent d'une même croyance : que le tableau « arrive » dans la fonction avec ses propriétés. Il n'arrive qu'une adresse. C'est pour cela que la dimension doit voyager séparément — les notes écrivent la signature complète, `void fct(type tab[], size_t dim)`, précisément pour le rappeler. Le défaut (2) est le plus discret des trois : il compile, s'exécute, et affiche une valeur de plus sans que rien ne le signale.",
+      "source": {
+        "file": "IFT339-6-Tableaux statiques.pdf",
+        "page": 10,
+        "locator": "Diapositives 7, 9 et 10"
+      }
+    },
+    {
+      "id": "e5-05",
+      "objectiveId": "obj5-array",
+      "difficulty": 2,
+      "mode": "fill-blank",
+      "language": "pseudocode",
+      "title": "Compléter la fiche du conteneur array",
+      "statement": "Compléter la fiche d'array telle que les notes la donnent, puis répondre : pourquoi l'ajout est-il impossible ?",
+      "starterCode": "Conteneur array\n  Groupe                    : conteneur ____              (1)\n  Representation            : tableau alloue ____,        (2)\n                              elements ____               (3)\n  Acces au i-ieme element   : O(____)                     (4)\n  Recherche par valeur      : O(____)                     (5)\n  Ajout ou retrait          : ____                        (6)",
+      "hints": [
+        "Pour (1), array appartient au groupe où l'ordre des éléments est défini par l'usager.",
+        "Pour (2) et (3), la représentation est celle du tableau primitif du début du chapitre : deux mots, l'un sur le mode d'allocation, l'autre sur la disposition.",
+        "Pour (4) et (5), l'accès se fait par calcul d'adresse, la recherche par parcours."
+      ],
+      "solution": "séquentiel ; statiquement ; contigus ; 1 ; n ; aucun possible",
+      "expectedOutput": "Conteneur array\n  Groupe                    : conteneur SEQUENTIEL\n  Representation            : tableau alloue STATIQUEMENT,\n                              elements CONTIGUS\n  Acces au i-ieme element   : O(1)\n  Recherche par valeur      : O(n)\n  Ajout ou retrait          : AUCUN POSSIBLE\n\nPourquoi l'ajout est impossible :\n\nParce que la representation est un tableau alloue statiquement, dont la\ncapacite est fixee a la declaration — exactement la caracteristique du\ntableau primitif que le TDA Tableau conserve (« taille fixe definie a la\ndeclaration »).\n\nCe n'est donc PAS le contrat des conteneurs sequentiels qui l'interdit : ce\ncontrat prevoit au contraire « ajouts au debut, a la fin ou a une position\ndonnee ». C'est la structure de donnees choisie qui rend l'operation\nmateriellement impossible.\n\nC'est l'illustration exacte du chapitre 4 : le contrat commun est partage,\nl'implementation et la complexite ne le sont pas.\n\nPourquoi O(1) pour l'acces : les elements etant contigus, l'adresse du i-ieme\nse calcule — c'est l'equivalence id[nb] = *(id+nb) du debut du chapitre.\nPourquoi O(n) pour la recherche : il faut parcourir, aucun calcul ne donne la\nposition d'une VALEUR.",
+      "solutionExplanation": "La dernière ligne de la fiche est la plus instructive. On est tenté de conclure qu'array est un conteneur « incomplet ». Ce serait mal lire : il expose exactement le contrat que sa représentation peut tenir. Le chapitre 4 annonçait que la complexité des opérations diffère d'un conteneur à l'autre ; array montre que la liste même des opérations disponibles peut différer, et pour la même raison — la structure de données sous-jacente.",
+      "source": {
+        "file": "IFT339-6-Tableaux statiques.pdf",
+        "page": 19,
+        "locator": "Diapositives 18 à 20"
+      }
+    }
+  ]
+}

@@ -1,0 +1,625 @@
+---
+course: IFT339
+number: 2
+title: Mécanisme d'abstraction en C++
+summary: >-
+  Les outils du langage qui réalisent un TDA : classe, héritage, classe
+  abstraite, généricité, pointeurs, passage de paramètres, et les opérations
+  de base que tout type doit fournir.
+estimatedMinutes: 240
+prerequisites:
+  - "Chapitre 1 — TDA et structure de données"
+  - "IFT159 — syntaxe C++ de base"
+objectives:
+  - id: obj2-classe
+    text: Écrire une définition de classe C++ répartie entre fichier d'entête et fichier de code.
+    bloom: apply
+  - id: obj2-heritage
+    text: Distinguer classe de base et dérivée, abstraite et concrète, et expliquer le rôle d'une méthode virtuelle pure.
+    bloom: understand
+  - id: obj2-generique
+    text: Définir et utiliser une classe générique avec template.
+    bloom: apply
+  - id: obj2-pointeurs
+    text: Manipuler des pointeurs avec les opérateurs d'adresse et de déréférencement, et placer const correctement.
+    bloom: apply
+  - id: obj2-parametres
+    text: Choisir un mode de passage de paramètre et distinguer une lvalue d'une rvalue.
+    bloom: analyze
+  - id: obj2-operations
+    text: Écrire les opérations de base d'un type — construction, destruction, affectation, conversion — et surcharger un opérateur.
+    bloom: apply
+sources:
+  - file: "IFT339-3-AbstractionC++.pdf"
+    page: 1
+    locator: "Thème 3 — Mécanisme d'abstraction en C++, diapositives 1 à 49"
+  - file: "IFT339-3-AbstractionC++.pdf"
+    page: 2
+    locator: "Bibliographie : Jean Goulet, Structures de données IFT339, chap. 4 et 5, p. 28 à 55"
+---
+
+## 1. La classe
+
+Une classe **encapsule** la représentation d'un type et les opérations
+permettant d'en manipuler les éléments. C'est l'outil qui construit de
+nouveaux types abstraits.
+
+L'accès aux attributs et aux opérations se règle par trois niveaux : **public**,
+**protégé**, **privé**.
+
+```cpp
+class NomClasse
+{
+private :
+    // representation
+    Type attribut1;
+    Type attribut2;
+public :
+    // operations
+    SpecificationFonction1;
+    SpecificationFonction2;
+}
+```
+
+<Callout type="tip" title="Convention de nommage du cours">
+Le nom de la classe doit être un **nom singulier**. Idem pour le nom d'une
+instance. Une classe nommée au pluriel est presque toujours le signe d'une
+faute d'abstraction — on a confondu l'élément et la collection d'éléments.
+</Callout>
+
+<Source file="IFT339-3-AbstractionC++.pdf" page={8} locator="Diapositive 8" />
+
+### 1.1 Instance
+
+Une **instance** est un élément du type, obtenu en appelant un constructeur.
+Elle se déclare comme une variable ordinaire :
+
+```cpp
+NomClasse nomInstance;
+NomClasse nomInstance(parametres);
+```
+
+### 1.2 Deux fichiers, une frontière
+
+La définition peut tenir dans un seul fichier ou se répartir :
+
+- le **fichier d'entête** `.h` — spécification de la représentation et des
+  opérations du type ;
+- un ou plusieurs **fichiers de code** `.cpp` — implémentation des opérations
+  spécifiées.
+
+Le `.h` doit être inclus dans le `.cpp` :
+
+```cpp
+#include "point.h"
+```
+
+L'**opérateur de résolution de portée** `::` précise la classe à laquelle
+appartiennent les opérations :
+
+```cpp
+float Point::distance(Point p)
+{
+    float diffAbs = abcisse - p.abcisse;
+    float diffOrd = ordonnee - p.ordonnee;
+    return sqrt((diffAbs * diffAbs) + (diffOrd * diffOrd));
+}
+```
+
+<Source file="IFT339-3-AbstractionC++.pdf" page={10} locator="Diapositives 10 et 11" />
+
+## 2. L'héritage
+
+Toutes les caractéristiques de la classe de base sont données à la classe
+dérivée. L'héritage lui-même peut être **public**, **protégé** ou **privé**.
+
+```cpp
+class NomClasseDerivee : public NomClasseBase
+{
+    // Ajout de caracteristiques (attributs, operations)
+    // specifiques a la classe derivee
+}
+```
+
+- **Classe de base** : classe dont est dérivée une autre classe par héritage.
+- **Classe dérivée** : classe héritant d'une classe de base, qui peut
+  **ajouter** ou **redéfinir** des caractéristiques.
+
+Le cours nomme les deux sens de la relation : de la dérivée vers la base,
+c'est une **généralisation** ; de la base vers la dérivée, une
+**spécialisation**.
+
+<Source file="IFT339-3-AbstractionC++.pdf" page={12} locator="Diapositives 12 et 13" />
+
+## 3. Classe abstraite et classe concrète
+
+| | Définition | Peut-on l'instancier ? |
+| --- | --- | --- |
+| **Classe abstraite** | contient au moins une **méthode virtuelle pure**, c'est-à-dire sans implémentation | **Non** — impossible de faire appel à un constructeur. Elle **doit être dérivée** |
+| **Classe concrète** | toutes ses méthodes ont une implémentation | Oui |
+
+La syntaxe d'une méthode virtuelle pure :
+
+```cpp
+virtual SpecificationFonction = 0 ;
+```
+
+<Mermaid caption="La hiérarchie de l'exemple du cours (diapositives 15 à 18). Figure est abstraite : circonference() y est virtuelle pure." chart={`
+classDiagram
+    class Figure {
+        +Point centre
+        +Figure()
+        +tournerOrigine() void
+        +circonference() float *
+    }
+    class Cercle {
+        +float rayon
+        +Cercle(Point, float)
+        +diametre() float
+        +circonference() float
+    }
+    class Triangle {
+        +Point sommets[3]
+        +Triangle(Point, Point, Point)
+        +hauteur() float
+        +circonference() float
+        +tournerOrigine() void
+    }
+    Figure <|-- Cercle
+    Figure <|-- Triangle
+`} />
+
+Trois choses distinctes se produisent dans cet exemple, et il faut les
+distinguer :
+
+1. **Ajout d'éléments spécifiques** — `Cercle` ajoute `rayon` et
+   `calculerDiametre()`, `Triangle` ajoute `sommets[3]` et
+   `calculerHauteur()`.
+2. **Définition d'une méthode virtuelle pure héritée** — chaque dérivée
+   *doit* fournir son `circonference()`, sans quoi elle resterait abstraite.
+3. **Redéfinition d'une méthode** — `Triangle::tournerOrigine()` **remplace**
+   la version héritée de `Figure`.
+
+<Callout type="misconception" title="Erreur classique">
+Confondre 2 et 3. Définir une méthode **virtuelle pure** est une obligation :
+sans elle la classe dérivée reste abstraite et ne s'instancie pas. **Redéfinir**
+une méthode déjà implémentée dans la base est un choix : si on ne le fait pas,
+la version de la base s'applique.
+</Callout>
+
+<Source file="IFT339-3-AbstractionC++.pdf" page={14} locator="Diapositives 14 à 18" />
+
+## 4. La classe générique
+
+Un **modèle** (gabarit) de classe : même comportement, à quelques
+caractéristiques près. Mot-clé `template`.
+
+```cpp
+template <typename NomType>
+class NomClasse
+{
+    NomType attribut;
+    // ...
+}
+```
+
+Le type est **à déterminer à la déclaration de l'instance**. Le cours le
+signale comme du **polymorphisme**, et comme « super utile pour les TAD
+conteneurs ».
+
+Le modèle suit le nom de la classe **partout** :
+
+```cpp
+template <typename TYPE>
+TYPE Point<TYPE>::abscisse()
+{
+    return abscisse;
+}
+
+template <typename TYPE>
+float Point<TYPE>::distance(Point<TYPE> p)
+{
+    return sqrt(pow(abscisse - p.abcisse, 2) + pow(ordonnee - p.ordonnee, 2));
+}
+```
+
+<Callout type="note" title="Question posée par les notes">
+« Quelle est la différence entre `abscisse` et `abscisse()` ? » — le premier est
+l'**attribut**, membre de la représentation ; le second est l'**opération** de
+sélection qui le retourne. Leur donner le même nom compile, mais c'est
+exactement le genre de confusion que l'abstraction cherche à éviter.
+</Callout>
+
+<Source file="IFT339-3-AbstractionC++.pdf" page={19} locator="Diapositives 19 et 20" />
+
+## 5. Les pointeurs
+
+Un **pointeur** est une variable dont la valeur est l'**adresse** d'une autre
+cellule mémoire. Il se manipule comme une variable régulière.
+
+```cpp
+Type* ptr;              // pointeur vers une variable de type Type
+Type* ptr = nullptr;    // ... initialise a nullptr
+```
+
+<Figure caption="Un pointeur et la cellule qu'il désigne. L'opérateur &amp; produit l'adresse, l'opérateur * remonte à la valeur.">
+<svg viewBox="0 0 640 220" role="img" aria-label="Schéma d'un pointeur ptr contenant l'adresse d'une variable identif">
+  <text x="20" y="28" font-size="13" fill="currentColor" opacity="0.75">Cellule mémoire</text>
+
+  <rect x="60" y="60" width="150" height="56" rx="6" fill="#34d399" fill-opacity="0.15" stroke="#34d399" stroke-width="1.6" />
+  <text x="135" y="84" font-size="13" text-anchor="middle" fill="currentColor" font-weight="600">ptr</text>
+  <text x="135" y="104" font-size="12" text-anchor="middle" fill="currentColor" opacity="0.8">&amp;identif</text>
+  <text x="135" y="50" font-size="12" text-anchor="middle" fill="#34d399">Type*</text>
+
+  <line x1="210" y1="88" x2="380" y2="88" stroke="#34d399" stroke-width="2.5" marker-end="url(#arr)" />
+  <text x="295" y="78" font-size="12" text-anchor="middle" fill="#34d399">pointe vers</text>
+
+  <rect x="384" y="60" width="150" height="56" rx="6" fill="#818cf8" fill-opacity="0.15" stroke="#818cf8" stroke-width="1.6" />
+  <text x="459" y="84" font-size="13" text-anchor="middle" fill="currentColor" font-weight="600">identif</text>
+  <text x="459" y="104" font-size="12" text-anchor="middle" fill="currentColor" opacity="0.8">contenu</text>
+  <text x="459" y="50" font-size="12" text-anchor="middle" fill="#818cf8">Type</text>
+
+  <text x="384" y="146" font-size="12" fill="#818cf8">aussi accessible par *ptr</text>
+
+  <text x="60" y="180" font-size="12.5" fill="currentColor">&amp;identif — adresse de identif, de type <tspan font-weight="600">Type*</tspan></text>
+  <text x="60" y="202" font-size="12.5" fill="currentColor">*ptr — valeur pointée, de type <tspan font-weight="600">Type</tspan>, manipulable comme telle</text>
+
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto">
+      <path d="M0 0 L9 4.5 L0 9 z" fill="#34d399" />
+    </marker>
+  </defs>
+</svg>
+</Figure>
+
+- **Opérateur d'indirection** `&` — adresse mémoire d'une variable. Si `identif`
+  est de type `Type`, alors `&identif` est de type `Type*`.
+- **Opérateur de déréférencement** `*` — valeur de la variable pointée. Si `ptr`
+  est de type `Type*`, alors `*ptr` récupère la valeur pointée, de type `Type`.
+
+**Plusieurs pointeurs peuvent pointer sur la même cellule.**
+
+<Callout type="warning" title="Ce que contient un pointeur non initialisé">
+Les notes posent la question et répondent : « ??? — dépend du compilateur ». Le
+moyen de ne pas créer de problème est l'assignation explicite à `nullptr`.
+</Callout>
+
+### 5.1 Tableau de pointeurs
+
+```cpp
+Type* Tab[n];   // n pointeurs vers des variables de type Type
+```
+
+Le tableau lui-même occupe une **mémoire contiguë** ; les objets pointés, eux,
+sont en **mémoire non contiguë**.
+
+### 5.2 Où placer `const`
+
+C'est un tableau à connaître par cœur — la position de `const` change ce qui
+est figé.
+
+| Syntaxe | Pointeur `p` modifiable | Objet pointé `*p` modifiable |
+| --- | --- | --- |
+| `int* p;` | oui | oui |
+| `const int* p;` | oui | **non** |
+| `int* const p;` | **non** | oui |
+| `const int* const p;` | **non** | **non** |
+
+<Source file="IFT339-3-AbstractionC++.pdf" page={26} locator="Diapositive 26" />
+
+## 6. Paramètres et retours
+
+Les opérations d'une classe sont des fonctions. Le passage se fait **par valeur
+ou par référence**, **constant ou modifiable**.
+
+- Paramètres **effectifs** : ceux utilisés lors de l'appel.
+- Paramètres **formels** : les variables locales à la fonction.
+
+### 6.1 Par valeur
+
+Une variable locale, **copie** de la variable en entrée ou en sortie, est
+utilisée. Conséquences :
+
+- **pas de modification** des paramètres effectifs, dont les valeurs restent
+  inchangées après l'exécution ;
+- les **copies peuvent être de grande taille**.
+
+### 6.2 Par référence
+
+Un **identificateur synonyme** de la variable paramètre est utilisé : pas de
+copie dans des variables locales. Les valeurs **peuvent être modifiées** dans la
+fonction.
+
+<Callout type="warning" title="Le piège du retour par référence">
+Le retour par référence **doit exister au-delà de la portée de la fonction**.
+Retourner une référence vers une variable locale renvoie vers une mémoire
+libérée à la fermeture du bloc. Les notes le résument ainsi : cela « permet des
+fonctions ou opérateurs assignables (danger, mais puissant) ».
+</Callout>
+
+### 6.3 lvalue et rvalue
+
+| | lvalue | rvalue |
+| --- | --- | --- |
+| Nature | objet, paramètre **non temporaire** | objet, paramètre **temporaire** |
+| Usage | appelé à être modifié ou utilisé plusieurs fois | pas appelé à être modifié ni réutilisé |
+| Position | valeur **à gauche** d'une assignation | valeur **à droite** d'une assignation |
+| Exemples | variables, constantes, ce qui a un identificateur | valeurs littérales, passages et retours par valeur |
+
+Sur l'exemple des notes :
+
+```cpp
+vector<string> arr( 3 );
+const int x = 2;
+int y;
+int z = x + y;
+string str = "foo";
+cout << str.substr(0,1) << endl;
+vector<string> *ptr = &arr;
+```
+
+- **lvalues** : `arr`, `str`, `arr[x]`, `&x`, `y`, `z`, `ptr`, `*ptr`,
+  `(*ptr)[x]`, `x`, `cout`
+- **rvalues** : `"foo"`, `2` (littéraux), `x+y`, `str.substr(0,1)` (valeurs
+  temporaires)
+
+Le coût réel apparaît sur les conteneurs :
+
+```cpp
+Conteneur<Type> x;
+Conteneur<Type> y;
+Conteneur<Type> z = x + y;
+```
+
+`(x+y)` est une rvalue **stockée temporairement**, appelée à être désallouée
+tout de suite après l'assignation — et elle est le paramètre d'une assignation
+qui fait une **copie profonde**. D'où une utilisation inutile de mémoire et de
+temps.
+
+<Source file="IFT339-3-AbstractionC++.pdf" page={29} locator="Diapositives 29 à 31" />
+
+### 6.4 Le paramètre implicite `this`
+
+**Toutes** les opérations définies dans une classe ont un paramètre implicite,
+d'identificateur `this`, **passé par référence** : c'est l'objet appelant la
+fonction.
+
+Pour le protéger, on place `const` **après** les paramètres :
+
+```cpp
+float Point::distance(const Point) const;
+```
+
+Le premier `const` protège le paramètre explicite ; le second protège `this`.
+
+<Source file="IFT339-3-AbstractionC++.pdf" page={34} locator="Diapositive 34" />
+
+## 7. Les opérations de base d'un type
+
+Le cours en énumère six.
+
+| Opération | Rôle |
+| --- | --- |
+| **Construction** | initialiser une instance de T |
+| **Destruction** | nettoyer la mémoire allouée pour une instance |
+| **Affectation** | donner une nouvelle valeur à une instance de T |
+| **Conversion** | convertir d'un autre type vers T, ou l'inverse |
+| **Sélection** | accéder aux valeurs de la représentation |
+| **Mutation** | modifier les valeurs de la représentation |
+
+<Callout type="tip" title="Bonne pratique des notes">
+Sélection et mutation devraient être définies **privées ou protégées**. Exposer
+publiquement un accès direct à la représentation rouvre la frontière que le
+chapitre 1 a établie.
+</Callout>
+
+### 7.1 Les quatre événements de la vie d'un objet
+
+<Mermaid caption="Qui fait quoi dans la vie d'un objet (diapositive 36)." chart={`
+flowchart LR
+    D["1. Declaration<br/>allocation automatique<br/>de l'espace memoire"] --> I["2. Initialisation<br/>appel a un constructeur"]
+    I --> N["3. Nettoyage<br/>appel a un destructeur"]
+    N --> L["4. Liberation<br/>desallocation de l'espace"]
+    D -.->|"gere par le systeme"| L
+    I -.->|"realise par l'objet lui-meme"| N
+`} />
+
+- **1 et 4** sont gérés **automatiquement par le système**, qui connaît la
+  définition générale de l'objet.
+- **2 et 3** doivent être réalisés **par l'objet lui-même**, qui connaît plus
+  spécifiquement son propre comportement.
+
+Les notes distinguent aussi deux durées : la **durée de vie** de l'objet va de
+1 à 4 ; la **portée** va de 2 à 3, « avec des trous ».
+
+<Source file="IFT339-3-AbstractionC++.pdf" page={36} locator="Diapositives 36 et 37" />
+
+### 7.2 Construction
+
+Un constructeur **porte le nom de la classe**, est déclaré dans la portée de la
+classe, et a un paramètre implicite `this`. Trois formes :
+
+```cpp
+class Point
+{
+    float abcisse;
+    float ordonnee;
+
+    Point();                  // sans parametre explicite
+    Point(float, float);      // avec parametres explicites
+    Point(const Point &);     // par copie
+}
+```
+
+- Le constructeur **sans paramètre explicite** est **généré automatiquement par
+  le compilateur** s'il n'est pas défini — les notes ajoutent, en question
+  ouverte : « résultat correct ? ».
+- Le constructeur **par copie** prend en paramètre un objet de même type. Généré
+  automatiquement, il fait une **copie superficielle**.
+
+### 7.3 Délégation de construction
+
+Un constructeur peut en **appeler un autre** :
+
+```cpp
+Point::Point() : Point(0.0, 0.0)
+{
+}
+```
+
+Le constructeur sans paramètre appelle celui avec paramètres — c'est de la
+**réutilisabilité**.
+
+<Source file="IFT339-3-AbstractionC++.pdf" page={41} locator="Diapositive 41" />
+
+### 7.4 Destruction
+
+```cpp
+class Point
+{
+    ~Point();   // destructeur
+}
+```
+
+Nom : `~nomClasse`. Déclaré et défini dans la portée de la classe. **Un seul
+paramètre** : `this`, implicite, par référence. Il est **nécessaire dès qu'il y
+a de la mémoire dynamique**.
+
+### 7.5 Affectation
+
+Surcharge de l'opérateur `=`, pour affecter la valeur d'un autre objet. Il est
+**différent du constructeur par copie** : celui-ci construit un objet neuf,
+l'affectateur écrase un objet qui existe déjà.
+
+```cpp
+Point& Point::operator=(const Point& p)
+{
+    abcisse = p.abscisse;
+    ordonnee = p.ordonnee;
+    return *this;
+}
+```
+
+Généré automatiquement s'il n'est pas défini : **copie superficielle**.
+
+<Callout type="misconception" title="Erreur classique">
+Croire que le constructeur par copie et l'affectateur sont interchangeables.
+`Point b = a;` appelle le **constructeur par copie** — b n'existe pas encore.
+`b = a;` sur un `b` déjà construit appelle l'**affectateur**. Les deux sont
+générés automatiquement en copie superficielle, et les deux doivent être
+réécrits dès qu'il y a de la mémoire dynamique.
+</Callout>
+
+### 7.6 Gérer les opérations générées automatiquement
+
+Constructeurs, destructeur et affectateur sont appelés **directement par le
+compilateur**. Deux mots-clés permettent de reprendre la main :
+
+```cpp
+class Point
+{
+    Point() = default;             // garder la version par defaut
+    Point(const Point &) = delete; // supprimer la version par defaut
+    ~Point() = default;
+}
+```
+
+### 7.7 Conversion
+
+Deux sens, deux mécanismes :
+
+| Sens | Mécanisme |
+| --- | --- |
+| d'un autre type A **vers** T | un constructeur dans T n'ayant qu'**un seul paramètre explicite** de type A |
+| de T **vers** un autre type A | une surcharge avec le mot-clé `operator` |
+
+```cpp
+class Point
+{
+    float abscisse;
+    float ordonnee;
+public :
+    Point(float, float);
+    operator float() const;   // convertisseur de Point vers float
+};
+
+Point::Point(float a, float b) : abscisse(a), ordonnee(b) {};
+
+Point::operator float() const
+{
+    return sqrt(abscisse*abscisse + ordonnee*ordonnee);
+}
+```
+
+<Source file="IFT339-3-AbstractionC++.pdf" page={45} locator="Diapositives 45 et 46" />
+
+## 8. Autres opérations
+
+### 8.1 Surcharge d'opérateurs
+
+Mot-clé `operator`. **Le nombre de paramètres d'un opérateur ne peut pas être
+modifié.** Bonne pratique : faire correspondre la surcharge à une **extension
+naturelle de sa sémantique initiale**.
+
+```cpp
+Point& operator=(const Point&);   // affectateur
+bool  operator==(const Point &);  // comparaison : egalite
+bool  operator!=(const Point &);  // comparaison : difference
+Point operator-();                // unaire : oppose
+Point operator-(const Point &);   // binaire : soustraction
+Point operator+(const Point &);   // binaire : somme
+void  operator--();               // unaire : decrementation
+void  operator++();               // unaire : incrementation
+```
+
+### 8.2 Fonctions amies
+
+Mot-clé `friend`. Une fonction amie est **déclarée dans la portée de la classe**
+mais **ne fait pas partie de la classe**. Elle a **accès aux parties privées et
+protégées**, et **aucun paramètre implicite** — donc pas de `this`.
+
+```cpp
+class Point
+{
+    friend float distance(Point, Point);
+}
+
+float distance(Point p1, Point p2)
+{
+    return sqrt(pow(p1.abscisse - p2.abscisse, 2) +
+                pow(p1.ordonnee - p2.ordonnee, 2));
+}
+```
+
+Noter la signature : `distance` prend **deux** points, là où la méthode membre
+n'en prenait qu'un — le second étant `this`.
+
+### 8.3 Membres statiques
+
+Mot-clé `static`. **Une seule copie**, à laquelle toutes les instances de la
+classe ont accès. **Aucun paramètre implicite.** L'usage donné par les notes :
+un attribut pour **compter le nombre d'instances**.
+
+```cpp
+class Point
+{
+    static int nbPoints;
+    Point();
+    ~Point();
+    static float aire(Point, Point, Point);
+}
+
+Point::nbPoints = 0;
+
+Point::Point ()  { abscisse = ordonnee = 0; nbPoints += 1; }
+Point::~Point () { abscisse = ordonnee = 0; nbPoints -= 1; }
+```
+
+<Callout type="note" title="Pourquoi le destructeur décrémente">
+Parce que le compteur doit refléter le nombre d'instances **vivantes**. C'est la
+première illustration concrète du fait que constructeur et destructeur vont par
+paire : toute ressource prise à la construction doit être rendue à la
+destruction. Le chapitre 3 généralise ce principe à la mémoire dynamique.
+</Callout>
+
+<Source file="IFT339-3-AbstractionC++.pdf" page={49} locator="Diapositive 49" />
