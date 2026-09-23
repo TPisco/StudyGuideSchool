@@ -1,0 +1,215 @@
+---
+course: INF203
+number: 1
+title: Droit, morale et sources de la responsabilité
+summary: >-
+  L'organisation du cours et de ses travaux, puis les bases juridiques : les
+  types de responsabilité d'une personne en informatique, le partage des
+  pouvoirs et des compétences au Canada, la hiérarchie des sources du droit,
+  et la démarche d'analyse d'un enjeu légal ou éthique.
+estimatedMinutes: 120
+prerequisites: []
+objectives:
+  - id: obj1-cours
+    text: Connaître les règles d'évaluation du cours, la règle des 60 % et le rôle des travaux et de la charte d'équipe.
+    bloom: recall
+  - id: obj1-responsabilites
+    text: Distinguer les types de responsabilité présentés dans le cours.
+    bloom: understand
+  - id: obj1-pouvoirs
+    text: Distinguer les trois pouvoirs de l'État et classer un domaine selon le partage des compétences fédérales, provinciales ou partagées.
+    bloom: apply
+  - id: obj1-hierarchie
+    text: Ordonner les sources du cadre juridique, de la Constitution à la doctrine, et définir chacune.
+    bloom: apply
+  - id: obj1-demarche
+    text: Situer une étape dans la démarche d'analyse d'un enjeu, du côté légal ou éthique.
+    bloom: analyze
+sources:
+  - file: "2026-3 S01-02-Accueil et sources.pdf"
+    page: 3
+    locator: "Séance 01 — Accueil et sources (diapositives 1 à 76)"
+  - file: "23.33 2026-3 S03 ResponsabilitéCivile.pdf"
+    page: 3
+    locator: "Séance 03, diapositive 3 — Retour sur les séances précédentes"
+---
+
+## 1. Le thème : droit et morale
+
+La séance s'ouvre sur une variation d'une citation d'Alain : **« La morale
+commence là où s'arrête le droit »**. Le cours a **deux parties distinctes
+— le droit et l'éthique —, liées entre elles pour combler les manques et
+lacunes de l'une et de l'autre**.
+
+La question « parler d'éthique et d'informatique : un oxymoron ? » est
+illustrée par une réponse d'Eric Schmidt, ancien PDG de Google, en 2009 :
+si l'on a quelque chose que l'on ne veut pas que les autres sachent, peut-être
+ne devrait-on pas le faire.
+
+<Source file="2026-3 S01-02-Accueil et sources.pdf" page={2} locator="Diapositives 2, 29 et 47" />
+
+## 2. Organisation du cours
+
+| Évaluation | Poids |
+| --- | --- |
+| Examen de mi-session (individuel) | 20 % |
+| Examen final (individuel) | 20 % |
+| Activités de révision (presque toutes les séances) | 10 % |
+| Travaux pratiques en équipe | 35 % |
+| Travail pratique individuel | 5 % |
+| Auto-évaluation par les membres de l'équipe | 10 % |
+
+<Callout type="warning" title="La règle des 60 %">
+Pour réussir, il faut obtenir une **moyenne de 60 % sur l'ensemble des
+évaluations individuelles**, quelle que soit la note globale. Une personne
+qui a 70 % au total échoue si ses évaluations individuelles sont sous 60 %.
+</Callout>
+
+- Les **diapositives servent de notes de cours** ; elles sont complétées en
+  classe, et les diapositives non vues restent à connaître pour les travaux
+  et examens.
+- Le livre *Ethics for people who work in tech* (Marc Steen) sert de base à
+  la partie éthique ; *Ethics and technology* (Tavani) est fortement
+  recommandé.
+- Un **travail** ou une présentation est noté ; un **devoir** (par exemple la
+  charte d'équipe) est un livrable non noté, qui sert à guider les travaux et
+  à obtenir de la rétroaction.
+- Une **référence** indique que le contenu s'inspire ou provient d'un
+  endroit (raccourci [AUTEUR, année]) ; une **source** a servi d'inspiration
+  générale et n'est pas référencée dans le texte.
+
+<Callout type="warning" title="Trois incohérences dans la présentation du cours">
+- La diapositive 6 renvoie au plan de cours de **INF786**, groupe 18, et
+  explique que « INF786 représente le numéro du cours » ; la diapositive 54
+  parle du cours **IFT203**. Le cours est INF203.
+- L'exemple de la diapositive 22 compte l'examen final **sur 30** et les
+  présentations **sur 40**, alors que la diapositive 21 donne 20 % à chaque
+  examen et 50 % aux travaux pratiques. La conclusion reste juste :
+  $\frac{10 + 15}{20 + 30} = 50\,\% < 60\,\%$.
+- Pour justifier une absence, la séance 1 renvoie à la **direction du
+  CeFTI**, la séance 3 au **secrétariat du département d'informatique**.
+
+À confirmer avec la personne enseignante et le plan de cours.
+</Callout>
+
+<Source file="2026-3 S01-02-Accueil et sources.pdf" page={21} locator="Diapositives 6 à 22 et 54" />
+
+## 3. Les travaux et la charte d'équipe
+
+Plusieurs courts travaux, presque chaque semaine, suivent un même fil : dans
+un contexte informatique où une situation survient à des professionnels ou
+des stagiaires, l'équipe doit
+
+| TP | Ce qui est demandé |
+| --- | --- |
+| TP1 | identifier un **enjeu légal**, ses déclencheurs, sources, impacts et parties prenantes |
+| TP2 | en comprendre l'origine, définir son **cadre légal** et sa portée |
+| TP3 | l'analyser pour identifier des **actions** possibles (règles, consignes) |
+| TP4 | réécrire l'enjeu en **enjeu éthique** et exposer son impact sur les **ODD** |
+| TP5 | l'adresser avec un **outil de résolution d'enjeu éthique** |
+| TP6 | **présenter** le fruit des recherches aux collègues |
+
+La **charte d'équipe** est une entente signée par tous les membres. Elle doit
+contenir au minimum : les informations générales de l'équipe, la prise de
+décision et la gestion des conflits, les communications et rencontres, et
+les retards, absences et non-respect des engagements. Elle n'est **pas
+notée**, mais en cas de conflit, c'est elle qui sert à la résolution ; une
+conséquence prévue n'est appliquée que si la règle **et** la conséquence y
+sont écrites, si la conséquence est raisonnable et proportionnelle, si la
+personne a pu s'expliquer et si l'équipe a suivi sa propre procédure.
+
+<Source file="2026-3 S01-02-Accueil et sources.pdf" page={57} locator="Aperçu des TP et charte d'équipe (diapositives 53 à 76)" />
+
+## 4. Les types de responsabilité
+
+- **Civiles – extracontractuelles** (chapitre 2)
+- **Civiles – contractuelles**
+- **Criminelles et pénales** : Code criminel, propriété intellectuelle,
+  protection des renseignements personnels
+- **Sociales**
+- **Professionnelles** (ACM)
+
+<Source file="2026-3 S01-02-Accueil et sources.pdf" page={33} locator="Diapositive 33" />
+
+## 5. Le partage des pouvoirs au Canada
+
+| Pouvoir | Rôle |
+| --- | --- |
+| **Législatif** | vote les lois |
+| **Exécutif** | met en application les lois |
+| **Judiciaire** | sanctionne le non-respect |
+
+Les compétences sont partagées entre deux ordres de gouvernement :
+
+| Fédéral — questions d'intérêt national (paix, ordre et bon gouvernement) | Provincial — questions d'intérêt régional et social | Partagées |
+| --- | --- | --- |
+| droit pénal ; forces armées et défense ; économie (banques, monnaie, faillites et insolvabilité) ; **propriété intellectuelle** ; postes ; aviation et aérospatial ; énergie nucléaire ; **télécommunications** ; pêcheries ; commerce international et interprovincial ; terres réservées aux Premières Nations et Inuits ; navigation et navires ; assurance-emploi ; mariages et divorces | santé ; éducation ; affaires municipales ; transport intraprovincial ; incorporation d'entreprises provinciales ; administration de la justice provinciale ; économie locale ; célébration des mariages ; **propriété et droit civil** ; forêts | agriculture ; immigration ; retraites |
+
+Le fédéral détient aussi le **pouvoir résiduel**. La propriété et les droits
+civils relèvent des provinces — **réservés au Québec**, avec une
+normalisation du droit privé pour les autres provinces.
+
+<Callout type="tip" title="Mariage : deux lignes différentes">
+Les **mariages et divorces** sont fédéraux, mais la **célébration des
+mariages** est provinciale — un bon exemple de la finesse du partage.
+</Callout>
+
+<Source file="2026-3 S01-02-Accueil et sources.pdf" page={35} locator="Partage des pouvoirs et des compétences (diapositives 35 à 39)" />
+
+## 6. Le cadre juridique : la hiérarchie des normes
+
+Du plus fort (+) au plus faible (−) :
+
+| Rang | Source | Ce que c'est |
+| --- | --- | --- |
+| 1 | **Constitution** | Loi constitutionnelle de 1867, Loi constitutionnelle de 1982 |
+| 2 | **Lois et règlements** | corpus de règles juridiques votées par le législateur ou par une administration publique |
+| 3 | **Actes juridiques** | manifestation de la volonté des parties d'avoir un effet juridique (contrats, actes, testaments…) |
+| 4 | **Jurisprudence** | ensemble des décisions des cours et tribunaux |
+| 5 | **Coutume** | pratiques traditionnelles ou usages communs reconnus comme source de droit |
+| 6 | **Doctrine** | ensemble des travaux et ouvrages de juristes (analyses, rétrospectives, livres, manuels…) |
+
+Et un principe : **nul n'est censé ignorer la loi**.
+
+Les diapositives listent aussi un **lexique** à maîtriser — ambiguïté
+juridique, common law, décret, différence entre l'éthique, la morale et les
+lois, disposition, droit, enjeu légal, flou juridique, innovation de rupture,
+jugement de valeur, justice, légal, loi, règlement, technologie de rupture,
+vide juridique… Leurs définitions sont dans le **lexique des définitions**
+du cours (à lire pour la semaine suivante), qui n'a pas été fourni : cette
+page ne les définit pas.
+
+<Source file="2026-3 S01-02-Accueil et sources.pdf" page={41} locator="Cadre juridique (diapositives 31, 41 et 42)" />
+
+## 7. La démarche d'analyse d'un enjeu
+
+Le schéma de retour sur les séances précédentes résume la démarche de tout
+le cours. Un **enjeu** est d'abord reformulé, avec une identification
+préliminaire des parties prenantes, puis on se demande : **est-ce un enjeu
+légal ou éthique ?**
+
+<Mermaid caption="Démarche d'analyse d'un enjeu (séance 3, diapositive 3)." chart={`
+flowchart TB
+  A["Enjeu"] --> B["Reformulation et parties prenantes"]
+  B --> C{"Enjeu légal ou éthique ?"}
+  C -->|"Légal"| D["Sources et articles, perspective historique, cadre légal et portée, questions et réponses"]
+  D --> E{"Est-ce légal ?"}
+  E -->|"Non"| F["On ne fait rien, ou chercher quoi faire en respectant la loi (au-delà du cours)"]
+  E -->|"Oui ou indéterminé"| C
+  C -->|"Éthique"| G{"Quel modèle choisir : CEST, Proactive CARE de l'ACM, OIQ"}
+  G --> H["Test de la décision éthique"]
+`} />
+
+Le **test de la décision éthique** pose trois questions :
+
+- **Transparence** : si mon choix était communiqué publiquement, serais-je à
+  l'aise de le défendre et de l'expliquer ?
+- **Exemplarité** : mon choix pourrait-il servir d'exemple dans toute autre
+  situation similaire ?
+- **Réciprocité** : si c'était moi qui subissais les conséquences de mon
+  choix, considérerais-je toujours qu'il s'agit du bon choix ?
+
+Les modèles éthiques (CEST, Proactive CARE de l'ACM, OIQ) ne sont que nommés
+dans les documents fournis ; ils relèvent de la partie éthique du cours.
+
+<Source file="23.33 2026-3 S03 ResponsabilitéCivile.pdf" page={3} locator="Séance 03, diapositive 3 — Retour sur les séances précédentes" />

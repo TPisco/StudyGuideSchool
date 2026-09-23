@@ -1,0 +1,1780 @@
+{
+  "course": "IFT339",
+  "chapter": 2,
+  "concepts": [
+    {
+      "id": "c2-classe",
+      "term": "Classe",
+      "definition": "Encapsulation de la représentation d'un type et des opérations permettant d'en manipuler les éléments. L'accès se règle par public, protégé ou privé.",
+      "whyItMatters": "C'est l'outil par lequel le C++ permet de construire de nouveaux types abstraits : la partie publique porte le TDA, la partie privée la structure de données.",
+      "commonMisconception": "Nommer une classe au pluriel. Les notes donnent la règle : le nom de la classe — comme celui de l'instance — devrait être un nom singulier. Un pluriel signale qu'on a confondu l'élément et la collection.",
+      "objectiveId": "obj2-classe",
+      "source": {
+        "file": "IFT339-3-AbstractionC++.pdf",
+        "page": 8,
+        "locator": "Diapositive 8"
+      }
+    },
+    {
+      "id": "c2-resolution-portee",
+      "term": "Opérateur de résolution de portée ::",
+      "definition": "Opérateur qui précise la classe à laquelle appartiennent les opérations, lorsqu'elles sont définies dans un fichier .cpp séparé de la déclaration.",
+      "whyItMatters": "C'est ce qui permet de séparer le .h — la spécification — du .cpp — l'implémentation, donc de réaliser concrètement la frontière d'abstraction du chapitre 1.",
+      "commonMisconception": "L'oublier dans le .cpp. Sans Point::, la définition devient une fonction libre qui ne voit plus les attributs de la classe, et le compilateur signale des identificateurs inconnus plutôt que l'oubli lui-même.",
+      "objectiveId": "obj2-classe",
+      "source": {
+        "file": "IFT339-3-AbstractionC++.pdf",
+        "page": 10,
+        "locator": "Diapositives 10 et 11"
+      }
+    },
+    {
+      "id": "c2-virtuelle-pure",
+      "term": "Méthode virtuelle pure",
+      "definition": "Méthode déclarée sans implémentation, avec la syntaxe « virtual SpecificationFonction = 0 ; ». Une classe qui en contient au moins une est abstraite.",
+      "whyItMatters": "Elle impose un contrat aux classes dérivées : chacune doit fournir sa propre définition, ce qui est le mécanisme du polymorphisme dans la hiérarchie Figure / Cercle / Triangle.",
+      "commonMisconception": "Confondre définir une virtuelle pure et redéfinir une méthode. Définir une virtuelle pure est obligatoire — sans quoi la dérivée reste abstraite ; redéfinir une méthode déjà implémentée est un choix, et l'omettre laisse simplement la version de la base s'appliquer.",
+      "objectiveId": "obj2-heritage",
+      "source": {
+        "file": "IFT339-3-AbstractionC++.pdf",
+        "page": 14,
+        "locator": "Diapositives 14 à 18"
+      }
+    },
+    {
+      "id": "c2-template",
+      "term": "Classe générique (template)",
+      "definition": "Modèle ou gabarit de classe : même comportement à quelques caractéristiques près, le type étant à déterminer à la déclaration de l'instance.",
+      "whyItMatters": "Les notes la qualifient de « super utile pour les TAD conteneurs » : c'est ce qui permet d'écrire une seule fois un conteneur et de l'instancier pour n'importe quel type d'élément.",
+      "commonMisconception": "Oublier de répéter l'en-tête template devant chaque définition de méthode dans le .cpp. Les notes insistent : « le modèle suit le nom de la classe partout », y compris dans Point<TYPE>::methode.",
+      "objectiveId": "obj2-generique",
+      "source": {
+        "file": "IFT339-3-AbstractionC++.pdf",
+        "page": 19,
+        "locator": "Diapositives 19 et 20"
+      }
+    },
+    {
+      "id": "c2-pointeur",
+      "term": "Pointeur",
+      "definition": "Variable dont la valeur est l'adresse d'une autre cellule mémoire. Se déclare Type* ptr et se manipule comme une variable régulière.",
+      "whyItMatters": "C'est le support de toute structure de données non contiguë — et du chapitre 3 sur l'allocation dynamique, où l'objet créé n'a aucun identificateur propre.",
+      "commonMisconception": "Croire qu'un pointeur déclaré sans initialisation vaut nullptr. Les notes répondent « ??? — dépend du compilateur ». Il faut assigner explicitement nullptr pour s'assurer de ne pas créer de problème.",
+      "objectiveId": "obj2-pointeurs",
+      "source": {
+        "file": "IFT339-3-AbstractionC++.pdf",
+        "page": 21,
+        "locator": "Diapositives 21 à 24"
+      }
+    },
+    {
+      "id": "c2-lvalue-rvalue",
+      "term": "lvalue et rvalue",
+      "definition": "Une lvalue est un objet ou paramètre non temporaire, appelé à être modifié ou utilisé plusieurs fois — valeur à gauche d'une assignation. Une rvalue est temporaire, non destinée à être modifiée ni réutilisée — valeur à droite.",
+      "whyItMatters": "La distinction motive la sémantique de déplacement du chapitre 3 : une rvalue comme (x+y) est copiée profondément puis désallouée aussitôt, ce qui gaspille mémoire et temps sur les conteneurs.",
+      "commonMisconception": "Croire que « à gauche / à droite » est une règle de position littérale. Dans `int z = x + y;`, x et y sont des lvalues bien qu'elles soient à droite ; c'est leur caractère temporaire ou non qui tranche, pas leur place.",
+      "objectiveId": "obj2-parametres",
+      "source": {
+        "file": "IFT339-3-AbstractionC++.pdf",
+        "page": 29,
+        "locator": "Diapositives 29 à 31"
+      }
+    },
+    {
+      "id": "c2-this",
+      "term": "Paramètre implicite this",
+      "definition": "Paramètre que toutes les opérations définies dans une classe reçoivent automatiquement, passé par référence : c'est l'objet appelant la fonction.",
+      "whyItMatters": "Il explique pourquoi une méthode membre distance ne prend qu'un point en paramètre alors que la fonction amie équivalente en prend deux, et pourquoi on peut écrire return *this dans l'affectateur.",
+      "commonMisconception": "Ne protéger que le paramètre explicite. Dans `float Point::distance(const Point) const;` le premier const protège le paramètre, le second — placé après les parenthèses — protège this. Oublier le second laisse la méthode libre de modifier l'objet appelant.",
+      "objectiveId": "obj2-parametres",
+      "source": {
+        "file": "IFT339-3-AbstractionC++.pdf",
+        "page": 34,
+        "locator": "Diapositive 34"
+      }
+    },
+    {
+      "id": "c2-constructeur-copie",
+      "term": "Constructeur par copie et affectateur",
+      "definition": "Le constructeur par copie prend en paramètre un objet de même type et initialise un objet neuf. L'affectateur, surcharge de l'opérateur =, donne une nouvelle valeur à un objet qui existe déjà.",
+      "whyItMatters": "Les deux sont générés automatiquement s'ils ne sont pas définis, et tous deux font alors une copie superficielle — ce qui devient un défaut dès qu'il y a de la mémoire dynamique.",
+      "commonMisconception": "Les croire interchangeables. `Point b = a;` appelle le constructeur par copie, car b n'existe pas encore ; `b = a;` sur un b déjà construit appelle l'affectateur.",
+      "objectiveId": "obj2-operations",
+      "source": {
+        "file": "IFT339-3-AbstractionC++.pdf",
+        "page": 43,
+        "locator": "Diapositives 39 à 43"
+      }
+    }
+  ],
+  "tables": [
+    {
+      "id": "t2-const-pointeur",
+      "title": "Placement de const sur un pointeur",
+      "kind": "syntax",
+      "caption": "La position de const par rapport à l'étoile décide de ce qui est figé.",
+      "columns": [
+        {
+          "key": "syntaxe",
+          "label": "Syntaxe",
+          "mono": true
+        },
+        {
+          "key": "ptr",
+          "label": "Pointeur p modifiable"
+        },
+        {
+          "key": "obj",
+          "label": "Objet pointé (*p) modifiable"
+        },
+        {
+          "key": "lecture",
+          "label": "Se lit"
+        }
+      ],
+      "rows": [
+        {
+          "syntaxe": "int* p;",
+          "ptr": "oui",
+          "obj": "oui",
+          "lecture": "pointeur libre vers entier libre"
+        },
+        {
+          "syntaxe": "const int* p;",
+          "ptr": "oui",
+          "obj": "non",
+          "lecture": "pointeur libre vers entier constant"
+        },
+        {
+          "syntaxe": "int* const p;",
+          "ptr": "non",
+          "obj": "oui",
+          "lecture": "pointeur constant vers entier libre"
+        },
+        {
+          "syntaxe": "const int* const p;",
+          "ptr": "non",
+          "obj": "non",
+          "lecture": "pointeur constant vers entier constant"
+        }
+      ],
+      "source": {
+        "file": "IFT339-3-AbstractionC++.pdf",
+        "page": 26,
+        "locator": "Diapositive 26"
+      }
+    },
+    {
+      "id": "t2-operations-base",
+      "title": "Les six opérations de base d'un type T",
+      "kind": "reference",
+      "columns": [
+        {
+          "key": "operation",
+          "label": "Opération"
+        },
+        {
+          "key": "role",
+          "label": "Rôle"
+        },
+        {
+          "key": "cpp",
+          "label": "En C++",
+          "mono": true
+        },
+        {
+          "key": "auto",
+          "label": "Générée automatiquement ?"
+        }
+      ],
+      "rows": [
+        {
+          "operation": "Construction",
+          "role": "initialiser une instance de T",
+          "cpp": "Point(); Point(float,float); Point(const Point&)",
+          "auto": "oui si non définie (sans paramètre, et par copie)"
+        },
+        {
+          "operation": "Destruction",
+          "role": "nettoyer la mémoire allouée",
+          "cpp": "~Point()",
+          "auto": "oui"
+        },
+        {
+          "operation": "Affectation",
+          "role": "donner une nouvelle valeur",
+          "cpp": "Point& operator=(const Point&)",
+          "auto": "oui — copie superficielle"
+        },
+        {
+          "operation": "Conversion",
+          "role": "convertir depuis ou vers un autre type",
+          "cpp": "Point(float) / operator float() const",
+          "auto": "non"
+        },
+        {
+          "operation": "Sélection",
+          "role": "accéder à la représentation",
+          "cpp": "float abscisse() const",
+          "auto": "non"
+        },
+        {
+          "operation": "Mutation",
+          "role": "modifier la représentation",
+          "cpp": "void modifAbs(float)",
+          "auto": "non"
+        }
+      ],
+      "source": {
+        "file": "IFT339-3-AbstractionC++.pdf",
+        "page": 35,
+        "locator": "Diapositive 35"
+      }
+    },
+    {
+      "id": "t2-passage",
+      "title": "Passage de paramètres et retours",
+      "kind": "comparison",
+      "columns": [
+        {
+          "key": "mode",
+          "label": "Mode",
+          "mono": true
+        },
+        {
+          "key": "memoire",
+          "label": "Mémoire"
+        },
+        {
+          "key": "modif",
+          "label": "Modification du paramètre effectif"
+        },
+        {
+          "key": "risque",
+          "label": "Point d'attention"
+        }
+      ],
+      "rows": [
+        {
+          "mode": "Paramètre par valeur",
+          "memoire": "nouvel espace alloué, copie",
+          "modif": "impossible — valeurs inchangées",
+          "risque": "les copies peuvent être de grande taille"
+        },
+        {
+          "mode": "Paramètre par référence",
+          "memoire": "aucun espace alloué, identificateur synonyme",
+          "modif": "possible",
+          "risque": "lvalue seulement"
+        },
+        {
+          "mode": "Retour par valeur",
+          "memoire": "copie ; l'espace local est désalloué",
+          "modif": "—",
+          "risque": "rvalue possible ; copie profonde inutile sur les conteneurs"
+        },
+        {
+          "mode": "Retour par référence",
+          "memoire": "mémoire non désallouée",
+          "modif": "—",
+          "risque": "doit exister au-delà de la portée de la fonction"
+        }
+      ],
+      "source": {
+        "file": "IFT339-3-AbstractionC++.pdf",
+        "page": 28,
+        "locator": "Diapositives 27 à 32"
+      }
+    }
+  ],
+  "quiz": {
+    "title": "Quiz — vérification rapide",
+    "estimatedMinutes": 15,
+    "questions": [
+      {
+        "id": "q2-01",
+        "objectiveId": "obj2-heritage",
+        "bloomLevel": "recall",
+        "type": "mcq",
+        "difficulty": 1,
+        "prompt": "Qu'est-ce qui rend une classe abstraite en C++, selon les notes ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Elle contient au moins une méthode virtuelle pure."
+          },
+          {
+            "id": "b",
+            "text": "Elle ne contient aucun attribut."
+          },
+          {
+            "id": "c",
+            "text": "Elle est déclarée avec le mot-clé abstract."
+          },
+          {
+            "id": "d",
+            "text": "Tous ses membres sont privés."
+          }
+        ],
+        "correct": "a",
+        "explanation": "Une méthode virtuelle pure est déclarée sans implémentation, avec la syntaxe « virtual ... = 0 ; ». Une classe qui en contient au moins une ne peut pas être instanciée et doit absolument être dérivée.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Figure, la classe abstraite de l'exemple, possède l'attribut centre de type Point. L'absence d'attributs n'a rien à voir."
+          },
+          {
+            "optionId": "c",
+            "why": "C++ n'a pas de mot-clé abstract ; c'est la présence d'un « = 0 » sur une méthode virtuelle qui produit l'effet."
+          },
+          {
+            "optionId": "d",
+            "why": "La visibilité des membres ne conditionne pas l'instanciation ; une classe entièrement privée reste concrète."
+          }
+        ],
+        "source": {
+          "file": "IFT339-3-AbstractionC++.pdf",
+          "page": 14
+        }
+      },
+      {
+        "id": "q2-02",
+        "objectiveId": "obj2-pointeurs",
+        "bloomLevel": "recall",
+        "type": "mcq",
+        "difficulty": 1,
+        "prompt": "Que produit l'opérateur & appliqué à une variable identif de type Type ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "L'adresse mémoire de identif, de type Type*"
+          },
+          {
+            "id": "b",
+            "text": "La valeur de identif, de type Type"
+          },
+          {
+            "id": "c",
+            "text": "Une référence constante vers identif"
+          },
+          {
+            "id": "d",
+            "text": "Une copie de identif"
+          }
+        ],
+        "correct": "a",
+        "explanation": "& est l'opérateur d'indirection : &identif contient l'adresse de identif et est de type Type*. C'est ce qu'on affecte à un pointeur.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "C'est ce que produit l'opérateur de déréférencement * appliqué à un pointeur, soit l'opération inverse."
+          },
+          {
+            "optionId": "c",
+            "why": "Le symbole & sert aussi à déclarer une référence, mais appliqué à une variable dans une expression il produit une adresse."
+          },
+          {
+            "optionId": "d",
+            "why": "Aucune copie n'est faite : une adresse est justement ce qui permet d'éviter la copie."
+          }
+        ],
+        "source": {
+          "file": "IFT339-3-AbstractionC++.pdf",
+          "page": 22
+        }
+      },
+      {
+        "id": "q2-03",
+        "objectiveId": "obj2-pointeurs",
+        "bloomLevel": "apply",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Dans `const int* p;`, qu'est-ce qui est modifiable ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Le pointeur p, mais pas l'objet pointé *p"
+          },
+          {
+            "id": "b",
+            "text": "L'objet pointé *p, mais pas le pointeur p"
+          },
+          {
+            "id": "c",
+            "text": "Ni l'un ni l'autre"
+          },
+          {
+            "id": "d",
+            "text": "Les deux"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Le const placé avant le type porte sur l'objet pointé : on peut faire pointer p ailleurs, mais pas écrire *p = ... . C'est l'inverse de int* const p.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "C'est la ligne `int* const p;`, où le const est placé après l'étoile et fige le pointeur lui-même."
+          },
+          {
+            "optionId": "c",
+            "why": "C'est `const int* const p;`, avec les deux const."
+          },
+          {
+            "optionId": "d",
+            "why": "C'est `int* p;` sans aucun const."
+          }
+        ],
+        "source": {
+          "file": "IFT339-3-AbstractionC++.pdf",
+          "page": 26
+        }
+      },
+      {
+        "id": "q2-04",
+        "objectiveId": "obj2-parametres",
+        "bloomLevel": "understand",
+        "type": "multi",
+        "difficulty": 2,
+        "prompt": "Dans l'exemple des notes, lesquelles de ces expressions sont des rvalues ? (plusieurs réponses)\n\n    const int x = 2;\n    int y;\n    int z = x + y;\n    string str = \"foo\";",
+        "options": [
+          {
+            "id": "a",
+            "text": "\"foo\""
+          },
+          {
+            "id": "b",
+            "text": "x + y"
+          },
+          {
+            "id": "c",
+            "text": "x"
+          },
+          {
+            "id": "d",
+            "text": "z"
+          }
+        ],
+        "correct": [
+          "a",
+          "b"
+        ],
+        "explanation": "Les rvalues listées par les notes sont les valeurs littérales (\"foo\", 2) et les valeurs temporaires (x+y, str.substr(0,1)). Une rvalue est un objet temporaire, non appelé à être modifié ni réutilisé.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "c",
+            "why": "x est une lvalue : les notes rangent explicitement les constantes parmi les lvalues, car elles ont un identificateur. Être const ne fait pas d'une variable une rvalue."
+          },
+          {
+            "optionId": "d",
+            "why": "z est une variable nommée, donc une lvalue, même si elle est initialisée par une rvalue."
+          }
+        ],
+        "source": {
+          "file": "IFT339-3-AbstractionC++.pdf",
+          "page": 30
+        }
+      },
+      {
+        "id": "q2-05",
+        "objectiveId": "obj2-operations",
+        "bloomLevel": "understand",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Quelle est la différence entre le constructeur par copie et l'affectateur ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Le constructeur par copie initialise un objet neuf ; l'affectateur écrase un objet déjà construit."
+          },
+          {
+            "id": "b",
+            "text": "Le constructeur par copie fait une copie profonde, l'affectateur une copie superficielle."
+          },
+          {
+            "id": "c",
+            "text": "L'affectateur est généré automatiquement, le constructeur par copie non."
+          },
+          {
+            "id": "d",
+            "text": "Aucune : ce sont deux noms pour la même opération."
+          }
+        ],
+        "correct": "a",
+        "explanation": "`Point b = a;` appelle le constructeur par copie, car b n'existe pas encore. `b = a;` sur un b déjà construit appelle l'affectateur. Les notes précisent que l'affectation est « différente du constructeur par copie ».",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Les deux, lorsqu'ils sont générés automatiquement, font une copie superficielle. La profondeur de la copie dépend de ce qu'on écrit, pas de l'opération."
+          },
+          {
+            "optionId": "c",
+            "why": "Les deux sont générés automatiquement s'ils ne sont pas définis — c'est précisément ce qui rend le piège de la copie superficielle si courant."
+          },
+          {
+            "optionId": "d",
+            "why": "Ils se déclarent différemment et s'appellent dans des situations distinctes ; les notes les traitent sur deux diapositives séparées."
+          }
+        ],
+        "source": {
+          "file": "IFT339-3-AbstractionC++.pdf",
+          "page": 43
+        }
+      },
+      {
+        "id": "q2-06",
+        "objectiveId": "obj2-classe",
+        "bloomLevel": "apply",
+        "type": "fill-blank",
+        "difficulty": 1,
+        "prompt": "Compléter la définition dans le .cpp : l'opérateur de résolution de portée s'écrit ____ et précise la classe à laquelle appartient l'opération.\n\n    float Point____distance(Point p) { ... }",
+        "correct": "::",
+        "acceptableAnswers": [
+          "« :: »",
+          "deux-points deux-points"
+        ],
+        "explanation": "L'opérateur :: rattache la définition à sa classe. Sans lui, `float distance(Point p)` serait une fonction libre qui ne voit plus les attributs de Point.",
+        "source": {
+          "file": "IFT339-3-AbstractionC++.pdf",
+          "page": 10
+        }
+      },
+      {
+        "id": "q2-07",
+        "objectiveId": "obj2-parametres",
+        "bloomLevel": "analyze",
+        "type": "mcq",
+        "difficulty": 3,
+        "prompt": "Pourquoi les notes qualifient-elles le retour par référence de « danger, mais puissant » ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Parce que la mémoire retournée doit exister au-delà de la portée de la fonction."
+          },
+          {
+            "id": "b",
+            "text": "Parce qu'il fait une copie profonde coûteuse."
+          },
+          {
+            "id": "c",
+            "text": "Parce qu'il n'accepte que des rvalues."
+          },
+          {
+            "id": "d",
+            "text": "Parce qu'il empêche de surcharger les opérateurs."
+          }
+        ],
+        "correct": "a",
+        "explanation": "Retourner une référence vers une variable locale renvoie vers une mémoire libérée à la fermeture du bloc. La puissance vient de ce que cela permet des fonctions et opérateurs assignables, comme l'affectateur qui retourne *this.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "C'est exactement l'inverse : le retour par référence évite la copie. C'est le retour par valeur qui en produit une."
+          },
+          {
+            "optionId": "c",
+            "why": "Le retour par référence est lvalue seulement — c'est la contrainte inverse."
+          },
+          {
+            "optionId": "d",
+            "why": "Il rend au contraire possible la surcharge d'opérateurs assignables, dont operator= qui retourne Point&."
+          }
+        ],
+        "source": {
+          "file": "IFT339-3-AbstractionC++.pdf",
+          "page": 32
+        }
+      },
+      {
+        "id": "q2-08",
+        "objectiveId": "obj2-generique",
+        "bloomLevel": "understand",
+        "type": "true-false",
+        "difficulty": 2,
+        "prompt": "Dans une classe générique, le type paramétré est fixé à l'écriture de la classe.",
+        "options": [
+          {
+            "id": "v",
+            "text": "Vrai"
+          },
+          {
+            "id": "f",
+            "text": "Faux"
+          }
+        ],
+        "correct": "f",
+        "explanation": "Les notes le disent explicitement : le type est « à déterminer à la déclaration de l'instance ». C'est ce qui permet d'écrire un conteneur une seule fois et de l'instancier pour n'importe quel type d'élément.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "v",
+            "why": "Ce serait une classe ordinaire. Le template existe précisément pour repousser ce choix jusqu'à l'instanciation — un polymorphisme, selon le mot des notes."
+          }
+        ],
+        "source": {
+          "file": "IFT339-3-AbstractionC++.pdf",
+          "page": 19
+        }
+      },
+      {
+        "id": "q2-09",
+        "objectiveId": "obj2-operations",
+        "bloomLevel": "apply",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Comment convertit-on du type Point vers le type float, selon les notes ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "En surchargeant avec le mot-clé operator : `operator float() const;`"
+          },
+          {
+            "id": "b",
+            "text": "Par un constructeur de Point ne prenant qu'un float"
+          },
+          {
+            "id": "c",
+            "text": "Par un static_cast, sans rien écrire dans la classe"
+          },
+          {
+            "id": "d",
+            "text": "C'est impossible : on ne convertit que vers un type usager"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Les deux sens ont deux mécanismes distincts. De T vers un autre type A : une surcharge avec le mot-clé operator. De A vers T : un constructeur dans T n'ayant qu'un seul paramètre explicite de type A.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "C'est le mécanisme de l'autre sens — float vers Point, pas Point vers float."
+          },
+          {
+            "optionId": "c",
+            "why": "static_cast ne peut convertir que si une conversion a été définie ; c'est justement ce que operator float() fournit."
+          },
+          {
+            "optionId": "d",
+            "why": "Les notes donnent explicitement l'exemple d'un convertisseur de Point vers float, retournant la norme du point."
+          }
+        ],
+        "source": {
+          "file": "IFT339-3-AbstractionC++.pdf",
+          "page": 45
+        }
+      },
+      {
+        "id": "q2-10",
+        "objectiveId": "obj2-operations",
+        "bloomLevel": "recall",
+        "type": "multi",
+        "difficulty": 1,
+        "prompt": "Quelles opérations le compilateur génère-t-il automatiquement si elles ne sont pas définies ? (plusieurs réponses)",
+        "options": [
+          {
+            "id": "a",
+            "text": "Le constructeur sans paramètre explicite"
+          },
+          {
+            "id": "b",
+            "text": "Le constructeur par copie"
+          },
+          {
+            "id": "c",
+            "text": "L'affectateur operator="
+          },
+          {
+            "id": "d",
+            "text": "Les convertisseurs"
+          }
+        ],
+        "correct": [
+          "a",
+          "b",
+          "c"
+        ],
+        "explanation": "Les notes regroupent constructeurs, destructeur et affectateur comme « opérateurs générés automatiquement, appelés directement par le compilateur ». Les versions générées font une copie superficielle, et se contrôlent par default et delete.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "d",
+            "why": "Les conversions doivent toujours être écrites à la main : un constructeur à un seul paramètre explicite, ou une surcharge operator. Rien n'est généré."
+          }
+        ],
+        "source": {
+          "file": "IFT339-3-AbstractionC++.pdf",
+          "page": 44
+        }
+      },
+      {
+        "id": "q2-11",
+        "objectiveId": "obj2-heritage",
+        "bloomLevel": "analyze",
+        "type": "mcq",
+        "difficulty": 3,
+        "prompt": "Dans l'exemple du cours, `Triangle::tournerOrigine()` est écrite alors que `Figure::tournerOrigine()` existe déjà. De quoi s'agit-il ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "D'une redéfinition : elle remplace la version héritée, et l'omettre aurait laissé celle de Figure s'appliquer."
+          },
+          {
+            "id": "b",
+            "text": "De la définition obligatoire d'une méthode virtuelle pure."
+          },
+          {
+            "id": "c",
+            "text": "D'une surcharge : les deux versions coexistent et se distinguent par leurs paramètres."
+          },
+          {
+            "id": "d",
+            "text": "D'une erreur : on ne peut pas réécrire une méthode de la classe de base."
+          }
+        ],
+        "correct": "a",
+        "explanation": "tournerOrigine() est implémentée dans Figure, donc héritée telle quelle. La réécrire dans Triangle est une redéfinition — un choix. Seule circonference(), déclarée « = 0 », impose une définition dans chaque dérivée.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "La virtuelle pure de l'exemple est circonference(), pas tournerOrigine() qui possède bien un corps dans Figure."
+          },
+          {
+            "optionId": "c",
+            "why": "La surcharge distingue des fonctions de même nom par leurs paramètres ; ici les signatures sont identiques et l'une masque l'autre."
+          },
+          {
+            "optionId": "d",
+            "why": "Les notes donnent explicitement la redéfinition comme l'une des deux choses qu'une classe dérivée peut faire — ajouter ou redéfinir des caractéristiques."
+          }
+        ],
+        "source": {
+          "file": "IFT339-3-AbstractionC++.pdf",
+          "page": 18
+        }
+      },
+      {
+        "id": "q2-12",
+        "objectiveId": "obj2-parametres",
+        "bloomLevel": "understand",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Dans `float Point::distance(const Point) const;`, que protège le second const ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Le paramètre implicite this, c'est-à-dire l'objet appelant."
+          },
+          {
+            "id": "b",
+            "text": "La valeur de retour, qui devient non modifiable."
+          },
+          {
+            "id": "c",
+            "text": "Le paramètre explicite, une seconde fois."
+          },
+          {
+            "id": "d",
+            "text": "Rien : il est purement décoratif."
+          }
+        ],
+        "correct": "a",
+        "explanation": "Toutes les opérations d'une classe reçoivent un paramètre implicite this, passé par référence. Placer const après les parenthèses le rend immuable : la méthode s'engage à ne pas modifier l'objet appelant.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Un const sur le retour se placerait devant le type de retour, pas après la liste des paramètres."
+          },
+          {
+            "optionId": "c",
+            "why": "Le paramètre explicite est déjà protégé par le const écrit entre les parenthèses ; le second porte sur autre chose."
+          },
+          {
+            "optionId": "d",
+            "why": "Sans lui, la méthode peut modifier l'objet appelant, et ne peut pas être appelée sur un Point constant."
+          }
+        ],
+        "source": {
+          "file": "IFT339-3-AbstractionC++.pdf",
+          "page": 34
+        }
+      }
+    ]
+  },
+  "test": {
+    "title": "Test du chapitre 2",
+    "instructions": "20 questions couvrant tout le chapitre. Plus long et plus difficile que le quiz.",
+    "estimatedMinutes": 50,
+    "questions": [
+      {
+        "id": "t2-01",
+        "objectiveId": "obj2-classe",
+        "bloomLevel": "recall",
+        "type": "mcq",
+        "difficulty": 1,
+        "prompt": "Quels sont les trois niveaux d'accès aux attributs et opérations d'une classe ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "public, protégé, privé"
+          },
+          {
+            "id": "b",
+            "text": "public, statique, privé"
+          },
+          {
+            "id": "c",
+            "text": "public, privé, virtuel"
+          },
+          {
+            "id": "d",
+            "text": "ouvert, protégé, fermé"
+          }
+        ],
+        "correct": "a",
+        "explanation": "La diapositive 8 donne exactement ces trois niveaux. Le protégé est celui qui rend un membre accessible aux classes dérivées sans l'exposer à l'extérieur.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "static qualifie un membre partagé par toutes les instances ; ce n'est pas un niveau d'accès."
+          },
+          {
+            "optionId": "c",
+            "why": "virtual concerne la liaison des méthodes dans une hiérarchie, pas la visibilité."
+          },
+          {
+            "optionId": "d",
+            "why": "« ouvert » et « fermé » ne sont pas des mots-clés du C++."
+          }
+        ],
+        "source": {
+          "file": "IFT339-3-AbstractionC++.pdf",
+          "page": 8
+        }
+      },
+      {
+        "id": "t2-02",
+        "objectiveId": "obj2-heritage",
+        "bloomLevel": "understand",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Dans la relation entre une classe de base et une classe dérivée, comment les notes nomment-elles les deux sens ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "De la dérivée vers la base : généralisation. De la base vers la dérivée : spécialisation."
+          },
+          {
+            "id": "b",
+            "text": "De la dérivée vers la base : spécialisation. De la base vers la dérivée : généralisation."
+          },
+          {
+            "id": "c",
+            "text": "Composition dans un sens, agrégation dans l'autre."
+          },
+          {
+            "id": "d",
+            "text": "Encapsulation dans un sens, polymorphisme dans l'autre."
+          }
+        ],
+        "correct": "a",
+        "explanation": "Le schéma des diapositives 12 et 13 place « généralisation » sur la flèche montant vers la classe de base, et « spécialisation » sur celle descendant vers la classe dérivée : la dérivée est un cas plus spécial de la base.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Les deux termes sont inversés. Un Cercle est une Figure spécialisée, donc monter vers Figure généralise."
+          },
+          {
+            "optionId": "c",
+            "why": "Composition et agrégation décrivent des relations « a un », pas l'héritage qui est une relation « est un »."
+          },
+          {
+            "optionId": "d",
+            "why": "Ce sont deux mécanismes de la POO, pas les deux sens d'une relation d'héritage."
+          }
+        ],
+        "source": {
+          "file": "IFT339-3-AbstractionC++.pdf",
+          "page": 13
+        }
+      },
+      {
+        "id": "t2-03",
+        "objectiveId": "obj2-heritage",
+        "bloomLevel": "apply",
+        "type": "code-output",
+        "difficulty": 2,
+        "prompt": "Cette ligne compile-t-elle ? Répondre par « oui » ou « non », en une seule ligne.",
+        "code": {
+          "lang": "cpp",
+          "value": "class Figure\n{\n    Figure();\n    Point centre;\n    void tournerOrigine();\n    virtual float circonference() = 0 ;\n};\n\nint main()\n{\n    Figure f;      // <-- cette ligne\n    return 0;\n}"
+        },
+        "correct": "non",
+        "acceptableAnswers": [
+          "non, la classe est abstraite",
+          "Non"
+        ],
+        "explanation": "Figure contient une méthode virtuelle pure (circonference déclarée « = 0 »), elle est donc abstraite : il est impossible de faire appel à un constructeur et on ne peut pas l'instancier. Elle doit absolument être dérivée.",
+        "source": {
+          "file": "IFT339-3-AbstractionC++.pdf",
+          "page": 14
+        }
+      },
+      {
+        "id": "t2-04",
+        "objectiveId": "obj2-pointeurs",
+        "bloomLevel": "apply",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Que déclare `Type* Tab[n];` ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Un tableau de n pointeurs vers des variables de type Type."
+          },
+          {
+            "id": "b",
+            "text": "Un pointeur vers un tableau de n variables de type Type."
+          },
+          {
+            "id": "c",
+            "text": "Un tableau de n variables de type Type."
+          },
+          {
+            "id": "d",
+            "text": "n tableaux de pointeurs de type Type."
+          }
+        ],
+        "correct": "a",
+        "explanation": "Les notes précisent que le tableau lui-même occupe une mémoire contiguë, tandis que les objets pointés sont en mémoire non contiguë — c'est justement ce que permet un tableau de pointeurs.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Un pointeur vers un tableau s'écrirait Type (*Tab)[n], avec des parenthèses qui changent la lecture."
+          },
+          {
+            "optionId": "c",
+            "why": "Ce serait Type Tab[n], sans étoile : les éléments seraient les valeurs elles-mêmes, donc contigus."
+          },
+          {
+            "optionId": "d",
+            "why": "Il n'y a qu'un seul tableau déclaré ; n est son nombre de cases, pas un nombre de tableaux."
+          }
+        ],
+        "source": {
+          "file": "IFT339-3-AbstractionC++.pdf",
+          "page": 25
+        }
+      },
+      {
+        "id": "t2-05",
+        "objectiveId": "obj2-pointeurs",
+        "bloomLevel": "analyze",
+        "type": "short-answer",
+        "difficulty": 3,
+        "prompt": "Les notes posent la question : que représente `int **ptr;` ? Répondre en une courte phrase.",
+        "correct": "un pointeur vers un pointeur vers un int",
+        "acceptableAnswers": [
+          "pointeur vers un pointeur d'entier",
+          "un pointeur sur un pointeur sur un int",
+          "pointeur de pointeur vers int",
+          "un pointeur vers un pointeur vers un entier"
+        ],
+        "explanation": "Chaque étoile ajoute un niveau d'indirection. ptr contient l'adresse d'une cellule qui contient elle-même une adresse, laquelle désigne un int. Il faut donc déréférencer deux fois — **ptr — pour atteindre l'entier.",
+        "source": {
+          "file": "IFT339-3-AbstractionC++.pdf",
+          "page": 23
+        }
+      },
+      {
+        "id": "t2-06",
+        "objectiveId": "obj2-parametres",
+        "bloomLevel": "understand",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Quelle est la différence entre paramètre effectif et paramètre formel ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "L'effectif est celui utilisé lors de l'appel ; le formel est la variable locale à la fonction."
+          },
+          {
+            "id": "b",
+            "text": "L'effectif est passé par référence ; le formel par valeur."
+          },
+          {
+            "id": "c",
+            "text": "L'effectif est constant ; le formel est modifiable."
+          },
+          {
+            "id": "d",
+            "text": "L'effectif appartient à la classe ; le formel est global."
+          }
+        ],
+        "correct": "a",
+        "explanation": "C'est la définition de la diapositive 27. La distinction sert à décrire précisément ce que fait un passage par valeur : les valeurs des paramètres effectifs restent inchangées après l'exécution.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Le mode de passage est un choix indépendant : un paramètre effectif peut être passé par valeur comme par référence."
+          },
+          {
+            "optionId": "c",
+            "why": "La constance se déclare avec const et ne recoupe pas la distinction effectif / formel."
+          },
+          {
+            "optionId": "d",
+            "why": "Ni l'un ni l'autre n'est global ; les deux se rapportent à un appel de fonction."
+          }
+        ],
+        "source": {
+          "file": "IFT339-3-AbstractionC++.pdf",
+          "page": 27
+        }
+      },
+      {
+        "id": "t2-07",
+        "objectiveId": "obj2-operations",
+        "bloomLevel": "recall",
+        "type": "fill-blank",
+        "difficulty": 1,
+        "prompt": "Compléter : le destructeur d'une classe Point se nomme ____ et reçoit un seul paramètre, this, implicite et par référence.",
+        "correct": "~Point",
+        "acceptableAnswers": [
+          "~Point()",
+          "~nomClasse"
+        ],
+        "explanation": "Le destructeur porte le nom de la classe précédé du tilde. Il est nécessaire dès qu'il y a de la mémoire dynamique — sans allocation dynamique, son corps peut rester vide.",
+        "source": {
+          "file": "IFT339-3-AbstractionC++.pdf",
+          "page": 42
+        }
+      },
+      {
+        "id": "t2-08",
+        "objectiveId": "obj2-operations",
+        "bloomLevel": "analyze",
+        "type": "mcq",
+        "difficulty": 3,
+        "prompt": "Pourquoi l'affectateur des notes se termine-t-il par `return *this;` plutôt que par rien du tout ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Pour retourner une référence vers l'objet affecté, ce qui rend possible l'enchaînement a = b = c."
+          },
+          {
+            "id": "b",
+            "text": "Pour libérer la mémoire de l'objet source."
+          },
+          {
+            "id": "c",
+            "text": "Parce que le compilateur l'exige pour toute surcharge d'opérateur."
+          },
+          {
+            "id": "d",
+            "text": "Pour déclencher le constructeur par copie."
+          }
+        ],
+        "correct": "a",
+        "explanation": "La signature est Point& operator=(const Point&) : un retour par référence. C'est l'illustration de « permet des fonctions ou opérateurs assignables » — la référence retournée existe bien au-delà de la fonction, puisque c'est l'objet appelant.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "L'affectation ne détruit pas la source ; elle copie sa valeur dans la cible."
+          },
+          {
+            "optionId": "c",
+            "why": "Rien n'oblige une surcharge à retourner quelque chose : les notes donnent `void operator++();` comme exemple d'opérateur au retour vide."
+          },
+          {
+            "optionId": "d",
+            "why": "Retourner *this par référence évite justement toute copie ; c'est l'inverse d'un appel au constructeur par copie."
+          }
+        ],
+        "source": {
+          "file": "IFT339-3-AbstractionC++.pdf",
+          "page": 43
+        }
+      },
+      {
+        "id": "t2-09",
+        "objectiveId": "obj2-generique",
+        "bloomLevel": "apply",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Comment s'écrit la définition, hors de la classe, d'une méthode d'une classe générique `Point<TYPE>` ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "template <typename TYPE>\nTYPE Point<TYPE>::abscisse() { ... }"
+          },
+          {
+            "id": "b",
+            "text": "TYPE Point::abscisse() { ... }"
+          },
+          {
+            "id": "c",
+            "text": "template <typename TYPE>\nTYPE Point::abscisse() { ... }"
+          },
+          {
+            "id": "d",
+            "text": "TYPE Point<TYPE>::abscisse() { ... }"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Les notes résument la règle : « Modèle suit le nom de la classe partout… ». Il faut donc à la fois répéter l'en-tête template devant chaque définition, et écrire Point<TYPE>:: et non Point::.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Ni l'en-tête template ni le paramètre de la classe : le compilateur ne sait pas ce qu'est TYPE."
+          },
+          {
+            "optionId": "c",
+            "why": "L'en-tête template est présent mais le nom de classe est incomplet : c'est Point<TYPE> qui est la classe, pas Point."
+          },
+          {
+            "optionId": "d",
+            "why": "Le nom de classe est correct mais l'en-tête template manque, donc TYPE n'est déclaré nulle part pour cette définition."
+          }
+        ],
+        "source": {
+          "file": "IFT339-3-AbstractionC++.pdf",
+          "page": 20
+        }
+      },
+      {
+        "id": "t2-10",
+        "objectiveId": "obj2-operations",
+        "bloomLevel": "understand",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Parmi les quatre événements de la vie d'un objet, lesquels l'objet doit-il réaliser lui-même ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "L'initialisation et le nettoyage."
+          },
+          {
+            "id": "b",
+            "text": "La déclaration et la libération."
+          },
+          {
+            "id": "c",
+            "text": "Les quatre."
+          },
+          {
+            "id": "d",
+            "text": "Aucun : le système gère tout."
+          }
+        ],
+        "correct": "a",
+        "explanation": "Les notes répartissent clairement : 1. Déclaration et 4. Libération sont gérées automatiquement par le système, qui connaît la définition générale de l'objet ; 2. Initialisation et 3. Nettoyage doivent être réalisés par l'objet, qui connaît son propre comportement.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Ce sont exactement les deux que le système prend en charge — allocation et désallocation de l'espace mémoire."
+          },
+          {
+            "optionId": "c",
+            "why": "L'allocation et la désallocation automatiques n'exigent aucun code de l'objet."
+          },
+          {
+            "optionId": "d",
+            "why": "Ce serait vrai si constructeurs et destructeurs n'existaient pas ; le cours leur consacre justement plusieurs diapositives."
+          }
+        ],
+        "source": {
+          "file": "IFT339-3-AbstractionC++.pdf",
+          "page": 36
+        }
+      },
+      {
+        "id": "t2-11",
+        "objectiveId": "obj2-operations",
+        "bloomLevel": "apply",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Que fait `Point::Point() : Point(0.0, 0.0) { }` ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Une délégation de construction : le constructeur sans paramètre appelle celui avec paramètres."
+          },
+          {
+            "id": "b",
+            "text": "Une déclaration de constructeur par copie."
+          },
+          {
+            "id": "c",
+            "text": "Une initialisation directe des attributs abscisse et ordonnee."
+          },
+          {
+            "id": "d",
+            "text": "Un appel au constructeur de la classe de base."
+          }
+        ],
+        "correct": "a",
+        "explanation": "C'est la délégation de construction : un constructeur peut en appeler un autre. Les notes la justifient par la réutilisabilité — la logique d'initialisation n'est écrite qu'une fois.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Un constructeur par copie prendrait un const Point& en paramètre ; ici la liste de paramètres est vide."
+          },
+          {
+            "optionId": "c",
+            "why": "Une initialisation directe s'écrirait `: abscisse(0.0), ordonnee(0.0)`, avec les noms des attributs et non celui de la classe."
+          },
+          {
+            "optionId": "d",
+            "why": "Il faudrait le nom de la classe de base après les deux-points ; ici c'est Point lui-même, donc la même classe."
+          }
+        ],
+        "source": {
+          "file": "IFT339-3-AbstractionC++.pdf",
+          "page": 41
+        }
+      },
+      {
+        "id": "t2-12",
+        "objectiveId": "obj2-operations",
+        "bloomLevel": "understand",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "À quoi servent les mots-clés `default` et `delete` sur un constructeur ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "default garde la version générée automatiquement ; delete la supprime."
+          },
+          {
+            "id": "b",
+            "text": "default initialise les attributs à zéro ; delete libère la mémoire."
+          },
+          {
+            "id": "c",
+            "text": "default rend le constructeur public ; delete le rend privé."
+          },
+          {
+            "id": "d",
+            "text": "Ils n'ont de sens que sur le destructeur."
+          }
+        ],
+        "correct": "a",
+        "explanation": "Les notes les présentent comme la façon de gérer les opérateurs générés automatiquement : utiliser la version par défaut avec default, ou la supprimer avec delete. `Point(const Point &) = delete;` interdit toute copie du type.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "delete comme mot-clé de suppression d'une opération générée n'a rien à voir avec l'opérateur delete de libération mémoire, vu au chapitre suivant."
+          },
+          {
+            "optionId": "c",
+            "why": "La visibilité se règle avec public, protégé et privé, indépendamment."
+          },
+          {
+            "optionId": "d",
+            "why": "L'exemple des notes les applique au constructeur sans paramètre, au constructeur par copie et au destructeur."
+          }
+        ],
+        "source": {
+          "file": "IFT339-3-AbstractionC++.pdf",
+          "page": 44
+        }
+      },
+      {
+        "id": "t2-13",
+        "objectiveId": "obj2-parametres",
+        "bloomLevel": "analyze",
+        "type": "mcq",
+        "difficulty": 3,
+        "prompt": "Dans `Conteneur<Type> z = x + y;`, pourquoi les notes parlent-elles d'« utilisation inutile des ressources mémoire et temps » ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Parce que (x+y) est une rvalue temporaire, copiée profondément dans z puis désallouée aussitôt."
+          },
+          {
+            "id": "b",
+            "text": "Parce que x et y sont copiés dans la fonction operator+."
+          },
+          {
+            "id": "c",
+            "text": "Parce que z est déclaré sans constructeur par défaut."
+          },
+          {
+            "id": "d",
+            "text": "Parce que les conteneurs ne peuvent pas être additionnés."
+          }
+        ],
+        "correct": "a",
+        "explanation": "(x+y) est stockée temporairement et sera désallouée tout de suite après l'assignation. Elle est pourtant le paramètre d'une assignation qui fait une copie profonde — tous les éléments sont recopiés dans z, alors que la source va disparaître. C'est ce constat qui motive la sémantique de déplacement du chapitre 3.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Le coût dénoncé porte sur le résultat temporaire, pas sur les opérandes ; ceux-ci pourraient d'ailleurs être passés par référence constante."
+          },
+          {
+            "optionId": "c",
+            "why": "z est initialisé par l'expression, donc aucun constructeur par défaut n'est requis."
+          },
+          {
+            "optionId": "d",
+            "why": "Les notes supposent au contraire operator+ défini : c'est justement le cas étudié."
+          }
+        ],
+        "source": {
+          "file": "IFT339-3-AbstractionC++.pdf",
+          "page": 31
+        }
+      },
+      {
+        "id": "t2-14",
+        "objectiveId": "obj2-operations",
+        "bloomLevel": "understand",
+        "type": "true-false",
+        "difficulty": 2,
+        "prompt": "En surchargeant un opérateur, on peut changer son nombre de paramètres.",
+        "options": [
+          {
+            "id": "v",
+            "text": "Vrai"
+          },
+          {
+            "id": "f",
+            "text": "Faux"
+          }
+        ],
+        "correct": "f",
+        "explanation": "Les notes l'énoncent explicitement : « Le nombre de paramètres d'un opérateur ne peut être modifié. » C'est pourquoi operator- existe en deux versions distinctes — unaire pour l'opposé, binaire pour la soustraction.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "v",
+            "why": "L'arité fait partie de la grammaire du langage. Seule la sémantique est redéfinissable, et la bonne pratique est de la faire correspondre à une extension naturelle de la sémantique initiale."
+          }
+        ],
+        "source": {
+          "file": "IFT339-3-AbstractionC++.pdf",
+          "page": 47
+        }
+      },
+      {
+        "id": "t2-15",
+        "objectiveId": "obj2-classe",
+        "bloomLevel": "analyze",
+        "type": "mcq",
+        "difficulty": 3,
+        "prompt": "Une fonction amie `friend float distance(Point, Point);` prend deux paramètres, alors que la méthode membre `float Point::distance(Point)` n'en prend qu'un. Pourquoi ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "La méthode membre reçoit le premier point par le paramètre implicite this ; la fonction amie n'a aucun paramètre implicite."
+          },
+          {
+            "id": "b",
+            "text": "La fonction amie doit répéter le paramètre pour accéder aux membres privés."
+          },
+          {
+            "id": "c",
+            "text": "La méthode membre utilise une valeur par défaut pour le second point."
+          },
+          {
+            "id": "d",
+            "text": "C'est une incohérence des notes."
+          }
+        ],
+        "correct": "a",
+        "explanation": "Toutes les opérations définies dans une classe ont un paramètre implicite this. Une fonction amie est déclarée dans la portée de la classe mais n'en fait pas partie : elle a accès aux parties privées et protégées, sans paramètre implicite. Les deux points doivent donc être passés explicitement.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "L'accès aux membres privés vient du mot-clé friend, pas du nombre de paramètres."
+          },
+          {
+            "optionId": "c",
+            "why": "Aucune valeur par défaut n'apparaît dans les notes ; le second point est bien this."
+          },
+          {
+            "optionId": "d",
+            "why": "Les deux signatures sont cohérentes une fois le paramètre implicite pris en compte — c'est précisément ce que la diapositive illustre."
+          }
+        ],
+        "source": {
+          "file": "IFT339-3-AbstractionC++.pdf",
+          "page": 48
+        }
+      },
+      {
+        "id": "t2-16",
+        "objectiveId": "obj2-classe",
+        "bloomLevel": "understand",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Que caractérise un membre déclaré `static` dans une classe ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Une seule copie, partagée par toutes les instances, et aucun paramètre implicite."
+          },
+          {
+            "id": "b",
+            "text": "Une copie par instance, initialisée une seule fois."
+          },
+          {
+            "id": "c",
+            "text": "Un membre qui ne peut pas être modifié après construction."
+          },
+          {
+            "id": "d",
+            "text": "Un membre accessible uniquement depuis les classes dérivées."
+          }
+        ],
+        "correct": "a",
+        "explanation": "Les notes donnent comme usage typique un attribut comptant le nombre d'instances : nbPoints est incrémenté par le constructeur et décrémenté par le destructeur, ce qui n'a de sens que s'il est unique et partagé.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Une copie par instance décrit un attribut ordinaire ; c'est exactement ce que static n'est pas."
+          },
+          {
+            "optionId": "c",
+            "why": "L'immuabilité se déclare avec const. L'exemple des notes modifie nbPoints à chaque construction."
+          },
+          {
+            "optionId": "d",
+            "why": "C'est le rôle du niveau d'accès protégé, indépendant de static."
+          }
+        ],
+        "source": {
+          "file": "IFT339-3-AbstractionC++.pdf",
+          "page": 49
+        }
+      },
+      {
+        "id": "t2-17",
+        "objectiveId": "obj2-heritage",
+        "bloomLevel": "apply",
+        "type": "multi",
+        "difficulty": 2,
+        "prompt": "Dans l'exemple Figure / Cercle / Triangle, quelles affirmations sont correctes ? (plusieurs réponses)",
+        "options": [
+          {
+            "id": "a",
+            "text": "Cercle et Triangle doivent chacun définir circonference()."
+          },
+          {
+            "id": "b",
+            "text": "Cercle ajoute des éléments spécifiques : l'attribut rayon et la méthode diametre()."
+          },
+          {
+            "id": "c",
+            "text": "Figure peut être instanciée si aucune dérivée n'existe."
+          },
+          {
+            "id": "d",
+            "text": "Triangle hérite de l'attribut centre sans avoir à le redéclarer."
+          }
+        ],
+        "correct": [
+          "a",
+          "b",
+          "d"
+        ],
+        "explanation": "circonference() est virtuelle pure, donc obligatoire dans chaque dérivée. Cercle ajoute rayon et diametre(). Et toutes les caractéristiques de la classe de base sont données à la classe dérivée, centre compris.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "c",
+            "why": "Une classe abstraite ne peut jamais être instanciée, qu'elle ait des dérivées ou non : il est impossible de faire appel à son constructeur, et elle doit absolument être dérivée."
+          }
+        ],
+        "source": {
+          "file": "IFT339-3-AbstractionC++.pdf",
+          "page": 16
+        }
+      },
+      {
+        "id": "t2-18",
+        "objectiveId": "obj2-pointeurs",
+        "bloomLevel": "apply",
+        "type": "code-output",
+        "difficulty": 2,
+        "prompt": "Qu'affiche ce programme ?",
+        "code": {
+          "lang": "cpp",
+          "value": "#include <iostream>\n\nint main()\n{\n    int a = 5;\n    int* p = &a;\n    int* q = p;\n\n    *q = 12;\n\n    std::cout << a << std::endl;\n    return 0;\n}"
+        },
+        "correct": "12",
+        "acceptableAnswers": [],
+        "explanation": "p reçoit l'adresse de a, puis q reçoit la même adresse : les notes précisent que plusieurs pointeurs peuvent pointer sur la même cellule. Écrire *q = 12 modifie donc la cellule de a. Aucune copie de la valeur n'a eu lieu — seules des adresses ont été recopiées.",
+        "source": {
+          "file": "IFT339-3-AbstractionC++.pdf",
+          "page": 23
+        }
+      },
+      {
+        "id": "t2-19",
+        "objectiveId": "obj2-parametres",
+        "bloomLevel": "apply",
+        "type": "fill-blank",
+        "difficulty": 2,
+        "prompt": "Compléter : pour qu'une méthode s'engage à ne pas modifier l'objet appelant, on place le mot-clé ____ après la liste des paramètres.",
+        "correct": "const",
+        "acceptableAnswers": [
+          "const;",
+          "le mot-clé const"
+        ],
+        "explanation": "`float Point::distance(const Point) const;` — le const placé après les parenthèses protège le paramètre implicite this. Sans lui, la méthode ne peut pas être appelée sur un Point déclaré constant.",
+        "source": {
+          "file": "IFT339-3-AbstractionC++.pdf",
+          "page": 34
+        }
+      },
+      {
+        "id": "t2-20",
+        "objectiveId": "obj2-operations",
+        "bloomLevel": "analyze",
+        "type": "mcq",
+        "difficulty": 3,
+        "prompt": "Une classe gère de la mémoire dynamique. Ses constructeurs sont écrits, mais destructeur et affectateur sont laissés au compilateur. Quel est le risque ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Les versions générées font une copie superficielle : deux objets partageront la même mémoire, qu'aucun ne libérera correctement."
+          },
+          {
+            "id": "b",
+            "text": "Le programme ne compilera pas tant que le destructeur n'est pas écrit."
+          },
+          {
+            "id": "c",
+            "text": "Aucun : le compilateur détecte la mémoire dynamique et adapte les versions générées."
+          },
+          {
+            "id": "d",
+            "text": "Les constructeurs deviennent inaccessibles."
+          }
+        ],
+        "correct": "a",
+        "explanation": "Les notes signalent deux fois que les versions générées automatiquement — constructeur par copie et affectateur — font une copie superficielle, et que le destructeur est « nécessaire : mémoire dynamique ». Copier l'objet duplique le pointeur, pas ce qu'il désigne.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Le compilateur génère un destructeur par défaut : le programme compile et s'exécute, ce qui rend le défaut d'autant plus difficile à repérer."
+          },
+          {
+            "optionId": "c",
+            "why": "Aucune adaptation automatique n'existe ; c'est précisément pourquoi le cours consacre des diapositives distinctes au destructeur et à l'affectateur."
+          },
+          {
+            "optionId": "d",
+            "why": "Les constructeurs écrits à la main restent parfaitement utilisables."
+          }
+        ],
+        "source": {
+          "file": "IFT339-3-AbstractionC++.pdf",
+          "page": 42
+        }
+      }
+    ]
+  },
+  "flashcards": [
+    {
+      "id": "f2-01",
+      "objectiveId": "obj2-classe",
+      "front": "Que contient le .h et que contient le .cpp ?",
+      "back": ".h : spécification de la représentation et des opérations du type. .cpp : implémentation des opérations spécifiées. Le .h doit être inclus dans le .cpp."
+    },
+    {
+      "id": "f2-02",
+      "objectiveId": "obj2-heritage",
+      "front": "Syntaxe d'une méthode virtuelle pure ?",
+      "back": "virtual SpecificationFonction = 0 ;",
+      "extra": "Une classe qui en contient au moins une est abstraite : impossible d'appeler son constructeur, elle doit être dérivée."
+    },
+    {
+      "id": "f2-03",
+      "objectiveId": "obj2-heritage",
+      "front": "Définir une virtuelle pure ou redéfinir une méthode : quelle différence ?",
+      "back": "Définir une virtuelle pure est obligatoire — sans quoi la dérivée reste abstraite. Redéfinir une méthode déjà implémentée est un choix ; sans redéfinition, la version de la base s'applique."
+    },
+    {
+      "id": "f2-04",
+      "objectiveId": "obj2-pointeurs",
+      "front": "Opérateurs & et * sur les pointeurs ?",
+      "back": "& : adresse mémoire d'une variable — &identif est de type Type*. * : déréférencement, valeur de la variable pointée — *ptr est de type Type."
+    },
+    {
+      "id": "f2-05",
+      "objectiveId": "obj2-pointeurs",
+      "front": "const int* p — qu'est-ce qui est figé ?",
+      "back": "L'objet pointé. Le pointeur reste modifiable.",
+      "extra": "int* const p : l'inverse. const int* const p : les deux.",
+      "source": {
+        "file": "IFT339-3-AbstractionC++.pdf",
+        "page": 26
+      }
+    },
+    {
+      "id": "f2-06",
+      "objectiveId": "obj2-pointeurs",
+      "front": "Que contient un pointeur simplement déclaré, sans initialisation ?",
+      "back": "Indéterminé — « dépend du compilateur » selon les notes. D'où l'assignation explicite à nullptr."
+    },
+    {
+      "id": "f2-07",
+      "objectiveId": "obj2-parametres",
+      "front": "lvalue ou rvalue ?",
+      "back": "lvalue : objet non temporaire, appelé à être modifié ou réutilisé (variables, constantes, ce qui a un identificateur). rvalue : objet temporaire (littéraux, valeurs temporaires, passages et retours par valeur)."
+    },
+    {
+      "id": "f2-08",
+      "objectiveId": "obj2-parametres",
+      "front": "Quelle contrainte pèse sur le retour par référence ?",
+      "back": "La mémoire retournée doit exister au-delà de la portée de la fonction, et seule une lvalue peut être retournée ainsi."
+    },
+    {
+      "id": "f2-09",
+      "objectiveId": "obj2-operations",
+      "front": "Les six opérations de base d'un type T ?",
+      "back": "Construction · Destruction · Affectation · Conversion · Sélection · Mutation.",
+      "source": {
+        "file": "IFT339-3-AbstractionC++.pdf",
+        "page": 35
+      }
+    },
+    {
+      "id": "f2-10",
+      "objectiveId": "obj2-operations",
+      "front": "Les quatre événements de la vie d'un objet, et qui s'en charge ?",
+      "back": "1. Déclaration et 4. Libération : le système. 2. Initialisation (constructeur) et 3. Nettoyage (destructeur) : l'objet lui-même."
+    },
+    {
+      "id": "f2-11",
+      "objectiveId": "obj2-operations",
+      "front": "Conversion : quel mécanisme dans chaque sens ?",
+      "back": "De A vers T : un constructeur de T n'ayant qu'un seul paramètre explicite de type A. De T vers A : une surcharge avec le mot-clé operator, par exemple operator float() const."
+    },
+    {
+      "id": "f2-12",
+      "objectiveId": "obj2-classe",
+      "front": "Qu'est-ce qu'une fonction amie ?",
+      "back": "Déclarée dans la portée de la classe avec friend, elle n'en fait pas partie. Elle accède aux parties privées et protégées, et n'a aucun paramètre implicite — donc pas de this."
+    },
+    {
+      "id": "f2-13",
+      "objectiveId": "obj2-generique",
+      "front": "Où faut-il répéter l'en-tête template ?",
+      "back": "Devant chaque définition de méthode, et le nom de classe s'écrit Point<TYPE>:: — « le modèle suit le nom de la classe partout »."
+    }
+  ],
+  "exercises": [
+    {
+      "id": "e2-01",
+      "objectiveId": "obj2-pointeurs",
+      "difficulty": 2,
+      "mode": "trace",
+      "language": "cpp",
+      "title": "Tracer les pointeurs",
+      "statement": "Donner, après chaque instruction, la valeur de a, de b, et ce que désignent p et q. Puis dire ce qu'affiche la dernière ligne.\n\nOn supposera que a est à l'adresse 1000 et b à l'adresse 1004.",
+      "starterCode": "int a = 5;\nint b = 9;\nint* p = &a;\nint* q = &b;\n\n*p = *q;      // (1)\np = q;        // (2)\n*p = 20;      // (3)\n\nstd::cout << a << \" \" << b << std::endl;",
+      "hints": [
+        "Bien distinguer deux choses très différentes : écrire *p = ... modifie la cellule pointée ; écrire p = ... change la cellule vers laquelle p pointe.",
+        "À la ligne (1), *p et *q désignent des valeurs. À la ligne (2), p et q désignent des adresses.",
+        "Après la ligne (2), p et q pointent tous deux sur b. La ligne (3) ne touche donc plus a du tout."
+      ],
+      "solution": "9 20",
+      "expectedOutput": "État initial :\n    a = 5    (adresse 1000)\n    b = 9    (adresse 1004)\n    p = 1000 -> designe a\n    q = 1004 -> designe b\n\n(1) *p = *q;\n    On copie la VALEUR pointee par q dans la cellule pointee par p.\n    a = 9,  b = 9\n    p = 1000 (inchange),  q = 1004 (inchange)\n\n(2) p = q;\n    On copie l'ADRESSE contenue dans q dans p.\n    a = 9,  b = 9\n    p = 1004 -> designe maintenant b\n    q = 1004 -> designe b\n    Deux pointeurs pointent sur la meme cellule.\n\n(3) *p = 20;\n    On ecrit dans la cellule pointee par p, c'est-a-dire b.\n    a = 9   (plus jamais touche depuis (1))\n    b = 20\n\nAffichage : 9 20",
+      "solutionExplanation": "Tout l'exercice tient dans l'écart entre les lignes (1) et (2) : la première recopie une valeur, la seconde une adresse. C'est après (2) qu'apparaît la situation signalée par les notes — plusieurs pointeurs sur la même cellule — et c'est elle qui rend (3) invisible pour a. Le même mécanisme, appliqué à de la mémoire allouée dynamiquement, produit la copie superficielle du chapitre 3.",
+      "source": {
+        "file": "IFT339-3-AbstractionC++.pdf",
+        "page": 23,
+        "locator": "Diapositives 21 à 25"
+      }
+    },
+    {
+      "id": "e2-02",
+      "objectiveId": "obj2-operations",
+      "difficulty": 3,
+      "mode": "find-bug",
+      "language": "cpp",
+      "title": "Trouver le bogue — un affectateur incomplet",
+      "statement": "Cet affectateur compile et fonctionne dans la plupart des tests. Identifier les deux défauts par rapport à la signature donnée dans les notes, et expliquer ce que chacun empêche.",
+      "starterCode": "class Point\n{\n    float abscisse;\n    float ordonnee;\npublic:\n    void operator=(Point p);      // <-- signature suspecte\n};\n\nvoid Point::operator=(Point p)\n{\n    abscisse = p.abscisse;\n    ordonnee = p.ordonnee;\n                                   // <-- rien n'est retourne\n}",
+      "hints": [
+        "Comparer la signature avec celle des notes : `Point& operator=(const Point &);`. Deux choses diffèrent.",
+        "Le paramètre est passé par valeur. Qu'est-ce que cela provoque à chaque affectation, et qu'est-ce que cela interdit d'écrire ?",
+        "Le retour est void. Quelle écriture courante devient alors impossible ?"
+      ],
+      "solution": "Point& operator=(const Point& p) { ...; return *this; }",
+      "expectedOutput": "Défaut 1 — le paramètre est passé par valeur, au lieu de const Point&.\n    Conséquences :\n      * une copie complète du point est construite a chaque affectation\n        (appel au constructeur par copie), puis detruite : inutile ;\n      * le parametre n'etant pas const, la methode s'autorise a le modifier,\n        ce qui n'a aucun sens pour une source d'affectation ;\n      * sur un type lourd (conteneur), le cout devient reellement visible.\n\nDéfaut 2 — le retour est void, au lieu de Point&.\n    Conséquence : l'enchainement d'affectations devient impossible.\n        a = b = c;   // ne compile pas\n    car (b = c) ne produit aucune valeur a affecter a a.\n\nCorrection, conforme aux notes :\n\n    class Point\n    {\n        float abscisse;\n        float ordonnee;\n    public:\n        Point& operator=(const Point &);\n    };\n\n    Point& Point::operator=(const Point& p)\n    {\n        abscisse = p.abscisse;\n        ordonnee = p.ordonnee;\n        return *this;\n    }\n\nLe `return *this;` est un retour par reference : la memoire retournee existe\nbien au-dela de la portee de la fonction, puisque c'est l'objet appelant.",
+      "solutionExplanation": "Les deux défauts illustrent des points distincts du chapitre. Le premier relève du passage de paramètres : une référence constante évite la copie tout en garantissant la non-modification. Le second illustre l'usage légitime du retour par référence, que les notes qualifient de « danger, mais puissant » — ici il est sans danger, parce que *this survit évidemment à l'appel.",
+      "source": {
+        "file": "IFT339-3-AbstractionC++.pdf",
+        "page": 43,
+        "locator": "Diapositive 43"
+      }
+    },
+    {
+      "id": "e2-03",
+      "objectiveId": "obj2-heritage",
+      "difficulty": 2,
+      "mode": "predict-output",
+      "language": "cpp",
+      "title": "Prédire le comportement — héritage et redéfinition",
+      "statement": "Le C++ ne s'exécute pas dans un navigateur : raisonner, puis vérifier.\n\nPour chacune des quatre lignes de main(), dire si elle compile, et si oui ce qu'elle affiche.",
+      "starterCode": "#include <iostream>\n\nclass Figure\n{\npublic:\n    void nommer() { std::cout << \"Figure\" << std::endl; }\n    virtual float aire() = 0;\n};\n\nclass Carre : public Figure\n{\n    float cote;\npublic:\n    Carre(float c) : cote(c) {}\n    float aire() { return cote * cote; }\n    void nommer() { std::cout << \"Carre\" << std::endl; }\n};\n\nint main()\n{\n    Figure f;              // (1)\n    Carre c(3);            // (2)\n    c.nommer();            // (3)\n    std::cout << c.aire(); // (4)\n    return 0;\n}",
+      "hints": [
+        "Figure contient une méthode virtuelle pure. Que dit le cours sur l'instanciation d'une telle classe ?",
+        "Carre fournit-elle bien une définition pour la virtuelle pure héritée ? Si oui, que devient-elle ?",
+        "nommer() existe dans les deux classes avec la même signature. Laquelle s'applique sur un objet déclaré Carre ?"
+      ],
+      "solution": "(1) ne compile pas ; (2) OK ; (3) affiche Carre ; (4) affiche 9",
+      "expectedOutput": "(1) Figure f;            NE COMPILE PAS\n    Figure contient la methode virtuelle pure `aire() = 0`, elle est donc\n    ABSTRAITE : impossible de faire appel a un constructeur. Elle doit\n    absolument etre derivee.\n\n(2) Carre c(3);          COMPILE\n    Carre definit aire(), donc plus aucune methode virtuelle pure ne reste\n    sans implementation : la classe est CONCRETE et s'instancie.\n\n(3) c.nommer();          affiche : Carre\n    Carre REDEFINIT nommer(). L'objet etant declare de type Carre, c'est la\n    version de Carre qui s'applique et remplace celle heritee de Figure.\n\n(4) c.aire();            affiche : 9\n    3 * 3 = 9. C'est la DEFINITION de la virtuelle pure heritee, obligatoire\n    pour que Carre soit concrete.\n\nA noter : une fois la ligne (1) retiree, le programme affiche\n    Carre\n    9",
+      "solutionExplanation": "L'exercice sépare les trois situations que la diapositive 18 traite ensemble. aire() est une définition obligatoire — sans elle, Carre resterait abstraite et la ligne (2) échouerait à son tour. nommer() est une redéfinition facultative — sans elle, c.nommer() aurait affiché « Figure ». Et la ligne (1) rappelle que l'abstraction n'est pas une étiquette documentaire : le compilateur la fait respecter.",
+      "source": {
+        "file": "IFT339-3-AbstractionC++.pdf",
+        "page": 18,
+        "locator": "Diapositives 14 à 18"
+      }
+    },
+    {
+      "id": "e2-04",
+      "objectiveId": "obj2-generique",
+      "difficulty": 2,
+      "mode": "fill-blank",
+      "language": "cpp",
+      "title": "Compléter une classe générique",
+      "statement": "Compléter les quatre trous pour obtenir une classe générique Point conforme à la règle des notes : « le modèle suit le nom de la classe partout ».\n\nLa méthode distance doit retourner un float quel que soit TYPE.",
+      "starterCode": "____ <typename TYPE>            // (1) l'en-tete du modele\nclass Point\n{\n    TYPE abscisse;\n    TYPE ordonnee;\npublic:\n    TYPE getAbscisse() const;\n    float distance(Point<TYPE> p) const;\n};\n\n____ <typename TYPE>            // (2) a repeter ici\nTYPE Point____::getAbscisse() const   // (3) le nom complet de la classe\n{\n    return abscisse;\n}\n\ntemplate <typename TYPE>\nfloat Point<TYPE>::distance(Point____ p) const   // (4)\n{\n    return sqrt(pow(abscisse - p.abscisse, 2) + pow(ordonnee - p.ordonnee, 2));\n}",
+      "hints": [
+        "Le mot-clé qui introduit un modèle de classe est donné à la diapositive 19.",
+        "L'en-tête doit précéder CHAQUE définition de méthode écrite hors de la classe, pas seulement la première.",
+        "Hors de la classe, le nom complet n'est plus Point mais Point suivi du paramètre entre chevrons."
+      ],
+      "solution": "template ; template ; Point<TYPE> ; Point<TYPE>",
+      "expectedOutput": "(1) template\n(2) template\n(3) Point<TYPE>     ->  TYPE Point<TYPE>::getAbscisse() const\n(4) <TYPE>          ->  float Point<TYPE>::distance(Point<TYPE> p) const\n\nCode complet :\n\n    template <typename TYPE>\n    class Point\n    {\n        TYPE abscisse;\n        TYPE ordonnee;\n    public:\n        TYPE  getAbscisse() const;\n        float distance(Point<TYPE> p) const;\n    };\n\n    template <typename TYPE>\n    TYPE Point<TYPE>::getAbscisse() const\n    {\n        return abscisse;\n    }\n\n    template <typename TYPE>\n    float Point<TYPE>::distance(Point<TYPE> p) const\n    {\n        return sqrt(pow(abscisse - p.abscisse, 2) + pow(ordonnee - p.ordonnee, 2));\n    }\n\nDeclaration d'une instance : le type est determine a ce moment-la.\n    Point<float> p;\n    Point<int>   q;",
+      "solutionExplanation": "Le piège est le trou (3) : à l'intérieur de la classe, le nom Point suffit, mais à l'extérieur la classe s'appelle Point<TYPE>. Oublier les chevrons produit une erreur du compilateur qui désigne rarement la ligne fautive. Noter aussi que distance retourne un float et non un TYPE : une distance est une grandeur réelle même si les coordonnées sont entières — c'est la même vigilance sur le domaine qu'au chapitre 1.",
+      "source": {
+        "file": "IFT339-3-AbstractionC++.pdf",
+        "page": 20,
+        "locator": "Diapositives 19 et 20"
+      }
+    },
+    {
+      "id": "e2-05",
+      "objectiveId": "obj2-parametres",
+      "difficulty": 3,
+      "mode": "predict-output",
+      "language": "cpp",
+      "title": "Prédire la sortie — valeur contre référence",
+      "statement": "Trois fonctions modifient leur paramètre. Prédire l'affichage, puis expliquer pour chaque appel si le paramètre effectif a été modifié et pourquoi.",
+      "starterCode": "#include <iostream>\n\nvoid parValeur(int n)        { n = 100; }\nvoid parReference(int& n)    { n = 200; }\nvoid parPointeur(int* n)     { *n = 300; }\n\nint main()\n{\n    int a = 1, b = 2, c = 3;\n\n    parValeur(a);\n    parReference(b);\n    parPointeur(&c);\n\n    std::cout << a << \" \" << b << \" \" << c << std::endl;\n    return 0;\n}",
+      "hints": [
+        "Pour le passage par valeur, les notes disent : « une variable locale qui est une copie de la variable en entrée est utilisée ».",
+        "Pour le passage par référence : « un identificateur synonyme de la variable paramètre est utilisé », sans copie.",
+        "Le troisième cas passe une adresse par valeur — mais ce qui est modifié est la cellule désignée, pas le pointeur."
+      ],
+      "solution": "1 200 300",
+      "expectedOutput": "Affichage : 1 200 300\n\nparValeur(a) — a vaut toujours 1\n    Un NOUVEL espace est alloue et la valeur de a y est copiee. n est une\n    variable locale. Ecrire n = 100 modifie la copie, pas a. Les notes :\n    « pas de modification des parametres effectifs, dont les valeurs restent\n    inchangees apres l'execution de la fonction ».\n\nparReference(b) — b vaut 200\n    AUCUN espace n'est alloue : n est un identificateur synonyme de b. Ecrire\n    n = 200 ecrit dans b. Les notes : « les valeurs peuvent etre modifiees\n    dans la fonction ».\n\nparPointeur(&c) — c vaut 300\n    Le pointeur lui-meme est passe PAR VALEUR : la fonction recoit une copie\n    de l'adresse. Mais cette copie designe la meme cellule que &c, donc *n\n    atteint bien c. Modifier n (le pointeur) n'aurait eu aucun effet ;\n    modifier *n (la cellule) en a un.",
+      "solutionExplanation": "Le troisième cas est celui qui départage vraiment. On lit souvent « passer un pointeur permet de modifier le paramètre » comme si c'était un troisième mode de passage. Ce n'en est pas un : le pointeur est passé par valeur, exactement comme l'int du premier cas. Ce qui change, c'est que la valeur copiée est une adresse, et qu'une adresse copiée désigne toujours la même cellule.",
+      "source": {
+        "file": "IFT339-3-AbstractionC++.pdf",
+        "page": 28,
+        "locator": "Diapositives 27 à 32"
+      }
+    }
+  ]
+}

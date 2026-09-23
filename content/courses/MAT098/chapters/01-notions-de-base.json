@@ -1,0 +1,1873 @@
+{
+  "course": "MAT098",
+  "chapter": 1,
+  "concepts": [
+    {
+      "id": "c1-rationnels",
+      "term": "Nombres rationnels et irrationnels",
+      "definition": "$\\mathbb{Q}$ contient les nombres qui s'écrivent $\\frac{p}{q}$ avec $p \\in \\mathbb{Z}$ et $q \\in \\mathbb{Z}^*$ ; leur représentation décimale est finie ou infinie périodique. $\\mathbb{Q}'$ contient ceux dont la représentation décimale est infinie et non périodique.",
+      "whyItMatters": "Aucun nombre n'est à la fois dans $\\mathbb{Q}$ et $\\mathbb{Q}'$, et $\\mathbb{R} = \\mathbb{Q} \\cup \\mathbb{Q}'$.",
+      "commonMisconception": "Classer $\\sqrt{49}$ ou $\\sqrt{25/64}$ dans $\\mathbb{Q}'$ à cause du radical : ils valent $7$ et $\\frac58$.",
+      "objectiveId": "obj1-ensembles",
+      "source": {
+        "file": "1-rappels_calcul_differentiel.pdf",
+        "page": 10,
+        "locator": "Définitions 1.4 et 1.6, exemple 1.5"
+      }
+    },
+    {
+      "id": "c1-comprehension",
+      "term": "Définition en compréhension ou en extension",
+      "definition": "Décrire les éléments d'un ensemble par une propriété est une définition en compréhension ; les énumérer est une définition en extension.",
+      "whyItMatters": "$\\mathbb{Q} = \\{\\frac{p}{q} \\mid p \\in \\mathbb{Z},\\ q \\in \\mathbb{Z}^*\\}$ ne peut pas s'énumérer ; $\\mathbb{N} = \\{0, 1, 2, \\dots\\}$ si.",
+      "commonMisconception": "Inverser les deux termes : « compréhension » décrit, « extension » énumère.",
+      "objectiveId": "obj1-ensembles",
+      "source": {
+        "file": "1-rappels_calcul_differentiel.pdf",
+        "page": 11,
+        "locator": "Diapositive 11"
+      }
+    },
+    {
+      "id": "c1-intervalle",
+      "term": "Intervalle",
+      "definition": "Sous-ensemble de $\\mathbb{R}$ contenant tous les réels entre deux bornes : fermé $[a, b]$ si elles sont incluses, ouvert $]a, b[$ si elles sont exclues, semi-ouvert sinon.",
+      "whyItMatters": "$-\\infty$ et $\\infty$ ne sont pas des réels : l'intervalle est toujours ouvert de leur côté.",
+      "commonMisconception": "Confondre $[-1, 1]$ avec $\\{-1, 0, 1\\}$ : l'intervalle contient aussi $\\frac12$ et une infinité d'autres réels.",
+      "objectiveId": "obj1-intervalles",
+      "source": {
+        "file": "1-rappels_calcul_differentiel.pdf",
+        "page": 16,
+        "locator": "Diapositives 16 à 19"
+      }
+    },
+    {
+      "id": "c1-exposants",
+      "term": "Propriétés des exposants entiers",
+      "definition": "$a^m a^n = a^{m+n}$, $\\frac{a^m}{a^n} = a^{m-n}$, $(a^m)^n = a^{mn}$, $(ab)^n = a^n b^n$, $a^{-n} = \\frac{1}{a^n}$, $a^0 = 1$.",
+      "whyItMatters": "Elles valent quand les expressions sont définies : base non nulle sous un exposant négatif ou au dénominateur, et $0^0$ n'est pas défini.",
+      "commonMisconception": "Écrire $a^m a^n = a^{mn}$ : on multiplie les puissances, on additionne les exposants.",
+      "objectiveId": "obj1-exposants",
+      "source": {
+        "file": "1-rappels_calcul_differentiel.pdf",
+        "page": 22,
+        "locator": "Théorème 1.8"
+      }
+    },
+    {
+      "id": "c1-valeur-absolue",
+      "term": "Valeur absolue",
+      "definition": "$|a| = a$ si $a \\ge 0$ et $|a| = -a$ si $a < 0$ : la distance entre $a$ et 0.",
+      "whyItMatters": "Elle n'est jamais négative, d'où $\\sqrt[n]{x^n} = |x|$ pour $n$ pair.",
+      "commonMisconception": "Croire que $|x| = -4$ a pour solution $x = \\pm 4$ : une distance ne peut pas valoir $-4$.",
+      "objectiveId": "obj1-exposants",
+      "source": {
+        "file": "1-rappels_calcul_differentiel.pdf",
+        "page": 26,
+        "locator": "Définition 1.10"
+      }
+    },
+    {
+      "id": "c1-radicaux",
+      "term": "Racine n-ième",
+      "definition": "$\\sqrt[n]{a}$ est un réel $b$ tel que $b^n = a$ ; $\\sqrt[n]{x^m} = x^{m/n}$. Pour $n$ impair, tout réel a une racine ; pour $n$ pair, un réel négatif n'en a pas dans $\\mathbb{R}$.",
+      "whyItMatters": "Les exposants fractionnaires permettent d'appliquer aux radicaux toutes les propriétés des exposants.",
+      "commonMisconception": "Écrire $\\sqrt{x^2} = x$ sans condition : c'est $|x|$.",
+      "objectiveId": "obj1-exposants",
+      "source": {
+        "file": "1-rappels_calcul_differentiel.pdf",
+        "page": 30,
+        "locator": "Définition 1.12, théorème 1.13"
+      }
+    },
+    {
+      "id": "c1-discriminant",
+      "term": "Discriminant",
+      "definition": "Pour $ax^2 + bx + c = 0$, $\\Delta = b^2 - 4ac$ : deux racines si $\\Delta > 0$, une seule si $\\Delta = 0$, aucune si $\\Delta < 0$.",
+      "whyItMatters": "Il dit combien de solutions chercher avant d'appliquer $x = \\frac{-b \\pm \\sqrt{\\Delta}}{2a}$.",
+      "commonMisconception": "Oublier le signe de $c$ ou de $a$ dans $-4ac$ : pour $-x^2 + 6x + 7$, $\\Delta = 36 + 28 = 64$.",
+      "objectiveId": "obj1-quadratique",
+      "source": {
+        "file": "1-rappels_calcul_differentiel.pdf",
+        "page": 37,
+        "locator": "Diapositives 36 et 37"
+      }
+    },
+    {
+      "id": "c1-sens",
+      "term": "Sens d'une inégalité",
+      "definition": "Si $x \\le y$ et $z < 0$, alors $xz \\ge yz$ et $\\frac{x}{z} \\ge \\frac{y}{z}$.",
+      "whyItMatters": "C'est la seule opération qui change le sens de l'inégalité ; l'addition et la multiplication par un positif le conservent.",
+      "commonMisconception": "Diviser $-3x \\le 7$ par $-3$ et garder $\\le$ : on obtient $x \\le -\\frac73$ au lieu de $x \\ge -\\frac73$.",
+      "objectiveId": "obj1-inequations",
+      "source": {
+        "file": "1-rappels_calcul_differentiel.pdf",
+        "page": 42,
+        "locator": "Théorème 1.18"
+      }
+    },
+    {
+      "id": "c1-inequation-quadratique",
+      "term": "Inéquation quadratique",
+      "definition": "On trouve les racines de l'équation associée, qui découpent la droite en intervalles ; on teste une valeur par intervalle pour connaître le signe.",
+      "whyItMatters": "Le signe du trinôme ne peut changer qu'en une racine : un seul test par intervalle suffit.",
+      "commonMisconception": "Oublier d'inclure les racines quand l'inégalité est large ($\\ge$, $\\le$).",
+      "objectiveId": "obj1-inequations",
+      "source": {
+        "file": "1-rappels_calcul_differentiel.pdf",
+        "page": 47,
+        "locator": "Exemple 1.21"
+      }
+    }
+  ],
+  "tables": [
+    {
+      "id": "t1-ensembles",
+      "title": "Les ensembles de nombres",
+      "kind": "comparison",
+      "columns": [
+        {
+          "key": "ens",
+          "label": "Ensemble"
+        },
+        {
+          "key": "contenu",
+          "label": "Contenu"
+        },
+        {
+          "key": "ex",
+          "label": "Exemples"
+        }
+      ],
+      "rows": [
+        {
+          "ens": "$\\mathbb{N}$",
+          "contenu": "entiers positifs ou nuls",
+          "ex": "$0,\\ 8,\\ \\sqrt{49}$"
+        },
+        {
+          "ens": "$\\mathbb{Z}$",
+          "contenu": "entiers positifs, négatifs et 0",
+          "ex": "$-5,\\ -\\frac{42}{7}$"
+        },
+        {
+          "ens": "$\\mathbb{Q}$",
+          "contenu": "fractions ; décimale finie ou périodique",
+          "ex": "$-\\frac{11}{8},\\ \\sqrt{\\frac{25}{64}},\\ 6{,}125$"
+        },
+        {
+          "ens": "$\\mathbb{Q}'$",
+          "contenu": "décimale infinie non périodique",
+          "ex": "$\\sqrt[3]{10},\\ \\sqrt5,\\ \\pi$"
+        },
+        {
+          "ens": "$\\mathbb{R}$",
+          "contenu": "$\\mathbb{Q} \\cup \\mathbb{Q}'$",
+          "ex": "tous les précédents"
+        }
+      ],
+      "source": {
+        "file": "1-rappels_calcul_differentiel.pdf",
+        "page": 6,
+        "locator": "Définitions 1.1 à 1.6, exemples 1.3 et 1.5"
+      }
+    },
+    {
+      "id": "t1-discriminant",
+      "title": "Discriminant et nombre de solutions",
+      "kind": "cheatsheet",
+      "columns": [
+        {
+          "key": "delta",
+          "label": "Discriminant"
+        },
+        {
+          "key": "sol",
+          "label": "Solutions"
+        },
+        {
+          "key": "ex",
+          "label": "Exemple 1.16"
+        }
+      ],
+      "rows": [
+        {
+          "delta": "$\\Delta > 0$",
+          "sol": "deux : $\\frac{-b \\pm \\sqrt\\Delta}{2a}$",
+          "ex": "$x^2 + 8x + 7 = 0$ : $\\{-7, -1\\}$"
+        },
+        {
+          "delta": "$\\Delta = 0$",
+          "sol": "une : $-\\frac{b}{2a}$",
+          "ex": "$2x^2 + 4x + 2 = 0$ : $x = -1$"
+        },
+        {
+          "delta": "$\\Delta < 0$",
+          "sol": "aucune dans ℝ",
+          "ex": "$x^2 + x + 3 = 0$"
+        }
+      ],
+      "source": {
+        "file": "1-rappels_calcul_differentiel.pdf",
+        "page": 37,
+        "locator": "Diapositives 37 à 39"
+      }
+    }
+  ],
+  "quiz": {
+    "title": "Quiz — vérification rapide",
+    "estimatedMinutes": 15,
+    "questions": [
+      {
+        "id": "q1-01",
+        "objectiveId": "obj1-ensembles",
+        "bloomLevel": "recall",
+        "type": "mcq",
+        "difficulty": 1,
+        "prompt": "Quels nombres forment l'ensemble $\\mathbb{Q}'$ ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Ceux dont la représentation décimale est infinie et non périodique"
+          },
+          {
+            "id": "b",
+            "text": "Ceux dont la représentation décimale est infinie et périodique"
+          },
+          {
+            "id": "c",
+            "text": "Les fractions $\\frac{p}{q}$ avec $q \\neq 0$"
+          },
+          {
+            "id": "d",
+            "text": "Les nombres négatifs"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Définition 1.4 : les irrationnels ont une représentation décimale infinie et non périodique.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Ce sont des rationnels, comme 1/3."
+          },
+          {
+            "optionId": "c",
+            "why": "C'est la définition de $\\mathbb{Q}$."
+          },
+          {
+            "optionId": "d",
+            "why": "Ce serait $\\mathbb{R}_-$ ; $-3$ est rationnel."
+          }
+        ],
+        "source": {
+          "file": "1-rappels_calcul_differentiel.pdf",
+          "page": 10,
+          "locator": "Définition 1.4"
+        }
+      },
+      {
+        "id": "q1-02",
+        "objectiveId": "obj1-ensembles",
+        "bloomLevel": "understand",
+        "type": "mcq",
+        "difficulty": 1,
+        "prompt": "À quel ensemble appartient $\\sqrt{\\frac{25}{64}}$ ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "$\\mathbb{Q}$"
+          },
+          {
+            "id": "b",
+            "text": "$\\mathbb{Q}'$"
+          },
+          {
+            "id": "c",
+            "text": "$\\mathbb{Z}$"
+          },
+          {
+            "id": "d",
+            "text": "Aucun ensemble de réels"
+          }
+        ],
+        "correct": "a",
+        "explanation": "$\\sqrt{\\frac{25}{64}} = \\frac{5}{8}$, une fraction d'entiers (exemple 1.5).",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Le radical se simplifie : $\\sqrt{25/64} = 5/8$."
+          },
+          {
+            "optionId": "c",
+            "why": "$\\frac58$ n'est pas entier."
+          },
+          {
+            "optionId": "d",
+            "why": "La racine carrée d'un positif est un réel."
+          }
+        ],
+        "source": {
+          "file": "1-rappels_calcul_differentiel.pdf",
+          "page": 12,
+          "locator": "Exemple 1.5"
+        }
+      },
+      {
+        "id": "q1-03",
+        "objectiveId": "obj1-intervalles",
+        "bloomLevel": "understand",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Lequel de ces énoncés est VRAI ? (exemple 1.7)",
+        "options": [
+          {
+            "id": "a",
+            "text": "$\\{-1, 2\\} \\subseteq \\,]-\\sqrt{2}, \\pi[$"
+          },
+          {
+            "id": "b",
+            "text": "$[-1, 1] = \\{-1, 0, 1\\}$"
+          },
+          {
+            "id": "c",
+            "text": "$\\mathbb{N} = [0, \\infty[$"
+          },
+          {
+            "id": "d",
+            "text": "$-\\frac{13}{4} \\in [-3, 1]$"
+          }
+        ],
+        "correct": "a",
+        "explanation": "$-\\sqrt2 \\approx -1{,}41 < -1$ et $2 < \\pi$ : les deux éléments sont dans l'intervalle.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "L'intervalle contient aussi $\\frac12$."
+          },
+          {
+            "optionId": "c",
+            "why": "L'intervalle contient des non-naturels, comme $\\frac12$."
+          },
+          {
+            "optionId": "d",
+            "why": "$-\\frac{13}{4} = -3{,}25 < -3$."
+          }
+        ],
+        "source": {
+          "file": "1-rappels_calcul_differentiel.pdf",
+          "page": 19,
+          "locator": "Exemple 1.7"
+        }
+      },
+      {
+        "id": "q1-04",
+        "objectiveId": "obj1-intervalles",
+        "bloomLevel": "recall",
+        "type": "mcq",
+        "difficulty": 1,
+        "prompt": "Pourquoi écrit-on $[a, \\infty[$ et jamais $[a, \\infty]$ ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Parce que $\\infty$ n'est pas un nombre réel et ne peut pas être inclus"
+          },
+          {
+            "id": "b",
+            "text": "Parce que l'intervalle serait alors vide"
+          },
+          {
+            "id": "c",
+            "text": "Par simple convention d'écriture"
+          },
+          {
+            "id": "d",
+            "text": "Parce que $a$ doit être exclu"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Diapositive 18 : l'intervalle est toujours ouvert du côté où est inscrit le symbole infini.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Il ne serait pas vide, il serait mal écrit."
+          },
+          {
+            "optionId": "c",
+            "why": "C'est une raison mathématique : ∞ n'est pas un élément de ℝ."
+          },
+          {
+            "optionId": "d",
+            "why": "$a$ est inclus dans $[a, \\infty[$."
+          }
+        ],
+        "source": {
+          "file": "1-rappels_calcul_differentiel.pdf",
+          "page": 18,
+          "locator": "Diapositive 18"
+        }
+      },
+      {
+        "id": "q1-05",
+        "objectiveId": "obj1-exposants",
+        "bloomLevel": "apply",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Simplifier $\\left(-2a^3b^{-1}\\right)\\left(5a^{-2}b^2\\right)$.",
+        "options": [
+          {
+            "id": "a",
+            "text": "$-10ab$"
+          },
+          {
+            "id": "b",
+            "text": "$-10a^{-6}b^{-2}$"
+          },
+          {
+            "id": "c",
+            "text": "$10ab$"
+          },
+          {
+            "id": "d",
+            "text": "$-10a^5b^3$"
+          }
+        ],
+        "correct": "a",
+        "explanation": "$-2 \\cdot 5 = -10$, $a^{3 + (-2)} = a$, $b^{-1 + 2} = b$ (exercice 1.9 n, réponse de la plateforme).",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Les exposants ont été multipliés au lieu d'être additionnés."
+          },
+          {
+            "optionId": "c",
+            "why": "Le signe de $-2$ a été perdu."
+          },
+          {
+            "optionId": "d",
+            "why": "Les exposants négatifs ont été traités comme positifs."
+          }
+        ],
+        "source": {
+          "file": "1-rappels_calcul_differentiel.pdf",
+          "page": 24,
+          "locator": "Exercice 1.9 n"
+        }
+      },
+      {
+        "id": "q1-06",
+        "objectiveId": "obj1-exposants",
+        "bloomLevel": "apply",
+        "type": "mcq",
+        "difficulty": 1,
+        "prompt": "Que vaut $32^{2/5}$ ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "4"
+          },
+          {
+            "id": "b",
+            "text": "12,8"
+          },
+          {
+            "id": "c",
+            "text": "2"
+          },
+          {
+            "id": "d",
+            "text": "1024"
+          }
+        ],
+        "correct": "a",
+        "explanation": "$32^{2/5} = \\left(\\sqrt[5]{32}\\right)^2 = 2^2 = 4$ (théorème 1.13, exercice 1.14 d).",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "$\\frac{2}{5} \\times 32$ : l'exposant n'est pas un facteur."
+          },
+          {
+            "optionId": "c",
+            "why": "C'est $32^{1/5}$ ; il faut encore élever au carré."
+          },
+          {
+            "optionId": "d",
+            "why": "C'est $32^2$ ; il faut aussi extraire la racine cinquième."
+          }
+        ],
+        "source": {
+          "file": "1-rappels_calcul_differentiel.pdf",
+          "page": 32,
+          "locator": "Exercice 1.14 d"
+        }
+      },
+      {
+        "id": "q1-07",
+        "objectiveId": "obj1-exposants",
+        "bloomLevel": "understand",
+        "type": "true-false",
+        "difficulty": 2,
+        "prompt": "Pour tout réel $x$, $\\sqrt{x^2} = x$.",
+        "options": [
+          {
+            "id": "v",
+            "text": "Vrai"
+          },
+          {
+            "id": "f",
+            "text": "Faux"
+          }
+        ],
+        "correct": "f",
+        "explanation": "Théorème 1.13 : $\\sqrt[n]{x^n} = |x|$ si $n$ est pair. Pour $x = -3$, $\\sqrt{9} = 3 \\neq -3$.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "v",
+            "why": "L'égalité n'est vraie que pour $x \\ge 0$."
+          }
+        ],
+        "source": {
+          "file": "1-rappels_calcul_differentiel.pdf",
+          "page": 31,
+          "locator": "Théorème 1.13 (3)"
+        }
+      },
+      {
+        "id": "q1-08",
+        "objectiveId": "obj1-quadratique",
+        "bloomLevel": "apply",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Combien de solutions réelles a $3x^2 - 10x + 15 = 0$ ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Aucune, car $\\Delta = -80$"
+          },
+          {
+            "id": "b",
+            "text": "Deux, car $\\Delta = 280$"
+          },
+          {
+            "id": "c",
+            "text": "Une, car $\\Delta = 0$"
+          },
+          {
+            "id": "d",
+            "text": "Deux, car $a > 0$"
+          }
+        ],
+        "correct": "a",
+        "explanation": "$\\Delta = (-10)^2 - 4(3)(15) = -80 < 0$ (exercice 1.17 d, réponse de la plateforme).",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "$b^2 - 4ac = 100 - 180$ ; le signe de $-4ac$ a été inversé."
+          },
+          {
+            "optionId": "c",
+            "why": "$100 - 4 \\cdot 3 \\cdot 15 = -80 \\neq 0$."
+          },
+          {
+            "optionId": "d",
+            "why": "Le signe de a ne décide pas du nombre de racines."
+          }
+        ],
+        "source": {
+          "file": "1-rappels_calcul_differentiel.pdf",
+          "page": 40,
+          "locator": "Exercice 1.17 d"
+        }
+      },
+      {
+        "id": "q1-09",
+        "objectiveId": "obj1-quadratique",
+        "bloomLevel": "apply",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Résoudre $8x^2 + 14x + 3 = 0$.",
+        "options": [
+          {
+            "id": "a",
+            "text": "$\\left\\{-\\frac32, -\\frac14\\right\\}$"
+          },
+          {
+            "id": "b",
+            "text": "$\\left\\{\\frac32, \\frac14\\right\\}$"
+          },
+          {
+            "id": "c",
+            "text": "$\\left\\{-3, -\\frac12\\right\\}$"
+          },
+          {
+            "id": "d",
+            "text": "Aucune solution réelle"
+          }
+        ],
+        "correct": "a",
+        "explanation": "$\\Delta = 100$, $x = \\frac{-14 \\pm 10}{16}$ (exercice 1.17 b, réponse de la plateforme).",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Le $-b$ de la formule a été oublié."
+          },
+          {
+            "optionId": "c",
+            "why": "Le dénominateur $2a = 16$ a été remplacé par $a = 8$."
+          },
+          {
+            "optionId": "d",
+            "why": "$\\Delta = 196 - 96 = 100 > 0$."
+          }
+        ],
+        "source": {
+          "file": "1-rappels_calcul_differentiel.pdf",
+          "page": 40,
+          "locator": "Exercice 1.17 b"
+        }
+      },
+      {
+        "id": "q1-10",
+        "objectiveId": "obj1-inequations",
+        "bloomLevel": "analyze",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Un étudiant écrit : $-3x - 7 \\le 0 \\Rightarrow -3x \\le 7 \\Rightarrow x \\le -\\frac73$. Où est l'erreur ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "En divisant par −3, il fallait inverser le sens : x ≥ −7/3"
+          },
+          {
+            "id": "b",
+            "text": "Il fallait soustraire 7, pas l'ajouter"
+          },
+          {
+            "id": "c",
+            "text": "Il n'y a pas d'erreur"
+          },
+          {
+            "id": "d",
+            "text": "Il fallait diviser par 3"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Théorème 1.18 (3) et exemple 1.19 : diviser par un négatif inverse l'inégalité.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Ajouter 7 aux deux membres est correct."
+          },
+          {
+            "optionId": "c",
+            "why": "Pour $x = 0$, $-7 \\le 0$ est vrai, mais $0 \\le -\\frac73$ est faux."
+          },
+          {
+            "optionId": "d",
+            "why": "Diviser par 3 laisserait $-x$ ; c'est bien par $-3$ qu'on divise."
+          }
+        ],
+        "source": {
+          "file": "1-rappels_calcul_differentiel.pdf",
+          "page": 44,
+          "locator": "Exemple 1.19"
+        }
+      },
+      {
+        "id": "q1-11",
+        "objectiveId": "obj1-inequations",
+        "bloomLevel": "apply",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Résoudre $x^2 - x - 12 > 0$.",
+        "options": [
+          {
+            "id": "a",
+            "text": "$]-\\infty, -3[\\ \\cup\\ ]4, \\infty[$"
+          },
+          {
+            "id": "b",
+            "text": "$]-3, 4[$"
+          },
+          {
+            "id": "c",
+            "text": "$]-\\infty, -4[\\ \\cup\\ ]3, \\infty[$"
+          },
+          {
+            "id": "d",
+            "text": "$]-\\infty, -3]\\ \\cup\\ [4, \\infty[$"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Racines $-3$ et $4$ ; le trinôme est positif à l'extérieur des racines (exercice 1.22 a, réponse de la plateforme).",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "C'est l'ensemble où le trinôme est NÉGATIF."
+          },
+          {
+            "optionId": "c",
+            "why": "Les racines sont $-3$ et $4$ : $(x - 4)(x + 3)$."
+          },
+          {
+            "optionId": "d",
+            "why": "L'inégalité est stricte : les racines sont exclues."
+          }
+        ],
+        "source": {
+          "file": "1-rappels_calcul_differentiel.pdf",
+          "page": 49,
+          "locator": "Exercice 1.22 a"
+        }
+      },
+      {
+        "id": "q1-12",
+        "objectiveId": "obj1-inequations",
+        "bloomLevel": "analyze",
+        "type": "mcq",
+        "difficulty": 3,
+        "prompt": "Quel est l'ensemble solution de $9x^2 + 30x + 25 \\le 0$ ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "$\\left\\{-\\frac53\\right\\}$"
+          },
+          {
+            "id": "b",
+            "text": "$\\varnothing$"
+          },
+          {
+            "id": "c",
+            "text": "$\\mathbb{R}$"
+          },
+          {
+            "id": "d",
+            "text": "$\\left]-\\infty, -\\frac53\\right]$"
+          }
+        ],
+        "correct": "a",
+        "explanation": "$\\Delta = 0$ et $9x^2 + 30x + 25 = (3x + 5)^2 \\ge 0$ : il n'est nul qu'en $-\\frac53$ (exercice 1.22 e, réponse de la plateforme).",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "$x = -\\frac53$ donne $0 \\le 0$, qui est vrai."
+          },
+          {
+            "optionId": "c",
+            "why": "Pour $x = 0$ : $25 \\le 0$ est faux."
+          },
+          {
+            "optionId": "d",
+            "why": "Pour $x = -2$ : $36 - 60 + 25 = 1 > 0$."
+          }
+        ],
+        "source": {
+          "file": "1-rappels_calcul_differentiel.pdf",
+          "page": 49,
+          "locator": "Exercice 1.22 e"
+        }
+      }
+    ]
+  },
+  "test": {
+    "title": "Test du chapitre 1",
+    "instructions": "21 questions couvrant tout le chapitre. Plus long et plus difficile que le quiz.",
+    "estimatedMinutes": 45,
+    "questions": [
+      {
+        "id": "t1-01",
+        "objectiveId": "obj1-ensembles",
+        "bloomLevel": "recall",
+        "type": "mcq",
+        "difficulty": 1,
+        "prompt": "Que désigne $\\mathbb{Z}_+$ dans ce cours ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "$\\{1, 2, 3, \\dots\\} = \\mathbb{N}^*$"
+          },
+          {
+            "id": "b",
+            "text": "$\\{0, 1, 2, 3, \\dots\\}$"
+          },
+          {
+            "id": "c",
+            "text": "$\\{\\dots, -2, -1\\}$"
+          },
+          {
+            "id": "d",
+            "text": "$\\mathbb{Z}$ privé de 0"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Diapositive 8.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "C'est $\\mathbb{N}$ : $\\mathbb{Z}_+$ exclut 0."
+          },
+          {
+            "optionId": "c",
+            "why": "C'est $\\mathbb{Z}_-$."
+          },
+          {
+            "optionId": "d",
+            "why": "C'est $\\mathbb{Z}^*$."
+          }
+        ],
+        "source": {
+          "file": "1-rappels_calcul_differentiel.pdf",
+          "page": 8,
+          "locator": "Diapositive 8"
+        }
+      },
+      {
+        "id": "t1-02",
+        "objectiveId": "obj1-ensembles",
+        "bloomLevel": "understand",
+        "type": "multi",
+        "difficulty": 2,
+        "prompt": "Lesquelles de ces affirmations sont vraies ? (plusieurs réponses)",
+        "options": [
+          {
+            "id": "a",
+            "text": "$0 \\in \\mathbb{N}$"
+          },
+          {
+            "id": "b",
+            "text": "$-5 \\in \\mathbb{Z}_-$"
+          },
+          {
+            "id": "c",
+            "text": "$\\sqrt{49} \\notin \\mathbb{Q}'$"
+          },
+          {
+            "id": "d",
+            "text": "$0 \\in \\mathbb{Z}_+$"
+          },
+          {
+            "id": "e",
+            "text": "$0{,}25 \\in \\mathbb{Z}$"
+          }
+        ],
+        "correct": [
+          "a",
+          "b",
+          "c"
+        ],
+        "explanation": "Exemples 1.3 et 1.5.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "d",
+            "why": "$\\mathbb{Z}_+$ commence à 1."
+          },
+          {
+            "optionId": "e",
+            "why": "0,25 n'est pas entier."
+          }
+        ],
+        "source": {
+          "file": "1-rappels_calcul_differentiel.pdf",
+          "page": 9,
+          "locator": "Exemples 1.3 et 1.5"
+        }
+      },
+      {
+        "id": "t1-03",
+        "objectiveId": "obj1-ensembles",
+        "bloomLevel": "recall",
+        "type": "mcq",
+        "difficulty": 1,
+        "prompt": "Écrire $\\mathbb{Q} = \\left\\{\\frac{p}{q} \\mid p \\in \\mathbb{Z} \\text{ et } q \\in \\mathbb{Z}^*\\right\\}$, c'est donner une définition…",
+        "options": [
+          {
+            "id": "a",
+            "text": "en compréhension"
+          },
+          {
+            "id": "b",
+            "text": "en extension"
+          },
+          {
+            "id": "c",
+            "text": "par intervalle"
+          },
+          {
+            "id": "d",
+            "text": "récursive"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Diapositive 11 : décrire plutôt qu'énumérer, c'est une définition en compréhension.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "En extension, on énumère les éléments."
+          },
+          {
+            "optionId": "c",
+            "why": "$\\mathbb{Q}$ n'est pas un intervalle."
+          },
+          {
+            "optionId": "d",
+            "why": "Aucune récurrence ici : on décrit une propriété."
+          }
+        ],
+        "source": {
+          "file": "1-rappels_calcul_differentiel.pdf",
+          "page": 11,
+          "locator": "Diapositive 11"
+        }
+      },
+      {
+        "id": "t1-04",
+        "objectiveId": "obj1-ensembles",
+        "bloomLevel": "analyze",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Parmi $-\\frac{42}{7}$, $\\sqrt[3]{64}$, $\\sqrt5$ et $12{,}\\overline{75}$, lesquels sont des entiers ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "$-\\frac{42}{7}$ et $\\sqrt[3]{64}$"
+          },
+          {
+            "id": "b",
+            "text": "$\\sqrt[3]{64}$ seulement"
+          },
+          {
+            "id": "c",
+            "text": "$-\\frac{42}{7}$, $\\sqrt[3]{64}$ et $12{,}\\overline{75}$"
+          },
+          {
+            "id": "d",
+            "text": "Aucun"
+          }
+        ],
+        "correct": "a",
+        "explanation": "$-\\frac{42}{7} = -6 \\in \\mathbb{Z}$ et $\\sqrt[3]{64} = 4 \\in \\mathbb{N}$ ; $\\sqrt5 \\in \\mathbb{Q}'$ ; $12{,}\\overline{75} \\in \\mathbb{Q}$ (notes, exercice 1 de 1.1.7, réponse de la plateforme).",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "$-\\frac{42}{7} = -6$ est aussi entier."
+          },
+          {
+            "optionId": "c",
+            "why": "Un décimal périodique non entier est rationnel, pas entier."
+          },
+          {
+            "optionId": "d",
+            "why": "$-\\frac{42}{7} = -6$ et $\\sqrt[3]{64} = 4$."
+          }
+        ],
+        "source": {
+          "file": "noteChapitre1.txt",
+          "page": 1,
+          "locator": "Section 1.1.7, exercice 1"
+        }
+      },
+      {
+        "id": "t1-05",
+        "objectiveId": "obj1-intervalles",
+        "bloomLevel": "apply",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Quel intervalle correspond à $\\{x \\in \\mathbb{R} \\mid -7 \\le x < -\\sqrt{7}\\}$ ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "$[-7, -\\sqrt7[$"
+          },
+          {
+            "id": "b",
+            "text": "$]-7, -\\sqrt7]$"
+          },
+          {
+            "id": "c",
+            "text": "$[-7, -\\sqrt7]$"
+          },
+          {
+            "id": "d",
+            "text": "$[-\\sqrt7, -7[$"
+          }
+        ],
+        "correct": "a",
+        "explanation": "$-7$ inclus (crochet vers l'intérieur), $-\\sqrt7$ exclu (crochet vers l'extérieur) — notes, exercice 2 de 1.1.7.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Les crochets sont inversés aux deux bornes."
+          },
+          {
+            "optionId": "c",
+            "why": "$-\\sqrt7$ est exclu (inégalité stricte)."
+          },
+          {
+            "optionId": "d",
+            "why": "La plus petite borne s'écrit à gauche."
+          }
+        ],
+        "source": {
+          "file": "noteChapitre1.txt",
+          "page": 1,
+          "locator": "Section 1.1.7, exercice 2"
+        }
+      },
+      {
+        "id": "t1-06",
+        "objectiveId": "obj1-exposants",
+        "bloomLevel": "recall",
+        "type": "true-false",
+        "difficulty": 1,
+        "prompt": "Selon le théorème 1.8, $0^0 = 1$.",
+        "options": [
+          {
+            "id": "v",
+            "text": "Vrai"
+          },
+          {
+            "id": "f",
+            "text": "Faux"
+          }
+        ],
+        "correct": "f",
+        "explanation": "Diapositives 22 et 23 : 0⁰ n'est pas défini.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "v",
+            "why": "$a^0 = 1$ exige $a \\neq 0$."
+          }
+        ],
+        "source": {
+          "file": "1-rappels_calcul_differentiel.pdf",
+          "page": 23,
+          "locator": "Diapositives 22 et 23"
+        }
+      },
+      {
+        "id": "t1-07",
+        "objectiveId": "obj1-exposants",
+        "bloomLevel": "apply",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Simplifier $\\dfrac{\\left(3w^2\\right)^5}{\\left(6w^{-2}\\right)^2}$.",
+        "options": [
+          {
+            "id": "a",
+            "text": "$\\dfrac{27w^{14}}{4}$"
+          },
+          {
+            "id": "b",
+            "text": "$\\dfrac{27w^{6}}{4}$"
+          },
+          {
+            "id": "c",
+            "text": "$\\dfrac{15w^{10}}{12w^{-4}}$"
+          },
+          {
+            "id": "d",
+            "text": "$\\dfrac{w^{14}}{4}$"
+          }
+        ],
+        "correct": "a",
+        "explanation": "$\\frac{243w^{10}}{36w^{-4}} = \\frac{27}{4}w^{14}$ (exercice 1.9 o, réponse de la plateforme).",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "$w^{10} / w^{-4} = w^{14}$ : diviser par une puissance négative l'ajoute."
+          },
+          {
+            "optionId": "c",
+            "why": "La puissance 5 s'applique aussi au coefficient 3."
+          },
+          {
+            "optionId": "d",
+            "why": "$3^5 / 6^2 = 243/36 = 27/4$."
+          }
+        ],
+        "source": {
+          "file": "1-rappels_calcul_differentiel.pdf",
+          "page": 24,
+          "locator": "Exercice 1.9 o"
+        }
+      },
+      {
+        "id": "t1-08",
+        "objectiveId": "obj1-exposants",
+        "bloomLevel": "apply",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Simplifier $\\left(2uw^{-2}\\right)^{-3}$ avec des exposants positifs.",
+        "options": [
+          {
+            "id": "a",
+            "text": "$\\dfrac{w^6}{8u^3}$"
+          },
+          {
+            "id": "b",
+            "text": "$\\dfrac{w^6}{6u^3}$"
+          },
+          {
+            "id": "c",
+            "text": "$8u^3w^{-6}$"
+          },
+          {
+            "id": "d",
+            "text": "$\\dfrac{w^{-5}}{8u^3}$"
+          }
+        ],
+        "correct": "a",
+        "explanation": "$2^{-3}u^{-3}w^{6} = \\frac{w^6}{8u^3}$ (exercice 1.9 p, réponse de la plateforme).",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "$2^{-3} = \\frac18$, pas $\\frac16$."
+          },
+          {
+            "optionId": "c",
+            "why": "L'exposant −3 n'a pas été appliqué."
+          },
+          {
+            "optionId": "d",
+            "why": "$(w^{-2})^{-3} = w^{6}$ : on multiplie les exposants."
+          }
+        ],
+        "source": {
+          "file": "1-rappels_calcul_differentiel.pdf",
+          "page": 24,
+          "locator": "Exercice 1.9 p"
+        }
+      },
+      {
+        "id": "t1-09",
+        "objectiveId": "obj1-exposants",
+        "bloomLevel": "understand",
+        "type": "mcq",
+        "difficulty": 1,
+        "prompt": "Quelles sont les solutions de $|x| = -4$ ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Il n'y en a aucune"
+          },
+          {
+            "id": "b",
+            "text": "$x = 4$ et $x = -4$"
+          },
+          {
+            "id": "c",
+            "text": "$x = -4$"
+          },
+          {
+            "id": "d",
+            "text": "$x = 4$"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Une valeur absolue est une distance, donc jamais négative (exercice 1.11 e).",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Ce sont les solutions de $|x| = 4$."
+          },
+          {
+            "optionId": "c",
+            "why": "$|-4| = 4 \\neq -4$."
+          },
+          {
+            "optionId": "d",
+            "why": "$|4| = 4 \\neq -4$."
+          }
+        ],
+        "source": {
+          "file": "1-rappels_calcul_differentiel.pdf",
+          "page": 27,
+          "locator": "Exercice 1.11 e"
+        }
+      },
+      {
+        "id": "t1-10",
+        "objectiveId": "obj1-exposants",
+        "bloomLevel": "understand",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Que vaut $\\sqrt[3]{-8}$ ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "−2"
+          },
+          {
+            "id": "b",
+            "text": "Elle n'est pas définie dans ℝ"
+          },
+          {
+            "id": "c",
+            "text": "2"
+          },
+          {
+            "id": "d",
+            "text": "$\\pm 2$"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Définition 1.12 : pour $n$ impair, $\\sqrt[n]{a}$ existe et a le signe de $a$.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Avec un indice impair, tout réel a une racine."
+          },
+          {
+            "optionId": "c",
+            "why": "$2^3 = 8$, pas $-8$."
+          },
+          {
+            "optionId": "d",
+            "why": "Avec un indice impair, la racine est unique : $(-2)^3 = -8$."
+          }
+        ],
+        "source": {
+          "file": "1-rappels_calcul_differentiel.pdf",
+          "page": 30,
+          "locator": "Définition 1.12"
+        }
+      },
+      {
+        "id": "t1-11",
+        "objectiveId": "obj1-exposants",
+        "bloomLevel": "apply",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Pour $x > 0$, simplifier $\\dfrac{\\sqrt[3]{x}}{\\sqrt{x}}$.",
+        "options": [
+          {
+            "id": "a",
+            "text": "$x^{-1/6}$"
+          },
+          {
+            "id": "b",
+            "text": "$x^{2/3}$"
+          },
+          {
+            "id": "c",
+            "text": "$x^{5/6}$"
+          },
+          {
+            "id": "d",
+            "text": "$x^{1/6}$"
+          }
+        ],
+        "correct": "a",
+        "explanation": "$x^{1/3} / x^{1/2} = x^{1/3 - 1/2} = x^{-1/6}$ (exercice 1.14 l, réponse de la plateforme).",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "$\\frac{1/3}{1/2}$ : les exposants se soustraient, ils ne se divisent pas."
+          },
+          {
+            "optionId": "c",
+            "why": "Les exposants ont été additionnés."
+          },
+          {
+            "optionId": "d",
+            "why": "$\\frac13 - \\frac12 = -\\frac16$ : le signe compte."
+          }
+        ],
+        "source": {
+          "file": "1-rappels_calcul_differentiel.pdf",
+          "page": 32,
+          "locator": "Exercice 1.14 l"
+        }
+      },
+      {
+        "id": "t1-12",
+        "objectiveId": "obj1-quadratique",
+        "bloomLevel": "apply",
+        "type": "short-answer",
+        "difficulty": 1,
+        "prompt": "Résoudre $2x^2 + 4x + 2 = 0$. (donner la valeur de x)",
+        "correct": "-1",
+        "acceptableAnswers": [
+          "x = -1",
+          "x=-1"
+        ],
+        "explanation": "$\\Delta = 16 - 16 = 0$ : une seule solution, $x = \\frac{-4}{4} = -1$ (exemple 1.16, cas 2).",
+        "source": {
+          "file": "1-rappels_calcul_differentiel.pdf",
+          "page": 39,
+          "locator": "Exemple 1.16"
+        }
+      },
+      {
+        "id": "t1-13",
+        "objectiveId": "obj1-quadratique",
+        "bloomLevel": "analyze",
+        "type": "mcq",
+        "difficulty": 3,
+        "prompt": "À quelle condition sur la constante $b$ l'équation $3x^2 + x - b = 0$ a-t-elle deux solutions ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "$b > -\\frac{1}{12}$"
+          },
+          {
+            "id": "b",
+            "text": "$b < -\\frac{1}{12}$"
+          },
+          {
+            "id": "c",
+            "text": "$b > \\frac{1}{12}$"
+          },
+          {
+            "id": "d",
+            "text": "$b \\neq 0$"
+          }
+        ],
+        "correct": "a",
+        "explanation": "$\\Delta = 1^2 - 4(3)(-b) = 1 + 12b > 0$ ; les solutions sont alors $\\frac{-1 \\pm \\sqrt{1 + 12b}}{6}$ (notes, exercice 7 de 1.1.7, réponse de la plateforme).",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "$\\Delta = 1 + 12b$ doit être POSITIF."
+          },
+          {
+            "optionId": "c",
+            "why": "$-4ac = -4(3)(-b) = +12b$ : le signe a été perdu."
+          },
+          {
+            "optionId": "d",
+            "why": "Pour $b = -1$, $\\Delta = -11 < 0$."
+          }
+        ],
+        "source": {
+          "file": "noteChapitre1.txt",
+          "page": 1,
+          "locator": "Section 1.1.7, exercice 7"
+        }
+      },
+      {
+        "id": "t1-14",
+        "objectiveId": "obj1-quadratique",
+        "bloomLevel": "analyze",
+        "type": "mcq",
+        "difficulty": 3,
+        "prompt": "Quels couples d'entiers consécutifs ont pour produit 272 ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "16 et 17, ou −17 et −16"
+          },
+          {
+            "id": "b",
+            "text": "16 et 17 seulement"
+          },
+          {
+            "id": "c",
+            "text": "−16 et −17 seulement"
+          },
+          {
+            "id": "d",
+            "text": "Aucun, 272 n'est pas un carré"
+          }
+        ],
+        "correct": "a",
+        "explanation": "$n^2 + n - 272 = 0$, $\\Delta = 1089 = 33^2$, $n = \\frac{-1 \\pm 33}{2}$ : $16$ ou $-17$ (notes, exercice 6 de 1.1.7, réponse de la plateforme).",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "$n(n + 1) = 272$ a deux racines : $16$ et $-17$."
+          },
+          {
+            "optionId": "c",
+            "why": "L'équation a aussi une racine positive."
+          },
+          {
+            "optionId": "d",
+            "why": "Le produit de deux consécutifs n'est pas un carré."
+          }
+        ],
+        "source": {
+          "file": "noteChapitre1.txt",
+          "page": 1,
+          "locator": "Section 1.1.7, exercice 6"
+        }
+      },
+      {
+        "id": "t1-15",
+        "objectiveId": "obj1-inequations",
+        "bloomLevel": "apply",
+        "type": "mcq",
+        "difficulty": 1,
+        "prompt": "Résoudre $11 - 7x < 2$.",
+        "options": [
+          {
+            "id": "a",
+            "text": "$\\left]\\frac97, \\infty\\right[$"
+          },
+          {
+            "id": "b",
+            "text": "$\\left]-\\infty, \\frac97\\right[$"
+          },
+          {
+            "id": "c",
+            "text": "$\\left[\\frac97, \\infty\\right[$"
+          },
+          {
+            "id": "d",
+            "text": "$\\left]-\\frac97, \\infty\\right[$"
+          }
+        ],
+        "correct": "a",
+        "explanation": "$-7x < -9 \\iff x > \\frac97$ (exercice 1.20 i, réponse de la plateforme).",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "En divisant par −7, le sens s'inverse."
+          },
+          {
+            "optionId": "c",
+            "why": "L'inégalité est stricte."
+          },
+          {
+            "optionId": "d",
+            "why": "$-7x < -9$ donne $x > \\frac{9}{7}$, positif."
+          }
+        ],
+        "source": {
+          "file": "1-rappels_calcul_differentiel.pdf",
+          "page": 45,
+          "locator": "Exercice 1.20 i"
+        }
+      },
+      {
+        "id": "t1-16",
+        "objectiveId": "obj1-inequations",
+        "bloomLevel": "apply",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Résoudre $-8 < 2x - 7 \\le 5$.",
+        "options": [
+          {
+            "id": "a",
+            "text": "$\\left]-\\frac12, 6\\right]$"
+          },
+          {
+            "id": "b",
+            "text": "$\\left[-\\frac12, 6\\right[$"
+          },
+          {
+            "id": "c",
+            "text": "$]-15, -2]$"
+          },
+          {
+            "id": "d",
+            "text": "$]-\\infty, 6]$"
+          }
+        ],
+        "correct": "a",
+        "explanation": "$-8 < 2x - 7 \\iff x > -\\frac12$ et $2x - 7 \\le 5 \\iff x \\le 6$ ; on garde l'intersection (notes, exercice 10 de 1.1.7).",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Les crochets suivent les inégalités : stricte à gauche, large à droite."
+          },
+          {
+            "optionId": "c",
+            "why": "Il faut ajouter 7, pas le soustraire."
+          },
+          {
+            "optionId": "d",
+            "why": "Seule la seconde inéquation a été gardée ; il faut l'intersection des deux."
+          }
+        ],
+        "source": {
+          "file": "noteChapitre1.txt",
+          "page": 1,
+          "locator": "Section 1.1.7, exercice 10"
+        }
+      },
+      {
+        "id": "t1-17",
+        "objectiveId": "obj1-inequations",
+        "bloomLevel": "apply",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Résoudre $-x^2 - 6x + 27 \\le 0$.",
+        "options": [
+          {
+            "id": "a",
+            "text": "$]-\\infty, -9]\\ \\cup\\ [3, \\infty[$"
+          },
+          {
+            "id": "b",
+            "text": "$[-9, 3]$"
+          },
+          {
+            "id": "c",
+            "text": "$]-\\infty, -3]\\ \\cup\\ [9, \\infty[$"
+          },
+          {
+            "id": "d",
+            "text": "$]-\\infty, -9[\\ \\cup\\ ]3, \\infty[$"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Racines $-9$ et $3$ ; $a = -1 < 0$ : le trinôme est négatif à l'extérieur des racines (exercice 1.22 h, réponse de la plateforme).",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "C'est là que le trinôme est POSITIF ou nul."
+          },
+          {
+            "optionId": "c",
+            "why": "Les racines sont $-9$ et $3$ : $-(x + 9)(x - 3)$."
+          },
+          {
+            "optionId": "d",
+            "why": "L'inégalité est large : les racines sont incluses."
+          }
+        ],
+        "source": {
+          "file": "1-rappels_calcul_differentiel.pdf",
+          "page": 49,
+          "locator": "Exercice 1.22 h"
+        }
+      },
+      {
+        "id": "t1-18",
+        "objectiveId": "obj1-inequations",
+        "bloomLevel": "analyze",
+        "type": "mcq",
+        "difficulty": 3,
+        "prompt": "Quel est l'ensemble solution de $4x^2 - 4x + 1 > 0$ ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "$\\mathbb{R} \\setminus \\left\\{\\frac12\\right\\}$"
+          },
+          {
+            "id": "b",
+            "text": "$\\mathbb{R}$"
+          },
+          {
+            "id": "c",
+            "text": "$\\varnothing$"
+          },
+          {
+            "id": "d",
+            "text": "$\\left]\\frac12, \\infty\\right[$"
+          }
+        ],
+        "correct": "a",
+        "explanation": "$4x^2 - 4x + 1 = (2x - 1)^2$, nul seulement en $\\frac12$ (exercice 1.22 f, réponse de la plateforme).",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "En $x = \\frac12$, $(2x - 1)^2 = 0$ et $0 > 0$ est faux."
+          },
+          {
+            "optionId": "c",
+            "why": "Pour $x = 0$ : $1 > 0$ est vrai."
+          },
+          {
+            "optionId": "d",
+            "why": "Pour $x = 0$, l'inégalité est vraie aussi."
+          }
+        ],
+        "source": {
+          "file": "1-rappels_calcul_differentiel.pdf",
+          "page": 49,
+          "locator": "Exercice 1.22 f"
+        }
+      },
+      {
+        "id": "t1-19",
+        "objectiveId": "obj1-quadratique",
+        "bloomLevel": "understand",
+        "type": "true-false",
+        "difficulty": 1,
+        "prompt": "Une équation dont l'ensemble solution est vide s'appelle une identité.",
+        "options": [
+          {
+            "id": "v",
+            "text": "Vrai"
+          },
+          {
+            "id": "f",
+            "text": "Faux"
+          }
+        ],
+        "correct": "f",
+        "explanation": "Diapositive 34 : c'est une contradiction ; une identité est vraie pour toutes les valeurs de son domaine.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "v",
+            "why": "Les deux termes désignent les cas extrêmes opposés."
+          }
+        ],
+        "source": {
+          "file": "1-rappels_calcul_differentiel.pdf",
+          "page": 34,
+          "locator": "Diapositive 34"
+        }
+      },
+      {
+        "id": "t1-20",
+        "objectiveId": "obj1-quadratique",
+        "bloomLevel": "recall",
+        "type": "fill-blank",
+        "difficulty": 1,
+        "prompt": "Compléter : pour $ax^2 + bx + c = 0$, le nombre $b^2 - 4ac$ s'appelle le ____.",
+        "correct": "discriminant",
+        "acceptableAnswers": [
+          "le discriminant",
+          "Δ",
+          "delta"
+        ],
+        "explanation": "Diapositive 37 : Δ = b² − 4ac, le discriminant.",
+        "source": {
+          "file": "1-rappels_calcul_differentiel.pdf",
+          "page": 37,
+          "locator": "Diapositive 37"
+        }
+      },
+      {
+        "id": "t1-21",
+        "objectiveId": "obj1-quadratique",
+        "bloomLevel": "apply",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "La somme de deux nombres est 16 et la somme de leurs carrés est 130. Quels sont-ils ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "7 et 9"
+          },
+          {
+            "id": "b",
+            "text": "8 et 8"
+          },
+          {
+            "id": "c",
+            "text": "5 et 11"
+          },
+          {
+            "id": "d",
+            "text": "6 et 10"
+          }
+        ],
+        "correct": "a",
+        "explanation": "$x^2 + (16 - x)^2 = 130 \\iff x^2 - 16x + 63 = 0 \\iff x = 7$ ou $9$ (notes, exercice 8 de 1.1.7, réponse de la plateforme).",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "$8^2 + 8^2 = 128 \\neq 130$."
+          },
+          {
+            "optionId": "c",
+            "why": "$25 + 121 = 146$."
+          },
+          {
+            "optionId": "d",
+            "why": "$36 + 100 = 136$."
+          }
+        ],
+        "source": {
+          "file": "noteChapitre1.txt",
+          "page": 1,
+          "locator": "Section 1.1.7, exercice 8"
+        }
+      }
+    ]
+  },
+  "flashcards": [
+    {
+      "id": "f1-01",
+      "objectiveId": "obj1-ensembles",
+      "front": "$\\mathbb{Q}$ ou $\\mathbb{Q}'$ : critère décimal ?",
+      "back": "Q : décimale finie ou infinie périodique. Q′ : infinie non périodique."
+    },
+    {
+      "id": "f1-02",
+      "objectiveId": "obj1-ensembles",
+      "front": "$\\mathbb{Z}_+$ = ?",
+      "back": "$\\{1, 2, 3, \\dots\\} = \\mathbb{N}^*$ — sans 0."
+    },
+    {
+      "id": "f1-03",
+      "objectiveId": "obj1-ensembles",
+      "front": "Compréhension ou extension ?",
+      "back": "Compréhension : on décrit une propriété. Extension : on énumère."
+    },
+    {
+      "id": "f1-04",
+      "objectiveId": "obj1-intervalles",
+      "front": "Crochet du côté de ∞ ?",
+      "back": "Toujours ouvert : ∞ n'est pas un réel."
+    },
+    {
+      "id": "f1-05",
+      "objectiveId": "obj1-exposants",
+      "front": "$\\frac{a^m}{a^n}$ et $(a^m)^n$ ?",
+      "back": "$a^{m-n}$ et $a^{mn}$."
+    },
+    {
+      "id": "f1-06",
+      "objectiveId": "obj1-exposants",
+      "front": "$\\sqrt[n]{x^n}$ ?",
+      "back": "$x$ si $n$ impair, $|x|$ si $n$ pair."
+    },
+    {
+      "id": "f1-07",
+      "objectiveId": "obj1-exposants",
+      "front": "$\\sqrt[n]{x^m}$ en exposant ?",
+      "back": "$x^{m/n}$."
+    },
+    {
+      "id": "f1-08",
+      "objectiveId": "obj1-quadratique",
+      "front": "Formule quadratique ?",
+      "back": "$x = \\frac{-b \\pm \\sqrt{b^2 - 4ac}}{2a}$."
+    },
+    {
+      "id": "f1-09",
+      "objectiveId": "obj1-quadratique",
+      "front": "Δ > 0, Δ = 0, Δ < 0 ?",
+      "back": "Deux racines, une racine, aucune racine réelle."
+    },
+    {
+      "id": "f1-10",
+      "objectiveId": "obj1-quadratique",
+      "front": "Identité ou contradiction ?",
+      "back": "Identité : vraie partout sur le domaine. Contradiction : ensemble solution vide."
+    },
+    {
+      "id": "f1-11",
+      "objectiveId": "obj1-inequations",
+      "front": "Quand le sens d'une inégalité change-t-il ?",
+      "back": "Quand on multiplie ou divise les deux membres par un nombre négatif."
+    },
+    {
+      "id": "f1-12",
+      "objectiveId": "obj1-inequations",
+      "front": "$A \\le B \\le C$ ?",
+      "back": "Résoudre A ≤ B et B ≤ C, puis prendre l'intersection."
+    }
+  ],
+  "exercises": [
+    {
+      "id": "e1-01",
+      "objectiveId": "obj1-quadratique",
+      "difficulty": 2,
+      "mode": "trace",
+      "language": "text",
+      "title": "Trois équations quadratiques (exercice 1.17)",
+      "statement": "Résoudre avec la formule quadratique, en calculant d'abord le discriminant.",
+      "starterCode": "b) 8x² + 14x + 3 = 0\nc) 3x² − 5x − 2 = 0\nd) 3x² − 10x + 15 = 0",
+      "hints": [
+        "Identifier a, b et c avec leurs signes, puis calculer Δ = b² − 4ac.",
+        "Le signe de Δ dit combien de solutions chercher.",
+        "b) Δ = 100 ; c) Δ = 49 ; d) Δ < 0."
+      ],
+      "solution": "b) {−3/2, −1/4} · c) {−1/3, 2} · d) aucune solution réelle",
+      "expectedOutput": "b) a = 8, b = 14, c = 3 : Δ = 196 − 96 = 100\n   x = (−14 ± 10)/16  →  x₁ = −4/16 = −1/4,  x₂ = −24/16 = −3/2\n\nc) a = 3, b = −5, c = −2 : Δ = 25 + 24 = 49\n   x = (5 ± 7)/6  →  x₁ = 2,  x₂ = −2/6 = −1/3\n\nd) a = 3, b = −10, c = 15 : Δ = 100 − 180 = −80 < 0\n   √(−80) n'est pas définie dans ℝ : aucune solution réelle.",
+      "solutionExplanation": "En c), −b = +5 : c'est l'erreur la plus fréquente. En d), inutile de continuer après Δ < 0. Réponses calculées par la plateforme et vérifiées par calcul symbolique.",
+      "source": {
+        "file": "1-rappels_calcul_differentiel.pdf",
+        "page": 40,
+        "locator": "Exercice 1.17"
+      }
+    },
+    {
+      "id": "e1-02",
+      "objectiveId": "obj1-inequations",
+      "difficulty": 2,
+      "mode": "trace",
+      "language": "text",
+      "title": "Une inéquation quadratique avec tableau de signes",
+      "statement": "Résoudre 2x² − 11x − 6 ≥ 0 en suivant la méthode de l'exemple 1.21 : racines, intervalles, tests, conclusion.",
+      "starterCode": "2x² − 11x − 6 ≥ 0",
+      "hints": [
+        "Commencer par l'équation associée 2x² − 11x − 6 = 0.",
+        "Δ = 121 + 48 = 169 = 13².",
+        "Les racines sont −1/2 et 6 ; tester par exemple x = −1, x = 0 et x = 7."
+      ],
+      "solution": "]−∞, −1/2] ∪ [6, ∞[",
+      "expectedOutput": "Δ = (−11)² − 4(2)(−6) = 121 + 48 = 169\nx = (11 ± 13)/4  →  x₁ = −1/2,  x₂ = 6\n\nx        ]−∞, −1/2[   −1/2   ]−1/2, 6[   6   ]6, ∞[\ntest     x = −1 : 7          x = 0 : −6       x = 7 : 15\nsigne       +          0         −        0       +\n\nInégalité large : on garde les intervalles positifs ET les racines.\nEnsemble solution : ]−∞, −1/2] ∪ [6, ∞[",
+      "solutionExplanation": "Le crochet est fermé aux racines parce que l'inégalité est ≥ ; il reste ouvert du côté de l'infini. Exercice 1.22 d, réponse calculée par la plateforme.",
+      "source": {
+        "file": "1-rappels_calcul_differentiel.pdf",
+        "page": 49,
+        "locator": "Exercice 1.22 d"
+      }
+    },
+    {
+      "id": "e1-03",
+      "objectiveId": "obj1-inequations",
+      "difficulty": 2,
+      "mode": "find-bug",
+      "language": "text",
+      "title": "Trouver l'erreur — une inéquation linéaire",
+      "statement": "Voici une résolution de l'exercice 1.20 h. Trouver la ligne fausse, la corriger et donner l'ensemble solution.",
+      "starterCode": "  1 − 5x ≤ 0\n⇔ −5x ≤ −1          (on soustrait 1)\n⇔ x ≤ 1/5           (on divise par −5)\nEnsemble solution : ]−∞, 1/5]",
+      "hints": [
+        "Quel théorème s'applique quand on divise par un nombre négatif ?",
+        "Tester une valeur : x = 0 vérifie-t-il 1 − 5x ≤ 0 ?",
+        "Pour x = 0 : 1 ≤ 0 est faux, alors que 0 est dans l'ensemble proposé."
+      ],
+      "solution": "Ligne 3 : x ≥ 1/5. Ensemble solution : [1/5, ∞[",
+      "expectedOutput": "L'ERREUR (ligne 3)\n    Diviser par −5 inverse le sens de l'inégalité (théorème 1.18, point 3) :\n    −5x ≤ −1  ⇔  x ≥ 1/5\n\nVÉRIFICATION\n    x = 0   : 1 − 0 = 1 ≤ 0 ?   faux  → 0 n'est pas solution\n    x = 1   : 1 − 5 = −4 ≤ 0 ? vrai  → 1 est solution\n\nEnsemble solution : [1/5, ∞[",
+      "solutionExplanation": "Tester une valeur simple, comme 0, dans l'inéquation de départ détecte immédiatement une inégalité retournée. Réponse calculée par la plateforme.",
+      "source": {
+        "file": "1-rappels_calcul_differentiel.pdf",
+        "page": 45,
+        "locator": "Exercice 1.20 h"
+      }
+    },
+    {
+      "id": "e1-04",
+      "objectiveId": "obj1-exposants",
+      "difficulty": 2,
+      "mode": "fill-blank",
+      "language": "text",
+      "title": "Compléter — exposants et radicaux",
+      "statement": "Compléter chaque simplification (x > 0). Les réponses ne doivent comporter que des exposants positifs, sauf mention contraire.",
+      "starterCode": "a) (6m²n⁻¹)³ = 216 m^__ / n^__\nb) 17⁵ · 17⁻⁴ · 17⁻³ = 1 / ____\nc) (9r⁻⁵s³)(3r⁶s⁻⁴) = ____ r / s\nd) x^(−5/2) / √x = 1 / x^__\ne) ∜(x³) = x^____",
+      "hints": [
+        "Appliquer l'exposant à chaque facteur, puis additionner ou soustraire les exposants d'une même base.",
+        "b) 5 − 4 − 3 = −2 ; c) 9 × 3 et −5 + 6.",
+        "d) −5/2 − 1/2 = −3 ; e) le radical d'indice 4 devient l'exposant 1/4."
+      ],
+      "solution": "a) 6 et 3 · b) 289 · c) 27 · d) 3 · e) 3/4",
+      "expectedOutput": "a) 6³ m⁶ n⁻³ = 216 m⁶ / n³\nb) 17^(5 − 4 − 3) = 17⁻² = 1 / 289\nc) 27 r^(−5 + 6) s^(3 − 4) = 27 r / s\nd) x^(−5/2 − 1/2) = x⁻³ = 1 / x³\ne) ∜(x³) = x^(3/4)",
+      "solutionExplanation": "Ce sont les exercices 1.9 k, l, r et 1.14 k, h. Réponses calculées par la plateforme et vérifiées par calcul symbolique.",
+      "source": {
+        "file": "1-rappels_calcul_differentiel.pdf",
+        "page": 24,
+        "locator": "Exercices 1.9 et 1.14"
+      }
+    },
+    {
+      "id": "e1-05",
+      "objectiveId": "obj1-ensembles",
+      "difficulty": 2,
+      "mode": "predict-output",
+      "language": "text",
+      "title": "Classer des nombres",
+      "statement": "Pour chaque nombre, donner le plus petit des ensembles ℕ, ℤ, ℚ, ℚ′ qui le contient (tous sont dans ℝ).",
+      "starterCode": "0 · −3π/4 · √0,25 · −42/7 · ∛64 · √5 · 123/3 · 12,757575… · −7/4 · 6,125",
+      "hints": [
+        "Simplifier chaque nombre avant de le classer.",
+        "√0,25 = 0,5 ; −42/7 = −6 ; ∛64 = 4 ; 123/3 = 41.",
+        "π et √5 sont irrationnels ; un décimal fini ou périodique est rationnel."
+      ],
+      "solution": "ℕ : 0, ∛64, 123/3 · ℤ : −42/7 · ℚ : √0,25, 12,7575…, −7/4, 6,125 · ℚ′ : −3π/4, √5",
+      "expectedOutput": "0          → ℕ\n−3π/4      → ℚ′ (π est irrationnel)\n√0,25 = 0,5 → ℚ\n−42/7 = −6  → ℤ\n∛64 = 4    → ℕ\n√5         → ℚ′\n123/3 = 41 → ℕ\n12,7575…   → ℚ (périodique)\n−7/4       → ℚ\n6,125      → ℚ (finie)",
+      "solutionExplanation": "Chaque nombre appartient aussi à tous les ensembles plus grands : 0 est dans ℕ, ℤ, ℚ et ℝ. Exercice 1 de la section 1.1.7 des notes ; réponses de la plateforme.",
+      "source": {
+        "file": "noteChapitre1.txt",
+        "page": 1,
+        "locator": "Section 1.1.7, exercice 1"
+      }
+    }
+  ]
+}

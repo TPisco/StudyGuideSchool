@@ -1,0 +1,289 @@
+@import 'tailwindcss';
+@plugin '@tailwindcss/typography';
+
+/* Dark by default. The toggle writes data-theme on <html>; we never rely on
+   prefers-color-scheme alone, because the requested default is dark. */
+@custom-variant dark (&:where([data-theme='dark'], [data-theme='dark'] *));
+
+@theme {
+  --font-sans: 'Inter var', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: ui-monospace, 'JetBrains Mono', 'Cascadia Code', 'Fira Code', Consolas, monospace;
+
+  --color-ink-50: #f8fafc;
+  --color-ink-100: #f1f5f9;
+  --color-ink-200: #e2e8f0;
+  --color-ink-300: #cbd5e1;
+  --color-ink-400: #94a3b8;
+  --color-ink-500: #64748b;
+  --color-ink-600: #475569;
+  --color-ink-700: #334155;
+  --color-ink-750: #293548;
+  --color-ink-800: #1e293b;
+  --color-ink-850: #172033;
+  --color-ink-900: #0f172a;
+  --color-ink-950: #080d19;
+}
+
+:root {
+  --surface: var(--color-ink-950);
+  --surface-raised: var(--color-ink-900);
+  --surface-sunken: #05080f;
+  --border: #1f2b3f;
+  --border-strong: #2c3a52;
+  --text: var(--color-ink-100);
+  --text-muted: var(--color-ink-400);
+  --text-faint: var(--color-ink-500);
+  --accent: #818cf8;
+  --accent-soft: #6366f126;
+  --ok: #34d399;
+  --ok-soft: #34d39921;
+  --bad: #fb7185;
+  --bad-soft: #fb718521;
+  --warn: #fbbf24;
+  --warn-soft: #fbbf2421;
+  --info: #38bdf8;
+  --info-soft: #38bdf821;
+  color-scheme: dark;
+}
+
+[data-theme='light'] {
+  --surface: #ffffff;
+  --surface-raised: #f8fafc;
+  --surface-sunken: #eef2f7;
+  --border: #e2e8f0;
+  --border-strong: #cbd5e1;
+  --text: #0f172a;
+  --text-muted: #475569;
+  --text-faint: #64748b;
+  --accent: #4f46e5;
+  --accent-soft: #6366f114;
+  --ok: #047857;
+  --ok-soft: #04785714;
+  --bad: #be123c;
+  --bad-soft: #be123c14;
+  --warn: #b45309;
+  --warn-soft: #b4530914;
+  --info: #0369a1;
+  --info-soft: #0369a114;
+  color-scheme: light;
+}
+
+/* Per-course accent, set by a data attribute on the page wrapper. */
+[data-accent='emerald'] { --accent: #34d399; --accent-soft: #34d39921; }
+[data-accent='amber']   { --accent: #fbbf24; --accent-soft: #fbbf2421; }
+[data-accent='rose']    { --accent: #fb7185; --accent-soft: #fb718521; }
+[data-accent='sky']     { --accent: #38bdf8; --accent-soft: #38bdf821; }
+[data-accent='violet']  { --accent: #a78bfa; --accent-soft: #a78bfa21; }
+[data-accent='teal']    { --accent: #2dd4bf; --accent-soft: #2dd4bf21; }
+[data-theme='light'][data-accent='emerald'], [data-theme='light'] [data-accent='emerald'] { --accent: #047857; }
+[data-theme='light'][data-accent='amber'],   [data-theme='light'] [data-accent='amber']   { --accent: #b45309; }
+[data-theme='light'][data-accent='rose'],    [data-theme='light'] [data-accent='rose']    { --accent: #be123c; }
+[data-theme='light'][data-accent='sky'],     [data-theme='light'] [data-accent='sky']     { --accent: #0369a1; }
+[data-theme='light'][data-accent='violet'],  [data-theme='light'] [data-accent='violet']  { --accent: #6d28d9; }
+[data-theme='light'][data-accent='teal'],    [data-theme='light'] [data-accent='teal']    { --accent: #0f766e; }
+
+html {
+  background: var(--surface);
+  scroll-behavior: smooth;
+  scroll-padding-top: 5rem;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  background: var(--surface);
+  color: var(--text);
+  font-family: var(--font-sans);
+  min-height: 100dvh;
+  overflow-wrap: break-word;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+}
+
+::selection { background: var(--accent-soft); }
+
+:where(a, button, input, select, textarea, summary, [tabindex]):focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* ------------------------------------------------------------------ */
+/* Reusable primitives                                                 */
+/* ------------------------------------------------------------------ */
+
+@utility card {
+  background: var(--surface-raised);
+  border: 1px solid var(--border);
+  border-radius: 0.875rem;
+}
+
+@utility muted { color: var(--text-muted); }
+@utility faint { color: var(--text-faint); }
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border-radius: 0.625rem;
+  border: 1px solid var(--border-strong);
+  background: var(--surface-raised);
+  color: var(--text);
+  padding: 0.55rem 1rem;
+  font-size: 0.9rem;
+  font-weight: 500;
+  line-height: 1.2;
+  cursor: pointer;
+  transition: background-color 0.15s, border-color 0.15s, transform 0.08s;
+  text-align: center;
+}
+.btn:hover:not(:disabled) { border-color: var(--accent); background: var(--accent-soft); }
+.btn:active:not(:disabled) { transform: translateY(1px); }
+.btn:disabled { opacity: 0.45; cursor: not-allowed; }
+.btn-primary {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #0b1020;
+  font-weight: 600;
+}
+[data-theme='light'] .btn-primary { color: #fff; }
+.btn-primary:hover:not(:disabled) { filter: brightness(1.12); background: var(--accent); }
+.btn-sm { padding: 0.35rem 0.7rem; font-size: 0.82rem; border-radius: 0.5rem; }
+.btn-ghost { background: transparent; border-color: transparent; }
+.btn-ghost:hover:not(:disabled) { background: var(--accent-soft); }
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  border-radius: 999px;
+  padding: 0.16rem 0.6rem;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  border: 1px solid var(--border-strong);
+  color: var(--text-muted);
+  white-space: nowrap;
+}
+.chip-ok   { color: var(--ok);   border-color: color-mix(in srgb, var(--ok) 45%, transparent);   background: var(--ok-soft); }
+.chip-bad  { color: var(--bad);  border-color: color-mix(in srgb, var(--bad) 45%, transparent);  background: var(--bad-soft); }
+.chip-warn { color: var(--warn); border-color: color-mix(in srgb, var(--warn) 45%, transparent); background: var(--warn-soft); }
+.chip-info { color: var(--info); border-color: color-mix(in srgb, var(--info) 45%, transparent); background: var(--info-soft); }
+.chip-accent { color: var(--accent); border-color: color-mix(in srgb, var(--accent) 45%, transparent); background: var(--accent-soft); }
+
+.field {
+  width: 100%;
+  background: var(--surface-sunken);
+  border: 1px solid var(--border-strong);
+  border-radius: 0.6rem;
+  color: var(--text);
+  padding: 0.6rem 0.85rem;
+  font-size: 0.95rem;
+}
+.field:focus { outline: 2px solid var(--accent); outline-offset: 1px; }
+.field::placeholder { color: var(--text-faint); }
+
+/* ------------------------------------------------------------------ */
+/* Study notes typography                                              */
+/* ------------------------------------------------------------------ */
+
+.prose-notes {
+  --tw-prose-body: var(--text);
+  --tw-prose-headings: var(--text);
+  --tw-prose-bold: var(--text);
+  --tw-prose-links: var(--accent);
+  --tw-prose-counters: var(--text-muted);
+  --tw-prose-bullets: var(--border-strong);
+  --tw-prose-hr: var(--border);
+  --tw-prose-quotes: var(--text-muted);
+  --tw-prose-quote-borders: var(--accent);
+  --tw-prose-captions: var(--text-faint);
+  --tw-prose-code: var(--text);
+  --tw-prose-th-borders: var(--border-strong);
+  --tw-prose-td-borders: var(--border);
+  max-width: none;
+  font-size: 1.0125rem;
+  line-height: 1.75;
+}
+.prose-notes :where(h2) {
+  scroll-margin-top: 5rem;
+  margin-top: 2.75rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--border);
+  font-size: 1.5rem;
+  font-weight: 650;
+  letter-spacing: -0.012em;
+}
+.prose-notes :where(h2):first-child { border-top: 0; margin-top: 0; padding-top: 0; }
+.prose-notes :where(h3) { scroll-margin-top: 5rem; font-size: 1.15rem; font-weight: 640; margin-top: 1.9rem; }
+.prose-notes :where(a) { text-underline-offset: 3px; }
+.prose-notes :where(code):not(pre code) {
+  background: var(--surface-sunken);
+  border: 1px solid var(--border);
+  border-radius: 0.3rem;
+  padding: 0.1em 0.35em;
+  font-size: 0.875em;
+  font-weight: 500;
+}
+.prose-notes :where(code):not(pre code)::before,
+.prose-notes :where(code):not(pre code)::after { content: none; }
+.prose-notes :where(pre) {
+  background: var(--surface-sunken) !important;
+  border: 1px solid var(--border);
+  border-radius: 0.75rem;
+  padding: 1rem 1.1rem;
+  font-size: 0.875rem;
+  line-height: 1.6;
+}
+.prose-notes :where(table) { font-size: 0.9rem; display: block; overflow-x: auto; }
+.prose-notes :where(blockquote) { font-style: normal; }
+
+/* Shiki dual themes */
+html:not([data-theme='light']) .astro-code,
+html:not([data-theme='light']) .astro-code span {
+  color: var(--shiki-dark) !important;
+  background-color: transparent !important;
+  font-style: var(--shiki-dark-font-style) !important;
+  font-weight: var(--shiki-dark-font-weight) !important;
+  text-decoration: var(--shiki-dark-text-decoration) !important;
+}
+
+/* KaTeX */
+.katex { font-size: 1.05em; }
+.katex-display {
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding: 0.6rem 0;
+  margin: 1.25rem 0;
+}
+.katex-display > .katex { text-align: center; }
+/* Math inside quiz, flashcard and exercise text (MathText). */
+.math-display { display: block; }
+.math-display .katex-display { margin: 0.6rem 0; padding: 0.3rem 0; }
+.math-inline .katex { white-space: nowrap; }
+
+/* ------------------------------------------------------------------ */
+/* Print — summary tables and notes should print cleanly               */
+/* ------------------------------------------------------------------ */
+
+@media print {
+  :root, [data-theme='dark'] {
+    --surface: #fff; --surface-raised: #fff; --surface-sunken: #f6f6f6;
+    --text: #000; --text-muted: #333; --text-faint: #555;
+    --border: #bbb; --border-strong: #888;
+    color-scheme: light;
+  }
+  html, body { background: #fff !important; color: #000 !important; }
+  .no-print, nav.site-nav, .site-footer { display: none !important; }
+  .print-only { display: block !important; }
+  a[href]::after { content: ''; }
+  .card { border: 1px solid #bbb !important; break-inside: avoid; }
+  table { break-inside: auto; font-size: 10pt; }
+  tr, img, svg, pre { break-inside: avoid; }
+  h2, h3 { break-after: avoid; }
+  @page { margin: 1.5cm; }
+}
+.print-only { display: none; }

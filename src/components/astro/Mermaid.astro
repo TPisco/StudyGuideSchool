@@ -1,0 +1,11 @@
+---
+import MermaidChart from '../react/MermaidChart';
+
+interface Props {
+  chart: string;
+  caption?: string;
+}
+const { chart, caption } = Astro.props;
+---
+
+<MermaidChart chart={chart} caption={caption} client:visible />

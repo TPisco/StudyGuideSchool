@@ -1,0 +1,273 @@
+---
+course: MAT199
+number: 4
+title: Systèmes d'équations linéaires
+summary: >-
+  Écrire un système comme une équation matricielle AX = B, résoudre les
+  systèmes échelonnés — avec ou sans inconnues libres —, ramener tout système
+  à un système échelonné par l'élimination de Gauss, et décider d'un coup
+  d'œil, par le rang, s'il a zéro, une ou une infinité de solutions.
+estimatedMinutes: 180
+prerequisites:
+  - "Chapitre 2 — opérations élémentaires, forme échelonnée, rang"
+objectives:
+  - id: obj4-matrices
+    text: Passer d'un système à sa matrice des coefficients, à sa matrice augmentée et à l'équation AX = B, et inversement.
+    bloom: understand
+  - id: obj4-echelonne
+    text: Résoudre un système échelonné, en paramétrant les inconnues libres.
+    bloom: apply
+  - id: obj4-gauss
+    text: Résoudre un système quelconque par l'élimination de Gauss.
+    bloom: apply
+  - id: obj4-rang
+    text: Classer un système — aucune, une seule ou une infinité de solutions — par comparaison de rg(A) et rg(A | B), y compris selon un paramètre.
+    bloom: analyze
+  - id: obj4-homogene
+    text: Décider si un système homogène admet des solutions non nulles et en trouver une.
+    bloom: apply
+sources:
+  - file: "2026-03-MAT199-ChapIII.pdf"
+    page: 1
+    locator: "Chapitre III — Systèmes d'équations linéaires (p. 1 à 14)"
+---
+
+Dans ce cours, les systèmes serviront surtout à **exprimer un vecteur comme
+combinaison linéaire d'autres vecteurs**, et à trouver ses **coordonnées
+dans une base** (chapitre 5). **Les solutions des exercices sont calculées et
+vérifiées par la plateforme.**
+
+## 1. Vocabulaire
+
+Un **système d'équations linéaires** sur $\mathbb{R}$ :
+
+$$
+\begin{cases}
+a_{11}x_1 + a_{12}x_2 + \cdots + a_{1n}x_n = b_1 \\
+\quad\vdots \\
+a_{m1}x_1 + a_{m2}x_2 + \cdots + a_{mn}x_n = b_m
+\end{cases}
+$$
+
+Les $x_j$ sont les **inconnues**, les $a_{ij}$ les **coefficients**, les $b_i$
+les **termes constants**. Une **solution** est un $n$-uplet
+$(s_1, \dots, s_n)$ qui vérifie toutes les équations.
+
+- Le système est **compatible** s'il a au moins une solution, **incompatible**
+  sinon.
+- Deux systèmes sont **équivalents** s'ils ont le même ensemble de solutions.
+
+Un système comme $x + y = 1$, $2x + xy = 2$ n'est **pas linéaire** : le terme
+$xy$ est un produit d'inconnues.
+
+<Callout type="example" title="L'exemple géométrique des notes">
+Les plans $x + y - z = 1$, $2x + y - z = 1$ et $3x + 2y - z = 2$ se
+rencontrent là où les trois équations sont vraies en même temps. Le système a
+une seule solution, $(0, 1, 0)$ : les trois plans se coupent en **un seul
+point**. On le vérifie : $0 + 1 - 0 = 1$, $0 + 1 - 0 = 1$, $0 + 2 - 0 = 2$.
+</Callout>
+
+## 2. Écriture matricielle
+
+Au système on associe sa **matrice des coefficients** $A = (a_{ij})$ et sa
+**matrice augmentée** $(A \mid B)$, où $B$ est la colonne des termes
+constants. Le système est équivalent à l'**équation matricielle**
+
+$$
+AX = B, \qquad X = \begin{pmatrix} x_1 \\ \vdots \\ x_n \end{pmatrix},
+$$
+
+et $(s_1, \dots, s_n)$ est une solution si, et seulement si, la colonne
+$(s_1, \dots, s_n)^T$ vérifie $AX = B$.
+
+<Callout type="example" title="Exemple des notes, p. 3">
+$$
+\begin{cases} 2x - z = 1 \\ x - 2y = 1 \\ 2x - 2z = 5 \end{cases}
+\quad\longleftrightarrow\quad
+\left(\begin{array}{ccc|c} 2 & 0 & -1 & 1 \\ 1 & -2 & 0 & 1 \\ 2 & 0 & -2 & 5 \end{array}\right)
+$$
+
+Une inconnue absente d'une équation a le coefficient **0** : $y$ dans la
+première, $z$ dans la deuxième. C'est l'erreur la plus fréquente à la
+traduction.
+</Callout>
+
+<Source file="2026-03-MAT199-ChapIII.pdf" page={2} locator="Définitions 3.1 et 3.2, exemples p. 1 à 3" />
+
+## 3. Les systèmes échelonnés
+
+Un système $AX = B$ est **échelonné** si sa matrice augmentée $(A \mid B)$
+l'est. Alors $A$ l'est aussi, et une inconnue est **libre** si aucun de ses
+coefficients n'est un pivot de $A$. Pour un système échelonné à $n$
+inconnues :
+
+$$
+\operatorname{rg}(A) \leq \operatorname{rg}(A \mid B), \qquad
+\operatorname{rg}(A) \leq n, \qquad
+\text{nombre d'inconnues libres} = n - \operatorname{rg}(A).
+$$
+
+Trois cas, et seulement trois :
+
+| Situation | Conclusion | Référence |
+| --- | --- | --- |
+| $\operatorname{rg}(A) < \operatorname{rg}(A \mid B)$ | **incompatible** : une ligne $0 = c$ avec $c \neq 0$ | proposition 3.4 |
+| $\operatorname{rg}(A) = \operatorname{rg}(A \mid B) = n$ | **une seule solution**, par substitution à partir de la dernière équation | proposition 3.5 |
+| $\operatorname{rg}(A) = \operatorname{rg}(A \mid B) < n$ | **une infinité** de solutions, paramétrées par les $n - \operatorname{rg}(A)$ inconnues libres | théorème 3.6 |
+
+<Callout type="example" title="Exercices des notes, p. 5 et 6">
+**Une seule solution.** $2x - y + z = 1$, $y - z = 3$, $3z = 6$, $0z = 0$ :
+de bas en haut, $z = 2$, puis $y = 3 + z = 5$, puis
+$2x = 1 + y - z = 4$, donc $x = 2$. Solution : $(2, 5, 2)$.
+
+**Une infinité.** Pour
+
+$$
+\begin{cases} 2x_1 + x_2 - x_3 + 2x_4 - x_5 = 0 \\ \phantom{2x_1 + x_2 -{}} 5x_3 + x_4 + 5x_5 = -1 \\ \phantom{2x_1 + x_2 - x_3 +{}} 7x_4 = -8 \end{cases}
+$$
+
+les pivots sont les coefficients de $x_1, x_3, x_4$ : les inconnues libres
+sont $x_2$ et $x_5$. On pose $x_2 = \lambda_1$, $x_5 = \lambda_2$ et on
+remonte :
+
+$$
+x_4 = -\tfrac87, \qquad
+x_3 = \tfrac{-1 - x_4 - 5x_5}{5} = \tfrac{1}{35} - \lambda_2, \qquad
+x_1 = \tfrac{-x_2 + x_3 - 2x_4 + x_5}{2} = \tfrac{81}{70} - \tfrac{\lambda_1}{2}.
+$$
+
+Chaque couple $(\lambda_1, \lambda_2) \in \mathbb{R}^2$ donne une solution, et
+réciproquement.
+</Callout>
+
+<Callout type="misconception" title="Erreur classique">
+Croire qu'une ligne $0 = 0$ rend le système incompatible. Elle ne dit rien et
+n'ajoute pas de pivot. C'est une ligne $0 = c$ **avec $c \neq 0$** qui le rend
+incompatible — comme le « $0z = 2$ » de l'exemple de la proposition 3.4.
+</Callout>
+
+<Source file="2026-03-MAT199-ChapIII.pdf" page={5} locator="Définition 3.3, propositions 3.4 et 3.5, théorème 3.6" />
+
+## 4. L'élimination de Gauss
+
+**Théorème 3.7.** L'ensemble des solutions ne change pas par les opérations
+élémentaires sur les **équations** : $E_i \leftrightarrow E_j$, $E_i + aE_j$,
+$aE_i$ ($a \neq 0$). Et effectuer une opération sur les équations revient à
+effectuer la même opération sur les **lignes de la matrice augmentée**.
+
+**Corollaire 3.8 (élimination de Gauss).** Si $(A \mid B)$ s'échelonne en
+$(A' \mid B')$, le système $AX = B$ est équivalent au système échelonné
+$A'X = B'$, que la section 3 sait résoudre.
+
+<Callout type="warning" title="Deux signes perdus dans l'exemple du théorème 3.7 (p. 8)">
+Sur le système $x + 2y + 3z = 0$, $4x + 5y + 6z = 1$, $7x + 8y + 9z = 2$, les
+notes écrivent correctement les équations obtenues ($-3y - 6z = 1$), mais les
+matrices augmentées portent $0 \;\; {-3} \;\; 6 \mid 1$ et
+$0 \;\; {-6} \;\; 12 \mid 2$. Les bonnes lignes sont
+$(0, -3, -6 \mid 1)$ et $(0, -6, -12 \mid 2)$ — comme on le voit en calculant
+$L_2 - 4L_1 = (4 - 4, 5 - 8, 6 - 12 \mid 1 - 0)$. La troisième équation
+intermédiaire, écrite « $-6y - 12 = 2$ », a aussi perdu son $z$ :
+$-6y - 12z = 2$. La conclusion ($0z = 0$ à la fin) est juste.
+</Callout>
+
+<Callout type="example" title="Exercice des notes, p. 8">
+$$
+\left(\begin{array}{cccc|c} 0 & 1 & -1 & 1 & 0 \\ 2 & -1 & 3 & -1 & 6 \\ 4 & 4 & 0 & 4 & 12 \\ 3 & -3 & 6 & -3 & 9 \end{array}\right)
+\xrightarrow{\ \cdots\ }
+\left(\begin{array}{cccc|c} 1 & 0 & 1 & 0 & 3 \\ 0 & 1 & -1 & 1 & 0 \\ 0 & 0 & 0 & 0 & 0 \\ 0 & 0 & 0 & 0 & 0 \end{array}\right)
+$$
+
+($L_1 \leftrightarrow L_2$ pour avoir un pivot non nul en haut, puis
+élimination.) $\operatorname{rg}(A) = \operatorname{rg}(A \mid B) = 2 < 4$ :
+deux inconnues libres, $x_3 = \lambda$ et $x_4 = \mu$, et
+
+$$
+x_1 = 3 - \lambda, \qquad x_2 = \lambda - \mu .
+$$
+
+On vérifie avec $\lambda = \mu = 0$ : $(3, 0, 0, 0)$ satisfait les quatre
+équations — par exemple $2 \cdot 3 = 6$ et $4 \cdot 3 = 12$.
+</Callout>
+
+<Source file="2026-03-MAT199-ChapIII.pdf" page={8} locator="Théorème 3.7, corollaire 3.8, exercice p. 8" />
+
+## 5. Le théorème du rang
+
+**Théorème 3.9.** Pour un système $AX = B$ à $n$ inconnues :
+
+1. si $\operatorname{rg}(A) < \operatorname{rg}(A \mid B)$ : **aucune solution** ;
+2. si $\operatorname{rg}(A) = \operatorname{rg}(A \mid B) = n$ : **une seule solution** ;
+3. si $\operatorname{rg}(A) = \operatorname{rg}(A \mid B) < n$ : **une infinité** de solutions.
+
+En résumé, le système est **compatible si, et seulement si,
+$\operatorname{rg}(A) = \operatorname{rg}(A \mid B)$**.
+
+<Mermaid caption="Le théorème 3.9 comme arbre de décision : on échelonne (A | B), puis on compare deux nombres." chart={`
+flowchart TD
+  S["Échelonner (A | B)"] --> Q1{"rg(A) = rg(A | B) ?"}
+  Q1 -->|"non : une ligne 0 = c, c ≠ 0"| N["Aucune solution"]
+  Q1 -->|"oui"| Q2{"rg(A) = n ?"}
+  Q2 -->|"oui"| U["Une seule solution"]
+  Q2 -->|"non"| I["Infinité de solutions : n − rg(A) inconnues libres"]
+`} />
+
+<Callout type="example" title="Exercice des notes, p. 10 — discuter selon a">
+$$
+\begin{cases} x + y + 3z = a \\ x + 2y + 2z = a \\ x + ay + z = 3 \end{cases}
+\qquad
+\left(\begin{array}{ccc|c} 1 & 1 & 3 & a \\ 1 & 2 & 2 & a \\ 1 & a & 1 & 3 \end{array}\right)
+\xrightarrow[L_3 - L_1]{L_2 - L_1}
+\left(\begin{array}{ccc|c} 1 & 1 & 3 & a \\ 0 & 1 & -1 & 0 \\ 0 & a-1 & -2 & 3-a \end{array}\right)
+\xrightarrow{L_3 - (a-1)L_2}
+\left(\begin{array}{ccc|c} 1 & 1 & 3 & a \\ 0 & 1 & -1 & 0 \\ 0 & 0 & a-3 & 3-a \end{array}\right)
+$$
+
+- $a \neq 3$ : trois pivots, $\operatorname{rg}(A) = \operatorname{rg}(A \mid B) = 3$ → **une seule solution**.
+- $a = 3$ : la dernière ligne devient $(0, 0, 0 \mid 0)$ → rang 2 des deux côtés → **une infinité**.
+- **Aucune** valeur de $a$ ne rend le système incompatible : quand le terme
+  $a - 3$ s'annule, le terme constant $3 - a$ s'annule en même temps.
+</Callout>
+
+<Source file="2026-03-MAT199-ChapIII.pdf" page={10} locator="Théorème 3.9, exercice p. 10" />
+
+## 6. Les systèmes homogènes
+
+Un système est **homogène** si $B = 0$. Il est **toujours compatible** :
+$X = 0$ est une solution, la **solution nulle**. La question est de savoir
+s'il y en a d'autres.
+
+**Théorème 3.11.** Pour un système homogène de $m$ équations à $n$
+inconnues :
+
+1. il admet des solutions non nulles si, et seulement si, $\operatorname{rg}(A) < n$ ;
+2. il n'a que la solution nulle si, et seulement si, $\operatorname{rg}(A) = n$ ;
+3. si $m < n$ (**moins d'équations que d'inconnues**), il admet des solutions
+   non nulles.
+
+<Callout type="note" title="Une référence à corriger (p. 11)">
+L'exemple qui suit le théorème conclut « d'après le théorème 3.11(2) » qu'un
+système de 2 équations à 3 inconnues a des solutions non nulles. L'argument
+utilisé — moins d'équations que d'inconnues — est le point **(3)**.
+</Callout>
+
+<Callout type="example" title="Exercice des notes, p. 11">
+$$
+\begin{cases} x + 2y + z = 0 \\ x + y + 3z = 0 \\ 2x + 3y + 4z = 0 \\ 2x + 4y + az = 0 \end{cases}
+\qquad
+A \longrightarrow \begin{pmatrix} 1 & 2 & 1 \\ 0 & -1 & 2 \\ 0 & 0 & a - 2 \\ 0 & 0 & 0 \end{pmatrix}
+$$
+
+Il y a des solutions non nulles si, et seulement si,
+$\operatorname{rg}(A) < 3$, soit **$a = 2$**. Alors $z = \lambda$ est libre,
+$-y + 2z = 0$ donne $y = 2\lambda$, et $x = -2y - z = -5\lambda$. Avec
+$\lambda = 1$ : $(-5, 2, 1)$. Vérification sur la quatrième équation :
+$-10 + 8 + 2 = 0$ ✓.
+</Callout>
+
+<Callout type="tip" title="Le lien avec le chapitre 5">
+Au chapitre 5, décider si des vecteurs $u_1, \dots, u_n$ sont **linéairement
+indépendants** revient exactement à décider si le système homogène
+$(u_1 \cdots u_n)X = 0$ n'a que la solution nulle — donc à calculer un rang.
+</Callout>
+
+<Source file="2026-03-MAT199-ChapIII.pdf" page={11} locator="Définition 3.10, théorème 3.11, exercice p. 11" />

@@ -1,0 +1,340 @@
+---
+course: MAT115
+number: 3
+title: Lois de la logique et déduction naturelle
+summary: >-
+  Les tautologies deviennent des lois — LP-1 à LP-55 — qui permettent de
+  réécrire une formule ou d'en déduire une autre. Puis la déduction
+  naturelle : séquents, règles d'introduction et d'élimination de chaque
+  connecteur, hypothèses provisoires, et quatre preuves complètes.
+estimatedMinutes: 210
+prerequisites:
+  - "Chapitre 1 — tables de vérité, priorité"
+objectives:
+  - id: obj3-tautologie
+    text: Reconnaître une tautologie et la vérifier par une table de vérité.
+    bloom: apply
+  - id: obj3-lois
+    text: Nommer et utiliser les principales lois (De Morgan, distributivité, implication comme disjonction, contraposée…).
+    bloom: recall
+  - id: obj3-reecriture
+    text: Démontrer une équivalence en enchaînant des lois, en citant chacune.
+    bloom: apply
+  - id: obj3-regles
+    text: Énoncer les règles d'introduction et d'élimination de chaque connecteur et le rôle des hypothèses provisoires.
+    bloom: understand
+  - id: obj3-preuve
+    text: Construire une preuve en déduction naturelle, y compris par cas et par l'absurde.
+    bloom: analyze
+sources:
+  - file: "Semaine 2.pdf"
+    page: 15
+    locator: "Semaine 2, sections 1.3 et 1.4 (diapositives 15 à 35)"
+  - file: "Semaine 3.pdf"
+    page: 2
+    locator: "Semaine 3, diapositive 2 — exercices de déduction naturelle"
+---
+
+Les diapositives numérotent les exercices de déduction naturelle 4, 5, 8
+et 10 sans en donner la solution ; **les preuves de la section 6 sont
+rédigées par la plateforme** et chaque ligne cite la règle utilisée. Leurs
+formules ont aussi été vérifiées comme tautologies par table de vérité.
+
+## 1. Tautologies
+
+Une **tautologie** est une formule dont la valeur est **vraie pour toutes
+les combinaisons** de valeurs de ses variables — une formule toujours vraie.
+
+$A \vee \neg A$ en est une, et $A \Rightarrow (B \Rightarrow A)$ aussi :
+
+| $A$ | $B$ | $B \Rightarrow A$ | $A \Rightarrow (B \Rightarrow A)$ |
+| --- | --- | --- | --- |
+| 1 | 1 | 1 | **1** |
+| 1 | 0 | 1 | **1** |
+| 0 | 1 | 0 | **1** |
+| 0 | 0 | 1 | **1** |
+
+Les **lois de De Morgan** sont deux tautologies très utilisées : la
+négation d'une conjonction (resp. d'une disjonction) est logiquement
+équivalente à la disjonction (resp. la conjonction) des négations.
+
+$$
+\neg(A \wedge B) \Leftrightarrow \neg A \vee \neg B \quad (\text{LP-17}),
+\qquad
+\neg(A \vee B) \Leftrightarrow \neg A \wedge \neg B \quad (\text{LP-18}).
+$$
+
+<Callout type="note" title="Ce que permettent les tautologies">
+- Une tautologie de la forme $A \Leftrightarrow B$ permet de **remplacer**
+  $A$ par $B$ (et inversement), même à l'intérieur d'une formule plus grande
+  — comme l'égalité entre nombres.
+- Une tautologie de la forme $A \Rightarrow B$ permet de **déduire** $B$ si
+  l'on sait que $A$ est vrai. On dit alors que $A \Rightarrow B$ est une
+  **règle d'inférence**, notée $A \vdash B$.
+</Callout>
+
+<Source file="Semaine 2.pdf" page={16} locator="Diapositives 16 à 18" />
+
+## 2. Les lois de la logique propositionnelle
+
+Les diapositives en donnent 55, numérotées de LP-1 à LP-55 ; les tableaux de
+synthèse en bas de page les reprennent toutes. Les plus utilisées :
+
+| Loi | Nom | Formule |
+| --- | --- | --- |
+| LP-11 | distributivité de $\wedge$ sur $\vee$ | $A \wedge (B \vee C) \Leftrightarrow (A \wedge B) \vee (A \wedge C)$ |
+| LP-12 | distributivité de $\vee$ sur $\wedge$ | $A \vee (B \wedge C) \Leftrightarrow (A \vee B) \wedge (A \vee C)$ |
+| LP-13 | absorption | $A \wedge (A \vee B) \Leftrightarrow A$ |
+| LP-17, 18 | De Morgan | $\neg(A \wedge B) \Leftrightarrow \neg A \vee \neg B$, $\neg(A \vee B) \Leftrightarrow \neg A \wedge \neg B$ |
+| LP-21 | involution | $\neg\neg A \Leftrightarrow A$ |
+| LP-22 | implication comme disjonction | $A \Rightarrow B \Leftrightarrow \neg A \vee B$ |
+| LP-25 | négation d'une implication | $\neg(A \Rightarrow B) \Leftrightarrow A \wedge \neg B$ |
+| LP-26 | contraposée | $A \Rightarrow B \Leftrightarrow \neg B \Rightarrow \neg A$ |
+| LP-37 | implication et conjonction | $A \Rightarrow (B \Rightarrow C) \Leftrightarrow (A \wedge B) \Rightarrow C$ |
+| LP-40 | équivalence comme implication | $A \Leftrightarrow B \Leftrightarrow (A \Rightarrow B) \wedge (B \Rightarrow A)$ |
+| LP-53 | ou exclusif | $A \oplus B \Leftrightarrow \neg(A \Leftrightarrow B)$ |
+
+<Callout type="misconception" title="La contraposée n'est pas la réciproque">
+La contraposée de $A \Rightarrow B$ est $\neg B \Rightarrow \neg A$, qui lui
+est **équivalente** (LP-26). La réciproque $B \Rightarrow A$, elle, ne l'est
+pas : avec $A$ faux et $B$ vrai, $A \Rightarrow B$ vaut 1 et $B \Rightarrow A$
+vaut 0.
+</Callout>
+
+<Callout type="warning" title="Deux distributivités de l'implication à ne pas confondre">
+$C \Rightarrow (A \wedge B) \Leftrightarrow (C \Rightarrow A) \wedge (C \Rightarrow B)$
+(LP-33), mais
+$(A \wedge B) \Rightarrow C \Leftrightarrow (A \Rightarrow C) \vee (B \Rightarrow C)$
+(LP-35) : quand la conjonction est dans l'**hypothèse**, le $\wedge$ devient
+un $\vee$.
+</Callout>
+
+<Source file="Semaine 2.pdf" page={19} locator="Tableaux 1.3 à 1.6, diapositives 19 à 21" />
+
+## 3. Prouver par réécriture
+
+Les lois permettent de **déduire une formule d'autres formules**. Les
+diapositives redémontrent ainsi l'absorption LP-13 à partir de LP-1, LP-4 et
+LP-12 :
+
+$$
+\begin{aligned}
+& A \wedge (A \vee B) \\
+\Leftrightarrow\ & (A \vee \text{faux}) \wedge (A \vee B) && (\text{LP-4}) \\
+\Leftrightarrow\ & A \vee (\text{faux} \wedge B) && (\text{LP-12}) \\
+\Leftrightarrow\ & A \vee \text{faux} && (\text{LP-1}) \\
+\Leftrightarrow\ & A && (\text{LP-4})
+\end{aligned}
+$$
+
+et LP-33 à partir de LP-12 et LP-22 :
+
+$$
+\begin{aligned}
+& C \Rightarrow (A \wedge B) \\
+\Leftrightarrow\ & \neg C \vee (A \wedge B) && (\text{LP-22}) \\
+\Leftrightarrow\ & (\neg C \vee A) \wedge (\neg C \vee B) && (\text{LP-12}) \\
+\Leftrightarrow\ & (C \Rightarrow A) \wedge (C \Rightarrow B) && (\text{LP-22})
+\end{aligned}
+$$
+
+Ce qu'on note formellement $\{(\text{LP-12}), (\text{LP-22})\} \vdash (\text{LP-33})$.
+
+<Callout type="tip" title="LP-12 lue de droite à gauche">
+La deuxième étape de la preuve de LP-13 utilise LP-12 **de droite à gauche** :
+$(A \vee \text{faux}) \wedge (A \vee B)$ est de la forme
+$(A \vee B') \wedge (A \vee C')$, qu'on « factorise » en $A \vee (B' \wedge C')$.
+Une équivalence se lit dans les deux sens.
+</Callout>
+
+<Source file="Semaine 2.pdf" page={25} locator="Diapositives 25 et 26" />
+
+## 4. Séquents
+
+$A_1, A_2, \dots, A_n \vdash B$ — un **séquent** — exprime la **relation de
+déduction** : si les **hypothèses** $A_1, \dots, A_n$ sont vraies, alors la
+**conclusion** $B$ l'est aussi. Pour l'établir, on peut soit :
+
+1. montrer par une **table de vérité** ($2^n$ lignes) que
+   $A_1 \wedge A_2 \wedge \dots \wedge A_n \Rightarrow B$ est une tautologie ;
+2. **déduire** $B$ des hypothèses par une suite de déductions logiques, avec
+   des **règles d'inférence** de la forme
+
+$$
+\frac{A_i \quad A_j}{B_k}\,[R]
+$$
+
+où $R = E$ pour une **élimination** et $R = I$ pour une **introduction** : des
+hypothèses (prémisses) $A_i$ et $A_j$, on peut conclure $B_k$.
+
+Une preuve est donc un **arbre** : les feuilles sont les hypothèses, la racine
+est la conclusion, et les formules intermédiaires ne sont **pas** des
+hypothèses.
+
+<Source file="Semaine 2.pdf" page={27} locator="Diapositives 27 à 29" />
+
+## 5. Les règles de la déduction naturelle
+
+La déduction naturelle formalise le raisonnement mathématique « pas à pas ».
+Voici le tableau de synthèse de la diapositive 34 ; $\bot$ est un synonyme
+de faux, utilisé par l'outil **Panda**.
+
+$$
+\frac{A \wedge B}{A}\,[E_{\wedge 1}]
+\qquad
+\frac{A \wedge B}{B}\,[E_{\wedge 2}]
+\qquad
+\frac{A \quad B}{A \wedge B}\,[I_{\wedge}]
+$$
+
+$$
+\frac{A}{A \vee B}\,[I_{\vee 1}]
+\qquad
+\frac{B}{A \vee B}\,[I_{\vee 2}]
+\qquad
+\frac{A \vee B \quad \begin{matrix}[A]^{i} \\ \vdots \\ C\end{matrix} \quad \begin{matrix}[B]^{j} \\ \vdots \\ C\end{matrix}}{C}\,[E_{\vee}]^{i,j}
+$$
+
+$$
+\frac{A \quad A \Rightarrow B}{B}\,[E_{\Rightarrow}]
+\qquad
+\frac{\begin{matrix}[A]^{i} \\ \vdots \\ B\end{matrix}}{A \Rightarrow B}\,[I_{\Rightarrow}]^{i}
+$$
+
+$$
+\frac{A \Leftrightarrow B}{A \Rightarrow B}\,[E_{\Leftrightarrow 1}]
+\qquad
+\frac{A \Leftrightarrow B}{B \Rightarrow A}\,[E_{\Leftrightarrow 2}]
+\qquad
+\frac{A \Rightarrow B \quad B \Rightarrow A}{A \Leftrightarrow B}\,[I_{\Leftrightarrow}]
+$$
+
+$$
+\frac{\neg\neg A}{A}\,[E_{\neg}]
+\qquad
+\frac{\begin{matrix}[A]^{i} \\ \vdots \\ \bot\end{matrix}}{\neg A}\,[I_{\neg}]^{i}
+\qquad
+\frac{\bot}{A}\,[E_{\bot}]
+\qquad
+\frac{A \quad \neg A}{\bot}\,[I_{\bot}]
+$$
+
+| Règle | Ce qu'elle dit |
+| --- | --- |
+| $[E_{\Rightarrow}]$, *modus ponens* | de $A$ et $A \Rightarrow B$, on déduit $B$ |
+| $[I_{\Rightarrow}]$ | pour prouver $A \Rightarrow B$, on pose $A$ comme **hypothèse provisoire**, on déduit $B$, puis on **décharge** $A$ |
+| $[E_{\vee}]$, preuve par cas | si l'on a $A \vee B$, et $C$ à partir de $A$ comme à partir de $B$, on a $C$ |
+| $[I_{\neg}]$ | si supposer $A$ mène à $\bot$, on a $\neg A$ |
+| $[I_{\bot}]$ | $A$ et $\neg A$ ensemble donnent une contradiction |
+
+<Callout type="note" title="Les crochets et l'indice [i]">
+Une hypothèse provisoire s'écrit **entre crochets** $[A]^{i}$ : elle ne fait
+pas partie des hypothèses du séquent final. L'indice $i$ relie l'hypothèse à
+la règle qui la décharge ($[I_{\Rightarrow}]^{i}$, $[I_{\neg}]^{i}$,
+$[E_{\vee}]^{i,j}$).
+</Callout>
+
+<Callout type="warning" title="Les indices 1 et 2 sont inversés sur la diapositive 30">
+La diapositive 30 nomme $[E_{\wedge 2}]$ la règle qui donne $A$ à partir de
+$A \wedge B$, et $[I_{\vee 2}]$ celle qui donne $A \vee B$ à partir de $A$. Le
+tableau de synthèse de la diapositive 34 fait l'inverse : $[E_{\wedge 1}]$
+donne $A$ (le terme de gauche) et $[I_{\vee 1}]$ part de $A$. Cette page suit
+la diapositive 34. **À confirmer au cours**, et dans Panda.
+</Callout>
+
+<Source file="Semaine 2.pdf" page={34} locator="Diapositives 30 à 34" />
+
+## 6. Quatre preuves complètes
+
+Les exercices 4, 5, 8 et 10 des diapositives (semaine 2, diapositive 35 ;
+repris en semaine 3, diapositive 2). Chaque preuve commence par une
+hypothèse provisoire qui sera déchargée par $[I_{\Rightarrow}]$.
+
+### Exercice 4 — $\vdash p \vee (q \wedge r) \Rightarrow (p \vee q) \wedge (p \vee r)$
+
+Une preuve **par cas** sur $p \vee (q \wedge r)$.
+
+| # | Formule | Règle | À partir de |
+| --- | --- | --- | --- |
+| 1 | $[p \vee (q \wedge r)]^{1}$ | hypothèse provisoire | |
+| 2 | $[p]^{2}$ | cas 1 | |
+| 3 | $p \vee q$ | $[I_{\vee 1}]$ | 2 |
+| 4 | $p \vee r$ | $[I_{\vee 1}]$ | 2 |
+| 5 | $(p \vee q) \wedge (p \vee r)$ | $[I_{\wedge}]$ | 3, 4 |
+| 6 | $[q \wedge r]^{3}$ | cas 2 | |
+| 7 | $q$ | $[E_{\wedge 1}]$ | 6 |
+| 8 | $p \vee q$ | $[I_{\vee 2}]$ | 7 |
+| 9 | $r$ | $[E_{\wedge 2}]$ | 6 |
+| 10 | $p \vee r$ | $[I_{\vee 2}]$ | 9 |
+| 11 | $(p \vee q) \wedge (p \vee r)$ | $[I_{\wedge}]$ | 8, 10 |
+| 12 | $(p \vee q) \wedge (p \vee r)$ | $[E_{\vee}]^{2,3}$ | 1, 2–5, 6–11 |
+| 13 | $p \vee (q \wedge r) \Rightarrow (p \vee q) \wedge (p \vee r)$ | $[I_{\Rightarrow}]^{1}$ | 1–12 |
+
+### Exercice 5 — $\vdash \neg(p \vee q) \Rightarrow \neg p \wedge \neg q$
+
+Pour obtenir $\neg p$, on suppose $p$ et on arrive à une contradiction.
+
+| # | Formule | Règle | À partir de |
+| --- | --- | --- | --- |
+| 1 | $[\neg(p \vee q)]^{1}$ | hypothèse provisoire | |
+| 2 | $[p]^{2}$ | hypothèse provisoire | |
+| 3 | $p \vee q$ | $[I_{\vee 1}]$ | 2 |
+| 4 | $\bot$ | $[I_{\bot}]$ | 3, 1 |
+| 5 | $\neg p$ | $[I_{\neg}]^{2}$ | 2–4 |
+| 6 | $[q]^{3}$ | hypothèse provisoire | |
+| 7 | $p \vee q$ | $[I_{\vee 2}]$ | 6 |
+| 8 | $\bot$ | $[I_{\bot}]$ | 7, 1 |
+| 9 | $\neg q$ | $[I_{\neg}]^{3}$ | 6–8 |
+| 10 | $\neg p \wedge \neg q$ | $[I_{\wedge}]$ | 5, 9 |
+| 11 | $\neg(p \vee q) \Rightarrow \neg p \wedge \neg q$ | $[I_{\Rightarrow}]^{1}$ | 1–10 |
+
+### Exercice 8 — $\vdash \neg(p \wedge q) \Rightarrow \neg p \vee \neg q$
+
+Le plus difficile des quatre : on ne peut pas choisir directement entre
+$\neg p$ et $\neg q$. On raisonne **par l'absurde** sur toute la conclusion,
+puis on élimine la double négation avec $[E_{\neg}]$.
+
+| # | Formule | Règle | À partir de |
+| --- | --- | --- | --- |
+| 1 | $[\neg(p \wedge q)]^{1}$ | hypothèse provisoire | |
+| 2 | $[\neg(\neg p \vee \neg q)]^{2}$ | hypothèse provisoire (absurde) | |
+| 3 | $[\neg p]^{3}$ | hypothèse provisoire | |
+| 4 | $\neg p \vee \neg q$ | $[I_{\vee 1}]$ | 3 |
+| 5 | $\bot$ | $[I_{\bot}]$ | 4, 2 |
+| 6 | $\neg\neg p$ | $[I_{\neg}]^{3}$ | 3–5 |
+| 7 | $p$ | $[E_{\neg}]$ | 6 |
+| 8 | $[\neg q]^{4}$ | hypothèse provisoire | |
+| 9 | $\neg p \vee \neg q$ | $[I_{\vee 2}]$ | 8 |
+| 10 | $\bot$ | $[I_{\bot}]$ | 9, 2 |
+| 11 | $\neg\neg q$ | $[I_{\neg}]^{4}$ | 8–10 |
+| 12 | $q$ | $[E_{\neg}]$ | 11 |
+| 13 | $p \wedge q$ | $[I_{\wedge}]$ | 7, 12 |
+| 14 | $\bot$ | $[I_{\bot}]$ | 13, 1 |
+| 15 | $\neg\neg(\neg p \vee \neg q)$ | $[I_{\neg}]^{2}$ | 2–14 |
+| 16 | $\neg p \vee \neg q$ | $[E_{\neg}]$ | 15 |
+| 17 | $\neg(p \wedge q) \Rightarrow \neg p \vee \neg q$ | $[I_{\Rightarrow}]^{1}$ | 1–16 |
+
+### Exercice 10 — $\vdash p \vee (\neg p \wedge q) \Rightarrow p \vee q$
+
+| # | Formule | Règle | À partir de |
+| --- | --- | --- | --- |
+| 1 | $[p \vee (\neg p \wedge q)]^{1}$ | hypothèse provisoire | |
+| 2 | $[p]^{2}$ | cas 1 | |
+| 3 | $p \vee q$ | $[I_{\vee 1}]$ | 2 |
+| 4 | $[\neg p \wedge q]^{3}$ | cas 2 | |
+| 5 | $q$ | $[E_{\wedge 2}]$ | 4 |
+| 6 | $p \vee q$ | $[I_{\vee 2}]$ | 5 |
+| 7 | $p \vee q$ | $[E_{\vee}]^{2,3}$ | 1, 2–3, 4–6 |
+| 8 | $p \vee (\neg p \wedge q) \Rightarrow p \vee q$ | $[I_{\Rightarrow}]^{1}$ | 1–7 |
+
+<Callout type="tip" title="Une stratégie qui marche pour les quatre">
+1. La conclusion est une implication : poser son hypothèse entre crochets,
+   viser $[I_{\Rightarrow}]$ à la fin.
+2. L'hypothèse est une disjonction : raisonner par cas avec $[E_{\vee}]$.
+3. La cible est une négation $\neg A$ : supposer $A$, viser $\bot$,
+   conclure par $[I_{\neg}]$.
+4. Rien ne marche directement : supposer la négation de la cible, viser
+   $\bot$, puis $[E_{\neg}]$ (exercice 8).
+</Callout>
+
+<Source file="Semaine 2.pdf" page={35} locator="Diapositive 35 — exercices 4, 5, 8, 10" />

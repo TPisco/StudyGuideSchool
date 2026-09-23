@@ -1,0 +1,1757 @@
+{
+  "course": "IFT209",
+  "chapter": 2,
+  "concepts": [
+    {
+      "id": "c2-externe-interne",
+      "term": "Architecture externe et interne",
+      "definition": "L'architecture externe est la spécification : services fournis, types de données, modes d'adressage, instructions machine, entrées/sorties. L'interne est l'organisation : description physique des composantes et de leurs interconnexions.",
+      "whyItMatters": "Il peut exister plusieurs implémentations d'une même architecture — plusieurs organisations pour une seule spécification. C'est pourquoi des processeurs très différents exécutent le même programme.",
+      "commonMisconception": "Croire qu'une architecture désigne un processeur précis. ARMv8 est une spécification ; les puces qui l'implantent ont des organisations internes distinctes.",
+      "objectiveId": "obj2-architecture",
+      "source": {
+        "file": "Chapitre2_ARM.pdf",
+        "page": 3,
+        "locator": "Diapositive 3"
+      }
+    },
+    {
+      "id": "c2-von-neumann",
+      "term": "Architecture de von Neumann",
+      "definition": "Modèle des années 1940 : un processeur central (unité de contrôle et unité arithmétique et logique), une mémoire principale et des unités d'entrée/sortie, tous reliés par un bus de n lignes électriques parallèles.",
+      "whyItMatters": "Son principe fondateur commande tout le reste : le programme et ses données sont toujours en mémoire principale, et les instructions ne peuvent pas y être exécutées — d'où le va-et-vient permanent.",
+      "commonMisconception": "Croire que le processeur exécute les instructions là où elles sont. Il doit d'abord les extraire de la mémoire vers le registre d'instruction ; c'est l'étape EI du cycle.",
+      "objectiveId": "obj2-vonneumann",
+      "source": {
+        "file": "Chapitre2_ARM.pdf",
+        "page": 9,
+        "locator": "Diapositives 4 à 9"
+      }
+    },
+    {
+      "id": "c2-pc-ri",
+      "term": "Compteur ordinal (PC) et registre d'instruction (RI)",
+      "definition": "Deux registres spéciaux du processeur. Le PC contient l'adresse de l'instruction à exécuter ; le RI reçoit l'instruction extraite de la mémoire.",
+      "whyItMatters": "Ce sont eux qui rendent le cycle possible : extraction à l'adresse du PC, stockage dans RI, décodage, mise à jour du PC, exécution, stockage des résultats.",
+      "commonMisconception": "Croire que le PC est mis à jour après l'exécution. Dans le cycle de la diapositive 10, la mise à jour du PC précède l'exécution — ce qui permet au pipeline de continuer à extraire pendant ce temps.",
+      "objectiveId": "obj2-vonneumann",
+      "source": {
+        "file": "Chapitre2_ARM.pdf",
+        "page": 10,
+        "locator": "Diapositive 10"
+      }
+    },
+    {
+      "id": "c2-risc",
+      "term": "RISC",
+      "definition": "Reduced Instruction Set Computer : grand nombre de registres, petit nombre d'instructions, peu de modes d'adressage, instructions de longueur unique, accès mémoire limité à certaines instructions. Exemples : SPARC, ARM.",
+      "whyItMatters": "Les six caractéristiques se tiennent : des instructions courtes et uniformes se décodent vite, mais en font peu, donc il en faut beaucoup — donc beaucoup de registres pour éviter les allers-retours en mémoire.",
+      "commonMisconception": "Croire que RISC signifie « moins puissant ». Le jeu est réduit, pas les performances : ARM équipe la quasi-totalité des téléphones.",
+      "objectiveId": "obj2-risc-cisc",
+      "source": {
+        "file": "Chapitre2_ARM.pdf",
+        "page": 11,
+        "locator": "Diapositive 11"
+      }
+    },
+    {
+      "id": "c2-frontiere",
+      "term": "Contrainte de frontière",
+      "definition": "Exigence possible d'une architecture : l'adresse d'une valeur doit être divisible par le nombre d'octets qui la représentent. S'il n'y en a pas, toute suite de 2, 4 ou 8 octets peut être interprétée comme demi-mot, mot ou double mot.",
+      "whyItMatters": "C'est ce qui rend certaines lectures IMPOSSIBLES : un demi-mot à l'adresse 403₁₆ viole la contrainte, puisque 403 est impair.",
+      "commonMisconception": "Vérifier la divisibilité par la taille du mot machine plutôt que par celle de la valeur lue. Un demi-mot exige une adresse divisible par 2, un double mot par 8.",
+      "objectiveId": "obj2-memoire",
+      "source": {
+        "file": "Chapitre2_ARM.pdf",
+        "page": 14,
+        "locator": "Diapositive 14"
+      }
+    },
+    {
+      "id": "c2-boutisme",
+      "term": "Big endian et little endian",
+      "definition": "Deux formats d'ordre des octets dans un mot. En big endian, l'adresse de la donnée est celle de la partie la plus significative ; en little endian, celle de la partie la moins significative.",
+      "whyItMatters": "La différence est souvent imperceptible, sauf lors d'un transfert entre ordinateurs, ou lorsqu'une valeur écrite dans un mot est relue octet par octet.",
+      "commonMisconception": "Croire que le boutisme inverse les bits. Il inverse l'ordre des OCTETS ; à l'intérieur d'un octet, la numérotation des bits ne change pas.",
+      "objectiveId": "obj2-memoire",
+      "source": {
+        "file": "Chapitre2_ARM.pdf",
+        "page": 17,
+        "locator": "Diapositives 17 à 19"
+      }
+    },
+    {
+      "id": "c2-operandes",
+      "term": "Nombre d'opérandes d'une instruction",
+      "definition": "Choix d'architecture : 3 opérandes (destination explicite), 2 (le résultat écrase l'un des opérandes), 1 (un accumulateur implicite), ou 0 (une pile).",
+      "whyItMatters": "Moins il y a d'opérandes, plus il faut d'instructions pour la même expression — et plus on perd d'information en cours de route.",
+      "commonMisconception": "Supposer que la destination est toujours le premier opérande. Les notes préviennent que la convention diffère d'une architecture à l'autre, y compris pour l'ordre dans la pile en mode 0 opérande.",
+      "objectiveId": "obj2-operandes",
+      "source": {
+        "file": "Chapitre2_ARM.pdf",
+        "page": 24,
+        "locator": "Diapositives 22 à 26"
+      }
+    },
+    {
+      "id": "c2-pipeline",
+      "term": "Pipeline",
+      "definition": "Technique d'organisation où un pipeline a autant d'étages que d'étapes dans le traitement d'une instruction. Un cycle machine est le temps de passage d'un étage au suivant.",
+      "whyItMatters": "Le gain pour n instructions sur p étages vaut (p−1)(n−1) : pn unités de temps sans pipeline contre n+p−1 avec.",
+      "commonMisconception": "Croire que le pipeline accélère une instruction isolée. Il ne réduit pas la latence d'une instruction — qui traverse toujours les p étages — mais le débit sur une suite d'instructions.",
+      "objectiveId": "obj2-pipeline",
+      "source": {
+        "file": "Cor-Exchap2.pdf",
+        "page": 3,
+        "locator": "Exercice 3"
+      }
+    }
+  ],
+  "tables": [
+    {
+      "id": "t2-risc-cisc",
+      "title": "RISC contre CISC",
+      "kind": "comparison",
+      "caption": "Les six lignes ne sont pas indépendantes : chaque colonne forme un ensemble cohérent de choix.",
+      "columns": [
+        {
+          "key": "critere",
+          "label": "Critère"
+        },
+        {
+          "key": "risc",
+          "label": "RISC"
+        },
+        {
+          "key": "cisc",
+          "label": "CISC"
+        }
+      ],
+      "rows": [
+        {
+          "critere": "Nombre de registres",
+          "risc": "grand",
+          "cisc": "petit"
+        },
+        {
+          "critere": "Nombre d'instructions",
+          "risc": "petit",
+          "cisc": "grand"
+        },
+        {
+          "critere": "Modes d'adressage",
+          "risc": "peu",
+          "cisc": "beaucoup"
+        },
+        {
+          "critere": "Longueur des instructions",
+          "risc": "unique",
+          "cisc": "variable"
+        },
+        {
+          "critere": "Accès à la mémoire",
+          "risc": "limité à certaines instructions",
+          "cisc": "pour toutes les instructions"
+        },
+        {
+          "critere": "Exemples",
+          "risc": "SPARC de Sun, ARM",
+          "cisc": "processeurs Intel"
+        }
+      ],
+      "source": {
+        "file": "Chapitre2_ARM.pdf",
+        "page": 11
+      }
+    },
+    {
+      "id": "t2-registres-arm",
+      "title": "Les 32 registres de l'ARMv8",
+      "kind": "reference",
+      "caption": "La colonne « sauvegardé » décide de ce qu'un sous-programme doit protéger.",
+      "columns": [
+        {
+          "key": "reg",
+          "label": "Registre",
+          "mono": true
+        },
+        {
+          "key": "nom",
+          "label": "Nom",
+          "mono": true
+        },
+        {
+          "key": "usage",
+          "label": "Usage"
+        }
+      ],
+      "rows": [
+        {
+          "reg": "xzr",
+          "nom": "zero register",
+          "usage": "contient toujours 0 ; aucun effet lors d'une écriture"
+        },
+        {
+          "reg": "sp",
+          "nom": "stack pointer",
+          "usage": "pointeur de pile pour certaines instructions d'accès mémoire"
+        },
+        {
+          "reg": "x30",
+          "nom": "lr",
+          "usage": "adresse de retour (link register)"
+        },
+        {
+          "reg": "x29",
+          "nom": "fp",
+          "usage": "pointeur de portée (frame pointer)"
+        },
+        {
+          "reg": "x19 à x28",
+          "nom": "—",
+          "usage": "registres locaux — DOIVENT être sauvegardés au début d'un sous-programme"
+        },
+        {
+          "reg": "x18",
+          "nom": "—",
+          "usage": "dépend de l'implémentation ARM ; peut être réservé pour le système"
+        },
+        {
+          "reg": "x16, x17",
+          "nom": "ip2, ip1",
+          "usage": "bibliothèques partagées (libC) ; usage temporaire autrement"
+        },
+        {
+          "reg": "x9 à x15",
+          "nom": "—",
+          "usage": "usage temporaire — ne seront PAS sauvegardés par les sous-programmes"
+        },
+        {
+          "reg": "x8",
+          "nom": "—",
+          "usage": "retour indirect, pour un type de données complexe"
+        },
+        {
+          "reg": "x0 à x7",
+          "nom": "—",
+          "usage": "paramètres et retour — ne seront PAS sauvegardés"
+        }
+      ],
+      "source": {
+        "file": "Chapitre2_ARM.pdf",
+        "page": 35,
+        "locator": "Diapositives 34 et 35"
+      }
+    },
+    {
+      "id": "t2-pipeline",
+      "title": "Les cinq étages du pipeline et les trois conflits",
+      "kind": "reference",
+      "columns": [
+        {
+          "key": "item",
+          "label": "Élément",
+          "mono": true
+        },
+        {
+          "key": "desc",
+          "label": "Description"
+        }
+      ],
+      "rows": [
+        {
+          "item": "EI",
+          "desc": "Extraction de l'instruction et dépôt dans RI"
+        },
+        {
+          "item": "DI",
+          "desc": "Décodage de l'instruction et accès aux opérandes dans des registres"
+        },
+        {
+          "item": "EX",
+          "desc": "Exécution de l'instruction"
+        },
+        {
+          "item": "MEM",
+          "desc": "Mise à jour du PC lors d'un branchement ; accès mémoire pour chargement ou stockage"
+        },
+        {
+          "item": "ER",
+          "desc": "Écriture du résultat dans un registre"
+        },
+        {
+          "item": "Conflit 1",
+          "desc": "Accès parallèle à la mémoire — réglé par le matériel"
+        },
+        {
+          "item": "Conflit 2",
+          "desc": "Utilisation de données communes — réglé majoritairement par le matériel"
+        },
+        {
+          "item": "Conflit 3",
+          "desc": "Instructions hasardeuses (branchement) — suspension de DI à MEM, mais une instruction de trop reste exécutée"
+        }
+      ],
+      "source": {
+        "file": "Chapitre2_ARM.pdf",
+        "page": 32,
+        "locator": "Diapositives 28 à 32"
+      }
+    }
+  ],
+  "quiz": {
+    "title": "Quiz — vérification rapide",
+    "estimatedMinutes": 15,
+    "questions": [
+      {
+        "id": "q2-01",
+        "objectiveId": "obj2-architecture",
+        "bloomLevel": "recall",
+        "type": "mcq",
+        "difficulty": 1,
+        "prompt": "Quels éléments relèvent de l'architecture EXTERNE ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Les modes d'adressage et les instructions machine."
+          },
+          {
+            "id": "b",
+            "text": "L'organisation interne du processeur."
+          },
+          {
+            "id": "c",
+            "text": "La gestion des conflits de ressources."
+          },
+          {
+            "id": "d",
+            "text": "L'interconnexion physique des composantes."
+          }
+        ],
+        "correct": "a",
+        "explanation": "L'architecture externe est la spécification : services fournis, types de données et représentation, modes d'adressage, instructions machine, mécanismes d'entrée/sortie.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "C'est l'architecture interne — l'organisation, pas la spécification."
+          },
+          {
+            "optionId": "c",
+            "why": "Également interne : c'est un problème d'implantation, invisible du programmeur."
+          },
+          {
+            "optionId": "d",
+            "why": "La description physique des composantes et leurs interconnexions relèvent de l'interne."
+          }
+        ],
+        "source": {
+          "file": "Chapitre2_ARM.pdf",
+          "page": 3
+        }
+      },
+      {
+        "id": "q2-02",
+        "objectiveId": "obj2-risc-cisc",
+        "bloomLevel": "recall",
+        "type": "multi",
+        "difficulty": 1,
+        "prompt": "Quelles caractéristiques appartiennent à une architecture RISC ? (plusieurs réponses)",
+        "options": [
+          {
+            "id": "a",
+            "text": "Grand nombre de registres"
+          },
+          {
+            "id": "b",
+            "text": "Instructions de longueur unique"
+          },
+          {
+            "id": "c",
+            "text": "Beaucoup de modes d'adressage"
+          },
+          {
+            "id": "d",
+            "text": "Accès à la mémoire pour toutes les instructions"
+          }
+        ],
+        "correct": [
+          "a",
+          "b"
+        ],
+        "explanation": "RISC : grand nombre de registres, petit nombre d'instructions, peu de modes d'adressage, longueur unique, accès mémoire limité à certaines instructions.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "c",
+            "why": "C'est une caractéristique CISC. RISC en a peu, ce qui simplifie le décodage."
+          },
+          {
+            "optionId": "d",
+            "why": "C'est CISC. En RISC, l'accès mémoire est réservé à certaines instructions — chargement et stockage."
+          }
+        ],
+        "source": {
+          "file": "Chapitre2_ARM.pdf",
+          "page": 11
+        }
+      },
+      {
+        "id": "q2-03",
+        "objectiveId": "obj2-memoire",
+        "bloomLevel": "apply",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Une architecture impose des contraintes de frontière. Peut-on lire un demi-mot à l'adresse 403₁₆ ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Non : 403₁₆ est impair, donc non divisible par 2."
+          },
+          {
+            "id": "b",
+            "text": "Oui : toute adresse convient pour un demi-mot."
+          },
+          {
+            "id": "c",
+            "text": "Non : 403₁₆ n'est pas divisible par 4."
+          },
+          {
+            "id": "d",
+            "text": "Oui, mais seulement en little endian."
+          }
+        ],
+        "correct": "a",
+        "explanation": "La règle est que l'adresse doit être divisible par le nombre d'octets de la valeur. Un demi-mot fait 2 octets ; 403₁₆ = 1027, impair. C'est la réponse « IMPOSSIBLE » de la solution de l'exercice 2.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "C'est vrai uniquement s'il n'y a PAS de contrainte de frontière — l'énoncé précise qu'il y en a."
+          },
+          {
+            "optionId": "c",
+            "why": "La divisibilité par 4 concernerait un mot, pas un demi-mot. La taille lue fixe le diviseur."
+          },
+          {
+            "optionId": "d",
+            "why": "Le boutisme décide de l'ORDRE des octets, jamais de la légalité de l'adresse."
+          }
+        ],
+        "source": {
+          "file": "Cor-Exchap2.pdf",
+          "page": 3,
+          "locator": "Exercice 2"
+        }
+      },
+      {
+        "id": "q2-04",
+        "objectiveId": "obj2-memoire",
+        "bloomLevel": "apply",
+        "type": "code-output",
+        "difficulty": 2,
+        "prompt": "Les octets consécutifs à partir de 40A₁₆ sont 34 puis 18. Quelle est la valeur hexadécimale du demi-mot à l'adresse 40A₁₆ en format LITTLE-ENDIAN ?",
+        "code": {
+          "lang": "text",
+          "value": "adresse :  ... 40A   40B ...\noctet   :  ...  34    18 ..."
+        },
+        "correct": "1834",
+        "acceptableAnswers": [
+          "1834₁₆",
+          "0x1834"
+        ],
+        "explanation": "En little endian, l'adresse est celle de la partie la MOINS significative : 34 est l'octet de poids faible, 18 celui de poids fort. La valeur est donc 1834₁₆. En big endian, on lirait 3418₁₆.",
+        "source": {
+          "file": "Cor-Exchap2.pdf",
+          "page": 3,
+          "locator": "Exercice 2"
+        }
+      },
+      {
+        "id": "q2-05",
+        "objectiveId": "obj2-operandes",
+        "bloomLevel": "understand",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Dans une architecture à DEUX opérandes, qu'est-ce qui est perdu par rapport à trois opérandes ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "De l'information : le résultat écrase l'un des opérandes d'origine."
+          },
+          {
+            "id": "b",
+            "text": "La possibilité d'utiliser des variables temporaires."
+          },
+          {
+            "id": "c",
+            "text": "La capacité d'effectuer des divisions."
+          },
+          {
+            "id": "d",
+            "text": "Rien : les deux formes sont équivalentes."
+          }
+        ],
+        "correct": "a",
+        "explanation": "Les notes le signalent explicitement : « On perd de l'information (certaines valeurs sont perdues) ». Dans l'exemple, DIV A,B écrase B avec A/B : la valeur initiale de B n'existe plus.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Les temporaires restent possibles — l'exemple à deux opérandes utilise justement T1 et T2."
+          },
+          {
+            "optionId": "c",
+            "why": "La division figure dans les quatre variantes, de 3 opérandes à 0."
+          },
+          {
+            "optionId": "d",
+            "why": "Elles calculent le même résultat, mais pas au même prix : plus d'instructions et des opérandes détruits."
+          }
+        ],
+        "source": {
+          "file": "Chapitre2_ARM.pdf",
+          "page": 24
+        }
+      },
+      {
+        "id": "q2-06",
+        "objectiveId": "obj2-pipeline",
+        "bloomLevel": "apply",
+        "type": "short-answer",
+        "difficulty": 2,
+        "prompt": "Avec un pipeline à 5 étages, combien de cycles faut-il pour exécuter 3 instructions ? (un nombre)",
+        "correct": "7",
+        "acceptableAnswers": [
+          "7 cycles"
+        ],
+        "explanation": "n + p − 1 = 3 + 5 − 1 = 7. Les notes donnent ce chiffre en regard des 15 cycles nécessaires sans pipeline, soit un gain de 8 = (5−1)(3−1).",
+        "source": {
+          "file": "Chapitre2_ARM.pdf",
+          "page": 29
+        }
+      },
+      {
+        "id": "q2-07",
+        "objectiveId": "obj2-vonneumann",
+        "bloomLevel": "understand",
+        "type": "true-false",
+        "difficulty": 2,
+        "prompt": "Dans le modèle de von Neumann, les instructions sont exécutées directement en mémoire principale.",
+        "options": [
+          {
+            "id": "v",
+            "text": "Vrai"
+          },
+          {
+            "id": "f",
+            "text": "Faux"
+          }
+        ],
+        "correct": "f",
+        "explanation": "La diapositive 9 est catégorique : le programme et ses données sont toujours emmagasinés en mémoire principale, mais « les instructions ne peuvent être exécutées en mémoire principale ». D'où l'extraction vers le registre d'instruction.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "v",
+            "why": "Ce serait supprimer l'étape d'extraction, et avec elle le rôle du registre d'instruction et du compteur ordinal."
+          }
+        ],
+        "source": {
+          "file": "Chapitre2_ARM.pdf",
+          "page": 9
+        }
+      },
+      {
+        "id": "q2-08",
+        "objectiveId": "obj2-pipeline",
+        "bloomLevel": "analyze",
+        "type": "mcq",
+        "difficulty": 3,
+        "prompt": "Quel conflit du pipeline n'est PAS entièrement résolu par le matériel, selon les notes ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Les instructions hasardeuses — le branchement."
+          },
+          {
+            "id": "b",
+            "text": "L'accès parallèle à la mémoire."
+          },
+          {
+            "id": "c",
+            "text": "L'utilisation de données communes."
+          },
+          {
+            "id": "d",
+            "text": "Tous sont entièrement résolus par le matériel."
+          }
+        ],
+        "correct": "a",
+        "explanation": "On suspend le pipeline dès la détection du branchement (étape DI) jusqu'à MEM, et les notes concluent : « Il reste quand même une instruction qui ne devrait pas être exécutée… ».",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Les notes indiquent « Le problème est réglé par le matériel », sans réserve."
+          },
+          {
+            "optionId": "c",
+            "why": "Les notes disent « réglé majoritairement par le matériel » — une réserve plus faible que celle du branchement, où une instruction de trop subsiste."
+          },
+          {
+            "optionId": "d",
+            "why": "Le cas du branchement fait explicitement exception."
+          }
+        ],
+        "source": {
+          "file": "Chapitre2_ARM.pdf",
+          "page": 32
+        }
+      },
+      {
+        "id": "q2-09",
+        "objectiveId": "obj2-memoire",
+        "bloomLevel": "recall",
+        "type": "fill-blank",
+        "difficulty": 1,
+        "prompt": "Compléter : en format big endian, l'adresse de la donnée est celle de la partie la plus ____ .",
+        "correct": "significative",
+        "acceptableAnswers": [
+          "significatif",
+          "la plus significative"
+        ],
+        "explanation": "Big endian : l'adresse désigne l'octet de poids fort. Little endian : l'adresse désigne l'octet de poids faible.",
+        "source": {
+          "file": "Chapitre2_ARM.pdf",
+          "page": 17
+        }
+      },
+      {
+        "id": "q2-10",
+        "objectiveId": "obj2-architecture",
+        "bloomLevel": "analyze",
+        "type": "mcq",
+        "difficulty": 3,
+        "prompt": "Pourquoi les notes soulignent-elles qu'il peut exister plusieurs implémentations d'une même architecture ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Parce que la spécification fixe le comportement observable, pas la réalisation physique."
+          },
+          {
+            "id": "b",
+            "text": "Parce que les architectures changent à chaque génération de processeur."
+          },
+          {
+            "id": "c",
+            "text": "Parce qu'une même organisation peut servir plusieurs spécifications."
+          },
+          {
+            "id": "d",
+            "text": "Parce que les programmes doivent être recompilés pour chaque puce."
+          }
+        ],
+        "correct": "a",
+        "explanation": "C'est la distinction externe/interne : plusieurs organisations pour une spécification. Un programme écrit contre l'architecture externe s'exécute sur toutes les implantations, quelles que soient leurs différences internes.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "C'est l'inverse : la spécification reste stable pendant que les organisations évoluent, ce qui préserve la compatibilité."
+          },
+          {
+            "optionId": "c",
+            "why": "Le sens est inversé — c'est une spécification qui admet plusieurs organisations."
+          },
+          {
+            "optionId": "d",
+            "why": "Si une recompilation était nécessaire pour chaque puce, la notion d'architecture commune perdrait son intérêt."
+          }
+        ],
+        "source": {
+          "file": "Chapitre2_ARM.pdf",
+          "page": 3
+        }
+      },
+      {
+        "id": "q2-11",
+        "objectiveId": "obj2-operandes",
+        "bloomLevel": "apply",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "En architecture à ZÉRO opérande, quelle précaution les notes signalent-elles pour la division et la soustraction ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Le premier opérande doit être sous le second dans la pile."
+          },
+          {
+            "id": "b",
+            "text": "Il faut empiler le résultat avant les opérandes."
+          },
+          {
+            "id": "c",
+            "text": "Ces opérations exigent un accumulateur."
+          },
+          {
+            "id": "d",
+            "text": "L'ordre est indifférent car la pile est symétrique."
+          }
+        ],
+        "correct": "a",
+        "explanation": "La division et la soustraction ne sont pas commutatives : l'ordre décide du résultat. Les notes ajoutent que « la convention est différente d'une architecture à l'autre », donc il faut la vérifier.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Le résultat est produit par l'opération, il ne peut pas être empilé avant."
+          },
+          {
+            "optionId": "c",
+            "why": "L'accumulateur caractérise le mode à UN opérande ; en mode zéro, c'est la pile qui tient ce rôle."
+          },
+          {
+            "optionId": "d",
+            "why": "A/B et B/A diffèrent : l'ordre est précisément ce qui doit être fixé par une convention."
+          }
+        ],
+        "source": {
+          "file": "Chapitre2_ARM.pdf",
+          "page": 26
+        }
+      },
+      {
+        "id": "q2-12",
+        "objectiveId": "obj2-vonneumann",
+        "bloomLevel": "understand",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Quel registre ARM contient toujours la valeur 0, sans effet lors d'une écriture ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "xzr"
+          },
+          {
+            "id": "b",
+            "text": "sp"
+          },
+          {
+            "id": "c",
+            "text": "x30"
+          },
+          {
+            "id": "d",
+            "text": "x0"
+          }
+        ],
+        "correct": "a",
+        "explanation": "xzr est le zero register. Écrire dedans n'a aucun effet, ce qui en fait une destination commode — le chapitre 3 montrera que mov x20, 153 est en réalité add x20, xzr, 153.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "sp est le pointeur de pile, utilisé par certaines instructions d'accès mémoire."
+          },
+          {
+            "optionId": "c",
+            "why": "x30 est lr, le link register, qui contient l'adresse de retour."
+          },
+          {
+            "optionId": "d",
+            "why": "x0 fait partie des registres de paramètres et de retour, x0 à x7."
+          }
+        ],
+        "source": {
+          "file": "Chapitre2_ARM.pdf",
+          "page": 35
+        }
+      }
+    ]
+  },
+  "test": {
+    "title": "Test du chapitre 2",
+    "instructions": "20 questions couvrant tout le chapitre. Plus long et plus difficile que le quiz.",
+    "estimatedMinutes": 50,
+    "questions": [
+      {
+        "id": "tt2-01",
+        "objectiveId": "obj2-vonneumann",
+        "bloomLevel": "recall",
+        "type": "mcq",
+        "difficulty": 1,
+        "prompt": "Quels sont les composants du modèle de von Neumann ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Un processeur, une mémoire principale, des unités d'entrée/sortie, reliés par un bus."
+          },
+          {
+            "id": "b",
+            "text": "Un processeur et une mémoire cache uniquement."
+          },
+          {
+            "id": "c",
+            "text": "Une unité de contrôle et des disques, reliés par un protocole."
+          },
+          {
+            "id": "d",
+            "text": "Un pipeline à cinq étages et des registres."
+          }
+        ],
+        "correct": "a",
+        "explanation": "Le processeur comprend lui-même l'unité de contrôle et l'unité arithmétique et logique. Le bus est constitué d'un ensemble de n lignes électriques parallèles.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "La mémoire cache n'apparaît pas dans le modèle de von Neumann ; elle est introduite au chapitre 3, dans la hiérarchie des mémoires."
+          },
+          {
+            "optionId": "c",
+            "why": "Les disques relèvent de la mémoire secondaire, absente du modèle ; le protocole concerne les unités d'entrée/sortie."
+          },
+          {
+            "optionId": "d",
+            "why": "Le pipeline est une technique d'ORGANISATION, donc d'architecture interne, pas un composant du modèle."
+          }
+        ],
+        "source": {
+          "file": "Chapitre2_ARM.pdf",
+          "page": 4
+        }
+      },
+      {
+        "id": "tt2-02",
+        "objectiveId": "obj2-vonneumann",
+        "bloomLevel": "understand",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Quels sont les deux transferts que la mémoire centrale permet ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Mémoire → registre (chargement) et registre → mémoire (stockage)."
+          },
+          {
+            "id": "b",
+            "text": "Mémoire → disque et disque → mémoire."
+          },
+          {
+            "id": "c",
+            "text": "Registre → registre et mémoire → mémoire."
+          },
+          {
+            "id": "d",
+            "text": "Processeur → bus et bus → processeur."
+          }
+        ],
+        "correct": "a",
+        "explanation": "Ce sont les deux opérations nommées à la diapositive 7, et elles donnent leur nom aux instructions du chapitre 3 : ldr pour charger, str pour stocker.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Les disques relèvent de la mémoire secondaire ; le chapitre 3 précise qu'elle doit transiter par la mémoire centrale."
+          },
+          {
+            "optionId": "c",
+            "why": "Un transfert mémoire → mémoire n'est pas mentionné, et en RISC l'accès mémoire est limité à certaines instructions."
+          },
+          {
+            "optionId": "d",
+            "why": "Le bus est le canal par lequel les transferts passent, pas une destination."
+          }
+        ],
+        "source": {
+          "file": "Chapitre2_ARM.pdf",
+          "page": 7
+        }
+      },
+      {
+        "id": "tt2-03",
+        "objectiveId": "obj2-memoire",
+        "bloomLevel": "apply",
+        "type": "code-output",
+        "difficulty": 3,
+        "prompt": "Les octets consécutifs à partir de 3FC₁₆ sont donnés ci-dessous. Sans contrainte de frontière, quelle est la valeur hexadécimale du demi-mot à l'adresse 403₁₆ en format BIG-ENDIAN ?",
+        "code": {
+          "lang": "text",
+          "value": "adresse : 3FC 3FD 3FE 3FF 400 401 402 403 404 405 406 407\noctet   :  AB  32  11  C3  A7  65  FC  00  1A  54  7B  D7"
+        },
+        "correct": "001A",
+        "acceptableAnswers": [
+          "001A₁₆",
+          "0x001A",
+          "001a"
+        ],
+        "explanation": "Le demi-mot occupe les octets 403 et 404, soit 00 et 1A. En big endian l'adresse désigne la partie la plus significative : 00 est l'octet de poids fort, d'où 001A₁₆. En little endian on lirait 1A00₁₆.",
+        "source": {
+          "file": "Cor-Exchap2.pdf",
+          "page": 3,
+          "locator": "Exercice 2"
+        }
+      },
+      {
+        "id": "tt2-04",
+        "objectiveId": "obj2-memoire",
+        "bloomLevel": "analyze",
+        "type": "mcq",
+        "difficulty": 3,
+        "prompt": "Avec contrainte de frontière, peut-on lire un double-mot à l'adresse 404₁₆ ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Non : 404₁₆ = 1028 n'est pas divisible par 8."
+          },
+          {
+            "id": "b",
+            "text": "Oui : 404₁₆ est divisible par 4, ce qui suffit."
+          },
+          {
+            "id": "c",
+            "text": "Non : l'adresse doit être divisible par 16."
+          },
+          {
+            "id": "d",
+            "text": "Oui : les doubles-mots n'ont pas de contrainte."
+          }
+        ],
+        "correct": "a",
+        "explanation": "Un double-mot fait 8 octets, donc l'adresse doit être divisible par 8. 1028 ÷ 8 = 128,5. La solution du professeur répond IMPOSSIBLE pour 404, et accepte 400 — puisque 1024 ÷ 8 = 128.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "La divisibilité par 4 suffirait pour un mot de 4 octets, pas pour un double-mot."
+          },
+          {
+            "optionId": "c",
+            "why": "Le diviseur est le nombre d'octets de la valeur — 8 — et non la base hexadécimale."
+          },
+          {
+            "optionId": "d",
+            "why": "L'énoncé pose explicitement qu'il y a contrainte ; c'est sans contrainte que toute suite de 8 octets serait lisible."
+          }
+        ],
+        "source": {
+          "file": "Cor-Exchap2.pdf",
+          "page": 3,
+          "locator": "Exercice 2"
+        }
+      },
+      {
+        "id": "tt2-05",
+        "objectiveId": "obj2-operandes",
+        "bloomLevel": "apply",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "En architecture à TROIS opérandes, où se trouve la destination dans `DIV T1, A, B` ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Le premier opérande — T1 reçoit A / B."
+          },
+          {
+            "id": "b",
+            "text": "Le dernier opérande — B reçoit A / T1."
+          },
+          {
+            "id": "c",
+            "text": "Il n'y a pas de destination explicite."
+          },
+          {
+            "id": "d",
+            "text": "Le deuxième opérande — A reçoit T1 / B."
+          }
+        ],
+        "correct": "a",
+        "explanation": "Les notes précisent « La destination est le premier opérande » et le commentaire de la diapositive confirme : ! T1 = A / B.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Écraser le dernier opérande est la convention du mode à DEUX opérandes, pas du mode à trois."
+          },
+          {
+            "optionId": "c",
+            "why": "L'absence de destination explicite caractérise les modes à un opérande (accumulateur) et zéro opérande (pile)."
+          },
+          {
+            "optionId": "d",
+            "why": "Le deuxième opérande est une source ; le commentaire du cours l'indique sans ambiguïté."
+          }
+        ],
+        "source": {
+          "file": "Chapitre2_ARM.pdf",
+          "page": 23
+        }
+      },
+      {
+        "id": "tt2-06",
+        "objectiveId": "obj2-pipeline",
+        "bloomLevel": "analyze",
+        "type": "short-answer",
+        "difficulty": 3,
+        "prompt": "Avec p étages de pipeline et n instructions, quel est le gain optimal par rapport à l'exécution sans pipeline ? (écrire la formule factorisée)",
+        "correct": "(p-1)(n-1)",
+        "acceptableAnswers": [
+          "(n-1)(p-1)",
+          "(p−1)(n−1)",
+          "(p-1)*(n-1)"
+        ],
+        "explanation": "Sans pipeline : pn. Avec pipeline : (p−1) unités pour remplir le pipeline, puis n unités. Gain = pn − (n+p−1) = n(p−1) − (p−1) = (p−1)(n−1). C'est l'exercice 3 du professeur.",
+        "source": {
+          "file": "Cor-Exchap2.pdf",
+          "page": 3,
+          "locator": "Exercice 3"
+        }
+      },
+      {
+        "id": "tt2-07",
+        "objectiveId": "obj2-risc-cisc",
+        "bloomLevel": "analyze",
+        "type": "mcq",
+        "difficulty": 3,
+        "prompt": "Pourquoi une architecture RISC a-t-elle besoin d'un grand nombre de registres ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Parce que l'accès mémoire est limité à certaines instructions : les valeurs intermédiaires doivent rester dans les registres."
+          },
+          {
+            "id": "b",
+            "text": "Parce que les instructions sont de longueur variable."
+          },
+          {
+            "id": "c",
+            "text": "Parce que les registres remplacent la mémoire cache."
+          },
+          {
+            "id": "d",
+            "text": "Parce qu'un grand jeu d'instructions exige un registre par instruction."
+          }
+        ],
+        "correct": "a",
+        "explanation": "Les six caractéristiques RISC forment un ensemble cohérent. Si seules certaines instructions accèdent à la mémoire, tout le reste du calcul doit se faire entre registres — donc il en faut beaucoup.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "La longueur variable est une caractéristique CISC ; RISC impose une longueur unique."
+          },
+          {
+            "optionId": "c",
+            "why": "La mémoire cache existe indépendamment ; le chapitre 3 la place entre les registres et la mémoire centrale."
+          },
+          {
+            "optionId": "d",
+            "why": "RISC a justement un PETIT nombre d'instructions, et aucun lien un-à-un n'existe entre instructions et registres."
+          }
+        ],
+        "source": {
+          "file": "Chapitre2_ARM.pdf",
+          "page": 11
+        }
+      },
+      {
+        "id": "tt2-08",
+        "objectiveId": "obj2-memoire",
+        "bloomLevel": "understand",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Dans quelles situations la différence de boutisme devient-elle perceptible ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Lors d'un transfert entre ordinateurs, ou quand un mot est relu octet par octet."
+          },
+          {
+            "id": "b",
+            "text": "À chaque opération arithmétique."
+          },
+          {
+            "id": "c",
+            "text": "Uniquement lors des divisions."
+          },
+          {
+            "id": "d",
+            "text": "Jamais : c'est une distinction purement théorique."
+          }
+        ],
+        "correct": "a",
+        "explanation": "Les notes disent que la différence est « souvent imperceptible » et donnent exactement ces deux cas. Le programme avec une union C++ illustre le second : SPARC affiche A1 B2 C3 D4, Intel x86 affiche D4 C3 B2 A1.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Le processeur manipule la valeur complète de façon cohérente ; l'arithmétique n'expose pas l'ordre des octets."
+          },
+          {
+            "optionId": "c",
+            "why": "Aucune opération arithmétique particulière n'est concernée."
+          },
+          {
+            "optionId": "d",
+            "why": "Le programme témoin de la diapositive 19 montre une différence bien réelle et observable."
+          }
+        ],
+        "source": {
+          "file": "Chapitre2_ARM.pdf",
+          "page": 18
+        }
+      },
+      {
+        "id": "tt2-09",
+        "objectiveId": "obj2-vonneumann",
+        "bloomLevel": "apply",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Dans le cycle ARM, que devient nPC après une instruction ordinaire ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "nPC = nPC + 4, car les instructions sont encodées sur 32 bits."
+          },
+          {
+            "id": "b",
+            "text": "nPC = nPC + 8, car les adresses font 64 bits."
+          },
+          {
+            "id": "c",
+            "text": "nPC = nPC + 1, une instruction à la fois."
+          },
+          {
+            "id": "d",
+            "text": "nPC reste inchangé sauf lors d'un branchement."
+          }
+        ],
+        "correct": "a",
+        "explanation": "Le cycle ARM fait PC = nPC puis nPC = nPC + 4. Le chapitre 3 confirme que les instructions sont encodées sur 32 bits, soit 4 octets — d'où l'incrément.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Les adresses font bien 64 bits, mais c'est la taille des INSTRUCTIONS qui fixe le pas : 32 bits, soit 4 octets."
+          },
+          {
+            "optionId": "c",
+            "why": "Les adresses désignent des octets, pas des instructions ; avancer de 1 tomberait au milieu de l'instruction."
+          },
+          {
+            "optionId": "d",
+            "why": "C'est l'inverse : nPC avance à chaque instruction, et prend l'adresse cible lors d'un branchement."
+          }
+        ],
+        "source": {
+          "file": "Chapitre2_ARM.pdf",
+          "page": 37
+        }
+      },
+      {
+        "id": "tt2-10",
+        "objectiveId": "obj2-architecture",
+        "bloomLevel": "recall",
+        "type": "fill-blank",
+        "difficulty": 1,
+        "prompt": "Compléter : un sous-programme ARM DOIT sauvegarder l'état des registres x19 à ____ avant de commencer à les utiliser.",
+        "correct": "x30",
+        "acceptableAnswers": [
+          "x30 ",
+          "30"
+        ],
+        "explanation": "x19 à x30. La sauvegarde se fait sur la pile système, dont le dessus est dans sp, par les macros SAVE et RESTORE fournies avec le cours.",
+        "source": {
+          "file": "Chapitre2_ARM.pdf",
+          "page": 38
+        }
+      },
+      {
+        "id": "tt2-11",
+        "objectiveId": "obj2-operandes",
+        "bloomLevel": "analyze",
+        "type": "mcq",
+        "difficulty": 3,
+        "prompt": "Dans la version à UN opérande de l'exemple du cours, pourquoi l'ordre des opérations a-t-il été changé ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Pour utiliser moins d'instructions, puisqu'un seul accumulateur est disponible."
+          },
+          {
+            "id": "b",
+            "text": "Parce que la division doit toujours précéder la multiplication."
+          },
+          {
+            "id": "c",
+            "text": "Pour éviter d'utiliser la mémoire."
+          },
+          {
+            "id": "d",
+            "text": "Parce que l'accumulateur ne peut pas contenir de résultat négatif."
+          }
+        ],
+        "correct": "a",
+        "explanation": "Les notes l'indiquent : « On a changé l'ordre des opérations pour utiliser moins d'instructions ». Avec un seul accumulateur, chaque résultat intermédiaire doit être rangé par STORE ; calculer C×D en premier limite ces allers-retours.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Aucune priorité de ce genre n'existe ; c'est l'expression qui fixe l'ordre mathématique."
+          },
+          {
+            "optionId": "c",
+            "why": "La version à un opérande utilise au contraire la mémoire, via STORE T et LOAD T."
+          },
+          {
+            "optionId": "d",
+            "why": "Rien dans les notes ne limite le signe de l'accumulateur."
+          }
+        ],
+        "source": {
+          "file": "Chapitre2_ARM.pdf",
+          "page": 25
+        }
+      },
+      {
+        "id": "tt2-12",
+        "objectiveId": "obj2-memoire",
+        "bloomLevel": "understand",
+        "type": "true-false",
+        "difficulty": 2,
+        "prompt": "Un octet en mémoire permet de distinguer un caractère d'un nombre.",
+        "options": [
+          {
+            "id": "v",
+            "text": "Vrai"
+          },
+          {
+            "id": "f",
+            "text": "Faux"
+          }
+        ],
+        "correct": "f",
+        "explanation": "La diapositive 13 le dit sans détour : « Il n'y a pas de différence entre un caractère ou un nombre. L'interprétation de la valeur est laissée aux soins du programmeur. » Un octet valant 97 est le nombre 97 ou la lettre 'a' selon l'usage qu'on en fait.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "v",
+            "why": "La mémoire ne stocke que des bits. Aucune étiquette de type ne les accompagne — c'est le programme qui décide du sens."
+          }
+        ],
+        "source": {
+          "file": "Chapitre2_ARM.pdf",
+          "page": 13
+        }
+      },
+      {
+        "id": "tt2-13",
+        "objectiveId": "obj2-pipeline",
+        "bloomLevel": "understand",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Que se passe-t-il à l'étape MEM du pipeline ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Mise à jour du PC lors d'un branchement, et accès mémoire pour un chargement ou un stockage."
+          },
+          {
+            "id": "b",
+            "text": "Extraction de l'instruction et dépôt dans RI."
+          },
+          {
+            "id": "c",
+            "text": "Écriture du résultat dans le registre destination."
+          },
+          {
+            "id": "d",
+            "text": "Décodage de l'instruction et lecture des registres opérandes."
+          }
+        ],
+        "correct": "a",
+        "explanation": "MEM est le quatrième des cinq étages. C'est aussi là que se termine la suspension du pipeline lors d'un branchement, détecté à l'étape DI.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "C'est EI, le premier étage."
+          },
+          {
+            "optionId": "c",
+            "why": "C'est ER, le cinquième et dernier étage."
+          },
+          {
+            "optionId": "d",
+            "why": "C'est DI, le deuxième étage — celui où un branchement est détecté."
+          }
+        ],
+        "source": {
+          "file": "Chapitre2_ARM.pdf",
+          "page": 28
+        }
+      },
+      {
+        "id": "tt2-14",
+        "objectiveId": "obj2-risc-cisc",
+        "bloomLevel": "apply",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Un processeur a peu de registres, beaucoup de modes d'adressage et des instructions de longueur variable. De quelle famille est-il ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "CISC"
+          },
+          {
+            "id": "b",
+            "text": "RISC"
+          },
+          {
+            "id": "c",
+            "text": "ARM"
+          },
+          {
+            "id": "d",
+            "text": "von Neumann"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Les trois indices correspondent à la colonne CISC du tableau de la diapositive 11, dont l'exemple donné est le processeur Intel.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "RISC a l'inverse sur les trois points : beaucoup de registres, peu de modes, longueur unique."
+          },
+          {
+            "optionId": "c",
+            "why": "ARM est donné comme exemple de RISC, aux côtés du SPARC de Sun."
+          },
+          {
+            "optionId": "d",
+            "why": "von Neumann est un modèle d'organisation générale, orthogonal au partage RISC/CISC : les deux familles le suivent."
+          }
+        ],
+        "source": {
+          "file": "Chapitre2_ARM.pdf",
+          "page": 11
+        }
+      },
+      {
+        "id": "tt2-15",
+        "objectiveId": "obj2-architecture",
+        "bloomLevel": "understand",
+        "type": "multi",
+        "difficulty": 2,
+        "prompt": "Quels registres ARM ne sont PAS sauvegardés par les sous-programmes ? (plusieurs réponses)",
+        "options": [
+          {
+            "id": "a",
+            "text": "x0 à x7 — paramètres et retour"
+          },
+          {
+            "id": "b",
+            "text": "x9 à x15 — usage temporaire"
+          },
+          {
+            "id": "c",
+            "text": "x19 à x28 — registres locaux"
+          },
+          {
+            "id": "d",
+            "text": "x30 — adresse de retour"
+          }
+        ],
+        "correct": [
+          "a",
+          "b"
+        ],
+        "explanation": "Le tableau de la diapositive 35 précise « Ne seront pas sauvegardés par les sous-programmes » pour x0 à x7 et pour x9 à x15. Les registres locaux x19 à x28, eux, doivent l'être.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "c",
+            "why": "Ce sont justement ceux qui DOIVENT être sauvegardés, via SAVE et RESTORE."
+          },
+          {
+            "optionId": "d",
+            "why": "x30 fait partie de la plage x19 à x30 que la diapositive 38 impose de sauvegarder — c'est l'adresse de retour, sans laquelle le sous-programme ne pourrait plus revenir."
+          }
+        ],
+        "source": {
+          "file": "Chapitre2_ARM.pdf",
+          "page": 35
+        }
+      },
+      {
+        "id": "tt2-16",
+        "objectiveId": "obj2-memoire",
+        "bloomLevel": "apply",
+        "type": "code-output",
+        "difficulty": 3,
+        "prompt": "Sans contrainte de frontière, quelle est la valeur du double-mot à l'adresse 400₁₆ en format LITTLE-ENDIAN ?",
+        "code": {
+          "lang": "text",
+          "value": "adresse : 400 401 402 403 404 405 406 407\noctet   :  A7  65  FC  00  1A  54  7B  D7"
+        },
+        "correct": "D77B541A00FC65A7",
+        "acceptableAnswers": [
+          "d77b541a00fc65a7",
+          "D77B541A00FC65A7₁₆"
+        ],
+        "explanation": "En little endian, l'octet à l'adresse de départ est le moins significatif. On lit donc les huit octets à l'envers : D7 7B 54 1A 00 FC 65 A7. Noter que 400₁₆ = 1024 est divisible par 8, donc la lecture serait possible même AVEC contrainte de frontière.",
+        "source": {
+          "file": "Cor-Exchap2.pdf",
+          "page": 3,
+          "locator": "Exercice 2"
+        }
+      },
+      {
+        "id": "tt2-17",
+        "objectiveId": "obj2-vonneumann",
+        "bloomLevel": "understand",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Pourquoi les unités d'entrée/sortie sont-elles décrites comme de programmation complexe ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Parce que l'échange avec le périphérique suit un protocole de communication."
+          },
+          {
+            "id": "b",
+            "text": "Parce qu'elles n'ont pas d'adresse en mémoire."
+          },
+          {
+            "id": "c",
+            "text": "Parce qu'elles sont plus rapides que les registres."
+          },
+          {
+            "id": "d",
+            "text": "Parce qu'elles exécutent leurs propres instructions machine."
+          }
+        ],
+        "correct": "a",
+        "explanation": "La diapositive 8 définit ce protocole comme « un ensemble de règles » régissant l'échange de données entre le périphérique et le processeur, et ajoute que l'ensemble est habituellement très lent.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Les notes n'affirment rien de tel ; la complexité vient du protocole, pas d'une absence d'adresse."
+          },
+          {
+            "optionId": "c",
+            "why": "C'est l'inverse : habituellement très lentes en comparaison des registres et de la mémoire."
+          },
+          {
+            "optionId": "d",
+            "why": "Les notes ne leur attribuent pas de jeu d'instructions propre."
+          }
+        ],
+        "source": {
+          "file": "Chapitre2_ARM.pdf",
+          "page": 8
+        }
+      },
+      {
+        "id": "tt2-18",
+        "objectiveId": "obj2-pipeline",
+        "bloomLevel": "apply",
+        "type": "short-answer",
+        "difficulty": 2,
+        "prompt": "Avec 5 étages et 10 instructions, combien de cycles le pipeline fait-il gagner ? (un nombre)",
+        "correct": "36",
+        "acceptableAnswers": [
+          "36 cycles"
+        ],
+        "explanation": "Gain = (p−1)(n−1) = (5−1)(10−1) = 4 × 9 = 36. Vérification : sans pipeline 5 × 10 = 50 ; avec pipeline 10 + 5 − 1 = 14 ; 50 − 14 = 36.",
+        "source": {
+          "file": "Cor-Exchap2.pdf",
+          "page": 3,
+          "locator": "Exercice 3"
+        }
+      },
+      {
+        "id": "tt2-19",
+        "objectiveId": "obj2-architecture",
+        "bloomLevel": "understand",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Dans le registre CPSR de l'ARM, que signifient les bits n, z, v, c ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Négatif, zéro, débordement, report."
+          },
+          {
+            "id": "b",
+            "text": "Nul, zéro, valide, calculé."
+          },
+          {
+            "id": "c",
+            "text": "Nombre, zone, vecteur, canal."
+          },
+          {
+            "id": "d",
+            "text": "Négatif, zéro, virgule, caractère."
+          }
+        ],
+        "correct": "a",
+        "explanation": "Ce sont les codes de condition, et les notes ajoutent un détail important : ils sont présents DEUX FOIS dans le registre, pour les opérations sur 32 bits et pour celles sur 64 bits.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "« Valide » et « calculé » ne figurent pas parmi les codes de condition."
+          },
+          {
+            "optionId": "c",
+            "why": "Aucun de ces termes n'apparaît dans les notes à propos du CPSR."
+          },
+          {
+            "optionId": "d",
+            "why": "Les deux premiers sont justes, mais v est le débordement et c le report — la virgule flottante a ses propres registres d'état, FPSR et FPCR."
+          }
+        ],
+        "source": {
+          "file": "Chapitre2_ARM.pdf",
+          "page": 36
+        }
+      },
+      {
+        "id": "tt2-20",
+        "objectiveId": "obj2-operandes",
+        "bloomLevel": "analyze",
+        "type": "mcq",
+        "difficulty": 3,
+        "prompt": "En passant de 3 opérandes à 0 opérande pour la même expression, qu'observe-t-on sur le nombre d'instructions ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Il augmente : moins l'instruction porte d'information, plus il en faut."
+          },
+          {
+            "id": "b",
+            "text": "Il diminue : les instructions sans opérande sont plus compactes."
+          },
+          {
+            "id": "c",
+            "text": "Il reste identique, seule la syntaxe change."
+          },
+          {
+            "id": "d",
+            "text": "Il augmente uniquement si l'expression contient une division."
+          }
+        ],
+        "correct": "a",
+        "explanation": "Sur E = A ÷ B − (C × D), le cours passe de 3 instructions à 3 opérandes, à 4 à deux opérandes, 7 à un opérande et 8 à zéro opérande. Chaque opérande retiré doit être compensé par des instructions de transfert — MOV, LOAD/STORE, PUSH/POP.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Chaque instruction est effectivement plus courte à encoder, mais il en faut nettement plus : c'est le compromis même de ce choix d'architecture."
+          },
+          {
+            "optionId": "c",
+            "why": "Les quatre versions du cours comptent 3, 4, 7 et 8 instructions — la différence est structurelle, pas syntaxique."
+          },
+          {
+            "optionId": "d",
+            "why": "L'augmentation vient du nombre d'opérandes disponibles, pas de la nature des opérations."
+          }
+        ],
+        "source": {
+          "file": "Chapitre2_ARM.pdf",
+          "page": 26
+        }
+      }
+    ]
+  },
+  "flashcards": [
+    {
+      "id": "f2-01",
+      "objectiveId": "obj2-architecture",
+      "front": "Architecture externe ou interne ?",
+      "back": "Externe = spécification : services, types de données, modes d'adressage, instructions, E/S. Interne = organisation : composantes physiques, organisation du processeur, conflits de ressources.",
+      "extra": "Plusieurs organisations peuvent réaliser une même spécification."
+    },
+    {
+      "id": "f2-02",
+      "objectiveId": "obj2-vonneumann",
+      "front": "Le principe fondateur de von Neumann ?",
+      "back": "Le programme et ses données sont toujours en mémoire principale — et les instructions ne peuvent PAS y être exécutées. D'où l'extraction vers le registre d'instruction."
+    },
+    {
+      "id": "f2-03",
+      "objectiveId": "obj2-vonneumann",
+      "front": "Les six étapes du cycle de traitement d'une instruction ?",
+      "back": "Extraction à l'adresse du PC · stockage dans RI · décodage et accès aux opérandes · mise à jour du PC · exécution · stockage des résultats.",
+      "source": {
+        "file": "Chapitre2_ARM.pdf",
+        "page": 10
+      }
+    },
+    {
+      "id": "f2-04",
+      "objectiveId": "obj2-risc-cisc",
+      "front": "RISC : les cinq caractéristiques ?",
+      "back": "Grand nombre de registres · petit nombre d'instructions · peu de modes d'adressage · longueur unique · accès mémoire limité à certaines instructions.",
+      "extra": "CISC est l'inverse sur les cinq points."
+    },
+    {
+      "id": "f2-05",
+      "objectiveId": "obj2-memoire",
+      "front": "Règle de la contrainte de frontière ?",
+      "back": "S'il y en a : l'adresse doit être divisible par le NOMBRE D'OCTETS de la valeur lue. Demi-mot → divisible par 2, mot → par 4, double-mot → par 8."
+    },
+    {
+      "id": "f2-06",
+      "objectiveId": "obj2-memoire",
+      "front": "Big endian ou little endian ?",
+      "back": "Big : l'adresse est celle de la partie la plus significative. Little : celle de la partie la moins significative.",
+      "extra": "Ce sont les OCTETS qui sont inversés, pas les bits."
+    },
+    {
+      "id": "f2-07",
+      "objectiveId": "obj2-memoire",
+      "front": "Quand le boutisme devient-il visible ?",
+      "back": "Lors d'un transfert de données d'un ordinateur à l'autre, ou quand une valeur écrite dans un mot est relue octet par octet."
+    },
+    {
+      "id": "f2-08",
+      "objectiveId": "obj2-operandes",
+      "front": "Les quatre choix de nombre d'opérandes ?",
+      "back": "3 : destination explicite. 2 : le résultat écrase un opérande (perte d'information). 1 : accumulateur implicite. 0 : pile (PUSH/POP).",
+      "extra": "Moins d'opérandes = plus d'instructions."
+    },
+    {
+      "id": "f2-09",
+      "objectiveId": "obj2-pipeline",
+      "front": "Les cinq étages du pipeline ?",
+      "back": "EI (extraction) · DI (décodage et opérandes) · EX (exécution) · MEM (PC lors d'un branchement, accès mémoire) · ER (écriture du résultat)."
+    },
+    {
+      "id": "f2-10",
+      "objectiveId": "obj2-pipeline",
+      "front": "Gain du pipeline pour n instructions sur p étages ?",
+      "back": "(p−1)(n−1). Sans pipeline : pn. Avec : n + p − 1.",
+      "source": {
+        "file": "Cor-Exchap2.pdf",
+        "page": 3
+      }
+    },
+    {
+      "id": "f2-11",
+      "objectiveId": "obj2-pipeline",
+      "front": "Les trois conflits du pipeline, et lequel reste imparfaitement résolu ?",
+      "back": "Accès parallèle à la mémoire (matériel) · données communes (majoritairement matériel) · instructions hasardeuses / branchement — on suspend de DI à MEM, mais une instruction de trop est quand même exécutée."
+    },
+    {
+      "id": "f2-12",
+      "objectiveId": "obj2-architecture",
+      "front": "Quels registres ARM un sous-programme doit-il sauvegarder ?",
+      "back": "x19 à x30, sur la pile système (sp), via les macros SAVE et RESTORE. x0 à x7 et x9 à x15 ne sont PAS sauvegardés."
+    },
+    {
+      "id": "f2-13",
+      "objectiveId": "obj2-architecture",
+      "front": "Que contient xzr, et que se passe-t-il si on y écrit ?",
+      "back": "Il contient toujours 0. Une écriture n'a aucun effet."
+    }
+  ],
+  "exercises": [
+    {
+      "id": "e2-01",
+      "objectiveId": "obj2-operandes",
+      "difficulty": 3,
+      "mode": "trace",
+      "language": "pseudocode",
+      "title": "Traduire une expression selon le nombre d'opérandes",
+      "statement": "D'après l'exercice 1 du professeur. Écrire la suite d'instructions calculant\n\n    X = (A + B × C) / (D − E × F)\n\npour des architectures à trois, deux, un et zéro opérande(s). Compter le nombre d'instructions dans chaque cas.\n\nConventions : à 3 opérandes, op1 • op2 = op3 (destination en dernier). À 2 opérandes, op1 • op2 = op2. À 1 opérande, Acc • op = Acc. À 0 opérande, Sommet2 • Sommet1 = Sommet.",
+      "starterCode": "X = (A + B x C) / (D - E x F)\n\nn = 3 :  op1 . op2 = op3\nn = 2 :  op1 . op2 = op2\nn = 1 :  Acc . op  = Acc\nn = 0 :  Sommet2 . Sommet1 = Sommet",
+      "hints": [
+        "Commencer par repérer les deux sous-expressions indépendantes : B × C et E × F. Chacune demande un temporaire.",
+        "À 2 opérandes, un MOV est nécessaire avant chaque multiplication pour ne pas détruire un opérande dont on aura encore besoin.",
+        "À 1 opérande, chaque résultat intermédiaire doit être rangé par ST avant de charger la suite : l'accumulateur est unique."
+      ],
+      "solution": "5 instructions (n=3), 8 (n=2), 13 ou 11 (n=1), 12 (n=0)",
+      "expectedOutput": "n = 3  —  5 instructions\n    MUL  B, C, T1      T1 = B x C\n    ADD  A, T1, T1     T1 = A + B x C\n    MUL  E, F, T2      T2 = E x F\n    SUB  D, T2, T2     T2 = D - E x F\n    DIV  T1, T2, X     X  = (A + B x C) / (D - E x F)\n\nn = 2  —  8 instructions\n    MOV  C, T1         T1 = C\n    MUL  B, T1         T1 = B x C\n    ADD  A, T1         T1 = A + B x C\n    MOV  F, T2         T2 = F\n    MUL  E, T2         T2 = E x F\n    SUB  D, T2         T2 = D - E x F\n    DIV  T1, T2        T2 = (A + B x C) / (D - E x F)\n    MOV  T2, X\n\n    Les MOV sont necessaires : sans eux, MUL B,C ecraserait C.\n\nn = 1  —  version NON optimisee, 13 instructions\n    LD  B / MUL C / ADD A / ST T1\n    LD  E / MUL F / ST T2\n    LD  D / SUB T2 / ST T2\n    LD  T1 / DIV T2 / ST X\n\nn = 1  —  version OPTIMISEE, 11 instructions\n    LD  E / MUL F / ST T1        Acc = E x F, range\n    LD  D / SUB T1 / ST T1       Acc = D - E x F, range\n    LD  B / MUL C / ADD A        Acc = A + B x C\n    DIV T1                       Acc = (A + B x C) / (D - E x F)\n    ST  X\n\n    L'astuce : calculer le DENOMINATEUR en premier. Le numerateur reste alors\n    dans l'accumulateur au moment de diviser — deux instructions economisees.\n\nn = 0  —  12 instructions\n    PUSH A / PUSH B / PUSH C / MUL / ADD\n    PUSH D / PUSH E / PUSH F / MUL / SUB\n    DIV\n    POP  X\n\nTENDANCE : 5 -> 8 -> 11 -> 12 instructions. Moins l'instruction porte\nd'information, plus il en faut.",
+      "solutionExplanation": "La version optimisée à un opérande est le cœur de l'exercice. Avec trois opérandes, l'ordre de calcul est libre. Avec un seul accumulateur, il devient une décision : celui des deux facteurs qu'on calcule en dernier reste disponible gratuitement. C'est le même raisonnement que le cours applique dans l'exemple E = A ÷ B − (C × D), où il annonce avoir « changé l'ordre des opérations pour utiliser moins d'instructions ».",
+      "source": {
+        "file": "Cor-Exchap2.pdf",
+        "page": 1,
+        "locator": "Exercice 1"
+      }
+    },
+    {
+      "id": "e2-02",
+      "objectiveId": "obj2-memoire",
+      "difficulty": 3,
+      "mode": "trace",
+      "language": "text",
+      "title": "Lire la mémoire selon le boutisme",
+      "statement": "D'après l'exercice 2 du professeur. Sur une architecture 32 bits, voici les octets consécutifs à partir de l'adresse 3FC₁₆.\n\nDonner la valeur hexadécimale des DEMI-MOTS aux adresses 403₁₆ et 40A₁₆, dans les quatre cas : little-endian et big-endian, avec et sans contrainte de frontière.",
+      "starterCode": "adresse : 3FC 3FD 3FE 3FF 400 401 402 403 404 405 406 407 408 409 40A 40B\noctet   :  AB  32  11  C3  A7  65  FC  00  1A  54  7B  D7  FF  01  34  18\n\nA remplir :\n                          403        40A\n  little, contrainte      ___        ___\n  little, sans contrainte ___        ___\n  big,    contrainte      ___        ___\n  big,    sans contrainte ___        ___",
+      "hints": [
+        "D'abord la contrainte : un demi-mot fait 2 octets, donc l'adresse doit être divisible par 2. 403₁₆ = 1027, 40A₁₆ = 1034.",
+        "Ensuite les octets concernés : un demi-mot à l'adresse a occupe a et a+1.",
+        "Enfin le boutisme : en big endian l'octet à l'adresse de départ est le plus significatif, en little endian le moins significatif."
+      ],
+      "solution": "403 : IMPOSSIBLE avec contrainte ; 1A00 (little) et 001A (big) sans. 40A : 1834 (little) et 3418 (big) dans les deux cas.",
+      "expectedOutput": "ETAPE 1 — la contrainte de frontiere\n    Un demi-mot fait 2 octets : l'adresse doit etre divisible par 2.\n      403 (hex) = 1027  ->  IMPAIR  ->  IMPOSSIBLE avec contrainte\n      40A (hex) = 1034  ->  PAIR    ->  autorise\n\nETAPE 2 — les octets concernes\n      demi-mot a 403 : octets 403 et 404  =  00  1A\n      demi-mot a 40A : octets 40A et 40B  =  34  18\n\nETAPE 3 — le boutisme\n      big    : l'octet a l'adresse de depart est le PLUS significatif\n      little : l'octet a l'adresse de depart est le MOINS significatif\n\nRESULTAT\n                              403            40A\n  little, contrainte       IMPOSSIBLE       1834\n  little, sans contrainte     1A00          1834\n  big,    contrainte       IMPOSSIBLE       3418\n  big,    sans contrainte     001A          3418\n\nNoter que pour 40A, la contrainte ne change rien : l'adresse etait deja\nvalide. La contrainte ne modifie jamais la VALEUR lue, elle autorise ou\ninterdit la lecture.",
+      "solutionExplanation": "Les deux questions sont indépendantes et il faut les traiter dans l'ordre : la contrainte décide si la lecture a lieu, le boutisme décide de la valeur. Confondre les deux conduit à chercher une valeur différente selon la contrainte, ce qui n'a pas de sens — les octets en mémoire ne changent pas. Pour aller plus loin, l'énoncé du professeur pose les mêmes questions pour les doubles-mots aux adresses 400 et 404 : 400 est divisible par 8, 404 ne l'est pas.",
+      "source": {
+        "file": "Cor-Exchap2.pdf",
+        "page": 3,
+        "locator": "Exercice 2"
+      }
+    },
+    {
+      "id": "e2-03",
+      "objectiveId": "obj2-pipeline",
+      "difficulty": 3,
+      "mode": "trace",
+      "language": "text",
+      "title": "Démontrer la formule du gain du pipeline",
+      "statement": "D'après l'exercice 3 du professeur. Dans une architecture à p étages de pipeline, quel est le gain optimal — en supposant qu'il n'y a pas d'instructions conflictuelles — pour exécuter n instructions ?\n\nÉtablir les deux durées, puis le gain, et factoriser. Vérifier ensuite sur l'exemple du cours (p = 5, n = 3).",
+      "starterCode": "Sans pipeline : chaque instruction traverse les p etages avant que la\n                suivante ne commence.\n\nAvec pipeline : ?\n\nGain = (duree sans) - (duree avec) = ?",
+      "hints": [
+        "Sans pipeline, une instruction occupe p unités de temps et rien ne se recouvre.",
+        "Avec pipeline, réfléchir en deux temps : combien d'unités avant que le pipeline soit plein, puis combien ensuite — une par instruction qui sort du dernier étage.",
+        "Après soustraction, mettre (p−1) en facteur."
+      ],
+      "solution": "(p−1)(n−1)",
+      "expectedOutput": "SANS PIPELINE\n    Chaque instruction traverse les p etages, l'une apres l'autre.\n    Duree = p x n\n\nAVEC PIPELINE\n    Il faut (p - 1) unites de temps avant que le pipeline soit PLEIN.\n    Ensuite, chaque instruction sort du dernier etage a raison d'une par\n    unite de temps, soit n unites.\n    Duree = n + p - 1\n\nGAIN\n    Gain = pn - (n + p - 1)\n         = pn - n - p + 1\n         = n(p - 1) - (p - 1)\n         = (p - 1)(n - 1)\n\nVERIFICATION sur l'exemple du cours (p = 5, n = 3)\n    Sans pipeline : 5 x 3 = 15 cycles      <- chiffre donne par la diapositive\n    Avec pipeline : 3 + 5 - 1 = 7 cycles   <- chiffre donne par la diapositive\n    Gain          : 15 - 7 = 8\n    Formule       : (5-1)(3-1) = 4 x 2 = 8   OK\n\nCE QUE LA FORME FACTORISEE MONTRE\n    Le gain est nul si n = 1 (une seule instruction : rien a recouvrir) ou si\n    p = 1 (un seul etage : pas de pipeline du tout). Il croit ensuite comme le\n    produit des deux — d'ou l'interet d'allonger le pipeline ET d'executer de\n    longues suites d'instructions sans branchement.",
+      "solutionExplanation": "La forme factorisée dit plus que la forme développée. Elle rend visibles les deux cas dégénérés — n = 1 et p = 1 — et explique pourquoi les branchements coûtent si cher : ils cassent la suite d'instructions, ramenant n à une petite valeur et donc le gain près de zéro. C'est exactement le troisième conflit de la diapositive 32.",
+      "source": {
+        "file": "Cor-Exchap2.pdf",
+        "page": 3,
+        "locator": "Exercice 3"
+      }
+    },
+    {
+      "id": "e2-04",
+      "objectiveId": "obj2-risc-cisc",
+      "difficulty": 2,
+      "mode": "fill-blank",
+      "language": "text",
+      "title": "Compléter le tableau RISC / CISC",
+      "statement": "Compléter les six cases manquantes du tableau de la diapositive 11, puis répondre : pourquoi ces choix ne sont-ils pas indépendants les uns des autres ?",
+      "starterCode": "                              RISC              CISC\n  Nombre de registres        ________  (1)     petit\n  Nombre d'instructions      petit            ________  (2)\n  Modes d'adressage          ________  (3)     beaucoup\n  Longueur des instructions  unique           ________  (4)\n  Acces a la memoire         ________  (5)     toutes les instructions\n  Exemples                   SPARC, ____  (6)  Intel",
+      "hints": [
+        "Chaque ligne oppose exactement les deux familles : si l'une a « petit », l'autre a « grand ».",
+        "Pour (5), la restriction porte sur QUELLES instructions ont le droit d'accéder à la mémoire.",
+        "Pour (6), le processeur étudié dans tout ce cours est un RISC."
+      ],
+      "solution": "grand ; grand ; peu ; variable ; limité à certaines instructions ; ARM",
+      "expectedOutput": "                              RISC                          CISC\n  Nombre de registres        GRAND                          petit\n  Nombre d'instructions      petit                          GRAND\n  Modes d'adressage          PEU                            beaucoup\n  Longueur des instructions  unique                         VARIABLE\n  Acces a la memoire         LIMITE A CERTAINES INSTR.      toutes les instr.\n  Exemples                   SPARC de Sun, ARM              Intel\n\nPOURQUOI CES CHOIX SONT LIES\n\n  Longueur unique  ->  le decodage est simple et rapide, et le pipeline peut\n                       extraire l'instruction suivante sans connaitre la\n                       taille de la courante.\n\n  Mais une instruction courte et uniforme fait PEU de choses :\n                   ->  il en faut beaucoup pour un meme calcul\n                       (cf. l'exercice 1 : 5 instructions a 3 operandes,\n                        12 a zero operande).\n\n  Et si l'acces memoire est reserve a certaines instructions :\n                   ->  tout le calcul doit se faire entre registres,\n                   ->  donc il en faut BEAUCOUP.\n\n  Les six lignes forment donc deux ensembles coherents, pas douze decisions\n  independantes. C'est pourquoi on parle de deux PHILOSOPHIES.",
+      "solutionExplanation": "La question finale est celle qui compte : le tableau se retient beaucoup mieux comme une chaîne de conséquences que comme six paires à mémoriser. Le fil conducteur est la longueur unique des instructions — tout le reste en découle, y compris le grand nombre de registres, qui n'est pas un luxe mais une nécessité quand la mémoire est d'accès restreint.",
+      "source": {
+        "file": "Chapitre2_ARM.pdf",
+        "page": 11,
+        "locator": "Diapositive 11"
+      }
+    },
+    {
+      "id": "e2-05",
+      "objectiveId": "obj2-vonneumann",
+      "difficulty": 2,
+      "mode": "predict-output",
+      "language": "cpp",
+      "title": "Prédire la sortie — révéler le boutisme",
+      "statement": "C'est le programme témoin de la diapositive 19. Il écrit un entier de 32 bits puis le relit octet par octet.\n\nPour la donnée saisie « A1B2C3D4 », prédire les quatre lignes affichées sur un SPARC (big endian), puis sur un Intel x86 (little endian). Expliquer pourquoi la sortie diffère.",
+      "starterCode": "#include <iostream>\n#include <iomanip>\nusing namespace std;\n\nunion MOT\n{\n    unsigned int  nb;\n    unsigned char car[4];\n};\n\nint main()\n{\n    MOT mot;\n    cin >> hex >> mot.nb;\n    for (unsigned char i = 0; i < 4; i++)\n        cout << hex << (int)mot.car[i] << endl;\n    return 0;\n}\n\n// Donnee saisie : A1B2C3D4",
+      "hints": [
+        "Une union fait partager la même mémoire à ses membres : nb et car[] occupent les mêmes 4 octets.",
+        "car[0] est l'octet situé à l'ADRESSE la plus basse — c'est-à-dire à l'adresse de la donnée elle-même.",
+        "En big endian, l'adresse de la donnée est celle de la partie la plus significative. Quelle est la partie la plus significative de A1B2C3D4 ?"
+      ],
+      "solution": "SPARC : a1 b2 c3 d4. Intel x86 : d4 c3 b2 a1.",
+      "expectedOutput": "SPARC (big endian)          Intel x86 (little endian)\n    a1                          d4\n    b2                          c3\n    c3                          b2\n    d4                          a1\n\nPOURQUOI\n\n  L'union fait partager les MEMES 4 octets a nb (un entier 32 bits) et a\n  car[] (quatre octets). Ecrire nb puis lire car[] revient a regarder la meme\n  memoire de deux facons.\n\n  car[0] est l'octet a l'adresse la plus basse — l'adresse de la donnee.\n\n  BIG ENDIAN : l'adresse de la donnee est celle de la partie la PLUS\n  significative. L'octet de poids fort de A1B2C3D4 est A1, donc\n  car[0] = A1, et la lecture suit l'ordre naturel.\n\n  LITTLE ENDIAN : l'adresse de la donnee est celle de la partie la MOINS\n  significative. L'octet de poids faible est D4, donc car[0] = D4, et la\n  lecture ressort a l'envers.\n\nCE QUE LE PROGRAMME DEMONTRE\n\n  La valeur de mot.nb est IDENTIQUE sur les deux machines : les deux\n  afficheraient A1B2C3D4 si on imprimait nb. La difference n'apparait que\n  parce qu'on ecrit dans un mot et qu'on relit octet par octet — l'un des\n  deux cas ou, selon la diapositive 18, il faut faire attention.",
+      "solutionExplanation": "Ce programme est intéressant parce qu'il ne « détecte » rien : il se contente de faire ce qu'un programme ne devrait pas faire — écrire une valeur sous un type et la relire sous un autre. Le boutisme ne devient visible que là. C'est pourquoi les notes rangent ce cas aux côtés du transfert de données entre ordinateurs : dans les deux situations, on court-circuite l'interprétation cohérente que le processeur fait normalement de ses propres mots.",
+      "source": {
+        "file": "Chapitre2_ARM.pdf",
+        "page": 19,
+        "locator": "Diapositive 19"
+      }
+    }
+  ]
+}

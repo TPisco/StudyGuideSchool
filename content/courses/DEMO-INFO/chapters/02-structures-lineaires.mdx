@@ -1,0 +1,300 @@
+---
+course: DEMO-INFO
+number: 2
+title: "Structures de données linéaires : tableaux, listes chaînées, piles"
+summary: >-
+  Deux façons de ranger n éléments en mémoire — côte à côte ou reliés par des
+  pointeurs — et pourquoi ce choix décide du coût de chaque opération.
+estimatedMinutes: 165
+sample: true
+prerequisites:
+  - "Chapitre 1 — notation asymptotique"
+  - "Notion de variable et d'adresse mémoire"
+objectives:
+  - id: obj2-memoire
+    text: Décrire la disposition en mémoire d'un tableau contigu et d'une liste chaînée.
+    bloom: understand
+  - id: obj2-tableau
+    text: Donner et justifier le coût des opérations sur un tableau (accès, insertion, suppression).
+    bloom: apply
+  - id: obj2-liste
+    text: Donner et justifier le coût des opérations sur une liste simplement chaînée.
+    bloom: apply
+  - id: obj2-choisir
+    text: Choisir la structure adaptée à un usage donné et défendre ce choix.
+    bloom: analyze
+  - id: obj2-pile
+    text: Définir une pile (LIFO), ses opérations, et reconnaître les problèmes qu'elle résout.
+    bloom: understand
+sources:
+  - file: demo-diapos-cours02.pdf
+    page: 3
+    locator: "Diapositives 3 à 28 — Structures linéaires"
+  - file: demo-notes-structures.pdf
+    page: 1
+    locator: "Chapitre 2, sections 2.1 à 2.5"
+  - file: demo-tp02-enonce.pdf
+    page: 1
+    locator: "Exercices 1 à 5"
+---
+
+## 1. Le problème : ranger n éléments
+
+Il existe deux stratégies fondamentales pour stocker une suite d'éléments, et
+tout le reste en découle :
+
+1. **Les poser côte à côte** dans une zone mémoire d'un seul tenant — le
+   **tableau contigu**.
+2. **Les disperser** et relier chaque élément au suivant par une adresse — la
+   **liste chaînée**.
+
+Chaque stratégie rend certaines opérations gratuites et d'autres coûteuses. Il
+n'y a pas de gagnant absolu ; il y a un choix à justifier.
+
+<Source file="demo-diapos-cours02.pdf" page={4} />
+
+## 2. Le tableau contigu
+
+### 2.1 Disposition en mémoire
+
+<Figure caption="Un tableau de 5 entiers de 4 octets à partir de l'adresse 1000. L'adresse de la case i se calcule, elle ne se cherche pas.">
+<svg viewBox="0 0 660 180" role="img" aria-label="Schéma mémoire d'un tableau contigu de cinq entiers">
+  <text x="12" y="28" font-size="13" fill="currentColor" opacity="0.75">adresse</text>
+  <text x="12" y="76" font-size="13" fill="currentColor" opacity="0.75">valeur</text>
+  <text x="12" y="132" font-size="13" fill="currentColor" opacity="0.75">indice</text>
+
+  <g font-size="13" text-anchor="middle">
+    <text x="130" y="28" fill="currentColor" opacity="0.7">1000</text>
+    <text x="230" y="28" fill="currentColor" opacity="0.7">1004</text>
+    <text x="330" y="28" fill="currentColor" opacity="0.7">1008</text>
+    <text x="430" y="28" fill="currentColor" opacity="0.7">1012</text>
+    <text x="530" y="28" fill="currentColor" opacity="0.7">1016</text>
+  </g>
+
+  <g>
+    <rect x="86" y="44" width="88" height="46" rx="5" fill="#6366f1" fill-opacity="0.18" stroke="#818cf8" stroke-width="1.5" />
+    <rect x="186" y="44" width="88" height="46" rx="5" fill="#6366f1" fill-opacity="0.18" stroke="#818cf8" stroke-width="1.5" />
+    <rect x="286" y="44" width="88" height="46" rx="5" fill="#6366f1" fill-opacity="0.18" stroke="#818cf8" stroke-width="1.5" />
+    <rect x="386" y="44" width="88" height="46" rx="5" fill="#6366f1" fill-opacity="0.18" stroke="#818cf8" stroke-width="1.5" />
+    <rect x="486" y="44" width="88" height="46" rx="5" fill="#6366f1" fill-opacity="0.18" stroke="#818cf8" stroke-width="1.5" />
+  </g>
+
+  <g font-size="16" text-anchor="middle" fill="currentColor" font-weight="600">
+    <text x="130" y="74">12</text>
+    <text x="230" y="74">7</text>
+    <text x="330" y="74">41</text>
+    <text x="430" y="74">3</text>
+    <text x="530" y="74">28</text>
+  </g>
+
+  <g font-size="13" text-anchor="middle" fill="currentColor" opacity="0.7">
+    <text x="130" y="132">0</text>
+    <text x="230" y="132">1</text>
+    <text x="330" y="132">2</text>
+    <text x="430" y="132">3</text>
+    <text x="530" y="132">4</text>
+  </g>
+
+  <text x="86" y="166" font-size="14" fill="#34d399">adresse(i) = 1000 + i × 4  →  une multiplication et une addition, donc Θ(1)</text>
+</svg>
+</Figure>
+
+Puisque les cases se suivent, l'adresse de la case $i$ se **calcule** :
+
+$$
+\text{adresse}(i) = \text{adresse de base} + i \times \text{taille d'un élément}
+$$
+
+C'est une multiplication et une addition, indépendamment de $i$ et de $n$ :
+l'accès indexé est en $\Theta(1)$.
+
+### 2.2 Le coût de l'insertion
+
+Insérer en position 0 dans un tableau plein de $n$ éléments oblige à **décaler
+les $n$ éléments** d'un cran vers la droite pour libérer la place.
+
+```python
+def inserer_au_debut(tableau, valeur):
+    tableau.append(None)              # agrandir
+    for i in range(len(tableau) - 1, 0, -1):
+        tableau[i] = tableau[i - 1]   # n decalages
+    tableau[0] = valeur
+    return tableau
+```
+
+Coût : $\Theta(n)$. En revanche, insérer **à la fin** ne décale rien : c'est
+$\Theta(1)$ (amorti, si la capacité doit parfois doubler).
+
+<Callout type="misconception" title="Erreur classique">
+Croire que `liste.insert(0, x)` en Python est aussi rapide que
+`liste.append(x)`. Une `list` Python est un tableau dynamique contigu :
+`insert(0, x)` décale tout et coûte $\Theta(n)$, `append(x)` coûte $\Theta(1)$
+amorti. Dans une boucle de $n$ insertions en tête, l'écart est un facteur $n$.
+</Callout>
+
+<Source file="demo-notes-structures.pdf" page={4} locator="Section 2.2" />
+
+## 3. La liste simplement chaînée
+
+### 3.1 Structure
+
+Chaque élément est un **nœud** contenant une valeur et l'adresse du nœud
+suivant. Le dernier pointe vers `null`. On ne retient que l'adresse du premier
+nœud, la **tête**.
+
+<Mermaid caption="Liste simplement chaînée. Les nœuds peuvent être n'importe où en mémoire ; seul le chaînage compte." chart={`
+flowchart LR
+    T["tete"] --> A
+    A["12 | suivant"] --> B["7 | suivant"]
+    B --> C["41 | suivant"]
+    C --> D["3 | null"]
+    D --> N(["null"])
+    style N fill:#1f2937,stroke:#6b7280,color:#9ca3af
+`} />
+
+```python
+class Noeud:
+    def __init__(self, valeur, suivant=None):
+        self.valeur = valeur
+        self.suivant = suivant
+
+class ListeChainee:
+    def __init__(self):
+        self.tete = None
+```
+
+### 3.2 Les coûts s'inversent
+
+- **Accès à l'élément $i$** : il n'y a aucun calcul d'adresse possible. Il faut
+  partir de la tête et suivre $i$ pointeurs → $\Theta(n)$.
+- **Insertion en tête** : créer un nœud, le faire pointer vers l'ancienne tête,
+  déplacer la tête. Trois affectations, rien à décaler → $\Theta(1)$.
+
+```python
+def inserer_en_tete(self, valeur):
+    self.tete = Noeud(valeur, self.tete)   # Theta(1), quel que soit n
+```
+
+<Callout type="warning" title="Le piège de l'insertion en Θ(1)">
+« L'insertion dans une liste chaînée est en $\Theta(1)$ » n'est vrai que si
+l'on **dispose déjà du nœud précédent**. Insérer à la position $i$ en partant
+de la tête coûte $\Theta(i)$ pour s'y rendre, puis $\Theta(1)$ pour rebrancher.
+Le coût total reste $\Theta(n)$ dans le pire cas.
+</Callout>
+
+<Figure caption="Insertion en tête : trois affectations, aucun décalage, quel que soit le nombre d'éléments.">
+<svg viewBox="0 0 660 200" role="img" aria-label="Schéma de l'insertion d'un nœud en tête de liste chaînée">
+  <text x="14" y="42" font-size="13" fill="currentColor" opacity="0.7">avant</text>
+  <rect x="86" y="22" width="60" height="34" rx="5" fill="#6366f1" fill-opacity="0.15" stroke="#818cf8" />
+  <text x="116" y="44" font-size="13" text-anchor="middle" fill="currentColor">tete</text>
+  <line x1="146" y1="39" x2="196" y2="39" stroke="#818cf8" stroke-width="2" marker-end="url(#ar2)" />
+  <rect x="200" y="22" width="76" height="34" rx="5" fill="#6366f1" fill-opacity="0.15" stroke="#818cf8" />
+  <text x="238" y="44" font-size="13" text-anchor="middle" fill="currentColor">12</text>
+  <line x1="276" y1="39" x2="326" y2="39" stroke="#818cf8" stroke-width="2" marker-end="url(#ar2)" />
+  <rect x="330" y="22" width="76" height="34" rx="5" fill="#6366f1" fill-opacity="0.15" stroke="#818cf8" />
+  <text x="368" y="44" font-size="13" text-anchor="middle" fill="currentColor">7</text>
+
+  <text x="14" y="142" font-size="13" fill="currentColor" opacity="0.7">après</text>
+  <rect x="86" y="122" width="60" height="34" rx="5" fill="#6366f1" fill-opacity="0.15" stroke="#818cf8" />
+  <text x="116" y="144" font-size="13" text-anchor="middle" fill="currentColor">tete</text>
+  <line x1="146" y1="139" x2="196" y2="139" stroke="#34d399" stroke-width="2.5" marker-end="url(#ar3)" />
+  <rect x="200" y="122" width="76" height="34" rx="5" fill="#34d399" fill-opacity="0.2" stroke="#34d399" stroke-width="1.8" />
+  <text x="238" y="144" font-size="13" text-anchor="middle" fill="currentColor" font-weight="600">99</text>
+  <line x1="276" y1="139" x2="326" y2="139" stroke="#34d399" stroke-width="2.5" marker-end="url(#ar3)" />
+  <rect x="330" y="122" width="76" height="34" rx="5" fill="#6366f1" fill-opacity="0.15" stroke="#818cf8" />
+  <text x="368" y="144" font-size="13" text-anchor="middle" fill="currentColor">12</text>
+  <line x1="406" y1="139" x2="456" y2="139" stroke="#818cf8" stroke-width="2" marker-end="url(#ar2)" />
+  <rect x="460" y="122" width="76" height="34" rx="5" fill="#6366f1" fill-opacity="0.15" stroke="#818cf8" />
+  <text x="498" y="144" font-size="13" text-anchor="middle" fill="currentColor">7</text>
+
+  <text x="86" y="188" font-size="13" fill="#34d399">les nœuds 12 et 7 n'ont pas bougé d'un octet</text>
+
+  <defs>
+    <marker id="ar2" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+      <path d="M0 0 L8 4 L0 8 z" fill="#818cf8" />
+    </marker>
+    <marker id="ar3" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+      <path d="M0 0 L8 4 L0 8 z" fill="#34d399" />
+    </marker>
+  </defs>
+</svg>
+</Figure>
+
+<Source file="demo-notes-structures.pdf" page={7} locator="Section 2.3" />
+
+## 4. Choisir : le tableau récapitulatif
+
+Le tableau de synthèse « Tableau contigu vs liste simplement chaînée » en bas
+de page donne tous les coûts. La règle de décision tient en deux lignes :
+
+- Beaucoup de **lectures par indice**, peu de modifications → **tableau**.
+- Beaucoup d'**insertions et suppressions en tête**, parcours séquentiel →
+  **liste chaînée**.
+
+<Callout type="note" title="Le coût caché des listes chaînées">
+Une liste chaînée paie un pointeur (8 octets sur une machine 64 bits) par
+élément, en plus de la valeur. Pour un million d'entiers de 4 octets, cela
+triple la mémoire. Ses nœuds étant dispersés, chaque saut est une occasion de
+défaut de cache — en pratique, un parcours de tableau est souvent plusieurs
+fois plus rapide qu'un parcours de liste, à complexité identique.
+</Callout>
+
+## 5. La pile (LIFO)
+
+Une **pile** est une structure où l'on n'accède qu'à **un seul bout** : le
+sommet. Dernier entré, premier sorti — *Last In, First Out*.
+
+Trois opérations, toutes en $\Theta(1)$ :
+
+| Opération | Effet |
+| --- | --- |
+| `empiler(x)` | pose x au sommet |
+| `depiler()` | retire et retourne l'élément au sommet |
+| `sommet()` | lit le sommet sans le retirer |
+
+<Mermaid caption="Cycle de vie d'une pile : le sommet est le seul point d'accès." chart={`
+stateDiagram-v2
+    [*] --> Vide
+    Vide --> NonVide : empiler(x)
+    NonVide --> NonVide : empiler(y)
+    NonVide --> NonVide : depiler() si taille > 1
+    NonVide --> Vide : depiler() si taille = 1
+    Vide --> Erreur : depiler() sur pile vide
+    Erreur --> Vide : traiter l'exception
+`} />
+
+### 5.1 Application : vérifier le parenthésage
+
+```python
+def parentheses_equilibrees(texte):
+    paires = {')': '(', ']': '[', '}': '{'}
+    pile = []
+    for c in texte:
+        if c in '([{':
+            pile.append(c)                       # empiler
+        elif c in paires:
+            if not pile or pile.pop() != paires[c]:
+                return False                     # fermeture sans ouverture
+    return len(pile) == 0                        # rien ne doit rester
+```
+
+La pile est exactement la structure qu'il faut : la dernière parenthèse
+ouverte est la première qui doit se fermer. Coût : $\Theta(n)$ en temps, et
+$\Theta(n)$ en mémoire dans le pire cas (`((((((`).
+
+<Callout type="misconception" title="Erreur classique">
+Compter les ouvrantes et les fermantes et conclure que le texte est équilibré
+si les totaux coïncident. `)( ` a une ouvrante et une fermante, et pourtant le
+parenthésage est incorrect. **L'ordre compte** — c'est précisément ce que la
+pile vérifie et que le comptage ignore.
+</Callout>
+
+<Source file="demo-diapos-cours02.pdf" page={24} locator="Diapositive 24" />
+
+### 5.2 Où les piles apparaissent réellement
+
+- La **pile d'appels** : chaque appel de fonction empile un cadre ; un retour
+  le dépile. Une récursion sans cas de base produit un débordement de pile.
+- L'**annulation** (Ctrl+Z) : la dernière action effectuée est la première
+  annulée.
+- L'**évaluation d'expressions** en notation postfixée.

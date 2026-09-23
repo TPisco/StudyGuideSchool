@@ -1,0 +1,530 @@
+---
+course: IFT339
+number: 1
+title: Types abstraits et structures de données
+summary: >-
+  Séparer ce qu'un type fait de la façon dont il est fait : le TDA est un
+  contrat, la structure de données en est une implantation parmi d'autres.
+estimatedMinutes: 165
+prerequisites:
+  - "IFT159 — bases du C++ et notion de classe"
+objectives:
+  - id: obj1-tda-sd
+    text: Distinguer un type de données abstrait de la structure de données qui l'implante.
+    bloom: understand
+  - id: obj1-specifier
+    text: Spécifier un TDA complet — identité, domaine, prototypes et sémantique des opérations.
+    bloom: apply
+  - id: obj1-representation
+    text: Juger si une représentation proposée est une bonne représentation, au sens de la bijection.
+    bloom: analyze
+  - id: obj1-poo
+    text: Expliquer comment la POO réalise la programmation par type abstrait.
+    bloom: understand
+  - id: obj1-entiers
+    text: Représenter un entier en binaire, signé ou non, et appliquer le complément à deux.
+    bloom: apply
+sources:
+  - file: "IFT339-1-Abstraction de données (3).pdf"
+    page: 1
+    locator: "Thème I — Types abstraits et structures de données, diapositives 1 à 32"
+  - file: "Exemple TAD entier (3).pdf"
+    page: 1
+    locator: "Représentation des types entiers, pages 1 à 19"
+  - file: "AnnexeA exemples pour type SU.pdf"
+    page: 1
+    locator: "Exemples pour les TDA SU et PU"
+---
+
+## 1. À quoi servent les structures de données
+
+Le cours part d'un constat de génie logiciel : la façon dont les données sont
+organisées décide de la qualité du logiciel. Les diapositives listent quatre
+apports.
+
+<Source file="IFT339-1-Abstraction de données (3).pdf" page={4} />
+
+- **Organisation de la mémoire** — conception et mise en œuvre.
+- **Traitement et rapidité** — efficacité des algorithmes.
+- **Stockage des données** et **facilité d'utilisation**.
+- Conséquences : **meilleures performances**, **plus grande évolutivité**,
+  **maintenance plus facile**.
+
+Le cours les classe en deux familles.
+
+<Mermaid caption="Portrait hiérarchique des structures de données (diapositive 5)." chart={`
+flowchart TD
+    SD["Structures de donnees"]
+    SD --> L["SD lineaires"]
+    SD --> NL["SD non-lineaires"]
+    L --> T["Tableaux"]
+    L --> P["Piles"]
+    L --> F["Files"]
+    L --> LC["Listes chainees"]
+    NL --> G["Graphes"]
+    NL --> A["Arbres"]
+    NL --> H["Tables de hachage"]
+`} />
+
+Chacune répond à un usage précis :
+
+| Domaine | Structure | Rôle |
+| --- | --- | --- |
+| Éditeurs de texte | Piles | annulation / rétablissement (ctrl-z) |
+| Éditeurs de texte | Tableaux | caractères individuels, copier-coller efficace |
+| Bases de données | Tables de hachage | indexation, insertion et récupération rapides |
+| Bases de données | Arbres | stockage et récupération en mémoire |
+| Algorithmes de routage | Graphes | topologie du réseau (LAN, internet) |
+| Algorithmes de routage | Files | prioriser les nœuds, plus courts chemins |
+
+<Source file="IFT339-1-Abstraction de données (3).pdf" page={6} locator="Diapositive 6" />
+
+## 2. Le type de données abstrait
+
+### 2.1 Définition
+
+> Spécifications d'un ensemble d'objets de même type et d'un ensemble
+> d'opérations possibles sur ces objets.
+
+<Source file="IFT339-1-Abstraction de données (3).pdf" page={8} locator="Diapositive 8" />
+
+C'est une **abstraction** de la structure de données : une **vue logique** d'un
+ensemble de données, avec ses opérations de création, d'accès et de
+modification.
+
+### 2.2 Ce qu'un TDA dit — et ce qu'il tait
+
+La diapositive 9 pose la frontière, et c'est elle qu'il faut retenir :
+
+| Un TDA **spécifie** | Un TDA **ne spécifie pas** |
+| --- | --- |
+| le type de données contenues | la façon dont les données sont stockées |
+| une description détaillée des opérations possibles sur ces données | comment les méthodes sont implémentées |
+
+<Callout type="note" title="Le TDA est un contrat">
+Le cours insiste sur cette formule : un type abstrait est un **contrat** entre
+la personne qui **utilise** la structure de données et celle qui la
+**développe**. Il définit la relation entre les valeurs des paramètres et le
+retour des opérations. Il **dit ce que doit faire** la structure de données ;
+il **ne dit pas comment le faire**. Il doit être précis et rigoureux, et
+**éviter de poser des contraintes d'implantation**.
+</Callout>
+
+<Source file="IFT339-1-Abstraction de données (3).pdf" page={11} locator="Diapositives 11 à 13" />
+
+### 2.3 Les caractéristiques à fournir
+
+Un TDA se décrit par trois éléments :
+
+- l'**identité** — le nom du type ;
+- le **type des données**, c'est-à-dire le **domaine** ;
+- les **opérations**, sous la forme `paramètres ➔ retour`.
+
+Il est **indépendant** de la représentation utilisée pour les données, des
+algorithmes utilisés pour les opérations, et du langage d'implémentation.
+
+<Callout type="misconception" title="Erreur classique">
+Croire qu'un usager peut modifier un TDA. Les notes sont explicites : c'est
+**impossible**, au risque d'introduire des incohérences. L'usager consomme le
+contrat, il ne le réécrit pas.
+</Callout>
+
+### 2.4 À quoi ça sert, concrètement
+
+- Pour celui qui **développe** le type : vérifier que la réalisation respecte
+  les propriétés du contrat ; cela guide la mise au point (certifications,
+  tests).
+- Pour celui qui **utilise** le type : connaître *a priori* le comportement
+  sans connaître les détails d'implantation, et vérifier la validité de son
+  utilisation.
+
+En phase de conception, le TDA permet de **ne pas être encombré de détails
+techniques**, de ne pas être influencé par les contraintes secondaires, et de
+**repousser les décisions de représentation physique aux étapes ultérieures**.
+
+<Source file="IFT339-1-Abstraction de données (3).pdf" page={12} locator="Diapositives 12 et 13" />
+
+## 3. La structure de données
+
+### 3.1 Définition
+
+> Implémentation d'un TDA dans un langage donné.
+
+Elle inclut trois choses :
+
+1. la **représentation** des objets ;
+2. l'**implémentation des algorithmes** des opérations spécifiées dans le TDA ;
+3. des **opérations non visibles** par les utilisateurs (non spécifiées) et
+   leur implémentation.
+
+<Source file="IFT339-1-Abstraction de données (3).pdf" page={15} locator="Diapositive 15" />
+
+### 3.2 La traduction en C++
+
+Le cours donne la correspondance fichier par fichier :
+
+| Fichier | Contenu |
+| --- | --- |
+| `Point.h` | 1. Identité *(public)* — 2. Domaine *(public)* — 3. Prototypes des opérations spécifiées dans le TDA *(public)* — 4. Représentation des objets *(privé)* — 5. Prototypes des opérations non spécifiées, cachées *(privé)* |
+| `Point.cpp` | Implémentation des algorithmes des opérations *(caché — abstraction procédurale)* |
+
+<Source file="IFT339-1-Abstraction de données (3).pdf" page={16} locator="Diapositive 16" />
+
+### 3.3 Deux vues du même type
+
+<Mermaid caption="Les deux vues d'un même type (diapositive 17). La frontière est ce qui rend l'implantation remplaçable." chart={`
+flowchart LR
+    subgraph U["Vue d'utilisation — Type de donnees abstrait"]
+      U1["Operations visibles du TDA"]
+      U2["Specifications visibles"]
+      U3["Pas d'acces a la representation<br/>ni aux details internes"]
+    end
+    subgraph C["Vue de conception — Structure de donnees"]
+      C1["Conception et implementation du TDA"]
+      C2["Acces a la representation et aux details"]
+      C3["Specifications cachees"]
+    end
+    U -.->|"frontiere d'abstraction"| C
+`} />
+
+## 4. Même TDA, deux structures de données
+
+C'est l'exemple central du chapitre. Un même TDA `Point2D` — « points dans un
+plan » — admet deux représentations distinctes :
+
+<Figure caption="Un même point du plan, deux représentations différentes. Le TDA ne change pas ; la structure de données, si.">
+<svg viewBox="0 0 660 260" role="img" aria-label="Comparaison d'une représentation cartésienne et d'une représentation polaire du même point">
+  <text x="20" y="24" font-size="13" font-weight="600" fill="currentColor">Représentation cartésienne</text>
+  <line x1="40" y1="210" x2="270" y2="210" stroke="currentColor" stroke-width="1.5" opacity="0.5" />
+  <line x1="60" y1="230" x2="60" y2="50" stroke="currentColor" stroke-width="1.5" opacity="0.5" />
+  <line x1="60" y1="210" x2="200" y2="110" stroke="#34d399" stroke-width="2" stroke-dasharray="4 3" />
+  <circle cx="200" cy="110" r="5" fill="#34d399" />
+  <line x1="200" y1="110" x2="200" y2="210" stroke="currentColor" stroke-width="1" stroke-dasharray="3 3" opacity="0.5" />
+  <line x1="60" y1="110" x2="200" y2="110" stroke="currentColor" stroke-width="1" stroke-dasharray="3 3" opacity="0.5" />
+  <text x="196" y="228" font-size="12" fill="currentColor" text-anchor="middle">abscisse</text>
+  <text x="52" y="106" font-size="12" fill="currentColor" text-anchor="end">ordonnée</text>
+  <text x="40" y="250" font-size="12" fill="#34d399">coordonnées : tableau de 2 Réels</text>
+
+  <line x1="330" y1="30" x2="330" y2="250" stroke="currentColor" stroke-width="1" opacity="0.25" />
+
+  <text x="370" y="24" font-size="13" font-weight="600" fill="currentColor">Représentation polaire</text>
+  <line x1="390" y1="210" x2="620" y2="210" stroke="currentColor" stroke-width="1.5" opacity="0.5" />
+  <line x1="410" y1="230" x2="410" y2="50" stroke="currentColor" stroke-width="1.5" opacity="0.5" />
+  <line x1="410" y1="210" x2="550" y2="110" stroke="#818cf8" stroke-width="2.5" />
+  <circle cx="550" cy="110" r="5" fill="#818cf8" />
+  <path d="M 450 210 A 40 40 0 0 0 438 186" fill="none" stroke="#818cf8" stroke-width="1.5" />
+  <text x="474" y="160" font-size="12" fill="#818cf8">rayon</text>
+  <text x="456" y="202" font-size="12" fill="#818cf8">angle</text>
+  <text x="390" y="250" font-size="12" fill="#818cf8">rayon : Réel — angle : Réel</text>
+</svg>
+</Figure>
+
+Les opérations **spécifiques** diffèrent en conséquence :
+
+| Représentation | Opérations de mutation |
+| --- | --- |
+| `coordonnées : tableau de 2 Réels` | `modifAbs : Point2D x Réel ➔ Point2D`, `modifOrd : Point2D x Réel ➔ Point2D` |
+| `rayon : Réel`, `angle : Réel` | `modifRay : Point2D x Réel ➔ Point2D`, `modifAngl : Point2D x Réel ➔ Point2D` |
+
+<Source file="IFT339-1-Abstraction de données (3).pdf" page={18} locator="Diapositive 18" />
+
+Les opérations **du TDA**, elles, ne bougent pas :
+
+```
+Point2D — Points dans un plan
+    créer    : Réel x Réel ➔ Point2D
+    créer    : Ø ➔ Point2D
+    estÉgal  : Point2D x Point2D ➔ Booléen
+    modifier : Point2D x Point2D ➔ Point2D
+    distance : Point2D x Point2D ➔ Réel
+```
+
+Cela permet **une conception modulaire et rigoureuse**, et **l'intégration de
+nouveaux types à partir des types de base**.
+
+## 5. Programmation par type abstrait
+
+### 5.1 Avantages et inconvénients
+
+Le cours ne présente pas l'approche comme gratuite :
+
+| Avantages | Inconvénients |
+| --- | --- |
+| Encapsulation | Efficacité |
+| Abstraction | Complexité |
+| Indépendance de la structure de données | Courbe d'apprentissage |
+| Dissimulation d'informations | Flexibilité limitée |
+| Modularité, réutilisabilité, efficacité | Coût de développement |
+
+<Callout type="warning" title="« Efficacité » figure dans les deux colonnes">
+Ce n'est pas une coquille des diapositives. L'abstraction fait gagner en
+efficacité de **développement** (réutiliser un type bien conçu) et fait perdre
+en efficacité d'**exécution** (couches d'indirection, opérations générales là
+où un code spécialisé serait plus court).
+</Callout>
+
+<Source file="IFT339-1-Abstraction de données (3).pdf" page={20} locator="Diapositive 20" />
+
+### 5.2 Ce que la POO ajoute
+
+La programmation orientée objet **réalise** la programmation par type abstrait
+en utilisant l'abstraction procédurale :
+
+- **modularité** — un ensemble de types (en C++ : des *classes*) interagissant
+  entre eux ;
+- **encapsulation** — la représentation des données et les opérations sont
+  cachées dans la définition des types ;
+- **abstraction procédurale** — la description du comportement des types
+  (prototypes et sémantique des opérations) est **séparée** des algorithmes des
+  opérations.
+
+L'objectif affiché est l'**intégration harmonieuse des types usagers**, en
+utilisant l'architecture et les types existants, pour que le compilateur les
+traite avec la même cohérence que les **types primitifs**.
+
+<Source file="IFT339-1-Abstraction de données (3).pdf" page={24} locator="Diapositives 24 et 25" />
+
+### 5.3 La réutilisation, en pratique
+
+Dans l'exemple des polygones, le type `Point2D` est **réutilisé pour tous les
+types de figures** — `Polygone`, `Rectangle`, `Triangle`, `Losange`, `Carré`,
+`EnsemblePolygones`.
+
+```
+Polygone — Polygones dans un plan
+    translation   : Polygone x Point2D ➔ Polygone
+    rotation      : Polygone x Réel ➔ Polygone
+    aire          : Polygone ➔ Réel
+    circonférence : Polygone ➔ Réel
+    affiche       : Polygone ➔ Ø
+```
+
+<Source file="IFT339-1-Abstraction de données (3).pdf" page={23} locator="Diapositive 23" />
+
+## 6. Choisir une bonne représentation
+
+C'est le point le plus exigeant du chapitre. Le critère est une **bijection**
+entre l'ensemble des éléments du type et l'ensemble des représentations.
+
+Une représentation doit aussi être choisie **en fonction de l'utilisation**
+— celle avec laquelle les opérations effectivement utilisées seront les plus
+efficaces.
+
+<Figure caption="Les deux façons dont une représentation échoue à être une bijection (diapositives 27 et 28).">
+<svg viewBox="0 0 680 300" role="img" aria-label="Deux mauvaises représentations : éléments sans représentation, et plusieurs représentations pour un même élément">
+  <text x="16" y="20" font-size="13" font-weight="600" fill="#fb7185">Défaut 1 — un élément sans représentation</text>
+  <text x="30" y="44" font-size="12" fill="currentColor" opacity="0.8">Éléments</text>
+  <text x="250" y="44" font-size="12" fill="currentColor" opacity="0.8">Représentations</text>
+  <text x="16" y="66" font-size="11" fill="currentColor" opacity="0.65">abscisse/ordonnée déclarés Entier</text>
+
+  <circle cx="60" cy="90" r="4" fill="#34d399" /><text x="72" y="94" font-size="11" fill="currentColor">(1, 2)</text>
+  <circle cx="60" cy="118" r="4" fill="#34d399" /><text x="72" y="122" font-size="11" fill="currentColor">(3, 4)</text>
+  <circle cx="60" cy="146" r="4" fill="#fb7185" /><text x="72" y="150" font-size="11" fill="#fb7185">(1, 1.5)</text>
+
+  <circle cx="280" cy="90" r="4" fill="#34d399" />
+  <circle cx="280" cy="118" r="4" fill="#34d399" />
+  <line x1="120" y1="90" x2="274" y2="90" stroke="#34d399" stroke-width="1.5" />
+  <line x1="120" y1="118" x2="274" y2="118" stroke="#34d399" stroke-width="1.5" />
+  <line x1="120" y1="146" x2="230" y2="146" stroke="#fb7185" stroke-width="1.5" stroke-dasharray="4 3" />
+  <text x="236" y="150" font-size="14" fill="#fb7185">✕</text>
+  <text x="16" y="182" font-size="11" fill="#fb7185">Pas de représentation pour les points à coordonnées Réelles</text>
+
+  <line x1="350" y1="10" x2="350" y2="290" stroke="currentColor" stroke-width="1" opacity="0.25" />
+
+  <text x="370" y="20" font-size="13" font-weight="600" fill="#fb7185">Défaut 2 — plusieurs représentations</text>
+  <text x="384" y="44" font-size="12" fill="currentColor" opacity="0.8">Élément</text>
+  <text x="580" y="44" font-size="12" fill="currentColor" opacity="0.8">Représentations</text>
+  <text x="370" y="66" font-size="11" fill="currentColor" opacity="0.65">rayon / angle, sans normalisation</text>
+
+  <circle cx="404" cy="118" r="4" fill="#fb7185" /><text x="416" y="122" font-size="11" fill="currentColor">un même point</text>
+
+  <circle cx="610" cy="96" r="4" fill="#fb7185" /><text x="622" y="100" font-size="11" fill="#fb7185">(1, π/4)</text>
+  <circle cx="610" cy="142" r="4" fill="#fb7185" /><text x="622" y="146" font-size="11" fill="#fb7185">(1, 5π/4)</text>
+  <line x1="470" y1="118" x2="604" y2="96" stroke="#fb7185" stroke-width="1.5" />
+  <line x1="470" y1="118" x2="604" y2="142" stroke="#fb7185" stroke-width="1.5" />
+  <text x="370" y="182" font-size="11" fill="#fb7185">estÉgal devient faux pour deux représentations du même point</text>
+</svg>
+</Figure>
+
+<Callout type="misconception" title="Erreur classique">
+Déclarer `abscisse : Entier` et `ordonnée : Entier` pour un TDA dont le domaine
+est « points dans un plan » à coordonnées **Réelles**. Le code compile, les
+tests sur des points entiers passent — et le point (1&nbsp;; 1,5) est tout
+simplement **inexprimable**. Le défaut est dans la représentation, pas dans le
+code qui l'utilise.
+</Callout>
+
+<Source file="IFT339-1-Abstraction de données (3).pdf" page={26} locator="Diapositives 26 à 28" />
+
+## 7. Les types primitifs classiques
+
+Deux familles, plus les adresses.
+
+<Source file="IFT339-1-Abstraction de données (3).pdf" page={29} locator="Diapositives 29 et 30" />
+
+Un **nombre à virgule flottante** est représenté à trois composantes :
+
+$$
+\text{Nombre} = \text{Signe} \times (1 + \text{mantisse}) \times 2^{\text{exposant}}
+$$
+
+Les types **composés** sont les conteneurs (`[n]` tableaux primitifs, `array`,
+`string`), le style constante (`enum`), et le **pointeur**, qui contient
+l'adresse d'un objet en mémoire.
+
+### 7.1 Les deux ressources
+
+Le cours ramène toute la suite à deux ressources :
+
+- le **temps** — unité centrale de traitement ;
+- la **mémoire (espace)** — une suite d'octets ; 1 octet = 8 bits ; l'adresse
+  d'un octet est sa position en mémoire.
+
+<Callout type="warning" title="Le thème 2 manque">
+La diapositive 31 renvoie à « Notion de complexité : **Thème 2** » pour mesurer
+ces deux ressources. **Ce document n'a pas été fourni.** Le chapitre 5 utilise
+pourtant $\mathcal{O}(1)$ et $\mathcal{O}(n)$ sans les définir. Cette lacune
+est signalée dans le parcours et dans le rapport de couverture.
+</Callout>
+
+## 8. Représentation des types entiers
+
+### 8.1 Tailles dépendantes de l'architecture
+
+Les définitions de `short`, `int` et `long` **dépendent de l'architecture** de
+la machine, avec la garantie d'ordre suivante :
+
+$$
+\text{short} \le \text{int} \le \text{long}
+$$
+
+- architecture à 16 bits : `short = int = 16` ; `long = 32`
+- architecture à 32 bits : `short = 16` ; `int = long = 32`
+
+Depuis **C++11**, un système de noms lève l'ambiguïté : `[u]int[8|16|32|64]_t`
+— par exemple `uint8_t` (non signés sur 8 bits), `int16_t` (signés sur 16
+bits). Les constantes se suffixent : `0U`, `1L`, `1ULL`.
+
+<Source file="Exemple TAD entier (3).pdf" page={6} />
+
+### 8.2 Entiers non signés
+
+Sur $n$ bits, il y a $2^n$ représentations possibles, couvrant
+$[0,\ 2^n - 1]$. Chaque nombre est une somme de puissances de 2 :
+
+$$
+\text{Nombre} = b_{n-1} \times 2^{n-1} + b_{n-2} \times 2^{n-2} + \cdots + b_1 \times 2^1 + b_0 \times 2^0
+$$
+
+Sur 4 bits : $2^4 = 16$ représentations, de `0000` = 0 à `1111` = 15.
+
+### 8.3 Entiers signés
+
+Mêmes $2^n$ représentations, réparties différemment — l'intervalle devient
+$[-2^{n-1},\ 2^{n-1} - 1]$ :
+
+- **la moitié** pour les entiers positifs ou nuls, $[0,\ 2^{n-1} - 1]$ : ce
+  sont les représentations telles que $b_{n-1} = 0$ ;
+- **l'autre moitié** pour les négatifs, $[-2^{n-1},\ -1]$ : celles telles que
+  $b_{n-1} = 1$.
+
+Sur 4 bits, `0111` vaut 7 et `1000` vaut $-8$ : la valeur d'une représentation
+négative se lit en retranchant $2^n$.
+
+$$
+1111 \rightarrow 1 \times 2^3 + 1 \times 2^2 + 1 \times 2^1 + 1 \times 2^0 - 2^4 = 15 - 16 = -1
+$$
+
+<Source file="Exemple TAD entier (3).pdf" page={5} />
+
+### 8.4 L'algorithme de conversion
+
+Pour représenter un entier positif sur $n$ bits :
+
+```
+Pour i de n-1 à 0, faire
+    bi ← x / 2^i          (division entière)
+    Si bi == 1
+        x ← x - 2^i
+```
+
+Déroulé pour $x = 46$ sur 8 bits :
+
+| $i$ | $x / 2^i$ | $b_i$ | nouveau $x$ |
+| --- | --- | --- | --- |
+| 7 | 46 / 128 = 0 | 0 | 46 |
+| 6 | 46 / 64 = 0 | 0 | 46 |
+| 5 | 46 / 32 = 1 | 1 | 46 − 32 = 14 |
+| 4 | 14 / 16 = 0 | 0 | 14 |
+| 3 | 14 / 8 = 1 | 1 | 14 − 8 = 6 |
+| 2 | 6 / 4 = 1 | 1 | 6 − 4 = 2 |
+| 1 | 2 / 2 = 1 | 1 | 2 − 2 = 0 |
+| 0 | 0 / 1 = 0 | 0 | 0 |
+
+D'où la représentation de 46 sur 8 bits : `00101110`.
+
+<Source file="Exemple TAD entier (3).pdf" page={7} />
+
+### 8.5 Inversion — le complément à deux
+
+Pour obtenir l'opposé d'un entier sur $n$ bits, deux étapes :
+
+1. prendre le **complément à 1** de la représentation (inverser chaque bit) ;
+2. **additionner 1**.
+
+```
+  Représentation de 46      00101110
+  Complément à 1            11010001
++                           00000001
+  ──────────────────────────────────
+  Représentation de -46     11010010
+```
+
+### 8.6 Élargir la représentation
+
+Pour **augmenter le nombre de bits**, on **propage le bit de poids fort** sur
+les nouveaux bits :
+
+| Valeur | 8 bits | → 16 bits |
+| --- | --- | --- |
+| 46 | `00101110` | `0000000000101110` |
+| −46 | `11010010` | `1111111111010010` |
+
+<Callout type="misconception" title="Erreur classique">
+Compléter avec des zéros lors du passage de 8 à 16 bits. Pour $-46$, cela
+donnerait `0000000011010010`, soit **+210** : le signe est perdu. C'est le bit
+de poids fort — et lui seul — qu'il faut recopier.
+</Callout>
+
+<Source file="Exemple TAD entier (3).pdf" page={8} />
+
+## 9. Le TDA Entier, écrit comme un TDA
+
+Le document d'exemple applique au type `int` lui-même la démarche du chapitre :
+
+```
+Entier
+    Entiers compris entre -2^(n-1) et 2^(n-1)
+    chaineB : Chaine_bin
+    créer     : Chaine_dec ➔ Entier
+    +         : Entier x Entier ➔ Entier
+    - unaire  : Entier ➔ Entier
+    -         : Entier x Entier ➔ Entier
+    *         : Entier x Entier ➔ Entier
+    /         : Entier x Entier ➔ Entier
+```
+
+`Entier` s'appuie sur un second TDA, `Chaine_bin`, qui porte les opérations de
+bas niveau — `complément`, `décaler`, et les mêmes opérateurs arithmétiques.
+C'est exactement la réutilisation vue à la section 5.3, appliquée cette fois à
+un type primitif.
+
+<Source file="Exemple TAD entier (3).pdf" page={10} />
+
+<Callout type="note" title="Pourquoi ce détour par le binaire dans un cours de structures de données">
+Parce qu'il démontre la thèse du chapitre sur un cas où l'on croit qu'il n'y a
+rien à décider : même `int` est un TDA dont la représentation a été choisie, et
+ce choix a des conséquences observables — l'intervalle
+$[-2^{n-1},\ 2^{n-1}-1]$ n'est pas symétrique, et le dépassement de capacité
+est le prix de la bijection retenue.
+</Callout>

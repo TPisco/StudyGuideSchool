@@ -1,0 +1,263 @@
+---
+course: MAT115
+number: 2
+title: Logique du premier ordre
+summary: >-
+  Quand un énoncé contient des variables, il devient une fonction
+  propositionnelle ; les quantificateurs ∀ et ∃ en refont des propositions.
+  Priorité et portée des quantificateurs, occurrences libres et liées,
+  formules fermées — puis l'outil Tarski UdeS, où l'on écrit des formules à
+  propos d'un monde d'objets.
+estimatedMinutes: 150
+prerequisites:
+  - "Chapitre 1 — connecteurs, priorité, parenthésage"
+objectives:
+  - id: obj2-predicat
+    text: Identifier prédicat, variables, fonction propositionnelle et domaine dans un énoncé.
+    bloom: understand
+  - id: obj2-quantificateurs
+    text: Évaluer une formule quantifiée sur un domaine, y compris comme conjonction ou disjonction sur un domaine fini.
+    bloom: apply
+  - id: obj2-priorite
+    text: Parenthéser une formule du premier ordre en respectant la priorité faible des quantificateurs.
+    bloom: apply
+  - id: obj2-portee
+    text: Déterminer la portée de chaque quantificateur, les occurrences libres et liées, et si une formule est fermée.
+    bloom: analyze
+  - id: obj2-tarski
+    text: Traduire un énoncé français en formule avec les prédicats de Tarski UdeS.
+    bloom: apply
+sources:
+  - file: "Semaine 1.pdf"
+    page: 29
+    locator: "Semaine 1, section 1.2 — Logique du premier ordre et Tarski UdeS (diapositives 29 à 43)"
+  - file: "Semaine 2.pdf"
+    page: 3
+    locator: "Semaine 2, section 1.2 (diapositives 1 à 14)"
+---
+
+La section 1.2 commence à la fin des diapositives de la semaine 1 et se
+poursuit, avec des compléments, au début de celles de la semaine 2. Ce
+chapitre réunit les deux.
+
+## 1. Prédicats et fonctions propositionnelles
+
+Un énoncé comme « $x < 2$ », « $x$ est le parent de $y$ » ou « $x$ est un
+triangle » **n'est pas une proposition** : sa valeur de vérité dépend de $x$
+(et de $y$). Mais dès qu'on fixe la valeur des variables, il en devient une.
+
+- Un **prédicat** est une propriété que peut prendre le sujet d'un énoncé.
+- $P(x)$ est une **fonction propositionnelle** d'une variable $x$ si $P(x)$
+  est une proposition lorsque la valeur de $x$ est fixée.
+- L'ensemble $U$ des valeurs prises par les variables est l'**univers du
+  discours**, ou **domaine**.
+
+<Callout type="example" title="Les deux exemples des diapositives">
+**$P(x, y)$ : « $x$ est le parent de $y$ »**, avec $U$ l'ensemble des personnes
+d'un bloc d'appartements : $x$ et $y$ sont les variables sujets, « est le
+parent de » est le prédicat, $P(x, y)$ est une fonction propositionnelle.
+
+**$\text{Triangle}(x)$ : « $x$ est un triangle »**, avec $U$ l'ensemble des
+objets d'une matrice : $x$ est la variable, « est un triangle » le prédicat.
+</Callout>
+
+<Callout type="example" title="Exercice des diapositives — E(x, y) : x − 8 = 5 × y">
+Sur les réels : $E(1, 2)$ se lit $1 - 8 = 5 \times 2$, soit $-7 = 10$ :
+**faux**. $E(8, 0)$ se lit $8 - 8 = 5 \times 0$, soit $0 = 0$ : **vrai**.
+(Solution rédigée par la plateforme ; les diapositives posent la question.)
+</Callout>
+
+<Source file="Semaine 1.pdf" page={30} locator="Diapositives 30 à 32" />
+
+## 2. Les quantificateurs
+
+Soit $P(x)$ une fonction propositionnelle.
+
+- La **quantification universelle** $\forall x \cdot P(x)$ est vraie si, et
+  seulement si, $P(x)$ est vraie **pour tout** $x$ du domaine.
+- La **quantification existentielle** $\exists x \cdot P(x)$ est vraie si, et
+  seulement si, $P(x)$ est vraie **pour au moins une** valeur de $x$ du
+  domaine.
+
+<Callout type="example" title="Exemples des diapositives (solutions de la plateforme)">
+1. $M(x)$ : « $x$ est un nombre pair », domaine $\mathbb{N}$.
+   $\exists x \cdot M(x)$ est **vraie** : $x = 2$ convient.
+2. $P(x)$ : « $x < 2$ », domaine $\mathbb{R}$. $\forall x \cdot P(x)$ est
+   **fausse** : $x = 3$ ne vérifie pas $P$.
+
+Pour réfuter un $\forall$, un seul contre-exemple suffit ; pour établir un
+$\exists$, un seul exemple suffit.
+</Callout>
+
+**Sur un domaine fini** $\{o_1, \dots, o_n\}$, les quantificateurs se ramènent
+aux connecteurs du chapitre 1 :
+
+$$
+(\forall x \cdot A) \Leftrightarrow \big(A[x := o_1] \wedge \dots \wedge A[x := o_n]\big),
+\qquad
+(\exists x \cdot A) \Leftrightarrow \big(A[x := o_1] \vee \dots \vee A[x := o_n]\big),
+$$
+
+où $A[x := o_i]$ est la formule $A$ dans laquelle $x$ est remplacé par $o_i$.
+C'est exactement ce que fait Tarski UdeS : son monde est fini.
+
+<Source file="Semaine 2.pdf" page={7} locator="Diapositives 5 à 7" />
+
+## 3. Priorité et parenthésage
+
+**Les quantificateurs $\forall$ et $\exists$ ont la même priorité, plus
+faible que celle de tous les opérateurs logiques** $\neg, \wedge, \vee,
+\Rightarrow, \Leftrightarrow$. Un quantificateur s'applique donc **à toute la
+formule à sa droite** (jusqu'à une parenthèse fermante qui l'entoure).
+
+Les diapositives parenthèsent de l'extérieur vers l'intérieur
+$\forall x \cdot A \Rightarrow \exists y \cdot A \wedge \neg B \vee C \Leftrightarrow E$ :
+
+1. $\forall$ est le moins prioritaire et s'applique à tout ce qui suit :
+   $\forall x \cdot (A \Rightarrow \exists y \cdot A \wedge \neg B \vee C \Leftrightarrow E)$ ;
+2. $\exists$ s'applique ensuite à tout ce qui est à sa droite, dans ces
+   parenthèses :
+   $\forall x \cdot \big(A \Rightarrow \exists y \cdot (A \wedge \neg B \vee C \Leftrightarrow E)\big)$ ;
+3. puis l'implication, etc. :
+
+$$
+\forall x \cdot \Big(A \Rightarrow \exists y \cdot \big(((A \wedge (\neg B)) \vee C) \Leftrightarrow E\big)\Big).
+$$
+
+<Callout type="misconception" title="Le quantificateur ne s'arrête pas au premier connecteur">
+On est tenté de lire $\forall x \cdot A \Rightarrow B$ comme
+$(\forall x \cdot A) \Rightarrow B$. Avec la priorité du cours, c'est
+$\forall x \cdot (A \Rightarrow B)$. Pour limiter un quantificateur, **il faut
+des parenthèses** autour de lui.
+</Callout>
+
+<Source file="Semaine 2.pdf" page={8} locator="Diapositives 8 et 9 (et Semaine 1, diapositives 34 et 35)" />
+
+## 4. Portée, occurrences libres et liées
+
+La **portée** d'un quantificateur est la portion de la formule à laquelle il
+s'applique. Elle est limitée par les parenthèses :
+
+$$
+\forall y \cdot \underbrace{\big(P(y) \vee \exists x \cdot P(x) \wedge \exists y \cdot Q(y)\big)}_{\text{portée de } \forall y} \wedge R(y)
+$$
+
+Ici, $\forall y$ ne s'applique **pas** à $R(y)$.
+
+Dans $\forall x \cdot A$ et $\exists y \cdot B$, les occurrences de $x$ dans
+$A$ et de $y$ dans $B$ sont **liées** à ces quantificateurs. Une occurrence
+sous la portée de plusieurs quantificateurs de même variable est liée **au
+plus proche** (le plus imbriqué). Une occurrence qui n'est liée à aucun
+quantificateur est **libre**.
+
+<Callout type="example" title="Exemples des diapositives">
+Dans $\forall y \cdot \big(P(y) \vee \exists x \cdot P(x) \wedge \exists y \cdot Q(x, y)\big) \wedge P(y)$ :
+
+- la 1re occurrence de $y$ est liée à $\forall y$ ; la 2e, dans $Q(x, y)$, au
+  $\exists y$, plus proche ;
+- la 3e, dans le dernier $P(y)$, est **libre** : elle est hors des
+  parenthèses ;
+- les deux occurrences de $x$ sont liées à $\exists x$, dont la portée
+  s'étend jusqu'à la parenthèse fermante et englobe donc $Q(x, y)$.
+
+Dans $\forall y \cdot \big((P(x) \vee \exists x \cdot P(x)) \wedge Q(y)\big)$,
+la 1re occurrence de $x$ est **libre**, la 2e est liée ; $y$ est lié.
+</Callout>
+
+Une formule est **fermée** si, et seulement si, elle ne contient **aucune
+variable libre**. Ajouter des quantificateurs devant pour lier les variables
+libres donne une **fermeture** :
+$\forall y \cdot \big((P(x) \vee \exists x \cdot P(x)) \wedge Q(y)\big)$ est
+ouverte, et $\forall x \cdot \forall y \cdot \big((P(x) \vee \exists x \cdot P(x)) \wedge Q(y)\big)$
+est une fermeture de cette formule.
+
+<Callout type="example" title="Exemples de la diapositive 14 de la semaine 2">
+1. $\forall x, y \cdot \text{pere}(x, y) \Rightarrow \big(\text{parent}(x, y) \wedge (\forall x, y \cdot \text{mere}(x, y) \Rightarrow \text{parent}(x, y)) \wedge \text{homme}(x)\big)$
+   est **fermée** : toutes les variables sont liées.
+2. $\forall x \cdot x > 0 \wedge y = 1$ : $x$ est lié, $y$ est libre — formule
+   **non fermée**.
+3. $(\forall x \cdot x > 0) \wedge x = 1$ : les diapositives ne commentent pas
+   cet exemple. Les parenthèses arrêtent la portée de $\forall x$ ; le $x$ de
+   « $x = 1$ » est donc **libre**, et la formule n'est pas fermée.
+</Callout>
+
+<Source file="Semaine 2.pdf" page={11} locator="Diapositives 10 à 14" />
+
+## 5. Tarski UdeS
+
+**Tarski UdeS** est une application créée par des étudiants du département
+d'informatique. On y écrit des formules à propos d'un **monde** — une matrice
+contenant des triangles, des carrés et des pentagones, de trois tailles
+(petit, moyen, grand) — et on vérifie si elles y sont vraies.
+
+- Pour valider une formule, on la teste dans un monde où elle **doit être
+  vraie** et dans un monde où elle **doit être fausse** ; pour chaque monde,
+  on indique la valeur attendue avec le bouton « Formula is ».
+- Une lettre affectée à un objet devient son **nom** (une constante) ; avec
+  « ! » ou « # », elle devient une **variable** qui représente un objet
+  quelconque.
+
+| Notation du cours | Tarski UdeS | Priorité |
+| --- | --- | --- |
+| $\forall x \cdot$ | `!x.( ... )` | 0 |
+| $\exists x \cdot$ | `#x.( ... )` | 0 |
+| $\neg$ | `not` | 1 |
+| $\wedge$ | `&` | 2 |
+| $\vee$ | `or` | 3 |
+| $\Rightarrow$ | `=>` | 4 |
+| $\Leftrightarrow$ | `<=>` | 5 |
+
+<Callout type="note" title="Pourquoi les quantificateurs ont la priorité 0 dans Tarski">
+Dans la syntaxe de Tarski, un quantificateur s'écrit **avec ses parenthèses**,
+`!x.( ... )` : sa portée est toujours explicite, comme des parenthèses de
+priorité 0. Dans la notation mathématique du cours, sans parenthèses
+obligatoires, les quantificateurs ont au contraire la priorité **la plus
+faible** (section 3). Les deux conventions décrivent la même chose.
+</Callout>
+
+| Prédicat | Signification |
+| --- | --- |
+| `Triangle(x)`, `Square(x)`, `Pentagon(x)` | $x$ est un triangle, un carré, un pentagone |
+| `Small(x)`, `Medium(x)`, `Large(x)` | $x$ est petit, moyen, grand |
+| `Smaller(x, y)` | $x$ est strictement plus petit que $y$ |
+| `SameSize(x, y)` | $x$ est de même taille que $y$ |
+| `LeftOf(x, y)` | $x$ est à gauche de $y$ |
+| `SameRow(x, y)`, `SameCol(x, y)` | $x$ est sur la même ligne, la même colonne que $y$ |
+| `Between(x, y, z)` | $x$ est entre $y$ et $z$ sur une même ligne, colonne ou diagonale |
+| `x = y`, `x /= y` | même objet, objets distincts |
+
+<Callout type="example" title="Les deux exemples des diapositives (solutions de la plateforme)">
+**1. « Les carrés situés à gauche du triangle $a$ sont petits. »**
+
+$$
+\forall x \cdot \big(\text{Square}(x) \wedge \text{LeftOf}(x, a) \Rightarrow \text{Small}(x)\big)
+$$
+
+En Tarski : `!x.(Square(x) & LeftOf(x, a) => Small(x))`. Un « tous les … qui
+… sont … » se traduit par $\forall$ et $\Rightarrow$, jamais par
+$\forall$ et $\wedge$ : $\forall x \cdot (\text{Square}(x) \wedge \dots)$
+affirmerait que **tout** objet est un carré.
+
+**2. « Une condition suffisante pour que tous les grands objets soient des
+carrés est qu'il n'existe pas de petit triangle. » (sans $\exists$)**
+
+La condition suffisante est l'hypothèse (chapitre 1). « Il n'existe pas de
+petit triangle » s'écrit sans $\exists$ : tout objet n'est pas un petit
+triangle.
+
+$$
+\big(\forall x \cdot \neg(\text{Triangle}(x) \wedge \text{Small}(x))\big) \Rightarrow \forall y \cdot \big(\text{Large}(y) \Rightarrow \text{Square}(y)\big)
+$$
+
+En Tarski : `!x.(not (Triangle(x) & Small(x))) => !y.(Large(y) => Square(y))`.
+Les parenthèses autour du premier $\forall$ sont indispensables : sans elles,
+sa portée engloberait toute l'implication, et la formule dirait autre chose.
+</Callout>
+
+<Callout type="note" title="Les devoirs utilisent Tarski UdeS">
+Le premier devoir du cours demande de traduire des énoncés dans Tarski UdeS.
+La plateforme ne propose volontairement **aucune** traduction des énoncés du
+devoir : seuls les deux exemples des diapositives sont résolus ici.
+</Callout>
+
+<Source file="Semaine 1.pdf" page={42} locator="Diapositives 37 à 43 ; tableaux 1.1 et 1.2" />

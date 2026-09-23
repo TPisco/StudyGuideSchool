@@ -1,0 +1,346 @@
+---
+course: MAT199
+number: 2
+title: Rang, matrices inversibles et décomposition LU
+summary: >-
+  Les matrices échelonnées et les trois opérations élémentaires sur les
+  lignes, le rang, puis l'inverse d'une matrice carrée : le critère
+  rg(A) = n, le calcul par (A | I), les puissances négatives, et la
+  décomposition LU qui prépare les déterminants et les systèmes.
+estimatedMinutes: 210
+prerequisites:
+  - "Chapitre 1 — produit de matrices, transposée, matrice identité"
+objectives:
+  - id: obj2-echelon
+    text: Reconnaître une matrice échelonnée, ses pivots, et appliquer correctement les trois opérations élémentaires.
+    bloom: apply
+  - id: obj2-rang
+    text: Calculer le rang d'une matrice, y compris selon la valeur d'un paramètre.
+    bloom: apply
+  - id: obj2-inverse
+    text: Décider si une matrice est inversible et utiliser les propriétés de l'inverse.
+    bloom: understand
+  - id: obj2-calcul-inverse
+    text: Calculer A⁻¹, A⁻¹B et les puissances négatives par la méthode (A | B).
+    bloom: apply
+  - id: obj2-lu
+    text: Construire une décomposition LU avec des opérations triangulaires inférieures.
+    bloom: analyze
+sources:
+  - file: "2026-03-MAT199-ChapI.pdf"
+    page: 14
+    locator: "Chapitre I — sections 1.3 et 1.4 (p. 14 à 29)"
+  - file: "2026-03_MAT199_ed.pdf"
+    page: 1
+    locator: "Exercices dirigés, séance 1, n° 7 et 8"
+  - file: "2026-03_MAT199_ex.pdf"
+    page: 4
+    locator: "Banque d'exercices, sections 1.3 et 1.4"
+---
+
+Ce chapitre couvre la deuxième moitié du chapitre I des notes. Comme au
+chapitre précédent, **les solutions des exercices sont calculées et vérifiées
+par la plateforme** : les notes laissent l'espace en blanc.
+
+## 1. Matrices échelonnées et opérations élémentaires
+
+### 1.1 Échelonnée, pivot
+
+Une matrice de lignes $L_1, \dots, L_m$ est **échelonnée** si, pour tout
+$i \geq 2$ : dès que $L_i$ est non nulle avec son premier terme non nul dans
+la colonne $j_i$, alors $L_{i-1}$ est non nulle avec son premier terme non nul
+dans une colonne $j_{i-1} < j_i$.
+
+Dans ce cas, le premier terme non nul d'une ligne non nulle est son
+**pivot**. Concrètement :
+
+- les **lignes nulles sont en bas** ;
+- chaque pivot est **strictement à droite** du pivot de la ligne du dessus ;
+- chaque ligne, **et chaque colonne**, contient **au plus un pivot**, donc le
+  nombre de pivots est $\leq \min\{m, n\}$.
+
+$$
+\begin{pmatrix} \boxed{1} & 1 & 3 & 0 \\ 0 & \boxed{1} & 1 & -9 \\ 0 & 0 & \boxed{7} & 2 \end{pmatrix}
+\text{ est échelonnée ;}\qquad
+\begin{pmatrix} 2 & 1 & 2 \\ 0 & 1 & 0 \\ 2 & 0 & 0 \end{pmatrix}
+\text{ ne l'est pas.}
+$$
+
+Toute matrice-ligne est échelonnée ; toute matrice nulle aussi, sans pivot ;
+$I_n$ est échelonnée à $n$ pivots.
+
+### 1.2 Les trois opérations élémentaires
+
+| Type | Opération | Notation | Inverse |
+| --- | --- | --- | --- |
+| 1 | échanger deux lignes | $L_i \leftrightarrow L_j$, $i \neq j$ | $L_i \leftrightarrow L_j$ |
+| 2 | ajouter à une ligne un multiple d'une **autre** | $L_i + aL_j$, $i \neq j$ | $L_i - aL_j$ |
+| 3 | multiplier une ligne par un nombre **non nul** | $aL_i$, $a \neq 0$ | $a^{-1}L_i$ |
+
+On dit que $A$ **se réduit** à $B$ si $B$ s'obtient de $A$ par une suite finie
+d'opérations élémentaires. Comme chaque opération est inversible
+(lemme 1.3.3), **si $A$ se réduit à $B$, alors $B$ se réduit à $A$**.
+
+<Callout type="warning" title="Une coquille dans l'exemple du lemme 1.3.3 (p. 16)">
+L'exemple applique $L_2 - 4L_1$, puis la défait avec une opération notée
+« $L_2 + 4L_2$ ». L'inverse de $L_2 - 4L_1$ est **$L_2 + 4L_1$**, comme le dit
+le lemme lui-même. « $L_2 + 4L_2$ » serait d'ailleurs $5L_2$, une opération de
+type 3.
+</Callout>
+
+<Callout type="misconception" title="Deux opérations qui n'en sont pas">
+$L_2 + 3L_2$ n'est pas de type 2 (il faut $i \neq j$), et $0 \cdot L_i$ n'est
+pas de type 3 (il faut $a \neq 0$) : ni l'une ni l'autre n'est réversible, et
+elles changeraient le rang.
+</Callout>
+
+<Source file="2026-03-MAT199-ChapI.pdf" page={15} locator="Définitions 1.3.1 et 1.3.2, lemme 1.3.3" />
+
+## 2. Le rang
+
+**Théorème 1.3.5.** Toute matrice $A$ se réduit à une matrice échelonnée, appelée
+**forme échelonnée** de $A$ ; et toutes les formes échelonnées de $A$ ont le
+même nombre de pivots. Ce nombre est le **rang** de $A$, noté
+$\operatorname{rg}(A)$.
+
+**Lemme 1.3.6.** Pour $A$ de type $m \times n$ :
+
+1. $\operatorname{rg}(A) \leq \min\{m, n\}$ ;
+2. si $A$ se réduit à $B$, alors $\operatorname{rg}(A) = \operatorname{rg}(B)$ ;
+3. $\operatorname{rg}(A) = 0$ si, et seulement si, $A = 0_{m \times n}$ ;
+4. $\operatorname{rg}(A^T) = \operatorname{rg}(A)$.
+
+<Callout type="example" title="Exercice des notes, p. 17 — trouver le rang">
+$$
+\begin{pmatrix} 0 & 2 & 4 & 2 & 10 \\ 0 & 1 & 2 & 2 & 7 \\ 0 & 1 & 2 & 1 & 5 \end{pmatrix}
+\xrightarrow{L_1 \leftrightarrow L_2}
+\begin{pmatrix} 0 & 1 & 2 & 2 & 7 \\ 0 & 2 & 4 & 2 & 10 \\ 0 & 1 & 2 & 1 & 5 \end{pmatrix}
+\xrightarrow[L_3 - L_1]{L_2 - 2L_1}
+\begin{pmatrix} 0 & 1 & 2 & 2 & 7 \\ 0 & 0 & 0 & -2 & -4 \\ 0 & 0 & 0 & -1 & -2 \end{pmatrix}
+\xrightarrow{L_3 - \frac12 L_2}
+\begin{pmatrix} 0 & 1 & 2 & 2 & 7 \\ 0 & 0 & 0 & -2 & -4 \\ 0 & 0 & 0 & 0 & 0 \end{pmatrix}
+$$
+
+Deux pivots : $\operatorname{rg}(A) = 2$. La première colonne est nulle, et
+c'est permis : le premier pivot n'a pas à être dans la colonne 1.
+</Callout>
+
+L'exemple du lemme 1.3.6 montre l'intérêt de (4) :
+$A = \begin{pmatrix} 2 & 0 & 0 \\ 3 & 1 & 0 \\ 4 & 5 & 5 \end{pmatrix}$ n'est
+pas échelonnée, mais $A^T$ l'est, avec trois pivots. Donc
+$\operatorname{rg}(A) = 3$ sans aucun calcul.
+
+<Callout type="example" title="Exercices dirigés, séance 1, n° 8 — rang selon a">
+$$
+A = \begin{pmatrix} 1 & 1 & a & 1 \\ 1 & 2 & 1 & 1 \\ 1 & a & 1 & a \end{pmatrix}
+\longrightarrow
+\begin{pmatrix} 1 & 1 & a & 1 \\ 0 & 1 & 1 - a & 0 \\ 0 & 0 & (a-1)(a-2) & a - 1 \end{pmatrix}
+$$
+
+(avec $L_2 - L_1$, $L_3 - L_1$, puis $L_3 - (a - 1)L_2$). La troisième ligne
+s'annule **entièrement** seulement si $a = 1$. Pour $a = 2$, elle vaut
+$(0, 0, 0, 1)$ : encore un pivot.
+
+$\operatorname{rg}(A) = 2$ si $a = 1$, et $\operatorname{rg}(A) = 3$ sinon.
+</Callout>
+
+<Source file="2026-03-MAT199-ChapI.pdf" page={17} locator="Théorème 1.3.5, lemme 1.3.6, exercice p. 17" />
+
+## 3. Matrices inversibles
+
+### 3.1 Définition et propriétés
+
+$A \in M_n(\mathbb{R})$ est **inversible** s'il existe $B \in M_n(\mathbb{R})$
+telle que $AB = I_n$ **et** $BA = I_n$. On note alors $B = A^{-1}$.
+
+Exercice des notes (p. 18) :
+$\begin{pmatrix} 1 & 1 \\ 0 & 1 \end{pmatrix}^{-1} = \begin{pmatrix} 1 & -1 \\ 0 & 1 \end{pmatrix}$
+— on vérifie que le produit dans les deux sens donne $I_2$. En revanche
+$\begin{pmatrix} 1 & 0 \\ 0 & 0 \end{pmatrix}$ n'est pas inversible : quel que
+soit $B$, la deuxième ligne de $\begin{pmatrix} 1 & 0 \\ 0 & 0 \end{pmatrix}B$
+est nulle, donc ce produit ne peut pas valoir $I_2$.
+
+**Proposition 1.4.2.**
+
+1. Si $A$ est inversible, $A^{-1}$ et $A^T$ le sont : $(A^{-1})^{-1} = A$ et
+   $(A^T)^{-1} = (A^{-1})^T$.
+2. Si $AB = C$ avec $A$ inversible, alors $B = A^{-1}C$.
+3. Si $BA = C$ avec $A$ inversible, alors $B = CA^{-1}$.
+4. Si $A, B$ sont inversibles de même ordre, $(AB)^{-1} = B^{-1}A^{-1}$.
+
+<Callout type="misconception" title="Encore l'ordre">
+Comme pour la transposée, **l'ordre s'inverse** : $(AB)^{-1} = B^{-1}A^{-1}$.
+Et on ne « divise » pas par une matrice : $AB = C$ donne $B = A^{-1}C$ (on
+multiplie **à gauche**), pas $B = CA^{-1}$.
+</Callout>
+
+L'exemple des notes (p. 20) utilise (4) :
+
+$$
+\begin{pmatrix} 2 & 3 \\ 1 & 2 \end{pmatrix}^{-1}
+= \left[\begin{pmatrix} 1 & 1 \\ 0 & 1 \end{pmatrix}\begin{pmatrix} 1 & 1 \\ 1 & 2 \end{pmatrix}\right]^{-1}
+= \begin{pmatrix} 1 & 1 \\ 1 & 2 \end{pmatrix}^{-1}\begin{pmatrix} 1 & 1 \\ 0 & 1 \end{pmatrix}^{-1}
+= \begin{pmatrix} 2 & -1 \\ -1 & 1 \end{pmatrix}\begin{pmatrix} 1 & -1 \\ 0 & 1 \end{pmatrix}
+= \begin{pmatrix} 2 & -3 \\ -1 & 2 \end{pmatrix}.
+$$
+
+### 3.2 Le critère du rang
+
+**Théorème 1.4.3.** $A \in M_n(\mathbb{R})$ est inversible si, et seulement si,
+$\operatorname{rg}(A) = n$.
+
+<Callout type="example" title="Exercices des notes, p. 20 et 21">
+**Laquelle est inversible ?**
+$A = \begin{pmatrix} 2 & 4 & 2 \\ 1 & 2 & 2 \\ 1 & 2 & 1 \end{pmatrix}$ :
+sa deuxième colonne est le double de la première ; en échelonnant on obtient
+deux pivots seulement, $\operatorname{rg}(A) = 2 < 3$ : **non inversible**.
+$B = \begin{pmatrix} 1 & 0 & 0 \\ a & 2 & 0 \\ b & c & 3 \end{pmatrix}$ : sa
+transposée est échelonnée à trois pivots (1, 2, 3) quels que soient $a, b, c$,
+donc $\operatorname{rg}(B) = 3$ : **inversible**.
+
+**Pour quels $a$** $A = \begin{pmatrix} 1 & a & 1 \\ 1 & 1 & 2 \\ a & 1 & a \end{pmatrix}$
+est-elle inversible ? Avec $L_2 - L_1$ et $L_3 - aL_1$ :
+$\begin{pmatrix} 1 & a & 1 \\ 0 & 1-a & 1 \\ 0 & 1-a^2 & 0 \end{pmatrix}$.
+
+- $a = 1$ : les lignes 2 et 3 deviennent $(0, 0, 1)$ et $(0, 0, 0)$ : rang 2.
+- $a = -1$ : elles deviennent $(0, 2, 1)$ et $(0, 0, 0)$ : rang 2.
+- sinon, $L_3 - (1 + a)L_2$ donne $(0, 0, -(1 + a))$, non nul : rang 3.
+
+$A$ est inversible si, et seulement si, $a \neq 1$ et $a \neq -1$.
+</Callout>
+
+<Source file="2026-03-MAT199-ChapI.pdf" page={20} locator="Définition 1.4.1, proposition 1.4.2, théorème 1.4.3" />
+
+## 4. Calculer l'inverse
+
+### 4.1 Vers $I_n$
+
+Une matrice carrée est **triangulaire supérieure** si $a_{ij} = 0$ pour
+$j < i$ (tout est nul **sous** la diagonale), **triangulaire inférieure** si
+$a_{ij} = 0$ pour $i < j$. Toute matrice carrée échelonnée est triangulaire
+supérieure.
+
+**Proposition 1.4.5.** Si $A$ est inversible, sa forme échelonnée $A'$ est
+triangulaire supérieure **à termes diagonaux tous non nuls**, et on peut
+réduire $A'$ à $I_n$ en éliminant les termes **au-dessus** des pivots, **en
+partant du dernier pivot**.
+
+Exercice des notes (p. 24) :
+
+$$
+\begin{pmatrix} 1 & 2 & -2 \\ 0 & 1 & 1 \\ 0 & 0 & 2 \end{pmatrix}
+\xrightarrow{\frac12 L_3}
+\begin{pmatrix} 1 & 2 & -2 \\ 0 & 1 & 1 \\ 0 & 0 & 1 \end{pmatrix}
+\xrightarrow[L_1 + 2L_3]{L_2 - L_3}
+\begin{pmatrix} 1 & 2 & 0 \\ 0 & 1 & 0 \\ 0 & 0 & 1 \end{pmatrix}
+\xrightarrow{L_1 - 2L_2}
+I_3 .
+$$
+
+### 4.2 La méthode (A | B)
+
+**Théorème 1.4.6.** Soit $A \in M_n(\mathbb{R})$ et $B \in M_{n \times p}(\mathbb{R})$.
+
+1. Si $(A \mid B)$ s'échelonne à $(I_n \mid C)$, alors $A$ est inversible et
+   $C = A^{-1}B$.
+2. En particulier, si $(A \mid I_n)$ s'échelonne à $(I_n \mid C)$, alors
+   $C = A^{-1}$.
+
+<Callout type="example" title="Exercice des notes, p. 25">
+$A = \begin{pmatrix} 1 & 2 \\ 3 & 4 \end{pmatrix}$ et
+$B = \begin{pmatrix} 2 & 3 & 4 \\ 1 & 2 & 0 \end{pmatrix}$ :
+
+$$
+\left(\begin{array}{cc|ccc} 1 & 2 & 2 & 3 & 4 \\ 3 & 4 & 1 & 2 & 0 \end{array}\right)
+\xrightarrow{L_2 - 3L_1}
+\left(\begin{array}{cc|ccc} 1 & 2 & 2 & 3 & 4 \\ 0 & -2 & -5 & -7 & -12 \end{array}\right)
+\xrightarrow{-\frac12 L_2}
+\left(\begin{array}{cc|ccc} 1 & 2 & 2 & 3 & 4 \\ 0 & 1 & \frac52 & \frac72 & 6 \end{array}\right)
+\xrightarrow{L_1 - 2L_2}
+\left(\begin{array}{cc|ccc} 1 & 0 & -3 & -4 & -8 \\ 0 & 1 & \frac52 & \frac72 & 6 \end{array}\right)
+$$
+
+donc $A^{-1}B = \begin{pmatrix} -3 & -4 & -8 \\ \frac52 & \frac72 & 6 \end{pmatrix}$.
+Les mêmes opérations sur $(A \mid I_2)$ donnent
+$A^{-1} = \begin{pmatrix} -2 & 1 \\ \frac32 & -\frac12 \end{pmatrix}$.
+</Callout>
+
+<Callout type="tip" title="Pourquoi c'est plus rapide que A⁻¹ puis A⁻¹B">
+On obtient $A^{-1}B$ en une seule réduction, sans jamais calculer $A^{-1}$. Et
+si la réduction n'aboutit pas à $I_n$ à gauche — une ligne nulle apparaît —,
+c'est que $\operatorname{rg}(A) < n$ : $A$ n'est pas inversible.
+</Callout>
+
+### 4.3 Les puissances
+
+$A^r = A \cdots A$ ($r$ fois) ; $A^0 = I_n$ ; et, si $A$ est inversible,
+$A^{-r} = (A^{-1})^r$. Alors $A^rA^s = A^{r+s}$ et $(A^r)^s = A^{rs}$ pour tous
+$r, s \in \mathbb{Z}$.
+
+Exercice des notes (p. 26) : pour $A = \begin{pmatrix} 1 & 2 \\ 3 & 5 \end{pmatrix}$,
+la méthode $(A \mid I_2)$ donne $A^{-1} = \begin{pmatrix} -5 & 2 \\ 3 & -1 \end{pmatrix}$,
+puis
+
+$$
+A^{-2} = \begin{pmatrix} 31 & -12 \\ -18 & 7 \end{pmatrix}, \qquad
+A^{-3} = A^{-2}A^{-1} = \begin{pmatrix} -191 & 74 \\ 111 & -43 \end{pmatrix}.
+$$
+
+<Source file="2026-03-MAT199-ChapI.pdf" page={25} locator="Proposition 1.4.5, théorème 1.4.6, définition 1.4.7" />
+
+## 5. La décomposition LU
+
+Une opération élémentaire est **triangulaire inférieure** si elle est de type
+$L_i + aL_j$ **avec $i > j$** (on ajoute un multiple d'une ligne **du
+dessus**), ou de type $aL_i$ avec $a \neq 0$. Leurs inverses le sont aussi, et
+elles préservent les matrices triangulaires inférieures.
+
+**Théorème 1.4.10.** Si $A$ se réduit à une matrice échelonnée $U$ par des
+opérations triangulaires inférieures $T_1, \dots, T_r$, et si l'on applique à
+$I_n$ **les opérations inverses dans l'ordre inverse** $T_r^{-1}, \dots, T_1^{-1}$,
+on obtient une matrice triangulaire inférieure $L$ telle que
+
+$$
+A = LU .
+$$
+
+<Mermaid caption="La méthode du théorème 1.4.10 : on descend avec les Tᵢ, on reconstruit L en remontant avec leurs inverses." chart={`
+flowchart LR
+  A["A"] -->|"T₁, …, Tᵣ (triangulaires inférieures)"| U["U échelonnée"]
+  I["Iₙ"] -->|"Tᵣ⁻¹, …, T₁⁻¹ (ordre inverse)"| L["L triangulaire inférieure"]
+  U --> R["A = LU"]
+  L --> R
+`} />
+
+<Callout type="example" title="Exercice des notes, p. 29">
+$$
+A = \begin{pmatrix} 2 & 4 & 6 \\ 3 & 5 & 7 \\ 1 & 2 & 3 \end{pmatrix}
+\xrightarrow{T_1 :\ L_2 - \frac32 L_1}
+\begin{pmatrix} 2 & 4 & 6 \\ 0 & -1 & -2 \\ 1 & 2 & 3 \end{pmatrix}
+\xrightarrow{T_2 :\ L_3 - \frac12 L_1}
+\begin{pmatrix} 2 & 4 & 6 \\ 0 & -1 & -2 \\ 0 & 0 & 0 \end{pmatrix} = U.
+$$
+
+On part de $I_3$ et on applique $T_2^{-1} = L_3 + \frac12 L_1$, puis
+$T_1^{-1} = L_2 + \frac32 L_1$ :
+
+$$
+L = \begin{pmatrix} 1 & 0 & 0 \\ \frac32 & 1 & 0 \\ \frac12 & 0 & 1 \end{pmatrix},
+\qquad LU = \begin{pmatrix} 2 & 4 & 6 \\ 3 & 5 & 7 \\ 1 & 2 & 3 \end{pmatrix} = A. \ ✓
+$$
+
+Les coefficients sous la diagonale de $L$ sont exactement les multiples
+retranchés : $\frac32$ en position $(2, 1)$, $\frac12$ en position $(3, 1)$.
+</Callout>
+
+<Callout type="warning" title="Pas de LU pour toutes les matrices">
+Les notes le précisent : **toute matrice n'admet pas une décomposition LU**.
+Un échange de lignes $L_i \leftrightarrow L_j$ n'est pas une opération
+triangulaire inférieure ; si l'échelonnement en exige un, la méthode ne
+s'applique pas. C'est le cas de $\begin{pmatrix} 0 & 1 \\ 1 & 0 \end{pmatrix}$,
+la matrice que l'exemple (2) de la p. 28 obtient par $L_1 \leftrightarrow L_2$ :
+son premier terme est nul et aucune opération triangulaire inférieure ne peut y
+amener un pivot.
+</Callout>
+
+<Source file="2026-03-MAT199-ChapI.pdf" page={28} locator="Définition 1.4.8, lemme 1.4.9, théorème 1.4.10" />

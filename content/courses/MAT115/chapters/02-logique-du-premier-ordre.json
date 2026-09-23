@@ -1,0 +1,1957 @@
+{
+  "course": "MAT115",
+  "chapter": 2,
+  "concepts": [
+    {
+      "id": "c2-fonction",
+      "term": "Fonction propositionnelle",
+      "definition": "$P(x)$ est une fonction propositionnelle d'une variable $x$ si $P(x)$ devient une proposition lorsque la valeur de $x$ est fixée.",
+      "whyItMatters": "Un énoncé à variables, comme « $x < 2$ », n'a pas de valeur de vérité tant que $x$ n'est pas fixé ou quantifié.",
+      "commonMisconception": "Traiter « $x < 2$ » comme une proposition vraie ou fausse : sa valeur dépend de $x$.",
+      "objectiveId": "obj2-predicat",
+      "source": {
+        "file": "Semaine 1.pdf",
+        "page": 30,
+        "locator": "Diapositive 30"
+      }
+    },
+    {
+      "id": "c2-predicat",
+      "term": "Prédicat et domaine",
+      "definition": "Un prédicat est une propriété que peut prendre le sujet d'un énoncé. L'ensemble U des valeurs prises par les variables est l'univers du discours, ou domaine.",
+      "whyItMatters": "La valeur d'une formule quantifiée dépend du domaine : ∃x·M(x) avec M « x est pair » est vraie sur ℕ, fausse sur {1, 3}.",
+      "commonMisconception": "Confondre le prédicat (« est le parent de ») et la fonction propositionnelle P(x, y) qui l'applique à des variables.",
+      "objectiveId": "obj2-predicat",
+      "source": {
+        "file": "Semaine 1.pdf",
+        "page": 31,
+        "locator": "Diapositives 30 et 31"
+      }
+    },
+    {
+      "id": "c2-quantificateurs",
+      "term": "Quantificateurs ∀ et ∃",
+      "definition": "$\\forall x \\cdot P(x)$ est vraie si $P(x)$ est vraie pour tout $x$ du domaine ; $\\exists x \\cdot P(x)$ l'est si $P(x)$ est vraie pour au moins un $x$.",
+      "whyItMatters": "Un seul contre-exemple réfute un ∀ ; un seul exemple établit un ∃.",
+      "commonMisconception": "Vouloir vérifier tous les éléments pour conclure qu'un ∃ est vrai, ou croire qu'un exemple suffit à établir un ∀.",
+      "objectiveId": "obj2-quantificateurs",
+      "source": {
+        "file": "Semaine 2.pdf",
+        "page": 5,
+        "locator": "Diapositive 5"
+      }
+    },
+    {
+      "id": "c2-fini",
+      "term": "Quantificateurs sur un domaine fini",
+      "definition": "Sur $\\{o_1, \\dots, o_n\\}$ : $\\forall x \\cdot A \\Leftrightarrow A[x := o_1] \\wedge \\dots \\wedge A[x := o_n]$ et $\\exists x \\cdot A \\Leftrightarrow A[x := o_1] \\vee \\dots \\vee A[x := o_n]$.",
+      "whyItMatters": "Le ∀ est une grande conjonction, le ∃ une grande disjonction : c'est ainsi que Tarski UdeS évalue une formule sur un monde fini.",
+      "commonMisconception": "Inverser les deux : ∀ correspond à ∧ (toutes les instances), ∃ à ∨ (au moins une).",
+      "objectiveId": "obj2-quantificateurs",
+      "source": {
+        "file": "Semaine 2.pdf",
+        "page": 7,
+        "locator": "Diapositive 7"
+      }
+    },
+    {
+      "id": "c2-priorite",
+      "term": "Priorité des quantificateurs",
+      "definition": "∀ et ∃ ont la même priorité, plus faible que $\\neg, \\wedge, \\vee, \\Rightarrow, \\Leftrightarrow$ : un quantificateur s'applique à toute la formule à sa droite, jusqu'à une parenthèse fermante qui l'entoure.",
+      "whyItMatters": "$\\forall x \\cdot A \\Rightarrow B$ se lit $\\forall x \\cdot (A \\Rightarrow B)$ ; pour écrire $(\\forall x \\cdot A) \\Rightarrow B$, il faut des parenthèses.",
+      "commonMisconception": "Arrêter la portée d'un quantificateur au premier connecteur rencontré.",
+      "objectiveId": "obj2-priorite",
+      "source": {
+        "file": "Semaine 2.pdf",
+        "page": 8,
+        "locator": "Diapositive 8"
+      }
+    },
+    {
+      "id": "c2-portee",
+      "term": "Portée d'un quantificateur",
+      "definition": "La portion de la formule à laquelle le quantificateur s'applique ; elle est limitée par les parenthèses qui l'entourent.",
+      "whyItMatters": "Dans $\\forall y \\cdot (\\dots) \\wedge R(y)$, le $y$ de $R(y)$ est hors de la portée : il n'est pas lié à $\\forall y$.",
+      "commonMisconception": "Croire qu'un quantificateur placé en tête lie toutes les occurrences de sa variable dans la formule.",
+      "objectiveId": "obj2-portee",
+      "source": {
+        "file": "Semaine 2.pdf",
+        "page": 10,
+        "locator": "Diapositive 10"
+      }
+    },
+    {
+      "id": "c2-libre-liee",
+      "term": "Occurrence libre, occurrence liée",
+      "definition": "Une occurrence de x est liée à ∀x ou ∃x si elle est dans sa portée ; sous plusieurs quantificateurs de même variable, elle est liée au plus proche. Sinon, elle est libre.",
+      "whyItMatters": "Une même variable peut avoir des occurrences libres et des occurrences liées dans une même formule.",
+      "commonMisconception": "Lier une occurrence au quantificateur le plus extérieur, alors que c'est le plus imbriqué qui l'emporte.",
+      "objectiveId": "obj2-portee",
+      "source": {
+        "file": "Semaine 2.pdf",
+        "page": 11,
+        "locator": "Diapositives 11 et 12"
+      }
+    },
+    {
+      "id": "c2-fermee",
+      "term": "Formule fermée et fermeture",
+      "definition": "Une formule est fermée si, et seulement si, elle ne contient aucune variable libre. En ajoutant des quantificateurs pour lier les variables libres, on obtient une fermeture.",
+      "whyItMatters": "Seule une formule fermée a une valeur de vérité déterminée par le domaine, sans qu'on fixe de variable.",
+      "commonMisconception": "Juger une formule fermée parce qu'elle commence par un quantificateur : dans $\\forall x \\cdot x > 0 \\wedge y = 1$, $y$ reste libre.",
+      "objectiveId": "obj2-portee",
+      "source": {
+        "file": "Semaine 2.pdf",
+        "page": 13,
+        "locator": "Diapositives 13 et 14"
+      }
+    },
+    {
+      "id": "c2-tarski",
+      "term": "Tarski UdeS",
+      "definition": "Application qui évalue des formules sur un monde fini de triangles, carrés et pentagones de trois tailles. Syntaxe : `!x.( … )` pour ∀, `#x.( … )` pour ∃, `not`, `&`, `or`, `=>`, `<=>`.",
+      "whyItMatters": "On valide une formule en la testant dans un monde où elle doit être vraie ET dans un monde où elle doit être fausse.",
+      "commonMisconception": "Traduire « les carrés sont petits » par ∀x·(Square(x) ∧ Small(x)), qui affirme que tout objet est un petit carré.",
+      "objectiveId": "obj2-tarski",
+      "source": {
+        "file": "Semaine 1.pdf",
+        "page": 37,
+        "locator": "Diapositives 37 à 42"
+      }
+    }
+  ],
+  "tables": [
+    {
+      "id": "t2-tarski-syntaxe",
+      "title": "Syntaxe de Tarski UdeS",
+      "kind": "syntax",
+      "columns": [
+        {
+          "key": "math",
+          "label": "Notation du cours"
+        },
+        {
+          "key": "tarski",
+          "label": "Tarski UdeS"
+        },
+        {
+          "key": "prio",
+          "label": "Priorité"
+        }
+      ],
+      "rows": [
+        {
+          "math": "$\\forall x \\cdot$",
+          "tarski": "!x.( ... )",
+          "prio": "0"
+        },
+        {
+          "math": "$\\exists x \\cdot$",
+          "tarski": "#x.( ... )",
+          "prio": "0"
+        },
+        {
+          "math": "$\\neg$",
+          "tarski": "not",
+          "prio": "1"
+        },
+        {
+          "math": "$\\wedge$",
+          "tarski": "&",
+          "prio": "2"
+        },
+        {
+          "math": "$\\vee$",
+          "tarski": "or",
+          "prio": "3"
+        },
+        {
+          "math": "$\\Rightarrow$",
+          "tarski": "=>",
+          "prio": "4"
+        },
+        {
+          "math": "$\\Leftrightarrow$",
+          "tarski": "<=>",
+          "prio": "5"
+        }
+      ],
+      "source": {
+        "file": "Semaine 1.pdf",
+        "page": 42,
+        "locator": "Tableau 1.2"
+      },
+      "caption": "Dans Tarski, un quantificateur porte toujours ses parenthèses, d'où sa priorité 0."
+    },
+    {
+      "id": "t2-tarski-predicats",
+      "title": "Prédicats de Tarski UdeS",
+      "kind": "reference",
+      "columns": [
+        {
+          "key": "pred",
+          "label": "Prédicat"
+        },
+        {
+          "key": "sens",
+          "label": "Signification"
+        }
+      ],
+      "rows": [
+        {
+          "pred": "Triangle(x), Square(x), Pentagon(x)",
+          "sens": "x est un triangle, un carré, un pentagone"
+        },
+        {
+          "pred": "Small(x), Medium(x), Large(x)",
+          "sens": "x est petit, moyen, grand"
+        },
+        {
+          "pred": "Smaller(x, y)",
+          "sens": "x est strictement plus petit que y"
+        },
+        {
+          "pred": "SameSize(x, y)",
+          "sens": "x est de même taille que y"
+        },
+        {
+          "pred": "LeftOf(x, y)",
+          "sens": "x est à gauche de y"
+        },
+        {
+          "pred": "SameRow(x, y)",
+          "sens": "x est sur la même ligne que y"
+        },
+        {
+          "pred": "SameCol(x, y)",
+          "sens": "x est sur la même colonne que y"
+        },
+        {
+          "pred": "Between(x, y, z)",
+          "sens": "x est entre y et z sur une même ligne, colonne ou diagonale"
+        },
+        {
+          "pred": "x = y",
+          "sens": "x et y représentent le même objet"
+        },
+        {
+          "pred": "x /= y",
+          "sens": "x et y représentent des objets distincts"
+        }
+      ],
+      "source": {
+        "file": "Semaine 1.pdf",
+        "page": 42,
+        "locator": "Tableau 1.1"
+      }
+    }
+  ],
+  "quiz": {
+    "title": "Quiz — vérification rapide",
+    "estimatedMinutes": 15,
+    "questions": [
+      {
+        "id": "q2-01",
+        "objectiveId": "obj2-predicat",
+        "bloomLevel": "recall",
+        "type": "mcq",
+        "difficulty": 1,
+        "prompt": "Quand $P(x)$ est-elle une fonction propositionnelle ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Quand $P(x)$ devient une proposition dès que la valeur de $x$ est fixée"
+          },
+          {
+            "id": "b",
+            "text": "Quand $P(x)$ est vraie pour tout $x$"
+          },
+          {
+            "id": "c",
+            "text": "Quand $P(x)$ ne contient aucune variable"
+          },
+          {
+            "id": "d",
+            "text": "Quand $P$ est un connecteur logique"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Définition de la diapositive 30 (semaine 1).",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "C'est la définition de ∀x·P(x) vraie, pas d'une fonction propositionnelle."
+          },
+          {
+            "optionId": "c",
+            "why": "Sans variable, c'est déjà une proposition."
+          },
+          {
+            "optionId": "d",
+            "why": "P est un prédicat appliqué à x, pas un connecteur."
+          }
+        ],
+        "source": {
+          "file": "Semaine 1.pdf",
+          "page": 30,
+          "locator": "Diapositive 30"
+        }
+      },
+      {
+        "id": "q2-02",
+        "objectiveId": "obj2-predicat",
+        "bloomLevel": "understand",
+        "type": "mcq",
+        "difficulty": 1,
+        "prompt": "Dans « x est le parent de y », quel est le prédicat ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "« est le parent de »"
+          },
+          {
+            "id": "b",
+            "text": "x et y"
+          },
+          {
+            "id": "c",
+            "text": "P(x, y)"
+          },
+          {
+            "id": "d",
+            "text": "L'ensemble des personnes du bloc"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Exemple 1 de la diapositive 31 (semaine 1).",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Ce sont les variables sujets de l'énoncé."
+          },
+          {
+            "optionId": "c",
+            "why": "C'est la fonction propositionnelle, qui applique le prédicat aux variables."
+          },
+          {
+            "optionId": "d",
+            "why": "C'est l'univers du discours (le domaine)."
+          }
+        ],
+        "source": {
+          "file": "Semaine 1.pdf",
+          "page": 31,
+          "locator": "Diapositive 31"
+        }
+      },
+      {
+        "id": "q2-03",
+        "objectiveId": "obj2-predicat",
+        "bloomLevel": "apply",
+        "type": "short-answer",
+        "difficulty": 1,
+        "prompt": "Avec $E(x, y)$ : « $x - 8 = 5 \\times y$ » sur les réels, $E(1, 2)$ est-elle vraie ou fausse ?",
+        "correct": "faux",
+        "acceptableAnswers": [
+          "fausse",
+          "0",
+          "f"
+        ],
+        "explanation": "$1 - 8 = -7$ et $5 \\times 2 = 10$ : $-7 \\neq 10$, donc $E(1, 2)$ est fausse.",
+        "source": {
+          "file": "Semaine 1.pdf",
+          "page": 32,
+          "locator": "Diapositive 32"
+        }
+      },
+      {
+        "id": "q2-04",
+        "objectiveId": "obj2-quantificateurs",
+        "bloomLevel": "apply",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Sur les réels, avec $P(x)$ : « $x < 2$ », que vaut $\\forall x \\cdot P(x)$ ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Fausse : par exemple x = 3 ne vérifie pas P"
+          },
+          {
+            "id": "b",
+            "text": "Vraie : par exemple x = 0 vérifie P"
+          },
+          {
+            "id": "c",
+            "text": "Ni vraie ni fausse : cela dépend de x"
+          },
+          {
+            "id": "d",
+            "text": "Vraie, car P(x) est vraie pour une infinité de réels"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Exemple 2 de la diapositive 6 (semaine 2) : un seul contre-exemple réfute un ∀.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Un exemple suffit pour un ∃, pas pour un ∀."
+          },
+          {
+            "optionId": "c",
+            "why": "Le quantificateur lie x : la formule est une proposition."
+          },
+          {
+            "optionId": "d",
+            "why": "Une infinité ne suffit pas : il faut TOUS les réels."
+          }
+        ],
+        "source": {
+          "file": "Semaine 2.pdf",
+          "page": 6,
+          "locator": "Diapositive 6"
+        }
+      },
+      {
+        "id": "q2-05",
+        "objectiveId": "obj2-priorite",
+        "bloomLevel": "recall",
+        "type": "mcq",
+        "difficulty": 1,
+        "prompt": "Quelle est la priorité des quantificateurs ∀ et ∃ ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "La même pour les deux, la plus faible de toutes"
+          },
+          {
+            "id": "b",
+            "text": "La plus forte, comme les parenthèses"
+          },
+          {
+            "id": "c",
+            "text": "∀ est prioritaire sur ∃"
+          },
+          {
+            "id": "d",
+            "text": "Entre ∧ et ∨"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Diapositive 8 (semaine 2).",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "C'est le cas dans la syntaxe de Tarski, où ils portent leurs parenthèses ; pas dans la notation du cours."
+          },
+          {
+            "optionId": "c",
+            "why": "Ils ont la même priorité."
+          },
+          {
+            "optionId": "d",
+            "why": "Ils sont moins prioritaires que TOUS les opérateurs, y compris ⇔."
+          }
+        ],
+        "source": {
+          "file": "Semaine 2.pdf",
+          "page": 8,
+          "locator": "Diapositive 8"
+        }
+      },
+      {
+        "id": "q2-06",
+        "objectiveId": "obj2-priorite",
+        "bloomLevel": "apply",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Avec la priorité du cours, comment se lit $\\forall x \\cdot A \\Rightarrow B$ ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "$\\forall x \\cdot (A \\Rightarrow B)$"
+          },
+          {
+            "id": "b",
+            "text": "$(\\forall x \\cdot A) \\Rightarrow B$"
+          },
+          {
+            "id": "c",
+            "text": "$\\forall x \\cdot A \\wedge B$"
+          },
+          {
+            "id": "d",
+            "text": "La formule est mal formée"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Le quantificateur, moins prioritaire que ⇒, s'applique à toute la formule à sa droite.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Il faudrait des parenthèses pour arrêter la portée du ∀ avant ⇒."
+          },
+          {
+            "optionId": "c",
+            "why": "Aucun connecteur ne change."
+          },
+          {
+            "optionId": "d",
+            "why": "Elle est bien formée ; la priorité lui donne un sens unique."
+          }
+        ],
+        "source": {
+          "file": "Semaine 2.pdf",
+          "page": 9,
+          "locator": "Diapositive 9"
+        }
+      },
+      {
+        "id": "q2-07",
+        "objectiveId": "obj2-quantificateurs",
+        "bloomLevel": "understand",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Sur un domaine fini $\\{o_1, o_2, o_3\\}$, à quoi équivaut $\\exists x \\cdot A$ ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "$A[x := o_1] \\vee A[x := o_2] \\vee A[x := o_3]$"
+          },
+          {
+            "id": "b",
+            "text": "$A[x := o_1] \\wedge A[x := o_2] \\wedge A[x := o_3]$"
+          },
+          {
+            "id": "c",
+            "text": "$A[x := o_1]$"
+          },
+          {
+            "id": "d",
+            "text": "$A[x := o_1] \\oplus A[x := o_2] \\oplus A[x := o_3]$"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Remarque de la diapositive 7 (semaine 2).",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "C'est l'équivalent de ∀x·A."
+          },
+          {
+            "optionId": "c",
+            "why": "Le premier élément n'a rien de privilégié : il suffit d'UN élément, n'importe lequel."
+          },
+          {
+            "optionId": "d",
+            "why": "« Au moins un » est un ou inclusif, pas exclusif."
+          }
+        ],
+        "source": {
+          "file": "Semaine 2.pdf",
+          "page": 7,
+          "locator": "Diapositive 7"
+        }
+      },
+      {
+        "id": "q2-08",
+        "objectiveId": "obj2-portee",
+        "bloomLevel": "analyze",
+        "type": "mcq",
+        "difficulty": 3,
+        "prompt": "Dans $\\forall y \\cdot \\big(P(y) \\vee \\exists x \\cdot P(x) \\wedge \\exists y \\cdot Q(x, y)\\big) \\wedge P(y)$, l'occurrence de $y$ dans le DERNIER $P(y)$ est :",
+        "options": [
+          {
+            "id": "a",
+            "text": "libre"
+          },
+          {
+            "id": "b",
+            "text": "liée à $\\forall y$"
+          },
+          {
+            "id": "c",
+            "text": "liée à $\\exists y$"
+          },
+          {
+            "id": "d",
+            "text": "liée à $\\exists x$"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Exemple de la diapositive 12 (semaine 2) : la troisième occurrence de y est libre.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Elle est hors des parenthèses qui limitent la portée de $\\forall y$."
+          },
+          {
+            "optionId": "c",
+            "why": "$\\exists y$ est à l'intérieur des parenthèses ; sa portée ne sort pas d'elles."
+          },
+          {
+            "optionId": "d",
+            "why": "Un quantificateur ne lie que les occurrences de sa propre variable."
+          }
+        ],
+        "source": {
+          "file": "Semaine 2.pdf",
+          "page": 12,
+          "locator": "Diapositive 12"
+        }
+      },
+      {
+        "id": "q2-09",
+        "objectiveId": "obj2-portee",
+        "bloomLevel": "analyze",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Dans la même formule, à quel quantificateur l'occurrence de $y$ dans $Q(x, y)$ est-elle liée ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "$\\exists y$"
+          },
+          {
+            "id": "b",
+            "text": "$\\forall y$"
+          },
+          {
+            "id": "c",
+            "text": "$\\exists x$"
+          },
+          {
+            "id": "d",
+            "text": "À aucun : elle est libre"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Diapositive 11 (semaine 2) : une occurrence sous plusieurs quantificateurs est liée au plus imbriqué.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Elle est aussi sous la portée de $\\forall y$, mais c'est le quantificateur le PLUS PROCHE qui l'emporte."
+          },
+          {
+            "optionId": "c",
+            "why": "∃x ne lie que x."
+          },
+          {
+            "optionId": "d",
+            "why": "Elle est dans la portée de $\\exists y$."
+          }
+        ],
+        "source": {
+          "file": "Semaine 2.pdf",
+          "page": 11,
+          "locator": "Diapositives 11 et 12"
+        }
+      },
+      {
+        "id": "q2-10",
+        "objectiveId": "obj2-portee",
+        "bloomLevel": "understand",
+        "type": "true-false",
+        "difficulty": 1,
+        "prompt": "Une formule qui contient une variable libre est fermée.",
+        "options": [
+          {
+            "id": "v",
+            "text": "Vrai"
+          },
+          {
+            "id": "f",
+            "text": "Faux"
+          }
+        ],
+        "correct": "f",
+        "explanation": "Diapositive 13 (semaine 2) : une formule est fermée si et seulement si elle ne contient aucune variable libre.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "v",
+            "why": "C'est l'inverse : une seule variable libre suffit à la rendre ouverte."
+          }
+        ],
+        "source": {
+          "file": "Semaine 2.pdf",
+          "page": 13,
+          "locator": "Diapositive 13"
+        }
+      },
+      {
+        "id": "q2-11",
+        "objectiveId": "obj2-tarski",
+        "bloomLevel": "apply",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Quelle formule traduit « Les carrés situés à gauche du triangle a sont petits » ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "$\\forall x \\cdot (\\text{Square}(x) \\wedge \\text{LeftOf}(x, a) \\Rightarrow \\text{Small}(x))$"
+          },
+          {
+            "id": "b",
+            "text": "$\\forall x \\cdot (\\text{Square}(x) \\wedge \\text{LeftOf}(x, a) \\wedge \\text{Small}(x))$"
+          },
+          {
+            "id": "c",
+            "text": "$\\exists x \\cdot (\\text{Square}(x) \\wedge \\text{LeftOf}(x, a) \\wedge \\text{Small}(x))$"
+          },
+          {
+            "id": "d",
+            "text": "$\\forall x \\cdot (\\text{Small}(x) \\Rightarrow \\text{Square}(x) \\wedge \\text{LeftOf}(x, a))$"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Exemple 1 de la diapositive 43 (solution de la plateforme) : « tous les … qui … sont … » se traduit par ∀ et ⇒.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Cette formule affirme que TOUT objet est un petit carré à gauche de a."
+          },
+          {
+            "optionId": "c",
+            "why": "Elle dit seulement qu'il existe UN tel carré petit ; l'énoncé parle de tous."
+          },
+          {
+            "optionId": "d",
+            "why": "Le sens de l'implication est inversé : ce sont les carrés à gauche de a qui doivent être petits."
+          }
+        ],
+        "source": {
+          "file": "Semaine 1.pdf",
+          "page": 43,
+          "locator": "Diapositive 43"
+        }
+      },
+      {
+        "id": "q2-12",
+        "objectiveId": "obj2-tarski",
+        "bloomLevel": "recall",
+        "type": "mcq",
+        "difficulty": 1,
+        "prompt": "Dans Tarski UdeS, comment s'écrit $\\exists x \\cdot (\\dots)$ ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "#x.( ... )"
+          },
+          {
+            "id": "b",
+            "text": "!x.( ... )"
+          },
+          {
+            "id": "c",
+            "text": "Ex.( ... )"
+          },
+          {
+            "id": "d",
+            "text": "exists x ( ... )"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Tableau 1.2 (diapositive 42).",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "C'est ∀."
+          },
+          {
+            "optionId": "c",
+            "why": "Tarski utilise un symbole, pas une lettre."
+          },
+          {
+            "optionId": "d",
+            "why": "Ce n'est pas la syntaxe de Tarski UdeS."
+          }
+        ],
+        "source": {
+          "file": "Semaine 1.pdf",
+          "page": 42,
+          "locator": "Tableau 1.2"
+        }
+      }
+    ]
+  },
+  "test": {
+    "title": "Test du chapitre 2",
+    "instructions": "21 questions couvrant tout le chapitre. Plus long et plus difficile que le quiz.",
+    "estimatedMinutes": 45,
+    "questions": [
+      {
+        "id": "t2-01",
+        "objectiveId": "obj2-predicat",
+        "bloomLevel": "recall",
+        "type": "mcq",
+        "difficulty": 1,
+        "prompt": "Qu'appelle-t-on univers du discours ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "L'ensemble des valeurs prises par la ou les variables"
+          },
+          {
+            "id": "b",
+            "text": "L'ensemble des prédicats utilisés"
+          },
+          {
+            "id": "c",
+            "text": "L'ensemble des formules vraies"
+          },
+          {
+            "id": "d",
+            "text": "L'ensemble des variables libres"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Diapositive 30 (semaine 1) : l'ensemble U, aussi appelé domaine.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Les prédicats sont des propriétés, pas des valeurs."
+          },
+          {
+            "optionId": "c",
+            "why": "L'univers du discours est un ensemble de valeurs, pas de formules."
+          },
+          {
+            "optionId": "d",
+            "why": "Il s'agit des valeurs possibles, pas des variables."
+          }
+        ],
+        "source": {
+          "file": "Semaine 1.pdf",
+          "page": 30,
+          "locator": "Diapositive 30"
+        }
+      },
+      {
+        "id": "t2-02",
+        "objectiveId": "obj2-predicat",
+        "bloomLevel": "understand",
+        "type": "true-false",
+        "difficulty": 1,
+        "prompt": "L'énoncé « x < 2 » est une proposition logique.",
+        "options": [
+          {
+            "id": "v",
+            "text": "Vrai"
+          },
+          {
+            "id": "f",
+            "text": "Faux"
+          }
+        ],
+        "correct": "f",
+        "explanation": "Sa valeur de vérité dépend de x (diapositive 30, semaine 1). Il devient une proposition quand x est fixé ou quantifié.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "v",
+            "why": "Tant que x n'est ni fixé ni quantifié, on ne peut pas dire si l'énoncé est vrai ou faux."
+          }
+        ],
+        "source": {
+          "file": "Semaine 1.pdf",
+          "page": 30,
+          "locator": "Diapositive 30"
+        }
+      },
+      {
+        "id": "t2-03",
+        "objectiveId": "obj2-predicat",
+        "bloomLevel": "apply",
+        "type": "mcq",
+        "difficulty": 1,
+        "prompt": "Avec $E(x, y)$ : « $x - 8 = 5 \\times y$ » sur les réels, que vaut $E(8, 0)$ ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Vraie"
+          },
+          {
+            "id": "b",
+            "text": "Fausse"
+          },
+          {
+            "id": "c",
+            "text": "Indéterminée"
+          },
+          {
+            "id": "d",
+            "text": "Ce n'est pas une proposition"
+          }
+        ],
+        "correct": "a",
+        "explanation": "$0 = 0$ : vraie (exemple de la diapositive 32, semaine 1).",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "$8 - 8 = 0$ et $5 \\times 0 = 0$ : l'égalité est vérifiée."
+          },
+          {
+            "optionId": "c",
+            "why": "Les deux variables sont fixées : c'est une proposition."
+          },
+          {
+            "optionId": "d",
+            "why": "Une fois x et y fixés, E(8, 0) en est une."
+          }
+        ],
+        "source": {
+          "file": "Semaine 1.pdf",
+          "page": 32,
+          "locator": "Diapositive 32"
+        }
+      },
+      {
+        "id": "t2-04",
+        "objectiveId": "obj2-quantificateurs",
+        "bloomLevel": "apply",
+        "type": "mcq",
+        "difficulty": 1,
+        "prompt": "Sur les naturels, avec $M(x)$ : « $x$ est un nombre pair », que vaut $\\exists x \\cdot M(x)$ ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Vraie, par exemple avec x = 2"
+          },
+          {
+            "id": "b",
+            "text": "Fausse, car les nombres impairs existent"
+          },
+          {
+            "id": "c",
+            "text": "Vraie seulement si tous les naturels sont pairs"
+          },
+          {
+            "id": "d",
+            "text": "Indéterminée, le domaine étant infini"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Exemple 1 de la diapositive 6 (semaine 2).",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Il suffit d'UN nombre pair pour que ∃ soit vrai."
+          },
+          {
+            "optionId": "c",
+            "why": "C'est la condition pour ∀, pas pour ∃."
+          },
+          {
+            "optionId": "d",
+            "why": "Un domaine infini n'empêche pas de conclure : un exemple suffit."
+          }
+        ],
+        "source": {
+          "file": "Semaine 2.pdf",
+          "page": 6,
+          "locator": "Diapositive 6"
+        }
+      },
+      {
+        "id": "t2-05",
+        "objectiveId": "obj2-quantificateurs",
+        "bloomLevel": "understand",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Que faut-il pour montrer que $\\forall x \\cdot P(x)$ est FAUSSE ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Un seul x du domaine qui ne vérifie pas P"
+          },
+          {
+            "id": "b",
+            "text": "Montrer que P(x) est fausse pour tous les x"
+          },
+          {
+            "id": "c",
+            "text": "Un seul x du domaine qui vérifie P"
+          },
+          {
+            "id": "d",
+            "text": "Que le domaine soit infini"
+          }
+        ],
+        "correct": "a",
+        "explanation": "$\\forall x \\cdot P(x)$ exige $P$ pour tout $x$ : un seul contre-exemple la rend fausse.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "C'est bien plus fort que nécessaire : un contre-exemple suffit."
+          },
+          {
+            "optionId": "c",
+            "why": "Cela ne dit rien contre ∀ : au contraire, c'est cohérent avec lui."
+          },
+          {
+            "optionId": "d",
+            "why": "La taille du domaine ne décide pas."
+          }
+        ],
+        "source": {
+          "file": "Semaine 2.pdf",
+          "page": 5,
+          "locator": "Diapositive 5"
+        }
+      },
+      {
+        "id": "t2-06",
+        "objectiveId": "obj2-quantificateurs",
+        "bloomLevel": "apply",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Sur le domaine $\\{o_1, o_2, o_3\\}$, à quoi équivaut $\\forall x \\cdot A$ ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "$A[x := o_1] \\wedge A[x := o_2] \\wedge A[x := o_3]$"
+          },
+          {
+            "id": "b",
+            "text": "$A[x := o_1] \\vee A[x := o_2] \\vee A[x := o_3]$"
+          },
+          {
+            "id": "c",
+            "text": "$A[x := o_1] \\Rightarrow A[x := o_2] \\Rightarrow A[x := o_3]$"
+          },
+          {
+            "id": "d",
+            "text": "$A$"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Diapositive 7 (semaine 2).",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "C'est ∃x·A."
+          },
+          {
+            "optionId": "c",
+            "why": "Aucune implication n'intervient."
+          },
+          {
+            "optionId": "d",
+            "why": "Il faut remplacer x par chaque objet du domaine."
+          }
+        ],
+        "source": {
+          "file": "Semaine 2.pdf",
+          "page": 7,
+          "locator": "Diapositive 7"
+        }
+      },
+      {
+        "id": "t2-07",
+        "objectiveId": "obj2-priorite",
+        "bloomLevel": "apply",
+        "type": "mcq",
+        "difficulty": 3,
+        "prompt": "Quelle est la forme parenthésée de $\\forall x \\cdot A \\Rightarrow \\exists y \\cdot A \\wedge \\neg B \\vee C \\Leftrightarrow E$ ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "$\\forall x \\cdot \\Big(A \\Rightarrow \\exists y \\cdot \\big(((A \\wedge (\\neg B)) \\vee C) \\Leftrightarrow E\\big)\\Big)$"
+          },
+          {
+            "id": "b",
+            "text": "$\\big(\\forall x \\cdot A\\big) \\Rightarrow \\Big(\\big(\\exists y \\cdot A\\big) \\wedge \\neg B \\vee C \\Leftrightarrow E\\Big)$"
+          },
+          {
+            "id": "c",
+            "text": "$\\Big(\\forall x \\cdot \\big(A \\Rightarrow \\exists y \\cdot ((A \\wedge (\\neg B)) \\vee C)\\big)\\Big) \\Leftrightarrow E$"
+          },
+          {
+            "id": "d",
+            "text": "$\\forall x \\cdot \\Big(A \\Rightarrow \\exists y \\cdot \\big((A \\wedge \\neg (B \\vee C)) \\Leftrightarrow E\\big)\\Big)$"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Résultat des diapositives 8 et 9 (semaine 2).",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Les quantificateurs ont la priorité la plus faible : ils portent sur tout ce qui est à leur droite."
+          },
+          {
+            "optionId": "c",
+            "why": "$\\exists y$ s'étend jusqu'au bout, y compris $\\Leftrightarrow E$."
+          },
+          {
+            "optionId": "d",
+            "why": "La négation ne porte que sur B."
+          }
+        ],
+        "source": {
+          "file": "Semaine 2.pdf",
+          "page": 9,
+          "locator": "Diapositive 9"
+        }
+      },
+      {
+        "id": "t2-08",
+        "objectiveId": "obj2-priorite",
+        "bloomLevel": "analyze",
+        "type": "mcq",
+        "difficulty": 3,
+        "prompt": "$(\\forall x \\cdot A) \\Rightarrow B$ et $\\forall x \\cdot A \\Rightarrow B$ sont-elles la même formule ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Non : la seconde se lit $\\forall x \\cdot (A \\Rightarrow B)$, où le quantificateur porte aussi sur $B$"
+          },
+          {
+            "id": "b",
+            "text": "Oui : les parenthèses sont superflues"
+          },
+          {
+            "id": "c",
+            "text": "Oui, car $\\Rightarrow$ est plus prioritaire que $\\forall$"
+          },
+          {
+            "id": "d",
+            "text": "Non : la première est mal formée"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Diapositive 8 (semaine 2) : le quantificateur s'applique à toute la formule à sa droite.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Elles changent la portée du quantificateur."
+          },
+          {
+            "optionId": "c",
+            "why": "Justement : $\\Rightarrow$ s'applique d'abord, à l'intérieur de la portée du $\\forall$."
+          },
+          {
+            "optionId": "d",
+            "why": "Elle est bien formée ; c'est une implication dont l'hypothèse est quantifiée."
+          }
+        ],
+        "source": {
+          "file": "Semaine 2.pdf",
+          "page": 8,
+          "locator": "Diapositive 8"
+        }
+      },
+      {
+        "id": "t2-09",
+        "objectiveId": "obj2-portee",
+        "bloomLevel": "recall",
+        "type": "mcq",
+        "difficulty": 1,
+        "prompt": "Qu'est-ce que la portée d'un quantificateur ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "La portion de la formule à laquelle il s'applique"
+          },
+          {
+            "id": "b",
+            "text": "Le nombre de variables qu'il lie"
+          },
+          {
+            "id": "c",
+            "text": "L'ensemble des valeurs de sa variable"
+          },
+          {
+            "id": "d",
+            "text": "La position du quantificateur dans la formule"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Définition de la diapositive 10 (semaine 2).",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "La portée est une portion de formule, pas un nombre."
+          },
+          {
+            "optionId": "c",
+            "why": "C'est le domaine."
+          },
+          {
+            "optionId": "d",
+            "why": "C'est ce qui suit le quantificateur, jusqu'à la parenthèse qui l'entoure."
+          }
+        ],
+        "source": {
+          "file": "Semaine 2.pdf",
+          "page": 10,
+          "locator": "Diapositive 10"
+        }
+      },
+      {
+        "id": "t2-10",
+        "objectiveId": "obj2-portee",
+        "bloomLevel": "analyze",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Dans $\\forall y \\cdot \\big(P(y) \\vee \\exists x \\cdot P(x) \\wedge \\exists y \\cdot Q(y)\\big) \\wedge R(y)$, le quantificateur $\\forall y$ s'applique-t-il à $R(y)$ ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Non : sa portée est limitée par les parenthèses"
+          },
+          {
+            "id": "b",
+            "text": "Oui : $\\forall y$ est en tête de formule"
+          },
+          {
+            "id": "c",
+            "text": "Oui, car $R(y)$ contient la variable $y$"
+          },
+          {
+            "id": "d",
+            "text": "Non, parce que $\\exists y$ l'en empêche"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Second exemple de la diapositive 10 (semaine 2) : le quantificateur ne s'applique pas à R(y).",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Être en tête ne suffit pas : les parenthèses ferment sa portée."
+          },
+          {
+            "optionId": "c",
+            "why": "Contenir y ne suffit pas : il faut être dans la portée."
+          },
+          {
+            "optionId": "d",
+            "why": "$\\exists y$ est à l'intérieur des parenthèses et n'a aucun effet sur $R(y)$."
+          }
+        ],
+        "source": {
+          "file": "Semaine 2.pdf",
+          "page": 10,
+          "locator": "Diapositive 10"
+        }
+      },
+      {
+        "id": "t2-11",
+        "objectiveId": "obj2-portee",
+        "bloomLevel": "apply",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Dans $\\forall y \\cdot \\big((P(x) \\vee \\exists x \\cdot P(x)) \\wedge Q(y)\\big)$, quelles occurrences sont libres ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Seulement la première occurrence de $x$, dans $P(x)$"
+          },
+          {
+            "id": "b",
+            "text": "Les deux occurrences de $x$"
+          },
+          {
+            "id": "c",
+            "text": "L'occurrence de $y$"
+          },
+          {
+            "id": "d",
+            "text": "Aucune"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Second exemple de la diapositive 12 (semaine 2).",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "La seconde est dans la portée de $\\exists x$ : elle est liée."
+          },
+          {
+            "optionId": "c",
+            "why": "Elle est dans la portée de $\\forall y$."
+          },
+          {
+            "optionId": "d",
+            "why": "La première occurrence de $x$ n'est dans la portée d'aucun $\\forall x$ ou $\\exists x$."
+          }
+        ],
+        "source": {
+          "file": "Semaine 2.pdf",
+          "page": 12,
+          "locator": "Diapositive 12"
+        }
+      },
+      {
+        "id": "t2-12",
+        "objectiveId": "obj2-portee",
+        "bloomLevel": "recall",
+        "type": "mcq",
+        "difficulty": 1,
+        "prompt": "Quand une formule est-elle fermée ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Quand elle ne contient aucune variable libre"
+          },
+          {
+            "id": "b",
+            "text": "Quand elle commence par un quantificateur"
+          },
+          {
+            "id": "c",
+            "text": "Quand toutes ses parenthèses sont fermées"
+          },
+          {
+            "id": "d",
+            "text": "Quand elle est vraie"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Diapositive 13 (semaine 2).",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "$\\forall x \\cdot x > 0 \\wedge y = 1$ commence par un quantificateur et n'est pas fermée."
+          },
+          {
+            "optionId": "c",
+            "why": "Il s'agit des variables, pas des parenthèses."
+          },
+          {
+            "optionId": "d",
+            "why": "Être fermée est une question de forme, pas de valeur."
+          }
+        ],
+        "source": {
+          "file": "Semaine 2.pdf",
+          "page": 13,
+          "locator": "Diapositive 13"
+        }
+      },
+      {
+        "id": "t2-13",
+        "objectiveId": "obj2-portee",
+        "bloomLevel": "apply",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Quelle formule est une fermeture de $\\forall y \\cdot \\big((P(x) \\vee \\exists x \\cdot P(x)) \\wedge Q(y)\\big)$ ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "$\\forall x \\cdot \\forall y \\cdot \\big((P(x) \\vee \\exists x \\cdot P(x)) \\wedge Q(y)\\big)$"
+          },
+          {
+            "id": "b",
+            "text": "$\\exists y \\cdot \\forall y \\cdot \\big((P(x) \\vee \\exists x \\cdot P(x)) \\wedge Q(y)\\big)$"
+          },
+          {
+            "id": "c",
+            "text": "$\\forall y \\cdot \\big((P(x) \\vee \\exists x \\cdot P(x)) \\wedge Q(y)\\big) \\wedge x = x$"
+          },
+          {
+            "id": "d",
+            "text": "$\\forall y \\cdot \\big((P(y) \\vee \\exists x \\cdot P(x)) \\wedge Q(y)\\big)$"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Exemple de la diapositive 13 (semaine 2).",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "y est déjà lié ; c'est le premier x qui est libre."
+          },
+          {
+            "optionId": "c",
+            "why": "Ajouter une conjonction ne lie pas la variable libre."
+          },
+          {
+            "optionId": "d",
+            "why": "Renommer la variable change la formule ; une fermeture AJOUTE des quantificateurs."
+          }
+        ],
+        "source": {
+          "file": "Semaine 2.pdf",
+          "page": 13,
+          "locator": "Diapositive 13"
+        }
+      },
+      {
+        "id": "t2-14",
+        "objectiveId": "obj2-portee",
+        "bloomLevel": "analyze",
+        "type": "mcq",
+        "difficulty": 3,
+        "prompt": "La formule $(\\forall x \\cdot x > 0) \\wedge x = 1$ est-elle fermée ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Non : les parenthèses arrêtent la portée de $\\forall x$, et le $x$ de « $x = 1$ » est libre"
+          },
+          {
+            "id": "b",
+            "text": "Oui : $x$ est quantifié"
+          },
+          {
+            "id": "c",
+            "text": "Oui, car les deux $x$ désignent la même variable"
+          },
+          {
+            "id": "d",
+            "text": "On ne peut pas répondre sans connaître le domaine"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Exemple 3 de la diapositive 14 (semaine 2), que les diapositives ne commentent pas : réponse de la plateforme.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Seules les occurrences dans la portée sont liées."
+          },
+          {
+            "optionId": "c",
+            "why": "Une même variable peut avoir des occurrences libres et liées."
+          },
+          {
+            "optionId": "d",
+            "why": "Être fermée est une question de forme, indépendante du domaine."
+          }
+        ],
+        "source": {
+          "file": "Semaine 2.pdf",
+          "page": 14,
+          "locator": "Diapositive 14"
+        }
+      },
+      {
+        "id": "t2-15",
+        "objectiveId": "obj2-portee",
+        "bloomLevel": "understand",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Dans $\\forall x \\cdot x > 0 \\wedge y = 1$, quelle variable est libre ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "$y$"
+          },
+          {
+            "id": "b",
+            "text": "$x$"
+          },
+          {
+            "id": "c",
+            "text": "$x$ et $y$"
+          },
+          {
+            "id": "d",
+            "text": "Aucune"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Exemple 2 de la diapositive 14 (semaine 2) : x est lié, y est libre ; la formule n'est pas fermée.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "$x$ est lié au $\\forall x$, dont la portée s'étend à toute la formule."
+          },
+          {
+            "optionId": "c",
+            "why": "$x$ est lié."
+          },
+          {
+            "optionId": "d",
+            "why": "y n'est lié à aucun quantificateur."
+          }
+        ],
+        "source": {
+          "file": "Semaine 2.pdf",
+          "page": 14,
+          "locator": "Diapositive 14"
+        }
+      },
+      {
+        "id": "t2-16",
+        "objectiveId": "obj2-tarski",
+        "bloomLevel": "recall",
+        "type": "mcq",
+        "difficulty": 1,
+        "prompt": "Dans Tarski UdeS, comment une lettre devient-elle une variable plutôt qu'un nom d'objet ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "En l'utilisant avec « ! » ou « # »"
+          },
+          {
+            "id": "b",
+            "text": "En l'écrivant en majuscule"
+          },
+          {
+            "id": "c",
+            "text": "En l'affectant à un objet du monde"
+          },
+          {
+            "id": "d",
+            "text": "En la déclarant dans un menu"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Diapositive 39 (semaine 1).",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Variables et constantes utilisent les mêmes lettres minuscules."
+          },
+          {
+            "optionId": "c",
+            "why": "Affectée à un objet, elle devient le NOM de cet objet, une constante."
+          },
+          {
+            "optionId": "d",
+            "why": "Ce n'est pas le mécanisme décrit dans les diapositives."
+          }
+        ],
+        "source": {
+          "file": "Semaine 1.pdf",
+          "page": 39,
+          "locator": "Diapositive 39"
+        }
+      },
+      {
+        "id": "t2-17",
+        "objectiveId": "obj2-tarski",
+        "bloomLevel": "understand",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Pourquoi teste-t-on une formule dans un monde où elle doit être vraie ET dans un monde où elle doit être fausse ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Pour vérifier qu'elle distingue bien les situations décrites par l'énoncé"
+          },
+          {
+            "id": "b",
+            "text": "Parce que Tarski ne peut évaluer qu'un monde à la fois"
+          },
+          {
+            "id": "c",
+            "text": "Pour obtenir une moyenne des deux résultats"
+          },
+          {
+            "id": "d",
+            "text": "Parce qu'une formule fermée est toujours fausse dans un monde vide"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Diapositive 38 (semaine 1). Une formule toujours vraie, ou toujours fausse, ne traduirait pas l'énoncé.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "C'est une question de validation de la traduction, pas une limite de l'outil."
+          },
+          {
+            "optionId": "c",
+            "why": "Une formule est vraie ou fausse dans un monde ; on ne fait pas de moyenne."
+          },
+          {
+            "optionId": "d",
+            "why": "Ce n'est pas la raison donnée par les diapositives."
+          }
+        ],
+        "source": {
+          "file": "Semaine 1.pdf",
+          "page": 38,
+          "locator": "Diapositive 38"
+        }
+      },
+      {
+        "id": "t2-18",
+        "objectiveId": "obj2-tarski",
+        "bloomLevel": "apply",
+        "type": "mcq",
+        "difficulty": 1,
+        "prompt": "Comment s'écrit $\\neg(\\text{Triangle}(x) \\wedge \\text{Small}(x))$ dans Tarski UdeS ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "not (Triangle(x) & Small(x))"
+          },
+          {
+            "id": "b",
+            "text": "!(Triangle(x) & Small(x))"
+          },
+          {
+            "id": "c",
+            "text": "not Triangle(x) & Small(x)"
+          },
+          {
+            "id": "d",
+            "text": "not (Triangle(x) or Small(x))"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Tableau 1.2 : not, &, or, =>, <=>.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "« ! » introduit un quantificateur universel, pas une négation."
+          },
+          {
+            "optionId": "c",
+            "why": "Sans parenthèses, not ne porterait que sur Triangle(x), le plus prioritaire."
+          },
+          {
+            "optionId": "d",
+            "why": "La conjonction s'écrit &, pas or."
+          }
+        ],
+        "source": {
+          "file": "Semaine 1.pdf",
+          "page": 42,
+          "locator": "Tableau 1.2"
+        }
+      },
+      {
+        "id": "t2-19",
+        "objectiveId": "obj2-tarski",
+        "bloomLevel": "analyze",
+        "type": "mcq",
+        "difficulty": 3,
+        "prompt": "Laquelle traduit « Une condition suffisante pour que tous les grands objets soient des carrés est qu'il n'existe pas de petit triangle », sans utiliser ∃ ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "$\\big(\\forall x \\cdot \\neg(\\text{Triangle}(x) \\wedge \\text{Small}(x))\\big) \\Rightarrow \\forall y \\cdot (\\text{Large}(y) \\Rightarrow \\text{Square}(y))$"
+          },
+          {
+            "id": "b",
+            "text": "$\\forall x \\cdot \\neg(\\text{Triangle}(x) \\wedge \\text{Small}(x)) \\Rightarrow \\forall y \\cdot (\\text{Large}(y) \\Rightarrow \\text{Square}(y))$"
+          },
+          {
+            "id": "c",
+            "text": "$\\forall y \\cdot (\\text{Large}(y) \\Rightarrow \\text{Square}(y)) \\Rightarrow \\forall x \\cdot \\neg(\\text{Triangle}(x) \\wedge \\text{Small}(x))$"
+          },
+          {
+            "id": "d",
+            "text": "$\\forall x \\cdot \\big(\\neg \\text{Triangle}(x) \\wedge \\neg \\text{Small}(x)\\big) \\Rightarrow \\forall y \\cdot (\\text{Large}(y) \\Rightarrow \\text{Square}(y))$"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Exemple 2 de la diapositive 43 (solution de la plateforme). La condition suffisante est l'hypothèse, et le premier ∀ doit être parenthésé.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Sans les parenthèses, $\\forall x$ porte sur toute l'implication : avec un petit triangle et un grand triangle, cette formule est fausse alors que l'énoncé est vrai."
+          },
+          {
+            "optionId": "c",
+            "why": "La condition suffisante est l'HYPOTHÈSE : elle se place à gauche de ⇒."
+          },
+          {
+            "optionId": "d",
+            "why": "« Pas de petit triangle » n'est pas « ni triangle ni petit » : un grand triangle est permis."
+          }
+        ],
+        "source": {
+          "file": "Semaine 1.pdf",
+          "page": 43,
+          "locator": "Diapositive 43"
+        }
+      },
+      {
+        "id": "t2-20",
+        "objectiveId": "obj2-tarski",
+        "bloomLevel": "apply",
+        "type": "multi",
+        "difficulty": 1,
+        "prompt": "Lesquels de ces prédicats de Tarski portent sur exactement DEUX objets ? (plusieurs réponses)",
+        "options": [
+          {
+            "id": "a",
+            "text": "LeftOf"
+          },
+          {
+            "id": "b",
+            "text": "SameRow"
+          },
+          {
+            "id": "c",
+            "text": "Smaller"
+          },
+          {
+            "id": "d",
+            "text": "Large"
+          },
+          {
+            "id": "e",
+            "text": "Triangle"
+          },
+          {
+            "id": "f",
+            "text": "Between"
+          }
+        ],
+        "correct": [
+          "a",
+          "b",
+          "c"
+        ],
+        "explanation": "Tableau 1.1 (diapositive 42).",
+        "perDistractorExplanation": [
+          {
+            "optionId": "d",
+            "why": "Il porte sur un seul objet."
+          },
+          {
+            "optionId": "e",
+            "why": "Il porte sur un seul objet."
+          },
+          {
+            "optionId": "f",
+            "why": "Il porte sur trois objets : x entre y et z."
+          }
+        ],
+        "source": {
+          "file": "Semaine 1.pdf",
+          "page": 42,
+          "locator": "Tableau 1.1"
+        }
+      },
+      {
+        "id": "t2-21",
+        "objectiveId": "obj2-tarski",
+        "bloomLevel": "understand",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Quelle formule traduit « Tous les carrés sont petits » ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "$\\forall x \\cdot (\\text{Square}(x) \\Rightarrow \\text{Small}(x))$"
+          },
+          {
+            "id": "b",
+            "text": "$\\forall x \\cdot (\\text{Square}(x) \\wedge \\text{Small}(x))$"
+          },
+          {
+            "id": "c",
+            "text": "$\\exists x \\cdot (\\text{Square}(x) \\wedge \\text{Small}(x))$"
+          },
+          {
+            "id": "d",
+            "text": "$\\forall x \\cdot (\\text{Small}(x) \\Rightarrow \\text{Square}(x))$"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Même structure que l'exemple 1 de la diapositive 43 : ∀ avec ⇒, l'hypothèse restreignant aux objets concernés.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Elle affirme que TOUT objet est un petit carré : un seul pentagone la rend fausse."
+          },
+          {
+            "optionId": "c",
+            "why": "Elle affirme seulement qu'il existe un petit carré."
+          },
+          {
+            "optionId": "d",
+            "why": "Elle dit que tous les petits objets sont des carrés — ce n'est pas l'énoncé."
+          }
+        ],
+        "source": {
+          "file": "Semaine 1.pdf",
+          "page": 43,
+          "locator": "Diapositive 43"
+        }
+      }
+    ]
+  },
+  "flashcards": [
+    {
+      "id": "f2-01",
+      "objectiveId": "obj2-predicat",
+      "front": "Fonction propositionnelle ?",
+      "back": "$P(x)$ devient une proposition dès que $x$ est fixé. « $x < 2$ » en est une."
+    },
+    {
+      "id": "f2-02",
+      "objectiveId": "obj2-predicat",
+      "front": "Univers du discours ?",
+      "back": "L'ensemble U des valeurs prises par les variables, aussi appelé domaine."
+    },
+    {
+      "id": "f2-03",
+      "objectiveId": "obj2-quantificateurs",
+      "front": "$\\forall x \\cdot P(x)$ vraie ?",
+      "back": "Si $P(x)$ est vraie pour tout $x$ du domaine. Un contre-exemple la réfute."
+    },
+    {
+      "id": "f2-04",
+      "objectiveId": "obj2-quantificateurs",
+      "front": "$\\exists x \\cdot P(x)$ vraie ?",
+      "back": "Si $P(x)$ est vraie pour au moins un $x$. Un exemple suffit."
+    },
+    {
+      "id": "f2-05",
+      "objectiveId": "obj2-quantificateurs",
+      "front": "∀ et ∃ sur un domaine fini ?",
+      "back": "∀ = conjonction des instances ; ∃ = disjonction des instances."
+    },
+    {
+      "id": "f2-06",
+      "objectiveId": "obj2-priorite",
+      "front": "Priorité des quantificateurs ?",
+      "back": "La plus faible : ils s'appliquent à toute la formule à leur droite, jusqu'à la parenthèse qui les entoure."
+    },
+    {
+      "id": "f2-07",
+      "objectiveId": "obj2-priorite",
+      "front": "$\\forall x \\cdot A \\Rightarrow B$ se lit ?",
+      "back": "$\\forall x \\cdot (A \\Rightarrow B)$."
+    },
+    {
+      "id": "f2-08",
+      "objectiveId": "obj2-portee",
+      "front": "Occurrence liée ?",
+      "back": "Dans la portée d'un quantificateur de sa variable ; liée au plus proche s'il y en a plusieurs."
+    },
+    {
+      "id": "f2-09",
+      "objectiveId": "obj2-portee",
+      "front": "Formule fermée ?",
+      "back": "Aucune variable libre. On obtient une fermeture en ajoutant des quantificateurs devant."
+    },
+    {
+      "id": "f2-10",
+      "objectiveId": "obj2-tarski",
+      "front": "∀ et ∃ dans Tarski UdeS ?",
+      "back": "!x.( … ) et #x.( … )."
+    },
+    {
+      "id": "f2-11",
+      "objectiveId": "obj2-tarski",
+      "front": "Connecteurs dans Tarski UdeS ?",
+      "back": "not, &, or, =>, <=>."
+    },
+    {
+      "id": "f2-12",
+      "objectiveId": "obj2-tarski",
+      "front": "« Tous les A sont B » ?",
+      "back": "$\\forall x \\cdot (A(x) \\Rightarrow B(x))$ — jamais $\\forall x \\cdot (A(x) \\wedge B(x))$."
+    }
+  ],
+  "exercises": [
+    {
+      "id": "e2-01",
+      "objectiveId": "obj2-portee",
+      "difficulty": 2,
+      "mode": "trace",
+      "language": "text",
+      "title": "Occurrences libres et liées",
+      "statement": "Pour chaque formule (diapositives 11 à 13 de la semaine 2), numéroter les occurrences de chaque variable, dire à quel quantificateur chacune est liée ou si elle est libre, puis dire si la formule est fermée.",
+      "starterCode": "(1) ∀y.(P(y) ∨ ∃x.P(x) ∧ ∃y.Q(y))\n(2) ∀y.(P(y) ∨ ∃x.P(x) ∧ ∃y.Q(x, y)) ∧ P(y)\n(3) ∀y.((P(x) ∨ ∃x.P(x)) ∧ Q(y))",
+      "hints": [
+        "Délimiter d'abord la portée de chaque quantificateur : elle va jusqu'à la parenthèse fermante qui l'entoure.",
+        "Une occurrence sous deux quantificateurs de même variable est liée au plus proche.",
+        "Dans (2), le dernier P(y) est après la parenthèse fermante du ∀y."
+      ],
+      "solution": "(1) fermée · (2) ouverte (dernier y libre) · (3) ouverte (premier x libre)",
+      "expectedOutput": "(1) ∀y.( P(y₁) ∨ ∃x.P(x₁) ∧ ∃y.Q(y₂) )\n    y₁ → ∀y   ·   x₁ → ∃x   ·   y₂ → ∃y (le plus proche)\n    Aucune occurrence libre : formule FERMÉE.\n\n(2) ∀y.( P(y₁) ∨ ∃x.P(x₁) ∧ ∃y.Q(x₂, y₂) ) ∧ P(y₃)\n    y₁ → ∀y   ·   y₂ → ∃y   ·   y₃ LIBRE (hors des parenthèses)\n    x₁ et x₂ → ∃x (sa portée s'étend jusqu'à la parenthèse fermante)\n    Formule OUVERTE.\n\n(3) ∀y.( (P(x₁) ∨ ∃x.P(x₂)) ∧ Q(y₁) )\n    x₁ LIBRE (la portée de ∃x est limitée par la parenthèse intérieure)\n    x₂ → ∃x   ·   y₁ → ∀y\n    Formule OUVERTE ; ∀x.∀y.((P(x) ∨ ∃x.P(x)) ∧ Q(y)) en est une fermeture.",
+      "solutionExplanation": "Dans (2), x₂ est lié parce que ∃x, moins prioritaire que ∧, s'étend sur « P(x) ∧ ∃y.Q(x, y) ». Dans (3), c'est l'inverse : la parenthèse autour de « P(x) ∨ ∃x.P(x) » coupe la portée de ∃x avant d'arriver au premier x, qui est avant lui de toute façon.",
+      "source": {
+        "file": "Semaine 2.pdf",
+        "page": 12,
+        "locator": "Diapositives 11 à 13"
+      }
+    },
+    {
+      "id": "e2-02",
+      "objectiveId": "obj2-quantificateurs",
+      "difficulty": 2,
+      "mode": "predict-output",
+      "language": "text",
+      "title": "Quantificateurs sur un domaine fini",
+      "statement": "Avec P(x) : « x < 2 » (diapositive 6) mais cette fois sur le domaine fini {1, 2, 3} : écrire ∀x·P(x) et ∃x·P(x) comme une conjonction ou une disjonction (diapositive 7), puis donner leur valeur. Refaire la même chose sur le domaine {0, 1}.",
+      "starterCode": "Domaine D₁ = {1, 2, 3}\nDomaine D₂ = {0, 1}\nP(x) : x < 2",
+      "hints": [
+        "∀x·P(x) ⇔ P(o₁) ∧ … ∧ P(oₙ) ; ∃x·P(x) ⇔ P(o₁) ∨ … ∨ P(oₙ).",
+        "Évaluer P(1), P(2), P(3), puis P(0), P(1).",
+        "Sur D₂, tous les éléments sont inférieurs à 2."
+      ],
+      "solution": "D₁ : ∀ faux, ∃ vrai · D₂ : ∀ vrai, ∃ vrai",
+      "expectedOutput": "D₁ = {1, 2, 3} : P(1) = 1, P(2) = 0, P(3) = 0\n   ∀x·P(x) ⇔ P(1) ∧ P(2) ∧ P(3) = 1 ∧ 0 ∧ 0 = 0   (faux)\n   ∃x·P(x) ⇔ P(1) ∨ P(2) ∨ P(3) = 1 ∨ 0 ∨ 0 = 1   (vrai)\n\nD₂ = {0, 1} : P(0) = 1, P(1) = 1\n   ∀x·P(x) ⇔ P(0) ∧ P(1) = 1   (vrai)\n   ∃x·P(x) ⇔ P(0) ∨ P(1) = 1   (vrai)",
+      "solutionExplanation": "La même formule ∀x·P(x) change de valeur avec le domaine : fausse sur ℝ et sur {1, 2, 3}, vraie sur {0, 1}. On ne peut pas évaluer une formule quantifiée sans savoir sur quel domaine elle porte — c'est pourquoi Tarski UdeS demande toujours un monde.",
+      "source": {
+        "file": "Semaine 2.pdf",
+        "page": 7,
+        "locator": "Diapositives 6 et 7"
+      }
+    },
+    {
+      "id": "e2-03",
+      "objectiveId": "obj2-tarski",
+      "difficulty": 2,
+      "mode": "find-bug",
+      "language": "text",
+      "title": "Trouver l'erreur — ∀ avec ∧",
+      "statement": "Un étudiant traduit « Les carrés situés à gauche du triangle a sont petits » (exemple des diapositives). Trouver l'erreur, montrer un monde où sa formule donne le mauvais résultat, et corriger.",
+      "starterCode": "« !x.(Square(x) & LeftOf(x, a) & Small(x)) »",
+      "hints": [
+        "Que dit la formule de l'étudiant à propos du triangle a lui-même ?",
+        "La formule affirme quelque chose de TOUT objet du monde.",
+        "« Les A sont B » : ∀ avec ⇒."
+      ],
+      "solution": "!x.(Square(x) & LeftOf(x, a) => Small(x))",
+      "expectedOutput": "L'ERREUR\n    La formule dit que TOUT objet x du monde est un carré, est à gauche de a et est\n    petit. Elle est fausse dans n'importe quel monde qui contient le triangle a : a\n    n'est ni un carré ni à sa propre gauche.\n\nUN MONDE QUI LE MONTRE\n    Le triangle a, et un petit carré à sa gauche.\n    L'énoncé est vrai (le seul carré à gauche de a est petit).\n    La formule de l'étudiant est fausse (x = a n'est pas un carré).\n\nLA CORRECTION\n    !x.(Square(x) & LeftOf(x, a) => Small(x))\n    Pour tout objet : SI c'est un carré à gauche de a, ALORS il est petit.\n    Les autres objets rendent l'implication vraie (hypothèse fausse).",
+      "solutionExplanation": "C'est le réflexe à prendre avec Tarski : tester chaque formule dans un monde où elle doit être vraie. Ici, le monde le plus simple où l'énoncé est vrai fait échouer la formule — l'erreur saute aux yeux sans aucun raisonnement abstrait.",
+      "source": {
+        "file": "Semaine 1.pdf",
+        "page": 43,
+        "locator": "Diapositive 43 ; diapositive 38"
+      }
+    },
+    {
+      "id": "e2-04",
+      "objectiveId": "obj2-tarski",
+      "difficulty": 2,
+      "mode": "fill-blank",
+      "language": "text",
+      "title": "Écrire une formule en syntaxe Tarski",
+      "statement": "Compléter la traduction Tarski de l'exemple 2 des diapositives : « Une condition suffisante pour que tous les grands objets soient des carrés est qu'il n'existe pas de petit triangle » (sans utiliser #).",
+      "starterCode": "____.(____ (Triangle(x) ____ Small(x))) ____ !y.(Large(y) ____ Square(y))",
+      "hints": [
+        "« Il n'existe pas de petit triangle », sans ∃ : pour tout x, x n'est pas (triangle et petit).",
+        "La condition suffisante est l'hypothèse : elle est à gauche du =>.",
+        "Dans Tarski, la parenthèse de !x.( … ) ferme la portée du quantificateur avant le =>."
+      ],
+      "solution": "!x.(not (Triangle(x) & Small(x))) => !y.(Large(y) => Square(y))",
+      "expectedOutput": "!x.(not (Triangle(x) & Small(x))) => !y.(Large(y) => Square(y))\n\n  !x          quantificateur universel\n  not         négation de « triangle et petit »\n  &           conjonction\n  =>          l'hypothèse (condition suffisante) implique la conclusion\n  =>          « si grand alors carré », pour tout y",
+      "solutionExplanation": "La syntaxe de Tarski rend explicite ce que la notation du cours laisse à la priorité : les parenthèses de !x.( … ) s'arrêtent avant le =>, ce qui correspond à (∀x·¬(…)) ⇒ ∀y·(…) avec des parenthèses autour du premier ∀.",
+      "source": {
+        "file": "Semaine 1.pdf",
+        "page": 43,
+        "locator": "Diapositive 43 ; tableau 1.2"
+      }
+    },
+    {
+      "id": "e2-05",
+      "objectiveId": "obj2-priorite",
+      "difficulty": 3,
+      "mode": "trace",
+      "language": "text",
+      "title": "Ce que change une parenthèse autour d'un ∀",
+      "statement": "Comparer, dans le monde W ci-dessous, les deux formules (1) et (2). Évaluer chacune en détaillant, puis dire laquelle traduit l'énoncé de l'exemple 2 des diapositives.",
+      "starterCode": "W = { t₁ : petit triangle,  t₂ : grand triangle }\n\n(1) (∀x·¬(Triangle(x) ∧ Small(x))) ⇒ ∀y·(Large(y) ⇒ Square(y))\n(2)  ∀x·¬(Triangle(x) ∧ Small(x))  ⇒ ∀y·(Large(y) ⇒ Square(y))",
+      "hints": [
+        "Dans (2), où s'arrête la portée de ∀x ? Réécrire (2) avec toutes ses parenthèses.",
+        "Pour (1), commencer par l'hypothèse : existe-t-il un petit triangle dans W ?",
+        "Pour (2), il faut que l'implication soit vraie pour x = t₁ ET pour x = t₂."
+      ],
+      "solution": "(1) vraie · (2) fausse · c'est (1) qui traduit l'énoncé",
+      "expectedOutput": "(1)  Hypothèse : ∀x·¬(Triangle(x) ∧ Small(x))\n     t₁ est un petit triangle → hypothèse FAUSSE → implication VRAIE.\n\n(2)  Avec la priorité du cours, (2) se lit\n     ∀x·( ¬(Triangle(x) ∧ Small(x)) ⇒ ∀y·(Large(y) ⇒ Square(y)) )\n     x = t₁ : ¬(1 ∧ 1) = 0 → implication vraie.\n     x = t₂ : ¬(1 ∧ 0) = 1 ; ∀y·(Large(y) ⇒ Square(y)) est faux (t₂ est grand\n              mais n'est pas un carré) → 1 ⇒ 0 = 0.\n     Le ∀ exige toutes les instances : (2) est FAUSSE.\n\nL'énoncé est vrai dans W (il y a un petit triangle, la condition n'est pas\nremplie, rien n'est affirmé). C'est donc (1) qui le traduit.",
+      "solutionExplanation": "Les deux formules ne diffèrent que d'une paire de parenthèses, et elles n'ont pas la même valeur dans W. (2) dit en fait : « si au moins un objet n'est pas un petit triangle, alors tous les grands objets sont des carrés » — un autre énoncé. C'est l'application directe de la priorité faible des quantificateurs (diapositive 8 de la semaine 2).",
+      "source": {
+        "file": "Semaine 2.pdf",
+        "page": 8,
+        "locator": "Diapositive 8 ; Semaine 1, diapositive 43"
+      }
+    }
+  ]
+}

@@ -1,0 +1,26 @@
+---
+interface Props {
+  caption?: string;
+  /** Hand-written SVG is already themed via currentColor; keep the frame subtle. */
+  bare?: boolean;
+}
+const { caption, bare = false } = Astro.props;
+---
+
+<figure class="my-7 not-prose">
+  <div
+    class:list={['overflow-x-auto rounded-xl p-4', !bare && 'border']}
+    style={bare ? '' : 'background: var(--surface-raised); border-color: var(--border);'}
+  >
+    <div class="mx-auto [&>svg]:h-auto [&>svg]:w-full [&>svg]:max-w-3xl">
+      <slot />
+    </div>
+  </div>
+  {
+    caption && (
+      <figcaption class="mt-2 text-center text-[0.8rem]" style="color: var(--text-faint);">
+        {caption}
+      </figcaption>
+    )
+  }
+</figure>

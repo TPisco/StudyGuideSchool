@@ -1,0 +1,1875 @@
+{
+  "course": "MAT098",
+  "chapter": 5,
+  "concepts": [
+    {
+      "id": "c5-etude",
+      "term": "Étude d'une fonction",
+      "definition": "Procédé en six étapes — domaine, asymptotes, zéros, valeurs critiques, points d'inflexion possibles, tableau des signes — qui permet d'esquisser le graphique d'une fonction.",
+      "whyItMatters": "Elle rassemble toutes les notions des chapitres 1 à 4 en une seule démarche.",
+      "commonMisconception": "Sauter le domaine : toutes les étapes suivantes ne retiennent que des valeurs du domaine.",
+      "objectiveId": "obj5-etapes",
+      "source": {
+        "file": "1-rappels_calcul_differentiel.pdf",
+        "page": 200,
+        "locator": "Diapositives 200 à 202"
+      }
+    },
+    {
+      "id": "c5-valeur-critique",
+      "term": "Valeur critique",
+      "definition": "Valeur du domaine qui annule $f'$ ou pour laquelle $f'$ n'existe pas.",
+      "whyItMatters": "Les extremums relatifs ne peuvent se trouver qu'en une valeur critique.",
+      "commonMisconception": "Oublier les valeurs où $f'$ n'existe pas, comme $x = 0$ pour $x^{2/3}(x + 1)$.",
+      "objectiveId": "obj5-critiques",
+      "source": {
+        "file": "1-rappels_calcul_differentiel.pdf",
+        "page": 202,
+        "locator": "Diapositive 202, étape 4"
+      }
+    },
+    {
+      "id": "c5-concavite",
+      "term": "Concavité",
+      "definition": "f est concave vers le haut sur [a, b] si sa courbe est au-dessus de chacune de ses tangentes sur ]a, b[, concave vers le bas si elle est au-dessous.",
+      "whyItMatters": "Par le théorème 1.75, le signe de $f''$ donne la concavité : $f'' > 0$ vers le haut, $f'' < 0$ vers le bas.",
+      "commonMisconception": "Confondre concavité et croissance : une fonction peut croître en étant concave vers le bas.",
+      "objectiveId": "obj5-concavite",
+      "source": {
+        "file": "1-rappels_calcul_differentiel.pdf",
+        "page": 203,
+        "locator": "Définition 1.74, théorème 1.75"
+      }
+    },
+    {
+      "id": "c5-inflexion",
+      "term": "Point d'inflexion",
+      "definition": "Point $(c, f(c))$ où la courbe change de concavité ; alors $f''(c) = 0$ ou $f''(c)$ n'existe pas.",
+      "whyItMatters": "C'est le point où la tangente traverse la courbe.",
+      "commonMisconception": "Croire que $f''(c) = 0$ suffit : il faut un changement de signe de $f''$.",
+      "objectiveId": "obj5-concavite",
+      "source": {
+        "file": "1-rappels_calcul_differentiel.pdf",
+        "page": 206,
+        "locator": "Définition 1.76"
+      }
+    },
+    {
+      "id": "c5-susceptible",
+      "term": "Valeur susceptible de produire un point d'inflexion",
+      "definition": "Valeur du domaine qui annule $f''$ ou pour laquelle $f''$ n'existe pas.",
+      "whyItMatters": "Ce sont les seules bornes possibles des intervalles de concavité.",
+      "commonMisconception": "Garder une racine de $f''$ qui n'est pas dans le domaine, comme $\\pm\\sqrt3$ dans l'exercice 1.77.",
+      "objectiveId": "obj5-concavite",
+      "source": {
+        "file": "1-rappels_calcul_differentiel.pdf",
+        "page": 202,
+        "locator": "Diapositive 202, étape 5"
+      }
+    },
+    {
+      "id": "c5-asymptote-verifiee",
+      "term": "Asymptote verticale à vérifier",
+      "definition": "Les zéros du dénominateur sont seulement susceptibles de produire une asymptote verticale ; il faut vérifier que la limite est infinie.",
+      "whyItMatters": "$\\frac{x^3 - 1}{x - 1}$ n'a pas d'asymptote en $x = 1$ : sa limite vaut 3.",
+      "commonMisconception": "Déclarer une asymptote en chaque zéro du dénominateur sans calculer la limite.",
+      "objectiveId": "obj5-etude",
+      "source": {
+        "file": "1-rappels_calcul_differentiel.pdf",
+        "page": 201,
+        "locator": "Diapositive 201 ; exercice 1.79 c"
+      }
+    }
+  ],
+  "tables": [
+    {
+      "id": "t5-etapes",
+      "title": "Les six étapes de l'étude",
+      "kind": "cheatsheet",
+      "columns": [
+        {
+          "key": "n",
+          "label": "Étape"
+        },
+        {
+          "key": "quoi",
+          "label": "Ce qu'on cherche"
+        },
+        {
+          "key": "outil",
+          "label": "Outil"
+        }
+      ],
+      "rows": [
+        {
+          "n": "1",
+          "quoi": "domaine",
+          "outil": "dénominateurs, racines paires, logarithmes"
+        },
+        {
+          "n": "2",
+          "quoi": "asymptotes",
+          "outil": "limites en $a$ et en $\\pm\\infty$"
+        },
+        {
+          "n": "3",
+          "quoi": "ordonnée à l'origine, zéros",
+          "outil": "$f(0)$ et $f(x) = 0$"
+        },
+        {
+          "n": "4",
+          "quoi": "valeurs critiques",
+          "outil": "$f'(x) = 0$ ou $f'$ n'existe pas"
+        },
+        {
+          "n": "5",
+          "quoi": "points d'inflexion possibles",
+          "outil": "$f''(x) = 0$ ou $f''$ n'existe pas"
+        },
+        {
+          "n": "6",
+          "quoi": "croissance, extremums, concavité, inflexions",
+          "outil": "tableau des signes de $f'$ et $f''$"
+        }
+      ],
+      "source": {
+        "file": "1-rappels_calcul_differentiel.pdf",
+        "page": 200,
+        "locator": "Diapositives 200 à 202"
+      }
+    },
+    {
+      "id": "t5-signes",
+      "title": "Lire le tableau des signes",
+      "kind": "cheatsheet",
+      "columns": [
+        {
+          "key": "signe",
+          "label": "Signes"
+        },
+        {
+          "key": "lecture",
+          "label": "Lecture"
+        }
+      ],
+      "rows": [
+        {
+          "signe": "$f' > 0$",
+          "lecture": "f croissante"
+        },
+        {
+          "signe": "$f' < 0$",
+          "lecture": "f décroissante"
+        },
+        {
+          "signe": "$f'$ : $+$ puis $-$",
+          "lecture": "maximum relatif"
+        },
+        {
+          "signe": "$f'$ : $-$ puis $+$",
+          "lecture": "minimum relatif"
+        },
+        {
+          "signe": "$f'' > 0$",
+          "lecture": "concave vers le haut (∪)"
+        },
+        {
+          "signe": "$f'' < 0$",
+          "lecture": "concave vers le bas (∩)"
+        },
+        {
+          "signe": "$f''$ change de signe",
+          "lecture": "point d'inflexion"
+        }
+      ],
+      "source": {
+        "file": "1-rappels_calcul_differentiel.pdf",
+        "page": 205,
+        "locator": "Théorème 1.75, diapositive 177"
+      }
+    }
+  ],
+  "quiz": {
+    "title": "Quiz — vérification rapide",
+    "estimatedMinutes": 15,
+    "questions": [
+      {
+        "id": "q5-01",
+        "objectiveId": "obj5-etapes",
+        "bloomLevel": "recall",
+        "type": "mcq",
+        "difficulty": 1,
+        "prompt": "Quelle est la première étape de l'étude d'une fonction ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Déterminer le domaine"
+          },
+          {
+            "id": "b",
+            "text": "Calculer la dérivée"
+          },
+          {
+            "id": "c",
+            "text": "Chercher les zéros"
+          },
+          {
+            "id": "d",
+            "text": "Construire le tableau des signes"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Diapositive 200.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "C'est l'étape 4 ; elle ne retient que des valeurs du domaine."
+          },
+          {
+            "optionId": "c",
+            "why": "C'est l'étape 3."
+          },
+          {
+            "optionId": "d",
+            "why": "C'est la dernière étape."
+          }
+        ],
+        "source": {
+          "file": "1-rappels_calcul_differentiel.pdf",
+          "page": 200,
+          "locator": "Diapositive 200"
+        }
+      },
+      {
+        "id": "q5-02",
+        "objectiveId": "obj5-etapes",
+        "bloomLevel": "recall",
+        "type": "mcq",
+        "difficulty": 1,
+        "prompt": "Qu'est-ce qu'une valeur critique ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Une valeur du domaine où $f' = 0$ ou $f'$ n'existe pas"
+          },
+          {
+            "id": "b",
+            "text": "Une valeur du domaine qui annule $f''$"
+          },
+          {
+            "id": "c",
+            "text": "Un zéro de la fonction"
+          },
+          {
+            "id": "d",
+            "text": "Une valeur hors du domaine"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Diapositive 202, étape 4.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "C'est une valeur susceptible de produire un point d'inflexion."
+          },
+          {
+            "optionId": "c",
+            "why": "C'est l'étape 3, f(x) = 0."
+          },
+          {
+            "optionId": "d",
+            "why": "Une valeur critique appartient toujours au domaine."
+          }
+        ],
+        "source": {
+          "file": "1-rappels_calcul_differentiel.pdf",
+          "page": 202,
+          "locator": "Diapositive 202"
+        }
+      },
+      {
+        "id": "q5-03",
+        "objectiveId": "obj5-critiques",
+        "bloomLevel": "apply",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Quels sont les extremums relatifs de $f(x) = x^3 - 3x$ ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Maximum $(-1, 2)$ et minimum $(1, -2)$"
+          },
+          {
+            "id": "b",
+            "text": "Maximum $(1, -2)$ et minimum $(-1, 2)$"
+          },
+          {
+            "id": "c",
+            "text": "Minimum $(0, 0)$"
+          },
+          {
+            "id": "d",
+            "text": "Maximum $(\\sqrt3, 0)$"
+          }
+        ],
+        "correct": "a",
+        "explanation": "$f'(x) = 3(x - 1)(x + 1)$ (exercice 1.79 a, réponse de la plateforme).",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "$f'$ passe de $+$ à $-$ en $-1$ : c'est un maximum."
+          },
+          {
+            "optionId": "c",
+            "why": "$(0, 0)$ est un point d'inflexion, pas un extremum."
+          },
+          {
+            "optionId": "d",
+            "why": "$\\pm\\sqrt3$ sont des zéros de $f$, pas de $f'$."
+          }
+        ],
+        "source": {
+          "file": "1-rappels_calcul_differentiel.pdf",
+          "page": 211,
+          "locator": "Exercice 1.79 a"
+        }
+      },
+      {
+        "id": "q5-04",
+        "objectiveId": "obj5-concavite",
+        "bloomLevel": "recall",
+        "type": "mcq",
+        "difficulty": 1,
+        "prompt": "Si $f''(x) > 0$ en tout point intérieur de $I$, alors $f$ est…",
+        "options": [
+          {
+            "id": "a",
+            "text": "concave vers le haut sur I"
+          },
+          {
+            "id": "b",
+            "text": "concave vers le bas sur I"
+          },
+          {
+            "id": "c",
+            "text": "croissante sur I"
+          },
+          {
+            "id": "d",
+            "text": "positive sur I"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Théorème 1.75.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "C'est le cas $f'' < 0$."
+          },
+          {
+            "optionId": "c",
+            "why": "C'est le signe de $f'$ qui renseigne sur la croissance."
+          },
+          {
+            "optionId": "d",
+            "why": "Le signe de f″ ne dit rien du signe de f."
+          }
+        ],
+        "source": {
+          "file": "1-rappels_calcul_differentiel.pdf",
+          "page": 205,
+          "locator": "Théorème 1.75"
+        }
+      },
+      {
+        "id": "q5-05",
+        "objectiveId": "obj5-concavite",
+        "bloomLevel": "understand",
+        "type": "true-false",
+        "difficulty": 2,
+        "prompt": "Si $f''(c) = 0$, alors $(c, f(c))$ est un point d'inflexion.",
+        "options": [
+          {
+            "id": "v",
+            "text": "Vrai"
+          },
+          {
+            "id": "f",
+            "text": "Faux"
+          }
+        ],
+        "correct": "f",
+        "explanation": "La définition 1.76 donne la réciproque. Pour $-x^5 + 2x^4 - 1$, $f''(0) = 0$ mais $f''$ ne change pas de signe en 0.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "v",
+            "why": "Il faut un changement de concavité, donc de signe de f″."
+          }
+        ],
+        "source": {
+          "file": "1-rappels_calcul_differentiel.pdf",
+          "page": 206,
+          "locator": "Définition 1.76"
+        }
+      },
+      {
+        "id": "q5-06",
+        "objectiveId": "obj5-concavite",
+        "bloomLevel": "apply",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Où $f(x) = (4 - x^2)^2$ est-elle concave vers le bas ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Sur $\\left]-\\frac{2}{\\sqrt3}, \\frac{2}{\\sqrt3}\\right[$"
+          },
+          {
+            "id": "b",
+            "text": "Sur $]-2, 2[$"
+          },
+          {
+            "id": "c",
+            "text": "À l'extérieur de $\\left[-\\frac{2}{\\sqrt3}, \\frac{2}{\\sqrt3}\\right]$"
+          },
+          {
+            "id": "d",
+            "text": "Nulle part"
+          }
+        ],
+        "correct": "a",
+        "explanation": "$f''(x) = 12x^2 - 16 < 0 \\iff x^2 < \\frac43$ (exercice 1.78 a, réponse de la plateforme).",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Ce sont les zéros de $f$ ; $f''(x) = 12x^2 - 16$."
+          },
+          {
+            "optionId": "c",
+            "why": "Là, f″ > 0 : concave vers le haut."
+          },
+          {
+            "optionId": "d",
+            "why": "$f''(0) = -16 < 0$."
+          }
+        ],
+        "source": {
+          "file": "1-rappels_calcul_differentiel.pdf",
+          "page": 210,
+          "locator": "Exercice 1.78 a"
+        }
+      },
+      {
+        "id": "q5-07",
+        "objectiveId": "obj5-concavite",
+        "bloomLevel": "analyze",
+        "type": "mcq",
+        "difficulty": 3,
+        "prompt": "Pour $f(x) = -x^5 + 2x^4 - 1$, $f''(x) = -4x^2(5x - 6)$. Combien de points d'inflexion ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Un seul, en $x = \\frac65$"
+          },
+          {
+            "id": "b",
+            "text": "Deux, en $x = 0$ et $x = \\frac65$"
+          },
+          {
+            "id": "c",
+            "text": "Aucun"
+          },
+          {
+            "id": "d",
+            "text": "Un seul, en $x = 0$"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Exercice 1.78 b, réponse de la plateforme.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "En 0, le facteur $x^2$ ne change pas de signe."
+          },
+          {
+            "optionId": "c",
+            "why": "$f''$ change de signe en $\\frac65$."
+          },
+          {
+            "optionId": "d",
+            "why": "C'est l'inverse : en 0, pas de changement de signe."
+          }
+        ],
+        "source": {
+          "file": "1-rappels_calcul_differentiel.pdf",
+          "page": 210,
+          "locator": "Exercice 1.78 b"
+        }
+      },
+      {
+        "id": "q5-08",
+        "objectiveId": "obj5-etude",
+        "bloomLevel": "analyze",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Dans l'exercice 1.77, $\\mathrm{Dom}_f = [-\\sqrt2, \\sqrt2]$ et le numérateur de $f''$ s'annule en $0$ et $\\pm\\sqrt3$. Pourquoi écarte-t-on $\\pm\\sqrt3$ ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Parce que $\\pm\\sqrt3$ n'appartient pas au domaine"
+          },
+          {
+            "id": "b",
+            "text": "Parce que $f''(\\pm\\sqrt3)$ n'existe pas"
+          },
+          {
+            "id": "c",
+            "text": "Parce que $\\sqrt3$ est irrationnel"
+          },
+          {
+            "id": "d",
+            "text": "On ne les écarte pas"
+          }
+        ],
+        "correct": "a",
+        "explanation": "$\\sqrt3 \\approx 1{,}73 > \\sqrt2 \\approx 1{,}41$ (réponse de la plateforme).",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Le problème est que $f$ elle-même n'y est pas définie."
+          },
+          {
+            "optionId": "c",
+            "why": "Une valeur irrationnelle peut produire une inflexion."
+          },
+          {
+            "optionId": "d",
+            "why": "L'étape 5 ne retient que des valeurs du domaine."
+          }
+        ],
+        "source": {
+          "file": "1-rappels_calcul_differentiel.pdf",
+          "page": 209,
+          "locator": "Exercice 1.77"
+        }
+      },
+      {
+        "id": "q5-09",
+        "objectiveId": "obj5-etude",
+        "bloomLevel": "analyze",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "$f(x) = \\frac{x^3 - 1}{x - 1}$ a-t-elle une asymptote verticale en $x = 1$ ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Non : $\\lim_{x \\to 1} f(x) = 3$"
+          },
+          {
+            "id": "b",
+            "text": "Oui : x = 1 annule le dénominateur"
+          },
+          {
+            "id": "c",
+            "text": "Oui : $f(1)$ n'est pas définie"
+          },
+          {
+            "id": "d",
+            "text": "Non : f n'a pas de dénominateur"
+          }
+        ],
+        "correct": "a",
+        "explanation": "$\\frac{x^3 - 1}{x - 1} = x^2 + x + 1$ pour $x \\neq 1$ (exercice 1.79 c, réponse de la plateforme).",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Ce n'est qu'une valeur susceptible ; il faut vérifier la limite."
+          },
+          {
+            "optionId": "c",
+            "why": "Un trou n'est pas une asymptote."
+          },
+          {
+            "optionId": "d",
+            "why": "Elle en a un, $x - 1$, qui se simplifie."
+          }
+        ],
+        "source": {
+          "file": "1-rappels_calcul_differentiel.pdf",
+          "page": 211,
+          "locator": "Exercice 1.79 c"
+        }
+      },
+      {
+        "id": "q5-10",
+        "objectiveId": "obj5-critiques",
+        "bloomLevel": "apply",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Quelles sont les valeurs critiques de $f(x) = x^4 - 18x^2 + 17$ ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "$-3$, $0$ et $3$"
+          },
+          {
+            "id": "b",
+            "text": "$-\\sqrt3$ et $\\sqrt3$"
+          },
+          {
+            "id": "c",
+            "text": "$\\pm1$ et $\\pm\\sqrt{17}$"
+          },
+          {
+            "id": "d",
+            "text": "$0$ seulement"
+          }
+        ],
+        "correct": "a",
+        "explanation": "$f'(x) = 4x^3 - 36x = 4x(x - 3)(x + 3)$ (exercice 1.79 b, réponse de la plateforme).",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Ce sont les zéros de $f''$."
+          },
+          {
+            "optionId": "c",
+            "why": "Ce sont les zéros de f."
+          },
+          {
+            "optionId": "d",
+            "why": "$4x(x^2 - 9) = 0$ a trois solutions."
+          }
+        ],
+        "source": {
+          "file": "1-rappels_calcul_differentiel.pdf",
+          "page": 211,
+          "locator": "Exercice 1.79 b"
+        }
+      },
+      {
+        "id": "q5-11",
+        "objectiveId": "obj5-concavite",
+        "bloomLevel": "understand",
+        "type": "mcq",
+        "difficulty": 1,
+        "prompt": "Graphiquement, une fonction concave vers le haut sur [a, b] a sa courbe…",
+        "options": [
+          {
+            "id": "a",
+            "text": "au-dessus de chacune de ses tangentes sur ]a, b["
+          },
+          {
+            "id": "b",
+            "text": "au-dessous de chacune de ses tangentes"
+          },
+          {
+            "id": "c",
+            "text": "au-dessus de l'axe des x"
+          },
+          {
+            "id": "d",
+            "text": "toujours croissante"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Définition 1.74.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "C'est la concavité vers le bas."
+          },
+          {
+            "optionId": "c",
+            "why": "C'est une fonction positive."
+          },
+          {
+            "optionId": "d",
+            "why": "Une fonction concave vers le haut peut décroître."
+          }
+        ],
+        "source": {
+          "file": "1-rappels_calcul_differentiel.pdf",
+          "page": 203,
+          "locator": "Définition 1.74"
+        }
+      },
+      {
+        "id": "q5-12",
+        "objectiveId": "obj5-etapes",
+        "bloomLevel": "understand",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Quelles valeurs de x sont susceptibles de produire une asymptote verticale ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Celles qui annulent un dénominateur ou l'argument d'un logarithme"
+          },
+          {
+            "id": "b",
+            "text": "Celles qui annulent la dérivée"
+          },
+          {
+            "id": "c",
+            "text": "Les limites de $f$ en $\\pm\\infty$"
+          },
+          {
+            "id": "d",
+            "text": "Les zéros de la fonction"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Diapositive 201.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Ce sont les valeurs critiques."
+          },
+          {
+            "optionId": "c",
+            "why": "Elles donnent les asymptotes horizontales."
+          },
+          {
+            "optionId": "d",
+            "why": "Un zéro est un point du graphique sur l'axe des x."
+          }
+        ],
+        "source": {
+          "file": "1-rappels_calcul_differentiel.pdf",
+          "page": 201,
+          "locator": "Diapositive 201"
+        }
+      }
+    ]
+  },
+  "test": {
+    "title": "Test du chapitre 5",
+    "instructions": "21 questions couvrant tout le chapitre. Plus long et plus difficile que le quiz.",
+    "estimatedMinutes": 45,
+    "questions": [
+      {
+        "id": "t5-01",
+        "objectiveId": "obj5-etapes",
+        "bloomLevel": "recall",
+        "type": "mcq",
+        "difficulty": 1,
+        "prompt": "Combien d'étapes compte l'étude d'une fonction dans ce cours ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Six"
+          },
+          {
+            "id": "b",
+            "text": "Quatre"
+          },
+          {
+            "id": "c",
+            "text": "Cinq"
+          },
+          {
+            "id": "d",
+            "text": "Huit"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Diapositives 200 à 202.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Il y a aussi les zéros et les valeurs d'inflexion."
+          },
+          {
+            "optionId": "c",
+            "why": "Le tableau des signes est la sixième."
+          },
+          {
+            "optionId": "d",
+            "why": "Diapositive 200 : six étapes."
+          }
+        ],
+        "source": {
+          "file": "1-rappels_calcul_differentiel.pdf",
+          "page": 200,
+          "locator": "Diapositive 200"
+        }
+      },
+      {
+        "id": "t5-02",
+        "objectiveId": "obj5-etapes",
+        "bloomLevel": "recall",
+        "type": "mcq",
+        "difficulty": 1,
+        "prompt": "Quelle étape vient juste avant le tableau des signes ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "La recherche des valeurs susceptibles de produire un point d'inflexion"
+          },
+          {
+            "id": "b",
+            "text": "La recherche des asymptotes"
+          },
+          {
+            "id": "c",
+            "text": "Le domaine"
+          },
+          {
+            "id": "d",
+            "text": "Les zéros et l'ordonnée à l'origine"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Diapositive 202, étapes 5 et 6.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "C'est l'étape 2."
+          },
+          {
+            "optionId": "c",
+            "why": "C'est l'étape 1."
+          },
+          {
+            "optionId": "d",
+            "why": "C'est l'étape 3."
+          }
+        ],
+        "source": {
+          "file": "1-rappels_calcul_differentiel.pdf",
+          "page": 202,
+          "locator": "Diapositive 202"
+        }
+      },
+      {
+        "id": "t5-03",
+        "objectiveId": "obj5-etapes",
+        "bloomLevel": "understand",
+        "type": "true-false",
+        "difficulty": 2,
+        "prompt": "Selon les diapositives, l'étude décrit trois types d'asymptotes.",
+        "options": [
+          {
+            "id": "v",
+            "text": "Vrai"
+          },
+          {
+            "id": "f",
+            "text": "Faux"
+          }
+        ],
+        "correct": "f",
+        "explanation": "La diapositive 201 annonce trois types mais n'en décrit que deux (verticale, horizontale) ; les notes parlent de deux types.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "v",
+            "why": "Seuls les types vertical et horizontal sont présentés."
+          }
+        ],
+        "source": {
+          "file": "1-rappels_calcul_differentiel.pdf",
+          "page": 201,
+          "locator": "Diapositive 201 ; notes, section 1.5"
+        }
+      },
+      {
+        "id": "t5-04",
+        "objectiveId": "obj5-critiques",
+        "bloomLevel": "apply",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Quels sont les extremums relatifs de $f(x) = x^4 - 18x^2 + 17$ ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Maximum $(0, 17)$, minimums $(\\pm3, -64)$"
+          },
+          {
+            "id": "b",
+            "text": "Minimum $(0, 17)$, maximums $(\\pm3, -64)$"
+          },
+          {
+            "id": "c",
+            "text": "Maximum $(0, 17)$, minimums $(\\pm3, -46)$"
+          },
+          {
+            "id": "d",
+            "text": "Minimums $(\\pm\\sqrt3, -28)$"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Exercice 1.79 b, réponse de la plateforme.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "$f'$ passe de $+$ à $-$ en 0 : maximum."
+          },
+          {
+            "optionId": "c",
+            "why": "$f(3) = 81 - 162 + 17 = -64$."
+          },
+          {
+            "optionId": "d",
+            "why": "Ce sont les points d'inflexion."
+          }
+        ],
+        "source": {
+          "file": "1-rappels_calcul_differentiel.pdf",
+          "page": 211,
+          "locator": "Exercice 1.79 b"
+        }
+      },
+      {
+        "id": "t5-05",
+        "objectiveId": "obj5-critiques",
+        "bloomLevel": "apply",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Où $f(x) = \\frac{x}{x^2 + 16}$ est-elle croissante ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Sur $]-4, 4[$"
+          },
+          {
+            "id": "b",
+            "text": "Sur $]-\\infty, -4[\\ \\cup\\ ]4, \\infty[$"
+          },
+          {
+            "id": "c",
+            "text": "Sur $\\mathbb{R}$"
+          },
+          {
+            "id": "d",
+            "text": "Sur $]0, \\infty[$"
+          }
+        ],
+        "correct": "a",
+        "explanation": "$f'(x) = \\frac{-(x - 4)(x + 4)}{(x^2 + 16)^2} > 0 \\iff -4 < x < 4$ (exemple de la plateforme sur la fonction de l'exercice 1.78 c).",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Là, f′ < 0 : décroissante."
+          },
+          {
+            "optionId": "c",
+            "why": "$f'(x) = \\frac{16 - x^2}{(x^2 + 16)^2}$ change de signe."
+          },
+          {
+            "optionId": "d",
+            "why": "Pour $x = 5$, $16 - 25 < 0$."
+          }
+        ],
+        "source": {
+          "file": "1-rappels_calcul_differentiel.pdf",
+          "page": 210,
+          "locator": "Exercice 1.78 c"
+        }
+      },
+      {
+        "id": "t5-06",
+        "objectiveId": "obj5-critiques",
+        "bloomLevel": "analyze",
+        "type": "mcq",
+        "difficulty": 3,
+        "prompt": "Pour $f(x) = x^{2/3}(x + 1)$, $f'(x) = \\frac{5x + 2}{3x^{1/3}}$. Quelles sont les valeurs critiques ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "$x = -\\frac25$ et $x = 0$"
+          },
+          {
+            "id": "b",
+            "text": "$x = -\\frac25$ seulement"
+          },
+          {
+            "id": "c",
+            "text": "$x = 0$ et $x = -1$"
+          },
+          {
+            "id": "d",
+            "text": "$x = \\frac15$"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Exercice 1.79 d, réponse de la plateforme (numériquement vérifiée).",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "$f'(0)$ n'existe pas, et $0$ est dans le domaine : c'est aussi une valeur critique."
+          },
+          {
+            "optionId": "c",
+            "why": "Ce sont les zéros de f."
+          },
+          {
+            "optionId": "d",
+            "why": "C'est le zéro de $f''$."
+          }
+        ],
+        "source": {
+          "file": "1-rappels_calcul_differentiel.pdf",
+          "page": 211,
+          "locator": "Exercice 1.79 d"
+        }
+      },
+      {
+        "id": "t5-07",
+        "objectiveId": "obj5-critiques",
+        "bloomLevel": "apply",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Quels sont les extremums relatifs de $f(x) = -\\frac{x}{x^2 + 1}$ ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Minimum $\\left(1, -\\frac12\\right)$, maximum $\\left(-1, \\frac12\\right)$"
+          },
+          {
+            "id": "b",
+            "text": "Maximum $\\left(1, -\\frac12\\right)$, minimum $\\left(-1, \\frac12\\right)$"
+          },
+          {
+            "id": "c",
+            "text": "Minimum $(0, 0)$"
+          },
+          {
+            "id": "d",
+            "text": "Aucun"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Exercice 1.80 a, réponse de la plateforme.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "$f'(x) = \\frac{x^2 - 1}{(x^2 + 1)^2}$ passe de $-$ à $+$ en 1."
+          },
+          {
+            "optionId": "c",
+            "why": "$f'(0) = -1 \\neq 0$."
+          },
+          {
+            "optionId": "d",
+            "why": "$f'$ s'annule et change de signe en $\\pm1$."
+          }
+        ],
+        "source": {
+          "file": "1-rappels_calcul_differentiel.pdf",
+          "page": 212,
+          "locator": "Exercice 1.80 a"
+        }
+      },
+      {
+        "id": "t5-08",
+        "objectiveId": "obj5-concavite",
+        "bloomLevel": "recall",
+        "type": "mcq",
+        "difficulty": 1,
+        "prompt": "Si $(c, f(c))$ est un point d'inflexion, alors…",
+        "options": [
+          {
+            "id": "a",
+            "text": "$f''(c) = 0$ ou $f''(c)$ n'existe pas"
+          },
+          {
+            "id": "b",
+            "text": "$f'(c) = 0$ ou $f'(c)$ n'existe pas"
+          },
+          {
+            "id": "c",
+            "text": "$f(c) = 0$, c'est-à-dire un zéro"
+          },
+          {
+            "id": "d",
+            "text": "$f''(c) > 0$ de part et d'autre"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Définition 1.76.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "C'est la condition d'une valeur critique."
+          },
+          {
+            "optionId": "c",
+            "why": "Un point d'inflexion n'est pas forcément sur l'axe des x."
+          },
+          {
+            "optionId": "d",
+            "why": "La concavité change en c : f″ ne garde pas un signe."
+          }
+        ],
+        "source": {
+          "file": "1-rappels_calcul_differentiel.pdf",
+          "page": 206,
+          "locator": "Définition 1.76"
+        }
+      },
+      {
+        "id": "t5-09",
+        "objectiveId": "obj5-concavite",
+        "bloomLevel": "apply",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Quels sont les points d'inflexion de $f(x) = x^4 - 18x^2 + 17$ ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "$(\\pm\\sqrt3, -28)$"
+          },
+          {
+            "id": "b",
+            "text": "$(\\pm3, -64)$"
+          },
+          {
+            "id": "c",
+            "text": "$(\\pm\\sqrt3, 17)$"
+          },
+          {
+            "id": "d",
+            "text": "Aucun"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Exercice 1.79 b, réponse de la plateforme.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Ce sont les minimums."
+          },
+          {
+            "optionId": "c",
+            "why": "$f(\\sqrt3) = 9 - 54 + 17 = -28$."
+          },
+          {
+            "optionId": "d",
+            "why": "$f''(x) = 12(x^2 - 3)$ change de signe en $\\pm\\sqrt3$."
+          }
+        ],
+        "source": {
+          "file": "1-rappels_calcul_differentiel.pdf",
+          "page": 211,
+          "locator": "Exercice 1.79 b"
+        }
+      },
+      {
+        "id": "t5-10",
+        "objectiveId": "obj5-concavite",
+        "bloomLevel": "apply",
+        "type": "mcq",
+        "difficulty": 3,
+        "prompt": "Pour $f(x) = \\frac{x}{x^2 + 16}$, $f''(x) = \\frac{2x(x^2 - 48)}{(x^2 + 16)^3}$. Où est-elle concave vers le haut ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "$]-4\\sqrt3, 0[\\ \\cup\\ ]4\\sqrt3, \\infty[$"
+          },
+          {
+            "id": "b",
+            "text": "$]-\\infty, -4\\sqrt3[\\ \\cup\\ ]0, 4\\sqrt3[$"
+          },
+          {
+            "id": "c",
+            "text": "$]0, \\infty[$"
+          },
+          {
+            "id": "d",
+            "text": "$]-4, 4[$"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Tableau des signes de 2x et de x² − 48 (exercice 1.78 c, réponse de la plateforme).",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Là, f″ < 0 : concave vers le bas."
+          },
+          {
+            "optionId": "c",
+            "why": "Sur $]0, 4\\sqrt3[$, $x > 0$ mais $x^2 - 48 < 0$."
+          },
+          {
+            "optionId": "d",
+            "why": "C'est l'intervalle de croissance."
+          }
+        ],
+        "source": {
+          "file": "1-rappels_calcul_differentiel.pdf",
+          "page": 210,
+          "locator": "Exercice 1.78 c"
+        }
+      },
+      {
+        "id": "t5-11",
+        "objectiveId": "obj5-concavite",
+        "bloomLevel": "apply",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Pour $f(x) = x^2e^{3x}$, $f''(x) = e^{3x}(9x^2 + 12x + 2)$. Où sont les points d'inflexion ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "En $x = \\frac{-2 \\pm \\sqrt2}{3}$"
+          },
+          {
+            "id": "b",
+            "text": "En $x = 0$ et $x = -\\frac23$"
+          },
+          {
+            "id": "c",
+            "text": "Nulle part : e^(3x) ne s'annule jamais"
+          },
+          {
+            "id": "d",
+            "text": "En $x = \\frac{-12 \\pm \\sqrt{72}}{9}$"
+          }
+        ],
+        "correct": "a",
+        "explanation": "$\\Delta = 144 - 72 = 72$, $x = \\frac{-12 \\pm 6\\sqrt2}{18}$ (exercice 1.78 d, réponse de la plateforme).",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Ce sont les valeurs critiques (zéros de f′)."
+          },
+          {
+            "optionId": "c",
+            "why": "$e^{3x} > 0$, mais le trinôme change de signe."
+          },
+          {
+            "optionId": "d",
+            "why": "Le dénominateur de la formule quadratique est $2a = 18$."
+          }
+        ],
+        "source": {
+          "file": "1-rappels_calcul_differentiel.pdf",
+          "page": 210,
+          "locator": "Exercice 1.78 d"
+        }
+      },
+      {
+        "id": "t5-12",
+        "objectiveId": "obj5-concavite",
+        "bloomLevel": "understand",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Une fonction peut-elle être croissante et concave vers le bas sur un même intervalle ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Oui : f′ > 0 et f″ < 0 sont compatibles"
+          },
+          {
+            "id": "b",
+            "text": "Non : croissante implique concave vers le haut"
+          },
+          {
+            "id": "c",
+            "text": "Non : il faudrait f′ = 0"
+          },
+          {
+            "id": "d",
+            "text": "Seulement si f est un polynôme"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Diapositive 185 et théorème 1.75 : f′ renseigne sur f, f″ sur f′ (exemple de l'exercice 1.79 a).",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Pour $x^3 - 3x$ sur $]-\\infty, -1[$ : croissante et concave vers le bas."
+          },
+          {
+            "optionId": "c",
+            "why": "Croissance et concavité dépendent de deux dérivées différentes."
+          },
+          {
+            "optionId": "d",
+            "why": "Cela vaut pour toute fonction deux fois dérivable."
+          }
+        ],
+        "source": {
+          "file": "1-rappels_calcul_differentiel.pdf",
+          "page": 205,
+          "locator": "Théorème 1.75"
+        }
+      },
+      {
+        "id": "t5-13",
+        "objectiveId": "obj5-etude",
+        "bloomLevel": "analyze",
+        "type": "mcq",
+        "difficulty": 3,
+        "prompt": "Pourquoi le tableau de $x^3 - 3x$ montre-t-il une inflexion en $0$ mais pas d'extremum ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "$f''$ change de signe en 0, mais $f'(0) = -3 \\neq 0$"
+          },
+          {
+            "id": "b",
+            "text": "Parce que $f(0) = 0$"
+          },
+          {
+            "id": "c",
+            "text": "Parce que $f'$ change de signe en 0"
+          },
+          {
+            "id": "d",
+            "text": "Parce que 0 est une valeur critique"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Exercice 1.79 a, réponse de la plateforme.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Un zéro de f ne dit rien sur la concavité."
+          },
+          {
+            "optionId": "c",
+            "why": "$f'(x) = 3x^2 - 3$ reste négative autour de 0."
+          },
+          {
+            "optionId": "d",
+            "why": "$f'(0) = -3$ : 0 n'est pas une valeur critique."
+          }
+        ],
+        "source": {
+          "file": "1-rappels_calcul_differentiel.pdf",
+          "page": 211,
+          "locator": "Exercice 1.79 a"
+        }
+      },
+      {
+        "id": "t5-14",
+        "objectiveId": "obj5-etude",
+        "bloomLevel": "analyze",
+        "type": "mcq",
+        "difficulty": 3,
+        "prompt": "Pour $f(x) = \\frac{x^2 + x - 6}{x^2 + x - 2}$, quelles sont les asymptotes ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Verticales $x = -2$ et $x = 1$, horizontale $y = 1$"
+          },
+          {
+            "id": "b",
+            "text": "Verticales $x = -3$ et $x = 2$, horizontale $y = 1$"
+          },
+          {
+            "id": "c",
+            "text": "Verticales $x = -2$ et $x = 1$, horizontale $y = 3$"
+          },
+          {
+            "id": "d",
+            "text": "Horizontale $y = 1$ seulement"
+          }
+        ],
+        "correct": "a",
+        "explanation": "$x^2 + x - 2 = (x + 2)(x - 1)$ ; le numérateur vaut $-4$ en ces points, d'où des formes $\\frac{c}{0}$ (exercice 1.80 c, réponse de la plateforme).",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Ce sont les zéros du numérateur."
+          },
+          {
+            "optionId": "c",
+            "why": "Degrés égaux : $\\lim_{x \\to \\infty} f(x) = \\frac11 = 1$."
+          },
+          {
+            "optionId": "d",
+            "why": "Le dénominateur s'annule en $-2$ et $1$ sans que le numérateur s'y annule."
+          }
+        ],
+        "source": {
+          "file": "1-rappels_calcul_differentiel.pdf",
+          "page": 212,
+          "locator": "Exercice 1.80 c"
+        }
+      },
+      {
+        "id": "t5-15",
+        "objectiveId": "obj5-etude",
+        "bloomLevel": "apply",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Quel est le minimum relatif de $f(x) = \\frac{x^3 - 1}{x - 1}$ ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "$\\left(-\\frac12, \\frac34\\right)$"
+          },
+          {
+            "id": "b",
+            "text": "$(1, 3)$"
+          },
+          {
+            "id": "c",
+            "text": "$(0, 1)$"
+          },
+          {
+            "id": "d",
+            "text": "$\\left(\\frac12, \\frac74\\right)$"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Pour $x \\neq 1$, $f(x) = x^2 + x + 1$, $f'(x) = 2x + 1$ (exercice 1.79 c, réponse de la plateforme).",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Ce point n'appartient pas au graphique : $1 \\notin \\mathrm{Dom}_f$."
+          },
+          {
+            "optionId": "c",
+            "why": "C'est l'ordonnée à l'origine."
+          },
+          {
+            "optionId": "d",
+            "why": "$f'(x) = 2x + 1$ s'annule en $-\\frac12$."
+          }
+        ],
+        "source": {
+          "file": "1-rappels_calcul_differentiel.pdf",
+          "page": 211,
+          "locator": "Exercice 1.79 c"
+        }
+      },
+      {
+        "id": "t5-16",
+        "objectiveId": "obj5-etude",
+        "bloomLevel": "understand",
+        "type": "true-false",
+        "difficulty": 1,
+        "prompt": "Une valeur critique doit appartenir au domaine de la fonction.",
+        "options": [
+          {
+            "id": "v",
+            "text": "Vrai"
+          },
+          {
+            "id": "f",
+            "text": "Faux"
+          }
+        ],
+        "correct": "v",
+        "explanation": "Diapositive 202 : « une valeur appartenant au domaine de la fonction qui annule la dérivée… ».",
+        "perDistractorExplanation": [
+          {
+            "optionId": "f",
+            "why": "Hors du domaine, f n'a pas de point à étudier."
+          }
+        ],
+        "source": {
+          "file": "1-rappels_calcul_differentiel.pdf",
+          "page": 202,
+          "locator": "Diapositive 202"
+        }
+      },
+      {
+        "id": "t5-17",
+        "objectiveId": "obj5-critiques",
+        "bloomLevel": "understand",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Pour $f(x) = \\frac{4x}{(2x + 1)^2}$, $f'(x) = \\frac{-4(2x - 1)}{(2x + 1)^3}$. Pourquoi $x = -\\frac12$ n'est-il PAS une valeur critique ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Parce que $-\\frac12$ n'est pas dans le domaine de $f$"
+          },
+          {
+            "id": "b",
+            "text": "Parce que $f'(-\\frac12) = 0$"
+          },
+          {
+            "id": "c",
+            "text": "Parce que c'est un zéro de f"
+          },
+          {
+            "id": "d",
+            "text": "C'en est une"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Diapositive 202 ; exercice 1.80 d, réponse de la plateforme.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "$f'$ n'est pas définie en $-\\frac12$."
+          },
+          {
+            "optionId": "c",
+            "why": "$f(-\\frac12)$ n'existe pas."
+          },
+          {
+            "optionId": "d",
+            "why": "Une valeur critique doit appartenir au domaine."
+          }
+        ],
+        "source": {
+          "file": "1-rappels_calcul_differentiel.pdf",
+          "page": 212,
+          "locator": "Exercice 1.80 d"
+        }
+      },
+      {
+        "id": "t5-18",
+        "objectiveId": "obj5-concavite",
+        "bloomLevel": "apply",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Où $f(x) = -x^5 + 2x^4 - 1$ est-elle concave vers le bas ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Sur $\\left]\\frac65, \\infty\\right[$"
+          },
+          {
+            "id": "b",
+            "text": "Sur $\\left]-\\infty, \\frac65\\right[$"
+          },
+          {
+            "id": "c",
+            "text": "Sur $]-\\infty, 0[$"
+          },
+          {
+            "id": "d",
+            "text": "Sur $\\left]0, \\frac65\\right[$"
+          }
+        ],
+        "correct": "a",
+        "explanation": "$f''(x) = -4x^2(5x - 6) < 0 \\iff x > \\frac65$ (exercice 1.78 b, réponse de la plateforme).",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Là, f″ ≥ 0 : concave vers le haut."
+          },
+          {
+            "optionId": "c",
+            "why": "$f''(-1) = -4(-11) = 44 > 0$."
+          },
+          {
+            "optionId": "d",
+            "why": "$f''\\left(\\frac12\\right) = -1 \\cdot (-3{,}5) = 3{,}5 > 0$."
+          }
+        ],
+        "source": {
+          "file": "1-rappels_calcul_differentiel.pdf",
+          "page": 210,
+          "locator": "Exercice 1.78 b"
+        }
+      },
+      {
+        "id": "t5-19",
+        "objectiveId": "obj5-etapes",
+        "bloomLevel": "understand",
+        "type": "multi",
+        "difficulty": 2,
+        "prompt": "Que permet de trouver le tableau des signes de f′ et f″ ? (plusieurs réponses)",
+        "options": [
+          {
+            "id": "a",
+            "text": "les intervalles de croissance et de décroissance"
+          },
+          {
+            "id": "b",
+            "text": "les extremums relatifs"
+          },
+          {
+            "id": "c",
+            "text": "les intervalles de concavité"
+          },
+          {
+            "id": "d",
+            "text": "le domaine"
+          },
+          {
+            "id": "e",
+            "text": "les asymptotes horizontales"
+          }
+        ],
+        "correct": [
+          "a",
+          "b",
+          "c"
+        ],
+        "explanation": "Diapositive 202, étape 6.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "d",
+            "why": "Il se détermine à l'étape 1, avant les dérivées."
+          },
+          {
+            "optionId": "e",
+            "why": "Elles viennent des limites à l'infini."
+          }
+        ],
+        "source": {
+          "file": "1-rappels_calcul_differentiel.pdf",
+          "page": 202,
+          "locator": "Diapositive 202"
+        }
+      },
+      {
+        "id": "t5-20",
+        "objectiveId": "obj5-etude",
+        "bloomLevel": "apply",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Quels sont les zéros de $f(x) = x^4 - 18x^2 + 17$ ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "$\\pm1$ et $\\pm\\sqrt{17}$"
+          },
+          {
+            "id": "b",
+            "text": "$1$ et $17$"
+          },
+          {
+            "id": "c",
+            "text": "$\\pm3$ et $0$"
+          },
+          {
+            "id": "d",
+            "text": "$\\pm\\sqrt{3}$"
+          }
+        ],
+        "correct": "a",
+        "explanation": "$(x^2 - 1)(x^2 - 17) = 0$ (exercice 1.79 b, réponse de la plateforme).",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Ce sont les valeurs de $x^2$ ; il faut extraire les racines."
+          },
+          {
+            "optionId": "c",
+            "why": "Ce sont les valeurs critiques."
+          },
+          {
+            "optionId": "d",
+            "why": "Ce sont les points d'inflexion possibles."
+          }
+        ],
+        "source": {
+          "file": "1-rappels_calcul_differentiel.pdf",
+          "page": 211,
+          "locator": "Exercice 1.79 b"
+        }
+      },
+      {
+        "id": "t5-21",
+        "objectiveId": "obj5-concavite",
+        "bloomLevel": "recall",
+        "type": "fill-blank",
+        "difficulty": 1,
+        "prompt": "Compléter : un point d'inflexion est un point où la courbe change de ____.",
+        "correct": "concavité",
+        "acceptableAnswers": [
+          "concavite",
+          "la concavité"
+        ],
+        "explanation": "Définition 1.76.",
+        "source": {
+          "file": "1-rappels_calcul_differentiel.pdf",
+          "page": 206,
+          "locator": "Définition 1.76"
+        }
+      }
+    ]
+  },
+  "flashcards": [
+    {
+      "id": "f5-01",
+      "objectiveId": "obj5-etapes",
+      "front": "Les six étapes ?",
+      "back": "Domaine ; asymptotes ; zéros et f(0) ; valeurs critiques ; inflexions possibles ; tableau des signes."
+    },
+    {
+      "id": "f5-02",
+      "objectiveId": "obj5-etapes",
+      "front": "Asymptote verticale possible ?",
+      "back": "Zéro d'un dénominateur ou de l'argument d'un logarithme — à vérifier par une limite."
+    },
+    {
+      "id": "f5-03",
+      "objectiveId": "obj5-critiques",
+      "front": "Valeur critique ?",
+      "back": "Valeur du domaine où f′ = 0 ou f′ n'existe pas."
+    },
+    {
+      "id": "f5-04",
+      "objectiveId": "obj5-critiques",
+      "front": "f′ passe de − à + ?",
+      "back": "Minimum relatif."
+    },
+    {
+      "id": "f5-05",
+      "objectiveId": "obj5-concavite",
+      "front": "Concave vers le haut ?",
+      "back": "Courbe au-dessus de ses tangentes ; f″ > 0."
+    },
+    {
+      "id": "f5-06",
+      "objectiveId": "obj5-concavite",
+      "front": "Concave vers le bas ?",
+      "back": "Courbe au-dessous de ses tangentes ; f″ < 0."
+    },
+    {
+      "id": "f5-07",
+      "objectiveId": "obj5-concavite",
+      "front": "Point d'inflexion ?",
+      "back": "Changement de concavité ; alors f″(c) = 0 ou n'existe pas."
+    },
+    {
+      "id": "f5-08",
+      "objectiveId": "obj5-concavite",
+      "front": "f″(c) = 0 suffit-il ?",
+      "back": "Non : f″ doit changer de signe (contre-exemple : x² dans f″ = −4x²(5x − 6))."
+    },
+    {
+      "id": "f5-09",
+      "objectiveId": "obj5-etude",
+      "front": "Racine de f″ hors du domaine ?",
+      "back": "On l'écarte (±√3 dans l'exercice 1.77)."
+    },
+    {
+      "id": "f5-10",
+      "objectiveId": "obj5-etude",
+      "front": "(x³ − 1)/(x − 1) en x = 1 ?",
+      "back": "Pas d'asymptote : limite 3, point manquant (1, 3)."
+    },
+    {
+      "id": "f5-11",
+      "objectiveId": "obj5-etude",
+      "front": "Extremums de x³ − 3x ?",
+      "back": "Maximum (−1, 2), minimum (1, −2), inflexion (0, 0)."
+    },
+    {
+      "id": "f5-12",
+      "objectiveId": "obj5-critiques",
+      "front": "Valeurs critiques de x^(2/3)(x + 1) ?",
+      "back": "−2/5 (f′ = 0) et 0 (f′ n'existe pas)."
+    }
+  ],
+  "exercises": [
+    {
+      "id": "e5-01",
+      "objectiveId": "obj5-etude",
+      "difficulty": 3,
+      "mode": "trace",
+      "language": "text",
+      "title": "Étude complète de x⁴ − 18x² + 17 (exercice 1.79 b)",
+      "statement": "Faire l'étude complète de f(x) = x⁴ − 18x² + 17 en respectant les six étapes.",
+      "starterCode": "f(x) = x⁴ − 18x² + 17",
+      "hints": [
+        "Polynôme : domaine ℝ, pas d'asymptote. Pour les zéros, poser u = x².",
+        "f′(x) = 4x(x² − 9) ; f″(x) = 12(x² − 3).",
+        "Tableau des signes sur les bornes −3, −√3, 0, √3, 3."
+      ],
+      "solution": "Max (0, 17) ; min (±3, −64) ; inflexions (±√3, −28) ; concave ∪ si |x| > √3, ∩ si |x| < √3",
+      "expectedOutput": "1. Dom = ℝ\n2. Aucune asymptote (polynôme ; f → ∞ en ±∞)\n3. f(0) = 17 ; x⁴ − 18x² + 17 = (x² − 1)(x² − 17) = 0  ⇒  x = ±1, ±√17\n4. f′(x) = 4x³ − 36x = 4x(x − 3)(x + 3)  ⇒  x = −3, 0, 3\n5. f″(x) = 12x² − 36 = 12(x² − 3)  ⇒  x = ±√3\n6. f′ : − sur ]−∞, −3[, + sur ]−3, 0[, − sur ]0, 3[, + sur ]3, ∞[\n   f″ : + sur |x| > √3, − sur |x| < √3\n   Min (−3, −64) et (3, −64) ; max (0, 17) ; inflexions (−√3, −28) et (√3, −28)",
+      "solutionExplanation": "La fonction est paire : son graphique est symétrique par rapport à l'axe des y, ce qui permet de vérifier le tableau. Réponse de la plateforme, vérifiée par calcul symbolique.",
+      "source": {
+        "file": "1-rappels_calcul_differentiel.pdf",
+        "page": 211,
+        "locator": "Exercice 1.79 b"
+      }
+    },
+    {
+      "id": "e5-02",
+      "objectiveId": "obj5-concavite",
+      "difficulty": 2,
+      "mode": "trace",
+      "language": "text",
+      "title": "Concavité et inflexion (exercice 1.78 a)",
+      "statement": "Déterminer les intervalles de concavité et les points d'inflexion de f(x) = (4 − x²)².",
+      "starterCode": "f(x) = (4 − x²)²",
+      "hints": [
+        "Développer : f(x) = x⁴ − 8x² + 16.",
+        "f″(x) = 12x² − 16 s'annule en x = ±2/√3.",
+        "f(±2/√3) = (4 − 4/3)²."
+      ],
+      "solution": "∪ sur ]−∞, −2/√3[ et ]2/√3, ∞[ ; ∩ sur ]−2/√3, 2/√3[ ; inflexions (±2/√3, 64/9)",
+      "expectedOutput": "f(x) = x⁴ − 8x² + 16\nf′(x) = 4x³ − 16x\nf″(x) = 12x² − 16 = 0  ⇔  x² = 4/3  ⇔  x = ±2/√3 = ±2√3/3\n\nx        ]−∞, −2/√3[   ]−2/√3, 2/√3[   ]2/√3, ∞[\nf″          +               −               +\nf           ∪               ∩               ∪\n\nf(±2/√3) = (4 − 4/3)² = (8/3)² = 64/9 → inflexions (−2/√3, 64/9) et (2/√3, 64/9)",
+      "solutionExplanation": "f″ change bien de signe aux deux valeurs : ce sont de vrais points d'inflexion. Réponse de la plateforme, vérifiée par calcul symbolique.",
+      "source": {
+        "file": "1-rappels_calcul_differentiel.pdf",
+        "page": 210,
+        "locator": "Exercice 1.78 a"
+      }
+    },
+    {
+      "id": "e5-03",
+      "objectiveId": "obj5-concavite",
+      "difficulty": 3,
+      "mode": "find-bug",
+      "language": "text",
+      "title": "Trouver l'erreur — un faux point d'inflexion",
+      "statement": "Un étudiant traite l'exercice 1.78 b. Trouver l'erreur dans sa conclusion.",
+      "starterCode": "f(x) = −x⁵ + 2x⁴ − 1\nf″(x) = −20x³ + 24x² = −4x²(5x − 6)\nf″(x) = 0  ⇔  x = 0 ou x = 6/5\nConclusion : deux points d'inflexion, en x = 0 et en x = 6/5.",
+      "hints": [
+        "La définition 1.76 exige un changement de concavité.",
+        "Étudier le signe de −4x² de part et d'autre de 0.",
+        "Tester x = −1 et x = 1/2 dans f″."
+      ],
+      "solution": "En x = 0, f″ ne change pas de signe (f″(−1) = 44 > 0, f″(1/2) = 3,5 > 0) : seule x = 6/5 donne une inflexion.",
+      "expectedOutput": "Tableau des signes de f″(x) = −4x²(5x − 6) :\n\nx          ]−∞, 0[    0    ]0, 6/5[    6/5    ]6/5, ∞[\n−4x²          −        0       −          −          −\n5x − 6        −        −       −          0          +\nf″            +        0       +          0          −\n\nConcave vers le haut sur ]−∞, 6/5[, vers le bas sur ]6/5, ∞[.\nUn seul point d'inflexion : (6/5, 2059/3125).",
+      "solutionExplanation": "Un facteur au carré ne change jamais de signe : ses racines ne produisent pas d'inflexion. Réponse de la plateforme, vérifiée par calcul symbolique.",
+      "source": {
+        "file": "1-rappels_calcul_differentiel.pdf",
+        "page": 210,
+        "locator": "Exercice 1.78 b"
+      }
+    },
+    {
+      "id": "e5-04",
+      "objectiveId": "obj5-critiques",
+      "difficulty": 3,
+      "mode": "trace",
+      "language": "text",
+      "title": "Une dérivée qui n'existe pas (exercice 1.79 d)",
+      "statement": "Pour f(x) = x^(2/3)(x + 1), trouver les valeurs critiques et les extremums relatifs.",
+      "starterCode": "f(x) = x^(2/3)(x + 1) = x^(5/3) + x^(2/3)",
+      "hints": [
+        "f′(x) = (5/3)x^(2/3) + (2/3)x^(−1/3) = (5x + 2)/(3x^(1/3)).",
+        "f′ = 0 en x = −2/5 ; f′ n'existe pas en x = 0, qui est dans le domaine.",
+        "Signe de x^(1/3) : même signe que x."
+      ],
+      "solution": "Valeurs critiques −2/5 et 0 ; max relatif en x = −2/5 (f ≈ 0,326), min relatif (0, 0)",
+      "expectedOutput": "f′(x) = (5x + 2) / (3x^(1/3))\n  f′ = 0  ⇔  x = −2/5 ;   f′ n'existe pas en x = 0 (0 ∈ Dom f)\n\nx          ]−∞, −2/5[   −2/5   ]−2/5, 0[   0    ]0, ∞[\n5x + 2         −          0        +        +       +\nx^(1/3)        −          −        −        0       +\nf′             +          0        −      ∄        +\n\nMax relatif en x = −2/5 : f = (4/25)^(1/3) · 3/5 ≈ 0,326\nMin relatif en (0, 0) : un point de rebroussement, sans tangente horizontale",
+      "solutionExplanation": "Oublier les valeurs où f′ n'existe pas ferait manquer le minimum. Réponse de la plateforme, vérifiée numériquement.",
+      "source": {
+        "file": "1-rappels_calcul_differentiel.pdf",
+        "page": 211,
+        "locator": "Exercice 1.79 d"
+      }
+    },
+    {
+      "id": "e5-05",
+      "objectiveId": "obj5-etapes",
+      "difficulty": 2,
+      "mode": "fill-blank",
+      "language": "text",
+      "title": "Compléter — l'étude de x³ − 3x",
+      "statement": "Compléter les étapes de l'étude de f(x) = x³ − 3x (exercice 1.79 a).",
+      "starterCode": "3. Zéros : x = 0 et x = ± ____\n4. f′(x) = ____ ; valeurs critiques : x = ± ____\n5. f″(x) = ____ ; valeur susceptible : x = ____\n6. Maximum relatif en ( ____ , 2 ) ; point d'inflexion en ( 0 , ____ )",
+      "hints": [
+        "x³ − 3x = x(x² − 3).",
+        "Dériver deux fois.",
+        "Le signe de f′ passe de + à − en −1."
+      ],
+      "solution": "√3 · 3x² − 3 · 1 · 6x · 0 · −1 · 0",
+      "expectedOutput": "3. x(x² − 3) = 0  ⇒  x = 0, ±√3\n4. f′(x) = 3x² − 3  ⇒  x = ±1\n5. f″(x) = 6x  ⇒  x = 0\n6. Maximum relatif (−1, 2) ; minimum relatif (1, −2) ; inflexion (0, 0)",
+      "solutionExplanation": "Réponse de la plateforme, vérifiée par calcul symbolique.",
+      "source": {
+        "file": "1-rappels_calcul_differentiel.pdf",
+        "page": 211,
+        "locator": "Exercice 1.79 a"
+      }
+    }
+  ]
+}

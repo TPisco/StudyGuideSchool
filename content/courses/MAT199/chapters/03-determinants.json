@@ -1,0 +1,1673 @@
+{
+  "course": "MAT199",
+  "chapter": 3,
+  "concepts": [
+    {
+      "id": "c3-mineur",
+      "term": "Mineur",
+      "definition": "$m_{ij} = \\det(M_{ij})$, où $M_{ij}$ est la sous-matrice d'ordre $n - 1$ obtenue en supprimant la ligne $i$ et la colonne $j$ de $A$.",
+      "whyItMatters": "Le déterminant d'ordre n se ramène ainsi à des déterminants d'ordre n − 1 : c'est la définition par récurrence.",
+      "commonMisconception": "Supprimer la ligne j et la colonne i : c'est la LIGNE de l'indice i et la COLONNE de l'indice j qu'on retire.",
+      "objectiveId": "obj3-developpement",
+      "source": {
+        "file": "2026-03-MAT199-ChapII.pdf",
+        "page": 1,
+        "locator": "Définition 2.1"
+      }
+    },
+    {
+      "id": "c3-developpement",
+      "term": "Développement suivant une ligne ou une colonne",
+      "definition": "$\\det(A) = \\sum_{j} a_{ij}(-1)^{i+j}m_{ij}$ (ligne $i$), ou $\\sum_i a_{ij}(-1)^{i+j}m_{ij}$ (colonne $j$). Tous ces développements donnent le même nombre.",
+      "whyItMatters": "On choisit librement la ligne ou la colonne : celle qui a le plus de zéros minimise le calcul.",
+      "commonMisconception": "Oublier le signe $(-1)^{i+j}$, qui alterne en damier à partir de $+$ en haut à gauche.",
+      "objectiveId": "obj3-developpement",
+      "source": {
+        "file": "2026-03-MAT199-ChapII.pdf",
+        "page": 1,
+        "locator": "Définition 2.1"
+      }
+    },
+    {
+      "id": "c3-facteur",
+      "term": "Facteur commun d'une ligne ou d'une colonne",
+      "definition": "Si une seule ligne (ou colonne) de $A$ vaut $aL'$, alors $\\det(A) = a \\cdot \\det$ de la matrice où cette ligne est remplacée par $L'$. Une ligne ou colonne nulle donne $\\det(A) = 0$.",
+      "whyItMatters": "On allège les calculs en sortant les fractions et les radicaux, comme les $\\frac{1}{\\sqrt2}, \\frac{1}{\\sqrt3}, \\frac{1}{\\sqrt5}$ de l'exercice p. 4.",
+      "commonMisconception": "Croire que $\\det(aA) = a\\det(A)$. Pour une matrice d'ordre $n$, $\\det(aA) = a^n\\det(A)$.",
+      "objectiveId": "obj3-raccourcis",
+      "source": {
+        "file": "2026-03-MAT199-ChapII.pdf",
+        "page": 3,
+        "locator": "Proposition 2.3"
+      }
+    },
+    {
+      "id": "c3-blocs",
+      "term": "Matrices triangulaires et par blocs",
+      "definition": "$\\det\\begin{pmatrix} A & C \\\\ 0 & B \\end{pmatrix} = \\det(A)\\det(B) = \\det\\begin{pmatrix} A & 0 \\\\ D & B \\end{pmatrix}$, et le déterminant d'une matrice triangulaire est le produit de ses termes diagonaux.",
+      "whyItMatters": "Une matrice échelonnée carrée est triangulaire : échelonner, puis multiplier la diagonale, donne le déterminant.",
+      "commonMisconception": "Tenir compte des termes du bloc C (ou D) : ils n'interviennent pas dans le résultat.",
+      "objectiveId": "obj3-raccourcis",
+      "source": {
+        "file": "2026-03-MAT199-ChapII.pdf",
+        "page": 5,
+        "locator": "Propositions 2.4 et 2.5"
+      }
+    },
+    {
+      "id": "c3-operations",
+      "term": "Effet des opérations élémentaires",
+      "definition": "Échanger deux lignes change le signe ; ajouter à une ligne un multiple d'une autre ne change rien ; multiplier une ligne par $a \\neq 0$ donne $\\det(A) = a^{-1}\\det(B)$. Idem pour les colonnes.",
+      "whyItMatters": "C'est la méthode efficace pour un 4 × 4 : créer des zéros par des opérations de type 2, puis développer.",
+      "commonMisconception": "Oublier le changement de signe d'un échange, ou oublier de diviser par a après avoir multiplié une ligne.",
+      "objectiveId": "obj3-operations",
+      "source": {
+        "file": "2026-03-MAT199-ChapII.pdf",
+        "page": 6,
+        "locator": "Théorème 2.6"
+      }
+    },
+    {
+      "id": "c3-multiplicatif",
+      "term": "Propriétés multiplicatives",
+      "definition": "$\\det(A^T) = \\det(A)$, $\\det(AB) = \\det(A)\\det(B)$, $\\det(A^r) = (\\det A)^r$.",
+      "whyItMatters": "Avec $A = LU$, $\\det(A)$ est le produit des termes diagonaux de $L$ et de $U$. Et $\\det(A^{-3})$ se calcule sans inverser $A$.",
+      "commonMisconception": "Croire que $\\det(A + B) = \\det(A) + \\det(B)$ : le déterminant est multiplicatif, pas additif.",
+      "objectiveId": "obj3-proprietes",
+      "source": {
+        "file": "2026-03-MAT199-ChapII.pdf",
+        "page": 9,
+        "locator": "Théorème 2.7"
+      }
+    },
+    {
+      "id": "c3-inversible",
+      "term": "Critère d'inversibilité par le déterminant",
+      "definition": "$A$ est inversible si, et seulement si, $\\det(A) \\neq 0$ ; alors $\\det(A^r) = (\\det A)^r$ pour tout $r \\in \\mathbb{Z}$, en particulier $\\det(A^{-1}) = 1/\\det(A)$.",
+      "whyItMatters": "Pour une matrice à paramètre, on calcule $\\det(A)$ en fonction de $a$ et on exclut ses racines.",
+      "commonMisconception": "Exclure seulement une racine : pour $-(a-3)^2 + 2$, il y en a deux, $3 + \\sqrt2$ et $3 - \\sqrt2$.",
+      "objectiveId": "obj3-inversibilite",
+      "source": {
+        "file": "2026-03-MAT199-ChapII.pdf",
+        "page": 10,
+        "locator": "Théorème 2.8"
+      }
+    },
+    {
+      "id": "c3-corollaire",
+      "term": "Un seul produit suffit",
+      "definition": "S'il existe $B$ avec $AB = I_n$ ou $BA = I_n$, alors $A$ est inversible et $A^{-1} = B$.",
+      "whyItMatters": "Pour vérifier un inverse, un seul produit suffit — par exemple $\\begin{pmatrix} 1 & a \\\\ 0 & 1 \\end{pmatrix}^{-1} = \\begin{pmatrix} 1 & -a \\\\ 0 & 1 \\end{pmatrix}$.",
+      "commonMisconception": "Croire qu'il faut toujours vérifier AB = Iₙ ET BA = Iₙ : pour des matrices carrées, l'un entraîne l'autre.",
+      "objectiveId": "obj3-inversibilite",
+      "source": {
+        "file": "2026-03-MAT199-ChapII.pdf",
+        "page": 11,
+        "locator": "Corollaire 2.9"
+      }
+    }
+  ],
+  "tables": [
+    {
+      "id": "t3-operations",
+      "title": "Opérations élémentaires et déterminant",
+      "kind": "reference",
+      "columns": [
+        {
+          "key": "op",
+          "label": "B est obtenue de A en…"
+        },
+        {
+          "key": "effet",
+          "label": "Relation"
+        },
+        {
+          "key": "usage",
+          "label": "Usage"
+        }
+      ],
+      "rows": [
+        {
+          "op": "échangeant deux lignes (ou colonnes)",
+          "effet": "$\\det(A) = -\\det(B)$",
+          "usage": "ramener un pivot commode en haut"
+        },
+        {
+          "op": "ajoutant à une ligne un multiple d'une autre",
+          "effet": "$\\det(A) = \\det(B)$",
+          "usage": "créer des zéros sans rien changer"
+        },
+        {
+          "op": "multipliant une ligne par $a \\neq 0$",
+          "effet": "$\\det(A) = a^{-1}\\det(B)$",
+          "usage": "éviter les fractions — puis diviser par a"
+        }
+      ],
+      "source": {
+        "file": "2026-03-MAT199-ChapII.pdf",
+        "page": 6,
+        "locator": "Théorème 2.6"
+      }
+    },
+    {
+      "id": "t3-raccourcis",
+      "title": "Les raccourcis du chapitre II",
+      "kind": "cheatsheet",
+      "columns": [
+        {
+          "key": "situation",
+          "label": "Situation"
+        },
+        {
+          "key": "resultat",
+          "label": "Déterminant"
+        },
+        {
+          "key": "ref",
+          "label": "Référence"
+        }
+      ],
+      "rows": [
+        {
+          "situation": "une ligne ou une colonne nulle",
+          "resultat": "0",
+          "ref": "proposition 2.3(3)"
+        },
+        {
+          "situation": "une ligne vaut $aL'$",
+          "resultat": "$a \\times \\det(\\dots, L', \\dots)$",
+          "ref": "proposition 2.3"
+        },
+        {
+          "situation": "matrice triangulaire",
+          "resultat": "produit des termes diagonaux",
+          "ref": "proposition 2.5"
+        },
+        {
+          "situation": "blocs $\\begin{pmatrix} A & C \\\\ 0 & B \\end{pmatrix}$",
+          "resultat": "$\\det(A)\\det(B)$",
+          "ref": "proposition 2.4"
+        },
+        {
+          "situation": "$A = LU$",
+          "resultat": "$\\det(L)\\det(U)$",
+          "ref": "théorème 2.7 et proposition 2.5"
+        },
+        {
+          "situation": "$A^r$, $r \\in \\mathbb{Z}$",
+          "resultat": "$(\\det A)^r$",
+          "ref": "théorèmes 2.7 et 2.8"
+        }
+      ],
+      "source": {
+        "file": "2026-03-MAT199-ChapII.pdf",
+        "page": 5,
+        "locator": "Propositions 2.3 à 2.5, théorèmes 2.7 et 2.8"
+      }
+    }
+  ],
+  "quiz": {
+    "title": "Quiz — vérification rapide",
+    "estimatedMinutes": 15,
+    "questions": [
+      {
+        "id": "q3-01",
+        "objectiveId": "obj3-developpement",
+        "bloomLevel": "recall",
+        "type": "mcq",
+        "difficulty": 1,
+        "prompt": "Que vaut $\\begin{vmatrix} a_{11} & a_{12} \\\\ a_{21} & a_{22} \\end{vmatrix}$ ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "$a_{11}a_{22} - a_{12}a_{21}$"
+          },
+          {
+            "id": "b",
+            "text": "$a_{11}a_{22} + a_{12}a_{21}$"
+          },
+          {
+            "id": "c",
+            "text": "$a_{11}a_{12} - a_{21}a_{22}$"
+          },
+          {
+            "id": "d",
+            "text": "$a_{12}a_{21} - a_{11}a_{22}$"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Proposition 2.2. On le retrouve en développant suivant la première ligne : a₁₁·a₂₂ − a₁₂·a₂₁.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Le second produit est soustrait : le terme a₁₂ est affecté du signe (−1)¹⁺² = −1."
+          },
+          {
+            "optionId": "c",
+            "why": "On multiplie en diagonale, pas ligne par ligne."
+          },
+          {
+            "optionId": "d",
+            "why": "C'est l'opposé : la diagonale principale vient avec le signe +."
+          }
+        ],
+        "source": {
+          "file": "2026-03-MAT199-ChapII.pdf",
+          "page": 1,
+          "locator": "Proposition 2.2"
+        }
+      },
+      {
+        "id": "q3-02",
+        "objectiveId": "obj3-developpement",
+        "bloomLevel": "apply",
+        "type": "short-answer",
+        "difficulty": 2,
+        "prompt": "Calculer $\\begin{vmatrix} 2 & 3 & -4 \\\\ -1 & 0 & 3 \\\\ 3 & 2 & -1 \\end{vmatrix}$. (exercice des notes)",
+        "correct": "20",
+        "acceptableAnswers": [],
+        "explanation": "Suivant la ligne 2 : $(-1)(-1)^{3}\\begin{vmatrix} 3 & -4 \\\\ 2 & -1 \\end{vmatrix} + 3(-1)^{5}\\begin{vmatrix} 2 & 3 \\\\ 3 & 2 \\end{vmatrix} = 5 + 15 = 20$.",
+        "source": {
+          "file": "2026-03-MAT199-ChapII.pdf",
+          "page": 2,
+          "locator": "Exercice p. 2"
+        }
+      },
+      {
+        "id": "q3-03",
+        "objectiveId": "obj3-developpement",
+        "bloomLevel": "understand",
+        "type": "mcq",
+        "difficulty": 1,
+        "prompt": "Pour calculer $\\begin{vmatrix} 4 & 0 & 7 & 1 \\\\ 2 & 0 & 3 & 5 \\\\ 1 & 0 & 8 & 2 \\\\ 6 & 3 & 9 & 4 \\end{vmatrix}$, suivant quoi vaut-il mieux développer ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "La colonne 2"
+          },
+          {
+            "id": "b",
+            "text": "La ligne 1"
+          },
+          {
+            "id": "c",
+            "text": "La ligne 4"
+          },
+          {
+            "id": "d",
+            "text": "Peu importe, tous les choix demandent le même travail"
+          }
+        ],
+        "correct": "a",
+        "explanation": "La colonne 2 contient trois zéros : il ne reste qu'un seul mineur 3 × 3 à calculer, celui du terme 3.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Elle n'a qu'un seul zéro : trois mineurs 3 × 3 à calculer."
+          },
+          {
+            "optionId": "c",
+            "why": "Elle ne contient aucun zéro : quatre mineurs à calculer."
+          },
+          {
+            "optionId": "d",
+            "why": "Le résultat est le même, mais pas le travail : chaque zéro supprime un mineur."
+          }
+        ],
+        "source": {
+          "file": "2026-03-MAT199-ChapII.pdf",
+          "page": 1,
+          "locator": "Définition 2.1 et remarque"
+        }
+      },
+      {
+        "id": "q3-04",
+        "objectiveId": "obj3-operations",
+        "bloomLevel": "recall",
+        "type": "true-false",
+        "difficulty": 1,
+        "prompt": "Échanger deux lignes d'une matrice change le signe de son déterminant.",
+        "options": [
+          {
+            "id": "v",
+            "text": "Vrai"
+          },
+          {
+            "id": "f",
+            "text": "Faux"
+          }
+        ],
+        "correct": "v",
+        "explanation": "Théorème 2.6(1) : si $B$ s'obtient en échangeant deux lignes de $A$, $\\det(A) = -\\det(B)$.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "f",
+            "why": "Seul le type 2 (ajouter un multiple d'une autre ligne) laisse le déterminant inchangé ; un échange le change de signe."
+          }
+        ],
+        "source": {
+          "file": "2026-03-MAT199-ChapII.pdf",
+          "page": 6,
+          "locator": "Théorème 2.6"
+        }
+      },
+      {
+        "id": "q3-05",
+        "objectiveId": "obj3-operations",
+        "bloomLevel": "apply",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "$B$ s'obtient de $A$ par l'opération $L_3 + 5L_1$. Que vaut $\\det(B)$ ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "$\\det(A)$"
+          },
+          {
+            "id": "b",
+            "text": "$5\\det(A)$"
+          },
+          {
+            "id": "c",
+            "text": "$-\\det(A)$"
+          },
+          {
+            "id": "d",
+            "text": "$6\\det(A)$"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Théorème 2.6(2) : ajouter à une ligne un multiple d'une autre ne change pas le déterminant. C'est pourquoi on s'en sert pour créer des zéros.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Ce serait le cas en multipliant une ligne par 5 ; ici on AJOUTE 5 fois une autre ligne."
+          },
+          {
+            "optionId": "c",
+            "why": "Seul un échange de lignes change le signe."
+          },
+          {
+            "optionId": "d",
+            "why": "Ajouter un multiple d'une autre ligne ne change pas le déterminant."
+          }
+        ],
+        "source": {
+          "file": "2026-03-MAT199-ChapII.pdf",
+          "page": 6,
+          "locator": "Théorème 2.6"
+        }
+      },
+      {
+        "id": "q3-06",
+        "objectiveId": "obj3-raccourcis",
+        "bloomLevel": "analyze",
+        "type": "mcq",
+        "difficulty": 3,
+        "prompt": "$A$ est une matrice $3 \\times 3$ avec $\\det(A) = 2$. Que vaut $\\det(3A)$ ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "54"
+          },
+          {
+            "id": "b",
+            "text": "6"
+          },
+          {
+            "id": "c",
+            "text": "18"
+          },
+          {
+            "id": "d",
+            "text": "8"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Proposition 2.3 appliquée à chacune des trois lignes : $\\det(3A) = 3 \\cdot 3 \\cdot 3 \\cdot \\det(A) = 27 \\times 2 = 54$.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "On a sorti 3 d'une seule ligne ; or $3A$ multiplie les TROIS lignes par 3."
+          },
+          {
+            "optionId": "c",
+            "why": "Cela revient à sortir 3 de deux lignes seulement."
+          },
+          {
+            "optionId": "d",
+            "why": "On a élevé $\\det(A)$ au cube au lieu d'élever 3 au cube."
+          }
+        ],
+        "source": {
+          "file": "2026-03-MAT199-ChapII.pdf",
+          "page": 3,
+          "locator": "Proposition 2.3 et exemple"
+        }
+      },
+      {
+        "id": "q3-07",
+        "objectiveId": "obj3-raccourcis",
+        "bloomLevel": "apply",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Calculer $\\begin{vmatrix} \\sqrt3 & 0 & 34 & 95 \\\\ 0 & \\sqrt5 & 0 & 5 \\\\ 0 & 0 & -3 & 2 \\\\ 0 & 0 & 0 & -1 \\end{vmatrix}$.",
+        "options": [
+          {
+            "id": "a",
+            "text": "$3\\sqrt{15}$"
+          },
+          {
+            "id": "b",
+            "text": "$-3\\sqrt{15}$"
+          },
+          {
+            "id": "c",
+            "text": "$\\sqrt3 + \\sqrt5 - 4$"
+          },
+          {
+            "id": "d",
+            "text": "$34 \\times 95 \\times 5 \\times 2$"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Matrice triangulaire (proposition 2.5) : $\\sqrt3 \\cdot \\sqrt5 \\cdot (-3) \\cdot (-1) = 3\\sqrt{15}$.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Il y a deux termes négatifs sur la diagonale : leur produit est positif."
+          },
+          {
+            "optionId": "c",
+            "why": "Le déterminant est le PRODUIT des termes diagonaux, pas leur somme."
+          },
+          {
+            "optionId": "d",
+            "why": "Les termes au-dessus de la diagonale n'interviennent pas."
+          }
+        ],
+        "source": {
+          "file": "2026-03-MAT199-ChapII.pdf",
+          "page": 6,
+          "locator": "Exemple après la proposition 2.5"
+        }
+      },
+      {
+        "id": "q3-08",
+        "objectiveId": "obj3-raccourcis",
+        "bloomLevel": "apply",
+        "type": "short-answer",
+        "difficulty": 2,
+        "prompt": "Calculer $\\begin{vmatrix} 4 & \\sqrt3 & 0 & 0 \\\\ \\sqrt3 & 2 & 0 & 0 \\\\ 3 & 9 & 7 & \\sqrt{11} \\\\ 7 & 2 & \\sqrt{11} & 1 \\end{vmatrix}$. (un nombre)",
+        "correct": "-20",
+        "acceptableAnswers": [
+          "−20"
+        ],
+        "explanation": "Forme $\\begin{pmatrix} A & 0 \\\\ D & B \\end{pmatrix}$ : $\\det(A) = 8 - 3 = 5$, $\\det(B) = 7 - 11 = -4$, produit $-20$. Le bloc $D$ n'intervient pas.",
+        "source": {
+          "file": "2026-03-MAT199-ChapII.pdf",
+          "page": 5,
+          "locator": "Exercice p. 5"
+        }
+      },
+      {
+        "id": "q3-09",
+        "objectiveId": "obj3-proprietes",
+        "bloomLevel": "recall",
+        "type": "mcq",
+        "difficulty": 1,
+        "prompt": "Pour $A, B \\in M_n(\\mathbb{R})$, que vaut $\\det(AB)$ ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "$\\det(A)\\det(B)$"
+          },
+          {
+            "id": "b",
+            "text": "$\\det(A) + \\det(B)$"
+          },
+          {
+            "id": "c",
+            "text": "$\\det(BA)$ seulement si $AB = BA$"
+          },
+          {
+            "id": "d",
+            "text": "$\\det(A)^{\\det(B)}$"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Théorème 2.7(2).",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Le déterminant est multiplicatif, pas additif."
+          },
+          {
+            "optionId": "c",
+            "why": "$\\det(AB) = \\det(A)\\det(B) = \\det(BA)$ toujours, même quand $AB \\neq BA$."
+          },
+          {
+            "optionId": "d",
+            "why": "Aucune puissance n'intervient."
+          }
+        ],
+        "source": {
+          "file": "2026-03-MAT199-ChapII.pdf",
+          "page": 9,
+          "locator": "Théorème 2.7"
+        }
+      },
+      {
+        "id": "q3-10",
+        "objectiveId": "obj3-proprietes",
+        "bloomLevel": "apply",
+        "type": "short-answer",
+        "difficulty": 2,
+        "prompt": "On sait que $\\det(A) = 25$. Que vaut $\\det(A^{-3})$ ? (une fraction)",
+        "correct": "1/15625",
+        "acceptableAnswers": [
+          "1/15 625",
+          "0,000064",
+          "0.000064"
+        ],
+        "explanation": "Théorème 2.8 : $\\det(A^{-3}) = (\\det A)^{-3} = \\frac{1}{25^3} = \\frac{1}{15\\,625}$. C'est l'exercice p. 11, où $A$ est la matrice $4 \\times 4$ de la p. 7.",
+        "source": {
+          "file": "2026-03-MAT199-ChapII.pdf",
+          "page": 11,
+          "locator": "Exercice p. 11"
+        }
+      },
+      {
+        "id": "q3-11",
+        "objectiveId": "obj3-inversibilite",
+        "bloomLevel": "analyze",
+        "type": "mcq",
+        "difficulty": 3,
+        "prompt": "Pour quelles valeurs de $a$ la matrice $\\begin{pmatrix} 1 & 2 & 3 \\\\ 1 & 5-a & 1 \\\\ 2 & 5 & a+3 \\end{pmatrix}$ est-elle inversible ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "$a \\neq 3 + \\sqrt2$ et $a \\neq 3 - \\sqrt2$"
+          },
+          {
+            "id": "b",
+            "text": "$a \\neq 3$"
+          },
+          {
+            "id": "c",
+            "text": "$a \\neq 3 + \\sqrt2$ seulement"
+          },
+          {
+            "id": "d",
+            "text": "Pour tout a"
+          }
+        ],
+        "correct": "a",
+        "explanation": "$L_2 - L_1$ et $L_3 - 2L_1$ donnent $\\det(A) = (3-a)(a-3) + 2 = -(a-3)^2 + 2$, nul si, et seulement si, $a = 3 \\pm \\sqrt2$.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "$\\det(A) = -(a-3)^2 + 2$ vaut 2 en $a = 3$ : la matrice est inversible pour $a = 3$."
+          },
+          {
+            "optionId": "c",
+            "why": "Il y a deux racines : $(a-3)^2 = 2$ donne $a - 3 = \\pm\\sqrt2$."
+          },
+          {
+            "optionId": "d",
+            "why": "Pour $a = 3 \\pm \\sqrt2$, le déterminant s'annule."
+          }
+        ],
+        "source": {
+          "file": "2026-03-MAT199-ChapII.pdf",
+          "page": 10,
+          "locator": "Exercice p. 10"
+        }
+      },
+      {
+        "id": "q3-12",
+        "objectiveId": "obj3-inversibilite",
+        "bloomLevel": "understand",
+        "type": "true-false",
+        "difficulty": 2,
+        "prompt": "Une matrice carrée $A$ avec $\\det(A) = 0$ est inversible.",
+        "options": [
+          {
+            "id": "v",
+            "text": "Vrai"
+          },
+          {
+            "id": "f",
+            "text": "Faux"
+          }
+        ],
+        "correct": "f",
+        "explanation": "Théorème 2.8 : A est inversible si, et seulement si, det(A) ≠ 0.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "v",
+            "why": "Un déterminant nul signifie justement que $A$ n'est pas inversible ; d'ailleurs $\\det(A^{-1})$ vaudrait $1/0$."
+          }
+        ],
+        "source": {
+          "file": "2026-03-MAT199-ChapII.pdf",
+          "page": 10,
+          "locator": "Théorème 2.8"
+        }
+      }
+    ]
+  },
+  "test": {
+    "title": "Test du chapitre 3",
+    "instructions": "21 questions couvrant tout le chapitre. Plus long et plus difficile que le quiz.",
+    "estimatedMinutes": 45,
+    "questions": [
+      {
+        "id": "t3-01",
+        "objectiveId": "obj3-developpement",
+        "bloomLevel": "recall",
+        "type": "mcq",
+        "difficulty": 1,
+        "prompt": "Qu'est-ce que le mineur $m_{23}$ de $A$ ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Le déterminant de la matrice obtenue en supprimant la ligne 2 et la colonne 3"
+          },
+          {
+            "id": "b",
+            "text": "Le déterminant de la matrice obtenue en supprimant la ligne 3 et la colonne 2"
+          },
+          {
+            "id": "c",
+            "text": "Le terme a₂₃ multiplié par (−1)²⁺³"
+          },
+          {
+            "id": "d",
+            "text": "Le produit des termes a₂₂ et a₃₃"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Définition 2.1 : $M_{ij}$ supprime la $i$-ième ligne et la $j$-ième colonne ; $m_{ij} = \\det(M_{ij})$.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "C'est m₃₂ : le premier indice désigne la ligne."
+          },
+          {
+            "optionId": "c",
+            "why": "Ce produit apparaît dans le développement, mais ce n'est pas le mineur."
+          },
+          {
+            "optionId": "d",
+            "why": "Un mineur est le déterminant d'une sous-matrice d'ordre n − 1."
+          }
+        ],
+        "source": {
+          "file": "2026-03-MAT199-ChapII.pdf",
+          "page": 1,
+          "locator": "Définition 2.1"
+        }
+      },
+      {
+        "id": "t3-02",
+        "objectiveId": "obj3-developpement",
+        "bloomLevel": "understand",
+        "type": "mcq",
+        "difficulty": 1,
+        "prompt": "Dans le développement d'un déterminant $3 \\times 3$, quel signe accompagne le terme en position $(2, 3)$ ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "$-$, car $(-1)^{2+3} = -1$"
+          },
+          {
+            "id": "b",
+            "text": "$+$, car la ligne 2 commence par un $-$"
+          },
+          {
+            "id": "c",
+            "text": "$+$, car $2 \\times 3 = 6$ est pair"
+          },
+          {
+            "id": "d",
+            "text": "Le signe du terme $a_{23}$ lui-même"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Le signe est $(-1)^{i+j}$ : damier $+ - +$ / $- + -$ / $+ - +$. Position $(2, 3)$ : $-$.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Le signe dépend de i + j, pas seulement de la ligne : (2, 3) donne 5, impair."
+          },
+          {
+            "optionId": "c",
+            "why": "C'est la SOMME i + j qui compte, pas le produit."
+          },
+          {
+            "optionId": "d",
+            "why": "Le facteur $(-1)^{i+j}$ s'ajoute au signe de $a_{23}$."
+          }
+        ],
+        "source": {
+          "file": "2026-03-MAT199-ChapII.pdf",
+          "page": 1,
+          "locator": "Définition 2.1"
+        }
+      },
+      {
+        "id": "t3-03",
+        "objectiveId": "obj3-developpement",
+        "bloomLevel": "apply",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Calculer $\\begin{vmatrix} 2 & \\sqrt2 \\\\ -3 & 2+\\sqrt2 \\end{vmatrix}$ (exercice des notes).",
+        "options": [
+          {
+            "id": "a",
+            "text": "$4 + 5\\sqrt2$"
+          },
+          {
+            "id": "b",
+            "text": "$4 - \\sqrt2$"
+          },
+          {
+            "id": "c",
+            "text": "$4 + 2\\sqrt2$"
+          },
+          {
+            "id": "d",
+            "text": "$-2 + 5\\sqrt2$"
+          }
+        ],
+        "correct": "a",
+        "explanation": "$2(2 + \\sqrt2) - \\sqrt2 \\cdot (-3) = 4 + 2\\sqrt2 + 3\\sqrt2 = 4 + 5\\sqrt2$.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "On a soustrait $\\sqrt2 \\cdot 3$ au lieu de $\\sqrt2 \\cdot (-3)$ : $-\\sqrt2 \\cdot (-3) = +3\\sqrt2$."
+          },
+          {
+            "optionId": "c",
+            "why": "Il manque le terme $-a_{12}a_{21} = 3\\sqrt2$."
+          },
+          {
+            "optionId": "d",
+            "why": "Erreur sur $2 \\times 2$ : $2(2 + \\sqrt2) = 4 + 2\\sqrt2$."
+          }
+        ],
+        "source": {
+          "file": "2026-03-MAT199-ChapII.pdf",
+          "page": 2,
+          "locator": "Exercice p. 2"
+        }
+      },
+      {
+        "id": "t3-04",
+        "objectiveId": "obj3-raccourcis",
+        "bloomLevel": "apply",
+        "type": "mcq",
+        "difficulty": 3,
+        "prompt": "Calculer $\\begin{vmatrix} \\frac{1}{\\sqrt2} & \\frac{2}{\\sqrt3} & 0 \\\\ \\frac{1}{\\sqrt2} & \\frac{1}{\\sqrt3} & \\frac{1}{\\sqrt5} \\\\ \\frac{1}{\\sqrt2} & \\frac{-1}{\\sqrt3} & \\frac{-1}{\\sqrt5} \\end{vmatrix}$ (exercice p. 4).",
+        "options": [
+          {
+            "id": "a",
+            "text": "$\\frac{2\\sqrt{30}}{15}$"
+          },
+          {
+            "id": "b",
+            "text": "$4$"
+          },
+          {
+            "id": "c",
+            "text": "$-\\frac{2\\sqrt{30}}{15}$"
+          },
+          {
+            "id": "d",
+            "text": "$\\frac{4}{\\sqrt{10}}$"
+          }
+        ],
+        "correct": "a",
+        "explanation": "On sort $\\frac1{\\sqrt2}$, $\\frac1{\\sqrt3}$, $\\frac1{\\sqrt5}$ des trois colonnes : $\\frac{1}{\\sqrt{30}} \\cdot 4 = \\frac{4}{\\sqrt{30}} = \\frac{2\\sqrt{30}}{15}$.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "On a oublié les facteurs sortis des colonnes : il faut multiplier par $\\frac{1}{\\sqrt2}\\cdot\\frac{1}{\\sqrt3}\\cdot\\frac{1}{\\sqrt5}$."
+          },
+          {
+            "optionId": "c",
+            "why": "Erreur de signe dans $\\begin{vmatrix} 1 & 2 & 0 \\\\ 1 & 1 & 1 \\\\ 1 & -1 & -1 \\end{vmatrix} = 4$."
+          },
+          {
+            "optionId": "d",
+            "why": "$\\sqrt2 \\cdot \\sqrt3 \\cdot \\sqrt5 = \\sqrt{30}$, pas $\\sqrt{10}$."
+          }
+        ],
+        "source": {
+          "file": "2026-03-MAT199-ChapII.pdf",
+          "page": 4,
+          "locator": "Exercice p. 4"
+        }
+      },
+      {
+        "id": "t3-05",
+        "objectiveId": "obj3-raccourcis",
+        "bloomLevel": "understand",
+        "type": "true-false",
+        "difficulty": 1,
+        "prompt": "Si une matrice carrée a une colonne nulle, son déterminant est nul.",
+        "options": [
+          {
+            "id": "v",
+            "text": "Vrai"
+          },
+          {
+            "id": "f",
+            "text": "Faux"
+          }
+        ],
+        "correct": "v",
+        "explanation": "Proposition 2.3(3). En développant suivant cette colonne, chaque terme est multiplié par 0.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "f",
+            "why": "Une colonne (ou une ligne) nulle suffit, quels que soient les autres termes."
+          }
+        ],
+        "source": {
+          "file": "2026-03-MAT199-ChapII.pdf",
+          "page": 3,
+          "locator": "Proposition 2.3(3)"
+        }
+      },
+      {
+        "id": "t3-06",
+        "objectiveId": "obj3-raccourcis",
+        "bloomLevel": "analyze",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Lequel de ces déterminants est égal à $2\\begin{vmatrix} 1 & 2 \\\\ 5 & 7 \\end{vmatrix}$ ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "$\\begin{vmatrix} 2 & 4 \\\\ 5 & 7 \\end{vmatrix}$"
+          },
+          {
+            "id": "b",
+            "text": "$\\begin{vmatrix} 2 & 4 \\\\ 10 & 14 \\end{vmatrix}$"
+          },
+          {
+            "id": "c",
+            "text": "$\\begin{vmatrix} 3 & 4 \\\\ 7 & 9 \\end{vmatrix}$"
+          },
+          {
+            "id": "d",
+            "text": "$\\begin{vmatrix} 2 & 2 \\\\ 5 & 7 \\end{vmatrix}$"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Proposition 2.3 : on multiplie UNE seule ligne (ou colonne) par 2. $\\begin{vmatrix} 2 & 4 \\\\ 5 & 7 \\end{vmatrix} = 14 - 20 = -6 = 2 \\times (-3)$.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "On a multiplié les DEUX lignes par 2 : c'est $2^2$ fois le déterminant, soit $-12$ au lieu de $-6$."
+          },
+          {
+            "optionId": "c",
+            "why": "On a ajouté 2 à certains termes ; la proposition 2.3 parle d'un facteur multiplicatif."
+          },
+          {
+            "optionId": "d",
+            "why": "Seul le premier terme a été doublé ; il faut multiplier TOUTE une ligne ou toute une colonne. Ce déterminant vaut $14 - 10 = 4$."
+          }
+        ],
+        "source": {
+          "file": "2026-03-MAT199-ChapII.pdf",
+          "page": 3,
+          "locator": "Exemple après la proposition 2.3"
+        }
+      },
+      {
+        "id": "t3-07",
+        "objectiveId": "obj3-raccourcis",
+        "bloomLevel": "apply",
+        "type": "short-answer",
+        "difficulty": 2,
+        "prompt": "Calculer $\\begin{vmatrix} 3 & \\sqrt5 & 4 & \\sqrt2 & a \\\\ \\sqrt5 & 2 & \\sqrt3 & a & b \\\\ 0 & 0 & 7 & 2 & 5 \\\\ 0 & 0 & \\sqrt5 & \\sqrt3 & 0 \\\\ 0 & 0 & \\sqrt3 & \\sqrt5 & 0 \\end{vmatrix}$. (un nombre)",
+        "correct": "10",
+        "acceptableAnswers": [],
+        "explanation": "Blocs : $\\begin{vmatrix} 3 & \\sqrt5 \\\\ \\sqrt5 & 2 \\end{vmatrix} = 1$ et, en développant le bloc $3 \\times 3$ suivant sa dernière colonne, $5(5 - 3) = 10$. Total : 10, quels que soient $a$ et $b$.",
+        "source": {
+          "file": "2026-03-MAT199-ChapII.pdf",
+          "page": 5,
+          "locator": "Exercice p. 5"
+        }
+      },
+      {
+        "id": "t3-08",
+        "objectiveId": "obj3-raccourcis",
+        "bloomLevel": "understand",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Dans le déterminant précédent, quel est le rôle des termes $a$ et $b$ ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Aucun : ils sont dans le bloc C, qui n'intervient pas"
+          },
+          {
+            "id": "b",
+            "text": "Le résultat dépend de a et b, qu'il faudrait connaître"
+          },
+          {
+            "id": "c",
+            "text": "Ils doivent être nuls pour que la proposition 2.4 s'applique"
+          },
+          {
+            "id": "d",
+            "text": "Ils changent le signe du résultat"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Proposition 2.4 : $\\det\\begin{pmatrix} A & C \\\\ 0 & B \\end{pmatrix} = \\det(A)\\det(B)$, pour tout bloc $C$.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "La proposition 2.4 donne $\\det(A)\\det(B)$ : le bloc $C$ n'apparaît pas."
+          },
+          {
+            "optionId": "c",
+            "why": "Seul le bloc sous A (ou au-dessus de B) doit être nul ; C est quelconque."
+          },
+          {
+            "optionId": "d",
+            "why": "Ils n'interviennent d'aucune façon."
+          }
+        ],
+        "source": {
+          "file": "2026-03-MAT199-ChapII.pdf",
+          "page": 5,
+          "locator": "Proposition 2.4"
+        }
+      },
+      {
+        "id": "t3-09",
+        "objectiveId": "obj3-raccourcis",
+        "bloomLevel": "recall",
+        "type": "true-false",
+        "difficulty": 1,
+        "prompt": "Le déterminant d'une matrice triangulaire est la somme de ses termes diagonaux.",
+        "options": [
+          {
+            "id": "v",
+            "text": "Vrai"
+          },
+          {
+            "id": "f",
+            "text": "Faux"
+          }
+        ],
+        "correct": "f",
+        "explanation": "Proposition 2.5 : c'est le PRODUIT de ses termes diagonaux. Par exemple det(Iₙ) = 1 × … × 1 = 1.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "v",
+            "why": "Avec une somme, det(Iₙ) vaudrait n, alors qu'il vaut 1."
+          }
+        ],
+        "source": {
+          "file": "2026-03-MAT199-ChapII.pdf",
+          "page": 6,
+          "locator": "Proposition 2.5"
+        }
+      },
+      {
+        "id": "t3-10",
+        "objectiveId": "obj3-operations",
+        "bloomLevel": "apply",
+        "type": "short-answer",
+        "difficulty": 3,
+        "prompt": "Calculer $\\det(A)$ pour $A = \\begin{pmatrix} 2 & 1 & 0 & -1 \\\\ -1 & 2 & -1 & 3 \\\\ 3 & -1 & -4 & 1 \\\\ 0 & 5 & -1 & 3 \\end{pmatrix}$ (exercice p. 7).",
+        "correct": "25",
+        "acceptableAnswers": [],
+        "explanation": "$L_1 \\leftrightarrow L_2$ (signe $-$), $L_2 + 2L_1$, $L_3 + 3L_1$, puis développement suivant la colonne 1 : $-(-1)\\begin{vmatrix} 5 & -2 & 5 \\\\ 5 & -7 & 10 \\\\ 5 & -1 & 3 \\end{vmatrix} = 25$.",
+        "source": {
+          "file": "2026-03-MAT199-ChapII.pdf",
+          "page": 7,
+          "locator": "Exercice p. 7"
+        }
+      },
+      {
+        "id": "t3-11",
+        "objectiveId": "obj3-operations",
+        "bloomLevel": "analyze",
+        "type": "mcq",
+        "difficulty": 3,
+        "prompt": "On obtient $B$ en multipliant la ligne 2 de $A$ par 3, puis en échangeant les lignes 1 et 3. Quelle relation lie $\\det(B)$ et $\\det(A)$ ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "$\\det(B) = -3\\det(A)$"
+          },
+          {
+            "id": "b",
+            "text": "$\\det(B) = 3\\det(A)$"
+          },
+          {
+            "id": "c",
+            "text": "$\\det(B) = -\\frac13\\det(A)$"
+          },
+          {
+            "id": "d",
+            "text": "$\\det(B) = 27\\det(A)$"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Multiplier une ligne par 3 : le déterminant est multiplié par 3. Échanger deux lignes : il change de signe. Total : $\\det(B) = -3\\det(A)$.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "L'échange de lignes change le signe."
+          },
+          {
+            "optionId": "c",
+            "why": "$\\det(A) = a^{-1}\\det(B)$ donne $\\det(B) = a\\det(A)$ : le 3 multiplie, il ne divise pas."
+          },
+          {
+            "optionId": "d",
+            "why": "Une seule ligne est multipliée par 3, pas les trois."
+          }
+        ],
+        "source": {
+          "file": "2026-03-MAT199-ChapII.pdf",
+          "page": 6,
+          "locator": "Théorème 2.6"
+        }
+      },
+      {
+        "id": "t3-12",
+        "objectiveId": "obj3-proprietes",
+        "bloomLevel": "apply",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Avec la décomposition $A = LU$, $L = \\begin{pmatrix} 1 & 0 & 0 \\\\ \\frac32 & 1 & 0 \\\\ \\frac12 & 0 & 1 \\end{pmatrix}$, $U = \\begin{pmatrix} 2 & 4 & 6 \\\\ 0 & -1 & -2 \\\\ 0 & 0 & 0 \\end{pmatrix}$, que vaut $\\det(A)$ ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "0"
+          },
+          {
+            "id": "b",
+            "text": "−2"
+          },
+          {
+            "id": "c",
+            "text": "2"
+          },
+          {
+            "id": "d",
+            "text": "$\\frac34$"
+          }
+        ],
+        "correct": "a",
+        "explanation": "$\\det(A) = \\det(L)\\det(U) = 1 \\cdot (2 \\cdot (-1) \\cdot 0) = 0$ : $A$ n'est pas inversible (exercice p. 9).",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "On a oublié le dernier terme diagonal de $U$, qui vaut 0."
+          },
+          {
+            "optionId": "c",
+            "why": "Le produit $2 \\cdot (-1) \\cdot 0$ vaut 0, quel que soit le reste."
+          },
+          {
+            "optionId": "d",
+            "why": "On a multiplié les termes sous la diagonale de L, qui n'interviennent pas."
+          }
+        ],
+        "source": {
+          "file": "2026-03-MAT199-ChapII.pdf",
+          "page": 9,
+          "locator": "Exercice p. 9"
+        }
+      },
+      {
+        "id": "t3-13",
+        "objectiveId": "obj3-proprietes",
+        "bloomLevel": "apply",
+        "type": "short-answer",
+        "difficulty": 2,
+        "prompt": "On trouve la décomposition $A = LU$ de $\\begin{pmatrix} 2 & 6 & 10 \\\\ 1 & 4 & 7 \\\\ 3 & 1 & 5 \\end{pmatrix}$ avec $U = \\begin{pmatrix} 2 & 6 & 10 \\\\ 0 & 1 & 2 \\\\ 0 & 0 & 6 \\end{pmatrix}$ et $L$ à diagonale de 1. Que vaut $\\det(A)$ ?",
+        "correct": "12",
+        "acceptableAnswers": [],
+        "explanation": "$\\det(A) = \\det(L)\\det(U) = 1 \\times (2 \\cdot 1 \\cdot 6) = 12$ (exercice 2.10 n° 3).",
+        "source": {
+          "file": "2026-03-MAT199-ChapII.pdf",
+          "page": 12,
+          "locator": "Exercice 2.10 n° 3"
+        }
+      },
+      {
+        "id": "t3-14",
+        "objectiveId": "obj3-inversibilite",
+        "bloomLevel": "recall",
+        "type": "mcq",
+        "difficulty": 1,
+        "prompt": "Selon le théorème 2.8, une matrice carrée A est inversible si, et seulement si :",
+        "options": [
+          {
+            "id": "a",
+            "text": "$\\det(A) \\neq 0$"
+          },
+          {
+            "id": "b",
+            "text": "$\\det(A) > 0$"
+          },
+          {
+            "id": "c",
+            "text": "$\\det(A) = 1$"
+          },
+          {
+            "id": "d",
+            "text": "$\\det(A) = \\det(A^T)$"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Théorème 2.8.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Un déterminant négatif convient aussi : ce qui compte est qu'il soit non nul."
+          },
+          {
+            "optionId": "c",
+            "why": "$\\det(A) = 1$ est suffisant, mais pas nécessaire."
+          },
+          {
+            "optionId": "d",
+            "why": "Cette égalité est toujours vraie (théorème 2.7) ; elle ne dit rien de l'inversibilité."
+          }
+        ],
+        "source": {
+          "file": "2026-03-MAT199-ChapII.pdf",
+          "page": 10,
+          "locator": "Théorème 2.8"
+        }
+      },
+      {
+        "id": "t3-15",
+        "objectiveId": "obj3-inversibilite",
+        "bloomLevel": "apply",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Pour quelles valeurs de $a$ la matrice $\\begin{pmatrix} 1 & 1 & 1 & 1 \\\\ 1 & 3 & 3 & 3 \\\\ 1 & 3 & a & a \\\\ 1 & 3 & a & 5 \\end{pmatrix}$ est-elle inversible ? (exercice 2.10 n° 5 (2))",
+        "options": [
+          {
+            "id": "a",
+            "text": "$a \\neq 3$ et $a \\neq 5$"
+          },
+          {
+            "id": "b",
+            "text": "$a \\neq 5$ seulement"
+          },
+          {
+            "id": "c",
+            "text": "$a \\neq 3$ seulement"
+          },
+          {
+            "id": "d",
+            "text": "$a \\neq 1$ et $a \\neq 3$"
+          }
+        ],
+        "correct": "a",
+        "explanation": "$L_2 - L_1$, $L_3 - L_1$, $L_4 - L_1$, puis $L_3 - L_2$, $L_4 - L_2$, $L_4 - L_3$ donnent une matrice triangulaire de diagonale $1, 2, a - 3, 5 - a$ : $\\det = 2(a-3)(5-a)$.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Pour $a = 3$, les lignes 2 et 3 sont égales : déterminant nul."
+          },
+          {
+            "optionId": "c",
+            "why": "Pour $a = 5$, les lignes 3 et 4 sont égales."
+          },
+          {
+            "optionId": "d",
+            "why": "Pour $a = 1$, le déterminant vaut $2(1-3)(5-1) = -16 \\neq 0$."
+          }
+        ],
+        "source": {
+          "file": "2026-03-MAT199-ChapII.pdf",
+          "page": 12,
+          "locator": "Exercice 2.10 n° 5 (2)"
+        }
+      },
+      {
+        "id": "t3-16",
+        "objectiveId": "obj3-inversibilite",
+        "bloomLevel": "apply",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Le déterminant de $\\begin{pmatrix} 0 & a & 0 & 0 \\\\ 1 & 0 & -1 & 0 \\\\ 0 & -1 & 0 & 1+a \\\\ 1 & 0 & 2 & -1 \\end{pmatrix}$ vaut $3a(a+1)$. Pour quelles valeurs de $a$ est-elle inversible ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "$a \\neq 0$ et $a \\neq -1$"
+          },
+          {
+            "id": "b",
+            "text": "$a \\neq 0$ et $a \\neq 1$"
+          },
+          {
+            "id": "c",
+            "text": "$a \\neq -1$ seulement"
+          },
+          {
+            "id": "d",
+            "text": "$a \\neq 3$"
+          }
+        ],
+        "correct": "a",
+        "explanation": "$3a(a+1) = 0 \\iff a = 0$ ou $a = -1$ (exercice 2.10 n° 5 (3)).",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "$a + 1 = 0$ donne $a = -1$, pas $1$."
+          },
+          {
+            "optionId": "c",
+            "why": "Pour $a = 0$ aussi le déterminant s'annule — et la première ligne devient nulle."
+          },
+          {
+            "optionId": "d",
+            "why": "Le facteur 3 ne s'annule jamais."
+          }
+        ],
+        "source": {
+          "file": "2026-03-MAT199-ChapII.pdf",
+          "page": 12,
+          "locator": "Exercice 2.10 n° 5 (3)"
+        }
+      },
+      {
+        "id": "t3-17",
+        "objectiveId": "obj3-inversibilite",
+        "bloomLevel": "analyze",
+        "type": "mcq",
+        "difficulty": 3,
+        "prompt": "Pour la matrice $A$ de l'exercice 2.10 n° 7, on trouve $AA^T = (a^2 + 3)I_4$. Pourquoi $A$ est-elle inversible pour tout $a$ ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "$\\det(A)^2 = \\det(AA^T) = (a^2+3)^4 > 0$, donc $\\det(A) \\neq 0$"
+          },
+          {
+            "id": "b",
+            "text": "Parce que $AA^T$ est diagonale, donc $A$ l'est aussi"
+          },
+          {
+            "id": "c",
+            "text": "Parce que $\\det(AA^T) = 4(a^2 + 3)$"
+          },
+          {
+            "id": "d",
+            "text": "Parce que $a^2 + 3$ est positif, donc tous les termes de $A$ le sont"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Théorèmes 2.7 et 2.8 : $\\det(A)\\det(A^T) = \\det(A)^2$ et $\\det\\big((a^2+3)I_4\\big) = (a^2+3)^4$, jamais nul puisque $a^2 + 3 \\geq 3$.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "$A$ n'est pas diagonale ; c'est seulement le produit $AA^T$ qui l'est."
+          },
+          {
+            "optionId": "c",
+            "why": "Le déterminant de $cI_4$ est $c^4$, pas $4c$."
+          },
+          {
+            "optionId": "d",
+            "why": "$A$ contient des termes $-1$ : ce n'est pas le signe des termes qui compte."
+          }
+        ],
+        "source": {
+          "file": "2026-03-MAT199-ChapII.pdf",
+          "page": 13,
+          "locator": "Exercice 2.10 n° 7"
+        }
+      },
+      {
+        "id": "t3-18",
+        "objectiveId": "obj3-proprietes",
+        "bloomLevel": "understand",
+        "type": "true-false",
+        "difficulty": 1,
+        "prompt": "Pour toute matrice carrée $A$, $\\det(A^T) = \\det(A)$.",
+        "options": [
+          {
+            "id": "v",
+            "text": "Vrai"
+          },
+          {
+            "id": "f",
+            "text": "Faux"
+          }
+        ],
+        "correct": "v",
+        "explanation": "Théorème 2.7(1). C'est pour cela que tout ce qui vaut pour les lignes vaut aussi pour les colonnes.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "f",
+            "why": "Transposer échange lignes et colonnes, et le développement suivant une ligne ou une colonne donne le même nombre."
+          }
+        ],
+        "source": {
+          "file": "2026-03-MAT199-ChapII.pdf",
+          "page": 9,
+          "locator": "Théorème 2.7"
+        }
+      },
+      {
+        "id": "t3-19",
+        "objectiveId": "obj3-proprietes",
+        "bloomLevel": "apply",
+        "type": "short-answer",
+        "difficulty": 2,
+        "prompt": "Pour $A = \\begin{pmatrix} 1 & 2 & -1 & 0 \\\\ 0 & 3 & -1 & 0 \\\\ 3 & 0 & -2 & 0 \\\\ 0 & 4 & -3 & 2 \\end{pmatrix}$, $\\det(A) = -6$. Que vaut $\\det(A^{-2})$ ? (une fraction)",
+        "correct": "1/36",
+        "acceptableAnswers": [],
+        "explanation": "$\\det(A^{-2}) = (\\det A)^{-2} = \\frac{1}{(-6)^2} = \\frac{1}{36}$. Le déterminant se trouve en développant suivant la colonne 4 : $2 \\times (-3) = -6$.",
+        "source": {
+          "file": "2026-03-MAT199-ChapII.pdf",
+          "page": 13,
+          "locator": "Exercice 2.10 n° 6 (2)"
+        }
+      },
+      {
+        "id": "t3-20",
+        "objectiveId": "obj3-inversibilite",
+        "bloomLevel": "analyze",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "On vérifie que $\\begin{pmatrix} 1 & a \\\\ 0 & 1 \\end{pmatrix}\\begin{pmatrix} 1 & -a \\\\ 0 & 1 \\end{pmatrix} = I_2$. Que peut-on conclure ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Que $\\begin{pmatrix} 1 & a \\\\ 0 & 1 \\end{pmatrix}$ est inversible, d'inverse $\\begin{pmatrix} 1 & -a \\\\ 0 & 1 \\end{pmatrix}$"
+          },
+          {
+            "id": "b",
+            "text": "Rien tant qu'on n'a pas aussi vérifié le produit dans l'autre sens"
+          },
+          {
+            "id": "c",
+            "text": "Que la matrice est inversible seulement si $a \\neq 0$"
+          },
+          {
+            "id": "d",
+            "text": "Que la matrice est symétrique"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Corollaire 2.9 : si AB = Iₙ (ou BA = Iₙ), alors A est inversible et A⁻¹ = B. C'est l'exemple des notes.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Le corollaire 2.9 dit justement qu'un seul des deux produits suffit pour des matrices carrées."
+          },
+          {
+            "optionId": "c",
+            "why": "Pour $a = 0$, c'est $I_2$, qui est inversible."
+          },
+          {
+            "optionId": "d",
+            "why": "Elle ne l'est pas dès que a ≠ 0 ; l'égalité parle d'inverse, pas de symétrie."
+          }
+        ],
+        "source": {
+          "file": "2026-03-MAT199-ChapII.pdf",
+          "page": 11,
+          "locator": "Corollaire 2.9"
+        }
+      },
+      {
+        "id": "t3-21",
+        "objectiveId": "obj3-inversibilite",
+        "bloomLevel": "apply",
+        "type": "mcq",
+        "difficulty": 3,
+        "prompt": "Pour quelles valeurs de $a$ la matrice tridiagonale $\\begin{pmatrix} a & 1 & 0 \\\\ 1 & a & 1 \\\\ 0 & 1 & a \\end{pmatrix}$ est-elle inversible ? (banque, exercice 2.3)",
+        "options": [
+          {
+            "id": "a",
+            "text": "$a \\notin \\{0, \\sqrt2, -\\sqrt2\\}$"
+          },
+          {
+            "id": "b",
+            "text": "$a \\notin \\{1, -1\\}$"
+          },
+          {
+            "id": "c",
+            "text": "$a \\neq 0$ seulement"
+          },
+          {
+            "id": "d",
+            "text": "$a \\notin \\{\\sqrt2, -\\sqrt2\\}$ seulement"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Suivant la ligne 1 : $a(a^2 - 1) - 1 \\cdot (a - 0) = a^3 - 2a = a(a^2 - 2)$, nul en $0$ et $\\pm\\sqrt2$.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "En $a = 1$ le déterminant vaut $1 - 2 = -1 \\neq 0$."
+          },
+          {
+            "optionId": "c",
+            "why": "Il faut aussi exclure les racines de $a^2 - 2$."
+          },
+          {
+            "optionId": "d",
+            "why": "En $a = 0$, le déterminant $a(a^2 - 2)$ s'annule aussi."
+          }
+        ],
+        "source": {
+          "file": "2026-03_MAT199_ex.pdf",
+          "page": 6,
+          "locator": "Exercice 2.3"
+        }
+      }
+    ]
+  },
+  "flashcards": [
+    {
+      "id": "f3-01",
+      "objectiveId": "obj3-developpement",
+      "front": "Déterminant 2 × 2 ?",
+      "back": "$\\begin{vmatrix} a & b \\\\ c & d \\end{vmatrix} = ad - bc$."
+    },
+    {
+      "id": "f3-02",
+      "objectiveId": "obj3-developpement",
+      "front": "Développement suivant la ligne i ?",
+      "back": "$\\det(A) = \\sum_j a_{ij}(-1)^{i+j}m_{ij}$, où $m_{ij}$ est le déterminant sans la ligne $i$ ni la colonne $j$."
+    },
+    {
+      "id": "f3-03",
+      "objectiveId": "obj3-developpement",
+      "front": "Quelle ligne ou colonne choisir pour développer ?",
+      "back": "Celle qui a le plus de zéros : chaque zéro supprime un mineur."
+    },
+    {
+      "id": "f3-04",
+      "objectiveId": "obj3-raccourcis",
+      "front": "Sortir un facteur ?",
+      "back": "D'UNE ligne ou colonne : $\\det$ est multiplié par ce facteur. Pour $\\det(aA)$ d'ordre $n$ : $a^n\\det(A)$."
+    },
+    {
+      "id": "f3-05",
+      "objectiveId": "obj3-raccourcis",
+      "front": "Matrice triangulaire ?",
+      "back": "det = produit des termes diagonaux (proposition 2.5)."
+    },
+    {
+      "id": "f3-06",
+      "objectiveId": "obj3-raccourcis",
+      "front": "Matrice par blocs (A C ; 0 B) ?",
+      "back": "$\\det(A)\\det(B)$ — le bloc $C$ n'intervient pas (proposition 2.4)."
+    },
+    {
+      "id": "f3-07",
+      "objectiveId": "obj3-operations",
+      "front": "Effet de Lᵢ ↔ Lⱼ, Lᵢ + aLⱼ, aLᵢ sur det ?",
+      "back": "Change le signe · rien · $\\det(A) = a^{-1}\\det(B)$ (théorème 2.6)."
+    },
+    {
+      "id": "f3-08",
+      "objectiveId": "obj3-proprietes",
+      "front": "$\\det(AB)$, $\\det(A^T)$, $\\det(A^r)$ ?",
+      "back": "$\\det(A)\\det(B)$ · $\\det(A)$ · $(\\det A)^r$."
+    },
+    {
+      "id": "f3-09",
+      "objectiveId": "obj3-proprietes",
+      "front": "det par LU ?",
+      "back": "$\\det(A) = \\det(L)\\det(U)$ = produit des diagonales de $L$ et $U$."
+    },
+    {
+      "id": "f3-10",
+      "objectiveId": "obj3-inversibilite",
+      "front": "Critère d'inversibilité par det ?",
+      "back": "$A$ inversible $\\iff \\det(A) \\neq 0$ (théorème 2.8)."
+    },
+    {
+      "id": "f3-11",
+      "objectiveId": "obj3-inversibilite",
+      "front": "$\\det(A^{-1})$ ?",
+      "back": "$\\dfrac{1}{\\det(A)}$, et plus généralement $\\det(A^{-r}) = (\\det A)^{-r}$."
+    },
+    {
+      "id": "f3-12",
+      "objectiveId": "obj3-inversibilite",
+      "front": "AB = Iₙ suffit-il pour conclure que A est inversible ?",
+      "back": "Oui (corollaire 2.9) : alors $A^{-1} = B$."
+    }
+  ],
+  "exercises": [
+    {
+      "id": "e3-01",
+      "objectiveId": "obj3-raccourcis",
+      "difficulty": 2,
+      "mode": "trace",
+      "language": "text",
+      "title": "Trois déterminants de l'exercice 2.10 n° 1",
+      "statement": "Calculer les déterminants (2) et (3) de l'exercice 2.10 n° 1 en choisissant, pour chacun, la méthode la plus courte. Justifier le choix.",
+      "starterCode": "(2) | 1  −1   0   0 |        (3) | 3  3  2  1 |\n    | 2   4   0   0 |            | 7  3  6  5 |\n    | 0   0   5   2 |            | 5  3  2  1 |\n    | 0   0  −6  −2 |            | 1  1  3  1 |",
+      "hints": [
+        "Pour (2), repérer les blocs de zéros : la proposition 2.4 s'applique.",
+        "Pour (3), comparer les lignes 1 et 3 : leur différence est très simple.",
+        "Après L₃ − L₁ dans (3), la ligne 3 vaut (2, 0, 0, 0) : développer suivant cette ligne."
+      ],
+      "solution": "(2) 12 · (3) −40",
+      "expectedOutput": "(2) Forme $\\begin{pmatrix} A & 0 \\\\ 0 & B \\end{pmatrix}$ (proposition 2.4) :\n    $\\begin{vmatrix} 1 & -1 \\\\ 2 & 4 \\end{vmatrix} \\cdot \\begin{vmatrix} 5 & 2 \\\\ -6 & -2 \\end{vmatrix} = (4 + 2)(-10 + 12) = 6 \\times 2 = 12$\n\n(3) $L_3 - L_1$ ne change pas le déterminant et donne la ligne $(2, 0, 0, 0)$.\n    Développement suivant la ligne 3 : $2 \\cdot (-1)^{3+1} \\cdot \\begin{vmatrix} 3 & 2 & 1 \\\\ 3 & 6 & 5 \\\\ 1 & 3 & 1 \\end{vmatrix}$\n\n    $\\begin{vmatrix} 3 & 2 & 1 \\\\ 3 & 6 & 5 \\\\ 1 & 3 & 1 \\end{vmatrix} = 3(6 - 15) - 2(3 - 5) + 1(9 - 6) = -27 + 4 + 3 = -20$\n\n    $\\det = 2 \\times (-20) = -40$",
+      "solutionExplanation": "Deux réflexes : chercher des blocs de zéros avant tout calcul, et comparer les lignes deux à deux. Une seule opération de type 2 bien choisie transforme un 4 × 4 en un 3 × 3 — sans rien changer au déterminant.",
+      "source": {
+        "file": "2026-03-MAT199-ChapII.pdf",
+        "page": 12,
+        "locator": "Exercice 2.10 n° 1"
+      }
+    },
+    {
+      "id": "e3-02",
+      "objectiveId": "obj3-operations",
+      "difficulty": 2,
+      "mode": "find-bug",
+      "language": "text",
+      "title": "Trouver l'erreur — un échange de lignes oublié",
+      "statement": "Un étudiant calcule le déterminant de l'exercice p. 2 des notes et trouve −20. Or la bonne valeur est 20. Trouver l'erreur.",
+      "starterCode": "| 2  3 −4 |\n| −1 0  3 |\n| 3  2 −1 |\n\n« Je mets la ligne 2 en haut pour avoir un pivot simple :\n   L₁ ↔ L₂  :  | −1 0  3 |\n               |  2 3 −4 |\n               |  3 2 −1 |\n\n   L₂ + 2L₁, L₃ + 3L₁ :  | −1 0 3 |\n                          |  0 3 2 |\n                          |  0 2 8 |\n\n   Je développe suivant la colonne 1 :\n   det = −1 · (3·8 − 2·2) = −1 · 20 = −20 »",
+      "hints": [
+        "Quelles opérations l'étudiant a-t-il faites ? Lesquelles ne changent pas le déterminant ?",
+        "Relire le théorème 2.6(1).",
+        "Le déterminant calculé est celui de la matrice APRÈS l'échange."
+      ],
+      "solution": "Il manque le changement de signe de L₁ ↔ L₂ : det = −(−20) = 20.",
+      "expectedOutput": "Les opérations $L_2 + 2L_1$ et $L_3 + 3L_1$ sont correctes et ne changent rien (théorème 2.6(2)).\nLe calcul final est juste : la matrice obtenue a bien pour déterminant $-1 \\cdot (24 - 4) = -20$.\n\nL'ERREUR : l'échange $L_1 \\leftrightarrow L_2$ change le signe (théorème 2.6(1)).\nLe $-20$ est donc le déterminant de la matrice ÉCHANGÉE :\n\n    $\\det(A) = -(-20) = 20$\n\nVérification directe, suivant la ligne 2 de la matrice d'origine : $5 + 15 = 20$ ✓",
+      "solutionExplanation": "L'erreur est invisible dans le calcul lui-même, qui est exact : elle est dans la comptabilité des opérations. La bonne habitude est d'écrire le facteur à côté de chaque flèche — $(-1)$ pour un échange, $a$ pour une multiplication — et de les reporter à la fin.",
+      "source": {
+        "file": "2026-03-MAT199-ChapII.pdf",
+        "page": 2,
+        "locator": "Exercice p. 2 ; théorème 2.6"
+      }
+    },
+    {
+      "id": "e3-03",
+      "objectiveId": "obj3-inversibilite",
+      "difficulty": 3,
+      "mode": "trace",
+      "language": "text",
+      "title": "Inversible selon a (exercice 2.10 n° 5)",
+      "statement": "Pour chacune des matrices, calculer le déterminant en fonction de a, puis donner les valeurs de a pour lesquelles la matrice est inversible.",
+      "starterCode": "(1) ( a+1  3  4 )        (2) ( 1 1 1 1 )\n    (  a   2  2 )            ( 1 3 3 3 )\n    (  4   3  a )            ( 1 3 a a )\n                              ( 1 3 a 5 )",
+      "hints": [
+        "Pour (1), développer suivant la première ligne et regrouper en un polynôme en a.",
+        "Pour (2), retrancher la ligne 1 aux autres, puis la ligne 2 aux lignes 3 et 4, etc. : on obtient une matrice triangulaire.",
+        "(1) donne −a² + 8a − 14 : résoudre avec le discriminant. (2) donne une diagonale 1, 2, a − 3, 5 − a."
+      ],
+      "solution": "(1) det = −a² + 8a − 14, inversible ssi a ≠ 4 ± √2 · (2) det = 2(a − 3)(5 − a), inversible ssi a ≠ 3 et a ≠ 5",
+      "expectedOutput": "(1) Suivant la ligne 1 :\n    $(a+1)(2a - 6) - 3(a^2 - 8) + 4(3a - 8)$\n    $= 2a^2 - 4a - 6 - 3a^2 + 24 + 12a - 32 = -a^2 + 8a - 14$\n    $\\Delta = 64 - 56 = 8$, racines $a = \\frac{-8 \\pm 2\\sqrt2}{-2} = 4 \\mp \\sqrt2$.\n    Inversible si, et seulement si, $a \\neq 4 + \\sqrt2$ et $a \\neq 4 - \\sqrt2$.\n\n(2) $L_2 - L_1$, $L_3 - L_1$, $L_4 - L_1$ : lignes $(0,2,2,2)$, $(0,2,a-1,a-1)$, $(0,2,a-1,4)$\n    $L_3 - L_2$, $L_4 - L_2$ : $(0,0,a-3,a-3)$, $(0,0,a-3,2)$\n    $L_4 - L_3$ : $(0,0,0,5-a)$\n    Triangulaire : $\\det = 1 \\cdot 2 \\cdot (a-3)(5-a)$.\n    Inversible si, et seulement si, $a \\neq 3$ et $a \\neq 5$.",
+      "solutionExplanation": "En (2), les valeurs exclues se lisent aussi directement sur la matrice : pour a = 3 les lignes 2 et 3 sont égales, pour a = 5 les lignes 3 et 4 le sont. Deux lignes égales donnent toujours un déterminant nul — leur différence est une ligne nulle.",
+      "source": {
+        "file": "2026-03-MAT199-ChapII.pdf",
+        "page": 12,
+        "locator": "Exercice 2.10 n° 5"
+      }
+    },
+    {
+      "id": "e3-04",
+      "objectiveId": "obj3-proprietes",
+      "difficulty": 2,
+      "mode": "fill-blank",
+      "language": "text",
+      "title": "Le déterminant par la décomposition LU",
+      "statement": "Compléter la décomposition LU de A (exercice 2.10 n° 3), puis en déduire det(A).",
+      "starterCode": "A = ( 2  6  10 )\n    ( 1  4   7 )\n    ( 3  1   5 )\n\nT₁ : L₂ − ____ L₁   →  ( 0 , 1 , 2 )\nT₂ : L₃ − ____ L₁   →  ( 0 , −8 , −10 )\nT₃ : L₃ + ____ L₂   →  ( 0 , 0 , ____ )\n\ndet(L) = ____        det(U) = 2 × 1 × ____ = ____\n\ndet(A) = det(L) · det(U) = ____",
+      "hints": [
+        "T₁ et T₂ annulent la première colonne avec le pivot 2 : on retranche 1/2 puis 3/2 fois L₁.",
+        "T₃ annule le −8 avec le pivot 1 de la ligne 2.",
+        "L est triangulaire avec des 1 sur la diagonale : son déterminant vaut 1."
+      ],
+      "solution": "½ · 3/2 · 8 · 6 · det(L) = 1 · det(U) = 12 · det(A) = 12",
+      "expectedOutput": "T₁ : $L_2 - \\frac12 L_1$ → $(1, 4, 7) - (1, 3, 5) = (0, 1, 2)$\nT₂ : $L_3 - \\frac32 L_1$ → $(3, 1, 5) - (3, 9, 15) = (0, -8, -10)$\nT₃ : $L_3 + 8L_2$ → $(0, -8, -10) + (0, 8, 16) = (0, 0, 6)$\n\n$U = \\begin{pmatrix} 2 & 6 & 10 \\\\ 0 & 1 & 2 \\\\ 0 & 0 & 6 \\end{pmatrix}$,  $L = \\begin{pmatrix} 1 & 0 & 0 \\\\ \\frac12 & 1 & 0 \\\\ \\frac32 & -8 & 1 \\end{pmatrix}$\n\n$\\det(L) = 1$,  $\\det(U) = 2 \\times 1 \\times 6 = 12$\n\n$\\det(A) = 12$",
+      "solutionExplanation": "Avec seulement des opérations de type 2, la diagonale de L est faite de 1 : det(L) = 1, et det(A) = det(U). La solution officielle de la séance 3 commence plutôt par $\\frac12 L_1$ (type 3) : elle obtient $L = \\begin{pmatrix} 2 & 0 & 0 \\\\ 1 & 1 & 0 \\\\ 3 & -8 & 1 \\end{pmatrix}$ et $U = \\begin{pmatrix} 1 & 3 & 5 \\\\ 0 & 1 & 2 \\\\ 0 & 0 & 6 \\end{pmatrix}$. Les deux sont justes — une décomposition LU n'est pas unique — et donnent le même déterminant : $2 \\times 6 = 12$ d'un côté, $2 \\times 1 \\times 1 \\times 1 \\times 1 \\times 6 = 12$ de l'autre.",
+      "source": {
+        "file": "2026-03-MAT199-ChapII.pdf",
+        "page": 12,
+        "locator": "Exercice 2.10 n° 3"
+      }
+    },
+    {
+      "id": "e3-05",
+      "objectiveId": "obj3-inversibilite",
+      "difficulty": 3,
+      "mode": "predict-output",
+      "language": "text",
+      "title": "Inversible ou non, et det(A⁻²) (exercice 2.10 n° 6)",
+      "statement": "Pour chaque matrice, calculer det(A), dire si A est inversible, et si oui donner det(A⁻²) — sans calculer A⁻¹.",
+      "starterCode": "(1) (  3  1  −1   5 )        (2) ( 1  2  −1  0 )\n    (  9  3  −3  15 )            ( 0  3  −1  0 )\n    (  6  7  −8  10 )            ( 3  0  −2  0 )\n    ( −3  4  −8   2 )            ( 0  4  −3  2 )",
+      "hints": [
+        "Pour (1), comparer les deux premières lignes.",
+        "Pour (2), la dernière colonne ne contient qu'un seul terme non nul.",
+        "Théorème 2.8 : det(A⁻²) = (det A)⁻²."
+      ],
+      "solution": "(1) det = 0, non inversible · (2) det = −6, det(A⁻²) = 1/36",
+      "expectedOutput": "(1) La ligne 2 vaut 3 fois la ligne 1. $L_2 - 3L_1$ donne une ligne nulle :\n    $\\det(A) = 0$ (proposition 2.3(3) et théorème 2.6(2)). A n'est pas inversible.\n\n(2) Suivant la colonne 4, qui n'a que le terme 2 en position (4, 4) :\n    $\\det(A) = 2 \\cdot (-1)^{8} \\cdot \\begin{vmatrix} 1 & 2 & -1 \\\\ 0 & 3 & -1 \\\\ 3 & 0 & -2 \\end{vmatrix}$\n    $\\begin{vmatrix} 1 & 2 & -1 \\\\ 0 & 3 & -1 \\\\ 3 & 0 & -2 \\end{vmatrix} = 1(-6 - 0) - 2(0 + 3) + (-1)(0 - 9) = -6 - 6 + 9 = -3$\n    $\\det(A) = 2 \\times (-3) = -6 \\neq 0$ : A est inversible.\n\n    $\\det(A^{-2}) = (-6)^{-2} = \\dfrac{1}{36}$",
+      "solutionExplanation": "Aucun inverse n'a été calculé : le théorème 2.8 transforme la question en un seul déterminant. Le signe de det(A) disparaît avec l'exposant pair, ce qui donne une vérification : det(A⁻²) doit être positif.",
+      "source": {
+        "file": "2026-03-MAT199-ChapII.pdf",
+        "page": 13,
+        "locator": "Exercice 2.10 n° 6"
+      }
+    }
+  ]
+}

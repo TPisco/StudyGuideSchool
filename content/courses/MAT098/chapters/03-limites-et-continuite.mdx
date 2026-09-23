@@ -1,0 +1,175 @@
+---
+course: MAT098
+number: 3
+title: Limites et continuité
+summary: >-
+  De la vitesse moyenne à la vitesse instantanée : la notion de limite, les
+  limites à gauche et à droite, les limites infinies et à l'infini, les
+  asymptotes, les règles de calcul, les formes c/0 et les formes
+  indéterminées, puis la continuité en un point et sur un intervalle.
+estimatedMinutes: 180
+prerequisites:
+  - "Chapitre 2 — fonctions usuelles, factorisation"
+objectives:
+  - id: obj3-limite
+    text: Expliquer la définition d'une limite et le lien entre limite, limite à gauche et limite à droite.
+    bloom: understand
+  - id: obj3-infini
+    text: Évaluer une limite infinie, une limite à l'infini ou une limite de la forme c/0, et en déduire les asymptotes.
+    bloom: apply
+  - id: obj3-indetermination
+    text: Lever une indétermination 0/0, ∞/∞ ou ∞ − ∞ par factorisation, conjugué ou terme dominant.
+    bloom: apply
+  - id: obj3-continuite
+    text: Décider si une fonction est continue en un point ou sur un intervalle en vérifiant les trois conditions.
+    bloom: analyze
+  - id: obj3-regles
+    text: Connaître les propriétés des limites et les règles de calcul avec l'infini.
+    bloom: recall
+sources:
+  - file: "1-rappels_calcul_differentiel.pdf"
+    page: 102
+    locator: "Chapitre 1, section Limites et continuité (diapositives 102 à 148)"
+  - file: "noteChapitre1.txt"
+    page: 1
+    locator: "Notes en ligne, sections 1.3.1 à 1.3.7"
+---
+
+## 1. D'où vient la limite
+
+Si $f(t)$ est la distance parcourue au temps $t$, la **vitesse moyenne** sur
+$[t_i, t_f]$ est la pente de la **sécante** :
+$\frac{f(t_f) - f(t_i)}{t_f - t_i}$. En posant $t_f = t_i + \Delta t$ et en
+rapprochant $t_f$ de $t_i$, on obtient la **vitesse instantanée**, pente de
+la **tangente** :
+
+$$
+v_{t = t_i} = \lim_{\Delta t \to 0} \left[ \frac{f(t_i + \Delta t) - f(t_i)}{\Delta t} \right].
+$$
+
+**Définition 1.40.** $L$ est la limite de $f(x)$ lorsque $x$ tend vers $a$,
+notée $\lim_{x \to a}\left[f(x)\right] = L$, si les valeurs de $f(x)$
+deviennent de plus en plus près de $L$ lorsque $x$ s'approche de $a$ — dans
+le domaine de $f$, **sans atteindre $a$**.
+
+<Source file="1-rappels_calcul_differentiel.pdf" page={104} locator="Diapositives 104 à 109, définition 1.40" />
+
+## 2. Limites à gauche, à droite, infinies
+
+- $x \to a^-$ : $x$ s'approche de $a$ par des valeurs **inférieures** (par
+  la gauche) ; $x \to a^+$ : par des valeurs **supérieures** (par la droite).
+- **La limite existe** si et seulement si
+  $\lim_{x \to a^-} f(x) = \lim_{x \to a^+} f(x) = L$, avec $L \in \mathbb{R}$.
+- $\lim_{x \to a} f(x) = \infty$ signifie que $f(x)$ augmente sans borne.
+  **Attention** : $\infty$ n'est pas un nombre ; cette notation exprime une
+  façon particulière dont la limite **n'existe pas**.
+- La droite $x = a$ est une **asymptote verticale** si au moins une des
+  limites en $a$, $a^-$ ou $a^+$ vaut $\infty$ ou $-\infty$.
+- $\lim_{x \to \infty} f(x) = L$ : $f(x)$ s'approche de $L$ quand $x$
+  devient de plus en plus grand. La droite $y = b$ est une **asymptote
+  horizontale** si $\lim_{x \to \infty} f(x) = b$ ou
+  $\lim_{x \to -\infty} f(x) = b$.
+
+<Source file="1-rappels_calcul_differentiel.pdf" page={111} locator="Diapositives 111 à 120" />
+
+## 3. Règles de calcul
+
+**Théorème 1.42.** Si $\lim_{x \to a} f(x)$ et $\lim_{x \to a} g(x)$
+existent, la limite d'une constante est la constante, $\lim_{x \to a} x = a$,
+et la limite d'une somme, d'une différence, d'un produit, d'un multiple ou
+d'une puissance est la somme, la différence, le produit… des limites. Pour
+un quotient, il faut $\lim_{x \to a} g(x) \neq 0$ ; pour une racine
+$n$-ième, $n$ impair ou une limite positive. Enfin, **pour un polynôme,
+$\lim_{x \to a} P(x) = P(a)$**. Tout reste valide pour $x \to a^-$ ou
+$x \to a^+$.
+
+**Forme $c/0$ avec $c \neq 0$** : le quotient tend vers $\pm\infty$ ; il faut
+**toujours évaluer la limite à gauche et à droite**, selon les signes :
+
+| | $\frac{c}{0^+}$ | $\frac{c}{0^-}$ |
+| --- | --- | --- |
+| $c > 0$ | $\infty$ | $-\infty$ |
+| $c < 0$ | $-\infty$ | $\infty$ |
+
+**Limites à l'infini (théorème 1.44)** : $\lim_{x \to \pm\infty} k = k$ ;
+$\lim_{x \to \infty} x^n = \infty$ ; $\lim_{x \to -\infty} x^n$ vaut $\infty$
+si $n$ est pair et $-\infty$ si $n$ est impair ;
+$\lim_{x \to \pm\infty} \frac{1}{x^n} = 0$ ; $\lim_{x \to \infty} \sqrt[n]{x} = \infty$.
+
+**Calculer avec l'infini** : $\infty \pm k = \infty$ ; $\infty + \infty = \infty$ ;
+$\infty \times \infty = \infty$ ; $k \times \infty = \pm\infty$ selon le
+signe de $k$ ; $\frac{k}{\infty} = 0$. Mais $\infty - \infty$ et
+$\infty \times 0$ sont **indéterminées**.
+
+<Source file="1-rappels_calcul_differentiel.pdf" page={121} locator="Théorèmes 1.42 et 1.44, diapositives 121 à 129" />
+
+## 4. Formes indéterminées
+
+Si la substitution directe donne $\frac00$, $\frac{\infty}{\infty}$,
+$\infty - \infty$, $0 \times \infty$, $0^0$, $\infty^0$ ou $1^\infty$, on a
+une **forme indéterminée** : le résultat n'est pas encore connu. Le cours
+lève les trois premières par des manipulations algébriques :
+
+| Forme | Technique |
+| --- | --- |
+| $\frac00$ | **factoriser et simplifier** : si $r$ annule $P$, alors $P(x) = (x - r)Q(x)$ ; **mise au même dénominateur** ; **multiplication par le conjugué** ($a - b$ pour $a + b$) s'il y a des racines carrées |
+| $\frac{\infty}{\infty}$ | **mettre en évidence le terme dominant** au numérateur et au dénominateur ; le conjugué en présence de racines |
+| $\infty - \infty$ | **terme dominant**, ou **conjugué** en présence de racines |
+
+<Callout type="example" title="Exercice 1.45 — trois techniques pour 0/0 (réponses de la plateforme)">
+- **Factoriser.** $\displaystyle \lim_{x \to -3} \frac{x^2 + 3x}{x^2 - 9} = \lim_{x \to -3} \frac{x(x + 3)}{(x - 3)(x + 3)} = \lim_{x \to -3} \frac{x}{x - 3} = \frac{-3}{-6} = \frac12$.
+- **Conjugué.** $\displaystyle \lim_{x \to 5} \frac{3 - \sqrt{x + 4}}{5 - x} = \lim_{x \to 5} \frac{9 - (x + 4)}{(5 - x)\left(3 + \sqrt{x + 4}\right)} = \lim_{x \to 5} \frac{1}{3 + \sqrt{x + 4}} = \frac16$.
+- **Même dénominateur.** $\displaystyle \frac{\frac{x + 2}{6 - x} - \frac{5}{x}}{x - 3} = \frac{x^2 + 7x - 30}{x(6 - x)(x - 3)} = \frac{(x + 10)(x - 3)}{x(6 - x)(x - 3)} \xrightarrow[x \to 3]{} \frac{13}{9}$.
+</Callout>
+
+<Callout type="example" title="Exercice 1.46 — ∞/∞ et ∞ − ∞ (réponses de la plateforme)">
+- $\displaystyle \lim_{x \to \infty} \frac{3x^6 + 2x + 1}{5x^6 + 4x^2} = \lim_{x \to \infty} \frac{x^6\left(3 + \frac{2}{x^5} + \frac{1}{x^6}\right)}{x^6\left(5 + \frac{4}{x^4}\right)} = \frac35$.
+- $\displaystyle \lim_{x \to \infty} \left(\sqrt{x^2 + 3x} - x\right) = \lim_{x \to \infty} \frac{3x}{\sqrt{x^2 + 3x} + x} = \frac32$ (conjugué, puis terme dominant).
+</Callout>
+
+<Callout type="misconception" title="Sortir x d'une racine quand x → −∞">
+$\sqrt{x^2} = |x|$, et $|x| = -x$ lorsque $x < 0$. Ainsi
+$\displaystyle \lim_{x \to -\infty} \frac{3x + 4}{\sqrt{4x^2 - 3x + 1}} = \lim_{x \to -\infty} \frac{3x}{2|x|} = -\frac32$,
+et non $+\frac32$ (exercice 1.46 b, réponse de la plateforme).
+</Callout>
+
+Deux rappels utiles (diapositive 134) : pour évaluer $f(a + b)$, on remplace
+**chaque** $x$ par $a + b$, et en général $f(x + c) \neq f(x) + c$ et
+$f(a + b) \neq f(a) + f(b)$.
+
+<Source file="1-rappels_calcul_differentiel.pdf" page={131} locator="Formes indéterminées, exercices 1.45 et 1.46 (diapositives 131 à 139)" />
+
+## 5. Continuité
+
+$f$ est **continue en $x = a$** si et seulement si les trois conditions sont
+réunies :
+
+1. $f(a)$ est définie ($a \in \mathrm{Dom}_f$) ;
+2. $\lim_{x \to a} f(x)$ existe ;
+3. $\lim_{x \to a} f(x) = f(a)$.
+
+Elle est **discontinue** en $a$ si au moins une condition n'est pas satisfaite.
+
+- Un **polynôme** est continu partout ; **somme, différence et produit** de
+  fonctions continues en $a$ sont continus en $a$ ; un **quotient** l'est si
+  le dénominateur ne s'annule pas en $a$.
+- Une **fonction rationnelle** est continue partout sauf là où son
+  dénominateur s'annule.
+- La **composée** de deux fonctions continues est continue :
+  $\lim_{x \to a} f(g(x)) = f(g(a))$.
+- Sur un intervalle : continue sur $]a, b[$ si elle l'est en tout point ;
+  sur $[a, b]$ s'il faut en plus $\lim_{x \to a^+} f(x) = f(a)$ et
+  $\lim_{x \to b^-} f(x) = f(b)$ (une seule de ces deux conditions pour
+  $[a, b[$ ou $]a, b]$).
+
+<Callout type="example" title="Exercice 1.47 — trois discontinuités différentes (réponse de la plateforme)">
+$$
+f(x) = \begin{cases} x^2 + 1 & x \le 1 \\ -x - 1 & 1 < x < 2 \\ x^2 + x + 10 & 2 < x < 3 \\ 12 & x = 3 \\ 7x + 1 & x > 3 \end{cases}
+$$
+
+- En $x = 1$ : $f(1) = 2$, mais $\lim_{x \to 1^-} = 2$ et $\lim_{x \to 1^+} = -2$ : **la limite n'existe pas** (condition 2).
+- En $x = 2$ : $f(2)$ **n'est pas définie** (condition 1).
+- En $x = 3$ : les limites à gauche et à droite valent $22$, mais $f(3) = 12 \neq 22$ (condition 3).
+</Callout>
+
+<Source file="1-rappels_calcul_differentiel.pdf" page={141} locator="Continuité, exercice 1.47 (diapositives 141 à 148)" />

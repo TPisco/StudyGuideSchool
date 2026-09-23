@@ -1,0 +1,237 @@
+---
+course: MAT199
+number: 3
+title: Déterminants
+summary: >-
+  À chaque matrice carrée, un nombre : le déterminant. Sa définition par
+  développement suivant une ligne ou une colonne, les raccourcis (facteurs
+  communs, matrices triangulaires et par blocs), l'effet des opérations
+  élémentaires, les propriétés multiplicatives, et le critère
+  d'inversibilité det(A) ≠ 0.
+estimatedMinutes: 180
+prerequisites:
+  - "Chapitre 2 — opérations élémentaires, matrices triangulaires, décomposition LU, inverse"
+objectives:
+  - id: obj3-developpement
+    text: Calculer un déterminant par développement suivant la ligne ou la colonne la plus avantageuse.
+    bloom: apply
+  - id: obj3-raccourcis
+    text: Utiliser les facteurs communs, les matrices triangulaires et par blocs pour éviter les calculs.
+    bloom: apply
+  - id: obj3-operations
+    text: Prévoir l'effet de chaque opération élémentaire sur le déterminant et s'en servir pour créer des zéros.
+    bloom: analyze
+  - id: obj3-proprietes
+    text: Appliquer det(Aᵀ) = det(A), det(AB) = det(A)det(B) et det(Aʳ) = det(A)ʳ.
+    bloom: apply
+  - id: obj3-inversibilite
+    text: Déterminer, selon un paramètre, quand une matrice est inversible grâce à son déterminant.
+    bloom: apply
+sources:
+  - file: "2026-03-MAT199-ChapII.pdf"
+    page: 1
+    locator: "Chapitre II — Déterminants (p. 1 à 13)"
+  - file: "2026-03_MAT199_ex.pdf"
+    page: 6
+    locator: "Banque d'exercices, chapitre II"
+---
+
+Les notes présentent le déterminant comme l'outil qui dira si une matrice
+carrée est inversible, qui servira à calculer les valeurs propres, et qui, en
+géométrie, mesure l'aire d'un parallélogramme et le volume d'un
+parallélépipède. **Les solutions des exercices ci-dessous sont calculées et
+vérifiées par la plateforme.**
+
+## 1. La définition par développement
+
+### 1.1 Mineurs et développement
+
+Soit $A = (a_{ij})_{n \times n}$. On note $M_{ij}$ la sous-matrice d'ordre
+$n - 1$ obtenue en **supprimant la ligne $i$ et la colonne $j$**, et
+$m_{ij} = \det(M_{ij})$ le **mineur** d'indices $i, j$. Le déterminant, noté
+$\det(A)$ ou $|A|$, se définit par récurrence : $\det(a_{11}) = a_{11}$, puis
+
+$$
+\det(A) = a_{i1}(-1)^{i+1}m_{i1} + a_{i2}(-1)^{i+2}m_{i2} + \cdots + a_{in}(-1)^{i+n}m_{in}
+$$
+
+(**développement suivant la $i$-ième ligne**), ou de même suivant une colonne.
+Tous ces développements donnent **le même nombre**.
+
+Pour l'ordre 2 :
+$\begin{vmatrix} a_{11} & a_{12} \\ a_{21} & a_{22} \end{vmatrix} = a_{11}a_{22} - a_{12}a_{21}$.
+
+<Callout type="tip" title="Le damier des signes">
+Le signe $(-1)^{i+j}$ alterne comme un damier qui commence par $+$ en haut à
+gauche :
+$\begin{pmatrix} + & - & + \\ - & + & - \\ + & - & + \end{pmatrix}$.
+On développe suivant **la ligne ou la colonne qui a le plus de zéros** : chaque
+zéro supprime un mineur entier.
+</Callout>
+
+<Callout type="example" title="Exercice des notes, p. 2">
+$\begin{vmatrix} 2 & \sqrt2 \\ -3 & 2+\sqrt2 \end{vmatrix} = 2(2+\sqrt2) - \sqrt2 \cdot (-3) = 4 + 2\sqrt2 + 3\sqrt2 = 4 + 5\sqrt2.$
+
+Pour $\begin{vmatrix} 2 & 3 & -4 \\ -1 & 0 & 3 \\ 3 & 2 & -1 \end{vmatrix}$, on développe suivant la ligne 2, qui contient un 0 :
+
+$$
+= (-1)(-1)^{2+1}\begin{vmatrix} 3 & -4 \\ 2 & -1 \end{vmatrix} + 0 + 3(-1)^{2+3}\begin{vmatrix} 2 & 3 \\ 3 & 2 \end{vmatrix}
+= (+1)(5) + (-3)(-5) = 20 .
+$$
+</Callout>
+
+<Callout type="misconception" title="Erreur classique">
+Oublier le signe $(-1)^{i+j}$ — ou le mettre sur le terme $a_{ij}$ au lieu du
+mineur, ce qui revient au même — mais surtout **l'appliquer deux fois** quand
+$a_{ij}$ est déjà négatif. Dans l'exemple, $a_{21} = -1$ et $(-1)^{2+1} = -1$ :
+leur produit vaut $+1$.
+</Callout>
+
+<Source file="2026-03-MAT199-ChapII.pdf" page={1} locator="Définition 2.1, proposition 2.2, exercice p. 2" />
+
+## 2. Les raccourcis
+
+### 2.1 Mettre un facteur en évidence
+
+**Proposition 2.3.** Si **une** colonne (ou **une** ligne) de $A$ s'écrit
+$aC'$, alors $\det(A) = a \cdot \det(\dots, C', \dots)$. En particulier, **une
+ligne ou une colonne nulle donne $\det(A) = 0$**.
+
+$$
+2\begin{vmatrix} 1 & 2 \\ 5 & 7 \end{vmatrix} = \begin{vmatrix} 2 & 4 \\ 5 & 7 \end{vmatrix} = \begin{vmatrix} 1 & 4 \\ 5 & 14 \end{vmatrix} = -6,
+\qquad\text{mais}\qquad
+2\begin{vmatrix} 1 & 2 \\ 5 & 7 \end{vmatrix} \neq \begin{vmatrix} 2 & 4 \\ 10 & 14 \end{vmatrix} = -12 .
+$$
+
+<Callout type="misconception" title="Le facteur sort d'UNE ligne, pas de toute la matrice">
+Multiplier **toute** la matrice d'ordre $n$ par $a$ multiplie chacune de ses
+$n$ lignes par $a$ : le déterminant est multiplié par $a^n$, pas par $a$.
+C'est ce que montre le « $\neq$ » de l'exemple : comme
+$\begin{vmatrix} 1 & 2 \\ 5 & 7 \end{vmatrix} = -3$, sortir 2 d'une seule ligne
+donne $2 \times (-3) = -6$, alors que doubler les deux lignes donne
+$2^2 \times (-3) = -12$.
+</Callout>
+
+Exercice des notes (p. 4) : on sort $\frac{1}{\sqrt2}$ de la colonne 1,
+$\frac{1}{\sqrt3}$ de la colonne 2 et $\frac{1}{\sqrt5}$ de la colonne 3 :
+
+$$
+\begin{vmatrix} \frac{1}{\sqrt2} & \frac{2}{\sqrt3} & 0 \\ \frac{1}{\sqrt2} & \frac{1}{\sqrt3} & \frac{1}{\sqrt5} \\ \frac{1}{\sqrt2} & \frac{-1}{\sqrt3} & \frac{-1}{\sqrt5} \end{vmatrix}
+= \frac{1}{\sqrt{30}}\begin{vmatrix} 1 & 2 & 0 \\ 1 & 1 & 1 \\ 1 & -1 & -1 \end{vmatrix}
+= \frac{4}{\sqrt{30}} = \frac{2\sqrt{30}}{15}.
+$$
+
+### 2.2 Matrices par blocs et triangulaires
+
+**Proposition 2.4.** Pour des blocs carrés $A$ et $B$ :
+
+$$
+\det\begin{pmatrix} A & C \\ 0 & B \end{pmatrix} = \det(A)\det(B) = \det\begin{pmatrix} A & 0 \\ D & B \end{pmatrix}.
+$$
+
+**Proposition 2.5.** Le déterminant d'une **matrice triangulaire** est le
+**produit de ses termes diagonaux**. En particulier $\det(I_n) = 1$.
+
+<Callout type="example" title="Exercices des notes, p. 5 et 6">
+$$
+\begin{vmatrix} 3 & \sqrt5 & 4 & \sqrt2 & a \\ \sqrt5 & 2 & \sqrt3 & a & b \\ 0 & 0 & 7 & 2 & 5 \\ 0 & 0 & \sqrt5 & \sqrt3 & 0 \\ 0 & 0 & \sqrt3 & \sqrt5 & 0 \end{vmatrix}
+= \underbrace{\begin{vmatrix} 3 & \sqrt5 \\ \sqrt5 & 2 \end{vmatrix}}_{6 - 5 = 1}
+\cdot \underbrace{\begin{vmatrix} 7 & 2 & 5 \\ \sqrt5 & \sqrt3 & 0 \\ \sqrt3 & \sqrt5 & 0 \end{vmatrix}}_{5\,(5 - 3) = 10} = 10 .
+$$
+
+Les termes $a$ et $b$ sont dans le bloc $C$ : ils **n'interviennent pas**. Le
+second déterminant de la p. 5, de la forme $\begin{pmatrix} A & 0 \\ D & B \end{pmatrix}$,
+vaut $(8 - 3)(7 - 11) = -20$.
+
+Et p. 6 : $\begin{vmatrix} \sqrt3 & 0 & 34 & 95 \\ 0 & \sqrt5 & 0 & 5 \\ 0 & 0 & -3 & 2 \\ 0 & 0 & 0 & -1 \end{vmatrix} = \sqrt3 \cdot \sqrt5 \cdot (-3) \cdot (-1) = 3\sqrt{15}$.
+</Callout>
+
+<Source file="2026-03-MAT199-ChapII.pdf" page={3} locator="Propositions 2.3, 2.4 et 2.5, exercices p. 4 à 6" />
+
+## 3. Les opérations élémentaires
+
+**Théorème 2.6.** Si $B$ est obtenue à partir de $A$ :
+
+| Opération (sur les lignes **ou** les colonnes) | Effet |
+| --- | --- |
+| échanger deux lignes | $\det(A) = -\det(B)$ |
+| ajouter à une ligne un multiple d'une autre | $\det(A) = \det(B)$ |
+| multiplier une ligne par $a \neq 0$ | $\det(A) = a^{-1}\det(B)$ |
+
+C'est la méthode efficace pour les grandes matrices : **créer des zéros avec
+des opérations de type 2**, qui ne changent rien, puis développer.
+
+<Callout type="example" title="Exercice des notes, p. 7 — un déterminant 4 × 4">
+$$
+A = \begin{pmatrix} 2 & 1 & 0 & -1 \\ -1 & 2 & -1 & 3 \\ 3 & -1 & -4 & 1 \\ 0 & 5 & -1 & 3 \end{pmatrix}
+$$
+
+$L_1 \leftrightarrow L_2$ change le signe ; puis $L_2 + 2L_1$ et $L_3 + 3L_1$ ne
+changent rien :
+
+$$
+\det(A) = -\begin{vmatrix} -1 & 2 & -1 & 3 \\ 0 & 5 & -2 & 5 \\ 0 & 5 & -7 & 10 \\ 0 & 5 & -1 & 3 \end{vmatrix}
+= -(-1)\begin{vmatrix} 5 & -2 & 5 \\ 5 & -7 & 10 \\ 5 & -1 & 3 \end{vmatrix}.
+$$
+
+On sort 5 de la première colonne, puis $L_2 - L_1$, $L_3 - L_1$ :
+
+$$
+= 5\begin{vmatrix} 1 & -2 & 5 \\ 0 & -5 & 5 \\ 0 & 1 & -2 \end{vmatrix} = 5\,\big((-5)(-2) - 5 \cdot 1\big) = 5 \times 5 = 25 .
+$$
+</Callout>
+
+<Callout type="warning" title="Attention au type 3">
+Si l'on **multiplie** une ligne par $a$ pour faciliter le calcul, le
+déterminant de la nouvelle matrice est $a$ fois plus grand : il faut
+**diviser** par $a$ à la fin. C'est le sens de $\det(A) = a^{-1}\det(B)$.
+</Callout>
+
+<Source file="2026-03-MAT199-ChapII.pdf" page={6} locator="Théorème 2.6, exercice p. 7" />
+
+## 4. Propriétés et inversibilité
+
+**Théorème 2.7.** Pour $A, B \in M_n(\mathbb{R})$ :
+$\det(A^T) = \det(A)$ ; $\det(AB) = \det(A)\det(B)$ ;
+$\det(A^r) = (\det A)^r$ pour tout $r \geq 1$.
+
+Avec la proposition 2.5, cela donne une méthode : si $A = LU$, alors
+$\det(A) = \det(L)\det(U)$, **produit des termes diagonaux** de $L$ et de $U$.
+Pour $A = \begin{pmatrix} 2 & 4 & 6 \\ 3 & 5 & 7 \\ 1 & 2 & 3 \end{pmatrix}$ (exercice
+p. 9), la décomposition du chapitre 2 donne
+$\det(L) = 1$ et $\det(U) = 2 \cdot (-1) \cdot 0 = 0$, donc $\det(A) = 0$.
+
+**Théorème 2.8.** Une matrice carrée $A$ est **inversible si, et seulement
+si, $\det(A) \neq 0$**. Dans ce cas, $\det(A^r) = (\det A)^r$ pour tout
+$r \in \mathbb{Z}$ — en particulier $\det(A^{-1}) = \dfrac{1}{\det A}$.
+
+<Callout type="example" title="Exercices des notes, p. 10 et 11">
+**Pour quels $a$** $A = \begin{pmatrix} 1 & 2 & 3 \\ 1 & 5-a & 1 \\ 2 & 5 & a+3 \end{pmatrix}$
+est-elle inversible ? $L_2 - L_1$ et $L_3 - 2L_1$ :
+
+$$
+\det(A) = \begin{vmatrix} 1 & 2 & 3 \\ 0 & 3-a & -2 \\ 0 & 1 & a-3 \end{vmatrix}
+= (3-a)(a-3) + 2 = -(a-3)^2 + 2 .
+$$
+
+$\det(A) = 0 \iff (a - 3)^2 = 2 \iff a = 3 \pm \sqrt2$. $A$ est inversible
+si, et seulement si, $a \neq 3 + \sqrt2$ et $a \neq 3 - \sqrt2$.
+
+**Puissance négative** : pour la matrice $4 \times 4$ de la p. 7,
+$\det(A) = 25 \neq 0$, donc $A$ est inversible et
+$\det(A^{-3}) = 25^{-3} = \dfrac{1}{15\,625}$ — sans jamais calculer $A^{-1}$.
+</Callout>
+
+**Corollaire 2.9.** S'il existe $B$ avec $AB = I_n$ **ou** $BA = I_n$, alors
+$A$ est inversible et $A^{-1} = B$. Un seul des deux produits suffit : par
+exemple $\begin{pmatrix} 1 & a \\ 0 & 1 \end{pmatrix}\begin{pmatrix} 1 & -a \\ 0 & 1 \end{pmatrix} = I_2$
+donne directement $\begin{pmatrix} 1 & a \\ 0 & 1 \end{pmatrix}^{-1} = \begin{pmatrix} 1 & -a \\ 0 & 1 \end{pmatrix}$.
+
+<Callout type="tip" title="Exercice 2.10 n° 7 — l'astuce de l'indice">
+Pour $A = \begin{pmatrix} a & 1 & -1 & 1 \\ -1 & a & -1 & -1 \\ 1 & 1 & a & -1 \\ -1 & 1 & 1 & a \end{pmatrix}$,
+on calcule $AA^T = (a^2 + 3)\,I_4$. Donc
+$\det(A)^2 = \det(A)\det(A^T) = \det(AA^T) = (a^2 + 3)^4 > 0$ : $A$ est
+inversible **pour tout $a$**, et $\det(A^{-2}) = \dfrac{1}{(a^2+3)^4}$.
+</Callout>
+
+<Source file="2026-03-MAT199-ChapII.pdf" page={9} locator="Théorèmes 2.7 et 2.8, corollaire 2.9, exercices p. 9 à 13" />

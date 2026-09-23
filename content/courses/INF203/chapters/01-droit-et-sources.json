@@ -1,0 +1,1935 @@
+{
+  "course": "INF203",
+  "chapter": 1,
+  "concepts": [
+    {
+      "id": "c1-deux-parties",
+      "term": "Deux parties du cours",
+      "definition": "Le cours comporte une partie droit et une partie éthique, distinctes mais liées entre elles pour combler les manques et lacunes de l'une et de l'autre.",
+      "whyItMatters": "Un enjeu peut être légal, éthique, ou passer de l'un à l'autre (TP4 : réécrire l'enjeu légal en enjeu éthique).",
+      "commonMisconception": "Croire que ce qui est légal est forcément éthique, ou l'inverse : « la morale commence là où s'arrête le droit ».",
+      "objectiveId": "obj1-demarche",
+      "source": {
+        "file": "2026-3 S01-02-Accueil et sources.pdf",
+        "page": 47,
+        "locator": "Diapositives 2 et 47"
+      }
+    },
+    {
+      "id": "c1-regle-60",
+      "term": "Règle des 60 %",
+      "definition": "Il faut une moyenne de 60 % sur l'ensemble des évaluations individuelles pour réussir le cours, quelle que soit la note globale.",
+      "whyItMatters": "Une bonne note d'équipe ne compense pas des examens faibles.",
+      "commonMisconception": "Penser qu'une note globale de 70 % garantit la réussite.",
+      "objectiveId": "obj1-cours",
+      "source": {
+        "file": "2026-3 S01-02-Accueil et sources.pdf",
+        "page": 22,
+        "locator": "Diapositive 22"
+      }
+    },
+    {
+      "id": "c1-travail-devoir",
+      "term": "Travail ou devoir",
+      "definition": "Un travail (ou une présentation) est une évaluation notée ; un devoir est un livrable ou une activité non notée, comme la charte d'équipe.",
+      "whyItMatters": "Les devoirs guident les travaux et donnent de la rétroaction : pas de devoir, pas de rétroaction.",
+      "commonMisconception": "Négliger les devoirs parce qu'ils ne sont pas notés : cela peut influencer la correction des travaux.",
+      "objectiveId": "obj1-cours",
+      "source": {
+        "file": "2026-3 S01-02-Accueil et sources.pdf",
+        "page": 20,
+        "locator": "Diapositive 20"
+      }
+    },
+    {
+      "id": "c1-charte",
+      "term": "Charte d'équipe",
+      "definition": "Entente signée par tous les membres, qui fixe au minimum l'information de l'équipe, la prise de décision et la gestion des conflits, les communications et rencontres, et les retards, absences et non-respect des engagements.",
+      "whyItMatters": "C'est elle qui sert à résoudre les conflits ; sans charte, la personne enseignante peut difficilement intervenir.",
+      "commonMisconception": "Croire qu'une conséquence peut être appliquée si elle n'est pas écrite dans la charte.",
+      "objectiveId": "obj1-cours",
+      "source": {
+        "file": "2026-3 S01-02-Accueil et sources.pdf",
+        "page": 60,
+        "locator": "Diapositives 53 à 76"
+      }
+    },
+    {
+      "id": "c1-types",
+      "term": "Types de responsabilité",
+      "definition": "Civiles extracontractuelles, civiles contractuelles, criminelles et pénales (Code criminel, propriété intellectuelle, protection des renseignements personnels), sociales et professionnelles (ACM).",
+      "whyItMatters": "Une même situation informatique peut engager plusieurs types de responsabilité.",
+      "commonMisconception": "Ranger la propriété intellectuelle dans la responsabilité civile contractuelle : les diapositives la placent sous criminelles et pénales.",
+      "objectiveId": "obj1-responsabilites",
+      "source": {
+        "file": "2026-3 S01-02-Accueil et sources.pdf",
+        "page": 33,
+        "locator": "Diapositive 33"
+      }
+    },
+    {
+      "id": "c1-trois-pouvoirs",
+      "term": "Les trois pouvoirs",
+      "definition": "Le législatif vote les lois, l'exécutif les met en application, le judiciaire sanctionne leur non-respect.",
+      "whyItMatters": "Savoir quel pouvoir agit permet de savoir d'où vient une règle et qui la fait respecter.",
+      "commonMisconception": "Confondre l'exécutif, qui applique les lois, avec le judiciaire, qui sanctionne leur non-respect.",
+      "objectiveId": "obj1-pouvoirs",
+      "source": {
+        "file": "2026-3 S01-02-Accueil et sources.pdf",
+        "page": 35,
+        "locator": "Diapositive 35"
+      }
+    },
+    {
+      "id": "c1-competences",
+      "term": "Partage des compétences",
+      "definition": "Le fédéral traite les questions d'intérêt national (paix, ordre et bon gouvernement) et détient le pouvoir résiduel ; les provinces, les questions d'intérêt régional et social ; certaines compétences sont partagées.",
+      "whyItMatters": "Il détermine quelle loi, fédérale ou québécoise, encadre un enjeu informatique.",
+      "commonMisconception": "Croire que les télécommunications ou la propriété intellectuelle relèvent du Québec : elles sont fédérales.",
+      "objectiveId": "obj1-pouvoirs",
+      "source": {
+        "file": "2026-3 S01-02-Accueil et sources.pdf",
+        "page": 39,
+        "locator": "Diapositives 36 à 39"
+      }
+    },
+    {
+      "id": "c1-hierarchie",
+      "term": "Hiérarchie des normes",
+      "definition": "Du plus fort au plus faible : Constitution, lois et règlements, actes juridiques, jurisprudence, coutume, doctrine.",
+      "whyItMatters": "En cas de conflit, la norme de rang supérieur l'emporte.",
+      "commonMisconception": "Placer la jurisprudence au-dessus des lois, ou la doctrine au-dessus de la coutume.",
+      "objectiveId": "obj1-hierarchie",
+      "source": {
+        "file": "2026-3 S01-02-Accueil et sources.pdf",
+        "page": 41,
+        "locator": "Diapositive 41"
+      }
+    },
+    {
+      "id": "c1-test-ethique",
+      "term": "Test de la décision éthique",
+      "definition": "Trois questions : transparence (le défendre publiquement), exemplarité (servir d'exemple dans toute situation similaire), réciprocité (l'accepter si j'en subissais les conséquences).",
+      "whyItMatters": "Il vérifie une décision éthique à la fin de l'analyse, quel que soit le modèle choisi.",
+      "commonMisconception": "Confondre exemplarité (généraliser le choix) et réciprocité (se mettre à la place de la personne touchée).",
+      "objectiveId": "obj1-demarche",
+      "source": {
+        "file": "23.33 2026-3 S03 ResponsabilitéCivile.pdf",
+        "page": 3,
+        "locator": "Séance 03, diapositive 3"
+      }
+    }
+  ],
+  "tables": [
+    {
+      "id": "t1-evaluations",
+      "title": "Les évaluations du cours",
+      "kind": "reference",
+      "columns": [
+        {
+          "key": "eval",
+          "label": "Évaluation"
+        },
+        {
+          "key": "poids",
+          "label": "Poids"
+        },
+        {
+          "key": "type",
+          "label": "Type"
+        }
+      ],
+      "rows": [
+        {
+          "eval": "Examen de mi-session",
+          "poids": "20 %",
+          "type": "individuelle"
+        },
+        {
+          "eval": "Examen final",
+          "poids": "20 %",
+          "type": "individuelle"
+        },
+        {
+          "eval": "Activités de révision",
+          "poids": "10 %",
+          "type": "presque toutes les séances"
+        },
+        {
+          "eval": "Travaux pratiques en équipe",
+          "poids": "35 %",
+          "type": "équipe"
+        },
+        {
+          "eval": "Travail pratique individuel",
+          "poids": "5 %",
+          "type": "individuelle"
+        },
+        {
+          "eval": "Auto-évaluation par l'équipe",
+          "poids": "10 %",
+          "type": "équipe"
+        }
+      ],
+      "source": {
+        "file": "2026-3 S01-02-Accueil et sources.pdf",
+        "page": 21,
+        "locator": "Diapositive 21"
+      },
+      "caption": "Il faut en plus 60 % de moyenne sur les évaluations individuelles (diapositive 22)."
+    },
+    {
+      "id": "t1-hierarchie",
+      "title": "Le cadre juridique, du plus fort au plus faible",
+      "kind": "cheatsheet",
+      "columns": [
+        {
+          "key": "rang",
+          "label": "Rang"
+        },
+        {
+          "key": "source",
+          "label": "Source"
+        },
+        {
+          "key": "def",
+          "label": "Définition"
+        }
+      ],
+      "rows": [
+        {
+          "rang": "1",
+          "source": "Constitution",
+          "def": "Lois constitutionnelles de 1867 et de 1982"
+        },
+        {
+          "rang": "2",
+          "source": "Lois et règlements",
+          "def": "règles votées par le législateur ou une administration publique"
+        },
+        {
+          "rang": "3",
+          "source": "Actes juridiques",
+          "def": "volonté des parties d'avoir un effet juridique (contrats, testaments…)"
+        },
+        {
+          "rang": "4",
+          "source": "Jurisprudence",
+          "def": "décisions des cours et tribunaux"
+        },
+        {
+          "rang": "5",
+          "source": "Coutume",
+          "def": "usages communs reconnus comme source de droit"
+        },
+        {
+          "rang": "6",
+          "source": "Doctrine",
+          "def": "travaux et ouvrages de juristes"
+        }
+      ],
+      "source": {
+        "file": "2026-3 S01-02-Accueil et sources.pdf",
+        "page": 41,
+        "locator": "Diapositive 41"
+      }
+    }
+  ],
+  "quiz": {
+    "title": "Quiz — vérification rapide",
+    "estimatedMinutes": 12,
+    "questions": [
+      {
+        "id": "q1-01",
+        "objectiveId": "obj1-cours",
+        "bloomLevel": "recall",
+        "type": "mcq",
+        "difficulty": 1,
+        "prompt": "Quelle condition, en plus de la note globale, faut-il remplir pour réussir le cours ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "60 % de moyenne sur les évaluations individuelles"
+          },
+          {
+            "id": "b",
+            "text": "60 % à chaque travail d'équipe"
+          },
+          {
+            "id": "c",
+            "text": "Être présent à toutes les séances"
+          },
+          {
+            "id": "d",
+            "text": "Remettre la charte d'équipe"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Diapositive 22.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "La règle porte sur les évaluations individuelles."
+          },
+          {
+            "optionId": "c",
+            "why": "La présence n'est pas techniquement obligatoire."
+          },
+          {
+            "optionId": "d",
+            "why": "La charte n'est pas notée."
+          }
+        ],
+        "source": {
+          "file": "2026-3 S01-02-Accueil et sources.pdf",
+          "page": 22,
+          "locator": "Diapositive 22"
+        }
+      },
+      {
+        "id": "q1-02",
+        "objectiveId": "obj1-cours",
+        "bloomLevel": "understand",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Une personne obtient 70 % au total mais 10/20 à la mi-session et 15/30 au final (exemple de la diapositive 22). Que se passe-t-il ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Elle échoue : sa moyenne individuelle est de 50 %"
+          },
+          {
+            "id": "b",
+            "text": "Elle réussit avec 70 %"
+          },
+          {
+            "id": "c",
+            "text": "Elle réussit, car 15/30 dépasse la moitié"
+          },
+          {
+            "id": "d",
+            "text": "Elle doit refaire seulement l'examen final"
+          }
+        ],
+        "correct": "a",
+        "explanation": "$\\frac{10 + 15}{20 + 30} = 50\\,\\% < 60\\,\\%$. (La diapositive compte le final sur 30, alors que la diapositive 21 lui donne 20 % : voir l'avertissement du chapitre.)",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "La note globale ne suffit pas."
+          },
+          {
+            "optionId": "c",
+            "why": "15/30 vaut exactement 50 %, et la moyenne individuelle est de 50 %."
+          },
+          {
+            "optionId": "d",
+            "why": "Les diapositives ne prévoient pas de reprise."
+          }
+        ],
+        "source": {
+          "file": "2026-3 S01-02-Accueil et sources.pdf",
+          "page": 22,
+          "locator": "Diapositive 22"
+        }
+      },
+      {
+        "id": "q1-03",
+        "objectiveId": "obj1-cours",
+        "bloomLevel": "recall",
+        "type": "mcq",
+        "difficulty": 1,
+        "prompt": "Qu'est-ce qui distingue un devoir d'un travail ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Le devoir n'est pas noté, le travail l'est"
+          },
+          {
+            "id": "b",
+            "text": "Le devoir est individuel, le travail en équipe"
+          },
+          {
+            "id": "c",
+            "text": "Le devoir est plus long"
+          },
+          {
+            "id": "d",
+            "text": "Il n'y a aucune différence"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Diapositive 20.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "La charte d'équipe est un devoir fait en équipe."
+          },
+          {
+            "optionId": "c",
+            "why": "La longueur n'est pas le critère."
+          },
+          {
+            "optionId": "d",
+            "why": "Diapositive 20 : l'un est noté, l'autre non."
+          }
+        ],
+        "source": {
+          "file": "2026-3 S01-02-Accueil et sources.pdf",
+          "page": 20,
+          "locator": "Diapositive 20"
+        }
+      },
+      {
+        "id": "q1-04",
+        "objectiveId": "obj1-responsabilites",
+        "bloomLevel": "understand",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Sous quel type de responsabilité les diapositives rangent-elles la propriété intellectuelle ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Criminelles et pénales"
+          },
+          {
+            "id": "b",
+            "text": "Civiles contractuelles"
+          },
+          {
+            "id": "c",
+            "text": "Sociales"
+          },
+          {
+            "id": "d",
+            "text": "Professionnelles (ACM)"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Diapositive 33.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Elle figure sous criminelles et pénales, avec le Code criminel."
+          },
+          {
+            "optionId": "c",
+            "why": "La responsabilité sociale est un type distinct."
+          },
+          {
+            "optionId": "d",
+            "why": "L'ACM est associée à la responsabilité professionnelle."
+          }
+        ],
+        "source": {
+          "file": "2026-3 S01-02-Accueil et sources.pdf",
+          "page": 33,
+          "locator": "Diapositive 33"
+        }
+      },
+      {
+        "id": "q1-05",
+        "objectiveId": "obj1-pouvoirs",
+        "bloomLevel": "recall",
+        "type": "mcq",
+        "difficulty": 1,
+        "prompt": "Quel pouvoir sanctionne le non-respect des lois ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Le judiciaire"
+          },
+          {
+            "id": "b",
+            "text": "Le législatif"
+          },
+          {
+            "id": "c",
+            "text": "L'exécutif"
+          },
+          {
+            "id": "d",
+            "text": "Le pouvoir résiduel"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Diapositive 35.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Il vote les lois."
+          },
+          {
+            "optionId": "c",
+            "why": "Il met en application les lois."
+          },
+          {
+            "optionId": "d",
+            "why": "C'est une compétence fédérale, pas un des trois pouvoirs."
+          }
+        ],
+        "source": {
+          "file": "2026-3 S01-02-Accueil et sources.pdf",
+          "page": 35,
+          "locator": "Diapositive 35"
+        }
+      },
+      {
+        "id": "q1-06",
+        "objectiveId": "obj1-pouvoirs",
+        "bloomLevel": "apply",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Les télécommunications relèvent de quel ordre de gouvernement ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Fédéral"
+          },
+          {
+            "id": "b",
+            "text": "Provincial"
+          },
+          {
+            "id": "c",
+            "text": "Partagé"
+          },
+          {
+            "id": "d",
+            "text": "Municipal"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Diapositive 39.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Elles figurent dans la colonne fédérale."
+          },
+          {
+            "optionId": "c",
+            "why": "Les compétences partagées citées sont l'agriculture, l'immigration et les retraites."
+          },
+          {
+            "optionId": "d",
+            "why": "Les affaires municipales sont une compétence provinciale."
+          }
+        ],
+        "source": {
+          "file": "2026-3 S01-02-Accueil et sources.pdf",
+          "page": 39,
+          "locator": "Diapositive 39"
+        }
+      },
+      {
+        "id": "q1-07",
+        "objectiveId": "obj1-pouvoirs",
+        "bloomLevel": "apply",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Lequel de ces domaines est une compétence partagée ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "L'immigration"
+          },
+          {
+            "id": "b",
+            "text": "L'éducation"
+          },
+          {
+            "id": "c",
+            "text": "La propriété intellectuelle"
+          },
+          {
+            "id": "d",
+            "text": "La santé"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Diapositive 39 : agriculture, immigration, retraites.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Compétence provinciale."
+          },
+          {
+            "optionId": "c",
+            "why": "Compétence fédérale."
+          },
+          {
+            "optionId": "d",
+            "why": "Compétence provinciale."
+          }
+        ],
+        "source": {
+          "file": "2026-3 S01-02-Accueil et sources.pdf",
+          "page": 39,
+          "locator": "Diapositive 39"
+        }
+      },
+      {
+        "id": "q1-08",
+        "objectiveId": "obj1-hierarchie",
+        "bloomLevel": "recall",
+        "type": "mcq",
+        "difficulty": 1,
+        "prompt": "Quelle source est au sommet de la hiérarchie des normes ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "La Constitution"
+          },
+          {
+            "id": "b",
+            "text": "Les lois et règlements"
+          },
+          {
+            "id": "c",
+            "text": "La jurisprudence"
+          },
+          {
+            "id": "d",
+            "text": "La doctrine"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Diapositive 41.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Ils viennent juste après."
+          },
+          {
+            "optionId": "c",
+            "why": "Elle est au 4ᵉ rang."
+          },
+          {
+            "optionId": "d",
+            "why": "Elle est au dernier rang."
+          }
+        ],
+        "source": {
+          "file": "2026-3 S01-02-Accueil et sources.pdf",
+          "page": 41,
+          "locator": "Diapositive 41"
+        }
+      },
+      {
+        "id": "q1-09",
+        "objectiveId": "obj1-hierarchie",
+        "bloomLevel": "understand",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Un contrat entre deux entreprises appartient à quelle source du cadre juridique ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Les actes juridiques"
+          },
+          {
+            "id": "b",
+            "text": "Les lois et règlements"
+          },
+          {
+            "id": "c",
+            "text": "La coutume"
+          },
+          {
+            "id": "d",
+            "text": "La jurisprudence"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Diapositive 41 : manifestation de la volonté des parties à avoir un effet juridique (contrats, actes, testaments).",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Un contrat n'est pas voté par le législateur."
+          },
+          {
+            "optionId": "c",
+            "why": "La coutume est un usage commun, pas une entente écrite."
+          },
+          {
+            "optionId": "d",
+            "why": "La jurisprudence rassemble les décisions des tribunaux."
+          }
+        ],
+        "source": {
+          "file": "2026-3 S01-02-Accueil et sources.pdf",
+          "page": 41,
+          "locator": "Diapositive 41"
+        }
+      },
+      {
+        "id": "q1-10",
+        "objectiveId": "obj1-hierarchie",
+        "bloomLevel": "apply",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Dans quel ordre, du plus fort au plus faible, se placent jurisprudence, doctrine et coutume ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Jurisprudence, coutume, doctrine"
+          },
+          {
+            "id": "b",
+            "text": "Doctrine, jurisprudence, coutume"
+          },
+          {
+            "id": "c",
+            "text": "Coutume, jurisprudence, doctrine"
+          },
+          {
+            "id": "d",
+            "text": "Jurisprudence, doctrine, coutume"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Diapositive 41.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "La doctrine est la plus faible."
+          },
+          {
+            "optionId": "c",
+            "why": "La jurisprudence précède la coutume."
+          },
+          {
+            "optionId": "d",
+            "why": "La coutume précède la doctrine."
+          }
+        ],
+        "source": {
+          "file": "2026-3 S01-02-Accueil et sources.pdf",
+          "page": 41,
+          "locator": "Diapositive 41"
+        }
+      },
+      {
+        "id": "q1-11",
+        "objectiveId": "obj1-demarche",
+        "bloomLevel": "analyze",
+        "type": "mcq",
+        "difficulty": 3,
+        "prompt": "Une décision « me conviendrait-elle si c'était moi qui en subissais les conséquences ? » : quel critère du test de la décision éthique est appliqué ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "La réciprocité"
+          },
+          {
+            "id": "b",
+            "text": "La transparence"
+          },
+          {
+            "id": "c",
+            "text": "L'exemplarité"
+          },
+          {
+            "id": "d",
+            "text": "La légalité"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Séance 03, diapositive 3.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "La transparence porte sur la défense publique du choix."
+          },
+          {
+            "optionId": "c",
+            "why": "L'exemplarité porte sur la généralisation du choix à d'autres situations."
+          },
+          {
+            "optionId": "d",
+            "why": "La légalité est vérifiée dans la branche légale, pas dans ce test."
+          }
+        ],
+        "source": {
+          "file": "23.33 2026-3 S03 ResponsabilitéCivile.pdf",
+          "page": 3,
+          "locator": "Séance 03, diapositive 3"
+        }
+      },
+      {
+        "id": "q1-12",
+        "objectiveId": "obj1-demarche",
+        "bloomLevel": "analyze",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Dans la démarche du cours, que fait-on juste après avoir reformulé l'enjeu et identifié les parties prenantes ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "On détermine s'il s'agit d'un enjeu légal ou éthique"
+          },
+          {
+            "id": "b",
+            "text": "On applique le test de la décision éthique"
+          },
+          {
+            "id": "c",
+            "text": "On choisit un modèle éthique"
+          },
+          {
+            "id": "d",
+            "text": "On recherche des sources et des articles"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Séance 03, diapositive 3.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Ce test vient à la fin de la branche éthique."
+          },
+          {
+            "optionId": "c",
+            "why": "Seulement si l'enjeu est éthique."
+          },
+          {
+            "optionId": "d",
+            "why": "Seulement si l'enjeu est légal."
+          }
+        ],
+        "source": {
+          "file": "23.33 2026-3 S03 ResponsabilitéCivile.pdf",
+          "page": 3,
+          "locator": "Séance 03, diapositive 3"
+        }
+      }
+    ]
+  },
+  "test": {
+    "title": "Test du chapitre 1",
+    "instructions": "21 questions couvrant tout le chapitre. Plus long et plus difficile que le quiz.",
+    "estimatedMinutes": 30,
+    "questions": [
+      {
+        "id": "t1-01",
+        "objectiveId": "obj1-cours",
+        "bloomLevel": "recall",
+        "type": "mcq",
+        "difficulty": 1,
+        "prompt": "Combien comptent les deux examens, ensemble ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "40 %"
+          },
+          {
+            "id": "b",
+            "text": "50 %"
+          },
+          {
+            "id": "c",
+            "text": "20 %"
+          },
+          {
+            "id": "d",
+            "text": "60 %"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Diapositive 21 : 20 % chacun.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "C'est le poids des travaux pratiques."
+          },
+          {
+            "optionId": "c",
+            "why": "C'est le poids de chacun."
+          },
+          {
+            "optionId": "d",
+            "why": "60 % est la moyenne minimale exigée."
+          }
+        ],
+        "source": {
+          "file": "2026-3 S01-02-Accueil et sources.pdf",
+          "page": 21,
+          "locator": "Diapositive 21"
+        }
+      },
+      {
+        "id": "t1-02",
+        "objectiveId": "obj1-cours",
+        "bloomLevel": "recall",
+        "type": "mcq",
+        "difficulty": 1,
+        "prompt": "Combien comptent les activités de révision ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "10 %"
+          },
+          {
+            "id": "b",
+            "text": "5 %"
+          },
+          {
+            "id": "c",
+            "text": "20 %"
+          },
+          {
+            "id": "d",
+            "text": "0 %"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Diapositives 9, 21 et 45.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "C'est le travail individuel."
+          },
+          {
+            "optionId": "c",
+            "why": "C'est un examen."
+          },
+          {
+            "optionId": "d",
+            "why": "Elles sont notées."
+          }
+        ],
+        "source": {
+          "file": "2026-3 S01-02-Accueil et sources.pdf",
+          "page": 21,
+          "locator": "Diapositive 21"
+        }
+      },
+      {
+        "id": "t1-03",
+        "objectiveId": "obj1-cours",
+        "bloomLevel": "understand",
+        "type": "true-false",
+        "difficulty": 1,
+        "prompt": "Les diapositives non vues en classe ne sont pas matière à examen.",
+        "options": [
+          {
+            "id": "v",
+            "text": "Vrai"
+          },
+          {
+            "id": "f",
+            "text": "Faux"
+          }
+        ],
+        "correct": "f",
+        "explanation": "Diapositive 8 : il est de la responsabilité des personnes étudiantes d'en prendre connaissance pour les travaux et examens.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "v",
+            "why": "Toutes les diapositives restent à connaître."
+          }
+        ],
+        "source": {
+          "file": "2026-3 S01-02-Accueil et sources.pdf",
+          "page": 8,
+          "locator": "Diapositive 8"
+        }
+      },
+      {
+        "id": "t1-04",
+        "objectiveId": "obj1-cours",
+        "bloomLevel": "understand",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Quelle différence le cours fait-il entre une référence et une source ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Une référence est citée dans le texte ; une source a servi d'inspiration générale"
+          },
+          {
+            "id": "b",
+            "text": "Une source est toujours à lire, une référence jamais"
+          },
+          {
+            "id": "c",
+            "text": "Aucune : ce sont des synonymes"
+          },
+          {
+            "id": "d",
+            "text": "Une référence est un livre, une source un site web"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Diapositives 17 et 18.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "À moins d'indication contraire, les sources ne sont pas à lire obligatoirement."
+          },
+          {
+            "optionId": "c",
+            "why": "Diapositives 17 et 18 : deux notions distinctes."
+          },
+          {
+            "optionId": "d",
+            "why": "La forme du document n'est pas le critère."
+          }
+        ],
+        "source": {
+          "file": "2026-3 S01-02-Accueil et sources.pdf",
+          "page": 17,
+          "locator": "Diapositives 17 et 18"
+        }
+      },
+      {
+        "id": "t1-05",
+        "objectiveId": "obj1-cours",
+        "bloomLevel": "recall",
+        "type": "multi",
+        "difficulty": 2,
+        "prompt": "Quels éléments la charte d'équipe doit-elle contenir AU MINIMUM ? (plusieurs réponses)",
+        "options": [
+          {
+            "id": "a",
+            "text": "Informations générales de l'équipe"
+          },
+          {
+            "id": "b",
+            "text": "Prise de décision et gestion des conflits"
+          },
+          {
+            "id": "c",
+            "text": "Communications et rencontres"
+          },
+          {
+            "id": "d",
+            "text": "Retards, absences et non-respect des engagements"
+          },
+          {
+            "id": "e",
+            "text": "Outils de travail"
+          }
+        ],
+        "correct": [
+          "a",
+          "b",
+          "c",
+          "d"
+        ],
+        "explanation": "Diapositive 60 ; les outils, les attentes et la présentation des membres sont recommandés (diapositive 61).",
+        "perDistractorExplanation": [
+          {
+            "optionId": "e",
+            "why": "Section fortement recommandée, pas obligatoire."
+          }
+        ],
+        "source": {
+          "file": "2026-3 S01-02-Accueil et sources.pdf",
+          "page": 60,
+          "locator": "Diapositives 60 et 61"
+        }
+      },
+      {
+        "id": "t1-06",
+        "objectiveId": "obj1-cours",
+        "bloomLevel": "analyze",
+        "type": "mcq",
+        "difficulty": 3,
+        "prompt": "Une équipe veut sanctionner un membre pour un retard. Laquelle de ces conditions est exigée par les diapositives ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "La règle ET la conséquence doivent être écrites dans la charte"
+          },
+          {
+            "id": "b",
+            "text": "La majorité de l'équipe doit être d'accord"
+          },
+          {
+            "id": "c",
+            "text": "La personne enseignante doit avoir été avertie avant"
+          },
+          {
+            "id": "d",
+            "text": "Le retard doit dépasser 24 heures"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Diapositive 73 : règle écrite, conséquence écrite, raisonnable et proportionnelle, droit de s'expliquer, procédure respectée, preuves possibles.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Le vote ne suffit pas : la règle et la conséquence doivent être prévues."
+          },
+          {
+            "optionId": "c",
+            "why": "Ce n'est pas une des six conditions."
+          },
+          {
+            "optionId": "d",
+            "why": "Ce délai n'est qu'un exemple de règle de communication."
+          }
+        ],
+        "source": {
+          "file": "2026-3 S01-02-Accueil et sources.pdf",
+          "page": 73,
+          "locator": "Diapositive 73"
+        }
+      },
+      {
+        "id": "t1-07",
+        "objectiveId": "obj1-cours",
+        "bloomLevel": "understand",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Quel TP demande de réécrire l'enjeu légal en enjeu éthique et d'exposer son impact sur les ODD ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "TP4"
+          },
+          {
+            "id": "b",
+            "text": "TP1"
+          },
+          {
+            "id": "c",
+            "text": "TP3"
+          },
+          {
+            "id": "d",
+            "text": "TP6"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Diapositive 58.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Le TP1 identifie l'enjeu légal."
+          },
+          {
+            "optionId": "c",
+            "why": "Le TP3 identifie des actions pour l'encadrer."
+          },
+          {
+            "optionId": "d",
+            "why": "Le TP6 est la présentation."
+          }
+        ],
+        "source": {
+          "file": "2026-3 S01-02-Accueil et sources.pdf",
+          "page": 58,
+          "locator": "Diapositive 58"
+        }
+      },
+      {
+        "id": "t1-08",
+        "objectiveId": "obj1-responsabilites",
+        "bloomLevel": "recall",
+        "type": "mcq",
+        "difficulty": 1,
+        "prompt": "À quel type de responsabilité les diapositives associent-elles l'ACM ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Professionnelle"
+          },
+          {
+            "id": "b",
+            "text": "Sociale"
+          },
+          {
+            "id": "c",
+            "text": "Criminelle"
+          },
+          {
+            "id": "d",
+            "text": "Civile contractuelle"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Diapositive 33.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "La responsabilité sociale est un autre type."
+          },
+          {
+            "optionId": "c",
+            "why": "Le Code criminel figure sous criminelles et pénales."
+          },
+          {
+            "optionId": "d",
+            "why": "Aucun organisme n'y est associé."
+          }
+        ],
+        "source": {
+          "file": "2026-3 S01-02-Accueil et sources.pdf",
+          "page": 33,
+          "locator": "Diapositive 33"
+        }
+      },
+      {
+        "id": "t1-09",
+        "objectiveId": "obj1-responsabilites",
+        "bloomLevel": "understand",
+        "type": "multi",
+        "difficulty": 2,
+        "prompt": "Qu'est-ce que les diapositives rangent sous « criminelles et pénales » ? (plusieurs réponses)",
+        "options": [
+          {
+            "id": "a",
+            "text": "Code criminel"
+          },
+          {
+            "id": "b",
+            "text": "Propriété intellectuelle"
+          },
+          {
+            "id": "c",
+            "text": "Protection des renseignements personnels"
+          },
+          {
+            "id": "d",
+            "text": "Responsabilité extracontractuelle"
+          },
+          {
+            "id": "e",
+            "text": "ACM"
+          }
+        ],
+        "correct": [
+          "a",
+          "b",
+          "c"
+        ],
+        "explanation": "Diapositive 33.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "d",
+            "why": "C'est une responsabilité civile."
+          },
+          {
+            "optionId": "e",
+            "why": "Associée à la responsabilité professionnelle."
+          }
+        ],
+        "source": {
+          "file": "2026-3 S01-02-Accueil et sources.pdf",
+          "page": 33,
+          "locator": "Diapositive 33"
+        }
+      },
+      {
+        "id": "t1-10",
+        "objectiveId": "obj1-pouvoirs",
+        "bloomLevel": "recall",
+        "type": "mcq",
+        "difficulty": 1,
+        "prompt": "Que fait le pouvoir exécutif ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Il met en application les lois"
+          },
+          {
+            "id": "b",
+            "text": "Il vote les lois"
+          },
+          {
+            "id": "c",
+            "text": "Il sanctionne le non-respect des lois"
+          },
+          {
+            "id": "d",
+            "text": "Il rédige la doctrine"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Diapositive 35.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "C'est le législatif."
+          },
+          {
+            "optionId": "c",
+            "why": "C'est le judiciaire."
+          },
+          {
+            "optionId": "d",
+            "why": "La doctrine vient des juristes."
+          }
+        ],
+        "source": {
+          "file": "2026-3 S01-02-Accueil et sources.pdf",
+          "page": 35,
+          "locator": "Diapositive 35"
+        }
+      },
+      {
+        "id": "t1-11",
+        "objectiveId": "obj1-pouvoirs",
+        "bloomLevel": "apply",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "La propriété intellectuelle relève de quel ordre de gouvernement ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Fédéral"
+          },
+          {
+            "id": "b",
+            "text": "Provincial"
+          },
+          {
+            "id": "c",
+            "text": "Partagé"
+          },
+          {
+            "id": "d",
+            "text": "Aucun"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Diapositive 39.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "La propriété et le droit civil sont provinciaux, mais pas la propriété intellectuelle."
+          },
+          {
+            "optionId": "c",
+            "why": "Seuls l'agriculture, l'immigration et les retraites sont partagés."
+          },
+          {
+            "optionId": "d",
+            "why": "Elle figure dans la liste fédérale."
+          }
+        ],
+        "source": {
+          "file": "2026-3 S01-02-Accueil et sources.pdf",
+          "page": 39,
+          "locator": "Diapositive 39"
+        }
+      },
+      {
+        "id": "t1-12",
+        "objectiveId": "obj1-pouvoirs",
+        "bloomLevel": "analyze",
+        "type": "mcq",
+        "difficulty": 3,
+        "prompt": "Mariages : quelle affirmation respecte le partage des compétences ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Mariages et divorces sont fédéraux, la célébration des mariages est provinciale"
+          },
+          {
+            "id": "b",
+            "text": "Tout ce qui touche le mariage est provincial"
+          },
+          {
+            "id": "c",
+            "text": "Tout ce qui touche le mariage est fédéral"
+          },
+          {
+            "id": "d",
+            "text": "Le mariage est une compétence partagée"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Diapositive 39.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Les mariages et divorces figurent dans la liste fédérale."
+          },
+          {
+            "optionId": "c",
+            "why": "La célébration des mariages est provinciale."
+          },
+          {
+            "optionId": "d",
+            "why": "Il n'est pas dans la colonne « partagées »."
+          }
+        ],
+        "source": {
+          "file": "2026-3 S01-02-Accueil et sources.pdf",
+          "page": 39,
+          "locator": "Diapositive 39"
+        }
+      },
+      {
+        "id": "t1-13",
+        "objectiveId": "obj1-pouvoirs",
+        "bloomLevel": "understand",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Au Canada, qui détient le pouvoir résiduel ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Le fédéral"
+          },
+          {
+            "id": "b",
+            "text": "Les provinces"
+          },
+          {
+            "id": "c",
+            "text": "Les municipalités"
+          },
+          {
+            "id": "d",
+            "text": "Le judiciaire"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Diapositive 36.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Elles ont les questions d'intérêt régional."
+          },
+          {
+            "optionId": "c",
+            "why": "Elles relèvent des provinces."
+          },
+          {
+            "optionId": "d",
+            "why": "Le pouvoir résiduel est une compétence législative fédérale."
+          }
+        ],
+        "source": {
+          "file": "2026-3 S01-02-Accueil et sources.pdf",
+          "page": 36,
+          "locator": "Diapositive 36"
+        }
+      },
+      {
+        "id": "t1-14",
+        "objectiveId": "obj1-pouvoirs",
+        "bloomLevel": "understand",
+        "type": "true-false",
+        "difficulty": 2,
+        "prompt": "Au Québec, la propriété et les droits civils relèvent de la province.",
+        "options": [
+          {
+            "id": "v",
+            "text": "Vrai"
+          },
+          {
+            "id": "f",
+            "text": "Faux"
+          }
+        ],
+        "correct": "v",
+        "explanation": "Diapositive 37 : réservés au Québec ; normalisation du droit privé pour les autres provinces.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "f",
+            "why": "C'est une compétence provinciale."
+          }
+        ],
+        "source": {
+          "file": "2026-3 S01-02-Accueil et sources.pdf",
+          "page": 37,
+          "locator": "Diapositive 37"
+        }
+      },
+      {
+        "id": "t1-15",
+        "objectiveId": "obj1-hierarchie",
+        "bloomLevel": "recall",
+        "type": "mcq",
+        "difficulty": 1,
+        "prompt": "Comment les diapositives définissent-elles la jurisprudence ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "L'ensemble des décisions des cours et tribunaux"
+          },
+          {
+            "id": "b",
+            "text": "L'ensemble des travaux et ouvrages de juristes"
+          },
+          {
+            "id": "c",
+            "text": "Les usages communs reconnus comme source de droit"
+          },
+          {
+            "id": "d",
+            "text": "Les règles votées par le législateur"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Diapositive 41.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "C'est la doctrine."
+          },
+          {
+            "optionId": "c",
+            "why": "C'est la coutume."
+          },
+          {
+            "optionId": "d",
+            "why": "Ce sont les lois et règlements."
+          }
+        ],
+        "source": {
+          "file": "2026-3 S01-02-Accueil et sources.pdf",
+          "page": 41,
+          "locator": "Diapositive 41"
+        }
+      },
+      {
+        "id": "t1-16",
+        "objectiveId": "obj1-hierarchie",
+        "bloomLevel": "apply",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Un manuel de droit écrit par une professeure de droit relève de…",
+        "options": [
+          {
+            "id": "a",
+            "text": "la doctrine"
+          },
+          {
+            "id": "b",
+            "text": "la jurisprudence"
+          },
+          {
+            "id": "c",
+            "text": "la coutume"
+          },
+          {
+            "id": "d",
+            "text": "les actes juridiques"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Diapositive 41 : travaux et ouvrages de juristes (analyses, livres, manuels).",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Ce n'est pas une décision de tribunal."
+          },
+          {
+            "optionId": "c",
+            "why": "Ce n'est pas un usage."
+          },
+          {
+            "optionId": "d",
+            "why": "Il n'exprime pas la volonté de parties à un acte."
+          }
+        ],
+        "source": {
+          "file": "2026-3 S01-02-Accueil et sources.pdf",
+          "page": 41,
+          "locator": "Diapositive 41"
+        }
+      },
+      {
+        "id": "t1-17",
+        "objectiveId": "obj1-hierarchie",
+        "bloomLevel": "understand",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Quelles lois forment la Constitution selon les diapositives ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Les lois constitutionnelles de 1867 et de 1982"
+          },
+          {
+            "id": "b",
+            "text": "Le Code civil du Québec"
+          },
+          {
+            "id": "c",
+            "text": "La Charte québécoise seulement"
+          },
+          {
+            "id": "d",
+            "text": "La Loi constitutionnelle de 1982 seulement"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Diapositive 41.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "C'est une loi, au 2ᵉ rang."
+          },
+          {
+            "optionId": "c",
+            "why": "Elle n'est pas citée comme Constitution."
+          },
+          {
+            "optionId": "d",
+            "why": "Celle de 1867 est aussi citée."
+          }
+        ],
+        "source": {
+          "file": "2026-3 S01-02-Accueil et sources.pdf",
+          "page": 41,
+          "locator": "Diapositive 41"
+        }
+      },
+      {
+        "id": "t1-18",
+        "objectiveId": "obj1-hierarchie",
+        "bloomLevel": "recall",
+        "type": "fill-blank",
+        "difficulty": 1,
+        "prompt": "Compléter l'adage : « Nul n'est censé ____ la loi. »",
+        "correct": "ignorer",
+        "acceptableAnswers": [],
+        "explanation": "Diapositive 42.",
+        "source": {
+          "file": "2026-3 S01-02-Accueil et sources.pdf",
+          "page": 42,
+          "locator": "Diapositive 42"
+        }
+      },
+      {
+        "id": "t1-19",
+        "objectiveId": "obj1-demarche",
+        "bloomLevel": "analyze",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Dans la branche légale de la démarche, que vérifie-t-on après les questions et propositions de réponses ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Est-ce légal ?"
+          },
+          {
+            "id": "b",
+            "text": "Quel modèle éthique choisir ?"
+          },
+          {
+            "id": "c",
+            "text": "Le test de la décision éthique"
+          },
+          {
+            "id": "d",
+            "text": "La charte d'équipe"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Séance 03, diapositive 3.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "C'est dans la branche éthique."
+          },
+          {
+            "optionId": "c",
+            "why": "Il clôt la branche éthique."
+          },
+          {
+            "optionId": "d",
+            "why": "Elle ne fait pas partie de la démarche d'analyse."
+          }
+        ],
+        "source": {
+          "file": "23.33 2026-3 S03 ResponsabilitéCivile.pdf",
+          "page": 3,
+          "locator": "Séance 03, diapositive 3"
+        }
+      },
+      {
+        "id": "t1-20",
+        "objectiveId": "obj1-demarche",
+        "bloomLevel": "understand",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Quel critère du test de la décision éthique pose la question : « Mon choix pourrait-il servir d'exemple dans toute autre situation similaire ? »",
+        "options": [
+          {
+            "id": "a",
+            "text": "L'exemplarité"
+          },
+          {
+            "id": "b",
+            "text": "La transparence"
+          },
+          {
+            "id": "c",
+            "text": "La réciprocité"
+          },
+          {
+            "id": "d",
+            "text": "La proportionnalité"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Séance 03, diapositive 3.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Elle porte sur la défense publique du choix."
+          },
+          {
+            "optionId": "c",
+            "why": "Elle porte sur les conséquences subies par soi-même."
+          },
+          {
+            "optionId": "d",
+            "why": "Ce n'est pas un critère du test."
+          }
+        ],
+        "source": {
+          "file": "23.33 2026-3 S03 ResponsabilitéCivile.pdf",
+          "page": 3,
+          "locator": "Séance 03, diapositive 3"
+        }
+      },
+      {
+        "id": "t1-21",
+        "objectiveId": "obj1-demarche",
+        "bloomLevel": "understand",
+        "type": "mcq",
+        "difficulty": 1,
+        "prompt": "Quelle citation ouvre la séance 1 ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "« La morale commence là où s'arrête le droit »"
+          },
+          {
+            "id": "b",
+            "text": "« Nul n'est censé ignorer la loi »"
+          },
+          {
+            "id": "c",
+            "text": "« Le droit commence là où s'arrête la morale »"
+          },
+          {
+            "id": "d",
+            "text": "« La morale commence là où s'arrête la police »"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Diapositive 2.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "C'est la diapositive 42."
+          },
+          {
+            "optionId": "c",
+            "why": "L'ordre est inversé."
+          },
+          {
+            "optionId": "d",
+            "why": "C'est la citation originale d'Alain, dont celle du cours est une variation."
+          }
+        ],
+        "source": {
+          "file": "2026-3 S01-02-Accueil et sources.pdf",
+          "page": 2,
+          "locator": "Diapositive 2"
+        }
+      }
+    ]
+  },
+  "flashcards": [
+    {
+      "id": "f1-01",
+      "objectiveId": "obj1-cours",
+      "front": "Règle pour réussir ?",
+      "back": "60 % de moyenne sur les évaluations individuelles."
+    },
+    {
+      "id": "f1-02",
+      "objectiveId": "obj1-cours",
+      "front": "Poids des examens ?",
+      "back": "Mi-session 20 %, final 20 %."
+    },
+    {
+      "id": "f1-03",
+      "objectiveId": "obj1-cours",
+      "front": "Travail ou devoir ?",
+      "back": "Travail : noté. Devoir : non noté (ex. charte d'équipe)."
+    },
+    {
+      "id": "f1-04",
+      "objectiveId": "obj1-cours",
+      "front": "Quatre sections obligatoires de la charte ?",
+      "back": "Informations générales ; décisions et conflits ; communications et rencontres ; retards, absences, non-respect."
+    },
+    {
+      "id": "f1-05",
+      "objectiveId": "obj1-responsabilites",
+      "front": "Types de responsabilité ?",
+      "back": "Civile extracontractuelle ; civile contractuelle ; criminelle et pénale ; sociale ; professionnelle (ACM)."
+    },
+    {
+      "id": "f1-06",
+      "objectiveId": "obj1-pouvoirs",
+      "front": "Trois pouvoirs ?",
+      "back": "Législatif (vote), exécutif (applique), judiciaire (sanctionne)."
+    },
+    {
+      "id": "f1-07",
+      "objectiveId": "obj1-pouvoirs",
+      "front": "Compétences partagées ?",
+      "back": "Agriculture, immigration, retraites."
+    },
+    {
+      "id": "f1-08",
+      "objectiveId": "obj1-pouvoirs",
+      "front": "Télécommunications, propriété intellectuelle ?",
+      "back": "Fédérales."
+    },
+    {
+      "id": "f1-09",
+      "objectiveId": "obj1-pouvoirs",
+      "front": "Santé, éducation, propriété et droit civil ?",
+      "back": "Provinciales."
+    },
+    {
+      "id": "f1-10",
+      "objectiveId": "obj1-hierarchie",
+      "front": "Hiérarchie des normes ?",
+      "back": "Constitution > lois et règlements > actes juridiques > jurisprudence > coutume > doctrine."
+    },
+    {
+      "id": "f1-11",
+      "objectiveId": "obj1-demarche",
+      "front": "Test de la décision éthique ?",
+      "back": "Transparence, exemplarité, réciprocité."
+    },
+    {
+      "id": "f1-12",
+      "objectiveId": "obj1-demarche",
+      "front": "Première question après la reformulation d'un enjeu ?",
+      "back": "Est-ce un enjeu légal ou éthique ?"
+    }
+  ],
+  "exercises": [
+    {
+      "id": "e1-01",
+      "objectiveId": "obj1-pouvoirs",
+      "difficulty": 2,
+      "mode": "predict-output",
+      "language": "text",
+      "title": "Fédéral, provincial ou partagé ?",
+      "statement": "Classer chaque domaine selon le partage des compétences de la diapositive 39.",
+      "starterCode": "télécommunications · éducation · immigration · propriété intellectuelle · santé · droit pénal · retraites · célébration des mariages · postes · affaires municipales",
+      "hints": [
+        "Le fédéral : questions d'intérêt national.",
+        "Les provinces : questions d'intérêt régional et social.",
+        "Trois compétences seulement sont partagées."
+      ],
+      "solution": "Fédéral : télécommunications, propriété intellectuelle, droit pénal, postes · Provincial : éducation, santé, célébration des mariages, affaires municipales · Partagé : immigration, retraites",
+      "expectedOutput": "Fédéral     : télécommunications, propriété intellectuelle, droit pénal, postes\nProvincial  : éducation, santé, célébration des mariages, affaires municipales\nPartagé     : immigration, retraites",
+      "solutionExplanation": "Pour un enjeu informatique, les télécommunications et la propriété intellectuelle renvoient à des lois fédérales ; la responsabilité civile (propriété et droit civil) au droit québécois.",
+      "source": {
+        "file": "2026-3 S01-02-Accueil et sources.pdf",
+        "page": 39,
+        "locator": "Diapositive 39"
+      }
+    },
+    {
+      "id": "e1-02",
+      "objectiveId": "obj1-hierarchie",
+      "difficulty": 2,
+      "mode": "fill-blank",
+      "language": "text",
+      "title": "Compléter — la hiérarchie des normes",
+      "statement": "Compléter la pyramide du cadre juridique, du plus fort au plus faible.",
+      "starterCode": "1. ____ (Lois constitutionnelles de 1867 et 1982)\n2. Lois et ____\n3. Actes ____ (contrats, testaments…)\n4. ____ (décisions des cours et tribunaux)\n5. ____ (usages communs reconnus)\n6. ____ (ouvrages de juristes)",
+      "hints": [
+        "Le sommet est la loi suprême du pays.",
+        "Le 3ᵉ rang exprime la volonté des parties.",
+        "Les deux derniers rangs : usages, puis travaux de juristes."
+      ],
+      "solution": "Constitution · règlements · juridiques · Jurisprudence · Coutume · Doctrine",
+      "expectedOutput": "1. Constitution\n2. Lois et règlements\n3. Actes juridiques\n4. Jurisprudence\n5. Coutume\n6. Doctrine",
+      "solutionExplanation": "Diapositive 41.",
+      "source": {
+        "file": "2026-3 S01-02-Accueil et sources.pdf",
+        "page": 41,
+        "locator": "Diapositive 41"
+      }
+    },
+    {
+      "id": "e1-03",
+      "objectiveId": "obj1-cours",
+      "difficulty": 2,
+      "mode": "trace",
+      "language": "text",
+      "title": "La règle des 60 %",
+      "statement": "Les évaluations individuelles sont les deux examens de 20 % (diapositive 21). Une personne obtient 11/20 à la mi-session et 12/20 au final, et 95 % à tous les autres éléments. Réussit-elle le cours ?",
+      "starterCode": "mi-session 11/20 · final 12/20 · tout le reste à 95 %",
+      "hints": [
+        "Seuls les deux examens comptent pour la règle des 60 %.",
+        "Additionner les points obtenus et les points possibles des deux examens.",
+        "(11 + 12)/(20 + 20)."
+      ],
+      "solution": "Non : 23/40 = 57,5 % < 60 %",
+      "expectedOutput": "Points obtenus aux examens : 11 + 12 = 23\nPoints possibles : 20 + 20 = 40\nMoyenne individuelle : 23/40 = 57,5 %  < 60 %  → échec, malgré une note globale élevée",
+      "solutionExplanation": "Exemple de la plateforme, construit sur les diapositives 21 et 22.",
+      "source": {
+        "file": "2026-3 S01-02-Accueil et sources.pdf",
+        "page": 22,
+        "locator": "Diapositives 21 et 22"
+      }
+    },
+    {
+      "id": "e1-04",
+      "objectiveId": "obj1-demarche",
+      "difficulty": 2,
+      "mode": "trace",
+      "language": "text",
+      "title": "Le test de la décision éthique",
+      "statement": "Pour chacune des trois questions, nommer le critère du test de la décision éthique.",
+      "starterCode": "a) Si mon choix était communiqué publiquement, serais-je à l'aise de le défendre ?\nb) Si c'était moi qui subissais les conséquences, serait-ce encore le bon choix ?\nc) Mon choix pourrait-il servir d'exemple dans toute situation similaire ?",
+      "hints": [
+        "Trois critères : transparence, exemplarité, réciprocité.",
+        "a) parle de rendre public.",
+        "b) parle de se mettre à la place de l'autre."
+      ],
+      "solution": "a) transparence · b) réciprocité · c) exemplarité",
+      "expectedOutput": "a) Transparence\nb) Réciprocité\nc) Exemplarité",
+      "solutionExplanation": "Séance 03, diapositive 3.",
+      "source": {
+        "file": "23.33 2026-3 S03 ResponsabilitéCivile.pdf",
+        "page": 3,
+        "locator": "Séance 03, diapositive 3"
+      }
+    },
+    {
+      "id": "e1-05",
+      "objectiveId": "obj1-cours",
+      "difficulty": 2,
+      "mode": "find-bug",
+      "language": "text",
+      "title": "Trouver l'erreur — une clause de charte",
+      "statement": "Une équipe applique la clause suivante à un membre absent à une rencontre. Selon la diapositive 73, pourquoi la personne enseignante pourrait-elle refuser la mesure ?",
+      "starterCode": "Charte, section « Règles » : « Chaque membre participe aux rencontres. »\nDécision de l'équipe, prise par vote après l'absence : le membre perd 20 % de sa note d'équipe.",
+      "hints": [
+        "Relire les conditions 1 et 2 de la diapositive 73.",
+        "La conséquence était-elle écrite dans la charte avant l'absence ?",
+        "La personne a-t-elle pu s'expliquer ?"
+      ],
+      "solution": "La conséquence n'était pas prévue dans la charte (condition 2), et rien n'indique que la personne a pu s'expliquer (condition 4).",
+      "expectedOutput": "Conditions de la diapositive 73 :\n1. règle écrite                         → oui\n2. conséquence écrite dans la charte     → NON (décidée après coup)\n3. conséquence raisonnable, proportionnelle → discutable (20 % pour une absence)\n4. la personne a pu s'expliquer          → non mentionné\n5. procédure de l'équipe respectée        → non mentionné",
+      "solutionExplanation": "La personne enseignante se réserve le droit de refuser une mesure abusive, injuste ou contraire aux règles universitaires. Situation imaginée par la plateforme.",
+      "source": {
+        "file": "2026-3 S01-02-Accueil et sources.pdf",
+        "page": 73,
+        "locator": "Diapositive 73"
+      }
+    }
+  ]
+}

@@ -1,0 +1,412 @@
+---
+course: IFT209
+number: 2
+title: Architecture des ordinateurs
+summary: >-
+  Ce que le constructeur promet et ce qu'il réalise : le modèle de von Neumann,
+  le partage RISC/CISC, l'organisation de la mémoire et son boutisme, le
+  nombre d'opérandes d'une instruction, et le pipeline.
+estimatedMinutes: 180
+prerequisites:
+  - "Chapitre 1 — bases, binaire et hexadécimal"
+objectives:
+  - id: obj2-architecture
+    text: Distinguer architecture externe et architecture interne d'un ordinateur.
+    bloom: understand
+  - id: obj2-vonneumann
+    text: Décrire le modèle de von Neumann et le cycle de traitement d'une instruction.
+    bloom: understand
+  - id: obj2-risc-cisc
+    text: Comparer les choix de conception RISC et CISC.
+    bloom: analyze
+  - id: obj2-memoire
+    text: Lire une valeur en mémoire selon le boutisme et les contraintes de frontière.
+    bloom: apply
+  - id: obj2-operandes
+    text: Traduire une expression arithmétique selon le nombre d'opérandes des instructions.
+    bloom: apply
+  - id: obj2-pipeline
+    text: Expliquer le gain du pipeline et les trois situations conflictuelles.
+    bloom: analyze
+sources:
+  - file: "Chapitre2_ARM.pdf"
+    page: 2
+    locator: "Chapitre 2 — Architecture des ordinateurs, diapositives 1 à 40"
+  - file: "Cor-Exchap2.pdf"
+    page: 1
+    locator: "Solutions des exercices du chapitre 2, exercices 1 à 3"
+---
+
+## 1. Deux niveaux de description
+
+| | Architecture **externe** (spécification) | Architecture **interne** (organisation) |
+| --- | --- | --- |
+| Décrit | les services fournis à l'utilisateur | la description physique des composantes et leurs interconnexions |
+| Contient | types de données et représentation, modes d'adressage, instructions machine, mécanismes d'entrée/sortie | organisation interne du processeur, gestion des conflits de ressources |
+
+<Callout type="note" title="La conséquence à retenir">
+**Il peut exister plusieurs implémentations d'une même architecture** —
+plusieurs organisations pour une seule spécification. C'est pourquoi deux
+processeurs très différents peuvent exécuter exactement le même programme.
+</Callout>
+
+<Source file="Chapitre2_ARM.pdf" page={3} locator="Diapositive 3" />
+
+## 2. L'architecture de von Neumann
+
+Présentée dans les années 1940. Quatre composants reliés par un **bus** —
+un canal de communication constitué d'un ensemble de $n$ lignes électriques
+parallèles.
+
+<Mermaid caption="Le modèle de von Neumann (diapositive 5). Tout passe par le bus." chart={`
+flowchart TD
+    subgraph P["Processeur"]
+      UC["Unite de controle"]
+      UAL["Unite arithmetique<br/>et logique"]
+    end
+    BUS(["BUS"])
+    MP["Memoire principale"]
+    ES1["Unite d'entree/sortie"]
+    ES2["Unite d'entree/sortie"]
+    P --- BUS
+    BUS --- MP
+    BUS --- ES1
+    BUS --- ES2
+`} />
+
+### 2.1 Qui fait quoi
+
+- **Processeur** — gère l'allocation du bus, décode et exécute les
+  instructions, possède une **petite mémoire locale** (les **registres**),
+  d'accès très rapide, qui contient temporairement les opérandes.
+- **Mémoire centrale** — cellules contenant **le programme et ses données**,
+  chacune avec une **adresse**. Accès **beaucoup plus lent** que les registres.
+  Elle permet deux transferts : mémoire → registre (**chargement**) et
+  registre → mémoire (**stockage**).
+- **Unité d'entrée/sortie** — contrôle les périphériques, selon un ensemble de
+  règles appelé **protocole de communication**. **Très lent** en comparaison.
+
+### 2.2 Le principe fondateur
+
+> Le programme et ses données sont **toujours emmagasinés en mémoire
+> principale**. Les instructions **ne peuvent être exécutées** en mémoire
+> principale.
+
+D'où le va-et-vient permanent entre mémoire et processeur, et d'où le cycle
+suivant.
+
+### 2.3 Le cycle de traitement d'une instruction
+
+Le processeur contient deux registres spéciaux pour cela : le **registre
+d'instruction (RI)** et le **compteur ordinal (PC, Program Counter)**.
+
+<Mermaid caption="Le cycle complet de la diapositive 10." chart={`
+flowchart LR
+    A["Extraction de l'instruction<br/>a l'adresse contenue dans PC"] --> B["Stockage de l'instruction<br/>dans le registre RI"]
+    B --> C["Decodage et acces<br/>aux operandes"]
+    C --> D["Mise a jour du PC"]
+    D --> E["Execution"]
+    E --> F["Stockage des resultats"]
+    F --> A
+`} />
+
+<Source file="Chapitre2_ARM.pdf" page={10} locator="Diapositives 9 et 10" />
+
+## 3. RISC contre CISC
+
+Deux familles de choix, et ils sont **corrélés** : ce ne sont pas six décisions
+indépendantes mais deux philosophies cohérentes.
+
+| | **RISC** — Reduced Instruction Set Computer | **CISC** — Complex Instruction Set Computer |
+| --- | --- | --- |
+| Registres | **grand** nombre | **petit** nombre |
+| Instructions | **petit** nombre | **grand** nombre |
+| Modes d'adressage | **peu** | **beaucoup** |
+| Longueur des instructions | **unique** | **variable** |
+| Accès mémoire | limité à **certaines** instructions | pour **toutes** les instructions |
+| Exemples | SPARC de Sun, **ARM** | processeurs Intel |
+
+<Callout type="tip" title="La logique interne du tableau">
+Si les instructions ont toutes la même longueur, le décodage est simple et
+rapide — mais chaque instruction fait peu de choses, donc il en faut beaucoup,
+donc il faut beaucoup de registres pour garder les valeurs intermédiaires sans
+retourner en mémoire. Réciproquement, des instructions puissantes justifient
+des modes d'adressage riches et une longueur variable. Les deux colonnes se
+tiennent.
+</Callout>
+
+<Source file="Chapitre2_ARM.pdf" page={11} locator="Diapositive 11" />
+
+## 4. La mémoire centrale
+
+### 4.1 Un vecteur de cellules adressables
+
+La plus petite cellule contient habituellement **8 bits (1 octet)**. La
+**taille d'un mot** est liée à la **largeur du bus de données** —
+habituellement 32 ou 64 bits.
+
+<Callout type="warning" title="La mémoire ne sait pas ce qu'elle contient">
+« Il n'y a pas de différence entre un caractère ou un nombre.
+**L'interprétation de la valeur est laissée aux soins du programmeur.** » Un
+octet valant 97 est le nombre 97, ou la lettre `a`, selon ce que le programme
+décide d'en faire.
+</Callout>
+
+La mémoire permet d'adresser des **octets** (8 bits), **demi-mots** (2 octets),
+**mots** (4 octets) et **doubles mots** (8 octets).
+
+### 4.2 Les contraintes de frontière
+
+L'architecture **peut** en exiger :
+
+- **s'il y en a** : l'adresse doit être **divisible par le nombre d'octets**
+  représentant la valeur ;
+- **s'il n'y en a pas** : toute suite de 2, 4 ou 8 octets peut être interprétée
+  comme un demi-mot, un mot ou un double mot.
+
+Un mot à l'adresse $m$ occupe les octets aux adresses $m, m+1, m+2, m+3$.
+
+### 4.3 Boutisme — big endian et little endian
+
+<Figure caption="La même valeur A0B1C2D3₁₆ rangée aux adresses N à N+3, dans les deux formats.">
+<svg viewBox="0 0 680 260" role="img" aria-label="Comparaison du rangement big-endian et little-endian d'un mot de quatre octets">
+  <text x="16" y="24" font-size="13" font-weight="600" fill="#34d399">Big endian — l'adresse est celle de la partie la plus significative</text>
+  <g font-family="ui-monospace, monospace" font-size="14">
+    <rect x="60" y="38" width="110" height="38" rx="5" fill="#34d399" fill-opacity="0.16" stroke="#34d399" />
+    <rect x="170" y="38" width="110" height="38" rx="5" fill="#34d399" fill-opacity="0.16" stroke="#34d399" />
+    <rect x="280" y="38" width="110" height="38" rx="5" fill="#34d399" fill-opacity="0.16" stroke="#34d399" />
+    <rect x="390" y="38" width="110" height="38" rx="5" fill="#34d399" fill-opacity="0.16" stroke="#34d399" />
+    <text x="115" y="63" text-anchor="middle" fill="currentColor" font-weight="700">A0</text>
+    <text x="225" y="63" text-anchor="middle" fill="currentColor" font-weight="700">B1</text>
+    <text x="335" y="63" text-anchor="middle" fill="currentColor" font-weight="700">C2</text>
+    <text x="445" y="63" text-anchor="middle" fill="currentColor" font-weight="700">D3</text>
+  </g>
+  <g font-size="12" fill="currentColor" opacity="0.7" text-anchor="middle">
+    <text x="115" y="94">N</text><text x="225" y="94">N+1</text><text x="335" y="94">N+2</text><text x="445" y="94">N+3</text>
+  </g>
+  <text x="520" y="63" font-size="13" fill="#34d399">= A0B1C2D3₁₆</text>
+
+  <text x="16" y="148" font-size="13" font-weight="600" fill="#fbbf24">Little endian — l'adresse est celle de la partie la moins significative</text>
+  <g font-family="ui-monospace, monospace" font-size="14">
+    <rect x="60" y="162" width="110" height="38" rx="5" fill="#fbbf24" fill-opacity="0.16" stroke="#fbbf24" />
+    <rect x="170" y="162" width="110" height="38" rx="5" fill="#fbbf24" fill-opacity="0.16" stroke="#fbbf24" />
+    <rect x="280" y="162" width="110" height="38" rx="5" fill="#fbbf24" fill-opacity="0.16" stroke="#fbbf24" />
+    <rect x="390" y="162" width="110" height="38" rx="5" fill="#fbbf24" fill-opacity="0.16" stroke="#fbbf24" />
+    <text x="115" y="187" text-anchor="middle" fill="currentColor" font-weight="700">D3</text>
+    <text x="225" y="187" text-anchor="middle" fill="currentColor" font-weight="700">C2</text>
+    <text x="335" y="187" text-anchor="middle" fill="currentColor" font-weight="700">B1</text>
+    <text x="445" y="187" text-anchor="middle" fill="currentColor" font-weight="700">A0</text>
+  </g>
+  <g font-size="12" fill="currentColor" opacity="0.7" text-anchor="middle">
+    <text x="115" y="218">N</text><text x="225" y="218">N+1</text><text x="335" y="218">N+2</text><text x="445" y="218">N+3</text>
+  </g>
+  <text x="520" y="187" font-size="13" fill="#fbbf24">= A0B1C2D3₁₆</text>
+
+  <text x="16" y="246" font-size="12" fill="currentColor" opacity="0.75">Même valeur, même adresse de départ — seul l'ordre des octets change.</text>
+</svg>
+</Figure>
+
+La différence est **souvent imperceptible**. Il faut y faire attention
+lorsque :
+
+- il y a **transfert de données d'un ordinateur à l'autre** ;
+- une valeur est **emmagasinée dans un mot, mais lue octet par octet**.
+
+Le cours en donne le programme témoin : une `union` C++ qui écrit un
+`unsigned int` et le relit comme un tableau de quatre `unsigned char`. Pour la
+donnée `A1B2C3D4`, un SPARC affiche `A1 B2 C3 D4` et un Intel x86 affiche
+`D4 C3 B2 A1`.
+
+<Source file="Chapitre2_ARM.pdf" page={19} locator="Diapositives 17 à 19" />
+
+## 5. Le nombre d'opérandes
+
+Une instruction se compose d'un **code opération** et d'**opérandes**. Combien ?
+C'est un choix d'architecture, et le cours le met à l'épreuve sur une même
+expression : $E = A \div B - (C \times D)$.
+
+### 5.1 Trois opérandes — la destination est le premier
+
+```
+DIV  T1, A, B    ! T1 = A / B
+MUL  T2, C, D    ! T2 = C x D
+SUB  E, T1, T2   ! E = T1 - T2
+```
+
+### 5.2 Deux opérandes — le résultat écrase le second
+
+```
+DIV  A, B        ! B = A / B
+MUL  C, D        ! D = C x D
+SUB  B, D        ! D = B - D
+MOV  D, E        ! E = D
+```
+
+<Callout type="misconception" title="Ce qu'on perd en passant à deux opérandes">
+**On perd de l'information** : certaines valeurs sont écrasées. Ici `B` et `D`
+ne contiennent plus ce qu'ils contenaient. Les notes préviennent aussi que
+**la destination varie d'une architecture à l'autre** — ici c'est le second
+opérande, ailleurs ce serait le premier.
+</Callout>
+
+### 5.3 Un opérande — l'accumulateur
+
+```
+LOAD  C    ! Acc = C
+MUL   D    ! Acc = Acc x D
+STORE T    ! T = Acc
+LOAD  A    ! Acc = A
+DIV   B    ! Acc = Acc / B
+SUB   T    ! Acc = Acc - T
+STORE E    ! E = Acc
+```
+
+Noter que **l'ordre des opérations a été changé** pour utiliser moins
+d'instructions : on calcule $C \times D$ d'abord parce qu'il faut le ranger de
+côté.
+
+### 5.4 Zéro opérande — la pile
+
+```
+PUSH A     PUSH B     DIV        ! empile A/B
+PUSH C     PUSH D     MUL        ! empile C x D
+SUB                              ! empile T1 - T2
+POP  E
+```
+
+<Callout type="warning" title="L'ordre dans la pile n'est pas neutre">
+Pour les opérations **non commutatives** — la division et la soustraction —
+le premier opérande doit être **sous** le second dans la pile. Là encore, « la
+convention est différente d'une architecture à l'autre ».
+</Callout>
+
+<Source file="Chapitre2_ARM.pdf" page={26} locator="Diapositives 23 à 26" />
+
+## 6. Le pipeline
+
+### 6.1 L'idée
+
+Un pipeline a **autant d'étages que d'étapes** dans le traitement d'une
+instruction. Un **cycle machine** est le temps nécessaire pour passer une
+instruction d'un étage au suivant.
+
+Le cours retient un cycle à **cinq étapes indépendantes** :
+
+| Étage | Rôle |
+| --- | --- |
+| **EI** | Extraction de l'instruction et dépôt dans RI |
+| **DI** | Décodage de l'instruction et accès aux opérandes dans des registres |
+| **EX** | Exécution de l'instruction |
+| **MEM** | Mise à jour du PC lors d'un branchement ; accès mémoire pour un chargement ou un stockage |
+| **ER** | Écriture du résultat dans un registre |
+
+> Sans pipeline, l'exécution de 3 instructions prend **15 cycles**.
+> Avec pipeline, l'exécution de 3 instructions prend **7 cycles**.
+
+### 6.2 Le gain, en général
+
+C'est l'exercice 3 du professeur. Avec $p$ étages et $n$ instructions :
+
+- **sans pipeline** : $p \cdot n$ unités de temps ;
+- **avec pipeline** : il faut $(p-1)$ unités avant que le pipeline soit plein,
+  puis $n$ unités correspondant à la présence de chaque instruction dans le
+  dernier étage — soit $n + p - 1$.
+
+$$
+\text{Gain} = pn - (n + p - 1) = n(p-1) - (p-1) = (p-1)(n-1)
+$$
+
+<Callout type="tip" title="Vérification sur l'exemple du cours">
+$p = 5$, $n = 3$ : sans pipeline $5 \times 3 = 15$ ; avec pipeline
+$3 + 5 - 1 = 7$ ; gain $(5-1)(3-1) = 8$. Et $15 - 7 = 8$. ✓
+</Callout>
+
+<Source file="Cor-Exchap2.pdf" page={3} locator="Exercice 3" />
+
+### 6.3 Trois situations conflictuelles
+
+| Conflit | Situation | Résolution selon les notes |
+| --- | --- | --- |
+| **Accès parallèle à la mémoire** | deux instructions veulent accéder à des zones mémoire distinctes simultanément | « réglé par le matériel » |
+| **Utilisation de données communes** | une instruction a besoin du résultat de la précédente comme opérande | « réglé majoritairement par le matériel » |
+| **Instructions hasardeuses** | un branchement modifie la séquence des instructions | on **suspend le pipeline** dès la détection (étape DI) jusqu'à MEM |
+
+<Callout type="misconception" title="La suspension ne suffit pas">
+Les notes le disent explicitement : même en suspendant le pipeline de DI
+jusqu'à MEM, « **il reste quand même une instruction qui ne devrait pas être
+exécutée** ». Le branchement est le conflit que le matériel ne résout pas
+entièrement.
+</Callout>
+
+<Source file="Chapitre2_ARM.pdf" page={32} locator="Diapositives 30 à 32" />
+
+## 7. L'architecture ARM
+
+**RISC de 64 bits, version 8.**
+
+### 7.1 Mémoire
+
+- supporte les **octets**, **demi-mots**, **mots** (32 bits) et **doubles-mots**
+  (64 bits, appelés **mot étendu**) ;
+- les **adresses sont représentées par des mots étendus** ;
+- il n'y a **généralement pas de contraintes sur les frontières** ;
+- le **bit 0 d'une cellule est le moins significatif** ;
+- le format est **little-endian pour le stockage des instructions** ; pour les
+  données il peut varier, mais little-endian est habituellement utilisé.
+
+### 7.2 Les 32 registres
+
+| Registre | Nom | Usage |
+| --- | --- | --- |
+| `xzr` | zero register | contient toujours 0 ; **aucun effet lors d'une écriture** |
+| `sp` | stack pointer | pointeur de pile pour certaines instructions d'accès mémoire |
+| `x30` | `lr` | adresse de retour (link register) |
+| `x29` | `fp` | pointeur de portée (frame pointer) |
+| `x19` à `x28` | — | registres **locaux** ; **doivent être sauvegardés** au début d'un sous-programme |
+| `x18` | — | dépend de l'implémentation ARM ; peut être réservé pour le système |
+| `x16`, `x17` | `ip2`, `ip1` | utilisés par les bibliothèques partagées (libC) ; usage temporaire autrement |
+| `x9` à `x15` | — | usage **temporaire** ; **ne seront pas sauvegardés** par les sous-programmes |
+| `x8` | — | retour indirect, pour un type de données complexe |
+| `x0` à `x7` | — | **paramètres et retour** ; ne seront pas sauvegardés |
+
+### 7.3 Registres spécialisés
+
+- **PC** (64 bits) — contient l'adresse de l'instruction exécutée.
+- **CPSR**, registre de codes de condition — bits **n** (négatif), **z** (zéro),
+  **v** (débordement), **c** (report). Ils sont **présents deux fois** dans le
+  registre : pour les opérations sur 32 bits et pour celles sur 64 bits.
+- **Registres virgule flottante** — 32 simple précision (`s0`–`s31`, 32 bits),
+  32 double précision (`d0`–`d31`, 64 bits), 32 quadruple précision
+  (`q0`–`q31`, 128 bits), plus les registres d'état **FPSR** et **FPCR**.
+
+### 7.4 Le cycle ARM et la sauvegarde des registres
+
+Le cycle ARM introduit un second compteur, `nPC` :
+
+```
+PC  = nPC
+nPC = nPC + 4
+```
+
+Si l'instruction courante est un **branchement**, `nPC` prend la valeur de
+l'adresse du branchement. L'exécution n'a lieu que si l'instruction précédente
+n'était pas une remise à l'état initial ni une interruption.
+
+<Callout type="warning" title="Les registres ARM sont des variables globales">
+Les notes l'écrivent ainsi. Conséquence : un sous-programme **DOIT** sauvegarder
+l'état des registres **x19 à x30** avant de les utiliser, et **DOIT** les
+restaurer avant de retourner. La sauvegarde se fait sur la **pile système**,
+dont le dessus est dans `sp` — avancé à la sauvegarde, reculé à la
+restauration. Deux macros sont fournies : `SAVE` et `RESTORE`.
+</Callout>
+
+```
+SAVE        ! sauvegarde les registres locaux et avance le dessus de la pile
+   ...
+   corps du sous-programme
+   ...
+RESTORE     ! ramene l'ancien etat et recule le dessus de la pile
+RET         ! retour du sous-programme
+```
+
+<Source file="Chapitre2_ARM.pdf" page={38} locator="Diapositives 33 à 39" />

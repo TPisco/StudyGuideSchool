@@ -1,0 +1,1715 @@
+{
+  "course": "IFT339",
+  "chapter": 4,
+  "concepts": [
+    {
+      "id": "c4-conteneur",
+      "term": "Conteneur",
+      "definition": "Classe générique de la bibliothèque normalisée implémentant un type de données abstrait, dont le contrat a été arrêté par les équipes de standardisation.",
+      "whyItMatters": "Les conteneurs sont uniformes dans leur définition et leurs opérations de base, ce qui permet d'en changer sans réécrire le code qui les utilise.",
+      "commonMisconception": "Croire que changer de conteneur est sans conséquence puisque les opérations sont les mêmes. Les notes précisent que l'implémentation, les structures utilisées et la complexité des opérations diffèrent : le contrat est commun, le coût ne l'est pas.",
+      "objectiveId": "obj4-groupes",
+      "source": {
+        "file": "IFT339-5-BibliothequeNormaliseeC++.pdf",
+        "page": 2,
+        "locator": "Diapositive 2"
+      }
+    },
+    {
+      "id": "c4-sequentiel",
+      "term": "Conteneur séquentiel",
+      "definition": "Conteneur dont l'ordre des éléments est défini par l'usager : les ajouts se font au début, à la fin, ou à une position donnée.",
+      "whyItMatters": "C'est le groupe auquel appartient array, étudié au chapitre suivant, et celui qui reçoit les opérations spécialisées d'accès par position.",
+      "commonMisconception": "Croire que « séquentiel » signifie « parcouru du début à la fin ». Tous les conteneurs se parcourent par itérateurs ; le critère est que c'est l'usager, et non le conteneur, qui décide de la place des éléments.",
+      "objectiveId": "obj4-groupes",
+      "source": {
+        "file": "IFT339-5-BibliothequeNormaliseeC++.pdf",
+        "page": 3,
+        "locator": "Diapositive 3"
+      }
+    },
+    {
+      "id": "c4-associatif",
+      "term": "Conteneur associatif",
+      "definition": "Conteneur dont l'ordre des éléments est défini par le conteneur lui-même : les ajouts se font en fonction de leur valeur.",
+      "whyItMatters": "L'usager perd le contrôle de la position et gagne une organisation maintenue automatiquement — c'est ce compromis qui distingue les deux grands groupes.",
+      "commonMisconception": "Lire « associatif » comme « indexé par une clé ». Le critère donné par les notes est qui décide de l'ordre, pas la présence d'une clé.",
+      "objectiveId": "obj4-groupes",
+      "source": {
+        "file": "IFT339-5-BibliothequeNormaliseeC++.pdf",
+        "page": 3
+      }
+    },
+    {
+      "id": "c4-adapte",
+      "term": "Conteneur adapté",
+      "definition": "Conteneur utilisant un autre conteneur comme représentation.",
+      "whyItMatters": "C'est une application directe du chapitre 1 : le TDA exposé n'a rien à voir avec la structure de données sous-jacente, qui est elle-même un conteneur.",
+      "commonMisconception": "Croire qu'un conteneur adapté expose les opérations de celui qui lui sert de représentation. Il n'expose que son propre contrat ; la représentation reste cachée, comme le veut l'encapsulation.",
+      "objectiveId": "obj4-groupes",
+      "source": {
+        "file": "IFT339-5-BibliothequeNormaliseeC++.pdf",
+        "page": 3
+      }
+    },
+    {
+      "id": "c4-taille-estvide",
+      "term": "taille et estVide",
+      "definition": "taille : Conteneur ➔ entier positif retourne le nombre d'éléments. estVide : Conteneur ➔ booléen, spécifié par estVide(d) = vrai SSI taille(d) = 0.",
+      "whyItMatters": "Ce sont les deux opérations qui informent sur l'instance, et le premier exemple de spécification algébrique : une opération définie par sa relation à une autre.",
+      "commonMisconception": "Croire que la spécification impose d'implanter estVide en appelant taille. Elle énonce une équivalence de résultat, pas un algorithme : une implantation peut tester un pointeur de tête sans compter quoi que ce soit.",
+      "objectiveId": "obj4-communes",
+      "source": {
+        "file": "IFT339-5-BibliothequeNormaliseeC++.pdf",
+        "page": 4,
+        "locator": "Diapositive 4"
+      }
+    },
+    {
+      "id": "c4-constructeur-copie-conteneur",
+      "term": "Spécification du constructeur par copie",
+      "definition": "créer : Conteneur ➔ Conteneur, tel que taille(créer(d)) = taille(d) et, pour tout i avec 0 ≤ i < taille(d), créer(d)[i] = d[i].",
+      "whyItMatters": "C'est la définition formelle de ce que copier veut dire : même taille et mêmes éléments un à un. Les deux clauses sont nécessaires.",
+      "commonMisconception": "Se contenter de la première clause. Un conteneur de même taille mais dont les éléments diffèrent satisferait taille(créer(d)) = taille(d) sans être une copie.",
+      "objectiveId": "obj4-semantique",
+      "source": {
+        "file": "IFT339-5-BibliothequeNormaliseeC++.pdf",
+        "page": 5,
+        "locator": "Diapositive 5"
+      }
+    },
+    {
+      "id": "c4-nettoyer",
+      "term": "nettoyer et détruire",
+      "definition": "nettoyer : Conteneur ➔ Conteneur libère toute la mémoire allouée dynamiquement et ramène le conteneur à l'état de création, spécifié par nettoyer(d) = créer(). détruire appelle nettoyer avant de détruire l'instance.",
+      "whyItMatters": "C'est la règle du chapitre 3 — ce que le constructeur prend, le destructeur le rend — énoncée cette fois dans le contrat du conteneur lui-même.",
+      "commonMisconception": "Confondre nettoyer et détruire. Après nettoyer, le conteneur existe toujours et est réutilisable ; après détruire, l'instance n'existe plus.",
+      "objectiveId": "obj4-communes",
+      "source": {
+        "file": "IFT339-5-BibliothequeNormaliseeC++.pdf",
+        "page": 6,
+        "locator": "Diapositive 6"
+      }
+    },
+    {
+      "id": "c4-iterateur",
+      "term": "Itérateur",
+      "definition": "Objet retourné par début et fin, que avance et recule déplacent d'un élément dans le conteneur.",
+      "whyItMatters": "Il rend un conteneur parcourable sans rien savoir de sa représentation : contiguë ou chaînée, avance sait passer au suivant.",
+      "commonMisconception": "Croire qu'un itérateur est un entier. Le chapitre 5 le formule comme « l'abstraction du type int ou size_t » : l'indice cesse d'être un nombre pour devenir un objet qui sait se déplacer.",
+      "objectiveId": "obj4-iterateurs",
+      "source": {
+        "file": "IFT339-5-BibliothequeNormaliseeC++.pdf",
+        "page": 7,
+        "locator": "Diapositive 7"
+      }
+    }
+  ],
+  "tables": [
+    {
+      "id": "t4-groupes",
+      "title": "Les quatre groupes de conteneurs",
+      "kind": "comparison",
+      "caption": "Le critère de classement est : qui décide de l'ordre des éléments.",
+      "columns": [
+        {
+          "key": "groupe",
+          "label": "Groupe"
+        },
+        {
+          "key": "ordre",
+          "label": "Ordre des éléments défini par"
+        },
+        {
+          "key": "ajout",
+          "label": "Ajouts"
+        }
+      ],
+      "rows": [
+        {
+          "groupe": "Séquentiels",
+          "ordre": "l'usager",
+          "ajout": "au début, à la fin, ou à une position donnée"
+        },
+        {
+          "groupe": "Associatifs",
+          "ordre": "le conteneur",
+          "ajout": "en fonction de leur valeur"
+        },
+        {
+          "groupe": "Associatifs non ordonnés",
+          "ordre": "aucun ordre défini",
+          "ajout": "—"
+        },
+        {
+          "groupe": "Adaptés",
+          "ordre": "un autre conteneur sert de représentation",
+          "ajout": "—"
+        }
+      ],
+      "source": {
+        "file": "IFT339-5-BibliothequeNormaliseeC++.pdf",
+        "page": 3
+      }
+    },
+    {
+      "id": "t4-communes",
+      "title": "Opérations communes à tous les conteneurs",
+      "kind": "reference",
+      "caption": "Notation des TDA : paramètres ➔ retour. La sémantique est donnée par des équations, pas par des algorithmes.",
+      "columns": [
+        {
+          "key": "famille",
+          "label": "Famille"
+        },
+        {
+          "key": "op",
+          "label": "Opération",
+          "mono": true
+        },
+        {
+          "key": "sem",
+          "label": "Sémantique"
+        }
+      ],
+      "rows": [
+        {
+          "famille": "Informe",
+          "op": "taille : Conteneur ➔ entier positif",
+          "sem": "nombre d'éléments contenus"
+        },
+        {
+          "famille": "Informe",
+          "op": "estVide : Conteneur ➔ booléen",
+          "sem": "estVide(d) = vrai SSI taille(d) = 0"
+        },
+        {
+          "famille": "Construit",
+          "op": "créer : Ø ➔ Conteneur",
+          "sem": "estVide(créer()) = vrai"
+        },
+        {
+          "famille": "Construit",
+          "op": "créer : entier positif ➔ Conteneur",
+          "sem": "taille(créer(n)) = n"
+        },
+        {
+          "famille": "Construit",
+          "op": "créer : Conteneur ➔ Conteneur",
+          "sem": "même taille et mêmes éléments un à un"
+        },
+        {
+          "famille": "Modifie",
+          "op": "affecter : Conteneur x Conteneur ➔ Conteneur",
+          "sem": "estÉgal(d1 ← d, d) = vrai"
+        },
+        {
+          "famille": "Modifie",
+          "op": "nettoyer : Conteneur ➔ Conteneur",
+          "sem": "nettoyer(d) = créer() ; libère la mémoire dynamique"
+        },
+        {
+          "famille": "Modifie",
+          "op": "détruire : Conteneur ➔ Ø",
+          "sem": "appelle nettoyer avant de détruire l'instance"
+        },
+        {
+          "famille": "Modifie",
+          "op": "échanger : Conteneur x Conteneur ➔ Conteneur",
+          "sem": "échange le contenu des deux conteneurs"
+        },
+        {
+          "famille": "Autres",
+          "op": "comparer (=, ≠, <, …)",
+          "sem": "compare les éléments un à un, ordre lexicographique"
+        },
+        {
+          "famille": "Autres",
+          "op": "début, fin : Conteneur ➔ Itérateur",
+          "sem": "itérateurs sur les éléments de début et de fin"
+        },
+        {
+          "famille": "Autres",
+          "op": "avance, recule : Itérateur ➔ Itérateur",
+          "sem": "déplace d'un élément dans le conteneur"
+        }
+      ],
+      "source": {
+        "file": "IFT339-5-BibliothequeNormaliseeC++.pdf",
+        "page": 7,
+        "locator": "Diapositives 4 à 7"
+      }
+    }
+  ],
+  "quiz": {
+    "title": "Quiz — vérification rapide",
+    "estimatedMinutes": 12,
+    "questions": [
+      {
+        "id": "q4-01",
+        "objectiveId": "obj4-groupes",
+        "bloomLevel": "recall",
+        "type": "mcq",
+        "difficulty": 1,
+        "prompt": "Dans un conteneur séquentiel, qui définit l'ordre des éléments ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "L'usager"
+          },
+          {
+            "id": "b",
+            "text": "Le conteneur, selon la valeur des éléments"
+          },
+          {
+            "id": "c",
+            "text": "Personne : aucun ordre n'est défini"
+          },
+          {
+            "id": "d",
+            "text": "Le conteneur sous-jacent servant de représentation"
+          }
+        ],
+        "correct": "a",
+        "explanation": "C'est le critère de classement de la diapositive 3 : séquentiel signifie que l'usager décide, avec des ajouts au début, à la fin ou à une position donnée.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "C'est la définition d'un conteneur associatif : l'ordre est défini par le conteneur et les ajouts se font en fonction de la valeur."
+          },
+          {
+            "optionId": "c",
+            "why": "C'est la définition d'un conteneur associatif non ordonné."
+          },
+          {
+            "optionId": "d",
+            "why": "C'est la définition d'un conteneur adapté."
+          }
+        ],
+        "source": {
+          "file": "IFT339-5-BibliothequeNormaliseeC++.pdf",
+          "page": 3
+        }
+      },
+      {
+        "id": "q4-02",
+        "objectiveId": "obj4-communes",
+        "bloomLevel": "recall",
+        "type": "fill-blank",
+        "difficulty": 1,
+        "prompt": "Compléter la spécification : estVide(d) = vrai SSI ____(d) = 0.",
+        "correct": "taille",
+        "acceptableAnswers": [
+          "taille(d)"
+        ],
+        "explanation": "estVide est spécifiée par sa relation à taille. C'est une équation entre deux opérations du contrat, non un algorithme : l'implantation reste libre.",
+        "source": {
+          "file": "IFT339-5-BibliothequeNormaliseeC++.pdf",
+          "page": 4
+        }
+      },
+      {
+        "id": "q4-03",
+        "objectiveId": "obj4-communes",
+        "bloomLevel": "understand",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Que garantit la spécification `nettoyer(d) = créer()` ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Après nettoyage, le conteneur est indiscernable d'un conteneur construit sans paramètre."
+          },
+          {
+            "id": "b",
+            "text": "nettoyer doit être implantée en appelant le constructeur sans paramètre."
+          },
+          {
+            "id": "c",
+            "text": "L'instance du conteneur est détruite."
+          },
+          {
+            "id": "d",
+            "text": "Le conteneur conserve sa taille mais perd ses éléments."
+          }
+        ],
+        "correct": "a",
+        "explanation": "L'équation énonce un état final, pas un algorithme : le conteneur revient à l'état de création avec le constructeur sans paramètre, après avoir libéré toute la mémoire allouée dynamiquement.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Une spécification algébrique décrit un résultat, jamais une implantation — c'est la règle du chapitre 1 sur les contraintes d'implantation."
+          },
+          {
+            "optionId": "c",
+            "why": "C'est détruire. Les notes précisent d'ailleurs que détruire appelle nettoyer avant de détruire l'instance : ce sont deux opérations distinctes."
+          },
+          {
+            "optionId": "d",
+            "why": "créer() produit un conteneur vide, donc estVide(créer()) = vrai : la taille retombe à 0."
+          }
+        ],
+        "source": {
+          "file": "IFT339-5-BibliothequeNormaliseeC++.pdf",
+          "page": 6
+        }
+      },
+      {
+        "id": "q4-04",
+        "objectiveId": "obj4-semantique",
+        "bloomLevel": "analyze",
+        "type": "multi",
+        "difficulty": 3,
+        "prompt": "La spécification du constructeur par copie comporte deux clauses. Lesquelles ? (plusieurs réponses)",
+        "options": [
+          {
+            "id": "a",
+            "text": "taille(créer(d)) = taille(d)"
+          },
+          {
+            "id": "b",
+            "text": "Pour tout i, 0 ≤ i < taille(d) : créer(d)[i] = d[i]"
+          },
+          {
+            "id": "c",
+            "text": "estVide(créer(d)) = vrai"
+          },
+          {
+            "id": "d",
+            "text": "créer(d) et d occupent la même mémoire"
+          }
+        ],
+        "correct": [
+          "a",
+          "b"
+        ],
+        "explanation": "Les deux clauses sont nécessaires : même taille, et mêmes éléments un à un. La première seule serait satisfaite par un conteneur de bonne taille rempli de n'importe quoi.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "c",
+            "why": "Ce serait faux dès que d est non vide : la copie d'un conteneur plein n'est pas vide. Cette équation spécifie le constructeur sans paramètre."
+          },
+          {
+            "optionId": "d",
+            "why": "Partager la mémoire serait une copie superficielle. La spécification porte sur les valeurs des éléments, pas sur leur emplacement."
+          }
+        ],
+        "source": {
+          "file": "IFT339-5-BibliothequeNormaliseeC++.pdf",
+          "page": 5
+        }
+      },
+      {
+        "id": "q4-05",
+        "objectiveId": "obj4-iterateurs",
+        "bloomLevel": "understand",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Quel est l'intérêt principal des opérations début, fin, avance et recule ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Parcourir un conteneur sans rien connaître de sa représentation."
+          },
+          {
+            "id": "b",
+            "text": "Garantir que le parcours est en O(1)."
+          },
+          {
+            "id": "c",
+            "text": "Trier les éléments avant le parcours."
+          },
+          {
+            "id": "d",
+            "text": "Convertir le conteneur en tableau primitif."
+          }
+        ],
+        "correct": "a",
+        "explanation": "C'est l'abstraction du parcours : que les éléments soient contigus ou chaînés, avance sait passer au suivant. Le code client n'a pas à le savoir — c'est la frontière du chapitre 1 appliquée à l'itération.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Les notes signalent au contraire que la complexité des opérations diffère d'un conteneur à l'autre ; le contrat ne la garantit pas."
+          },
+          {
+            "optionId": "c",
+            "why": "Aucun tri n'est impliqué. Dans un conteneur associatif l'ordre est déjà maintenu, dans un séquentiel il est celui que l'usager a choisi."
+          },
+          {
+            "optionId": "d",
+            "why": "Aucune conversion n'a lieu ; l'itérateur donne accès aux éléments là où ils sont."
+          }
+        ],
+        "source": {
+          "file": "IFT339-5-BibliothequeNormaliseeC++.pdf",
+          "page": 7
+        }
+      },
+      {
+        "id": "q4-06",
+        "objectiveId": "obj4-groupes",
+        "bloomLevel": "understand",
+        "type": "true-false",
+        "difficulty": 2,
+        "prompt": "Puisque tous les conteneurs partagent les mêmes opérations de base, remplacer un conteneur par un autre est sans conséquence.",
+        "options": [
+          {
+            "id": "v",
+            "text": "Vrai"
+          },
+          {
+            "id": "f",
+            "text": "Faux"
+          }
+        ],
+        "correct": "f",
+        "explanation": "Les notes opposent explicitement l'uniformité et les différences : uniformité de la définition et des opérations de base, mais différences d'implémentation, de structures utilisées et de complexité des opérations. Le contrat est commun, le coût ne l'est pas.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "v",
+            "why": "Le code compilera sans doute, mais la performance peut changer d'un ordre de grandeur — c'est exactement la distinction TDA / structure de données du chapitre 1."
+          }
+        ],
+        "source": {
+          "file": "IFT339-5-BibliothequeNormaliseeC++.pdf",
+          "page": 2
+        }
+      },
+      {
+        "id": "q4-07",
+        "objectiveId": "obj4-communes",
+        "bloomLevel": "understand",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Quelle relation les notes établissent-elles entre détruire et nettoyer ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "détruire appelle nettoyer avant de détruire l'instance."
+          },
+          {
+            "id": "b",
+            "text": "nettoyer appelle détruire pour chaque élément."
+          },
+          {
+            "id": "c",
+            "text": "Ce sont deux noms pour la même opération."
+          },
+          {
+            "id": "d",
+            "text": "Aucune : elles sont indépendantes."
+          }
+        ],
+        "correct": "a",
+        "explanation": "C'est la règle du chapitre 3 inscrite dans le contrat : nettoyer libère la mémoire allouée dynamiquement, et détruire s'assure que c'est fait avant de faire disparaître l'instance.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "L'ordre est inversé. détruire porte sur le conteneur entier et s'appuie sur nettoyer."
+          },
+          {
+            "optionId": "c",
+            "why": "Après nettoyer le conteneur existe toujours et est réutilisable ; après détruire, non."
+          },
+          {
+            "optionId": "d",
+            "why": "La sémantique de détruire est justement définie par référence à nettoyer."
+          }
+        ],
+        "source": {
+          "file": "IFT339-5-BibliothequeNormaliseeC++.pdf",
+          "page": 6
+        }
+      },
+      {
+        "id": "q4-08",
+        "objectiveId": "obj4-communes",
+        "bloomLevel": "apply",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Comment la comparaison de deux conteneurs est-elle spécifiée ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Élément par élément, selon l'ordre lexicographique du type générique du contenu."
+          },
+          {
+            "id": "b",
+            "text": "En comparant uniquement les tailles."
+          },
+          {
+            "id": "c",
+            "text": "En comparant les adresses des deux conteneurs."
+          },
+          {
+            "id": "d",
+            "text": "En comparant les éléments après les avoir triés."
+          }
+        ],
+        "correct": "a",
+        "explanation": "La diapositive 7 précise : « compare les éléments un à un : ordre lexicographique du Type générique du contenu ». La comparaison est donc déléguée au type contenu, exactement comme pour deux chaînes de caractères.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Deux conteneurs de même taille aux contenus différents seraient déclarés égaux."
+          },
+          {
+            "optionId": "c",
+            "why": "Comparer des adresses testerait l'identité, pas l'égalité des contenus."
+          },
+          {
+            "optionId": "d",
+            "why": "Aucun tri préalable n'est mentionné ; l'ordre des éléments fait partie de ce qui est comparé."
+          }
+        ],
+        "source": {
+          "file": "IFT339-5-BibliothequeNormaliseeC++.pdf",
+          "page": 7
+        }
+      },
+      {
+        "id": "q4-09",
+        "objectiveId": "obj4-groupes",
+        "bloomLevel": "analyze",
+        "type": "mcq",
+        "difficulty": 3,
+        "prompt": "Un conteneur adapté utilise un autre conteneur comme représentation. Quel principe du chapitre 1 cela illustre-t-il ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "La séparation entre le TDA exposé et la structure de données qui l'implante."
+          },
+          {
+            "id": "b",
+            "text": "La bijection entre éléments et représentations."
+          },
+          {
+            "id": "c",
+            "text": "L'impossibilité pour un usager de modifier un TDA."
+          },
+          {
+            "id": "d",
+            "text": "La distinction entre durée de vie et portée."
+          }
+        ],
+        "correct": "a",
+        "explanation": "Le contrat exposé par le conteneur adapté n'a aucun rapport avec les opérations de celui qui lui sert de représentation : c'est la frontière d'abstraction, appliquée à un cas où la structure de données est elle-même un TDA.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "La bijection est un critère de choix de représentation ; elle ne dit rien sur le fait qu'une représentation puisse être un autre conteneur."
+          },
+          {
+            "optionId": "c",
+            "why": "Vrai en soi, mais sans rapport : il s'agit ici de la composition de deux types, pas des droits de l'usager."
+          },
+          {
+            "optionId": "d",
+            "why": "C'est une notion du chapitre 3 sur la gestion de la mémoire."
+          }
+        ],
+        "source": {
+          "file": "IFT339-5-BibliothequeNormaliseeC++.pdf",
+          "page": 3
+        }
+      },
+      {
+        "id": "q4-10",
+        "objectiveId": "obj4-semantique",
+        "bloomLevel": "apply",
+        "type": "short-answer",
+        "difficulty": 2,
+        "prompt": "D'après la spécification `taille(créer(n)) = n`, quelle est la taille du conteneur produit par créer(7) ? (un nombre)",
+        "correct": "7",
+        "acceptableAnswers": [
+          "7 éléments"
+        ],
+        "explanation": "Le constructeur avec paramètre produit un conteneur contenant n éléments. Noter la différence avec créer() sans paramètre, spécifié par estVide(créer()) = vrai, donc de taille 0.",
+        "source": {
+          "file": "IFT339-5-BibliothequeNormaliseeC++.pdf",
+          "page": 5
+        }
+      },
+      {
+        "id": "q4-11",
+        "objectiveId": "obj4-iterateurs",
+        "bloomLevel": "recall",
+        "type": "mcq",
+        "difficulty": 1,
+        "prompt": "Que retournent les opérations début et fin ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Un Itérateur"
+          },
+          {
+            "id": "b",
+            "text": "Un entier positif"
+          },
+          {
+            "id": "c",
+            "text": "Le premier et le dernier élément"
+          },
+          {
+            "id": "d",
+            "text": "Un booléen"
+          }
+        ],
+        "correct": "a",
+        "explanation": "La signature est « début, fin : Conteneur ➔ Itérateur ». Ce sont des itérateurs sur les éléments de début et de fin, que avance et recule déplacent ensuite.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Un entier serait un indice, ce qui supposerait une représentation indexable — exactement ce que l'itérateur permet d'éviter."
+          },
+          {
+            "optionId": "c",
+            "why": "Un itérateur désigne une position ; les opérations d'accès aux éléments eux-mêmes sont distinctes."
+          },
+          {
+            "optionId": "d",
+            "why": "C'est le retour de estVide et des comparaisons."
+          }
+        ],
+        "source": {
+          "file": "IFT339-5-BibliothequeNormaliseeC++.pdf",
+          "page": 7
+        }
+      },
+      {
+        "id": "q4-12",
+        "objectiveId": "obj4-semantique",
+        "bloomLevel": "analyze",
+        "type": "true-false",
+        "difficulty": 3,
+        "prompt": "La spécification `estVide(d) = vrai SSI taille(d) = 0` impose que estVide soit implantée en appelant taille.",
+        "options": [
+          {
+            "id": "v",
+            "text": "Vrai"
+          },
+          {
+            "id": "f",
+            "text": "Faux"
+          }
+        ],
+        "correct": "f",
+        "explanation": "Une spécification algébrique énonce une relation entre résultats, pas un algorithme. Une implantation qui maintient un compteur et une autre qui teste un pointeur de tête satisfont toutes deux l'équation — c'est la règle du chapitre 1 : ne pas poser de contraintes d'implantation.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "v",
+            "why": "Ce serait exactement la contrainte d'implantation que le TDA doit éviter. L'équation dit ce qui doit être vrai, pas comment l'obtenir."
+          }
+        ],
+        "source": {
+          "file": "IFT339-5-BibliothequeNormaliseeC++.pdf",
+          "page": 4
+        }
+      }
+    ]
+  },
+  "test": {
+    "title": "Test du chapitre 4",
+    "instructions": "20 questions couvrant tout le chapitre. Plus long et plus difficile que le quiz.",
+    "estimatedMinutes": 40,
+    "questions": [
+      {
+        "id": "t4-01",
+        "objectiveId": "obj4-groupes",
+        "bloomLevel": "recall",
+        "type": "mcq",
+        "difficulty": 1,
+        "prompt": "Lequel de ces groupes de conteneurs N'EXISTE PAS dans la classification du cours ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Conteneurs indexés"
+          },
+          {
+            "id": "b",
+            "text": "Conteneurs séquentiels"
+          },
+          {
+            "id": "c",
+            "text": "Conteneurs associatifs non ordonnés"
+          },
+          {
+            "id": "d",
+            "text": "Conteneurs adaptés"
+          }
+        ],
+        "correct": "a",
+        "explanation": "La diapositive 3 donne quatre groupes : séquentiels, associatifs, associatifs non ordonnés et adaptés. « Indexés » n'en fait pas partie — et pour cause : l'accès par indice suppose une représentation contiguë, donc une décision d'implantation, alors que les quatre groupes se définissent par qui décide de l'ordre ou par la nature de la représentation.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Groupe bien réel : l'ordre des éléments y est défini par l'usager."
+          },
+          {
+            "optionId": "c",
+            "why": "Groupe bien réel : aucun ordre n'y est défini sur les éléments."
+          },
+          {
+            "optionId": "d",
+            "why": "Groupe bien réel : un autre conteneur y sert de représentation."
+          }
+        ]
+      },
+      {
+        "id": "t4-02",
+        "objectiveId": "obj4-groupes",
+        "bloomLevel": "understand",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Dans un conteneur associatif, comment les ajouts se font-ils ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "En fonction de la valeur des éléments"
+          },
+          {
+            "id": "b",
+            "text": "Toujours à la fin"
+          },
+          {
+            "id": "c",
+            "text": "À la position choisie par l'usager"
+          },
+          {
+            "id": "d",
+            "text": "Dans un ordre aléatoire"
+          }
+        ],
+        "correct": "a",
+        "explanation": "L'ordre étant défini par le conteneur, c'est la valeur de l'élément qui détermine sa place. L'usager perd le contrôle de la position et gagne une organisation maintenue automatiquement.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Ajouter à la fin est une possibilité offerte par les conteneurs séquentiels, où l'usager décide."
+          },
+          {
+            "optionId": "c",
+            "why": "C'est la définition du séquentiel : « ajouts au début, à la fin ou à une position donnée »."
+          },
+          {
+            "optionId": "d",
+            "why": "Aucun hasard n'intervient ; même les associatifs non ordonnés placent les éléments de façon déterministe, simplement sans ordre exposé."
+          }
+        ],
+        "source": {
+          "file": "IFT339-5-BibliothequeNormaliseeC++.pdf",
+          "page": 3
+        }
+      },
+      {
+        "id": "t4-03",
+        "objectiveId": "obj4-communes",
+        "bloomLevel": "recall",
+        "type": "mcq",
+        "difficulty": 1,
+        "prompt": "Quelle est la signature de l'opération taille ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "taille : Conteneur ➔ entier positif"
+          },
+          {
+            "id": "b",
+            "text": "taille : Conteneur ➔ booléen"
+          },
+          {
+            "id": "c",
+            "text": "taille : Conteneur x entier ➔ Conteneur"
+          },
+          {
+            "id": "d",
+            "text": "taille : Ø ➔ entier positif"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Elle prend un conteneur et retourne le nombre d'éléments contenus, qui ne peut pas être négatif — d'où « entier positif » et non « entier ».",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "C'est la signature de estVide, qui répond par vrai ou faux."
+          },
+          {
+            "optionId": "c",
+            "why": "Retourner un conteneur ferait de taille une opération de modification, pas d'information."
+          },
+          {
+            "optionId": "d",
+            "why": "Sans paramètre, l'opération ne saurait pas de quel conteneur parler."
+          }
+        ],
+        "source": {
+          "file": "IFT339-5-BibliothequeNormaliseeC++.pdf",
+          "page": 4
+        }
+      },
+      {
+        "id": "t4-04",
+        "objectiveId": "obj4-semantique",
+        "bloomLevel": "apply",
+        "type": "code-output",
+        "difficulty": 2,
+        "prompt": "Soit d un conteneur tel que taille(d) = 5. D'après les spécifications du cours, que vaut taille(nettoyer(d)) ?",
+        "code": {
+          "lang": "text",
+          "value": "nettoyer : Conteneur -> Conteneur\n    nettoyer(d) = creer()\n\ncreer : O -> Conteneur\n    estVide(creer()) = vrai\n\nestVide : Conteneur -> booleen\n    estVide(d) = vrai SSI taille(d) = 0"
+        },
+        "correct": "0",
+        "acceptableAnswers": [
+          "0 élément",
+          "zéro"
+        ],
+        "explanation": "Chaînage des trois équations : nettoyer(d) = créer(), et estVide(créer()) = vrai, et estVide(x) = vrai SSI taille(x) = 0. Donc taille(nettoyer(d)) = 0, quelle que soit la taille de départ.",
+        "source": {
+          "file": "IFT339-5-BibliothequeNormaliseeC++.pdf",
+          "page": 6
+        }
+      },
+      {
+        "id": "t4-05",
+        "objectiveId": "obj4-communes",
+        "bloomLevel": "understand",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Que fait l'opération échanger ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Elle échange le contenu des deux conteneurs."
+          },
+          {
+            "id": "b",
+            "text": "Elle échange deux éléments à l'intérieur d'un conteneur."
+          },
+          {
+            "id": "c",
+            "text": "Elle échange les types génériques des deux conteneurs."
+          },
+          {
+            "id": "d",
+            "text": "Elle échange les itérateurs de début et de fin."
+          }
+        ],
+        "correct": "a",
+        "explanation": "Sa signature est « échanger : Conteneur x Conteneur ➔ Conteneur » et elle est rangée parmi les opérations qui modifient l'instance. Elle opère entre deux conteneurs, pas à l'intérieur d'un seul.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Ce serait une opération sur les éléments ; la signature prend deux conteneurs en paramètres."
+          },
+          {
+            "optionId": "c",
+            "why": "Le type générique est fixé à la déclaration de l'instance, comme vu au chapitre 2 ; il n'est pas modifiable."
+          },
+          {
+            "optionId": "d",
+            "why": "Les itérateurs sont produits par début et fin, ils ne sont pas un état échangeable."
+          }
+        ],
+        "source": {
+          "file": "IFT339-5-BibliothequeNormaliseeC++.pdf",
+          "page": 6
+        }
+      },
+      {
+        "id": "t4-06",
+        "objectiveId": "obj4-semantique",
+        "bloomLevel": "analyze",
+        "type": "mcq",
+        "difficulty": 3,
+        "prompt": "Pourquoi la spécification du constructeur par copie a-t-elle besoin de sa seconde clause, sur les éléments ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Sans elle, un conteneur de bonne taille rempli de n'importe quoi satisferait la spécification."
+          },
+          {
+            "id": "b",
+            "text": "Sans elle, la taille ne serait pas garantie."
+          },
+          {
+            "id": "c",
+            "text": "Sans elle, la copie partagerait la mémoire de l'original."
+          },
+          {
+            "id": "d",
+            "text": "Sans elle, le constructeur ne compilerait pas."
+          }
+        ],
+        "correct": "a",
+        "explanation": "taille(créer(d)) = taille(d) ne contraint que le nombre d'éléments. C'est la clause « ∀i, créer(d)[i] = d[i] » qui impose l'égalité des contenus, un à un et dans l'ordre.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "La taille est garantie par la première clause ; c'est justement pourquoi la seconde est nécessaire pour autre chose."
+          },
+          {
+            "optionId": "c",
+            "why": "La spécification ne parle jamais d'emplacement mémoire — c'est une décision d'implantation, que le TDA ne doit pas contraindre."
+          },
+          {
+            "optionId": "d",
+            "why": "Une spécification n'est pas du code : elle ne se compile pas. Elle sert à juger si une implantation est correcte."
+          }
+        ],
+        "source": {
+          "file": "IFT339-5-BibliothequeNormaliseeC++.pdf",
+          "page": 5
+        }
+      },
+      {
+        "id": "t4-07",
+        "objectiveId": "obj4-iterateurs",
+        "bloomLevel": "understand",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Que font les opérations avance et recule ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Elles déplacent un itérateur d'un élément dans le conteneur."
+          },
+          {
+            "id": "b",
+            "text": "Elles ajoutent ou retirent un élément du conteneur."
+          },
+          {
+            "id": "c",
+            "text": "Elles augmentent ou réduisent la taille du conteneur."
+          },
+          {
+            "id": "d",
+            "text": "Elles trient le conteneur en ordre croissant ou décroissant."
+          }
+        ],
+        "correct": "a",
+        "explanation": "Leur signature est « avance, recule : Itérateur ➔ Itérateur ». Elles opèrent sur l'itérateur, pas sur le conteneur : c'est la position qui bouge, pas le contenu.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Les signatures prennent et retournent un Itérateur, pas un Conteneur : le conteneur n'est pas modifié."
+          },
+          {
+            "optionId": "c",
+            "why": "Modifier la taille serait une opération sur le conteneur ; taille est d'ailleurs une opération d'information séparée."
+          },
+          {
+            "optionId": "d",
+            "why": "Aucune opération de tri ne figure parmi les opérations communes."
+          }
+        ],
+        "source": {
+          "file": "IFT339-5-BibliothequeNormaliseeC++.pdf",
+          "page": 7
+        }
+      },
+      {
+        "id": "t4-08",
+        "objectiveId": "obj4-groupes",
+        "bloomLevel": "apply",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Un conteneur maintient ses éléments triés en permanence et l'usager ne peut pas choisir où insérer. À quel groupe appartient-il ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Associatif"
+          },
+          {
+            "id": "b",
+            "text": "Séquentiel"
+          },
+          {
+            "id": "c",
+            "text": "Adapté"
+          },
+          {
+            "id": "d",
+            "text": "Associatif non ordonné"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Deux indices concordent : l'ordre est défini par le conteneur, et les ajouts se font en fonction de la valeur des éléments. C'est exactement la définition du groupe associatif.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Dans un séquentiel, l'usager choisit la position — c'est précisément ce que l'énoncé exclut."
+          },
+          {
+            "optionId": "c",
+            "why": "Le critère d'un conteneur adapté porte sur sa représentation, pas sur la façon dont l'ordre est décidé."
+          },
+          {
+            "optionId": "d",
+            "why": "Un associatif non ordonné ne définit aucun ordre ; ici les éléments sont maintenus triés."
+          }
+        ],
+        "source": {
+          "file": "IFT339-5-BibliothequeNormaliseeC++.pdf",
+          "page": 3
+        }
+      },
+      {
+        "id": "t4-09",
+        "objectiveId": "obj4-communes",
+        "bloomLevel": "recall",
+        "type": "fill-blank",
+        "difficulty": 1,
+        "prompt": "Compléter : nettoyer libère toute la mémoire allouée ____ et ramène le conteneur à l'état de création.",
+        "correct": "dynamiquement",
+        "acceptableAnswers": [
+          "dynamique",
+          "de façon dynamique"
+        ],
+        "explanation": "La mémoire allouée automatiquement est libérée par le mécanisme des blocs, comme vu au chapitre 3 ; seule la mémoire dynamique doit être rendue explicitement — ici par nettoyer.",
+        "source": {
+          "file": "IFT339-5-BibliothequeNormaliseeC++.pdf",
+          "page": 6
+        }
+      },
+      {
+        "id": "t4-10",
+        "objectiveId": "obj4-groupes",
+        "bloomLevel": "analyze",
+        "type": "mcq",
+        "difficulty": 3,
+        "prompt": "Les notes annoncent que les conteneurs diffèrent par « la complexité des opérations ». Quelle conséquence pratique cela a-t-il ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Le choix d'un conteneur est un choix de structure de données, à faire selon les opérations dominantes de l'usage."
+          },
+          {
+            "id": "b",
+            "text": "Il faut toujours préférer le conteneur qui offre le plus d'opérations."
+          },
+          {
+            "id": "c",
+            "text": "Les opérations communes doivent être réimplantées pour chaque conteneur."
+          },
+          {
+            "id": "d",
+            "text": "Deux conteneurs du même groupe ont forcément la même complexité."
+          }
+        ],
+        "correct": "a",
+        "explanation": "C'est le critère du chapitre 1, appliqué ici : choisir « la représentation avec laquelle les opérations utilisées seront les plus efficaces ». Le contrat commun garantit que le code compilera ; il ne dit rien du coût.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Le nombre d'opérations n'est pas un critère : un conteneur riche mais coûteux sur l'opération dominante est un mauvais choix."
+          },
+          {
+            "optionId": "c",
+            "why": "C'est justement l'inverse : l'uniformité de la définition évite d'avoir à réapprendre l'interface. Seule l'implantation, faite par la bibliothèque, diffère."
+          },
+          {
+            "optionId": "d",
+            "why": "Rien ne le garantit — deux conteneurs séquentiels peuvent reposer sur un tableau contigu ou sur un chaînage, avec des coûts très différents."
+          }
+        ],
+        "source": {
+          "file": "IFT339-5-BibliothequeNormaliseeC++.pdf",
+          "page": 2
+        }
+      },
+      {
+        "id": "t4-11",
+        "objectiveId": "obj4-semantique",
+        "bloomLevel": "apply",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Que spécifie l'équation `estÉgal(d1 ← d, d) = vrai` ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "L'affectation : après avoir affecté d à d1, les deux conteneurs sont égaux."
+          },
+          {
+            "id": "b",
+            "text": "La comparaison : deux conteneurs sont toujours égaux."
+          },
+          {
+            "id": "c",
+            "text": "La construction par copie."
+          },
+          {
+            "id": "d",
+            "text": "L'échange du contenu de deux conteneurs."
+          }
+        ],
+        "correct": "a",
+        "explanation": "La flèche ← note l'affectation de d dans d1. L'équation énonce le résultat attendu : après l'opération, estÉgal répond vrai. C'est la spécification de « affecter : Conteneur x Conteneur ➔ Conteneur ».",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "L'égalité n'est affirmée qu'après l'affectation ; hors de ce contexte, deux conteneurs quelconques ne sont évidemment pas égaux."
+          },
+          {
+            "optionId": "c",
+            "why": "Le constructeur par copie a sa propre spécification, en deux clauses sur la taille et les éléments."
+          },
+          {
+            "optionId": "d",
+            "why": "échanger est une opération distincte, spécifiée séparément."
+          }
+        ],
+        "source": {
+          "file": "IFT339-5-BibliothequeNormaliseeC++.pdf",
+          "page": 6
+        }
+      },
+      {
+        "id": "t4-12",
+        "objectiveId": "obj4-communes",
+        "bloomLevel": "understand",
+        "type": "true-false",
+        "difficulty": 2,
+        "prompt": "Les opérations communes sont données par le cours en syntaxe C++.",
+        "options": [
+          {
+            "id": "v",
+            "text": "Vrai"
+          },
+          {
+            "id": "f",
+            "text": "Faux"
+          }
+        ],
+        "correct": "f",
+        "explanation": "Elles sont données dans la notation des TDA du chapitre 1 — « taille : Conteneur ➔ entier positif » — et non en C++. C'est cohérent : il s'agit du contrat, indépendant du langage, et non d'une implantation.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "v",
+            "why": "Aucune des diapositives 4 à 7 ne contient de code C++ : ni type de retour, ni parenthèses de déclaration, ni point-virgule. Ce sont des spécifications."
+          }
+        ],
+        "source": {
+          "file": "IFT339-5-BibliothequeNormaliseeC++.pdf",
+          "page": 4
+        }
+      },
+      {
+        "id": "t4-13",
+        "objectiveId": "obj4-iterateurs",
+        "bloomLevel": "analyze",
+        "type": "mcq",
+        "difficulty": 3,
+        "prompt": "Pourquoi les itérateurs sont-ils nécessaires plutôt que de simples indices entiers ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Parce qu'un indice suppose une représentation indexable, ce que tous les conteneurs ne sont pas."
+          },
+          {
+            "id": "b",
+            "text": "Parce qu'un entier ne peut pas dépasser la taille du conteneur."
+          },
+          {
+            "id": "c",
+            "text": "Parce que les indices ne fonctionnent pas avec les classes génériques."
+          },
+          {
+            "id": "d",
+            "text": "Parce qu'un itérateur est toujours plus rapide qu'un indice."
+          }
+        ],
+        "correct": "a",
+        "explanation": "Un indice n'a de sens que si l'on sait calculer la position du i-ième élément. Dans un conteneur chaîné, ce calcul n'existe pas. L'itérateur abstrait le déplacement — avance sait passer au suivant quelle que soit la représentation.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Le dépassement est un problème de validité d'indice, pas une raison d'abstraire le parcours."
+          },
+          {
+            "optionId": "c",
+            "why": "Les indices fonctionnent parfaitement avec les templates ; le chapitre 5 en utilise sur des tableaux génériques."
+          },
+          {
+            "optionId": "d",
+            "why": "Sur un tableau contigu, un itérateur n'apporte aucun gain de vitesse : son intérêt est l'uniformité, pas la performance."
+          }
+        ],
+        "source": {
+          "file": "IFT339-5-BibliothequeNormaliseeC++.pdf",
+          "page": 7
+        }
+      },
+      {
+        "id": "t4-14",
+        "objectiveId": "obj4-communes",
+        "bloomLevel": "apply",
+        "type": "multi",
+        "difficulty": 2,
+        "prompt": "Parmi ces opérations communes, lesquelles modifient l'instance ? (plusieurs réponses)",
+        "options": [
+          {
+            "id": "a",
+            "text": "nettoyer"
+          },
+          {
+            "id": "b",
+            "text": "échanger"
+          },
+          {
+            "id": "c",
+            "text": "taille"
+          },
+          {
+            "id": "d",
+            "text": "estVide"
+          }
+        ],
+        "correct": [
+          "a",
+          "b"
+        ],
+        "explanation": "Le cours range les opérations en familles : celles qui informent sur l'instance (taille, estVide), les constructeurs, celles qui modifient l'instance (affecter, nettoyer, détruire, échanger), et les autres (comparaisons, itérations).",
+        "perDistractorExplanation": [
+          {
+            "optionId": "c",
+            "why": "taille informe sur l'instance sans la modifier : elle retourne un entier positif."
+          },
+          {
+            "optionId": "d",
+            "why": "estVide informe également, en retournant un booléen."
+          }
+        ],
+        "source": {
+          "file": "IFT339-5-BibliothequeNormaliseeC++.pdf",
+          "page": 6
+        }
+      },
+      {
+        "id": "t4-15",
+        "objectiveId": "obj4-groupes",
+        "bloomLevel": "understand",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Qu'est-ce qui est uniforme entre les conteneurs, selon les notes ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "La définition et les opérations de base en commun."
+          },
+          {
+            "id": "b",
+            "text": "L'implémentation et les structures utilisées."
+          },
+          {
+            "id": "c",
+            "text": "La complexité des opérations."
+          },
+          {
+            "id": "d",
+            "text": "La quantité de mémoire consommée par élément."
+          }
+        ],
+        "correct": "a",
+        "explanation": "La diapositive 2 sépare explicitement les deux colonnes : uniformité de la définition et des opérations de base d'un côté ; différences d'implémentation, de structures et de complexité de l'autre.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "C'est rangé du côté des différences — c'est même ce qui distingue un conteneur d'un autre."
+          },
+          {
+            "optionId": "c",
+            "why": "Également du côté des différences, et c'est la plus lourde de conséquences en pratique."
+          },
+          {
+            "optionId": "d",
+            "why": "Conséquence directe des structures utilisées, donc variable elle aussi."
+          }
+        ],
+        "source": {
+          "file": "IFT339-5-BibliothequeNormaliseeC++.pdf",
+          "page": 2
+        }
+      },
+      {
+        "id": "t4-16",
+        "objectiveId": "obj4-semantique",
+        "bloomLevel": "apply",
+        "type": "short-answer",
+        "difficulty": 2,
+        "prompt": "D'après `estVide(créer()) = vrai` et `estVide(d) = vrai SSI taille(d) = 0`, que vaut taille(créer()) ? (un nombre)",
+        "correct": "0",
+        "acceptableAnswers": [
+          "zéro"
+        ],
+        "explanation": "Chaînage direct des deux équations : créer() est vide, et un conteneur vide a une taille nulle. C'est ce qui distingue créer() de créer(n), pour lequel taille(créer(n)) = n.",
+        "source": {
+          "file": "IFT339-5-BibliothequeNormaliseeC++.pdf",
+          "page": 5
+        }
+      },
+      {
+        "id": "t4-17",
+        "objectiveId": "obj4-communes",
+        "bloomLevel": "analyze",
+        "type": "mcq",
+        "difficulty": 3,
+        "prompt": "Pourquoi le cours spécifie-t-il que détruire appelle nettoyer, plutôt que de laisser détruire tout faire ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Pour garantir dans le contrat que la mémoire dynamique est rendue, et réutiliser une opération déjà spécifiée."
+          },
+          {
+            "id": "b",
+            "text": "Parce que détruire ne peut pas accéder à la mémoire dynamique."
+          },
+          {
+            "id": "c",
+            "text": "Parce que nettoyer est plus rapide que détruire."
+          },
+          {
+            "id": "d",
+            "text": "Pour permettre d'appeler détruire plusieurs fois."
+          }
+        ],
+        "correct": "a",
+        "explanation": "C'est le même principe de réutilisation que la délégation de construction du chapitre 2 : la libération n'est spécifiée qu'une fois, dans nettoyer, et détruire s'y appuie. Le contrat énonce ainsi explicitement que rien ne fuit.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Rien ne l'empêcherait techniquement ; c'est un choix de spécification, pas une contrainte."
+          },
+          {
+            "optionId": "c",
+            "why": "Les spécifications du cours ne parlent jamais de vitesse — la complexité est justement ce qui varie d'un conteneur à l'autre."
+          },
+          {
+            "optionId": "d",
+            "why": "Détruire plusieurs fois la même instance est une erreur, comme le double delete du chapitre 3."
+          }
+        ],
+        "source": {
+          "file": "IFT339-5-BibliothequeNormaliseeC++.pdf",
+          "page": 6
+        }
+      },
+      {
+        "id": "t4-18",
+        "objectiveId": "obj4-groupes",
+        "bloomLevel": "recall",
+        "type": "mcq",
+        "difficulty": 1,
+        "prompt": "Qu'est-ce qui caractérise un conteneur adapté ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Un autre conteneur est utilisé comme représentation."
+          },
+          {
+            "id": "b",
+            "text": "Il s'adapte automatiquement à la taille des données."
+          },
+          {
+            "id": "c",
+            "text": "Il peut changer de type générique à l'exécution."
+          },
+          {
+            "id": "d",
+            "text": "Il n'a pas d'itérateurs."
+          }
+        ],
+        "correct": "a",
+        "explanation": "C'est la définition littérale de la diapositive 3. Le contrat exposé est propre au conteneur adapté ; sa structure de données est un autre conteneur, caché comme toute représentation.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "L'ajustement de capacité est un comportement d'implantation que de nombreux conteneurs partagent, sans rapport avec ce groupe."
+          },
+          {
+            "optionId": "c",
+            "why": "Le type générique est fixé à la déclaration de l'instance, comme vu au chapitre 2."
+          },
+          {
+            "optionId": "d",
+            "why": "Rien dans la définition ne retire les itérateurs, qui font partie des opérations communes."
+          }
+        ],
+        "source": {
+          "file": "IFT339-5-BibliothequeNormaliseeC++.pdf",
+          "page": 3
+        }
+      },
+      {
+        "id": "t4-19",
+        "objectiveId": "obj4-semantique",
+        "bloomLevel": "understand",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Que signifie « ordre lexicographique du Type générique du contenu » dans la spécification des comparaisons ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Les conteneurs sont comparés élément par élément, la comparaison de chaque élément étant celle du type contenu."
+          },
+          {
+            "id": "b",
+            "text": "Les éléments sont comparés comme des chaînes de caractères, quel que soit leur type."
+          },
+          {
+            "id": "c",
+            "text": "Les conteneurs sont comparés par leur taille, puis par leur contenu."
+          },
+          {
+            "id": "d",
+            "text": "Les éléments sont triés avant d'être comparés."
+          }
+        ],
+        "correct": "a",
+        "explanation": "C'est le même principe que pour deux mots : on compare la première paire d'éléments, puis la deuxième en cas d'égalité, et ainsi de suite. La comparaison élémentaire est déléguée au type générique du contenu.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Aucune conversion en chaîne n'a lieu : c'est l'opérateur de comparaison du type contenu qui est utilisé."
+          },
+          {
+            "optionId": "c",
+            "why": "La comparaison lexicographique procède élément par élément dès le premier ; la taille n'intervient que si l'un des conteneurs s'épuise."
+          },
+          {
+            "optionId": "d",
+            "why": "Aucun tri n'est mentionné, et trier changerait le résultat de la comparaison."
+          }
+        ],
+        "source": {
+          "file": "IFT339-5-BibliothequeNormaliseeC++.pdf",
+          "page": 7
+        }
+      },
+      {
+        "id": "t4-20",
+        "objectiveId": "obj4-iterateurs",
+        "bloomLevel": "analyze",
+        "type": "true-false",
+        "difficulty": 3,
+        "prompt": "Le contrat des conteneurs garantit qu'un accès par position est réalisé en temps constant.",
+        "options": [
+          {
+            "id": "v",
+            "text": "Vrai"
+          },
+          {
+            "id": "f",
+            "text": "Faux"
+          }
+        ],
+        "correct": "f",
+        "explanation": "Le contrat garantit qu'une opération existe et ce qu'elle retourne, jamais à quel coût. Les notes classent explicitement « la complexité des opérations » parmi les différences entre conteneurs. Le chapitre 5 donnera les complexités de array, mais comme une propriété de ce conteneur particulier.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "v",
+            "why": "Ce serait une contrainte d'implantation dans la spécification — exactement ce que le chapitre 1 interdit. Deux conteneurs offrant la même opération peuvent la réaliser en 𝒪(1) ou en 𝒪(n)."
+          }
+        ],
+        "source": {
+          "file": "IFT339-5-BibliothequeNormaliseeC++.pdf",
+          "page": 2
+        }
+      }
+    ]
+  },
+  "flashcards": [
+    {
+      "id": "f4-01",
+      "objectiveId": "obj4-groupes",
+      "front": "Les quatre groupes de conteneurs ?",
+      "back": "Séquentiels · Associatifs · Associatifs non ordonnés · Adaptés.",
+      "source": {
+        "file": "IFT339-5-BibliothequeNormaliseeC++.pdf",
+        "page": 3
+      }
+    },
+    {
+      "id": "f4-02",
+      "objectiveId": "obj4-groupes",
+      "front": "Quel critère sépare séquentiel et associatif ?",
+      "back": "Qui décide de l'ordre. Séquentiel : l'usager, qui ajoute au début, à la fin ou à une position donnée. Associatif : le conteneur, qui place selon la valeur."
+    },
+    {
+      "id": "f4-03",
+      "objectiveId": "obj4-groupes",
+      "front": "Qu'est-ce qui est uniforme entre conteneurs, et qu'est-ce qui diffère ?",
+      "back": "Uniforme : la définition et les opérations de base. Différent : l'implémentation, les structures utilisées, et la complexité des opérations."
+    },
+    {
+      "id": "f4-04",
+      "objectiveId": "obj4-communes",
+      "front": "Spécification de estVide ?",
+      "back": "estVide(d) = vrai SSI taille(d) = 0, faux sinon."
+    },
+    {
+      "id": "f4-05",
+      "objectiveId": "obj4-communes",
+      "front": "Les trois constructeurs communs et leur spécification ?",
+      "back": "créer : Ø ➔ Conteneur avec estVide(créer()) = vrai. créer : entier positif ➔ Conteneur avec taille(créer(n)) = n. créer : Conteneur ➔ Conteneur, même taille et mêmes éléments un à un."
+    },
+    {
+      "id": "f4-06",
+      "objectiveId": "obj4-communes",
+      "front": "Que garantit nettoyer ?",
+      "back": "nettoyer(d) = créer() : toute la mémoire allouée dynamiquement est libérée et le conteneur revient à l'état de création sans paramètre."
+    },
+    {
+      "id": "f4-07",
+      "objectiveId": "obj4-communes",
+      "front": "Quelle relation entre détruire et nettoyer ?",
+      "back": "détruire appelle nettoyer avant de détruire l'instance."
+    },
+    {
+      "id": "f4-08",
+      "objectiveId": "obj4-iterateurs",
+      "front": "Les quatre opérations d'itération communes ?",
+      "back": "début et fin : Conteneur ➔ Itérateur. avance et recule : Itérateur ➔ Itérateur."
+    },
+    {
+      "id": "f4-09",
+      "objectiveId": "obj4-iterateurs",
+      "front": "Pourquoi un itérateur plutôt qu'un indice entier ?",
+      "back": "Parce qu'un indice suppose une représentation indexable. L'itérateur abstrait le déplacement : avance passe au suivant, que les éléments soient contigus ou chaînés."
+    },
+    {
+      "id": "f4-10",
+      "objectiveId": "obj4-semantique",
+      "front": "Comment se comparent deux conteneurs ?",
+      "back": "Élément par élément, selon l'ordre lexicographique du type générique du contenu."
+    },
+    {
+      "id": "f4-11",
+      "objectiveId": "obj4-semantique",
+      "front": "Une spécification algébrique impose-t-elle une implantation ?",
+      "back": "Non. Elle énonce une relation entre résultats. estVide(d) = vrai SSI taille(d) = 0 n'oblige pas à appeler taille."
+    },
+    {
+      "id": "f4-12",
+      "objectiveId": "obj4-groupes",
+      "front": "Qu'est-ce qu'un conteneur adapté ?",
+      "back": "Un conteneur qui utilise un autre conteneur comme représentation — la structure de données est elle-même un TDA."
+    }
+  ],
+  "exercises": [
+    {
+      "id": "e4-01",
+      "objectiveId": "obj4-semantique",
+      "difficulty": 2,
+      "mode": "trace",
+      "language": "pseudocode",
+      "title": "Dériver un résultat à partir des spécifications",
+      "statement": "En n'utilisant que les équations du cours — sans supposer aucune implantation — déterminer la valeur de chaque expression. Justifier chaque étape par l'équation utilisée.\n\nOn part d'un conteneur d tel que taille(d) = 4.",
+      "starterCode": "Equations disponibles :\n  (E1) estVide(d) = vrai SSI taille(d) = 0\n  (E2) estVide(creer()) = vrai\n  (E3) taille(creer(n)) = n\n  (E4) nettoyer(d) = creer()\n  (E5) taille(creer(d)) = taille(d)\n       et pour tout i, 0 <= i < taille(d) : creer(d)[i] = d[i]\n\nA determiner, avec taille(d) = 4 :\n  1. taille(creer())\n  2. taille(creer(9))\n  3. taille(creer(d))\n  4. estVide(nettoyer(d))\n  5. taille(nettoyer(creer(d)))",
+      "hints": [
+        "Pour (1), partir de (E2) puis appliquer (E1) dans le sens « si estVide est vrai, alors taille vaut 0 ».",
+        "Attention à ne pas confondre creer(9) — constructeur avec paramètre, équation (E3) — et creer(d) — constructeur par copie, équation (E5).",
+        "Pour (5), appliquer d'abord (E4) : nettoyer de n'importe quoi donne creer(). La taille de départ n'a aucune importance."
+      ],
+      "solution": "0 ; 9 ; 4 ; vrai ; 0",
+      "expectedOutput": "1. taille(creer())\n   Par (E2) : estVide(creer()) = vrai\n   Par (E1) : estVide(x) = vrai implique taille(x) = 0\n   => taille(creer()) = 0\n\n2. taille(creer(9))\n   Par (E3) avec n = 9\n   => taille(creer(9)) = 9\n\n3. taille(creer(d))\n   Par (E5), premiere clause : taille(creer(d)) = taille(d) = 4\n   => 4\n   (La seconde clause garantit en plus que les 4 elements sont les memes.)\n\n4. estVide(nettoyer(d))\n   Par (E4) : nettoyer(d) = creer()\n   Par (E2) : estVide(creer()) = vrai\n   => vrai\n\n5. taille(nettoyer(creer(d)))\n   Par (E4) applique a creer(d) : nettoyer(creer(d)) = creer()\n   Par le resultat (1) : taille(creer()) = 0\n   => 0\n   Noter que taille(creer(d)) = 4 n'intervient pas : nettoyer ramene a l'etat\n   de creation quelle que soit la taille de depart.\n\nAucune de ces reponses n'a demande de savoir COMMENT le conteneur est implante.",
+      "solutionExplanation": "L'exercice fait exactement ce que le chapitre 1 annonçait d'un TDA : raisonner sur le contrat seul. Le point (5) est le plus révélateur — on est tenté de « suivre » le conteneur dans sa tête et de se demander ce qu'il advient des quatre éléments copiés. L'équation (E4) rend ce raisonnement inutile : elle tranche sans parler de mémoire.",
+      "source": {
+        "file": "IFT339-5-BibliothequeNormaliseeC++.pdf",
+        "page": 6,
+        "locator": "Diapositives 4 à 6"
+      }
+    },
+    {
+      "id": "e4-02",
+      "objectiveId": "obj4-groupes",
+      "difficulty": 2,
+      "mode": "predict-output",
+      "language": "text",
+      "title": "Classer des conteneurs par leur description",
+      "statement": "Pour chacune des quatre descriptions, donner le groupe de conteneurs correspondant parmi : séquentiel, associatif, associatif non ordonné, adapté.\n\nN'utiliser que le critère des notes.",
+      "starterCode": "A. L'usager insere ou il veut : au debut, a la fin, ou a une position donnee.\n\nB. Le conteneur place chaque element selon sa valeur, et le parcours ressort\n   toujours dans le meme ordre.\n\nC. Le conteneur n'expose que empiler, depiler et sommet ; en interne, il\n   delegue tout a un autre conteneur.\n\nD. Les elements sont stockes sans qu'aucun ordre ne soit defini sur eux ;\n   l'usager ne peut pas choisir de position.",
+      "hints": [
+        "Le critère principal est : qui décide de l'ordre des éléments — l'usager, le conteneur, ou personne ?",
+        "Un seul des quatre groupes ne se définit pas par l'ordre, mais par sa représentation.",
+        "Pour D, distinguer « aucun ordre défini » de « ordre défini par le conteneur »."
+      ],
+      "solution": "A séquentiel · B associatif · C adapté · D associatif non ordonné",
+      "expectedOutput": "A -> SEQUENTIEL\n   « ordre des elements defini par l'usager ; ajouts au debut, a la fin ou a\n   une position donnee » — c'est la definition mot pour mot.\n\nB -> ASSOCIATIF\n   « ordre des elements defini par le conteneur ; ajouts en fonction de leur\n   valeur ». Le fait que le parcours ressorte toujours dans le meme ordre\n   confirme qu'un ordre est bien defini.\n\nC -> ADAPTE\n   « autre conteneur utilise comme representation ». Noter que le contrat\n   expose (empiler, depiler, sommet) ne laisse rien deviner du conteneur\n   sous-jacent : c'est l'encapsulation du chapitre 1.\n\nD -> ASSOCIATIF NON ORDONNE\n   « aucun ordre defini sur les elements ». Le piege est de confondre avec B :\n   dans les deux cas l'usager ne choisit pas la position, mais seul B definit\n   un ordre.",
+      "solutionExplanation": "La paire B / D est celle qui départage. Les deux retirent à l'usager le choix de la position, et on est tenté de les confondre. Le critère qui tranche est l'existence d'un ordre exposé : dans B le parcours est reproductible et signifiant, dans D il ne l'est pas. Quant à C, il rappelle qu'un des quatre groupes se définit par sa représentation et non par son ordre — c'est une catégorie d'une autre nature.",
+      "source": {
+        "file": "IFT339-5-BibliothequeNormaliseeC++.pdf",
+        "page": 3,
+        "locator": "Diapositive 3"
+      }
+    },
+    {
+      "id": "e4-03",
+      "objectiveId": "obj4-communes",
+      "difficulty": 2,
+      "mode": "fill-blank",
+      "language": "pseudocode",
+      "title": "Compléter le contrat d'un conteneur",
+      "statement": "Compléter les signatures et les sémantiques manquantes, dans la notation du cours.",
+      "starterCode": "taille    : Conteneur -> ____                (1) le type de retour\n    nombre d'elements contenus dans le conteneur\n\nestVide   : Conteneur -> booleen\n    estVide(d) = vrai SSI ____                (2) la condition\n\ncreer     : ____ -> Conteneur                (3) constructeur sans parametre\n    estVide(creer()) = vrai\n\nnettoyer  : Conteneur -> Conteneur\n    nettoyer(d) = ____                        (4) l'etat obtenu\n\ndebut, fin : Conteneur -> ____                (5) le type de retour",
+      "hints": [
+        "Pour (1), le nombre d'éléments ne peut jamais être négatif : les notes emploient deux mots.",
+        "Pour (3), l'absence de paramètre a une notation dédiée dans le cours, déjà vue au chapitre 1.",
+        "Pour (4), une seule expression suffit — celle qui désigne un conteneur fraîchement construit."
+      ],
+      "solution": "entier positif ; taille(d) = 0 ; Ø ; créer() ; Itérateur",
+      "expectedOutput": "(1) entier positif\n    taille : Conteneur -> entier positif\n\n(2) taille(d) = 0\n    estVide(d) = vrai SSI taille(d) = 0, faux sinon\n\n(3) O  (l'ensemble vide)\n    creer : O -> Conteneur\n\n(4) creer()\n    nettoyer(d) = creer()\n    Une seule expression suffit : apres nettoyage, le conteneur est\n    indiscernable d'un conteneur construit sans parametre.\n\n(5) Iterateur\n    debut, fin : Conteneur -> Iterateur\n\nRemarquer qu'aucune de ces lignes ne mentionne de tableau, de chainage ni de\ncomplexite : le contrat reste independant de l'implantation, conformement a la\nregle du chapitre 1.",
+      "solutionExplanation": "Le trou (1) est celui qu'on remplit mal : écrire « entier » suffirait à compiler mentalement, mais perdrait une information du contrat — la taille est positive ou nulle par construction. Le trou (5) vaut aussi d'être noté : écrire « entier » à la place d'« Itérateur » reviendrait à imposer une représentation indexable, c'est-à-dire à poser une contrainte d'implantation dans la spécification.",
+      "source": {
+        "file": "IFT339-5-BibliothequeNormaliseeC++.pdf",
+        "page": 7,
+        "locator": "Diapositives 4 à 7"
+      }
+    },
+    {
+      "id": "e4-04",
+      "objectiveId": "obj4-semantique",
+      "difficulty": 3,
+      "mode": "find-bug",
+      "language": "pseudocode",
+      "title": "Trouver le défaut — une spécification qui en dit trop",
+      "statement": "Voici une proposition de contrat pour un conteneur, rédigée par une équipe. Trois lignes ne respectent pas les règles du chapitre 1 sur ce qu'un TDA doit contenir. Les identifier et expliquer pourquoi.",
+      "starterCode": "MonConteneur\n    Elements de type generique T\n\n    creer   : O -> MonConteneur\n        alloue un tableau de 16 cases en memoire dynamique     <-- A\n\n    taille  : MonConteneur -> entier positif\n        retourne l'attribut prive nbElements                   <-- B\n\n    estVide : MonConteneur -> booleen\n        estVide(d) = vrai SSI taille(d) = 0                    <-- C\n\n    ajouter : MonConteneur x T -> MonConteneur\n        insere l'element ; si le tableau est plein, double sa\n        capacite et recopie                                     <-- D\n\n    debut   : MonConteneur -> entier                            <-- E\n        retourne 0",
+      "hints": [
+        "Relire la consigne du chapitre 1 : une spécification doit « éviter de poser des contraintes d'implantation ».",
+        "Chercher les lignes qui nomment une structure concrète (tableau, attribut) ou un algorithme (doubler, recopier).",
+        "La ligne E ne nomme aucune structure, mais son type de retour en suppose une. Laquelle ?"
+      ],
+      "solution": "A, B, D et E posent des contraintes d'implantation ; seule C est une spécification correcte.",
+      "expectedOutput": "Lignes fautives : A, B, D et E.  (La consigne annoncait trois lignes ; il y en\na en realite quatre — E est la plus discrete.)\n\nA — « alloue un tableau de 16 cases en memoire dynamique »\n    Nomme la structure (tableau), la capacite (16) et le mode d'allocation\n    (dynamique). Trois decisions qui appartiennent a la structure de donnees.\n    Correct : estVide(creer()) = vrai\n\nB — « retourne l'attribut prive nbElements »\n    Decrit COMMENT la taille est obtenue, et expose au passage un attribut\n    prive dans la partie publique du contrat. Une implantation qui compterait\n    les elements a chaque appel serait pourtant tout aussi valable.\n    Correct : nombre d'elements contenus dans le conteneur\n\nC — CORRECTE\n    Une equation entre deux operations du contrat. Elle dit ce qui doit etre\n    vrai, jamais comment l'obtenir. C'est le modele a suivre.\n\nD — « double sa capacite et recopie »\n    Decrit un algorithme de reallocation. La notion meme de « capacite » est\n    une propriete de la representation, absente du domaine.\n    Correct : taille(ajouter(d, e)) = taille(d) + 1\n\nE — « debut : MonConteneur -> entier ; retourne 0 »\n    Double defaut. Le type de retour devrait etre Iterateur : annoncer un\n    entier suppose une representation indexable, donc contigue. Et « retourne\n    0 » fixe une implantation.\n    Correct : debut : MonConteneur -> Iterateur\n\nContrat corrige :\n\n    MonConteneur\n        Elements de type generique T\n        creer   : O -> MonConteneur       estVide(creer()) = vrai\n        taille  : MonConteneur -> entier positif\n        estVide : MonConteneur -> booleen estVide(d) = vrai SSI taille(d) = 0\n        ajouter : MonConteneur x T -> MonConteneur\n                                          taille(ajouter(d,e)) = taille(d) + 1\n        debut   : MonConteneur -> Iterateur",
+      "solutionExplanation": "La ligne E est celle qui mérite le plus d'attention, et c'est pourquoi l'énoncé en annonçait une de moins : elle ne contient aucun mot suspect comme « tableau » ou « allouer ». C'est le type de retour qui trahit la représentation. Annoncer un entier, c'est promettre que les positions sont des nombres — donc que le conteneur est indexable, donc contigu. Les notes emploient « Itérateur » précisément pour ne rien promettre de tel.",
+      "source": {
+        "file": "IFT339-5-BibliothequeNormaliseeC++.pdf",
+        "page": 4,
+        "locator": "Diapositives 4 à 7 ; chapitre 1, diapositive 11"
+      }
+    },
+    {
+      "id": "e4-05",
+      "objectiveId": "obj4-iterateurs",
+      "difficulty": 2,
+      "mode": "predict-output",
+      "language": "pseudocode",
+      "title": "Prédire le comportement d'un parcours abstrait",
+      "statement": "Cet algorithme de parcours n'utilise que les opérations communes du cours. Dire ce qu'il calcule, puis répondre : fonctionne-t-il aussi bien sur un conteneur dont les éléments sont chaînés que sur un conteneur contigu ? Pourquoi ?",
+      "starterCode": "Entree : un conteneur d, une valeur v\nSortie : un entier\n\n  n <- 0\n  it <- debut(d)\n  tant que it != fin(d) faire\n      si element(it) = v alors\n          n <- n + 1\n      it <- avance(it)\n  fin tant que\n  retourner n",
+      "hints": [
+        "Suivre l'algorithme sur un petit conteneur, par exemple [3, 7, 3, 3] avec v = 3.",
+        "Repérer quelles opérations sont utilisées : début, fin, avance. Toutes figurent-elles parmi les opérations communes à TOUS les conteneurs ?",
+        "Pour la seconde question, se demander ce que avance doit faire dans chaque cas — et si l'algorithme a besoin de le savoir."
+      ],
+      "solution": "Il compte les occurrences de v ; il fonctionne sur les deux car il n'utilise que des opérations communes.",
+      "expectedOutput": "Ce que l'algorithme calcule : le NOMBRE D'OCCURRENCES de la valeur v dans le\nconteneur d.\n\nDeroulement sur d = [3, 7, 3, 3] et v = 3 :\n  it sur 3  -> egal    -> n = 1\n  it sur 7  -> different\n  it sur 3  -> egal    -> n = 2\n  it sur 3  -> egal    -> n = 3\n  it = fin(d) -> arret\n  retourne 3\n\nFonctionne-t-il sur les deux sortes de conteneurs ? OUI.\n\nPourquoi : l'algorithme n'utilise que des operations COMMUNES a tous les\nconteneurs — debut, fin, avance — plus l'acces a l'element designe. A aucun\nmoment il ne calcule une position, n'additionne un indice, ni ne suppose que\nles elements se suivent en memoire.\n\n  * Sur un conteneur contigu, avance passe a la cellule voisine.\n  * Sur un conteneur chaine, avance suit le lien vers le noeud suivant.\n\nL'algorithme ignore laquelle des deux choses se produit, et c'est exactement\nle but : l'iterateur abstrait le deplacement.\n\nCe qui n'est PAS garanti : le COUT. Les notes rangent « la complexite des\noperations » parmi les differences entre conteneurs. Le parcours visitera bien\nchaque element une fois dans les deux cas, mais le prix d'un avance peut\ndifferer.",
+      "solutionExplanation": "C'est la démonstration concrète de l'intérêt des itérateurs. Le même algorithme, écrit une seule fois, s'applique à des représentations qui n'ont rien en commun en mémoire. Si l'on avait écrit `pour i de 0 a taille(d)-1 : d[i]`, on aurait implicitement exigé une représentation indexable — et l'algorithme serait devenu faux, ou très coûteux, sur un conteneur chaîné.",
+      "source": {
+        "file": "IFT339-5-BibliothequeNormaliseeC++.pdf",
+        "page": 7,
+        "locator": "Diapositive 7"
+      }
+    }
+  ]
+}

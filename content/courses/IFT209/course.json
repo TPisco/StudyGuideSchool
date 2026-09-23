@@ -1,0 +1,107 @@
+{
+  "code": "IFT209",
+  "title": "Programmation système",
+  "term": "Automne 2026",
+  "language": "fr",
+  "accent": "amber",
+  "sample": false,
+  "description": "Du nombre écrit sur papier à l'instruction exécutée par le processeur. Le cours part des systèmes de numération positionnels et de la conversion entre bases, traverse l'architecture de von Neumann et les choix qui distinguent RISC de CISC, détaille les modes d'adressage par lesquels une instruction désigne ses opérandes, et aboutit à l'écriture d'un programme complet en assembleur ARMv8 avec entrées-sorties.",
+  "chapters": [
+    { "number": 1, "slug": "01-systemes-de-numeration", "title": "Systèmes de numération" },
+    { "number": 2, "slug": "02-architecture-des-ordinateurs", "title": "Architecture des ordinateurs" },
+    { "number": 3, "slug": "03-acces-aux-donnees", "title": "L'accès aux données" },
+    { "number": 4, "slug": "04-premier-programme-armv8", "title": "Premier programme ARMv8" }
+  ],
+  "roadmap": {
+    "title": "Parcours d'apprentissage",
+    "steps": [
+      {
+        "id": "prereq-prog",
+        "title": "Programmation impérative et C",
+        "description": "Variables, boucles, fonctions, et la syntaxe C — le chapitre 4 appelle printf et scanf de la bibliothèque C sans les présenter.",
+        "estimatedMinutes": 180,
+        "prerequisites": [],
+        "external": true,
+        "externalNote": "Non couvert par les documents de ce cours. Les diapositives du chapitre 4 supposent connues les signatures printf(format, data…) et scanf(format, &data…) ainsi que les codes de format %d, %u, %s. Réviser un cours d'introduction au C avant le chapitre 4."
+      },
+      {
+        "id": "ch1",
+        "title": "Systèmes de numération",
+        "description": "Systèmes positionnels, les six cas de conversion entre bases, groupement et éclatement, capacité maximale d'une représentation.",
+        "chapter": 1,
+        "estimatedMinutes": 150,
+        "prerequisites": []
+      },
+      {
+        "id": "ch1-check",
+        "title": "Point de contrôle — convertir sans passer par la base 10",
+        "description": "Devant une conversion entre deux bases quelconques, choisir la procédure la plus appropriée — groupement, éclatement, ou passage par une base intermédiaire — et la justifier.",
+        "estimatedMinutes": 45,
+        "prerequisites": ["ch1"],
+        "checkpoint": true
+      },
+      {
+        "id": "ch2",
+        "title": "Architecture des ordinateurs",
+        "description": "Architecture externe et interne, modèle de von Neumann, RISC contre CISC, organisation de la mémoire et boutisme, nombre d'opérandes, pipeline.",
+        "chapter": 2,
+        "estimatedMinutes": 180,
+        "prerequisites": ["ch1"]
+      },
+      {
+        "id": "ch2-check",
+        "title": "Point de contrôle — lire un mot en mémoire",
+        "description": "Devant une suite d'octets et une adresse, donner la valeur du mot ou du double-mot en little-endian et en big-endian, avec et sans contrainte de frontière.",
+        "estimatedMinutes": 45,
+        "prerequisites": ["ch2"],
+        "checkpoint": true
+      },
+      {
+        "id": "ch3",
+        "title": "L'accès aux données",
+        "description": "Hiérarchie des mémoires, vie d'un programme et transformation des adresses, les modes d'adressage classiques, puis les 7 modes de l'ARM.",
+        "chapter": 3,
+        "estimatedMinutes": 165,
+        "prerequisites": ["ch2"]
+      },
+      {
+        "id": "ch3-check",
+        "title": "Point de contrôle — identifier un mode d'adressage",
+        "description": "Devant une instruction ARM, nommer le mode d'adressage utilisé et dire où se trouve effectivement l'opérande.",
+        "estimatedMinutes": 40,
+        "prerequisites": ["ch3"],
+        "checkpoint": true
+      },
+      {
+        "id": "ch4",
+        "title": "Premier programme ARMv8",
+        "description": "Normes de programmation, sections et pseudo-instructions, entrées-sorties par printf et scanf, et lecture d'un programme complet.",
+        "chapter": 4,
+        "estimatedMinutes": 180,
+        "prerequisites": ["ch3", "prereq-prog"]
+      },
+      {
+        "id": "ch4-check",
+        "title": "Point de contrôle — écrire un programme complet",
+        "description": "Écrire un programme ARMv8 qui lit des valeurs au clavier, calcule, et affiche un résultat — avec les bonnes sections, les bons registres, SAVE au début et exit à la fin.",
+        "estimatedMinutes": 60,
+        "prerequisites": ["ch4"],
+        "checkpoint": true
+      },
+      {
+        "id": "revision",
+        "title": "Révision finale",
+        "description": "Examen blanc chronométré couvrant les quatre chapitres, pondéré vers les objectifs faibles détectés par la plateforme.",
+        "estimatedMinutes": 120,
+        "prerequisites": ["ch1-check", "ch2-check", "ch3-check", "ch4-check"],
+        "checkpoint": true
+      }
+    ]
+  },
+  "exam": {
+    "defaultMinutes": 90,
+    "defaultQuestionCount": 30,
+    "mirrorsPastExam": false,
+    "formatNote": "Aucun examen antérieur n'a été fourni pour ce cours. Les documents contiennent en revanche les exercices du professeur pour les chapitres 1 et 2, avec leurs solutions : les exercices de ces chapitres en sont directement dérivés. Le format de l'examen blanc (30 questions, 90 minutes) reste une convention de la plateforme."
+  }
+}

@@ -1,0 +1,22 @@
+---
+import Base from '../layouts/Base.astro';
+import Flashcards from '../components/react/Flashcards';
+import { allCards, getCourses } from '../lib/content';
+
+const cards = await allCards();
+const courseEntries = await getCourses();
+const courses = courseEntries.map((c) => ({ id: c.id, title: c.data.title, code: c.data.code }));
+---
+
+<Base title="Révision">
+  <header class="mb-6">
+    <h1 class="text-2xl font-bold tracking-tight sm:text-3xl">Cartes mémoire</h1>
+    <p class="mt-2 text-sm" style="color: var(--text-muted);">
+      Répétition espacée (algorithme SM-2) : chaque carte revient juste avant d'être oubliée. Elles
+      proviennent des concepts clés de chaque chapitre, des cartes rédigées pour le cours, et de
+      celles que j'ajoute moi-même.
+    </p>
+  </header>
+
+  <Flashcards client:load cards={cards} courses={courses} />
+</Base>

@@ -1,0 +1,1838 @@
+{
+  "course": "MAT098",
+  "chapter": 8,
+  "concepts": [
+    {
+      "id": "c8-famille",
+      "term": "Famille de primitives",
+      "definition": "Si $F$ est une primitive de $f$, toutes les fonctions $F(x) + C$ le sont aussi ($C$ constante arbitraire).",
+      "whyItMatters": "Une seule primitive suffit pour le théorème fondamental : la constante s'annule dans F(b) − F(a).",
+      "commonMisconception": "Croire que la constante C change la valeur d'une intégrale définie.",
+      "objectiveId": "obj8-table",
+      "source": {
+        "file": "2-integrale_definie.pdf",
+        "page": 37,
+        "locator": "Diapositive 37"
+      }
+    },
+    {
+      "id": "c8-puissance",
+      "term": "Primitive d'une puissance",
+      "definition": "Pour $n \\neq -1$, une primitive de $x^n$ est $\\frac{x^{n+1}}{n + 1}$ ; elle vaut aussi pour $n$ fractionnaire ou négatif.",
+      "whyItMatters": "Radicaux et quotients s'y ramènent : $\\frac{1}{\\sqrt[4]{x^3}} = x^{-3/4}$.",
+      "commonMisconception": "Diviser par $n$ au lieu de $n + 1$, ou oublier que $n = -1$ est exclu.",
+      "objectiveId": "obj8-primitive",
+      "source": {
+        "file": "2-integrale_definie.pdf",
+        "page": 38,
+        "locator": "Diapositive 38"
+      }
+    },
+    {
+      "id": "c8-facteur-k",
+      "term": "Le facteur 1/k",
+      "definition": "Pour $f(kx)$ dans la table, la primitive porte un facteur $\\frac1k$ : $\\cos(kx) \\mapsto \\frac{\\sin(kx)}{k}$, $e^{kx} \\mapsto \\frac{e^{kx}}{k}$.",
+      "whyItMatters": "Il compense le facteur k produit par la dérivation en chaîne.",
+      "commonMisconception": "Multiplier par $k$ au lieu de diviser, ou oublier le facteur quand $k$ est une fraction comme $\\frac13$.",
+      "objectiveId": "obj8-primitive",
+      "source": {
+        "file": "2-integrale_definie.pdf",
+        "page": 38,
+        "locator": "Diapositive 38"
+      }
+    },
+    {
+      "id": "c8-signes-trigo",
+      "term": "Signes des primitives trigonométriques",
+      "definition": "$\\sin(kx) \\mapsto -\\frac{\\cos(kx)}{k}$ et $\\cos(kx) \\mapsto \\frac{\\sin(kx)}{k}$ ; de même $\\csc^2$ et $\\csc\\cot$ ont des primitives avec un signe moins.",
+      "whyItMatters": "C'est l'inverse des dérivées : $\\frac{d}{dx}[\\cos x] = -\\sin x$.",
+      "commonMisconception": "Donner $\\cos(kx)/k$ comme primitive de $\\sin(kx)$ : sa dérivée est $-\\sin(kx)$.",
+      "objectiveId": "obj8-table",
+      "source": {
+        "file": "2-integrale_definie.pdf",
+        "page": 38,
+        "locator": "Diapositive 38"
+      }
+    },
+    {
+      "id": "c8-reecriture",
+      "term": "Réécrire pour reconnaître",
+      "definition": "$\\frac{1}{\\cos^2(7x)} = \\sec^2(7x)$, $\\frac{1}{e^{5x}} = e^{-5x}$, $\\sqrt[4]{x^3} = x^{3/4}$ : une réécriture fait apparaître une ligne de la table.",
+      "whyItMatters": "La table ne contient qu'une forme par fonction ; il faut s'y ramener.",
+      "commonMisconception": "Chercher une primitive de $\\frac{1}{e^{5x}}$ comme un quotient au lieu d'écrire $e^{-5x}$.",
+      "objectiveId": "obj8-reecrire",
+      "source": {
+        "file": "2-integrale_definie.pdf",
+        "page": 39,
+        "locator": "Exercice 2.13 (1.5)"
+      }
+    },
+    {
+      "id": "c8-verifier",
+      "term": "Vérifier une primitive",
+      "definition": "On dérive la primitive trouvée : on doit retrouver exactement la fonction de départ.",
+      "whyItMatters": "C'est un contrôle rapide qui détecte les erreurs de signe et de facteur k.",
+      "commonMisconception": "Vérifier en intégrant de nouveau au lieu de dériver.",
+      "objectiveId": "obj8-integrale",
+      "source": {
+        "file": "2-integrale_definie.pdf",
+        "page": 33,
+        "locator": "Diapositive 33 : F′(x) = f(x)"
+      }
+    }
+  ],
+  "tables": [
+    {
+      "id": "t8-table",
+      "title": "Primitives de base (k ≠ 0)",
+      "kind": "cheatsheet",
+      "columns": [
+        {
+          "key": "f",
+          "label": "Fonction f(x)"
+        },
+        {
+          "key": "F",
+          "label": "Une primitive F(x)"
+        }
+      ],
+      "rows": [
+        {
+          "f": "1",
+          "F": "$x$"
+        },
+        {
+          "f": "$x^n$, $n \\neq -1$",
+          "F": "$\\frac{x^{n+1}}{n+1}$"
+        },
+        {
+          "f": "$\\sin(kx)$",
+          "F": "$-\\frac{\\cos(kx)}{k}$"
+        },
+        {
+          "f": "$\\cos(kx)$",
+          "F": "$\\frac{\\sin(kx)}{k}$"
+        },
+        {
+          "f": "$\\sec^2(kx)$",
+          "F": "$\\frac{\\tan(kx)}{k}$"
+        },
+        {
+          "f": "$\\csc^2(kx)$",
+          "F": "$-\\frac{\\cot(kx)}{k}$"
+        },
+        {
+          "f": "$\\sec(kx)\\tan(kx)$",
+          "F": "$\\frac{\\sec(kx)}{k}$"
+        },
+        {
+          "f": "$\\csc(kx)\\cot(kx)$",
+          "F": "$-\\frac{\\csc(kx)}{k}$"
+        },
+        {
+          "f": "$e^{kx}$",
+          "F": "$\\frac{e^{kx}}{k}$"
+        }
+      ],
+      "source": {
+        "file": "2-integrale_definie.pdf",
+        "page": 38,
+        "locator": "Diapositive 38"
+      }
+    },
+    {
+      "id": "t8-integrales",
+      "title": "Exercice 2.14 (1.6) — valeurs exactes",
+      "kind": "reference",
+      "columns": [
+        {
+          "key": "int",
+          "label": "Intégrale"
+        },
+        {
+          "key": "F",
+          "label": "Primitive"
+        },
+        {
+          "key": "val",
+          "label": "Valeur"
+        }
+      ],
+      "rows": [
+        {
+          "int": "$\\int_2^3 \\left(\\frac{3}{x^2} + 6x^2\\right)dx$",
+          "F": "$-\\frac3x + 2x^3$",
+          "val": "$\\frac{77}{2}$"
+        },
+        {
+          "int": "$\\int_0^2 e^{-3x}\\,dx$",
+          "F": "$-\\frac{e^{-3x}}{3}$",
+          "val": "$\\frac{1 - e^{-6}}{3}$"
+        },
+        {
+          "int": "$\\int_0^{\\pi/6} \\cos(3x)\\,dx$",
+          "F": "$\\frac{\\sin(3x)}{3}$",
+          "val": "$\\frac13$"
+        },
+        {
+          "int": "$\\int_0^{3\\pi/4} \\sec^2\\left(\\frac{x}{3}\\right)dx$",
+          "F": "$3\\tan\\left(\\frac{x}{3}\\right)$",
+          "val": "3"
+        }
+      ],
+      "source": {
+        "file": "2-integrale_definie.pdf",
+        "page": 40,
+        "locator": "Exercice 2.14 (1.6)"
+      },
+      "caption": "Réponses calculées par la plateforme et vérifiées par calcul symbolique."
+    }
+  ],
+  "quiz": {
+    "title": "Quiz — vérification rapide",
+    "estimatedMinutes": 15,
+    "questions": [
+      {
+        "id": "q8-01",
+        "objectiveId": "obj8-table",
+        "bloomLevel": "recall",
+        "type": "mcq",
+        "difficulty": 1,
+        "prompt": "Quelle est une primitive de $x^n$, pour $n \\neq -1$ ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "$\\frac{x^{n+1}}{n + 1}$"
+          },
+          {
+            "id": "b",
+            "text": "$nx^{n-1}$"
+          },
+          {
+            "id": "c",
+            "text": "$\\frac{x^{n+1}}{n}$"
+          },
+          {
+            "id": "d",
+            "text": "$x^{n+1}$"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Diapositive 38.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "C'est la dérivée."
+          },
+          {
+            "optionId": "c",
+            "why": "On divise par le NOUVEL exposant n + 1."
+          },
+          {
+            "optionId": "d",
+            "why": "Sa dérivée est $(n + 1)x^n$."
+          }
+        ],
+        "source": {
+          "file": "2-integrale_definie.pdf",
+          "page": 38,
+          "locator": "Diapositive 38"
+        }
+      },
+      {
+        "id": "q8-02",
+        "objectiveId": "obj8-table",
+        "bloomLevel": "recall",
+        "type": "mcq",
+        "difficulty": 1,
+        "prompt": "Quelle est une primitive de $\\sin(kx)$ ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "$-\\frac{\\cos(kx)}{k}$"
+          },
+          {
+            "id": "b",
+            "text": "$\\frac{\\cos(kx)}{k}$"
+          },
+          {
+            "id": "c",
+            "text": "$-k\\cos(kx)$"
+          },
+          {
+            "id": "d",
+            "text": "$k\\cos(kx)$"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Diapositive 38.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Sa dérivée est $-\\sin(kx)$ : il manque le signe moins."
+          },
+          {
+            "optionId": "c",
+            "why": "Le facteur k se divise."
+          },
+          {
+            "optionId": "d",
+            "why": "C'est presque la dérivée de sin(kx), pas une primitive."
+          }
+        ],
+        "source": {
+          "file": "2-integrale_definie.pdf",
+          "page": 38,
+          "locator": "Diapositive 38"
+        }
+      },
+      {
+        "id": "q8-03",
+        "objectiveId": "obj8-reecrire",
+        "bloomLevel": "understand",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Pour trouver une primitive de $\\frac{1}{\\sqrt[4]{x^3}}$, on la réécrit…",
+        "options": [
+          {
+            "id": "a",
+            "text": "$x^{-3/4}$"
+          },
+          {
+            "id": "b",
+            "text": "$x^{-4/3}$"
+          },
+          {
+            "id": "c",
+            "text": "$x^{3/4}$"
+          },
+          {
+            "id": "d",
+            "text": "$4x^{-3}$"
+          }
+        ],
+        "correct": "a",
+        "explanation": "$\\sqrt[4]{x^3} = x^{3/4}$, donc $\\frac{1}{\\sqrt[4]{x^3}} = x^{-3/4}$ (exercice 2.13 b).",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "L'indice de la racine va au dénominateur de l'exposant."
+          },
+          {
+            "optionId": "c",
+            "why": "La racine est au dénominateur : l'exposant est négatif."
+          },
+          {
+            "optionId": "d",
+            "why": "Une racine n'est pas un facteur."
+          }
+        ],
+        "source": {
+          "file": "2-integrale_definie.pdf",
+          "page": 39,
+          "locator": "Exercice 2.13 (1.5) b"
+        }
+      },
+      {
+        "id": "q8-04",
+        "objectiveId": "obj8-primitive",
+        "bloomLevel": "apply",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Quelle est une primitive de $x^{5/2}$ ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "$\\frac27 x^{7/2}$"
+          },
+          {
+            "id": "b",
+            "text": "$\\frac52 x^{3/2}$"
+          },
+          {
+            "id": "c",
+            "text": "$\\frac72 x^{7/2}$"
+          },
+          {
+            "id": "d",
+            "text": "$\\frac25 x^{7/2}$"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Exercice 2.13 a, réponse de la plateforme vérifiée en dérivant.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "C'est la dérivée."
+          },
+          {
+            "optionId": "c",
+            "why": "On DIVISE par $\\frac72$, ce qui revient à multiplier par $\\frac27$."
+          },
+          {
+            "optionId": "d",
+            "why": "On divise par le nouvel exposant $\\frac72$, pas par $\\frac52$."
+          }
+        ],
+        "source": {
+          "file": "2-integrale_definie.pdf",
+          "page": 39,
+          "locator": "Exercice 2.13 (1.5) a"
+        }
+      },
+      {
+        "id": "q8-05",
+        "objectiveId": "obj8-primitive",
+        "bloomLevel": "apply",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Quelle est une primitive de $\\frac{1}{e^{5x}}$ ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "$-\\frac{e^{-5x}}{5}$"
+          },
+          {
+            "id": "b",
+            "text": "$\\frac{e^{-5x}}{5}$"
+          },
+          {
+            "id": "c",
+            "text": "$\\ln(e^{5x})$"
+          },
+          {
+            "id": "d",
+            "text": "$-5e^{-5x}$"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Exercice 2.13 f, réponse de la plateforme.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Avec $k = -5$, on divise par $-5$."
+          },
+          {
+            "optionId": "c",
+            "why": "La table ne donne pas de logarithme ici ; réécrire en e^(−5x)."
+          },
+          {
+            "optionId": "d",
+            "why": "C'est la dérivée de e^(−5x)."
+          }
+        ],
+        "source": {
+          "file": "2-integrale_definie.pdf",
+          "page": 39,
+          "locator": "Exercice 2.13 (1.5) f"
+        }
+      },
+      {
+        "id": "q8-06",
+        "objectiveId": "obj8-reecrire",
+        "bloomLevel": "understand",
+        "type": "mcq",
+        "difficulty": 1,
+        "prompt": "À quelle ligne de la table correspond $\\frac{1}{\\cos^2(7x)}$ ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "$\\sec^2(kx)$ avec $k = 7$"
+          },
+          {
+            "id": "b",
+            "text": "$\\csc^2(kx)$"
+          },
+          {
+            "id": "c",
+            "text": "$\\cos(kx)$"
+          },
+          {
+            "id": "d",
+            "text": "$x^n$ avec $n = -2$"
+          }
+        ],
+        "correct": "a",
+        "explanation": "$\\sec\\theta = \\frac{1}{\\cos\\theta}$ (exercice 2.13 e).",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "$\\csc = \\frac{1}{\\sin}$."
+          },
+          {
+            "optionId": "c",
+            "why": "La fonction est l'inverse du carré du cosinus."
+          },
+          {
+            "optionId": "d",
+            "why": "Ce serait $\\frac{1}{x^2}$."
+          }
+        ],
+        "source": {
+          "file": "2-integrale_definie.pdf",
+          "page": 39,
+          "locator": "Exercice 2.13 (1.5) e"
+        }
+      },
+      {
+        "id": "q8-07",
+        "objectiveId": "obj8-primitive",
+        "bloomLevel": "understand",
+        "type": "true-false",
+        "difficulty": 2,
+        "prompt": "$3\\sin(3x)$ est une primitive de $\\cos(3x)$.",
+        "options": [
+          {
+            "id": "v",
+            "text": "Vrai"
+          },
+          {
+            "id": "f",
+            "text": "Faux"
+          }
+        ],
+        "correct": "f",
+        "explanation": "$\\frac{d}{dx}[3\\sin(3x)] = 9\\cos(3x)$. La bonne primitive est $\\frac{\\sin(3x)}{3}$.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "v",
+            "why": "Le facteur 1/k se divise."
+          }
+        ],
+        "source": {
+          "file": "2-integrale_definie.pdf",
+          "page": 38,
+          "locator": "Diapositive 38"
+        }
+      },
+      {
+        "id": "q8-08",
+        "objectiveId": "obj8-integrale",
+        "bloomLevel": "apply",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Que vaut $\\int_0^{\\pi/6} \\cos(3x)\\,dx$ ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "$\\frac13$"
+          },
+          {
+            "id": "b",
+            "text": "1"
+          },
+          {
+            "id": "c",
+            "text": "3"
+          },
+          {
+            "id": "d",
+            "text": "0"
+          }
+        ],
+        "correct": "a",
+        "explanation": "$\\frac{\\sin(\\pi/2) - \\sin 0}{3}$ (exercice 2.14 c, réponse de la plateforme).",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Il manque le facteur $\\frac13$ de la primitive."
+          },
+          {
+            "optionId": "c",
+            "why": "La primitive est $\\frac{\\sin(3x)}{3}$, pas $3\\sin(3x)$."
+          },
+          {
+            "optionId": "d",
+            "why": "$\\sin\\frac{\\pi}{2} = 1$."
+          }
+        ],
+        "source": {
+          "file": "2-integrale_definie.pdf",
+          "page": 40,
+          "locator": "Exercice 2.14 (1.6) c"
+        }
+      },
+      {
+        "id": "q8-09",
+        "objectiveId": "obj8-integrale",
+        "bloomLevel": "apply",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Que vaut $\\int_0^2 e^{-3x}\\,dx$ ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "$\\frac{1 - e^{-6}}{3}$"
+          },
+          {
+            "id": "b",
+            "text": "$\\frac{e^{-6} - 1}{3}$"
+          },
+          {
+            "id": "c",
+            "text": "$-3(e^{-6} - 1)$"
+          },
+          {
+            "id": "d",
+            "text": "$1 - e^{-6}$"
+          }
+        ],
+        "correct": "a",
+        "explanation": "$F(x) = -\\frac{e^{-3x}}{3}$ ; $F(2) - F(0) = -\\frac{e^{-6}}{3} + \\frac13$ (exercice 2.14 b, réponse de la plateforme).",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "C'est F(0) − F(2) : l'ordre est inversé."
+          },
+          {
+            "optionId": "c",
+            "why": "On divise par $k = -3$, on ne multiplie pas."
+          },
+          {
+            "optionId": "d",
+            "why": "Il manque le facteur $\\frac13$."
+          }
+        ],
+        "source": {
+          "file": "2-integrale_definie.pdf",
+          "page": 40,
+          "locator": "Exercice 2.14 (1.6) b"
+        }
+      },
+      {
+        "id": "q8-10",
+        "objectiveId": "obj8-integrale",
+        "bloomLevel": "analyze",
+        "type": "mcq",
+        "difficulty": 3,
+        "prompt": "Que vaut $\\int_0^{3\\pi/4} \\sec^2\\left(\\frac{x}{3}\\right)dx$ ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "3"
+          },
+          {
+            "id": "b",
+            "text": "$\\frac13$"
+          },
+          {
+            "id": "c",
+            "text": "1"
+          },
+          {
+            "id": "d",
+            "text": "$3\\tan\\frac{3\\pi}{4} = -3$"
+          }
+        ],
+        "correct": "a",
+        "explanation": "$\\left[3\\tan\\left(\\frac x3\\right)\\right]_0^{3\\pi/4} = 3 \\cdot 1 - 0$ (exercice 2.14 d, réponse de la plateforme).",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Avec $k = \\frac13$, diviser par $k$ multiplie par 3."
+          },
+          {
+            "optionId": "c",
+            "why": "Il manque le facteur 3 : $\\tan\\frac{\\pi}{4} = 1$."
+          },
+          {
+            "optionId": "d",
+            "why": "On évalue $\\tan\\left(\\frac{x}{3}\\right)$ en $\\frac{3\\pi}{4}$, soit $\\tan\\frac{\\pi}{4}$."
+          }
+        ],
+        "source": {
+          "file": "2-integrale_definie.pdf",
+          "page": 40,
+          "locator": "Exercice 2.14 (1.6) d"
+        }
+      },
+      {
+        "id": "q8-11",
+        "objectiveId": "obj8-integrale",
+        "bloomLevel": "apply",
+        "type": "mcq",
+        "difficulty": 3,
+        "prompt": "Que vaut $\\int_2^3 \\left(\\frac{3}{x^2} + 6x^2\\right)dx$ ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "$\\frac{77}{2}$"
+          },
+          {
+            "id": "b",
+            "text": "$\\frac{75}{2}$"
+          },
+          {
+            "id": "c",
+            "text": "$\\frac{115}{2}$"
+          },
+          {
+            "id": "d",
+            "text": "$-\\frac{77}{2}$"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Exercice 2.14 a, réponse de la plateforme vérifiée par calcul symbolique.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Une primitive de $\\frac{3}{x^2} = 3x^{-2}$ est $-\\frac3x$ : le signe compte."
+          },
+          {
+            "optionId": "c",
+            "why": "Une primitive de $6x^2$ est $2x^3$ : on divise par 3, pas par 2."
+          },
+          {
+            "optionId": "d",
+            "why": "C'est $F(2) - F(3)$ : l'ordre est inversé."
+          }
+        ],
+        "source": {
+          "file": "2-integrale_definie.pdf",
+          "page": 40,
+          "locator": "Exercice 2.14 (1.6) a"
+        }
+      },
+      {
+        "id": "q8-12",
+        "objectiveId": "obj8-table",
+        "bloomLevel": "understand",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Pourquoi la ligne x^n exclut-elle n = −1 ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Parce que $\\frac{x^{n+1}}{n + 1}$ diviserait par 0"
+          },
+          {
+            "id": "b",
+            "text": "Parce que $x^{-1}$ n'est pas définie"
+          },
+          {
+            "id": "c",
+            "text": "Parce que $x^{-1}$ n'a pas de dérivée"
+          },
+          {
+            "id": "d",
+            "text": "Par convention d'écriture"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Diapositive 38 ; la table ne donne pas de primitive de 1/x à cette étape.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "$x^{-1} = \\frac1x$ est définie pour $x \\neq 0$."
+          },
+          {
+            "optionId": "c",
+            "why": "Sa dérivée est $-\\frac{1}{x^2}$."
+          },
+          {
+            "optionId": "d",
+            "why": "C'est une impossibilité de calcul."
+          }
+        ],
+        "source": {
+          "file": "2-integrale_definie.pdf",
+          "page": 38,
+          "locator": "Diapositive 38"
+        }
+      }
+    ]
+  },
+  "test": {
+    "title": "Test du chapitre 8",
+    "instructions": "21 questions couvrant tout le chapitre. Plus long et plus difficile que le quiz.",
+    "estimatedMinutes": 45,
+    "questions": [
+      {
+        "id": "t8-01",
+        "objectiveId": "obj8-table",
+        "bloomLevel": "recall",
+        "type": "mcq",
+        "difficulty": 1,
+        "prompt": "Quelle est une primitive de $\\cos(kx)$ ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "$\\frac{\\sin(kx)}{k}$"
+          },
+          {
+            "id": "b",
+            "text": "$-\\frac{\\sin(kx)}{k}$"
+          },
+          {
+            "id": "c",
+            "text": "$k\\sin(kx)$"
+          },
+          {
+            "id": "d",
+            "text": "$-k\\sin(kx)$"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Diapositive 38.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "$\\frac{d}{dx}\\left[\\frac{\\sin(kx)}{k}\\right] = \\cos(kx)$ : pas de signe moins."
+          },
+          {
+            "optionId": "c",
+            "why": "Le facteur k se divise."
+          },
+          {
+            "optionId": "d",
+            "why": "C'est la dérivée de cos(kx)."
+          }
+        ],
+        "source": {
+          "file": "2-integrale_definie.pdf",
+          "page": 38,
+          "locator": "Diapositive 38"
+        }
+      },
+      {
+        "id": "t8-02",
+        "objectiveId": "obj8-table",
+        "bloomLevel": "recall",
+        "type": "mcq",
+        "difficulty": 1,
+        "prompt": "Quelle est une primitive de $e^{kx}$ ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "$\\frac{e^{kx}}{k}$"
+          },
+          {
+            "id": "b",
+            "text": "$ke^{kx}$"
+          },
+          {
+            "id": "c",
+            "text": "$e^{kx}$"
+          },
+          {
+            "id": "d",
+            "text": "$\\frac{e^{kx+1}}{kx + 1}$"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Diapositive 38.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "C'est la dérivée."
+          },
+          {
+            "optionId": "c",
+            "why": "Sa dérivée est $ke^{kx}$."
+          },
+          {
+            "optionId": "d",
+            "why": "La règle des puissances ne s'applique pas à une exponentielle."
+          }
+        ],
+        "source": {
+          "file": "2-integrale_definie.pdf",
+          "page": 38,
+          "locator": "Diapositive 38"
+        }
+      },
+      {
+        "id": "t8-03",
+        "objectiveId": "obj8-table",
+        "bloomLevel": "recall",
+        "type": "mcq",
+        "difficulty": 1,
+        "prompt": "Quelle est une primitive de $\\csc^2(kx)$ ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "$-\\frac{\\cot(kx)}{k}$"
+          },
+          {
+            "id": "b",
+            "text": "$\\frac{\\cot(kx)}{k}$"
+          },
+          {
+            "id": "c",
+            "text": "$\\frac{\\tan(kx)}{k}$"
+          },
+          {
+            "id": "d",
+            "text": "$-\\frac{\\csc(kx)}{k}$"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Diapositive 38.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "$\\frac{d}{dx}[\\cot u] = -\\csc^2 u\\,u'$ : il faut le signe moins."
+          },
+          {
+            "optionId": "c",
+            "why": "C'est la primitive de $\\sec^2(kx)$."
+          },
+          {
+            "optionId": "d",
+            "why": "C'est la primitive de $\\csc(kx)\\cot(kx)$."
+          }
+        ],
+        "source": {
+          "file": "2-integrale_definie.pdf",
+          "page": 38,
+          "locator": "Diapositive 38"
+        }
+      },
+      {
+        "id": "t8-04",
+        "objectiveId": "obj8-table",
+        "bloomLevel": "understand",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Quelle est une primitive de $\\sec(5x)\\tan(5x)$ ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "$\\frac{\\sec(5x)}{5}$"
+          },
+          {
+            "id": "b",
+            "text": "$5\\sec(5x)$"
+          },
+          {
+            "id": "c",
+            "text": "$\\frac{\\tan(5x)}{5}$"
+          },
+          {
+            "id": "d",
+            "text": "$-\\frac{\\sec(5x)}{5}$"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Diapositive 38 avec k = 5 (exemple de la plateforme).",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Le facteur k = 5 se divise."
+          },
+          {
+            "optionId": "c",
+            "why": "C'est la primitive de $\\sec^2(5x)$."
+          },
+          {
+            "optionId": "d",
+            "why": "Pas de signe moins pour sec."
+          }
+        ],
+        "source": {
+          "file": "2-integrale_definie.pdf",
+          "page": 38,
+          "locator": "Diapositive 38"
+        }
+      },
+      {
+        "id": "t8-05",
+        "objectiveId": "obj8-table",
+        "bloomLevel": "understand",
+        "type": "true-false",
+        "difficulty": 1,
+        "prompt": "Si $F$ est une primitive de $f$, alors $F + 12$ en est une aussi.",
+        "options": [
+          {
+            "id": "v",
+            "text": "Vrai"
+          },
+          {
+            "id": "f",
+            "text": "Faux"
+          }
+        ],
+        "correct": "v",
+        "explanation": "Diapositive 37 : on obtient une famille de primitives en ajoutant une constante arbitraire C.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "f",
+            "why": "La dérivée d'une constante est nulle."
+          }
+        ],
+        "source": {
+          "file": "2-integrale_definie.pdf",
+          "page": 37,
+          "locator": "Diapositive 37"
+        }
+      },
+      {
+        "id": "t8-06",
+        "objectiveId": "obj8-reecrire",
+        "bloomLevel": "understand",
+        "type": "mcq",
+        "difficulty": 1,
+        "prompt": "Pour trouver une primitive de $\\sqrt{x}$, on la réécrit…",
+        "options": [
+          {
+            "id": "a",
+            "text": "$x^{1/2}$"
+          },
+          {
+            "id": "b",
+            "text": "$x^{2}$"
+          },
+          {
+            "id": "c",
+            "text": "$x^{-1/2}$"
+          },
+          {
+            "id": "d",
+            "text": "$2x$"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Théorème 1.13 du chapitre 1 ; puis ligne x^n de la table.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "$\\sqrt{x}$ est une puissance $\\frac12$."
+          },
+          {
+            "optionId": "c",
+            "why": "L'exposant est positif : la racine n'est pas au dénominateur."
+          },
+          {
+            "optionId": "d",
+            "why": "Une racine n'est pas un produit."
+          }
+        ],
+        "source": {
+          "file": "2-integrale_definie.pdf",
+          "page": 38,
+          "locator": "Diapositive 38"
+        }
+      },
+      {
+        "id": "t8-07",
+        "objectiveId": "obj8-primitive",
+        "bloomLevel": "apply",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Quelle est une primitive de $\\frac{1}{\\sqrt[4]{x^3}}$ ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "$4x^{1/4}$"
+          },
+          {
+            "id": "b",
+            "text": "$\\frac14 x^{1/4}$"
+          },
+          {
+            "id": "c",
+            "text": "$-\\frac34 x^{-7/4}$"
+          },
+          {
+            "id": "d",
+            "text": "$\\frac47 x^{7/4}$"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Exercice 2.13 b, réponse de la plateforme vérifiée en dérivant.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Diviser par $\\frac14$ revient à multiplier par 4."
+          },
+          {
+            "optionId": "c",
+            "why": "C'est la dérivée de x^(−3/4)."
+          },
+          {
+            "optionId": "d",
+            "why": "L'exposant est $-\\frac34$, pas $\\frac34$."
+          }
+        ],
+        "source": {
+          "file": "2-integrale_definie.pdf",
+          "page": 39,
+          "locator": "Exercice 2.13 (1.5) b"
+        }
+      },
+      {
+        "id": "t8-08",
+        "objectiveId": "obj8-primitive",
+        "bloomLevel": "apply",
+        "type": "mcq",
+        "difficulty": 1,
+        "prompt": "Quelle est une primitive de $\\sin(3x)$ ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "$-\\frac{\\cos(3x)}{3}$"
+          },
+          {
+            "id": "b",
+            "text": "$\\frac{\\cos(3x)}{3}$"
+          },
+          {
+            "id": "c",
+            "text": "$-3\\cos(3x)$"
+          },
+          {
+            "id": "d",
+            "text": "$3\\cos(3x)$"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Exercice 2.13 c, réponse de la plateforme.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Le signe moins manque."
+          },
+          {
+            "optionId": "c",
+            "why": "Le facteur 3 se divise."
+          },
+          {
+            "optionId": "d",
+            "why": "C'est la dérivée de sin(3x)."
+          }
+        ],
+        "source": {
+          "file": "2-integrale_definie.pdf",
+          "page": 39,
+          "locator": "Exercice 2.13 (1.5) c"
+        }
+      },
+      {
+        "id": "t8-09",
+        "objectiveId": "obj8-primitive",
+        "bloomLevel": "apply",
+        "type": "mcq",
+        "difficulty": 1,
+        "prompt": "Quelle est une primitive de $\\sec^2(4x)$ ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "$\\frac{\\tan(4x)}{4}$"
+          },
+          {
+            "id": "b",
+            "text": "$4\\tan(4x)$"
+          },
+          {
+            "id": "c",
+            "text": "$\\frac{\\sec^3(4x)}{12}$"
+          },
+          {
+            "id": "d",
+            "text": "$-\\frac{\\cot(4x)}{4}$"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Exercice 2.13 d, réponse de la plateforme.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Le facteur 4 se divise."
+          },
+          {
+            "optionId": "c",
+            "why": "Une fonction trigonométrique ne s'intègre pas comme une puissance."
+          },
+          {
+            "optionId": "d",
+            "why": "C'est la primitive de $\\csc^2(4x)$."
+          }
+        ],
+        "source": {
+          "file": "2-integrale_definie.pdf",
+          "page": 39,
+          "locator": "Exercice 2.13 (1.5) d"
+        }
+      },
+      {
+        "id": "t8-10",
+        "objectiveId": "obj8-primitive",
+        "bloomLevel": "apply",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Quelle est une primitive de $\\frac{1}{\\cos^2(7x)}$ ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "$\\frac{\\tan(7x)}{7}$"
+          },
+          {
+            "id": "b",
+            "text": "$-\\frac{1}{7\\cos(7x)}$"
+          },
+          {
+            "id": "c",
+            "text": "$7\\tan(7x)$"
+          },
+          {
+            "id": "d",
+            "text": "$\\frac{\\sin(7x)}{7}$"
+          }
+        ],
+        "correct": "a",
+        "explanation": "$\\frac{1}{\\cos^2(7x)} = \\sec^2(7x)$ (exercice 2.13 e, réponse de la plateforme).",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "$\\frac{1}{\\cos^2}$ n'est pas une puissance de x."
+          },
+          {
+            "optionId": "c",
+            "why": "Le facteur 7 se divise."
+          },
+          {
+            "optionId": "d",
+            "why": "C'est la primitive de $\\cos(7x)$."
+          }
+        ],
+        "source": {
+          "file": "2-integrale_definie.pdf",
+          "page": 39,
+          "locator": "Exercice 2.13 (1.5) e"
+        }
+      },
+      {
+        "id": "t8-11",
+        "objectiveId": "obj8-integrale",
+        "bloomLevel": "apply",
+        "type": "short-answer",
+        "difficulty": 1,
+        "prompt": "Calculer $\\int_0^2 x^3\\,dx$.",
+        "correct": "4",
+        "acceptableAnswers": [],
+        "explanation": "$F(x) = \\frac{x^4}{4}$ ; $F(2) - F(0) = 4$ (exemple de la plateforme).",
+        "source": {
+          "file": "2-integrale_definie.pdf",
+          "page": 38,
+          "locator": "Diapositive 38"
+        }
+      },
+      {
+        "id": "t8-12",
+        "objectiveId": "obj8-integrale",
+        "bloomLevel": "apply",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Que vaut $\\int_0^{\\pi} \\sin x\\,dx$ ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "2"
+          },
+          {
+            "id": "b",
+            "text": "0"
+          },
+          {
+            "id": "c",
+            "text": "−2"
+          },
+          {
+            "id": "d",
+            "text": "$\\pi$"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Table avec k = 1 (exemple de la plateforme).",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "$-\\cos\\pi - (-\\cos 0) = 1 + 1$."
+          },
+          {
+            "optionId": "c",
+            "why": "La primitive est $-\\cos x$ : $F(\\pi) - F(0) = 1 - (-1)$."
+          },
+          {
+            "optionId": "d",
+            "why": "On évalue la primitive, pas la borne."
+          }
+        ],
+        "source": {
+          "file": "2-integrale_definie.pdf",
+          "page": 38,
+          "locator": "Diapositive 38"
+        }
+      },
+      {
+        "id": "t8-13",
+        "objectiveId": "obj8-integrale",
+        "bloomLevel": "apply",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Que vaut $\\int_0^4 \\sqrt{x}\\,dx$ ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "$\\frac{16}{3}$"
+          },
+          {
+            "id": "b",
+            "text": "8"
+          },
+          {
+            "id": "c",
+            "text": "$\\frac{1}{4}$"
+          },
+          {
+            "id": "d",
+            "text": "12"
+          }
+        ],
+        "correct": "a",
+        "explanation": "$\\frac23 \\cdot 4^{3/2} = \\frac{16}{3}$ (exemple de la plateforme).",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "La primitive de $x^{1/2}$ est $\\frac23 x^{3/2}$ ; $4^{3/2} = 8$, à multiplier par $\\frac23$."
+          },
+          {
+            "optionId": "c",
+            "why": "C'est $\\frac{1}{2\\sqrt4}$, la dérivée."
+          },
+          {
+            "optionId": "d",
+            "why": "On divise par $\\frac32$, on ne multiplie pas."
+          }
+        ],
+        "source": {
+          "file": "2-integrale_definie.pdf",
+          "page": 38,
+          "locator": "Diapositive 38"
+        }
+      },
+      {
+        "id": "t8-14",
+        "objectiveId": "obj8-integrale",
+        "bloomLevel": "analyze",
+        "type": "mcq",
+        "difficulty": 3,
+        "prompt": "Un étudiant calcule $\\int_0^{\\pi/6} \\cos(3x)\\,dx = \\left[3\\sin(3x)\\right]_0^{\\pi/6} = 3$. Où est l'erreur ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "La primitive est $\\frac{\\sin(3x)}{3}$ ; la valeur est $\\frac13$"
+          },
+          {
+            "id": "b",
+            "text": "La primitive est $-\\frac{\\sin(3x)}{3}$"
+          },
+          {
+            "id": "c",
+            "text": "Il fallait évaluer en $\\frac{\\pi}{2}$"
+          },
+          {
+            "id": "d",
+            "text": "Aucune erreur"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Exercice 2.14 c, réponse de la plateforme.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Pas de signe moins pour cos."
+          },
+          {
+            "optionId": "c",
+            "why": "La borne est $\\frac{\\pi}{6}$ ; c'est $3x$ qui vaut $\\frac{\\pi}{2}$."
+          },
+          {
+            "optionId": "d",
+            "why": "En dérivant $3\\sin(3x)$, on obtient $9\\cos(3x)$."
+          }
+        ],
+        "source": {
+          "file": "2-integrale_definie.pdf",
+          "page": 40,
+          "locator": "Exercice 2.14 (1.6) c"
+        }
+      },
+      {
+        "id": "t8-15",
+        "objectiveId": "obj8-integrale",
+        "bloomLevel": "analyze",
+        "type": "mcq",
+        "difficulty": 3,
+        "prompt": "Dans $\\int_2^3 \\left(\\frac{3}{x^2} + 6x^2\\right)dx$, un étudiant prend $F(x) = \\frac{3}{x} + 2x^3$. Quelle est l'erreur ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Une primitive de $3x^{-2}$ est $-3x^{-1}$ : il manque le signe moins"
+          },
+          {
+            "id": "b",
+            "text": "Une primitive de $6x^2$ est $12x$"
+          },
+          {
+            "id": "c",
+            "text": "Une primitive de $\\frac{3}{x^2}$ est $3\\ln x^2$"
+          },
+          {
+            "id": "d",
+            "text": "Aucune erreur"
+          }
+        ],
+        "correct": "a",
+        "explanation": "$\\frac{3x^{-1}}{-1} = -\\frac3x$ ; avec la bonne primitive, la valeur est $\\frac{77}{2}$ (exercice 2.14 a).",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "C'est la dérivée."
+          },
+          {
+            "optionId": "c",
+            "why": "La table ne contient pas de logarithme ; x⁻² relève de x^n."
+          },
+          {
+            "optionId": "d",
+            "why": "La dérivée de $\\frac3x$ est $-\\frac{3}{x^2}$."
+          }
+        ],
+        "source": {
+          "file": "2-integrale_definie.pdf",
+          "page": 40,
+          "locator": "Exercice 2.14 (1.6) a"
+        }
+      },
+      {
+        "id": "t8-16",
+        "objectiveId": "obj8-reecrire",
+        "bloomLevel": "understand",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Dans $\\sec^2\\left(\\frac{x}{3}\\right)$, que vaut $k$ et par quoi multiplie-t-on la primitive $\\tan$ ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "$k = \\frac13$ : on multiplie par 3"
+          },
+          {
+            "id": "b",
+            "text": "$k = 3$ : on divise par 3"
+          },
+          {
+            "id": "c",
+            "text": "$k = \\frac13$ : on multiplie par $\\frac13$"
+          },
+          {
+            "id": "d",
+            "text": "$k = 1$"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Exercice 2.14 d, réponse de la plateforme.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "L'argument est $\\frac{x}{3} = \\frac13 x$."
+          },
+          {
+            "optionId": "c",
+            "why": "Diviser par $\\frac13$ multiplie par 3."
+          },
+          {
+            "optionId": "d",
+            "why": "k est le coefficient de x dans l'argument."
+          }
+        ],
+        "source": {
+          "file": "2-integrale_definie.pdf",
+          "page": 40,
+          "locator": "Exercice 2.14 (1.6) d"
+        }
+      },
+      {
+        "id": "t8-17",
+        "objectiveId": "obj8-primitive",
+        "bloomLevel": "apply",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Quelle fonction a pour primitive $-\\frac{\\cot(2x)}{2}$ ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "$\\csc^2(2x)$"
+          },
+          {
+            "id": "b",
+            "text": "$\\cot(2x)$"
+          },
+          {
+            "id": "c",
+            "text": "$-\\csc^2(2x)$"
+          },
+          {
+            "id": "d",
+            "text": "$\\sec^2(2x)$"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Table, ligne csc²(kx), k = 2 ; vérification par dérivation (exemple de la plateforme).",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Il faut dériver la primitive."
+          },
+          {
+            "optionId": "c",
+            "why": "$\\frac{d}{dx}\\left[-\\frac{\\cot(2x)}{2}\\right] = +\\csc^2(2x)$."
+          },
+          {
+            "optionId": "d",
+            "why": "C'est la dérivée de $\\frac{\\tan(2x)}{2}$."
+          }
+        ],
+        "source": {
+          "file": "2-integrale_definie.pdf",
+          "page": 38,
+          "locator": "Diapositive 38"
+        }
+      },
+      {
+        "id": "t8-18",
+        "objectiveId": "obj8-table",
+        "bloomLevel": "recall",
+        "type": "mcq",
+        "difficulty": 1,
+        "prompt": "Comment vérifier qu'une fonction F est une primitive de f ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Dériver F et retrouver f"
+          },
+          {
+            "id": "b",
+            "text": "Intégrer f deux fois"
+          },
+          {
+            "id": "c",
+            "text": "Vérifier que F(0) = 0"
+          },
+          {
+            "id": "d",
+            "text": "Comparer les graphiques"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Diapositive 33 : F est une primitive de f si F′(x) = f(x).",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "On dérive F, on n'intègre pas f."
+          },
+          {
+            "optionId": "c",
+            "why": "Une primitive peut valoir n'importe quoi en 0."
+          },
+          {
+            "optionId": "d",
+            "why": "Ce n'est pas une vérification exacte."
+          }
+        ],
+        "source": {
+          "file": "2-integrale_definie.pdf",
+          "page": 33,
+          "locator": "Diapositive 33"
+        }
+      },
+      {
+        "id": "t8-19",
+        "objectiveId": "obj8-integrale",
+        "bloomLevel": "understand",
+        "type": "true-false",
+        "difficulty": 2,
+        "prompt": "Le choix de la constante C modifie la valeur d'une intégrale définie calculée par le théorème fondamental.",
+        "options": [
+          {
+            "id": "v",
+            "text": "Vrai"
+          },
+          {
+            "id": "f",
+            "text": "Faux"
+          }
+        ],
+        "correct": "f",
+        "explanation": "La constante s'annule : (F(b) + C) − (F(a) + C) = F(b) − F(a).",
+        "perDistractorExplanation": [
+          {
+            "optionId": "v",
+            "why": "Toute primitive donne la même valeur."
+          }
+        ],
+        "source": {
+          "file": "2-integrale_definie.pdf",
+          "page": 34,
+          "locator": "Diapositives 34 et 37"
+        }
+      },
+      {
+        "id": "t8-20",
+        "objectiveId": "obj8-primitive",
+        "bloomLevel": "recall",
+        "type": "fill-blank",
+        "difficulty": 1,
+        "prompt": "Compléter : une primitive de $x^n$ ($n \\neq -1$) est $x^{n+1}$ divisé par ____.",
+        "correct": "n + 1",
+        "acceptableAnswers": [
+          "n+1"
+        ],
+        "explanation": "Diapositive 38.",
+        "source": {
+          "file": "2-integrale_definie.pdf",
+          "page": 38,
+          "locator": "Diapositive 38"
+        }
+      },
+      {
+        "id": "t8-21",
+        "objectiveId": "obj8-integrale",
+        "bloomLevel": "apply",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Quelle primitive utiliser pour $\\int_0^2 e^{-3x}\\,dx$ ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "$-\\frac{e^{-3x}}{3}$"
+          },
+          {
+            "id": "b",
+            "text": "$\\frac{e^{-3x}}{3}$"
+          },
+          {
+            "id": "c",
+            "text": "$-3e^{-3x}$"
+          },
+          {
+            "id": "d",
+            "text": "$\\frac{e^{-3x+1}}{-3x + 1}$"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Exercice 2.14 b, réponse de la plateforme.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "$k = -3$ : on divise par $-3$."
+          },
+          {
+            "optionId": "c",
+            "why": "C'est la dérivée."
+          },
+          {
+            "optionId": "d",
+            "why": "La règle des puissances ne s'applique pas à e^(kx)."
+          }
+        ],
+        "source": {
+          "file": "2-integrale_definie.pdf",
+          "page": 40,
+          "locator": "Exercice 2.14 (1.6) b"
+        }
+      }
+    ]
+  },
+  "flashcards": [
+    {
+      "id": "f8-01",
+      "objectiveId": "obj8-table",
+      "front": "Primitive de $x^n$ ?",
+      "back": "$\\frac{x^{n+1}}{n + 1}$, $n \\neq -1$."
+    },
+    {
+      "id": "f8-02",
+      "objectiveId": "obj8-table",
+      "front": "Primitive de $\\sin(kx)$ ?",
+      "back": "$-\\frac{\\cos(kx)}{k}$."
+    },
+    {
+      "id": "f8-03",
+      "objectiveId": "obj8-table",
+      "front": "Primitive de $\\cos(kx)$ ?",
+      "back": "$\\frac{\\sin(kx)}{k}$."
+    },
+    {
+      "id": "f8-04",
+      "objectiveId": "obj8-table",
+      "front": "Primitive de $\\sec^2(kx)$ ?",
+      "back": "$\\frac{\\tan(kx)}{k}$."
+    },
+    {
+      "id": "f8-05",
+      "objectiveId": "obj8-table",
+      "front": "Primitive de $\\csc^2(kx)$ ?",
+      "back": "$-\\frac{\\cot(kx)}{k}$."
+    },
+    {
+      "id": "f8-06",
+      "objectiveId": "obj8-table",
+      "front": "Primitive de $\\sec(kx)\\tan(kx)$ ?",
+      "back": "$\\frac{\\sec(kx)}{k}$."
+    },
+    {
+      "id": "f8-07",
+      "objectiveId": "obj8-table",
+      "front": "Primitive de $\\csc(kx)\\cot(kx)$ ?",
+      "back": "$-\\frac{\\csc(kx)}{k}$."
+    },
+    {
+      "id": "f8-08",
+      "objectiveId": "obj8-table",
+      "front": "Primitive de $e^{kx}$ ?",
+      "back": "$\\frac{e^{kx}}{k}$."
+    },
+    {
+      "id": "f8-09",
+      "objectiveId": "obj8-reecrire",
+      "front": "$\\frac{1}{e^{5x}}$ réécrit ?",
+      "back": "$e^{-5x}$, $k = -5$."
+    },
+    {
+      "id": "f8-10",
+      "objectiveId": "obj8-reecrire",
+      "front": "$\\frac{1}{\\cos^2(7x)}$ réécrit ?",
+      "back": "$\\sec^2(7x)$."
+    },
+    {
+      "id": "f8-11",
+      "objectiveId": "obj8-primitive",
+      "front": "k = 1/3 : effet du facteur 1/k ?",
+      "back": "On multiplie par 3."
+    },
+    {
+      "id": "f8-12",
+      "objectiveId": "obj8-integrale",
+      "front": "Vérifier une primitive ?",
+      "back": "La dériver : on doit retrouver f."
+    }
+  ],
+  "exercises": [
+    {
+      "id": "e8-01",
+      "objectiveId": "obj8-integrale",
+      "difficulty": 2,
+      "mode": "trace",
+      "language": "text",
+      "title": "Valeur exacte (exercice 2.14 a, ou 1.6 a)",
+      "statement": "Calculer la valeur exacte de ∫₂³ (3/x² + 6x²) dx en déterminant une primitive, puis en appliquant le théorème fondamental.",
+      "starterCode": "∫₂³ (3/x² + 6x²) dx",
+      "hints": [
+        "Réécrire 3/x² = 3x⁻².",
+        "Primitives : 3x⁻¹/(−1) = −3/x et 6x³/3 = 2x³.",
+        "F(3) = −1 + 54 ; F(2) = −3/2 + 16."
+      ],
+      "solution": "77/2",
+      "expectedOutput": "F(x) = −3/x + 2x³\nF(3) = −1 + 54 = 53\nF(2) = −3/2 + 16 = 29/2\n∫₂³ = 53 − 29/2 = 77/2",
+      "solutionExplanation": "Vérification : F′(x) = 3/x² + 6x². Réponse de la plateforme, vérifiée par calcul symbolique.",
+      "source": {
+        "file": "2-integrale_definie.pdf",
+        "page": 40,
+        "locator": "Exercice 2.14 (1.6) a"
+      }
+    },
+    {
+      "id": "e8-02",
+      "objectiveId": "obj8-integrale",
+      "difficulty": 3,
+      "mode": "trace",
+      "language": "text",
+      "title": "Un argument fractionnaire (exercice 2.14 d)",
+      "statement": "Calculer ∫₀^(3π/4) sec²(x/3) dx.",
+      "starterCode": "∫₀^(3π/4) sec²(x/3) dx",
+      "hints": [
+        "Ligne sec²(kx) avec k = 1/3.",
+        "Diviser par 1/3 revient à multiplier par 3 : F(x) = 3 tan(x/3).",
+        "En x = 3π/4, x/3 = π/4."
+      ],
+      "solution": "3",
+      "expectedOutput": "k = 1/3  ⇒  F(x) = tan(x/3)/(1/3) = 3 tan(x/3)\nF(3π/4) = 3 tan(π/4) = 3\nF(0) = 3 tan 0 = 0\n∫ = 3 − 0 = 3",
+      "solutionExplanation": "Réponse de la plateforme, vérifiée par calcul symbolique.",
+      "source": {
+        "file": "2-integrale_definie.pdf",
+        "page": 40,
+        "locator": "Exercice 2.14 (1.6) d"
+      }
+    },
+    {
+      "id": "e8-03",
+      "objectiveId": "obj8-primitive",
+      "difficulty": 2,
+      "mode": "fill-blank",
+      "language": "text",
+      "title": "Compléter — six primitives (exercice 2.13, ou 1.5)",
+      "statement": "Compléter une primitive de chaque fonction.",
+      "starterCode": "a) x^(5/2)        →  (____) x^(7/2)\nb) 1/∜(x³)       →  ____ x^(1/4)\nc) sin(3x)        →  ____ cos(3x)/3\nd) sec²(4x)       →  tan(4x)/____\ne) 1/cos²(7x)     →  ____(7x)/7\nf) 1/e^(5x)       →  ____ e^(−5x)/5",
+      "hints": [
+        "Réécrire avec des exposants ou sec, puis lire la table.",
+        "a) diviser par 7/2 ; b) x^(−3/4), diviser par 1/4.",
+        "c) et f) portent un signe moins."
+      ],
+      "solution": "2/7 · 4 · − · 4 · tan · −",
+      "expectedOutput": "a) (2/7) x^(7/2)\nb) 4 x^(1/4)\nc) −cos(3x)/3\nd) tan(4x)/4\ne) tan(7x)/7\nf) −e^(−5x)/5",
+      "solutionExplanation": "Chaque réponse a été vérifiée en la dérivant. Réponses de la plateforme.",
+      "source": {
+        "file": "2-integrale_definie.pdf",
+        "page": 39,
+        "locator": "Exercice 2.13 (1.5)"
+      }
+    },
+    {
+      "id": "e8-04",
+      "objectiveId": "obj8-integrale",
+      "difficulty": 3,
+      "mode": "find-bug",
+      "language": "text",
+      "title": "Trouver l'erreur — une exponentielle négative",
+      "statement": "Un étudiant calcule ∫₀² e^(−3x) dx. Trouver l'erreur.",
+      "starterCode": "F(x) = e^(−3x)/3\nF(2) − F(0) = e^(−6)/3 − 1/3 = (e^(−6) − 1)/3",
+      "hints": [
+        "Quel est k dans e^(kx) ?",
+        "k = −3 : on divise par −3.",
+        "Le résultat doit être positif, puisque e^(−3x) > 0."
+      ],
+      "solution": "F(x) = −e^(−3x)/3 ; la valeur est (1 − e^(−6))/3.",
+      "expectedOutput": "F(x) = e^(−3x)/(−3) = −e^(−3x)/3\nF(2) − F(0) = −e^(−6)/3 + 1/3 = (1 − e^(−6))/3 ≈ 0,332",
+      "solutionExplanation": "Une intégrale d'une fonction positive (propriété 7) ne peut pas être négative : le signe du résultat de l'étudiant trahissait l'erreur. Réponse de la plateforme.",
+      "source": {
+        "file": "2-integrale_definie.pdf",
+        "page": 40,
+        "locator": "Exercice 2.14 (1.6) b"
+      }
+    },
+    {
+      "id": "e8-05",
+      "objectiveId": "obj8-integrale",
+      "difficulty": 2,
+      "mode": "predict-output",
+      "language": "text",
+      "title": "Prédire la valeur",
+      "statement": "Sans calculatrice, donner la valeur exacte de ∫₀^(π/6) cos(3x) dx et de ∫₀^π sin x dx.",
+      "starterCode": "∫₀^(π/6) cos(3x) dx      ∫₀^π sin x dx",
+      "hints": [
+        "Primitives : sin(3x)/3 et −cos x.",
+        "sin(π/2) = 1 ; cos π = −1.",
+        "F(b) − F(a)."
+      ],
+      "solution": "1/3 et 2",
+      "expectedOutput": "∫₀^(π/6) cos(3x) dx = [sin(3x)/3] = (sin(π/2) − 0)/3 = 1/3\n∫₀^π sin x dx = [−cos x] = −(−1) − (−1) = 2",
+      "solutionExplanation": "Exercice 2.14 c et exemple de la plateforme ; vérifiés par calcul symbolique.",
+      "source": {
+        "file": "2-integrale_definie.pdf",
+        "page": 40,
+        "locator": "Exercice 2.14 (1.6) c"
+      }
+    }
+  ]
+}

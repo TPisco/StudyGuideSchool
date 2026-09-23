@@ -1,0 +1,36 @@
+# ==========================================================================
+#  MY PROFESSORS' DOCUMENTS NEVER LEAVE THIS MACHINE.
+#  Everything under content/sources/ is copyrighted course material.
+#  It is read locally to generate study content; it is never committed,
+#  never pushed, never deployed.
+# ==========================================================================
+content/sources/*
+!content/sources/.gitkeep
+!content/sources/README.md
+
+# build output
+dist/
+.astro/
+.vercel/
+.netlify/
+
+# deps
+node_modules/
+
+# env / local
+.env
+.env.*
+!.env.example
+
+# os / editor
+.DS_Store
+Thumbs.db
+*.swp
+.idea/
+.vscode/*
+!.vscode/extensions.json
+
+# logs
+npm-debug.log*
+yarn-error.log*
+*.log

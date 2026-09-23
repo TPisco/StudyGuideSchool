@@ -1,0 +1,1855 @@
+{
+  "course": "MAT098",
+  "chapter": 3,
+  "concepts": [
+    {
+      "id": "c3-limite",
+      "term": "Limite",
+      "definition": "$\\lim_{x \\to a} f(x) = L$ si $f(x)$ se rapproche de $L$ lorsque $x$ se rapproche de $a$, dans le domaine de $f$, sans atteindre $a$.",
+      "whyItMatters": "La valeur $f(a)$ ne joue aucun rôle : on étudie le comportement près de $a$, pas en $a$.",
+      "commonMisconception": "Croire que $\\lim_{x \\to a} f(x)$ vaut toujours $f(a)$ : ce n'est vrai que si $f$ est continue en $a$.",
+      "objectiveId": "obj3-limite",
+      "source": {
+        "file": "1-rappels_calcul_differentiel.pdf",
+        "page": 109,
+        "locator": "Définition 1.40"
+      }
+    },
+    {
+      "id": "c3-gauche-droite",
+      "term": "Limites à gauche et à droite",
+      "definition": "$\\lim_{x \\to a^-}$ : $x$ s'approche de $a$ par des valeurs inférieures ; $\\lim_{x \\to a^+}$ : par des valeurs supérieures. La limite existe si et seulement si les deux sont égales à un même $L \\in \\mathbb{R}$.",
+      "whyItMatters": "C'est le test d'existence d'une limite, indispensable pour les fonctions définies par parties et les formes c/0.",
+      "commonMisconception": "Conclure qu'une limite existe parce qu'une seule des deux limites latérales existe.",
+      "objectiveId": "obj3-limite",
+      "source": {
+        "file": "1-rappels_calcul_differentiel.pdf",
+        "page": 111,
+        "locator": "Diapositives 111 et 112"
+      }
+    },
+    {
+      "id": "c3-limite-infinie",
+      "term": "Limite infinie",
+      "definition": "$\\lim_{x \\to a} f(x) = \\infty$ : $f(x)$ augmente sans borne quand $x$ s'approche de $a$. $\\infty$ n'est pas un nombre : la limite n'existe pas.",
+      "whyItMatters": "Une limite infinie en a signale une asymptote verticale x = a.",
+      "commonMisconception": "Traiter $\\infty$ comme un nombre et écrire $\\infty - \\infty = 0$.",
+      "objectiveId": "obj3-infini",
+      "source": {
+        "file": "1-rappels_calcul_differentiel.pdf",
+        "page": 113,
+        "locator": "Diapositives 113 à 117"
+      }
+    },
+    {
+      "id": "c3-asymptotes",
+      "term": "Asymptotes verticale et horizontale",
+      "definition": "$x = a$ est une asymptote verticale si une limite en $a$, $a^-$ ou $a^+$ est infinie ; $y = b$ est une asymptote horizontale si $\\lim_{x \\to \\pm\\infty} f(x) = b$.",
+      "whyItMatters": "Elles forment l'ossature du graphique dans l'étude d'une fonction (chapitre 5).",
+      "commonMisconception": "Chercher une asymptote verticale avec une limite à l'infini, ou l'inverse.",
+      "objectiveId": "obj3-infini",
+      "source": {
+        "file": "1-rappels_calcul_differentiel.pdf",
+        "page": 117,
+        "locator": "Diapositives 117 et 120"
+      }
+    },
+    {
+      "id": "c3-c-sur-0",
+      "term": "Forme c/0",
+      "definition": "Si le numérateur tend vers $c \\neq 0$ et le dénominateur vers 0, le quotient tend vers $\\pm\\infty$ : $\\frac{c}{0^+}$ a le signe de $c$, $\\frac{c}{0^-}$ le signe opposé.",
+      "whyItMatters": "Ce n'est pas une forme indéterminée : le résultat est connu dès qu'on connaît les signes.",
+      "commonMisconception": "Évaluer seulement d'un côté, ou confondre c/0 avec 0/0.",
+      "objectiveId": "obj3-infini",
+      "source": {
+        "file": "1-rappels_calcul_differentiel.pdf",
+        "page": 125,
+        "locator": "Diapositives 125 et 126"
+      }
+    },
+    {
+      "id": "c3-indeterminee",
+      "term": "Forme indéterminée",
+      "definition": "Résultat d'une substitution directe parmi $\\frac00$, $\\frac\\infty\\infty$, $\\infty - \\infty$, $0 \\times \\infty$, $0^0$, $\\infty^0$, $1^\\infty$.",
+      "whyItMatters": "Il faut transformer l'expression avant de conclure : la forme ne dit rien de la valeur.",
+      "commonMisconception": "Conclure qu'une limite $\\frac00$ vaut 0, 1 ou n'existe pas sans avoir levé l'indétermination.",
+      "objectiveId": "obj3-indetermination",
+      "source": {
+        "file": "1-rappels_calcul_differentiel.pdf",
+        "page": 131,
+        "locator": "Diapositive 131"
+      }
+    },
+    {
+      "id": "c3-conjugue",
+      "term": "Multiplication par le conjugué",
+      "definition": "Le conjugué de $a + b$ est $a - b$ ; multiplier par $\\frac{a - b}{a - b}$ fait apparaître $a^2 - b^2$ et élimine une racine carrée.",
+      "whyItMatters": "C'est la technique pour les formes 0/0, ∞/∞ et ∞ − ∞ qui contiennent des racines carrées.",
+      "commonMisconception": "Multiplier seulement le numérateur par le conjugué.",
+      "objectiveId": "obj3-indetermination",
+      "source": {
+        "file": "1-rappels_calcul_differentiel.pdf",
+        "page": 135,
+        "locator": "Diapositives 135 à 137"
+      }
+    },
+    {
+      "id": "c3-continuite",
+      "term": "Continuité en un point",
+      "definition": "$f$ est continue en $a$ si $f(a)$ est définie, si $\\lim_{x \\to a} f(x)$ existe, et si $\\lim_{x \\to a} f(x) = f(a)$.",
+      "whyItMatters": "Les trois conditions se vérifient dans l'ordre : la première qui échoue explique la discontinuité.",
+      "commonMisconception": "Vérifier seulement que $f(a)$ existe : en $x = 3$ dans l'exercice 1.47, $f(3) = 12$ existe mais la limite vaut 22.",
+      "objectiveId": "obj3-continuite",
+      "source": {
+        "file": "1-rappels_calcul_differentiel.pdf",
+        "page": 141,
+        "locator": "Diapositive 141"
+      }
+    }
+  ],
+  "tables": [
+    {
+      "id": "t3-c0",
+      "title": "Limites de la forme c/0",
+      "kind": "cheatsheet",
+      "columns": [
+        {
+          "key": "cas",
+          "label": "Cas"
+        },
+        {
+          "key": "res",
+          "label": "Limite"
+        }
+      ],
+      "rows": [
+        {
+          "cas": "$c > 0$ et $\\frac{c}{0^+}$",
+          "res": "$\\infty$"
+        },
+        {
+          "cas": "$c > 0$ et $\\frac{c}{0^-}$",
+          "res": "$-\\infty$"
+        },
+        {
+          "cas": "$c < 0$ et $\\frac{c}{0^+}$",
+          "res": "$-\\infty$"
+        },
+        {
+          "cas": "$c < 0$ et $\\frac{c}{0^-}$",
+          "res": "$\\infty$"
+        }
+      ],
+      "source": {
+        "file": "1-rappels_calcul_differentiel.pdf",
+        "page": 126,
+        "locator": "Diapositive 126"
+      }
+    },
+    {
+      "id": "t3-indeterminations",
+      "title": "Lever une indétermination",
+      "kind": "comparison",
+      "columns": [
+        {
+          "key": "forme",
+          "label": "Forme"
+        },
+        {
+          "key": "tech",
+          "label": "Technique"
+        },
+        {
+          "key": "ex",
+          "label": "Exemple (réponse de la plateforme)"
+        }
+      ],
+      "rows": [
+        {
+          "forme": "$\\frac00$",
+          "tech": "factoriser et simplifier",
+          "ex": "$\\lim_{x \\to -3} \\frac{x^2 + 3x}{x^2 - 9} = \\frac12$"
+        },
+        {
+          "forme": "$\\frac00$",
+          "tech": "multiplier par le conjugué",
+          "ex": "$\\lim_{x \\to 5} \\frac{3 - \\sqrt{x + 4}}{5 - x} = \\frac16$"
+        },
+        {
+          "forme": "$\\frac00$",
+          "tech": "mettre au même dénominateur",
+          "ex": "exercice 1.45 d : $\\frac{13}{9}$"
+        },
+        {
+          "forme": "$\\frac\\infty\\infty$",
+          "tech": "terme dominant",
+          "ex": "$\\lim_{x \\to \\infty} \\frac{3x^6 + 2x + 1}{5x^6 + 4x^2} = \\frac35$"
+        },
+        {
+          "forme": "$\\infty - \\infty$",
+          "tech": "conjugué puis terme dominant",
+          "ex": "$\\lim_{x \\to \\infty} (\\sqrt{x^2 + 3x} - x) = \\frac32$"
+        }
+      ],
+      "source": {
+        "file": "1-rappels_calcul_differentiel.pdf",
+        "page": 132,
+        "locator": "Diapositives 132 à 139"
+      }
+    }
+  ],
+  "quiz": {
+    "title": "Quiz — vérification rapide",
+    "estimatedMinutes": 15,
+    "questions": [
+      {
+        "id": "q3-01",
+        "objectiveId": "obj3-limite",
+        "bloomLevel": "recall",
+        "type": "mcq",
+        "difficulty": 1,
+        "prompt": "Quand dit-on que $\\lim_{x \\to a} f(x)$ existe ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Quand limite à gauche = limite à droite = $L \\in \\mathbb{R}$"
+          },
+          {
+            "id": "b",
+            "text": "Quand $f(a)$ est définie"
+          },
+          {
+            "id": "c",
+            "text": "Quand au moins la limite à droite existe"
+          },
+          {
+            "id": "d",
+            "text": "Quand la limite vaut $\\infty$"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Diapositive 112.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "$f(a)$ ne joue aucun rôle dans la limite."
+          },
+          {
+            "optionId": "c",
+            "why": "Il faut les DEUX limites latérales, égales."
+          },
+          {
+            "optionId": "d",
+            "why": "Une limite infinie est une façon de ne pas exister."
+          }
+        ],
+        "source": {
+          "file": "1-rappels_calcul_differentiel.pdf",
+          "page": 112,
+          "locator": "Diapositive 112"
+        }
+      },
+      {
+        "id": "q3-02",
+        "objectiveId": "obj3-limite",
+        "bloomLevel": "understand",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Pourquoi la définition 1.40 précise-t-elle « sans atteindre $a$ » ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Parce que la limite décrit le comportement près de $a$, pas la valeur en $a$"
+          },
+          {
+            "id": "b",
+            "text": "Parce que $f(a)$ n'est jamais définie"
+          },
+          {
+            "id": "c",
+            "text": "Parce que $a$ est toujours une asymptote"
+          },
+          {
+            "id": "d",
+            "text": "Pour éviter une division par zéro"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Définition 1.40 : la limite peut exister même si f(a) n'est pas définie ou vaut autre chose.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "$f(a)$ peut très bien être définie."
+          },
+          {
+            "optionId": "c",
+            "why": "La plupart des limites sont finies."
+          },
+          {
+            "optionId": "d",
+            "why": "C'est une conséquence possible, pas la raison de la définition."
+          }
+        ],
+        "source": {
+          "file": "1-rappels_calcul_differentiel.pdf",
+          "page": 109,
+          "locator": "Définition 1.40"
+        }
+      },
+      {
+        "id": "q3-03",
+        "objectiveId": "obj3-infini",
+        "bloomLevel": "apply",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Que vaut $\\lim_{x \\to 1^-} \\frac{-3}{x - 1}$ ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "$\\infty$"
+          },
+          {
+            "id": "b",
+            "text": "$-\\infty$"
+          },
+          {
+            "id": "c",
+            "text": "0"
+          },
+          {
+            "id": "d",
+            "text": "−3"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Pour $x < 1$, $x - 1 \\to 0^-$ : $\\frac{-3}{0^-} = \\infty$ (diapositive 126 ; exemple de la plateforme).",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "C'est la limite à droite : $\\frac{-3}{0^+}$."
+          },
+          {
+            "optionId": "c",
+            "why": "Le numérateur ne tend pas vers 0 : forme $\\frac{c}{0}$."
+          },
+          {
+            "optionId": "d",
+            "why": "Le dénominateur tend vers 0, le quotient ne reste pas borné."
+          }
+        ],
+        "source": {
+          "file": "1-rappels_calcul_differentiel.pdf",
+          "page": 126,
+          "locator": "Diapositive 126"
+        }
+      },
+      {
+        "id": "q3-04",
+        "objectiveId": "obj3-infini",
+        "bloomLevel": "apply",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Quelle est l'asymptote horizontale de $f(x) = \\frac{2x + 1}{x - 4}$ ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "$y = 2$"
+          },
+          {
+            "id": "b",
+            "text": "$x = 4$"
+          },
+          {
+            "id": "c",
+            "text": "$y = -\\frac14$"
+          },
+          {
+            "id": "d",
+            "text": "$y = 0$"
+          }
+        ],
+        "correct": "a",
+        "explanation": "$\\lim_{x \\to \\pm\\infty} \\frac{2x + 1}{x - 4} = 2$ (diapositive 120 ; exemple de la plateforme).",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "C'est l'asymptote verticale."
+          },
+          {
+            "optionId": "c",
+            "why": "C'est $f(0)$, l'ordonnée à l'origine."
+          },
+          {
+            "optionId": "d",
+            "why": "Les degrés sont égaux : on garde le rapport des coefficients dominants."
+          }
+        ],
+        "source": {
+          "file": "1-rappels_calcul_differentiel.pdf",
+          "page": 120,
+          "locator": "Diapositive 120"
+        }
+      },
+      {
+        "id": "q3-05",
+        "objectiveId": "obj3-regles",
+        "bloomLevel": "recall",
+        "type": "true-false",
+        "difficulty": 1,
+        "prompt": "$\\infty - \\infty = 0$.",
+        "options": [
+          {
+            "id": "v",
+            "text": "Vrai"
+          },
+          {
+            "id": "f",
+            "text": "Faux"
+          }
+        ],
+        "correct": "f",
+        "explanation": "Diapositive 129 : $\\infty - \\infty$ est une forme indéterminée ; le résultat dépend de la fonction.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "v",
+            "why": "$\\lim_{x \\to \\infty} (x^2 - x) = \\infty$ alors que $\\lim_{x \\to \\infty} (x - x) = 0$."
+          }
+        ],
+        "source": {
+          "file": "1-rappels_calcul_differentiel.pdf",
+          "page": 129,
+          "locator": "Diapositive 129"
+        }
+      },
+      {
+        "id": "q3-06",
+        "objectiveId": "obj3-indetermination",
+        "bloomLevel": "apply",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Évaluer $\\lim_{x \\to -3} \\frac{x^2 + 3x}{x^2 - 9}$.",
+        "options": [
+          {
+            "id": "a",
+            "text": "$\\frac12$"
+          },
+          {
+            "id": "b",
+            "text": "$0$"
+          },
+          {
+            "id": "c",
+            "text": "$-\\frac12$"
+          },
+          {
+            "id": "d",
+            "text": "La limite n'existe pas"
+          }
+        ],
+        "correct": "a",
+        "explanation": "$\\frac{x(x + 3)}{(x - 3)(x + 3)} = \\frac{x}{x - 3}$ (exercice 1.45 a, réponse de la plateforme).",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "On obtient $\\frac00$ : il faut factoriser avant de conclure."
+          },
+          {
+            "optionId": "c",
+            "why": "$\\frac{x}{x - 3}$ en $-3$ donne $\\frac{-3}{-6} = +\\frac12$."
+          },
+          {
+            "optionId": "d",
+            "why": "Après simplification par $(x + 3)$, la limite est finie."
+          }
+        ],
+        "source": {
+          "file": "1-rappels_calcul_differentiel.pdf",
+          "page": 138,
+          "locator": "Exercice 1.45 a"
+        }
+      },
+      {
+        "id": "q3-07",
+        "objectiveId": "obj3-indetermination",
+        "bloomLevel": "apply",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Évaluer $\\lim_{x \\to 5} \\frac{3 - \\sqrt{x + 4}}{5 - x}$.",
+        "options": [
+          {
+            "id": "a",
+            "text": "$\\frac16$"
+          },
+          {
+            "id": "b",
+            "text": "$-\\frac16$"
+          },
+          {
+            "id": "c",
+            "text": "$\\frac13$"
+          },
+          {
+            "id": "d",
+            "text": "$0$"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Multiplication par le conjugué 3 + √(x + 4) (exercice 1.45 c, réponse de la plateforme).",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "$9 - (x + 4) = 5 - x$ : le signe se simplifie, il reste $+\\frac{1}{3 + \\sqrt{x + 4}}$."
+          },
+          {
+            "optionId": "c",
+            "why": "Le dénominateur devient $3 + \\sqrt9 = 6$."
+          },
+          {
+            "optionId": "d",
+            "why": "La forme 0/0 ne veut pas dire que la limite est nulle."
+          }
+        ],
+        "source": {
+          "file": "1-rappels_calcul_differentiel.pdf",
+          "page": 138,
+          "locator": "Exercice 1.45 c"
+        }
+      },
+      {
+        "id": "q3-08",
+        "objectiveId": "obj3-indetermination",
+        "bloomLevel": "apply",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Évaluer $\\lim_{x \\to \\infty} \\frac{3x^6 + 2x + 1}{5x^6 + 4x^2}$.",
+        "options": [
+          {
+            "id": "a",
+            "text": "$\\frac35$"
+          },
+          {
+            "id": "b",
+            "text": "$\\infty$"
+          },
+          {
+            "id": "c",
+            "text": "$0$"
+          },
+          {
+            "id": "d",
+            "text": "$\\frac{3}{4}$"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Mise en évidence de x⁶ (exercice 1.46 a, réponse de la plateforme).",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Numérateur et dénominateur ont le même degré."
+          },
+          {
+            "optionId": "c",
+            "why": "Il faudrait un degré plus petit au numérateur."
+          },
+          {
+            "optionId": "d",
+            "why": "Le terme dominant du dénominateur est $5x^6$, pas $4x^2$."
+          }
+        ],
+        "source": {
+          "file": "1-rappels_calcul_differentiel.pdf",
+          "page": 139,
+          "locator": "Exercice 1.46 a"
+        }
+      },
+      {
+        "id": "q3-09",
+        "objectiveId": "obj3-indetermination",
+        "bloomLevel": "analyze",
+        "type": "mcq",
+        "difficulty": 3,
+        "prompt": "Évaluer $\\lim_{x \\to -\\infty} \\frac{3x + 4}{\\sqrt{4x^2 - 3x + 1}}$.",
+        "options": [
+          {
+            "id": "a",
+            "text": "$-\\frac32$"
+          },
+          {
+            "id": "b",
+            "text": "$\\frac32$"
+          },
+          {
+            "id": "c",
+            "text": "$\\frac34$"
+          },
+          {
+            "id": "d",
+            "text": "$-\\infty$"
+          }
+        ],
+        "correct": "a",
+        "explanation": "$\\frac{3x}{2|x|} = \\frac{3x}{-2x} = -\\frac32$ (exercice 1.46 b, réponse de la plateforme).",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "$\\sqrt{x^2} = |x| = -x$ quand $x < 0$ : le signe change."
+          },
+          {
+            "optionId": "c",
+            "why": "$\\sqrt{4x^2} = 2|x|$, pas $4|x|$."
+          },
+          {
+            "optionId": "d",
+            "why": "Les degrés effectifs sont égaux : la limite est finie."
+          }
+        ],
+        "source": {
+          "file": "1-rappels_calcul_differentiel.pdf",
+          "page": 139,
+          "locator": "Exercice 1.46 b"
+        }
+      },
+      {
+        "id": "q3-10",
+        "objectiveId": "obj3-continuite",
+        "bloomLevel": "recall",
+        "type": "mcq",
+        "difficulty": 1,
+        "prompt": "Laquelle N'est PAS une condition de continuité en $x = a$ ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "$f$ est dérivable en $a$"
+          },
+          {
+            "id": "b",
+            "text": "$f(a)$ est définie"
+          },
+          {
+            "id": "c",
+            "text": "$\\lim_{x \\to a} f(x)$ existe"
+          },
+          {
+            "id": "d",
+            "text": "$\\lim_{x \\to a} f(x) = f(a)$"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Diapositive 141 : trois conditions, aucune ne parle de dérivée (la dérivabilité implique la continuité, pas l'inverse).",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "C'est la condition 1."
+          },
+          {
+            "optionId": "c",
+            "why": "C'est la condition 2."
+          },
+          {
+            "optionId": "d",
+            "why": "C'est la condition 3."
+          }
+        ],
+        "source": {
+          "file": "1-rappels_calcul_differentiel.pdf",
+          "page": 141,
+          "locator": "Diapositive 141"
+        }
+      },
+      {
+        "id": "q3-11",
+        "objectiveId": "obj3-continuite",
+        "bloomLevel": "analyze",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Dans l'exercice 1.47, $f(3) = 12$ et $f(x) = x^2 + x + 10$ sur $]2, 3[$, $7x + 1$ pour $x > 3$. $f$ est-elle continue en 3 ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Non : la limite vaut 22, différente de f(3) = 12"
+          },
+          {
+            "id": "b",
+            "text": "Oui : f(3) est définie"
+          },
+          {
+            "id": "c",
+            "text": "Non : la limite n'existe pas"
+          },
+          {
+            "id": "d",
+            "text": "Oui : les limites latérales sont égales"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Condition 3 violée (exercice 1.47, réponse de la plateforme).",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "La condition 1 ne suffit pas."
+          },
+          {
+            "optionId": "c",
+            "why": "Les limites à gauche et à droite valent toutes deux 22."
+          },
+          {
+            "optionId": "d",
+            "why": "Il faut encore qu'elles soient égales à f(3)."
+          }
+        ],
+        "source": {
+          "file": "1-rappels_calcul_differentiel.pdf",
+          "page": 142,
+          "locator": "Exercice 1.47"
+        }
+      },
+      {
+        "id": "q3-12",
+        "objectiveId": "obj3-continuite",
+        "bloomLevel": "apply",
+        "type": "mcq",
+        "difficulty": 3,
+        "prompt": "Pour quelle valeur de $c$ la fonction valant $x^2 - 3$ si $x \\le c$ et $4x - 7$ si $x > c$ est-elle continue en $c$ ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "$c = 2$"
+          },
+          {
+            "id": "b",
+            "text": "$c = 1$"
+          },
+          {
+            "id": "c",
+            "text": "$c = -2$"
+          },
+          {
+            "id": "d",
+            "text": "Aucune valeur"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Les deux morceaux doivent se rejoindre : $c^2 - 4c + 4 = 0$ (notes, exercice 3 de 1.3.7, réponse de la plateforme).",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "$1 - 3 = -2$ mais $4 - 7 = -3$."
+          },
+          {
+            "optionId": "c",
+            "why": "$4 - 3 = 1$ mais $-8 - 7 = -15$."
+          },
+          {
+            "optionId": "d",
+            "why": "$c^2 - 3 = 4c - 7 \\iff (c - 2)^2 = 0$."
+          }
+        ],
+        "source": {
+          "file": "noteChapitre1.txt",
+          "page": 1,
+          "locator": "Section 1.3.7, exercice 3"
+        }
+      }
+    ]
+  },
+  "test": {
+    "title": "Test du chapitre 3",
+    "instructions": "21 questions couvrant tout le chapitre. Plus long et plus difficile que le quiz.",
+    "estimatedMinutes": 45,
+    "questions": [
+      {
+        "id": "t3-01",
+        "objectiveId": "obj3-limite",
+        "bloomLevel": "understand",
+        "type": "mcq",
+        "difficulty": 1,
+        "prompt": "Graphiquement, que représente la vitesse instantanée au temps tᵢ ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "La pente de la tangente à la courbe au point (tᵢ, f(tᵢ))"
+          },
+          {
+            "id": "b",
+            "text": "La pente de la sécante entre deux points"
+          },
+          {
+            "id": "c",
+            "text": "L'aire sous la courbe"
+          },
+          {
+            "id": "d",
+            "text": "La valeur f(tᵢ)"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Diapositive 108.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "C'est la vitesse moyenne."
+          },
+          {
+            "optionId": "c",
+            "why": "Ce sera l'objet du calcul intégral."
+          },
+          {
+            "optionId": "d",
+            "why": "C'est la position, pas la vitesse."
+          }
+        ],
+        "source": {
+          "file": "1-rappels_calcul_differentiel.pdf",
+          "page": 108,
+          "locator": "Diapositive 108"
+        }
+      },
+      {
+        "id": "t3-02",
+        "objectiveId": "obj3-limite",
+        "bloomLevel": "understand",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Si $\\lim_{x \\to 2^-} f(x) = 5$ et $\\lim_{x \\to 2^+} f(x) = 5$ mais que $f(2) = 1$, alors…",
+        "options": [
+          {
+            "id": "a",
+            "text": "$\\lim_{x \\to 2} f(x) = 5$"
+          },
+          {
+            "id": "b",
+            "text": "$\\lim_{x \\to 2} f(x) = 1$"
+          },
+          {
+            "id": "c",
+            "text": "la limite n'existe pas"
+          },
+          {
+            "id": "d",
+            "text": "$\\lim_{x \\to 2} f(x) = 3$"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Diapositive 112 ; f n'est cependant pas continue en 2 (condition 3).",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "La valeur en 2 n'intervient pas dans la limite."
+          },
+          {
+            "optionId": "c",
+            "why": "Les deux limites latérales sont égales : elle existe."
+          },
+          {
+            "optionId": "d",
+            "why": "On ne fait pas de moyenne."
+          }
+        ],
+        "source": {
+          "file": "1-rappels_calcul_differentiel.pdf",
+          "page": 112,
+          "locator": "Diapositive 112"
+        }
+      },
+      {
+        "id": "t3-03",
+        "objectiveId": "obj3-limite",
+        "bloomLevel": "apply",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Soit $y = 2x^2 - 1$. Quel est le taux de variation moyen sur $[1, 5]$ ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "12"
+          },
+          {
+            "id": "b",
+            "text": "48"
+          },
+          {
+            "id": "c",
+            "text": "8"
+          },
+          {
+            "id": "d",
+            "text": "24"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Exercice 1.43 a, réponse de la plateforme.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Il faut diviser $\\Delta y = 48$ par $\\Delta x = 4$."
+          },
+          {
+            "optionId": "c",
+            "why": "C'est le taux instantané en x = 2."
+          },
+          {
+            "optionId": "d",
+            "why": "$\\frac{f(5) - f(1)}{5 - 1} = \\frac{49 - 1}{4}$."
+          }
+        ],
+        "source": {
+          "file": "1-rappels_calcul_differentiel.pdf",
+          "page": 123,
+          "locator": "Exercice 1.43"
+        }
+      },
+      {
+        "id": "t3-04",
+        "objectiveId": "obj3-limite",
+        "bloomLevel": "apply",
+        "type": "short-answer",
+        "difficulty": 2,
+        "prompt": "Soit $y = 2x^2 - 1$. Quel est le taux de variation instantané en $x = 2$ ?",
+        "correct": "8",
+        "acceptableAnswers": [],
+        "explanation": "$\\lim_{\\Delta x \\to 0} \\frac{2(2 + \\Delta x)^2 - 1 - 7}{\\Delta x} = \\lim_{\\Delta x \\to 0} (8 + 2\\Delta x) = 8$ (exercice 1.43 b, réponse de la plateforme).",
+        "source": {
+          "file": "1-rappels_calcul_differentiel.pdf",
+          "page": 123,
+          "locator": "Exercice 1.43"
+        }
+      },
+      {
+        "id": "t3-05",
+        "objectiveId": "obj3-infini",
+        "bloomLevel": "understand",
+        "type": "true-false",
+        "difficulty": 1,
+        "prompt": "Écrire $\\lim_{x \\to a} f(x) = \\infty$ signifie que la limite existe et vaut l'infini.",
+        "options": [
+          {
+            "id": "v",
+            "text": "Vrai"
+          },
+          {
+            "id": "f",
+            "text": "Faux"
+          }
+        ],
+        "correct": "f",
+        "explanation": "Diapositive 113 : ∞ n'est pas un nombre ; la notation exprime que la limite n'existe pas, parce que f prend des valeurs infiniment grandes.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "v",
+            "why": "Une limite existe seulement si elle vaut un réel L."
+          }
+        ],
+        "source": {
+          "file": "1-rappels_calcul_differentiel.pdf",
+          "page": 113,
+          "locator": "Diapositive 113"
+        }
+      },
+      {
+        "id": "t3-06",
+        "objectiveId": "obj3-infini",
+        "bloomLevel": "recall",
+        "type": "mcq",
+        "difficulty": 1,
+        "prompt": "La droite $x = a$ est une asymptote verticale si…",
+        "options": [
+          {
+            "id": "a",
+            "text": "au moins une des limites en $a$, $a^-$ ou $a^+$ vaut $\\pm\\infty$"
+          },
+          {
+            "id": "b",
+            "text": "$\\lim_{x \\to \\infty} f(x) = a$"
+          },
+          {
+            "id": "c",
+            "text": "$f(a)$ n'est pas définie"
+          },
+          {
+            "id": "d",
+            "text": "les deux limites latérales en a sont égales"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Diapositive 117.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "C'est la définition d'une asymptote horizontale y = a."
+          },
+          {
+            "optionId": "c",
+            "why": "Un trou dans le domaine ne suffit pas : $\\frac{x^2 - 1}{x - 1}$ n'a pas d'asymptote en 1."
+          },
+          {
+            "optionId": "d",
+            "why": "Elles doivent être infinies, pas égales."
+          }
+        ],
+        "source": {
+          "file": "1-rappels_calcul_differentiel.pdf",
+          "page": 117,
+          "locator": "Diapositive 117"
+        }
+      },
+      {
+        "id": "t3-07",
+        "objectiveId": "obj3-infini",
+        "bloomLevel": "apply",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Que vaut $\\lim_{x \\to 2^+} \\frac{1}{x - 2}$ ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "$\\infty$"
+          },
+          {
+            "id": "b",
+            "text": "$-\\infty$"
+          },
+          {
+            "id": "c",
+            "text": "0"
+          },
+          {
+            "id": "d",
+            "text": "1"
+          }
+        ],
+        "correct": "a",
+        "explanation": "$\\frac{1}{0^+} = \\infty$ (diapositive 126 ; exemple de la plateforme).",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "C'est la limite à gauche."
+          },
+          {
+            "optionId": "c",
+            "why": "Le dénominateur tend vers 0, pas le numérateur."
+          },
+          {
+            "optionId": "d",
+            "why": "$x - 2 \\to 0^+$, le quotient grandit sans borne."
+          }
+        ],
+        "source": {
+          "file": "1-rappels_calcul_differentiel.pdf",
+          "page": 126,
+          "locator": "Diapositive 126"
+        }
+      },
+      {
+        "id": "t3-08",
+        "objectiveId": "obj3-regles",
+        "bloomLevel": "recall",
+        "type": "mcq",
+        "difficulty": 1,
+        "prompt": "Selon le théorème 1.44, $\\lim_{x \\to -\\infty} x^n$ vaut…",
+        "options": [
+          {
+            "id": "a",
+            "text": "$\\infty$ ($n$ pair) ou $-\\infty$ ($n$ impair)"
+          },
+          {
+            "id": "b",
+            "text": "$-\\infty$, quel que soit $n$"
+          },
+          {
+            "id": "c",
+            "text": "$\\infty$, quel que soit $n$"
+          },
+          {
+            "id": "d",
+            "text": "0"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Théorème 1.44 (3).",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Pour $n = 2$, $x^2 > 0$."
+          },
+          {
+            "optionId": "c",
+            "why": "Pour $n = 3$, $x^3 < 0$ si $x < 0$."
+          },
+          {
+            "optionId": "d",
+            "why": "C'est $\\lim \\frac{1}{x^n}$."
+          }
+        ],
+        "source": {
+          "file": "1-rappels_calcul_differentiel.pdf",
+          "page": 128,
+          "locator": "Théorème 1.44"
+        }
+      },
+      {
+        "id": "t3-09",
+        "objectiveId": "obj3-regles",
+        "bloomLevel": "understand",
+        "type": "multi",
+        "difficulty": 2,
+        "prompt": "Lesquelles sont des formes indéterminées ? (plusieurs réponses)",
+        "options": [
+          {
+            "id": "a",
+            "text": "$\\frac00$"
+          },
+          {
+            "id": "b",
+            "text": "$\\infty - \\infty$"
+          },
+          {
+            "id": "c",
+            "text": "$1^\\infty$"
+          },
+          {
+            "id": "d",
+            "text": "$\\frac{5}{0^+}$"
+          },
+          {
+            "id": "e",
+            "text": "$\\infty + \\infty$"
+          }
+        ],
+        "correct": [
+          "a",
+          "b",
+          "c"
+        ],
+        "explanation": "Diapositives 129 et 131.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "d",
+            "why": "C'est une forme $\\frac{c}{0}$ : la limite vaut $\\infty$."
+          },
+          {
+            "optionId": "e",
+            "why": "$\\infty + \\infty = \\infty$."
+          }
+        ],
+        "source": {
+          "file": "1-rappels_calcul_differentiel.pdf",
+          "page": 131,
+          "locator": "Diapositive 131"
+        }
+      },
+      {
+        "id": "t3-10",
+        "objectiveId": "obj3-regles",
+        "bloomLevel": "recall",
+        "type": "mcq",
+        "difficulty": 1,
+        "prompt": "Si $P(x)$ est un polynôme, que vaut $\\lim_{x \\to a} P(x)$ ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "$P(a)$"
+          },
+          {
+            "id": "b",
+            "text": "0"
+          },
+          {
+            "id": "c",
+            "text": "$\\infty$"
+          },
+          {
+            "id": "d",
+            "text": "On ne peut pas savoir sans graphique"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Théorème 1.42 (9).",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Ce n'est vrai que si a est une racine."
+          },
+          {
+            "optionId": "c",
+            "why": "Seulement si $a = \\pm\\infty$."
+          },
+          {
+            "optionId": "d",
+            "why": "Le théorème 1.42 (9) le donne directement."
+          }
+        ],
+        "source": {
+          "file": "1-rappels_calcul_differentiel.pdf",
+          "page": 122,
+          "locator": "Théorème 1.42"
+        }
+      },
+      {
+        "id": "t3-11",
+        "objectiveId": "obj3-indetermination",
+        "bloomLevel": "apply",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Évaluer $\\lim_{x \\to 1} \\frac{x^3 - x^2 + x - 1}{x^2 - x}$.",
+        "options": [
+          {
+            "id": "a",
+            "text": "2"
+          },
+          {
+            "id": "b",
+            "text": "0"
+          },
+          {
+            "id": "c",
+            "text": "1"
+          },
+          {
+            "id": "d",
+            "text": "La limite n'existe pas"
+          }
+        ],
+        "correct": "a",
+        "explanation": "$\\frac{(x - 1)(x^2 + 1)}{x(x - 1)} = \\frac{x^2 + 1}{x} \\to 2$ (exercice 1.45 b, réponse de la plateforme).",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "$\\frac00$ n'est pas un résultat."
+          },
+          {
+            "optionId": "c",
+            "why": "Après simplification : $\\frac{x^2 + 1}{x}$, qui vaut 2 en 1."
+          },
+          {
+            "optionId": "d",
+            "why": "$x - 1$ se simplifie ; la limite est finie."
+          }
+        ],
+        "source": {
+          "file": "1-rappels_calcul_differentiel.pdf",
+          "page": 138,
+          "locator": "Exercice 1.45 b"
+        }
+      },
+      {
+        "id": "t3-12",
+        "objectiveId": "obj3-indetermination",
+        "bloomLevel": "apply",
+        "type": "mcq",
+        "difficulty": 3,
+        "prompt": "Évaluer $\\lim_{x \\to 3} \\frac{\\frac{x + 2}{6 - x} - \\frac{5}{x}}{x - 3}$.",
+        "options": [
+          {
+            "id": "a",
+            "text": "$\\frac{13}{9}$"
+          },
+          {
+            "id": "b",
+            "text": "$\\frac{7}{9}$"
+          },
+          {
+            "id": "c",
+            "text": "$0$"
+          },
+          {
+            "id": "d",
+            "text": "$\\frac{13}{3}$"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Même dénominateur : $\\frac{(x + 10)(x - 3)}{x(6 - x)(x - 3)} \\to \\frac{13}{9}$ (exercice 1.45 d, réponse de la plateforme).",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "$(x + 2)x - 5(6 - x) = x^2 + 7x - 30$ : le $+5x$ a été perdu."
+          },
+          {
+            "optionId": "c",
+            "why": "Le numérateur et le dénominateur tendent vers 0 : il faut simplifier $(x - 3)$."
+          },
+          {
+            "optionId": "d",
+            "why": "Il reste $x(6 - x) = 9$ au dénominateur."
+          }
+        ],
+        "source": {
+          "file": "1-rappels_calcul_differentiel.pdf",
+          "page": 138,
+          "locator": "Exercice 1.45 d"
+        }
+      },
+      {
+        "id": "t3-13",
+        "objectiveId": "obj3-indetermination",
+        "bloomLevel": "apply",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Évaluer $\\lim_{x \\to \\infty} \\left(\\sqrt{x + 1} - \\sqrt{x}\\right)$.",
+        "options": [
+          {
+            "id": "a",
+            "text": "0"
+          },
+          {
+            "id": "b",
+            "text": "$\\infty$"
+          },
+          {
+            "id": "c",
+            "text": "1"
+          },
+          {
+            "id": "d",
+            "text": "$\\frac12$"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Conjugué (exercice 1.46 c, réponse de la plateforme).",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "C'est une forme $\\infty - \\infty$ ; après le conjugué, on obtient $\\frac{1}{\\sqrt{x + 1} + \\sqrt x}$."
+          },
+          {
+            "optionId": "c",
+            "why": "$\\sqrt{x + 1} - \\sqrt x \\neq \\sqrt{1}$."
+          },
+          {
+            "optionId": "d",
+            "why": "Le dénominateur $\\sqrt{x + 1} + \\sqrt x$ tend vers l'infini."
+          }
+        ],
+        "source": {
+          "file": "1-rappels_calcul_differentiel.pdf",
+          "page": 139,
+          "locator": "Exercice 1.46 c"
+        }
+      },
+      {
+        "id": "t3-14",
+        "objectiveId": "obj3-indetermination",
+        "bloomLevel": "analyze",
+        "type": "mcq",
+        "difficulty": 3,
+        "prompt": "Évaluer $\\lim_{x \\to \\infty} \\left(\\sqrt{x^2 + 3x} - x\\right)$.",
+        "options": [
+          {
+            "id": "a",
+            "text": "$\\frac32$"
+          },
+          {
+            "id": "b",
+            "text": "0"
+          },
+          {
+            "id": "c",
+            "text": "$\\infty$"
+          },
+          {
+            "id": "d",
+            "text": "3"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Conjugué puis terme dominant (exercice 1.46 d, réponse de la plateforme).",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "$\\sqrt{x^2 + 3x} \\approx x$ ne suffit pas : l'écart tend vers $\\frac32$."
+          },
+          {
+            "optionId": "c",
+            "why": "Le conjugué montre que la forme ∞ − ∞ a une limite finie."
+          },
+          {
+            "optionId": "d",
+            "why": "$\\frac{3x}{\\sqrt{x^2 + 3x} + x} \\to \\frac{3}{1 + 1}$."
+          }
+        ],
+        "source": {
+          "file": "1-rappels_calcul_differentiel.pdf",
+          "page": 139,
+          "locator": "Exercice 1.46 d"
+        }
+      },
+      {
+        "id": "t3-15",
+        "objectiveId": "obj3-indetermination",
+        "bloomLevel": "understand",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Pour lever une indétermination 0/0 qui contient une racine carrée, la technique indiquée est…",
+        "options": [
+          {
+            "id": "a",
+            "text": "la multiplication par le conjugué"
+          },
+          {
+            "id": "b",
+            "text": "la mise en évidence du terme dominant"
+          },
+          {
+            "id": "c",
+            "text": "la substitution directe"
+          },
+          {
+            "id": "d",
+            "text": "la limite à gauche seulement"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Diapositive 135.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "C'est pour ∞/∞ ou ∞ − ∞."
+          },
+          {
+            "optionId": "c",
+            "why": "C'est elle qui a donné 0/0."
+          },
+          {
+            "optionId": "d",
+            "why": "Ce n'est pas une technique de levée d'indétermination."
+          }
+        ],
+        "source": {
+          "file": "1-rappels_calcul_differentiel.pdf",
+          "page": 135,
+          "locator": "Diapositive 135"
+        }
+      },
+      {
+        "id": "t3-16",
+        "objectiveId": "obj3-continuite",
+        "bloomLevel": "analyze",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Dans l'exercice 1.47, pourquoi f est-elle discontinue en x = 1 ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "La limite à gauche vaut 2 et la limite à droite vaut −2"
+          },
+          {
+            "id": "b",
+            "text": "f(1) n'est pas définie"
+          },
+          {
+            "id": "c",
+            "text": "La limite vaut 2 mais f(1) = −2"
+          },
+          {
+            "id": "d",
+            "text": "Elle est continue en 1"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Condition 2 violée (exercice 1.47, réponse de la plateforme).",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "$f(1) = 1^2 + 1 = 2$."
+          },
+          {
+            "optionId": "c",
+            "why": "$f(1)$ se calcule avec la branche $x \\le 1$ : $f(1) = 2$."
+          },
+          {
+            "optionId": "d",
+            "why": "Les deux branches ne se rejoignent pas."
+          }
+        ],
+        "source": {
+          "file": "1-rappels_calcul_differentiel.pdf",
+          "page": 142,
+          "locator": "Exercice 1.47"
+        }
+      },
+      {
+        "id": "t3-17",
+        "objectiveId": "obj3-continuite",
+        "bloomLevel": "analyze",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Dans l'exercice 1.47, pourquoi f est-elle discontinue en x = 2 ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "f(2) n'est pas définie : aucune branche ne contient x = 2"
+          },
+          {
+            "id": "b",
+            "text": "Les limites latérales sont différentes"
+          },
+          {
+            "id": "c",
+            "text": "Elle est continue en 2"
+          },
+          {
+            "id": "d",
+            "text": "La limite vaut ∞"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Condition 1 violée : les inégalités 1 < x < 2 et 2 < x < 3 excluent toutes deux x = 2.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "À gauche $-3$, à droite $16$ — mais la première condition échoue déjà."
+          },
+          {
+            "optionId": "c",
+            "why": "f(2) n'existe pas."
+          },
+          {
+            "optionId": "d",
+            "why": "Les deux branches sont des polynômes, bornés près de 2."
+          }
+        ],
+        "source": {
+          "file": "1-rappels_calcul_differentiel.pdf",
+          "page": 142,
+          "locator": "Exercice 1.47"
+        }
+      },
+      {
+        "id": "t3-18",
+        "objectiveId": "obj3-continuite",
+        "bloomLevel": "apply",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "$f$ et $g$ sont continues, $g(3) = -1$ et $\\lim_{x \\to 3} (g(x) - 2f(x)) = 5$. Que vaut $f(3)$ ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "−3"
+          },
+          {
+            "id": "b",
+            "text": "3"
+          },
+          {
+            "id": "c",
+            "text": "−2"
+          },
+          {
+            "id": "d",
+            "text": "On ne peut pas le savoir"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Par continuité, $g(3) - 2f(3) = 5$ (notes, exercice 4 de 1.3.7, réponse de la plateforme).",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "$-1 - 2f(3) = 5$ donne $f(3) = -3$."
+          },
+          {
+            "optionId": "c",
+            "why": "$-2f(3) = 6$, pas $4$."
+          },
+          {
+            "optionId": "d",
+            "why": "La continuité permet de remplacer les limites par les valeurs."
+          }
+        ],
+        "source": {
+          "file": "noteChapitre1.txt",
+          "page": 1,
+          "locator": "Section 1.3.7, exercice 4"
+        }
+      },
+      {
+        "id": "t3-19",
+        "objectiveId": "obj3-continuite",
+        "bloomLevel": "apply",
+        "type": "mcq",
+        "difficulty": 3,
+        "prompt": "$f(x) = x^2 - x + 3$ si $x \\le 2$, $kx + 3$ si $2 < x < 3$, $x^2$ si $x \\ge 3$. Quel $k$ rend $f$ continue en 2 ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "$k = 1$"
+          },
+          {
+            "id": "b",
+            "text": "$k = 2$"
+          },
+          {
+            "id": "c",
+            "text": "$k = \\frac52$"
+          },
+          {
+            "id": "d",
+            "text": "$k = 4$"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Avec $k = 1$, $f$ n'est pas continue en 3 ($6 \\neq 9$) : on ne peut pas avoir les deux (notes, exercice 5 de 1.3.7, réponse de la plateforme).",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "C'est la valeur qui rend f continue en 3."
+          },
+          {
+            "optionId": "c",
+            "why": "$f(2) = 4 - 2 + 3 = 5$, et $2k + 3 = 5$."
+          },
+          {
+            "optionId": "d",
+            "why": "$2k + 3 = 5$ donne $k = 1$."
+          }
+        ],
+        "source": {
+          "file": "noteChapitre1.txt",
+          "page": 1,
+          "locator": "Section 1.3.7, exercice 5"
+        }
+      },
+      {
+        "id": "t3-20",
+        "objectiveId": "obj3-continuite",
+        "bloomLevel": "understand",
+        "type": "true-false",
+        "difficulty": 1,
+        "prompt": "Une fonction rationnelle est continue pour toutes les valeurs réelles qui n'annulent pas son dénominateur.",
+        "options": [
+          {
+            "id": "v",
+            "text": "Vrai"
+          },
+          {
+            "id": "f",
+            "text": "Faux"
+          }
+        ],
+        "correct": "v",
+        "explanation": "Diapositive 144.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "f",
+            "why": "C'est une conséquence de la continuité des polynômes et du quotient."
+          }
+        ],
+        "source": {
+          "file": "1-rappels_calcul_differentiel.pdf",
+          "page": 144,
+          "locator": "Diapositive 144"
+        }
+      },
+      {
+        "id": "t3-21",
+        "objectiveId": "obj3-continuite",
+        "bloomLevel": "recall",
+        "type": "fill-blank",
+        "difficulty": 1,
+        "prompt": "Compléter : $f$ est continue sur $[a, b]$ si elle l'est sur $]a, b[$, si $\\lim_{x \\to a^+} f(x) = f(a)$, et si $f(x)$ tend vers $f(b)$ quand $x$ s'approche de $b$ par la ____.",
+        "correct": "gauche",
+        "acceptableAnswers": [
+          "la gauche",
+          "b-",
+          "-",
+          "−"
+        ],
+        "explanation": "Diapositive 145 : à la borne droite, on ne peut arriver que par la gauche, $x \\to b^-$.",
+        "source": {
+          "file": "1-rappels_calcul_differentiel.pdf",
+          "page": 145,
+          "locator": "Diapositive 145"
+        }
+      }
+    ]
+  },
+  "flashcards": [
+    {
+      "id": "f3-01",
+      "objectiveId": "obj3-limite",
+      "front": "La limite existe si…",
+      "back": "limite à gauche = limite à droite = L ∈ ℝ."
+    },
+    {
+      "id": "f3-02",
+      "objectiveId": "obj3-limite",
+      "front": "Vitesse instantanée ?",
+      "back": "$\\lim_{\\Delta t \\to 0} \\frac{f(t_i + \\Delta t) - f(t_i)}{\\Delta t}$ : pente de la tangente."
+    },
+    {
+      "id": "f3-03",
+      "objectiveId": "obj3-infini",
+      "front": "$\\lim = \\infty$ : la limite existe-t-elle ?",
+      "back": "Non : ∞ n'est pas un nombre."
+    },
+    {
+      "id": "f3-04",
+      "objectiveId": "obj3-infini",
+      "front": "Asymptote verticale x = a ?",
+      "back": "Une limite en a, a⁻ ou a⁺ vaut ±∞."
+    },
+    {
+      "id": "f3-05",
+      "objectiveId": "obj3-infini",
+      "front": "Asymptote horizontale y = b ?",
+      "back": "$\\lim_{x \\to \\infty} f = b$ ou $\\lim_{x \\to -\\infty} f = b$."
+    },
+    {
+      "id": "f3-06",
+      "objectiveId": "obj3-infini",
+      "front": "$\\frac{c}{0^-}$ avec $c > 0$ ?",
+      "back": "$-\\infty$."
+    },
+    {
+      "id": "f3-07",
+      "objectiveId": "obj3-regles",
+      "front": "Sept formes indéterminées ?",
+      "back": "0/0, ∞/∞, ∞ − ∞, 0 × ∞, 0⁰, ∞⁰, 1^∞."
+    },
+    {
+      "id": "f3-08",
+      "objectiveId": "obj3-indetermination",
+      "front": "Lever 0/0 : trois techniques ?",
+      "back": "Factoriser, même dénominateur, conjugué."
+    },
+    {
+      "id": "f3-09",
+      "objectiveId": "obj3-indetermination",
+      "front": "Lever ∞/∞ ?",
+      "back": "Mettre en évidence le terme dominant (ou le conjugué avec des racines)."
+    },
+    {
+      "id": "f3-10",
+      "objectiveId": "obj3-indetermination",
+      "front": "$\\sqrt{x^2}$ quand $x \\to -\\infty$ ?",
+      "back": "$|x| = -x$."
+    },
+    {
+      "id": "f3-11",
+      "objectiveId": "obj3-continuite",
+      "front": "Continuité en a : trois conditions ?",
+      "back": "f(a) définie ; la limite existe ; limite = f(a)."
+    },
+    {
+      "id": "f3-12",
+      "objectiveId": "obj3-continuite",
+      "front": "Composée de fonctions continues ?",
+      "back": "Continue : $\\lim_{x \\to a} f(g(x)) = f(g(a))$."
+    }
+  ],
+  "exercises": [
+    {
+      "id": "e3-01",
+      "objectiveId": "obj3-indetermination",
+      "difficulty": 2,
+      "mode": "trace",
+      "language": "text",
+      "title": "Lever 0/0 par le conjugué (exercice 1.45 c)",
+      "statement": "Évaluer la limite en levant l'indétermination. Montrer chaque étape.",
+      "starterCode": "lim_{x→5} (3 − √(x + 4)) / (5 − x)",
+      "hints": [
+        "Substituer d'abord : on obtient 0/0.",
+        "Le conjugué de 3 − √(x + 4) est 3 + √(x + 4).",
+        "Au numérateur, (3 − √(x + 4))(3 + √(x + 4)) = 9 − (x + 4) = 5 − x."
+      ],
+      "solution": "1/6",
+      "expectedOutput": "Substitution : (3 − √9)/(5 − 5) = 0/0\n\n  (3 − √(x + 4))/(5 − x) · (3 + √(x + 4))/(3 + √(x + 4))\n= (9 − (x + 4)) / ((5 − x)(3 + √(x + 4)))\n= (5 − x) / ((5 − x)(3 + √(x + 4)))\n= 1 / (3 + √(x + 4))        (x ≠ 5)\n\nlim_{x→5} 1/(3 + √(x + 4)) = 1/(3 + 3) = 1/6",
+      "solutionExplanation": "La simplification par (5 − x) n'est permise que parce que x ≠ 5 : la limite ne regarde jamais x = 5. Réponse de la plateforme, vérifiée par calcul symbolique.",
+      "source": {
+        "file": "1-rappels_calcul_differentiel.pdf",
+        "page": 138,
+        "locator": "Exercice 1.45 c"
+      }
+    },
+    {
+      "id": "e3-02",
+      "objectiveId": "obj3-indetermination",
+      "difficulty": 3,
+      "mode": "find-bug",
+      "language": "text",
+      "title": "Trouver l'erreur — une limite en −∞",
+      "statement": "Voici une résolution de l'exercice 1.46 b. Trouver la ligne fausse et donner la bonne limite.",
+      "starterCode": "  lim_{x→−∞} (3x + 4) / √(4x² − 3x + 1)\n= lim (3x + 4) / (√(x²) · √(4 − 3/x + 1/x²))\n= lim (3x + 4) / (x · √(4 − 3/x + 1/x²))\n= lim (3 + 4/x) / √(4 − 3/x + 1/x²)\n= 3/2",
+      "hints": [
+        "Que vaut √(x²) pour un x négatif ?",
+        "√(x²) = |x|, et |x| = −x si x < 0.",
+        "La ligne 3 remplace √(x²) par x au lieu de −x."
+      ],
+      "solution": "Ligne 3 : √(x²) = −x pour x < 0. La limite vaut −3/2.",
+      "expectedOutput": "  lim_{x→−∞} (3x + 4) / (|x| · √(4 − 3/x + 1/x²))\n= lim (3x + 4) / (−x · √(4 − 3/x + 1/x²))      (x < 0)\n= lim (3 + 4/x) / (−√(4 − 3/x + 1/x²))\n= 3 / (−2) = −3/2",
+      "solutionExplanation": "Vérification intuitive : pour x très négatif, le numérateur est négatif et la racine positive, donc le quotient est négatif. Réponse de la plateforme, vérifiée par calcul symbolique.",
+      "source": {
+        "file": "1-rappels_calcul_differentiel.pdf",
+        "page": 139,
+        "locator": "Exercice 1.46 b"
+      }
+    },
+    {
+      "id": "e3-03",
+      "objectiveId": "obj3-continuite",
+      "difficulty": 2,
+      "mode": "predict-output",
+      "language": "text",
+      "title": "Continuité en trois points (exercice 1.47)",
+      "statement": "Pour la fonction de l'exercice 1.47, dire si f est continue en x = 1, x = 2 et x = 3, et nommer la première condition qui échoue.",
+      "starterCode": "f(x) = x² + 1 si x ≤ 1 ; −x − 1 si 1 < x < 2 ; x² + x + 10 si 2 < x < 3 ; 12 si x = 3 ; 7x + 1 si x > 3",
+      "hints": [
+        "Calculer f(a), puis les deux limites latérales, puis comparer.",
+        "En x = 2, regarder attentivement les inégalités.",
+        "En x = 3, les deux limites latérales valent 22."
+      ],
+      "solution": "x = 1 : discontinue (condition 2) · x = 2 : discontinue (condition 1) · x = 3 : discontinue (condition 3)",
+      "expectedOutput": "x = 1 : f(1) = 2 ; lim⁻ = 2 ; lim⁺ = −1 − 1 = −2  → la limite n'existe pas (condition 2)\nx = 2 : aucune branche ne contient x = 2       → f(2) n'est pas définie (condition 1)\nx = 3 : f(3) = 12 ; lim⁻ = 9 + 3 + 10 = 22 ; lim⁺ = 21 + 1 = 22 → limite 22 ≠ 12 (condition 3)",
+      "solutionExplanation": "Les trois points illustrent chacun une condition différente. Réponse de la plateforme.",
+      "source": {
+        "file": "1-rappels_calcul_differentiel.pdf",
+        "page": 142,
+        "locator": "Exercice 1.47"
+      }
+    },
+    {
+      "id": "e3-04",
+      "objectiveId": "obj3-indetermination",
+      "difficulty": 2,
+      "mode": "fill-blank",
+      "language": "text",
+      "title": "Compléter — mise au même dénominateur (exercice 1.45 d)",
+      "statement": "Compléter la levée de l'indétermination.",
+      "starterCode": "  [ (x + 2)/(6 − x) − 5/x ] / (x − 3)\n= [ x(x + 2) − 5(____) ] / ( x(6 − x)(x − 3) )\n= ( x² + ____ x − 30 ) / ( x(6 − x)(x − 3) )\n= ( x + 10 )( ____ ) / ( x(6 − x)(x − 3) )\n→ quand x → 3 : ____",
+      "hints": [
+        "Le dénominateur commun de (x + 2)/(6 − x) et 5/x est x(6 − x).",
+        "x² + 2x − 30 + 5x.",
+        "Après simplification, remplacer x par 3 dans (x + 10)/(x(6 − x))."
+      ],
+      "solution": "6 − x · 7 · x − 3 · 13/9",
+      "expectedOutput": "  [ x(x + 2) − 5(6 − x) ] / ( x(6 − x)(x − 3) )\n= ( x² + 7x − 30 ) / ( x(6 − x)(x − 3) )\n= ( x + 10 )( x − 3 ) / ( x(6 − x)(x − 3) )\n= ( x + 10 ) / ( x(6 − x) )  →  13 / (3 · 3) = 13/9",
+      "solutionExplanation": "La mise au même dénominateur fait apparaître le facteur (x − 3) qui annulait le dénominateur. Réponse de la plateforme, vérifiée par calcul symbolique.",
+      "source": {
+        "file": "1-rappels_calcul_differentiel.pdf",
+        "page": 138,
+        "locator": "Exercice 1.45 d"
+      }
+    },
+    {
+      "id": "e3-05",
+      "objectiveId": "obj3-continuite",
+      "difficulty": 3,
+      "mode": "trace",
+      "language": "text",
+      "title": "Choisir k pour la continuité",
+      "statement": "Soit f(x) = x² − x + 3 si x ≤ 2 ; kx + 3 si 2 < x < 3 ; x² si x ≥ 3. a) Trouver k pour que f soit continue en 2. b) f est-elle alors continue en 3 ? c) Quel k la rendrait continue en 3 ?",
+      "starterCode": "f(x) = x² − x + 3 (x ≤ 2) ; kx + 3 (2 < x < 3) ; x² (x ≥ 3)",
+      "hints": [
+        "En x = 2 : f(2) et la limite à gauche valent 4 − 2 + 3 ; la limite à droite vaut 2k + 3.",
+        "Avec ce k, comparer la limite à gauche en 3 (3k + 3) avec f(3) = 9.",
+        "Pour la continuité en 3 : 3k + 3 = 9."
+      ],
+      "solution": "a) k = 1 · b) non (6 ≠ 9) · c) k = 2",
+      "expectedOutput": "a) f(2) = lim⁻ = 5 ; lim⁺ = 2k + 3.  5 = 2k + 3  ⇒  k = 1\nb) Avec k = 1 : lim⁻ en 3 = 3 + 3 = 6 ; f(3) = lim⁺ = 9.  6 ≠ 9  ⇒  discontinue en 3\nc) 3k + 3 = 9  ⇒  k = 2 (mais alors f n'est plus continue en 2 : 7 ≠ 5)",
+      "solutionExplanation": "Un seul paramètre ne peut pas réparer deux raccords à la fois. Exercice 5 de la section 1.3.7 des notes ; réponse de la plateforme.",
+      "source": {
+        "file": "noteChapitre1.txt",
+        "page": 1,
+        "locator": "Section 1.3.7, exercice 5"
+      }
+    }
+  ]
+}

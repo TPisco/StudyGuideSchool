@@ -1,0 +1,1759 @@
+{
+  "course": "MAT199",
+  "chapter": 4,
+  "concepts": [
+    {
+      "id": "c4-compatible",
+      "term": "Système compatible, incompatible, équivalent",
+      "definition": "Un système est compatible s'il admet au moins une solution, incompatible sinon. Deux systèmes sont équivalents s'ils ont le même ensemble de solutions.",
+      "whyItMatters": "Toute la méthode de Gauss repose sur l'équivalence : on remplace un système par un système équivalent plus simple.",
+      "commonMisconception": "Confondre « équivalents » (mêmes solutions) et « mêmes équations » : deux systèmes très différents d'aspect peuvent être équivalents.",
+      "objectiveId": "obj4-matrices",
+      "source": {
+        "file": "2026-03-MAT199-ChapIII.pdf",
+        "page": 1,
+        "locator": "Définition 3.1"
+      }
+    },
+    {
+      "id": "c4-augmentee",
+      "term": "Matrice des coefficients et matrice augmentée",
+      "definition": "Le système s'écrit $AX = B$, avec $A = (a_{ij})$ la matrice des coefficients et $(A \\mid B)$ la matrice augmentée, qui ajoute la colonne des termes constants.",
+      "whyItMatters": "Travailler sur (A | B) plutôt que sur les équations évite de recopier les inconnues à chaque étape.",
+      "commonMisconception": "Oublier le coefficient 0 d'une inconnue absente d'une équation, ce qui décale toute la ligne.",
+      "objectiveId": "obj4-matrices",
+      "source": {
+        "file": "2026-03-MAT199-ChapIII.pdf",
+        "page": 2,
+        "locator": "Définition 3.2"
+      }
+    },
+    {
+      "id": "c4-libre",
+      "term": "Inconnue libre",
+      "definition": "Dans un système échelonné, une inconnue est libre si aucun de ses coefficients n'est un pivot de $A$. Il y en a $n - \\operatorname{rg}(A)$.",
+      "whyItMatters": "Les inconnues libres deviennent des paramètres λ₁, λ₂, … ; les autres s'expriment en fonction d'eux par substitution.",
+      "commonMisconception": "Déclarer libre une inconnue simplement parce qu'elle a un coefficient nul dans la dernière équation : c'est l'absence de pivot dans sa colonne qui compte.",
+      "objectiveId": "obj4-echelonne",
+      "source": {
+        "file": "2026-03-MAT199-ChapIII.pdf",
+        "page": 4,
+        "locator": "Définition 3.3"
+      }
+    },
+    {
+      "id": "c4-echelonne",
+      "term": "Résolution d'un système échelonné",
+      "definition": "Si $\\operatorname{rg}(A) < \\operatorname{rg}(A \\mid B)$ : incompatible. Si $\\operatorname{rg}(A) = \\operatorname{rg}(A \\mid B) = n$ : une seule solution, par substitution depuis la dernière équation. Si $\\operatorname{rg}(A) = \\operatorname{rg}(A \\mid B) < n$ : une infinité, en bijection avec les valeurs des inconnues libres.",
+      "whyItMatters": "Une fois le système échelonné, le travail n'est plus que de la substitution de bas en haut.",
+      "commonMisconception": "Commencer la substitution par la première équation : on part de la DERNIÈRE équation non nulle.",
+      "objectiveId": "obj4-echelonne",
+      "source": {
+        "file": "2026-03-MAT199-ChapIII.pdf",
+        "page": 5,
+        "locator": "Propositions 3.4 et 3.5, théorème 3.6"
+      }
+    },
+    {
+      "id": "c4-gauss",
+      "term": "Élimination de Gauss",
+      "definition": "Les opérations $E_i \\leftrightarrow E_j$, $E_i + aE_j$ et $aE_i$ ($a \\neq 0$) ne changent pas l'ensemble des solutions. Si $(A \\mid B)$ s'échelonne en $(A' \\mid B')$, le système est équivalent à $A'X = B'$.",
+      "whyItMatters": "Elle ramène tout système au cas échelonné, qu'on sait résoudre.",
+      "commonMisconception": "Appliquer une opération à la partie A seulement : elle porte sur la ligne entière de (A | B), terme constant compris.",
+      "objectiveId": "obj4-gauss",
+      "source": {
+        "file": "2026-03-MAT199-ChapIII.pdf",
+        "page": 8,
+        "locator": "Théorème 3.7, corollaire 3.8"
+      }
+    },
+    {
+      "id": "c4-theoreme-rang",
+      "term": "Théorème du rang pour les systèmes",
+      "definition": "Un système est compatible si, et seulement si, $\\operatorname{rg}(A) = \\operatorname{rg}(A \\mid B)$ ; il a alors une seule solution si ce rang vaut $n$, une infinité sinon.",
+      "whyItMatters": "Pour un système à paramètre, on échelonne une fois et on lit, selon le paramètre, laquelle des trois situations se produit.",
+      "commonMisconception": "Oublier le cas « aucune solution » — ou le déclarer alors que le terme constant s'annule en même temps que le coefficient.",
+      "objectiveId": "obj4-rang",
+      "source": {
+        "file": "2026-03-MAT199-ChapIII.pdf",
+        "page": 10,
+        "locator": "Théorème 3.9"
+      }
+    },
+    {
+      "id": "c4-homogene",
+      "term": "Système homogène",
+      "definition": "Un système $AX = 0$. Il a toujours la solution nulle ; il admet des solutions non nulles si, et seulement si, $\\operatorname{rg}(A) < n$ — en particulier dès qu'il y a moins d'équations que d'inconnues.",
+      "whyItMatters": "C'est l'outil qui décidera, au chapitre 5, si des vecteurs sont linéairement indépendants.",
+      "commonMisconception": "Croire qu'un système homogène peut être incompatible : X = 0 est toujours une solution.",
+      "objectiveId": "obj4-homogene",
+      "source": {
+        "file": "2026-03-MAT199-ChapIII.pdf",
+        "page": 11,
+        "locator": "Définition 3.10, théorème 3.11"
+      }
+    },
+    {
+      "id": "c4-parametre",
+      "term": "Discuter selon un paramètre",
+      "definition": "On échelonne $(A \\mid B)$ sans diviser par une expression en $a$ qui pourrait s'annuler, puis on examine séparément les valeurs de $a$ qui annulent un pivot.",
+      "whyItMatters": "C'est l'exercice type du chapitre : une seule réduction, trois conclusions possibles selon a.",
+      "commonMisconception": "Conclure « aucune solution » dès qu'un pivot s'annule, sans regarder le terme constant de la même ligne.",
+      "objectiveId": "obj4-rang",
+      "source": {
+        "file": "2026-03-MAT199-ChapIII.pdf",
+        "page": 10,
+        "locator": "Exercice p. 10"
+      }
+    }
+  ],
+  "tables": [
+    {
+      "id": "t4-trois-cas",
+      "title": "Les trois issues d'un système AX = B à n inconnues",
+      "kind": "reference",
+      "columns": [
+        {
+          "key": "rangs",
+          "label": "Rangs"
+        },
+        {
+          "key": "solutions",
+          "label": "Solutions"
+        },
+        {
+          "key": "signe",
+          "label": "Ce qu'on voit après échelonnement"
+        }
+      ],
+      "rows": [
+        {
+          "rangs": "$\\operatorname{rg}(A) < \\operatorname{rg}(A \\mid B)$",
+          "solutions": "aucune",
+          "signe": "une ligne $(0 \\cdots 0 \\mid c)$ avec $c \\neq 0$"
+        },
+        {
+          "rangs": "$\\operatorname{rg}(A) = \\operatorname{rg}(A \\mid B) = n$",
+          "solutions": "une seule",
+          "signe": "un pivot dans chaque colonne de A"
+        },
+        {
+          "rangs": "$\\operatorname{rg}(A) = \\operatorname{rg}(A \\mid B) < n$",
+          "solutions": "une infinité",
+          "signe": "$n - \\operatorname{rg}(A)$ colonnes sans pivot : inconnues libres"
+        }
+      ],
+      "source": {
+        "file": "2026-03-MAT199-ChapIII.pdf",
+        "page": 10,
+        "locator": "Théorème 3.9"
+      }
+    },
+    {
+      "id": "t4-operations",
+      "title": "Opérations sur les équations et sur la matrice augmentée",
+      "kind": "cheatsheet",
+      "columns": [
+        {
+          "key": "eq",
+          "label": "Sur les équations"
+        },
+        {
+          "key": "lignes",
+          "label": "Sur (A | B)"
+        },
+        {
+          "key": "effet",
+          "label": "Effet sur les solutions"
+        }
+      ],
+      "rows": [
+        {
+          "eq": "$E_i \\leftrightarrow E_j$",
+          "lignes": "$L_i \\leftrightarrow L_j$",
+          "effet": "aucun"
+        },
+        {
+          "eq": "$E_i + aE_j$",
+          "lignes": "$L_i + aL_j$",
+          "effet": "aucun"
+        },
+        {
+          "eq": "$aE_i$, $a \\neq 0$",
+          "lignes": "$aL_i$, $a \\neq 0$",
+          "effet": "aucun"
+        }
+      ],
+      "source": {
+        "file": "2026-03-MAT199-ChapIII.pdf",
+        "page": 8,
+        "locator": "Théorème 3.7 et remarque"
+      }
+    }
+  ],
+  "quiz": {
+    "title": "Quiz — vérification rapide",
+    "estimatedMinutes": 15,
+    "questions": [
+      {
+        "id": "q4-01",
+        "objectiveId": "obj4-matrices",
+        "bloomLevel": "recall",
+        "type": "mcq",
+        "difficulty": 1,
+        "prompt": "Un système d'équations linéaires est dit compatible s'il…",
+        "options": [
+          {
+            "id": "a",
+            "text": "admet au moins une solution"
+          },
+          {
+            "id": "b",
+            "text": "admet exactement une solution"
+          },
+          {
+            "id": "c",
+            "text": "a autant d'équations que d'inconnues"
+          },
+          {
+            "id": "d",
+            "text": "est échelonné"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Définition 3.1 : compatible s'il admet au moins une solution ; sinon, incompatible.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Un système avec une infinité de solutions est aussi compatible."
+          },
+          {
+            "optionId": "c",
+            "why": "Le nombre d'équations ne décide pas de la compatibilité."
+          },
+          {
+            "optionId": "d",
+            "why": "Un système échelonné peut être incompatible, comme celui de la proposition 3.4."
+          }
+        ],
+        "source": {
+          "file": "2026-03-MAT199-ChapIII.pdf",
+          "page": 1,
+          "locator": "Définition 3.1"
+        }
+      },
+      {
+        "id": "q4-02",
+        "objectiveId": "obj4-matrices",
+        "bloomLevel": "understand",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Quelle est la matrice augmentée de $\\begin{cases} 2x - z = 1 \\\\ x - 2y = 1 \\\\ 2x - 2z = 5 \\end{cases}$ ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "$\\left(\\begin{array}{ccc|c}2 & 0 & -1 & 1 \\\\ 1 & -2 & 0 & 1 \\\\ 2 & 0 & -2 & 5\\end{array}\\right)$"
+          },
+          {
+            "id": "b",
+            "text": "$\\left(\\begin{array}{cc|c}2 & -1 & 1 \\\\ 1 & -2 & 1 \\\\ 2 & -2 & 5\\end{array}\\right)$"
+          },
+          {
+            "id": "c",
+            "text": "$\\left(\\begin{array}{ccc|c}2 & 0 & -1 & 1 \\\\ 1 & -2 & 0 & 1 \\\\ 2 & 0 & -2 & -5\\end{array}\\right)$"
+          },
+          {
+            "id": "d",
+            "text": "$\\left(\\begin{array}{ccc|c}2 & 1 & 2 & 1 \\\\ 0 & -2 & 0 & 1 \\\\ -1 & 0 & -2 & 5\\end{array}\\right)$"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Exemple (1) de la p. 3 : une ligne par équation, une colonne par inconnue, avec un 0 pour chaque inconnue absente, puis la colonne des termes constants.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Les coefficients nuls ont été oubliés : il faut une colonne par inconnue, x, y, z."
+          },
+          {
+            "optionId": "c",
+            "why": "Le terme constant de la troisième équation est +5."
+          },
+          {
+            "optionId": "d",
+            "why": "La partie gauche a été transposée : chaque LIGNE correspond à une équation."
+          }
+        ],
+        "source": {
+          "file": "2026-03-MAT199-ChapIII.pdf",
+          "page": 3,
+          "locator": "Exemple (1) p. 3"
+        }
+      },
+      {
+        "id": "q4-03",
+        "objectiveId": "obj4-echelonne",
+        "bloomLevel": "apply",
+        "type": "short-answer",
+        "difficulty": 1,
+        "prompt": "Résoudre le système échelonné $\\begin{cases} 2x - y + z = 1 \\\\ y - z = 3 \\\\ 3z = 6 \\end{cases}$. Quelle est la valeur de $y$ ?",
+        "correct": "5",
+        "acceptableAnswers": [],
+        "explanation": "De bas en haut : $z = 2$, $y = 3 + z = 5$, puis $2x = 1 + y - z = 4$, $x = 2$. Solution $(2, 5, 2)$.",
+        "source": {
+          "file": "2026-03-MAT199-ChapIII.pdf",
+          "page": 5,
+          "locator": "Exercice p. 5"
+        }
+      },
+      {
+        "id": "q4-04",
+        "objectiveId": "obj4-echelonne",
+        "bloomLevel": "understand",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Quelles sont les inconnues libres du système $\\begin{cases} 2x_1 + x_2 - x_3 + 2x_4 - x_5 = 0 \\\\ 5x_3 + x_4 + 5x_5 = -1 \\\\ 7x_4 = -8 \\end{cases}$ ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "$x_2$ et $x_5$"
+          },
+          {
+            "id": "b",
+            "text": "$x_1$, $x_3$ et $x_4$"
+          },
+          {
+            "id": "c",
+            "text": "$x_5$ seulement"
+          },
+          {
+            "id": "d",
+            "text": "$x_4$ et $x_5$"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Les pivots 2, 5 et 7 sont les coefficients de $x_1$, $x_3$, $x_4$. Il reste $5 - 3 = 2$ inconnues libres : $x_2$ et $x_5$.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Ce sont celles qui PORTENT un pivot : elles ne sont pas libres."
+          },
+          {
+            "optionId": "c",
+            "why": "$x_2$ n'a pas de pivot non plus : dans la première équation, le pivot est le coefficient de $x_1$."
+          },
+          {
+            "optionId": "d",
+            "why": "$x_4$ a un pivot, le 7 de la troisième équation."
+          }
+        ],
+        "source": {
+          "file": "2026-03-MAT199-ChapIII.pdf",
+          "page": 4,
+          "locator": "Exemple (1) p. 4"
+        }
+      },
+      {
+        "id": "q4-05",
+        "objectiveId": "obj4-echelonne",
+        "bloomLevel": "recall",
+        "type": "mcq",
+        "difficulty": 1,
+        "prompt": "Dans un système échelonné à $n$ inconnues, combien y a-t-il d'inconnues libres ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "$n - \\operatorname{rg}(A)$"
+          },
+          {
+            "id": "b",
+            "text": "$\\operatorname{rg}(A)$"
+          },
+          {
+            "id": "c",
+            "text": "$n - \\operatorname{rg}(A \\mid B)$"
+          },
+          {
+            "id": "d",
+            "text": "Le nombre d'équations nulles"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Remarque (3) après la définition 3.3.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "C'est le nombre d'inconnues qui portent un pivot."
+          },
+          {
+            "optionId": "c",
+            "why": "Le terme constant ne compte pas : c'est le rang de $A$ qui détermine les pivots des inconnues."
+          },
+          {
+            "optionId": "d",
+            "why": "Les équations 0 = 0 ne correspondent pas une à une aux inconnues libres."
+          }
+        ],
+        "source": {
+          "file": "2026-03-MAT199-ChapIII.pdf",
+          "page": 4,
+          "locator": "Remarque après la définition 3.3"
+        }
+      },
+      {
+        "id": "q4-06",
+        "objectiveId": "obj4-echelonne",
+        "bloomLevel": "apply",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Un système échelonné contient l'équation $0z = 2$. Que conclure ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Il est incompatible"
+          },
+          {
+            "id": "b",
+            "text": "Il a une infinité de solutions, puisque z est libre"
+          },
+          {
+            "id": "c",
+            "text": "$z = 2$"
+          },
+          {
+            "id": "d",
+            "text": "Il faut supprimer cette ligne et continuer"
+          }
+        ],
+        "correct": "a",
+        "explanation": "La ligne $(0\\ 0\\ 0 \\mid 2)$ fait que $\\operatorname{rg}(A) < \\operatorname{rg}(A \\mid B)$ : proposition 3.4. C'est l'exemple de la p. 5.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "0z = 2 n'est vraie pour aucune valeur de z."
+          },
+          {
+            "optionId": "c",
+            "why": "Le coefficient de z est 0 : on ne peut pas diviser."
+          },
+          {
+            "optionId": "d",
+            "why": "Une ligne 0 = c avec c ≠ 0 ne se supprime pas : elle rend le système impossible."
+          }
+        ],
+        "source": {
+          "file": "2026-03-MAT199-ChapIII.pdf",
+          "page": 5,
+          "locator": "Proposition 3.4 et exemple"
+        }
+      },
+      {
+        "id": "q4-07",
+        "objectiveId": "obj4-gauss",
+        "bloomLevel": "recall",
+        "type": "true-false",
+        "difficulty": 1,
+        "prompt": "Les opérations élémentaires sur les équations d'un système ne changent pas l'ensemble de ses solutions.",
+        "options": [
+          {
+            "id": "v",
+            "text": "Vrai"
+          },
+          {
+            "id": "f",
+            "text": "Faux"
+          }
+        ],
+        "correct": "v",
+        "explanation": "Théorème 3.7. C'est ce qui justifie l'élimination de Gauss : le système échelonné obtenu est équivalent au système de départ.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "f",
+            "why": "Chaque opération est réversible : aucune solution n'est perdue ni ajoutée."
+          }
+        ],
+        "source": {
+          "file": "2026-03-MAT199-ChapIII.pdf",
+          "page": 8,
+          "locator": "Théorème 3.7"
+        }
+      },
+      {
+        "id": "q4-08",
+        "objectiveId": "obj4-gauss",
+        "bloomLevel": "apply",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "L'élimination de Gauss réduit un système à 4 inconnues à $x_1 + x_3 = 3$ et $x_2 - x_3 + x_4 = 0$ (deux lignes nulles en plus). Quelles sont ses solutions ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "$(3 - \\lambda,\\ \\lambda - \\mu,\\ \\lambda,\\ \\mu)$, $\\lambda, \\mu \\in \\mathbb{R}$"
+          },
+          {
+            "id": "b",
+            "text": "$(3,\\ 0,\\ 0,\\ 0)$ seulement"
+          },
+          {
+            "id": "c",
+            "text": "$(3 - \\lambda,\\ \\lambda + \\mu,\\ \\lambda,\\ \\mu)$"
+          },
+          {
+            "id": "d",
+            "text": "Aucune, car il y a deux lignes nulles"
+          }
+        ],
+        "correct": "a",
+        "explanation": "$\\operatorname{rg}(A) = \\operatorname{rg}(A \\mid B) = 2 < 4$ : $x_3 = \\lambda$ et $x_4 = \\mu$ sont libres, $x_1 = 3 - \\lambda$, $x_2 = \\lambda - \\mu$ (exercice p. 8).",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "C'est UNE solution (λ = μ = 0), mais il y a deux inconnues libres."
+          },
+          {
+            "optionId": "c",
+            "why": "Erreur de signe : $x_2 = x_3 - x_4 = \\lambda - \\mu$."
+          },
+          {
+            "optionId": "d",
+            "why": "Des lignes 0 = 0 n'empêchent rien : le système est compatible."
+          }
+        ],
+        "source": {
+          "file": "2026-03-MAT199-ChapIII.pdf",
+          "page": 8,
+          "locator": "Exercice p. 8"
+        }
+      },
+      {
+        "id": "q4-09",
+        "objectiveId": "obj4-rang",
+        "bloomLevel": "analyze",
+        "type": "mcq",
+        "difficulty": 3,
+        "prompt": "Pour le système $\\begin{cases} x + y + 3z = a \\\\ x + 2y + 2z = a \\\\ x + ay + z = 3 \\end{cases}$, que dit la discussion selon $a$ ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Une seule solution si $a \\neq 3$, une infinité si $a = 3$, jamais aucune"
+          },
+          {
+            "id": "b",
+            "text": "Une seule solution si $a \\neq 3$, aucune si $a = 3$"
+          },
+          {
+            "id": "c",
+            "text": "Une seule solution si $a \\neq 1$, une infinité si $a = 1$"
+          },
+          {
+            "id": "d",
+            "text": "Une infinité de solutions pour tout $a$"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Après échelonnement, la dernière ligne est $(0, 0, a-3 \\mid 3-a)$. Si $a \\neq 3$, trois pivots ; si $a = 3$, elle devient $0 = 0$ : rang 2 des deux côtés.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Pour $a = 3$ la dernière ligne réduite est $(0, 0, 0 \\mid 0)$, pas $(0, 0, 0 \\mid c \\neq 0)$."
+          },
+          {
+            "optionId": "c",
+            "why": "Le pivot qui dépend de $a$ est $a - 3$, pas $a - 1$."
+          },
+          {
+            "optionId": "d",
+            "why": "Pour $a \\neq 3$ il y a trois pivots : une seule solution."
+          }
+        ],
+        "source": {
+          "file": "2026-03-MAT199-ChapIII.pdf",
+          "page": 10,
+          "locator": "Exercice p. 10"
+        }
+      },
+      {
+        "id": "q4-10",
+        "objectiveId": "obj4-gauss",
+        "bloomLevel": "apply",
+        "type": "short-answer",
+        "difficulty": 2,
+        "prompt": "Quel est le point d'intersection des plans $x + 2y - z = 1$, $2x - y + z = 2$, $3x + 2y - z = 3$ ? (sous la forme (x, y, z))",
+        "correct": "(1, 0, 0)",
+        "acceptableAnswers": [
+          "(1,0,0)",
+          "1, 0, 0",
+          "1,0,0",
+          "x=1, y=0, z=0"
+        ],
+        "explanation": "$E_3 - E_1$ donne $2x = 2$, donc $x = 1$ ; puis $2y - z = 0$ et $-y + z = 0$ donnent $y = z = 0$. On vérifie : $1 = 1$, $2 = 2$, $3 = 3$.",
+        "source": {
+          "file": "2026-03-MAT199-ChapIII.pdf",
+          "page": 13,
+          "locator": "Exercice 3.12 n° 2"
+        }
+      },
+      {
+        "id": "q4-11",
+        "objectiveId": "obj4-homogene",
+        "bloomLevel": "understand",
+        "type": "true-false",
+        "difficulty": 1,
+        "prompt": "Un système homogène est toujours compatible.",
+        "options": [
+          {
+            "id": "v",
+            "text": "Vrai"
+          },
+          {
+            "id": "f",
+            "text": "Faux"
+          }
+        ],
+        "correct": "v",
+        "explanation": "Définition 3.10 : X = 0 est toujours une solution, appelée la solution nulle.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "f",
+            "why": "Tous les termes constants valent 0, donc remplacer toutes les inconnues par 0 vérifie chaque équation."
+          }
+        ],
+        "source": {
+          "file": "2026-03-MAT199-ChapIII.pdf",
+          "page": 11,
+          "locator": "Définition 3.10"
+        }
+      },
+      {
+        "id": "q4-12",
+        "objectiveId": "obj4-homogene",
+        "bloomLevel": "analyze",
+        "type": "mcq",
+        "difficulty": 3,
+        "prompt": "Pour quelle valeur de $a$ le système homogène $\\begin{cases} x + 2y + z = 0 \\\\ x + y + 3z = 0 \\\\ 2x + 3y + 4z = 0 \\\\ 2x + 4y + az = 0 \\end{cases}$ a-t-il des solutions non nulles ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "$a = 2$"
+          },
+          {
+            "id": "b",
+            "text": "$a = 0$"
+          },
+          {
+            "id": "c",
+            "text": "$a = 4$"
+          },
+          {
+            "id": "d",
+            "text": "Aucune valeur"
+          }
+        ],
+        "correct": "a",
+        "explanation": "En échelonnant, le troisième pivot vaut $a - 2$. Il faut $\\operatorname{rg}(A) < 3$, soit $a = 2$ ; une solution non nulle est alors $(-5, 2, 1)$.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Pour $a = 0$, le terme $a - 2 = -2$ reste un pivot : rang 3, seule la solution nulle."
+          },
+          {
+            "optionId": "c",
+            "why": "4 est le coefficient de y ; il ne rend pas la dernière ligne dépendante."
+          },
+          {
+            "optionId": "d",
+            "why": "Pour a = 2, le rang tombe à 2 < 3."
+          }
+        ],
+        "source": {
+          "file": "2026-03-MAT199-ChapIII.pdf",
+          "page": 11,
+          "locator": "Exercice p. 11"
+        }
+      }
+    ]
+  },
+  "test": {
+    "title": "Test du chapitre 4",
+    "instructions": "21 questions couvrant tout le chapitre. Plus long et plus difficile que le quiz.",
+    "estimatedMinutes": 45,
+    "questions": [
+      {
+        "id": "t4-01",
+        "objectiveId": "obj4-matrices",
+        "bloomLevel": "recall",
+        "type": "mcq",
+        "difficulty": 1,
+        "prompt": "Deux systèmes d'équations linéaires sont dits équivalents lorsque…",
+        "options": [
+          {
+            "id": "a",
+            "text": "ils ont le même ensemble de solutions"
+          },
+          {
+            "id": "b",
+            "text": "ils ont les mêmes équations, dans un autre ordre"
+          },
+          {
+            "id": "c",
+            "text": "ils ont le même nombre d'équations et d'inconnues"
+          },
+          {
+            "id": "d",
+            "text": "ils sont tous les deux compatibles"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Définition 3.1.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "C'est un cas particulier ; des systèmes très différents peuvent être équivalents."
+          },
+          {
+            "optionId": "c",
+            "why": "Le format ne suffit pas : il faut les mêmes solutions."
+          },
+          {
+            "optionId": "d",
+            "why": "Deux systèmes compatibles peuvent avoir des solutions différentes."
+          }
+        ],
+        "source": {
+          "file": "2026-03-MAT199-ChapIII.pdf",
+          "page": 1,
+          "locator": "Définition 3.1"
+        }
+      },
+      {
+        "id": "t4-02",
+        "objectiveId": "obj4-matrices",
+        "bloomLevel": "understand",
+        "type": "mcq",
+        "difficulty": 1,
+        "prompt": "Lequel de ces systèmes n'est PAS linéaire ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "$\\begin{cases} x + y = 1 \\\\ 2x + xy = 2 \\end{cases}$"
+          },
+          {
+            "id": "b",
+            "text": "$\\begin{cases} x + y - z = 1 \\\\ 2x + y - z = 1 \\end{cases}$"
+          },
+          {
+            "id": "c",
+            "text": "$2x_1 - x_2 + x_3 - x_4 = 8$"
+          },
+          {
+            "id": "d",
+            "text": "$\\begin{cases} \\sqrt2 x - (1+\\sqrt3)y - z = 0 \\\\ (1-\\sqrt2)x + \\sqrt3 y + z = 0 \\end{cases}$"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Exemple (3) de la p. 2 : le terme $xy$ est un produit de deux inconnues.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Toutes les inconnues sont au premier degré, sans produit entre elles."
+          },
+          {
+            "optionId": "c",
+            "why": "Une seule équation linéaire forme un système linéaire."
+          },
+          {
+            "optionId": "d",
+            "why": "Des coefficients irrationnels n'empêchent pas la linéarité."
+          }
+        ],
+        "source": {
+          "file": "2026-03-MAT199-ChapIII.pdf",
+          "page": 2,
+          "locator": "Exemple (3) p. 2"
+        }
+      },
+      {
+        "id": "t4-03",
+        "objectiveId": "obj4-matrices",
+        "bloomLevel": "understand",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Quel système représente la matrice augmentée $\\left(\\begin{array}{ccc|c}1 & 1 & -1 & 2 \\\\ 0 & 2 & 1 & 3 \\\\ 0 & 0 & 2 & 0\\end{array}\\right)$ ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "$\\begin{cases} x + y - z = 2 \\\\ 2y + z = 3 \\\\ 2z = 0 \\end{cases}$"
+          },
+          {
+            "id": "b",
+            "text": "$\\begin{cases} x + y - z = 2 \\\\ 2x + y = 3 \\\\ 2x = 0 \\end{cases}$"
+          },
+          {
+            "id": "c",
+            "text": "$\\begin{cases} x = 2 \\\\ y = 3 \\\\ z = 0 \\end{cases}$"
+          },
+          {
+            "id": "d",
+            "text": "$\\begin{cases} x + y - z + 2 = 0 \\\\ 2y + z + 3 = 0 \\\\ 2z = 0 \\end{cases}$"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Exemple (2) de la p. 3.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Les zéros de tête correspondent aux premières inconnues : la ligne 2 commence par 0·x."
+          },
+          {
+            "optionId": "c",
+            "why": "On a lu la dernière colonne comme une solution ; ce sont les termes constants."
+          },
+          {
+            "optionId": "d",
+            "why": "Les termes constants sont à droite du signe égal, pas ajoutés à gauche."
+          }
+        ],
+        "source": {
+          "file": "2026-03-MAT199-ChapIII.pdf",
+          "page": 3,
+          "locator": "Exemple (2) p. 3"
+        }
+      },
+      {
+        "id": "t4-04",
+        "objectiveId": "obj4-echelonne",
+        "bloomLevel": "apply",
+        "type": "short-answer",
+        "difficulty": 2,
+        "prompt": "Résoudre $\\begin{cases} x + y - z = 2 \\\\ 2y + z = 3 \\\\ 2z = 0 \\end{cases}$. Quelle est la valeur de $x$ ? (une fraction)",
+        "correct": "1/2",
+        "acceptableAnswers": [
+          "0,5",
+          "0.5"
+        ],
+        "explanation": "$z = 0$, puis $2y = 3$, $y = \\frac32$, puis $x = 2 - y + z = \\frac12$.",
+        "source": {
+          "file": "2026-03-MAT199-ChapIII.pdf",
+          "page": 3,
+          "locator": "Exemple (2) p. 3"
+        }
+      },
+      {
+        "id": "t4-05",
+        "objectiveId": "obj4-echelonne",
+        "bloomLevel": "apply",
+        "type": "multi",
+        "difficulty": 2,
+        "prompt": "Lesquels de ces systèmes sont échelonnés ? (plusieurs réponses)",
+        "options": [
+          {
+            "id": "a",
+            "text": "$\\begin{cases} x - 2y + z = 3 \\\\ 5y - 5z = -15 \\\\ -2z = -4 \\end{cases}$"
+          },
+          {
+            "id": "b",
+            "text": "$0x_1 + 3x_2 - 4x_3 - 5x_4 + x_5 = 1$"
+          },
+          {
+            "id": "c",
+            "text": "$\\begin{cases} x + y - z = 0 \\\\ 3y + z = 1 \\\\ y + z = 3 \\end{cases}$"
+          },
+          {
+            "id": "d",
+            "text": "$\\begin{cases} x + y - z = 0 \\\\ 3y + z = 5 \\\\ 2x + z = 3 \\end{cases}$"
+          }
+        ],
+        "correct": [
+          "a",
+          "b"
+        ],
+        "explanation": "Exemples (2), (3) et (4) de la p. 4 : un système est échelonné si sa matrice augmentée l'est. Une seule équation l'est toujours.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "c",
+            "why": "Les équations 2 et 3 commencent toutes deux par y."
+          },
+          {
+            "optionId": "d",
+            "why": "La troisième équation commence par x, à gauche du pivot de la deuxième."
+          }
+        ],
+        "source": {
+          "file": "2026-03-MAT199-ChapIII.pdf",
+          "page": 4,
+          "locator": "Exemples p. 4"
+        }
+      },
+      {
+        "id": "t4-06",
+        "objectiveId": "obj4-echelonne",
+        "bloomLevel": "apply",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Combien d'inconnues libres a le système formé de la seule équation $0x_1 + 3x_2 - 4x_3 - 5x_4 + x_5 = 1$ ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "4"
+          },
+          {
+            "id": "b",
+            "text": "5"
+          },
+          {
+            "id": "c",
+            "text": "3"
+          },
+          {
+            "id": "d",
+            "text": "1"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Le seul pivot est le coefficient 3 de $x_2$. Les inconnues libres sont $x_1, x_3, x_4, x_5$ : $5 - 1 = 4$ (exemple (2) de la p. 4).",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "$x_2$ porte le pivot 3 : il n'est pas libre."
+          },
+          {
+            "optionId": "c",
+            "why": "$x_1$ est libre aussi : son coefficient est 0, donc il n'est pas un pivot."
+          },
+          {
+            "optionId": "d",
+            "why": "On a compté les pivots au lieu des inconnues libres."
+          }
+        ],
+        "source": {
+          "file": "2026-03-MAT199-ChapIII.pdf",
+          "page": 4,
+          "locator": "Exemple (2) p. 4"
+        }
+      },
+      {
+        "id": "t4-07",
+        "objectiveId": "obj4-rang",
+        "bloomLevel": "analyze",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Pourquoi le système échelonné $\\begin{cases} 2x - y - 2z = 1 \\\\ 2y - 3z = 0 \\\\ 0z = 2 \\\\ 0z = 0 \\end{cases}$ est-il incompatible ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "$\\operatorname{rg}(A) = 2 < 3 = \\operatorname{rg}(A \\mid B)$"
+          },
+          {
+            "id": "b",
+            "text": "Parce qu'il a une ligne 0z = 0"
+          },
+          {
+            "id": "c",
+            "text": "Parce qu'il a plus d'équations que d'inconnues"
+          },
+          {
+            "id": "d",
+            "text": "Parce que $\\operatorname{rg}(A) = 2 < 3$ inconnues"
+          }
+        ],
+        "correct": "a",
+        "explanation": "La ligne $(0\\ 0\\ 0 \\mid 2)$ ajoute un pivot à $(A \\mid B)$ mais pas à $A$ : proposition 3.4.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "La ligne 0 = 0 est toujours vraie ; elle ne crée aucune contradiction."
+          },
+          {
+            "optionId": "c",
+            "why": "Un système avec plus d'équations que d'inconnues peut être compatible."
+          },
+          {
+            "optionId": "d",
+            "why": "Cela donnerait une infinité de solutions SI $\\operatorname{rg}(A \\mid B)$ valait aussi 2."
+          }
+        ],
+        "source": {
+          "file": "2026-03-MAT199-ChapIII.pdf",
+          "page": 5,
+          "locator": "Exemple après la proposition 3.4"
+        }
+      },
+      {
+        "id": "t4-08",
+        "objectiveId": "obj4-echelonne",
+        "bloomLevel": "apply",
+        "type": "short-answer",
+        "difficulty": 1,
+        "prompt": "Dans le système $\\begin{cases} 2x_1 + x_2 - x_3 + 2x_4 - x_5 = 0 \\\\ 5x_3 + x_4 + 5x_5 = -1 \\\\ 7x_4 = -8 \\end{cases}$, que vaut $x_4$ ? (une fraction)",
+        "correct": "-8/7",
+        "acceptableAnswers": [
+          "−8/7"
+        ],
+        "explanation": "La dernière équation donne directement $7x_4 = -8$.",
+        "source": {
+          "file": "2026-03-MAT199-ChapIII.pdf",
+          "page": 6,
+          "locator": "Exercice p. 6"
+        }
+      },
+      {
+        "id": "t4-09",
+        "objectiveId": "obj4-echelonne",
+        "bloomLevel": "apply",
+        "type": "mcq",
+        "difficulty": 3,
+        "prompt": "Dans le même système, avec $x_2 = \\lambda_1$ et $x_5 = \\lambda_2$, que vaut $x_3$ ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "$\\frac{1}{35} - \\lambda_2$"
+          },
+          {
+            "id": "b",
+            "text": "$-\\frac{1}{5} - \\lambda_2$"
+          },
+          {
+            "id": "c",
+            "text": "$\\frac{1}{35} + \\lambda_2$"
+          },
+          {
+            "id": "d",
+            "text": "$-\\frac{3}{7} - \\lambda_2$"
+          }
+        ],
+        "correct": "a",
+        "explanation": "$5x_3 = -1 - x_4 - 5\\lambda_2 = -1 + \\frac87 - 5\\lambda_2 = \\frac17 - 5\\lambda_2$, donc $x_3 = \\frac{1}{35} - \\lambda_2$.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "On a oublié le terme $x_4 = -\\frac87$ dans $5x_3 = -1 - x_4 - 5x_5$."
+          },
+          {
+            "optionId": "c",
+            "why": "Erreur de signe : $5x_5$ passe à droite avec un signe moins."
+          },
+          {
+            "optionId": "d",
+            "why": "On a calculé $-1 - \\frac87$ : le signe de $x_4 = -\\frac87$ a été perdu. $-1 - x_4 = -1 + \\frac87 = \\frac17$."
+          }
+        ],
+        "source": {
+          "file": "2026-03-MAT199-ChapIII.pdf",
+          "page": 6,
+          "locator": "Exercice p. 6"
+        }
+      },
+      {
+        "id": "t4-10",
+        "objectiveId": "obj4-gauss",
+        "bloomLevel": "recall",
+        "type": "mcq",
+        "difficulty": 1,
+        "prompt": "Comment s'appelle la méthode du corollaire 3.8, qui échelonne la matrice augmentée ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "L'élimination de Gauss"
+          },
+          {
+            "id": "b",
+            "text": "La décomposition LU"
+          },
+          {
+            "id": "c",
+            "text": "Le développement suivant une ligne"
+          },
+          {
+            "id": "d",
+            "text": "La méthode (A | Iₙ)"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Remarque après le corollaire 3.8.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "La décomposition LU (chapitre 2) factorise A ; elle ne résout pas directement le système."
+          },
+          {
+            "optionId": "c",
+            "why": "C'est une méthode de calcul du déterminant."
+          },
+          {
+            "optionId": "d",
+            "why": "C'est la méthode de calcul de l'inverse."
+          }
+        ],
+        "source": {
+          "file": "2026-03-MAT199-ChapIII.pdf",
+          "page": 8,
+          "locator": "Corollaire 3.8 et remarque"
+        }
+      },
+      {
+        "id": "t4-11",
+        "objectiveId": "obj4-gauss",
+        "bloomLevel": "understand",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Effectuer $E_2 - 4E_1$ sur les équations d'un système revient à…",
+        "options": [
+          {
+            "id": "a",
+            "text": "effectuer $L_2 - 4L_1$ sur les lignes de la matrice augmentée, termes constants compris"
+          },
+          {
+            "id": "b",
+            "text": "effectuer $L_2 - 4L_1$ sur la matrice des coefficients seulement"
+          },
+          {
+            "id": "c",
+            "text": "effectuer $C_2 - 4C_1$ sur les colonnes"
+          },
+          {
+            "id": "d",
+            "text": "changer l'ensemble des solutions"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Remarque après le théorème 3.7 : même opération, même type, sur les lignes de la matrice augmentée.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "La colonne des termes constants doit suivre, sinon le système change."
+          },
+          {
+            "optionId": "c",
+            "why": "Une équation correspond à une LIGNE, pas à une colonne."
+          },
+          {
+            "optionId": "d",
+            "why": "Le théorème 3.7 dit précisément le contraire."
+          }
+        ],
+        "source": {
+          "file": "2026-03-MAT199-ChapIII.pdf",
+          "page": 8,
+          "locator": "Remarque après le théorème 3.7"
+        }
+      },
+      {
+        "id": "t4-12",
+        "objectiveId": "obj4-gauss",
+        "bloomLevel": "analyze",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Sur $\\left(\\begin{array}{ccc|c}1 & 2 & 3 & 0 \\\\ 4 & 5 & 6 & 1 \\\\ 7 & 8 & 9 & 2\\end{array}\\right)$, quelle ligne donne $L_2 - 4L_1$ ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "$(0,\\ -3,\\ -6 \\mid 1)$"
+          },
+          {
+            "id": "b",
+            "text": "$(0,\\ -3,\\ 6 \\mid 1)$"
+          },
+          {
+            "id": "c",
+            "text": "$(0,\\ -3,\\ -6 \\mid -3)$"
+          },
+          {
+            "id": "d",
+            "text": "$(0,\\ 3,\\ 6 \\mid 1)$"
+          }
+        ],
+        "correct": "a",
+        "explanation": "$(4 - 4,\\ 5 - 8,\\ 6 - 12 \\mid 1 - 0) = (0, -3, -6 \\mid 1)$ — ce que dit aussi l'équation $-3y - 6z = 1$ écrite dans les notes.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "C'est la ligne imprimée dans l'exemple des notes (p. 8), qui a perdu un signe : $6 - 4 \\cdot 3 = -6$."
+          },
+          {
+            "optionId": "c",
+            "why": "Le terme constant de $L_1$ vaut 0 : $1 - 4 \\cdot 0 = 1$."
+          },
+          {
+            "optionId": "d",
+            "why": "On a calculé $4L_1 - L_2$ pour les coefficients, sans le faire pour le terme constant."
+          }
+        ],
+        "source": {
+          "file": "2026-03-MAT199-ChapIII.pdf",
+          "page": 8,
+          "locator": "Exemple après le théorème 3.7"
+        }
+      },
+      {
+        "id": "t4-13",
+        "objectiveId": "obj4-rang",
+        "bloomLevel": "apply",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "En échelonnant la matrice augmentée du système de l'exercice 3.12 n° 1 (1), on trouve $\\operatorname{rg}(A) = 3$ et $\\operatorname{rg}(A \\mid B) = 4$. Conclusion ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Le système n'a aucune solution"
+          },
+          {
+            "id": "b",
+            "text": "Le système a une infinité de solutions, car rg(A) = 3 < 4 inconnues"
+          },
+          {
+            "id": "c",
+            "text": "Le système a une seule solution, car rg(A | B) = 4 = n"
+          },
+          {
+            "id": "d",
+            "text": "On ne peut pas conclure sans résoudre"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Théorème 3.9(1) : $\\operatorname{rg}(A) < \\operatorname{rg}(A \\mid B)$, donc incompatible. La dernière ligne réduite est de la forme $(0\\ 0\\ 0\\ 0 \\mid c)$ avec $c \\neq 0$.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Cela supposerait $\\operatorname{rg}(A) = \\operatorname{rg}(A \\mid B)$."
+          },
+          {
+            "optionId": "c",
+            "why": "C'est $\\operatorname{rg}(A)$ qui doit valoir $n$, et être égal à $\\operatorname{rg}(A \\mid B)$."
+          },
+          {
+            "optionId": "d",
+            "why": "Le théorème 3.9 conclut directement à partir des deux rangs."
+          }
+        ],
+        "source": {
+          "file": "2026-03-MAT199-ChapIII.pdf",
+          "page": 13,
+          "locator": "Exercice 3.12 n° 1 (1)"
+        }
+      },
+      {
+        "id": "t4-14",
+        "objectiveId": "obj4-gauss",
+        "bloomLevel": "apply",
+        "type": "mcq",
+        "difficulty": 3,
+        "prompt": "Quelles sont les solutions de $\\begin{cases} x_1 + 2x_2 - x_3 + 2x_4 = 1 \\\\ 2x_1 + 4x_2 - x_3 + 3x_4 = 2 \\\\ x_1 + 2x_2 + 2x_3 + x_4 = 1 \\\\ x_1 + 2x_2 - 4x_3 + 3x_4 = 1 \\end{cases}$ ? (exercice 3.12 n° 1 (2))",
+        "options": [
+          {
+            "id": "a",
+            "text": "$(1 - 2\\lambda,\\ \\lambda,\\ 0,\\ 0)$, $\\lambda \\in \\mathbb{R}$"
+          },
+          {
+            "id": "b",
+            "text": "$(1,\\ 0,\\ 0,\\ 0)$ seulement"
+          },
+          {
+            "id": "c",
+            "text": "$(1 + 2\\lambda,\\ \\lambda,\\ 0,\\ 0)$"
+          },
+          {
+            "id": "d",
+            "text": "Aucune solution"
+          }
+        ],
+        "correct": "a",
+        "explanation": "La forme échelonnée réduite donne $x_1 + 2x_2 = 1$, $x_3 = 0$, $x_4 = 0$. Rang 3 < 4 : $x_2 = \\lambda$ est libre.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "C'est la solution pour $\\lambda = 0$ ; $x_2$ est libre."
+          },
+          {
+            "optionId": "c",
+            "why": "Erreur de signe : $x_1 + 2x_2 = 1$ donne $x_1 = 1 - 2\\lambda$."
+          },
+          {
+            "optionId": "d",
+            "why": "$\\operatorname{rg}(A) = \\operatorname{rg}(A \\mid B) = 3$ : le système est compatible."
+          }
+        ],
+        "source": {
+          "file": "2026-03-MAT199-ChapIII.pdf",
+          "page": 13,
+          "locator": "Exercice 3.12 n° 1 (2)"
+        }
+      },
+      {
+        "id": "t4-15",
+        "objectiveId": "obj4-rang",
+        "bloomLevel": "analyze",
+        "type": "mcq",
+        "difficulty": 3,
+        "prompt": "Discuter selon $a$ le système $\\begin{cases} x + y + z = 1 \\\\ x + 2y + 2z = 2 \\\\ 2x + ay + 2z = 3 \\end{cases}$ (exercice 3.12 n° 3).",
+        "options": [
+          {
+            "id": "a",
+            "text": "Une seule solution si $a \\neq 2$ ; aucune si $a = 2$ ; jamais une infinité"
+          },
+          {
+            "id": "b",
+            "text": "Une seule solution si $a \\neq 2$ ; une infinité si $a = 2$"
+          },
+          {
+            "id": "c",
+            "text": "Une seule solution pour tout $a$"
+          },
+          {
+            "id": "d",
+            "text": "Aucune solution si $a \\neq 2$"
+          }
+        ],
+        "correct": "a",
+        "explanation": "$\\det(A) = 2 - a$. Pour $a \\neq 2$ : $\\operatorname{rg}(A) = 3$, une seule solution. Pour $a = 2$ : les rangs valent 2 et 3, aucune solution.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Pour $a = 2$, le terme constant de la dernière ligne réduite ne s'annule pas : $\\operatorname{rg}(A) = 2 < 3 = \\operatorname{rg}(A \\mid B)$."
+          },
+          {
+            "optionId": "c",
+            "why": "Pour $a = 2$, $\\det(A) = 2 - a = 0$."
+          },
+          {
+            "optionId": "d",
+            "why": "Pour $a \\neq 2$, $\\det(A) \\neq 0$ : trois pivots."
+          }
+        ],
+        "source": {
+          "file": "2026-03-MAT199-ChapIII.pdf",
+          "page": 13,
+          "locator": "Exercice 3.12 n° 3"
+        }
+      },
+      {
+        "id": "t4-16",
+        "objectiveId": "obj4-rang",
+        "bloomLevel": "analyze",
+        "type": "mcq",
+        "difficulty": 3,
+        "prompt": "À quelle condition le système $\\begin{cases} x + 2y - 3z = a \\\\ 2x + 6y - 11z = b \\\\ x - 2y + 7z = c \\end{cases}$ est-il compatible ? (exercice 3.12 n° 4 (2))",
+        "options": [
+          {
+            "id": "a",
+            "text": "$5a - 2b - c = 0$"
+          },
+          {
+            "id": "b",
+            "text": "$a = b = c = 0$"
+          },
+          {
+            "id": "c",
+            "text": "Pour tous $a, b, c$"
+          },
+          {
+            "id": "d",
+            "text": "$-2a + b = 0$"
+          }
+        ],
+        "correct": "a",
+        "explanation": "L'échelonnement donne une dernière ligne $(0\\ 0\\ 0 \\mid -10a + 4b + 2c)$. Compatible si, et seulement si, $-10a + 4b + 2c = 0$, soit $5a - 2b - c = 0$.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "C'est suffisant (système homogène), mais pas nécessaire."
+          },
+          {
+            "optionId": "c",
+            "why": "$\\operatorname{rg}(A) = 2$ : la dernière ligne de $A$ s'annule, et il faut que son terme constant s'annule aussi."
+          },
+          {
+            "optionId": "d",
+            "why": "C'est le terme constant de la deuxième ligne réduite ; c'est la TROISIÈME ligne qui impose la condition."
+          }
+        ],
+        "source": {
+          "file": "2026-03-MAT199-ChapIII.pdf",
+          "page": 13,
+          "locator": "Exercice 3.12 n° 4 (2)"
+        }
+      },
+      {
+        "id": "t4-17",
+        "objectiveId": "obj4-rang",
+        "bloomLevel": "apply",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Les plans $x + 2y + z = 1$, $2x + 5y + az = 1$ et $x + ay + 2z = 2$ ont une intersection non vide si, et seulement si… (exercice 3.12 n° 5)",
+        "options": [
+          {
+            "id": "a",
+            "text": "$a \\neq 3$"
+          },
+          {
+            "id": "b",
+            "text": "$a \\neq 1$ et $a \\neq 3$"
+          },
+          {
+            "id": "c",
+            "text": "$a = 1$"
+          },
+          {
+            "id": "d",
+            "text": "$a \\neq 1$"
+          }
+        ],
+        "correct": "a",
+        "explanation": "$\\det(A) = -(a-1)(a-3)$. Si $a \\neq 1, 3$ : un point. Si $a = 1$ : rangs 2 et 2, une infinité. Si $a = 3$ : rangs 2 et 3, aucune solution. Intersection non vide $\\iff a \\neq 3$.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Pour $a = 1$ le système a une infinité de solutions : les plans se coupent (selon une droite)."
+          },
+          {
+            "optionId": "c",
+            "why": "Pour $a = 2$ par exemple, il y a une seule solution : l'intersection est un point."
+          },
+          {
+            "optionId": "d",
+            "why": "Pour $a = 1$, $\\operatorname{rg}(A) = \\operatorname{rg}(A \\mid B) = 2$ : compatible."
+          }
+        ],
+        "source": {
+          "file": "2026-03-MAT199-ChapIII.pdf",
+          "page": 13,
+          "locator": "Exercice 3.12 n° 5"
+        }
+      },
+      {
+        "id": "t4-18",
+        "objectiveId": "obj4-homogene",
+        "bloomLevel": "recall",
+        "type": "true-false",
+        "difficulty": 1,
+        "prompt": "Un système homogène qui a moins d'équations que d'inconnues admet des solutions non nulles.",
+        "options": [
+          {
+            "id": "v",
+            "text": "Vrai"
+          },
+          {
+            "id": "f",
+            "text": "Faux"
+          }
+        ],
+        "correct": "v",
+        "explanation": "Théorème 3.11(3). En effet $\\operatorname{rg}(A) \\leq m < n$.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "f",
+            "why": "Le rang ne peut pas dépasser le nombre d'équations m ; avec m < n, il reste au moins une inconnue libre."
+          }
+        ],
+        "source": {
+          "file": "2026-03-MAT199-ChapIII.pdf",
+          "page": 11,
+          "locator": "Théorème 3.11(3)"
+        }
+      },
+      {
+        "id": "t4-19",
+        "objectiveId": "obj4-homogene",
+        "bloomLevel": "apply",
+        "type": "mcq",
+        "difficulty": 3,
+        "prompt": "Pour quelle valeur de $a$ le système homogène $\\begin{cases} x - y + z = 0 \\\\ x - 4y + z = 0 \\\\ 3x + y + az = 0 \\\\ -x - 2y - z = 0 \\end{cases}$ a-t-il des solutions non nulles, et lesquelles ? (exercice 3.12 n° 6)",
+        "options": [
+          {
+            "id": "a",
+            "text": "$a = 3$ ; solutions $\\lambda(-1, 0, 1)$"
+          },
+          {
+            "id": "b",
+            "text": "$a = 3$ ; solutions $\\lambda(1, 0, 1)$"
+          },
+          {
+            "id": "c",
+            "text": "$a = 1$ ; solutions $\\lambda(-1, 0, 1)$"
+          },
+          {
+            "id": "d",
+            "text": "Aucune valeur"
+          }
+        ],
+        "correct": "a",
+        "explanation": "$E_2 - E_1$ donne $y = 0$, puis $x = -z$. La troisième équation devient $-3z + az = 0$, qui laisse $z$ libre seulement si $a = 3$.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "$(1, 0, 1)$ donne $1 + 1 = 2 \\neq 0$ dans la première équation."
+          },
+          {
+            "optionId": "c",
+            "why": "Pour $a = 1$, la troisième équation donne $-3 + 1 = -2 \\neq 0$ avec ce vecteur, et le rang vaut 3."
+          },
+          {
+            "optionId": "d",
+            "why": "Pour a = 3, les colonnes 1 et 3 de A sont égales : rang 2 < 3."
+          }
+        ],
+        "source": {
+          "file": "2026-03-MAT199-ChapIII.pdf",
+          "page": 14,
+          "locator": "Exercice 3.12 n° 6"
+        }
+      },
+      {
+        "id": "t4-20",
+        "objectiveId": "obj4-homogene",
+        "bloomLevel": "understand",
+        "type": "multi",
+        "difficulty": 2,
+        "prompt": "Lesquels de ces systèmes homogènes admettent des solutions non nulles ? (plusieurs réponses possibles — exercice 3.12 n° 7)",
+        "options": [
+          {
+            "id": "a",
+            "text": "$\\begin{cases} 3x - y + 2z = 0 \\\\ y + z = 0 \\\\ 3x + 3z = 0 \\end{cases}$"
+          },
+          {
+            "id": "b",
+            "text": "$\\begin{cases} 2x - y + 4z = 0 \\\\ y + z = 0 \\\\ 3x + y = 0 \\end{cases}$"
+          },
+          {
+            "id": "c",
+            "text": "$\\begin{cases} x_1 - 3x_2 + 6x_3 - 3x_4 = 0 \\\\ x_2 - x_3 + x_4 = 0 \\\\ 2x_1 - x_2 + 3x_3 - x_4 = 0 \\\\ 4x_1 + 4x_2 + x_4 = 0 \\end{cases}$"
+          },
+          {
+            "id": "d",
+            "text": "$\\begin{cases} x + y + z = 0 \\\\ x - y = 0 \\end{cases}$"
+          }
+        ],
+        "correct": [
+          "a",
+          "d"
+        ],
+        "explanation": "Le premier (7 (2)) a le rang 2 < 3, par exemple $(-1, -1, 1)$. Le dernier a 2 équations pour 3 inconnues (théorème 3.11(3)). Les deux autres (7 (1) et 7 (3)) ont un rang égal au nombre d'inconnues.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Son rang vaut 3 = n : seule la solution nulle."
+          },
+          {
+            "optionId": "c",
+            "why": "Son rang vaut 4 = n : seule la solution nulle."
+          }
+        ],
+        "source": {
+          "file": "2026-03-MAT199-ChapIII.pdf",
+          "page": 14,
+          "locator": "Exercice 3.12 n° 7 ; théorème 3.11"
+        }
+      },
+      {
+        "id": "t4-21",
+        "objectiveId": "obj4-rang",
+        "bloomLevel": "recall",
+        "type": "fill-blank",
+        "difficulty": 1,
+        "prompt": "Compléter : un système $AX = B$ est compatible si, et seulement si, $\\operatorname{rg}(A) = $ ____ .",
+        "correct": "rg(A | B)",
+        "acceptableAnswers": [
+          "rg(A|B)",
+          "rg (A | B)",
+          "le rang de la matrice augmentee",
+          "rang de (A | B)"
+        ],
+        "explanation": "Théorème 3.9, en résumé.",
+        "source": {
+          "file": "2026-03-MAT199-ChapIII.pdf",
+          "page": 10,
+          "locator": "Théorème 3.9"
+        }
+      }
+    ]
+  },
+  "flashcards": [
+    {
+      "id": "f4-01",
+      "objectiveId": "obj4-matrices",
+      "front": "Système compatible ?",
+      "back": "Il admet au moins une solution. Sinon : incompatible."
+    },
+    {
+      "id": "f4-02",
+      "objectiveId": "obj4-matrices",
+      "front": "Matrice augmentée ?",
+      "back": "$(A \\mid B)$ : la matrice des coefficients suivie de la colonne des termes constants. Le système s'écrit $AX = B$."
+    },
+    {
+      "id": "f4-03",
+      "objectiveId": "obj4-echelonne",
+      "front": "Inconnue libre ?",
+      "back": "Une inconnue dont aucun coefficient n'est un pivot de $A$ ; il y en a $n - \\operatorname{rg}(A)$."
+    },
+    {
+      "id": "f4-04",
+      "objectiveId": "obj4-echelonne",
+      "front": "Résoudre un système échelonné sans inconnue libre ?",
+      "back": "Par substitution, en partant de la DERNIÈRE équation non nulle."
+    },
+    {
+      "id": "f4-05",
+      "objectiveId": "obj4-echelonne",
+      "front": "Système échelonné avec inconnues libres ?",
+      "back": "Poser chaque inconnue libre égale à un paramètre λ, passer ces termes à droite, puis substituer de bas en haut."
+    },
+    {
+      "id": "f4-06",
+      "objectiveId": "obj4-gauss",
+      "front": "Élimination de Gauss ?",
+      "back": "Échelonner $(A \\mid B)$ en $(A' \\mid B')$ ; le système $A'X = B'$ est équivalent au système de départ."
+    },
+    {
+      "id": "f4-07",
+      "objectiveId": "obj4-rang",
+      "front": "$\\operatorname{rg}(A) < \\operatorname{rg}(A \\mid B)$ ?",
+      "back": "Aucune solution : une ligne 0 = c avec c ≠ 0 apparaît."
+    },
+    {
+      "id": "f4-08",
+      "objectiveId": "obj4-rang",
+      "front": "$\\operatorname{rg}(A) = \\operatorname{rg}(A \\mid B) = n$ ?",
+      "back": "Une seule solution."
+    },
+    {
+      "id": "f4-09",
+      "objectiveId": "obj4-rang",
+      "front": "$\\operatorname{rg}(A) = \\operatorname{rg}(A \\mid B) < n$ ?",
+      "back": "Une infinité de solutions, avec $n - \\operatorname{rg}(A)$ paramètres."
+    },
+    {
+      "id": "f4-10",
+      "objectiveId": "obj4-homogene",
+      "front": "Système homogène ?",
+      "back": "$AX = 0$. Toujours compatible ($X = 0$). Solutions non nulles $\\iff \\operatorname{rg}(A) < n$."
+    },
+    {
+      "id": "f4-11",
+      "objectiveId": "obj4-homogene",
+      "front": "Moins d'équations que d'inconnues, système homogène ?",
+      "back": "Il admet forcément des solutions non nulles (théorème 3.11(3))."
+    },
+    {
+      "id": "f4-12",
+      "objectiveId": "obj4-rang",
+      "front": "Discuter selon a : le piège ?",
+      "back": "Quand un pivot s'annule, regarder le terme constant de la même ligne : 0 = 0 (infinité) ou 0 = c ≠ 0 (aucune)."
+    }
+  ],
+  "exercises": [
+    {
+      "id": "e4-01",
+      "objectiveId": "obj4-gauss",
+      "difficulty": 2,
+      "mode": "trace",
+      "language": "text",
+      "title": "Élimination de Gauss complète (exercice p. 8)",
+      "statement": "Résoudre le système par l'élimination de Gauss, en notant chaque opération. Donner l'ensemble des solutions et vérifier une solution particulière.",
+      "starterCode": "        x₂ −  x₃ +  x₄ = 0\n2x₁ −  x₂ + 3x₃ −  x₄ = 6\n4x₁ + 4x₂       + 4x₄ = 12\n3x₁ − 3x₂ + 6x₃ − 3x₄ = 9",
+      "hints": [
+        "La première équation n'a pas de x₁ : commencer par un échange de lignes.",
+        "Simplifier les lignes 3 et 4 en les divisant par 4 et par 3 avant d'éliminer.",
+        "Deux lignes s'annulent : il restera deux inconnues libres, x₃ et x₄."
+      ],
+      "solution": "rg(A) = rg(A | B) = 2 · x₁ = 3 − λ, x₂ = λ − μ, x₃ = λ, x₄ = μ",
+      "expectedOutput": "$\\left(\\begin{array}{cccc|c}0 & 1 & -1 & 1 & 0 \\\\ 2 & -1 & 3 & -1 & 6 \\\\ 4 & 4 & 0 & 4 & 12 \\\\ 3 & -3 & 6 & -3 & 9\\end{array}\\right)$\n\n$L_1 \\leftrightarrow L_2$, puis $\\frac14 L_3$ et $\\frac13 L_4$ :\n$\\left(\\begin{array}{cccc|c}2 & -1 & 3 & -1 & 6 \\\\ 0 & 1 & -1 & 1 & 0 \\\\ 1 & 1 & 0 & 1 & 3 \\\\ 1 & -1 & 2 & -1 & 3\\end{array}\\right)$\n\n$L_3 - \\frac12 L_1$ et $L_4 - \\frac12 L_1$ :  $(0, \\frac32, -\\frac32, \\frac32 \\mid 0)$ et $(0, -\\frac12, \\frac12, -\\frac12 \\mid 0)$\n$L_3 - \\frac32 L_2$ et $L_4 + \\frac12 L_2$ :  deux lignes nulles.\n\n$\\left(\\begin{array}{cccc|c}2 & -1 & 3 & -1 & 6 \\\\ 0 & 1 & -1 & 1 & 0 \\\\ 0 & 0 & 0 & 0 & 0 \\\\ 0 & 0 & 0 & 0 & 0\\end{array}\\right)$\n\n$\\operatorname{rg}(A) = \\operatorname{rg}(A \\mid B) = 2 < 4$ : une infinité de solutions.\nInconnues libres : $x_3 = \\lambda$, $x_4 = \\mu$.\n$x_2 = x_3 - x_4 = \\lambda - \\mu$ ;  $2x_1 = 6 + x_2 - 3x_3 + x_4 = 6 - 2\\lambda$, donc $x_1 = 3 - \\lambda$.\n\nVérification avec $\\lambda = 1$, $\\mu = 2$ : $(2, -1, 1, 2)$\n  $-1 - 1 + 2 = 0$ ✓   $4 + 1 + 3 - 2 = 6$ ✓   $8 - 4 + 8 = 12$ ✓   $6 + 3 + 6 - 6 = 9$ ✓",
+      "solutionExplanation": "Vérifier avec des valeurs NON nulles des paramètres est important : la solution particulière λ = μ = 0 ne teste pas les coefficients de λ et μ. Ici, (2, −1, 1, 2) valide toute l'expression d'un coup.",
+      "source": {
+        "file": "2026-03-MAT199-ChapIII.pdf",
+        "page": 8,
+        "locator": "Exercice p. 8"
+      }
+    },
+    {
+      "id": "e4-02",
+      "objectiveId": "obj4-rang",
+      "difficulty": 3,
+      "mode": "trace",
+      "language": "text",
+      "title": "Discuter selon a (exercice 3.12 n° 3)",
+      "statement": "Déterminer les valeurs réelles de a pour lesquelles le système (1) n'a pas de solution ; (2) a une infinité de solutions ; (3) a une seule solution.",
+      "starterCode": " x +  y +  z = 1\n x + 2y + 2z = 2\n2x + ay + 2z = 3",
+      "hints": [
+        "Échelonner la matrice augmentée sans diviser par une expression en a.",
+        "Après L₂ − L₁ et L₃ − 2L₁, utiliser la ligne 2 pour éliminer le terme en a de la ligne 3.",
+        "La dernière ligne devient (0, 0, 2 − a | 3 − a). Examiner a = 2 à part : que vaut alors le terme constant ?"
+      ],
+      "solution": "(1) a = 2 · (2) aucune valeur · (3) a ≠ 2",
+      "expectedOutput": "$\\left(\\begin{array}{ccc|c}1 & 1 & 1 & 1 \\\\ 1 & 2 & 2 & 2 \\\\ 2 & a & 2 & 3\\end{array}\\right)\\xrightarrow[L_3 - 2L_1]{L_2 - L_1}\\left(\\begin{array}{ccc|c}1 & 1 & 1 & 1 \\\\ 0 & 1 & 1 & 1 \\\\ 0 & a-2 & 0 & 1\\end{array}\\right)$\n\n$L_3 - (a - 2)L_2$ :  $(0,\\ 0,\\ -(a - 2) \\mid 1 - (a - 2)) = (0,\\ 0,\\ 2 - a \\mid 3 - a)$\n\n• $a \\neq 2$ : trois pivots, $\\operatorname{rg}(A) = \\operatorname{rg}(A \\mid B) = 3$ → une seule solution.\n• $a = 2$ : la ligne devient $(0, 0, 0 \\mid 1)$ → $\\operatorname{rg}(A) = 2 < 3 = \\operatorname{rg}(A \\mid B)$ → aucune solution.\n\n(1) aucune solution : $a = 2$\n(2) infinité de solutions : jamais\n(3) une seule solution : $a \\neq 2$\n\nContrôle : $\\det(A) = 2 - a$, nul seulement en $a = 2$ (chapitre 3).",
+      "solutionExplanation": "Comparer avec l'exercice de la p. 10 des notes, où la situation est inverse : là, le terme constant s'annulait EN MÊME TEMPS que le pivot (infinité, jamais aucune) ; ici il vaut 1 quand le pivot s'annule (aucune, jamais infinité). C'est toujours le terme constant de la ligne dégénérée qui tranche.",
+      "source": {
+        "file": "2026-03-MAT199-ChapIII.pdf",
+        "page": 13,
+        "locator": "Exercice 3.12 n° 3"
+      }
+    },
+    {
+      "id": "e4-03",
+      "objectiveId": "obj4-matrices",
+      "difficulty": 2,
+      "mode": "find-bug",
+      "language": "text",
+      "title": "Trouver l'erreur — une matrice augmentée mal écrite",
+      "statement": "Un étudiant traduit le système en matrice augmentée, l'échelonne, et conclut qu'il n'a aucune solution. Trouver l'erreur et corriger la conclusion.",
+      "starterCode": "2x − z = 1\nx − 2y = 1\n2x − 2z = 5\n\n« Matrice augmentée :  ( 2 −1 | 1 )\n                        ( 1 −2 | 1 )\n                        ( 2 −2 | 5 )\n\n  3 équations, 2 colonnes : j'échelonne et j'obtiens une ligne (0 0 | c)\n  avec c ≠ 0, donc le système est incompatible. »",
+      "hints": [
+        "Combien d'inconnues a le système ? Combien de colonnes doit avoir la partie A ?",
+        "Quel est le coefficient de y dans la première équation ? de z dans la deuxième ?",
+        "Refaire la matrice avec trois colonnes pour x, y, z, puis calculer det(A)."
+      ],
+      "solution": "La matrice doit être (2 0 −1 | 1 ; 1 −2 0 | 1 ; 2 0 −2 | 5) ; det(A) = 4 ≠ 0, donc une seule solution.",
+      "expectedOutput": "L'ERREUR\n    Les coefficients nuls ont été omis : la première équation n'a pas de $y$, la\n    deuxième pas de $z$. Les termes se sont décalés dans les mauvaises colonnes.\n\nLA BONNE MATRICE (exemple p. 3 des notes)\n    $\\left(\\begin{array}{ccc|c}2 & 0 & -1 & 1 \\\\ 1 & -2 & 0 & 1 \\\\ 2 & 0 & -2 & 5\\end{array}\\right)$\n\nLA BONNE CONCLUSION\n    $\\det(A) = 2 \\cdot \\begin{vmatrix} -2 & 0 \\\\ 0 & -2 \\end{vmatrix} - 0 + (-1)\\begin{vmatrix} 1 & -2 \\\\ 2 & 0 \\end{vmatrix} = 8 - 4 = 4 \\neq 0$\n    $\\operatorname{rg}(A) = 3$ : une seule solution.\n\n    $E_3 - E_1$ : $-z = 4$, donc $z = -4$ ; puis $2x = 1 + z = -3$, $x = -\\frac32$ ;\n    puis $2y = x - 1 = -\\frac52$, $y = -\\frac54$.\n    Solution : $\\left(-\\frac32,\\ -\\frac54,\\ -4\\right)$.",
+      "solutionExplanation": "L'erreur de traduction a fabriqué un système différent — et même une conclusion opposée. Le contrôle le plus simple : la partie A doit avoir exactement autant de colonnes que le système a d'inconnues.",
+      "source": {
+        "file": "2026-03-MAT199-ChapIII.pdf",
+        "page": 3,
+        "locator": "Exemple (1) p. 3"
+      }
+    },
+    {
+      "id": "e4-04",
+      "objectiveId": "obj4-homogene",
+      "difficulty": 2,
+      "mode": "fill-blank",
+      "language": "text",
+      "title": "Solutions non nulles d'un système homogène (exercice p. 11)",
+      "statement": "Compléter la résolution : pour quelle valeur de a le système a-t-il des solutions non nulles, et lesquelles ?",
+      "starterCode": " x + 2y +  z = 0\n x +  y + 3z = 0\n2x + 3y + 4z = 0\n2x + 4y + az = 0\n\nL₂ − L₁ :  ( 0 , ____ , 2 )\nL₃ − 2L₁ : ( 0 , −1 , 2 )\nL₄ − 2L₁ : ( 0 , 0 , ____ )\nL₃ − L₂ :  ( 0 , 0 , 0 )\n\nrg(A) < 3  ⟺  a = ____\n\nAvec z = λ :  y = ____ λ ,  x = ____ λ",
+      "hints": [
+        "L₂ − L₁ = (1 − 1, 1 − 2, 3 − 1).",
+        "L₄ − 2L₁ = (2 − 2, 4 − 4, a − 2).",
+        "−y + 2z = 0 donne y = 2z ; puis x = −2y − z."
+      ],
+      "solution": "−1 · a − 2 · a = 2 · y = 2λ · x = −5λ",
+      "expectedOutput": "L₂ − L₁ : $(0, -1, 2)$\nL₃ − 2L₁ : $(0, -1, 2)$\nL₄ − 2L₁ : $(0, 0, a - 2)$\nL₃ − L₂ : $(0, 0, 0)$\n\nForme échelonnée : pivots $1$, $-1$ et, si $a \\neq 2$, $a - 2$.\n$\\operatorname{rg}(A) < 3 \\iff a - 2 = 0 \\iff a = 2$ (théorème 3.11(1)).\n\nPour $a = 2$ : $z = \\lambda$ libre, $-y + 2z = 0 \\Rightarrow y = 2\\lambda$, $x = -2y - z = -5\\lambda$.\nSolutions : $\\lambda(-5, 2, 1)$, $\\lambda \\in \\mathbb{R}$.\n\nVérification ($\\lambda = 1$) : $-5 + 4 + 1 = 0$, $-5 + 2 + 3 = 0$, $-10 + 6 + 4 = 0$, $-10 + 8 + 2 = 0$ ✓",
+      "solutionExplanation": "Les lignes 2 et 3 réduites sont égales : c'est ce qui fait qu'avec 4 équations et 3 inconnues, le rang peut tomber à 2. Toutes les solutions non nulles sont des multiples d'un seul vecteur, (−5, 2, 1) : au chapitre 5, on dira que les colonnes de A sont liées.",
+      "source": {
+        "file": "2026-03-MAT199-ChapIII.pdf",
+        "page": 11,
+        "locator": "Exercice p. 11"
+      }
+    },
+    {
+      "id": "e4-05",
+      "objectiveId": "obj4-rang",
+      "difficulty": 3,
+      "mode": "predict-output",
+      "language": "text",
+      "title": "Condition de compatibilité (exercice 3.12 n° 4 (2))",
+      "statement": "Trouver la condition sur a, b, c pour que le système soit compatible. Puis prédire : le système est-il compatible pour (a, b, c) = (1, 2, 1) ? pour (1, 1, 1) ?",
+      "starterCode": " x + 2y −  3z = a\n2x + 6y − 11z = b\n x − 2y +  7z = c",
+      "hints": [
+        "Échelonner la matrice augmentée en gardant a, b, c dans la dernière colonne.",
+        "Après L₂ − 2L₁ et L₃ − L₁, la ligne 3 est proportionnelle à la ligne 2 dans sa partie A.",
+        "L₃ + 2L₂ annule la partie A de la ligne 3 : il reste une condition sur la colonne des constantes."
+      ],
+      "solution": "Compatible ⟺ 5a − 2b − c = 0 · (1, 2, 1) : oui · (1, 1, 1) : non",
+      "expectedOutput": "$\\left(\\begin{array}{ccc|c}1 & 2 & -3 & a \\\\ 2 & 6 & -11 & b \\\\ 1 & -2 & 7 & c\\end{array}\\right)\\xrightarrow[L_3 - L_1]{L_2 - 2L_1}\\left(\\begin{array}{ccc|c}1 & 2 & -3 & a \\\\ 0 & 2 & -5 & b-2a \\\\ 0 & -4 & 10 & c-a\\end{array}\\right)$\n\n$L_3 + 2L_2$ :  $(0,\\ 0,\\ 0 \\mid c - a + 2b - 4a) = (0, 0, 0 \\mid -5a + 2b + c)$\n\n$\\operatorname{rg}(A) = 2$. Compatible si, et seulement si, $\\operatorname{rg}(A \\mid B) = 2$,\nc'est-à-dire $-5a + 2b + c = 0$, soit $5a - 2b - c = 0$.\n\n• $(1, 2, 1)$ : $5 - 4 - 1 = 0$ → compatible (et alors une infinité de solutions, car $\\operatorname{rg}(A) = 2 < 3$).\n• $(1, 1, 1)$ : $5 - 2 - 1 = 2 \\neq 0$ → incompatible.",
+      "solutionExplanation": "Comme $\\operatorname{rg}(A) = 2 < 3$, le système n'a JAMAIS une seule solution : il en a soit aucune, soit une infinité. La condition 5a − 2b − c = 0 exprime que la colonne des constantes est une combinaison des colonnes de A — la question du chapitre 5.",
+      "source": {
+        "file": "2026-03-MAT199-ChapIII.pdf",
+        "page": 13,
+        "locator": "Exercice 3.12 n° 4 (2)"
+      }
+    }
+  ]
+}

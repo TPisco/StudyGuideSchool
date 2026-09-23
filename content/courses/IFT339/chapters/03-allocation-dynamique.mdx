@@ -1,0 +1,306 @@
+---
+course: IFT339
+number: 3
+title: Gestion de la mémoire et allocation dynamique
+summary: >-
+  Où vivent les objets et combien de temps : le modèle de la pile d'exécution,
+  la récursivité cadre par cadre, puis new et delete — et le coût des copies
+  temporaires que la sémantique de déplacement vient supprimer.
+estimatedMinutes: 150
+prerequisites:
+  - "Chapitre 2 — pointeurs, passage de paramètres, lvalue et rvalue"
+objectives:
+  - id: obj3-portee
+    text: Distinguer la durée de vie et la portée d'un objet dans une structure en blocs.
+    bloom: understand
+  - id: obj3-pile
+    text: Dérouler le modèle de la pile d'exécution, y compris pour un appel récursif.
+    bloom: apply
+  - id: obj3-passage
+    text: Expliquer l'effet mémoire de chaque mode de passage et de retour de paramètre.
+    bloom: analyze
+  - id: obj3-dynamique
+    text: Créer et libérer un objet avec new et delete, et y accéder par déréférencement ou projection.
+    bloom: apply
+  - id: obj3-deplacement
+    text: Expliquer pourquoi la sémantique de déplacement existe et reconnaître une référence vers rvalue.
+    bloom: understand
+sources:
+  - file: "IFT339-4-AllocationAutomatiqueDynamique.pdf"
+    page: 1
+    locator: "Thème 4 — Allocation dynamique, diapositives 1 à 19"
+  - file: "récursion mystère.pdf"
+    page: 1
+    locator: "Exercice — détailler la pile d'exécution pour mystere(3)"
+---
+
+## 1. Rappel : blocs, durée de vie, portée
+
+La programmation est **structurée en blocs**. Un **bloc** est une partie du
+code délimitée par deux accolades.
+
+Deux notions se ressemblent et ne coïncident pas :
+
+- la **durée de vie** d'un objet va de sa **déclaration** (allocation de
+  mémoire) à la **fermeture du bloc** dans lequel il est déclaré (libération) ;
+- la **portée** d'un objet est l'ensemble des parties du code **où l'objet est
+  accessible**.
+
+```cpp
+{  //Bloc A
+   int i = 0;
+   ...
+   { //Bloc B
+   ...
+   }
+   ...
+   { //Bloc C
+   ...
+   }
+   ...
+}
+```
+
+Il est possible de **donner un nom à une portée** avec le mot-clé
+`namespace`.
+
+<Source file="IFT339-4-AllocationAutomatiqueDynamique.pdf" page={3} locator="Diapositive 3" />
+
+## 2. Le modèle de la pile d'exécution
+
+### 2.1 Le principe
+
+À l'**ouverture** d'un bloc : allocation de l'espace mémoire des variables
+locales — **sauf pour les paramètres passés par référence**.
+
+À la **fermeture** : libération de l'espace alloué à l'ouverture — **sauf pour
+les variables locales retournées par référence**.
+
+Chaque bloc ajoute un **cadre de pile** contenant :
+
+- les **variables locales** ;
+- les **paramètres** ;
+- le **retour**.
+
+<Mermaid caption="Ouverture et fermeture des cadres pour trois blocs imbriqués (diapositives 5 et 6)." chart={`
+flowchart TD
+    A1["Ouverture de A<br/>--- cadre A ---"] --> B1["Ouverture de B<br/>cadre B empile sur A"]
+    B1 --> B2["Fermeture de B<br/>cadre B supprime SAUF le retour"]
+    B2 --> C1["Ouverture de C<br/>cadre C empile"]
+    C1 --> C2["Fermeture de C<br/>cadre C supprime SAUF le retour"]
+    C2 --> A2["Fermeture de A<br/>cadre A supprime SAUF le retour"]
+`} />
+
+<Callout type="note" title="« sauf retour »">
+Les diapositives répètent cette mention à chaque fermeture. C'est elle qui
+explique comment une valeur survit à la disparition du cadre qui l'a produite —
+et pourquoi un **retour par référence** vers une variable locale est dangereux :
+la valeur de retour est conservée, la variable locale non.
+</Callout>
+
+<Source file="IFT339-4-AllocationAutomatiqueDynamique.pdf" page={5} locator="Diapositives 4 à 6" />
+
+### 2.2 Pourquoi ce modèle : la récursivité
+
+Le cours le présente comme « particulièrement adapté à la gestion de la
+récursivité ».
+
+```cpp
+int factorielle(int n)
+{
+    int fact = 0;
+    if(n == 0)
+        fact = 1
+    else
+        fact = n * factorielle(n - 1);
+    return fact;
+}
+```
+
+Chaque appel ouvre **son propre cadre**, avec sa propre copie de `n` et de
+`fact`. Pour `factorielle(2)` :
+
+| Étape | Pile (du sommet vers la base) |
+| --- | --- |
+| Ouverture de `factorielle(2)` | `fact : 2 * factorielle(1)` · `n : 2` |
+| Ouverture de `factorielle(1)` | `fact : 1 * factorielle(0)` · `n : 1` — puis le cadre de 2 |
+| Ouverture de `factorielle(0)` | `fact : 1` · `n : 0` — puis les cadres de 1 et de 2 |
+| Fermeture de `factorielle(0)` | retourne 1 ; le cadre disparaît **sauf le retour** |
+| Fermeture de `factorielle(1)` | `fact : 1 * 1 = 1` ; retourne 1 |
+| Fermeture de `factorielle(2)` | `fact : 2 * 1 = 2` ; retourne 2 |
+
+<Callout type="misconception" title="Erreur classique">
+Croire que `n` est une seule variable qui « descend » au fil des appels. Il y a
+**autant de `n` que de cadres**, vivants simultanément. C'est exactement
+pourquoi une récursion de profondeur $p$ consomme $\Theta(p)$ de mémoire, et
+pourquoi une récursion sans cas de base finit par épuiser la pile.
+</Callout>
+
+<Source file="IFT339-4-AllocationAutomatiqueDynamique.pdf" page={8} locator="Diapositives 7 à 9" />
+
+## 3. Passages de paramètres et retours — vus côté mémoire
+
+Le chapitre 2 donnait la syntaxe ; celui-ci donne l'effet mémoire.
+
+| | Espace mémoire | Accès / contrainte |
+| --- | --- | --- |
+| **Paramètre par référence** | **aucun espace alloué**, identificateur différent | **lvalue seulement** |
+| **Paramètre par valeur** | **nouvel espace alloué**, copie de la valeur du paramètre effectif | **rvalue possible** ; mémoire du paramètre effectif **non accessible** |
+| **Retour par référence** | mémoire **non désallouée**, accessible après la sortie | doit **exister avant le début du bloc** ; **lvalue seulement** |
+| **Retour par valeur** | nouvel espace alloué automatiquement à la fermeture du bloc ; l'espace local est désalloué | la **copie** est accessible ; **rvalue possible** |
+
+<Source file="IFT339-4-AllocationAutomatiqueDynamique.pdf" page={10} locator="Diapositives 10 et 11" />
+
+## 4. Allocation automatique contre allocation dynamique
+
+### 4.1 L'allocation automatique
+
+Elle est **automatique et implicite** :
+
+- crée des objets **à la déclaration** — **aucune initialisation** ;
+- supprime les objets **à la fin** — **aucun nettoyage** ;
+- libère **uniquement** la mémoire allouée automatiquement.
+
+### 4.2 L'allocation dynamique
+
+Elle est **explicite** :
+
+- crée des objets et **retourne des pointeurs** vers eux ;
+- **aucune initialisation** du contenu pointé ;
+- **aucun identificateur** pour l'objet pointé.
+
+```cpp
+Type *ptr = new Type;
+```
+
+L'opérateur `new` fait **appel au constructeur** de l'objet.
+
+<Figure caption="La séparation qui définit l'allocation dynamique : le pointeur est automatique, l'objet pointé ne l'est pas.">
+<svg viewBox="0 0 660 230" role="img" aria-label="Le pointeur ptr est en zone automatique, l'objet pointé en zone dynamique">
+  <rect x="40" y="46" width="230" height="130" rx="10" fill="#34d399" fill-opacity="0.08" stroke="#34d399" stroke-width="1.4" stroke-dasharray="5 4" />
+  <text x="155" y="38" font-size="13" text-anchor="middle" fill="#34d399" font-weight="600">Automatique</text>
+
+  <rect x="80" y="86" width="150" height="52" rx="6" fill="#34d399" fill-opacity="0.18" stroke="#34d399" stroke-width="1.6" />
+  <text x="155" y="108" font-size="13" text-anchor="middle" fill="currentColor" font-weight="600">ptr</text>
+  <text x="155" y="127" font-size="11.5" text-anchor="middle" fill="currentColor" opacity="0.8">Type*</text>
+
+  <rect x="390" y="46" width="230" height="130" rx="10" fill="#fbbf24" fill-opacity="0.08" stroke="#fbbf24" stroke-width="1.4" stroke-dasharray="5 4" />
+  <text x="505" y="38" font-size="13" text-anchor="middle" fill="#fbbf24" font-weight="600">Dynamique</text>
+
+  <rect x="430" y="86" width="150" height="52" rx="6" fill="#fbbf24" fill-opacity="0.18" stroke="#fbbf24" stroke-width="1.6" />
+  <text x="505" y="108" font-size="13" text-anchor="middle" fill="currentColor" font-weight="600">*ptr</text>
+  <text x="505" y="127" font-size="11.5" text-anchor="middle" fill="currentColor" opacity="0.8">contenu — aucun nom</text>
+
+  <line x1="230" y1="112" x2="424" y2="112" stroke="currentColor" stroke-width="2" marker-end="url(#a3)" opacity="0.8" />
+  <text x="327" y="102" font-size="11.5" text-anchor="middle" fill="currentColor" opacity="0.75">new Type</text>
+
+  <text x="40" y="202" font-size="12" fill="#34d399">libéré à la fermeture du bloc</text>
+  <text x="390" y="202" font-size="12" fill="#fbbf24">libéré uniquement par delete</text>
+
+  <defs>
+    <marker id="a3" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto">
+      <path d="M0 0 L9 4.5 L0 9 z" fill="currentColor" opacity="0.8" />
+    </marker>
+  </defs>
+</svg>
+</Figure>
+
+### 4.3 Accéder à l'objet
+
+L'objet pointé **n'a pas de nom** : la seule façon d'y accéder est de
+**déréférencer**.
+
+| Opération | Opérateur | Sur quoi |
+| --- | --- | --- |
+| Déréférencement | `*` | sur le **pointeur** — retourne un objet par référence, protégé ou non |
+| Projection sur un membre | `.` | sur l'**objet** — accès à la valeur des attributs |
+| Déréférencement **et** projection | `->` | sur le **pointeur** |
+
+Les notes donnent l'équivalence :
+
+```cpp
+ptr->id   // equivalent a   *ptr.id
+```
+
+### 4.4 Libérer
+
+L'opérateur `delete` **appelle le destructeur** de l'objet pointé, `~Type()`.
+
+<Callout type="warning" title="Deux choses que delete ne fait pas">
+Après `delete ptr;` **le pointeur existe toujours** — il désigne une mémoire
+qui n'est plus à nous. Et les objets créés dynamiquement sont **à supprimer
+explicitement par l'usager** : rien ne le fera à sa place, contrairement à
+l'allocation automatique.
+</Callout>
+
+<Source file="IFT339-4-AllocationAutomatiqueDynamique.pdf" page={15} locator="Diapositives 13 à 15" />
+
+## 5. La sémantique de déplacement
+
+### 5.1 Le problème
+
+Les retours et paramètres **par valeur** sont des **rvalues** : ils génèrent des
+**copies temporaires**. Or la source des données, avant la copie :
+
+- est **non accessible** ;
+- **disparaît aussitôt utilisée**.
+
+D'où « mémoire et traitement inutiles » — **surtout pour les conteneurs**.
+
+### 5.2 L'idée
+
+Plutôt qu'une copie profonde, faire une **copie de surface** qui :
+
+- **détruit la référence** vers l'objet d'origine ;
+- ne conserve que la **« nouvelle » référence**.
+
+Les notes sont prudentes sur le vocabulaire : cela « s'apparente à un
+déplacement de la mémoire (**mais pas vraiment**) ».
+
+### 5.3 La référence vers rvalue
+
+Une **référence vers un objet temporaire** se note avec le symbole `&&`. Elle
+permet un **copieur et un affectateur de rvalue**, qui **évitent les copies
+profondes**.
+
+```cpp
+Type(const Type&);              // constructeur par copie
+Type(Type &&);                  // constructeur par mouvement
+Type& operator=( const Type &); // affectation par copie
+Type& operator=( Type &&);      // affectation par mouvement
+```
+
+<Callout type="warning" title="Les signatures ne suffisent pas">
+Les notes insistent : ces quatre signatures sont **requises**, mais « la copie
+ou l'affectation doivent être **codées** selon la signature (copie profonde ou
+de surface) ». Déclarer un constructeur par mouvement qui fait une copie
+profonde compile parfaitement et n'apporte rien.
+</Callout>
+
+<Source file="IFT339-4-AllocationAutomatiqueDynamique.pdf" page={19} locator="Diapositives 17 à 19" />
+
+## 6. Mettre le modèle à l'épreuve
+
+L'exercice « récursion mystère » fourni avec le cours demande de détailler la
+pile d'exécution pour `mystere(3)` :
+
+```cpp
+int mystere(int n){
+  if (n==1)
+    return 1;
+  if (n%2 == 0)
+    return mystere(n/2);
+  else
+    return mystere(3*n+1);
+}
+```
+
+<Callout type="note" title="Pourquoi cet exemple plutôt que factorielle">
+Parce que la suite des appels n'est pas monotone : elle **monte** avant de
+descendre. On ne peut pas deviner la profondeur en regardant l'argument
+initial, ce qui oblige à dérouler réellement les cadres au lieu d'appliquer un
+schéma appris. C'est l'exercice du chapitre — il est repris dans les exercices
+de cette page.
+</Callout>
+
+<Source file="récursion mystère.pdf" page={1} />

@@ -1,0 +1,52 @@
+---
+import { getCollection, render } from 'astro:content';
+import Base from '../../../layouts/Base.astro';
+import { getAllBundles } from '../../../lib/content';
+import { routes } from '../../../lib/paths';
+
+export async function getStaticPaths() {
+  const bundles = await getAllBundles();
+  const coverage = await getCollection('coverage');
+  return bundles.map((b) => ({
+    params: { course: b.id },
+    props: { bundle: b, report: coverage.find((c) => c.id === b.id) ?? null },
+  }));
+}
+
+const { bundle, report } = Astro.props;
+const Content = report ? (await render(report)).Content : null;
+---
+
+<Base title={`Couverture — ${bundle.course.title}`} accent={bundle.course.accent}>
+  <nav aria-label="Fil d'Ariane" class="mb-5 text-sm" style="color: var(--text-faint);">
+    <a href={routes.courses()} class="hover:underline">Cours</a>
+    <span aria-hidden="true"> / </span>
+    <a href={routes.course(bundle.id)} class="hover:underline">{bundle.course.code}</a>
+    <span aria-hidden="true"> / </span>
+    <span>Couverture</span>
+  </nav>
+
+  <header class="mb-6">
+    <h1 class="text-2xl font-bold tracking-tight sm:text-3xl">Rapport de couverture</h1>
+    <p class="mt-2 text-sm" style="color: var(--text-muted);">
+      Quels documents ont alimenté quels chapitres, ce qui n'a pas pu être exploité, et ce qui manque
+      encore. C'est ici qu'on voit ce que le contenu généré ne couvre <em>pas</em>.
+    </p>
+  </header>
+
+  {
+    Content ? (
+      <article class="prose-notes prose">
+        <Content />
+      </article>
+    ) : (
+      <p class="card p-5 text-sm" style="color: var(--text-muted);">
+        Aucun <code>coverage.md</code> n'a été généré pour ce cours.
+      </p>
+    )
+  }
+
+  <div class="mt-8">
+    <a href={routes.course(bundle.id)} class="btn">← Retour au cours</a>
+  </div>
+</Base>

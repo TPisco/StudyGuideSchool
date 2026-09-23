@@ -1,0 +1,133 @@
+---
+import Base from '../../../layouts/Base.astro';
+import CourseOverview from '../../../components/react/CourseOverview';
+import { cardsForCourse, getAllBundles, objectiveIndexFor } from '../../../lib/content';
+import { BASE, routes } from '../../../lib/paths';
+
+export async function getStaticPaths() {
+  const bundles = await getAllBundles();
+  return bundles.map((b) => ({ params: { course: b.id }, props: { bundle: b } }));
+}
+
+const { bundle } = Astro.props;
+const course = bundle.course;
+
+const chapters = bundle.chapters.map((ch) => ({
+  slug: ch.slug,
+  number: ch.number,
+  title: ch.title,
+  summary: ch.entry.data.summary,
+  estimatedMinutes: ch.entry.data.estimatedMinutes,
+  objectiveIds: ch.objectiveIds,
+  counts: {
+    quiz: ch.data.quiz.questions.length,
+    test: ch.data.test.questions.length,
+    exercises: ch.data.exercises.length,
+    concepts: ch.data.concepts.length,
+    tables: ch.data.tables.length,
+  },
+}));
+
+const objectives = objectiveIndexFor(bundle);
+const cardKeys = cardsForCourse(bundle).map((c) => ({ key: c.key, courseId: c.courseId }));
+
+const totals = chapters.reduce(
+  (acc, c) => ({
+    quiz: acc.quiz + c.counts.quiz,
+    test: acc.test + c.counts.test,
+    exercises: acc.exercises + c.counts.exercises,
+    minutes: acc.minutes + c.estimatedMinutes,
+  }),
+  { quiz: 0, test: 0, exercises: 0, minutes: 0 },
+);
+const externalSteps = course.roadmap.steps.filter((s) => s.external);
+---
+
+<Base title={course.title} description={course.description} accent={course.accent}>
+  <nav aria-label="Fil d'Ariane" class="mb-5 text-sm" style="color: var(--text-faint);">
+    <a href={routes.courses()} class="hover:underline">Cours</a>
+    <span aria-hidden="true"> / </span>
+    <span>{course.code}</span>
+  </nav>
+
+  <header class="mb-7">
+    <div class="mb-2 flex flex-wrap items-center gap-1.5">
+      <span class="chip chip-accent">{course.code}</span>
+      <span class="chip">{course.term}</span>
+      <span class="chip">{chapters.length} chapitres</span>
+      {course.sample && <span class="chip chip-warn">cours de démonstration</span>}
+    </div>
+    <h1 class="text-2xl font-bold tracking-tight sm:text-3xl">{course.title}</h1>
+    <p class="mt-2.5 max-w-2xl text-[0.98rem] leading-relaxed" style="color: var(--text-muted);">
+      {course.description}
+    </p>
+  </header>
+
+  {
+    course.sample && (
+      <p
+        class="mb-6 rounded-xl border p-4 text-sm"
+        style="border-color: color-mix(in srgb, var(--warn) 38%, transparent); background: var(--warn-soft);"
+      >
+        <strong>Contenu synthétique.</strong> Ce cours ne provient d'aucun document réel : il sert à valider
+        la plateforme. Voir le{' '}
+        <a href={routes.coverage(bundle.id)} class="underline underline-offset-2">rapport de couverture</a>.
+      </p>
+    )
+  }
+
+  <div class="no-print mb-7 grid gap-2 sm:grid-cols-3">
+    <a href={routes.roadmap(bundle.id)} class="card p-3.5 transition-colors hover:border-[var(--accent)]">
+      <p class="font-medium">Parcours</p>
+      <p class="text-xs" style="color: var(--text-faint);">
+        {course.roadmap.steps.length} étapes{externalSteps.length > 0 && ` · ${externalSteps.length} prérequis externe(s)`}
+      </p>
+    </a>
+    <a href={routes.exam(bundle.id)} class="card p-3.5 transition-colors hover:border-[var(--accent)]">
+      <p class="font-medium">Examen blanc</p>
+      <p class="text-xs" style="color: var(--text-faint);">
+        {totals.quiz + totals.test} questions disponibles
+      </p>
+    </a>
+    <a href={routes.coverage(bundle.id)} class="card p-3.5 transition-colors hover:border-[var(--accent)]">
+      <p class="font-medium">Couverture</p>
+      <p class="text-xs" style="color: var(--text-faint);">sources, lacunes, prérequis externes</p>
+    </a>
+  </div>
+
+  <CourseOverview
+    client:load
+    courseId={bundle.id}
+    chapters={chapters}
+    objectives={objectives}
+    cardKeys={cardKeys}
+    base={BASE}
+  />
+
+  <section class="mt-10 border-t pt-6" style="border-color: var(--border);">
+    <h2 class="mb-3 text-sm font-semibold uppercase tracking-wide" style="color: var(--text-muted);">
+      Ce que contient ce cours
+    </h2>
+    <dl class="grid grid-cols-2 gap-3 sm:grid-cols-4">
+      <div class="card p-3">
+        <dt class="text-xs" style="color: var(--text-faint);">Questions de quiz</dt>
+        <dd class="mt-0.5 text-xl font-semibold tabular-nums">{totals.quiz}</dd>
+      </div>
+      <div class="card p-3">
+        <dt class="text-xs" style="color: var(--text-faint);">Questions de test</dt>
+        <dd class="mt-0.5 text-xl font-semibold tabular-nums">{totals.test}</dd>
+      </div>
+      <div class="card p-3">
+        <dt class="text-xs" style="color: var(--text-faint);">Exercices</dt>
+        <dd class="mt-0.5 text-xl font-semibold tabular-nums">{totals.exercises}</dd>
+      </div>
+      <div class="card p-3">
+        <dt class="text-xs" style="color: var(--text-faint);">Cartes mémoire</dt>
+        <dd class="mt-0.5 text-xl font-semibold tabular-nums">{cardKeys.length}</dd>
+      </div>
+    </dl>
+    <p class="mt-3 text-xs" style="color: var(--text-faint);">
+      Temps de lecture estimé&nbsp;: {Math.round(totals.minutes / 60)} h au total.
+    </p>
+  </section>
+</Base>

@@ -1,0 +1,1831 @@
+{
+  "course": "MAT199",
+  "chapter": 1,
+  "concepts": [
+    {
+      "id": "c1-racine",
+      "term": "Racine et factorisation",
+      "definition": "$a$ est une racine de $f(x)$ si, et seulement si, $f(x) = (x-a)\\,g(x)$ avec $\\deg g = n - 1$. Un polynôme de degré $n$ a donc au plus $n$ racines réelles, et il est totalement factorisable sur $\\mathbb{R}$ s'il en a exactement $n$ (avec multiplicités).",
+      "whyItMatters": "Chaque racine trouvée abaisse le degré d'une unité : c'est ce qui permet de factoriser pas à pas un polynôme de degré 3 ou 4.",
+      "commonMisconception": "Croire qu'un polynôme de degré 4 peut avoir 5 racines, ou oublier de compter une racine double comme deux racines.",
+      "objectiveId": "obj1-polynomes",
+      "source": {
+        "file": "2026-03-MAT199-ChapI.pdf",
+        "page": 2,
+        "locator": "Proposition 1.1.2"
+      }
+    },
+    {
+      "id": "c1-discriminant",
+      "term": "Discriminant",
+      "definition": "Pour $ax^2 + bx + c$, $\\Delta = b^2 - 4ac$. Il y a une racine réelle si, et seulement si, $\\Delta \\geq 0$ ; les racines sont alors $\\dfrac{-b \\pm \\sqrt{\\Delta}}{2a}$.",
+      "whyItMatters": "C'est le seul cas où les notes donnent une formule générale pour les racines. Il sert aussi à décider qu'un facteur de degré deux ne se factorise plus sur $\\mathbb{R}$.",
+      "commonMisconception": "Conclure que tout un polynôme de degré 3 est irréductible parce qu'un de ses facteurs de degré deux a $\\Delta < 0$.",
+      "objectiveId": "obj1-polynomes",
+      "source": {
+        "file": "2026-03-MAT199-ChapI.pdf",
+        "page": 2,
+        "locator": "Proposition 1.1.3"
+      }
+    },
+    {
+      "id": "c1-diviseurs",
+      "term": "Racines entières et diviseurs de a₀",
+      "definition": "Si $f(x) = x^n + a_{n-1}x^{n-1} + \\cdots + a_0$ est à coefficients entiers et de coefficient directeur 1, toute racine rationnelle de $f$ est un entier qui divise $a_0$.",
+      "whyItMatters": "On obtient une liste finie de candidats à tester : pour $x^3 - 4x^2 + x + 6$, il suffit d'essayer $\\pm 1, \\pm 2, \\pm 3, \\pm 6$.",
+      "commonMisconception": "L'appliquer à un polynôme dont un coefficient n'est pas entier, ou dont le coefficient directeur n'est pas 1 : la proposition ne dit alors plus rien.",
+      "objectiveId": "obj1-polynomes",
+      "source": {
+        "file": "2026-03-MAT199-ChapI.pdf",
+        "page": 3,
+        "locator": "Proposition 1.1.4"
+      }
+    },
+    {
+      "id": "c1-produit",
+      "term": "Produit de matrices",
+      "definition": "Si $A$ est de type $m \\times n$ et $B$ de type $n \\times p$, $AB$ est de type $m \\times p$ et son $(i, j)$-terme est $\\sum_{k=1}^{n} a_{ik} b_{kj}$ : ligne $i$ de $A$ fois colonne $j$ de $B$.",
+      "whyItMatters": "La condition de type décide si le produit existe ; le type du résultat se lit sur les deux nombres extérieurs.",
+      "commonMisconception": "Croire que le produit est commutatif. Même quand $AB$ et $BA$ existent, ils diffèrent en général.",
+      "objectiveId": "obj1-operations",
+      "source": {
+        "file": "2026-03-MAT199-ChapI.pdf",
+        "page": 6,
+        "locator": "Définition 1.2.5"
+      }
+    },
+    {
+      "id": "c1-colonnes",
+      "term": "Produit par colonnes",
+      "definition": "$A\\,(a_1, \\dots, a_n)^T = a_1 A_1 + \\cdots + a_n A_n$, et la $j$-ième colonne de $AB$ est $A$ fois la $j$-ième colonne de $B$. Multiplier à droite par une matrice diagonale multiplie chaque colonne par le terme diagonal correspondant.",
+      "whyItMatters": "Il suffit de calculer la colonne demandée, pas tout le produit ; et une matrice formée de colonnes $e_j$ se contente de réarranger les colonnes de $A$.",
+      "commonMisconception": "Multiplier les LIGNES de $A$ par les termes diagonaux quand la matrice diagonale est à droite. C'est la multiplication à gauche qui agit sur les lignes.",
+      "objectiveId": "obj1-colonnes",
+      "source": {
+        "file": "2026-03-MAT199-ChapI.pdf",
+        "page": 9,
+        "locator": "Propositions 1.2.8, 1.2.9 et 1.2.11"
+      }
+    },
+    {
+      "id": "c1-identite",
+      "term": "Matrice identité",
+      "definition": "$I_n$ a des 1 sur la diagonale et des 0 ailleurs. Pour $A$ de type $m \\times n$, $I_m A = A = A I_n$.",
+      "whyItMatters": "C'est l'élément neutre du produit, qui joue le rôle du nombre 1 — et qui servira à définir l'inverse au chapitre 2.",
+      "commonMisconception": "Utiliser le même $I$ des deux côtés d'une matrice rectangulaire : à gauche il faut $I_m$, à droite $I_n$.",
+      "objectiveId": "obj1-operations",
+      "source": {
+        "file": "2026-03-MAT199-ChapI.pdf",
+        "page": 8,
+        "locator": "Définition 1.2.6, proposition 1.2.7(5)"
+      }
+    },
+    {
+      "id": "c1-transposee",
+      "term": "Transposée",
+      "definition": "$A^T$ échange lignes et colonnes : la $i$-ième ligne de $A^T$ est la $i$-ième colonne de $A$. On a $(A^T)^T = A$, $(A+B)^T = A^T + B^T$ et $(AB)^T = B^T A^T$.",
+      "whyItMatters": "La règle $(AB)^T = B^T A^T$ sert à prouver que $AA^T$ et $A^TA$ sont symétriques, et revient au chapitre 2 pour l'inverse d'un produit.",
+      "commonMisconception": "Écrire $(AB)^T = A^T B^T$. L'ordre s'inverse ; dans l'exemple des notes, les deux membres n'ont même pas le même type.",
+      "objectiveId": "obj1-proprietes",
+      "source": {
+        "file": "2026-03-MAT199-ChapI.pdf",
+        "page": 13,
+        "locator": "Proposition 1.2.13"
+      }
+    },
+    {
+      "id": "c1-symetrique",
+      "term": "Matrice symétrique",
+      "definition": "Une matrice carrée $A$ est symétrique si $A^T = A$, c'est-à-dire $a_{ji} = a_{ij}$ pour tous $i, j$. Toute matrice diagonale est symétrique.",
+      "whyItMatters": "On la reconnaît d'un coup d'œil : elle est en miroir par rapport à sa diagonale.",
+      "commonMisconception": "Vérifier seulement quelques paires de termes : un seul signe différent, comme le $-4$ de l'exercice p. 14, suffit à la rendre non symétrique.",
+      "objectiveId": "obj1-proprietes",
+      "source": {
+        "file": "2026-03-MAT199-ChapI.pdf",
+        "page": 14,
+        "locator": "Définition 1.2.14"
+      }
+    },
+    {
+      "id": "c1-rvb",
+      "term": "Couleur numérique et coordonnées RVB",
+      "definition": "Une couleur numérique mélange rouge, vert et bleu d'intensités $r, v, b \\in [0, 1]$ ; on l'identifie à la matrice-colonne $(r, v, b)^T$. Un mélange de couleurs est une combinaison de leurs colonnes RVB par les pourcentages.",
+      "whyItMatters": "C'est l'application qui accompagne tout le cours : produit par colonnes ici, combinaison linéaire et base au chapitre 5.",
+      "commonMisconception": "Oublier qu'une intensité doit rester entre 0 et 1 : une colonne comme $(0, 2, 0{,}1)$ ne représente aucune couleur.",
+      "objectiveId": "obj1-couleurs",
+      "source": {
+        "file": "2026-03-MAT199-ChapI.pdf",
+        "page": 5,
+        "locator": "Définition 1.2.2"
+      }
+    }
+  ],
+  "tables": [
+    {
+      "id": "t1-matrices",
+      "title": "Matrices particulières",
+      "kind": "reference",
+      "columns": [
+        {
+          "key": "nom",
+          "label": "Nom"
+        },
+        {
+          "key": "condition",
+          "label": "Condition"
+        },
+        {
+          "key": "exemple",
+          "label": "Exemple"
+        }
+      ],
+      "rows": [
+        {
+          "nom": "nulle 0ₘₓₙ",
+          "condition": "tous les termes valent 0",
+          "exemple": "$0_{2\\times 3}$"
+        },
+        {
+          "nom": "matrice-ligne",
+          "condition": "m = 1",
+          "exemple": "$(80,\\ 56,\\ 75)$"
+        },
+        {
+          "nom": "matrice-colonne",
+          "condition": "n = 1",
+          "exemple": "$(r, v, b)^T$"
+        },
+        {
+          "nom": "carrée d'ordre n",
+          "condition": "m = n",
+          "exemple": "$\\begin{pmatrix} \\frac{\\sqrt2}{2} & -\\frac{\\sqrt2}{2} \\\\ \\frac{\\sqrt2}{2} & \\frac{\\sqrt2}{2} \\end{pmatrix}$"
+        },
+        {
+          "nom": "diagonale",
+          "condition": "carrée, aᵢⱼ = 0 si i ≠ j",
+          "exemple": "$I_n$"
+        },
+        {
+          "nom": "symétrique",
+          "condition": "carrée, Aᵀ = A",
+          "exemple": "$\\begin{pmatrix} 1 & 2 & 3 \\\\ 2 & 5 & 4 \\\\ 3 & 4 & 6 \\end{pmatrix}$"
+        }
+      ],
+      "source": {
+        "file": "2026-03-MAT199-ChapI.pdf",
+        "page": 4,
+        "locator": "Définitions 1.2.1, 1.2.10, 1.2.14"
+      }
+    },
+    {
+      "id": "t1-vrai-faux",
+      "title": "Ce qui marche — et ce qui ne marche pas — avec les matrices",
+      "kind": "comparison",
+      "columns": [
+        {
+          "key": "regle",
+          "label": "Égalité"
+        },
+        {
+          "key": "statut",
+          "label": "En général"
+        },
+        {
+          "key": "remarque",
+          "label": "Remarque"
+        }
+      ],
+      "rows": [
+        {
+          "regle": "$(AB)C = A(BC)$",
+          "statut": "vraie",
+          "remarque": "on peut écrire ABC"
+        },
+        {
+          "regle": "$A(B + C) = AB + AC$",
+          "statut": "vraie",
+          "remarque": "distributivité à gauche et à droite"
+        },
+        {
+          "regle": "$I_m A = A = A I_n$",
+          "statut": "vraie",
+          "remarque": "A de type m × n"
+        },
+        {
+          "regle": "$(AB)^T = B^T A^T$",
+          "statut": "vraie",
+          "remarque": "l'ordre s'inverse"
+        },
+        {
+          "regle": "$AB = BA$",
+          "statut": "FAUSSE",
+          "remarque": "la multiplication n'est pas commutative"
+        },
+        {
+          "regle": "$AB = 0 \\Rightarrow A = 0$ ou $B = 0$",
+          "statut": "FAUSSE",
+          "remarque": "un produit peut être nul sans facteur nul"
+        },
+        {
+          "regle": "$(AB)^T = A^T B^T$",
+          "statut": "FAUSSE",
+          "remarque": "types différents dans l'exemple des notes"
+        }
+      ],
+      "source": {
+        "file": "2026-03-MAT199-ChapI.pdf",
+        "page": 8,
+        "locator": "Proposition 1.2.7 et remarques ; proposition 1.2.13"
+      }
+    },
+    {
+      "id": "t1-couleurs",
+      "title": "Coordonnées RVB des couleurs des notes",
+      "kind": "cheatsheet",
+      "columns": [
+        {
+          "key": "couleur",
+          "label": "Couleur"
+        },
+        {
+          "key": "r",
+          "label": "r"
+        },
+        {
+          "key": "v",
+          "label": "v"
+        },
+        {
+          "key": "b",
+          "label": "b"
+        }
+      ],
+      "rows": [
+        {
+          "couleur": "rouge",
+          "r": "1",
+          "v": "0",
+          "b": "0"
+        },
+        {
+          "couleur": "vert",
+          "r": "0",
+          "v": "1",
+          "b": "0"
+        },
+        {
+          "couleur": "bleu",
+          "r": "0",
+          "v": "0",
+          "b": "1"
+        },
+        {
+          "couleur": "blanc",
+          "r": "1",
+          "v": "1",
+          "b": "1"
+        },
+        {
+          "couleur": "noir",
+          "r": "0",
+          "v": "0",
+          "b": "0"
+        },
+        {
+          "couleur": "cyan",
+          "r": "0",
+          "v": "1",
+          "b": "1"
+        },
+        {
+          "couleur": "magenta",
+          "r": "1",
+          "v": "0",
+          "b": "1"
+        },
+        {
+          "couleur": "jaune",
+          "r": "1",
+          "v": "1",
+          "b": "0"
+        },
+        {
+          "couleur": "gris",
+          "r": "1/3",
+          "v": "1/3",
+          "b": "1/3"
+        },
+        {
+          "couleur": "pourpre",
+          "r": "0,6",
+          "v": "0",
+          "b": "1"
+        }
+      ],
+      "source": {
+        "file": "2026-03-MAT199-ChapI.pdf",
+        "page": 5,
+        "locator": "Tableau de la définition 1.2.2"
+      }
+    }
+  ],
+  "quiz": {
+    "title": "Quiz — vérification rapide",
+    "estimatedMinutes": 15,
+    "questions": [
+      {
+        "id": "q1-01",
+        "objectiveId": "obj1-operations",
+        "bloomLevel": "recall",
+        "type": "mcq",
+        "difficulty": 1,
+        "prompt": "$A$ est de type $2 \\times 3$ et $B$ de type $3 \\times 4$. Quel est le type de $AB$ ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "$2 \\times 4$"
+          },
+          {
+            "id": "b",
+            "text": "$3 \\times 3$"
+          },
+          {
+            "id": "c",
+            "text": "$4 \\times 2$"
+          },
+          {
+            "id": "d",
+            "text": "$AB$ n'est pas défini"
+          }
+        ],
+        "correct": "a",
+        "explanation": "$(2 \\times \\mathbf{3})\\cdot(\\mathbf{3} \\times 4)$ : les nombres intérieurs sont égaux, le produit existe, et son type est $2 \\times 4$.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "On a pris les deux nombres INTÉRIEURS ; ils doivent être égaux, mais ce sont les extérieurs qui donnent le type."
+          },
+          {
+            "optionId": "c",
+            "why": "L'ordre compte : le nombre de lignes vient de A (2), le nombre de colonnes de B (4)."
+          },
+          {
+            "optionId": "d",
+            "why": "Il est défini : A a 3 colonnes et B a 3 lignes."
+          }
+        ],
+        "source": {
+          "file": "2026-03-MAT199-ChapI.pdf",
+          "page": 6,
+          "locator": "Définition 1.2.5"
+        }
+      },
+      {
+        "id": "q1-02",
+        "objectiveId": "obj1-polynomes",
+        "bloomLevel": "apply",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Factoriser $x^3 - 4x^2 + x + 6$ (exercice des notes).",
+        "options": [
+          {
+            "id": "a",
+            "text": "$(x+1)(x-2)(x-3)$"
+          },
+          {
+            "id": "b",
+            "text": "$(x-1)(x+2)(x+3)$"
+          },
+          {
+            "id": "c",
+            "text": "$(x+1)(x+2)(x-3)$"
+          },
+          {
+            "id": "d",
+            "text": "$(x-1)(x-2)(x-3)$"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Les candidats sont les diviseurs de 6. $f(-1) = 0$, $f(2) = 0$, $f(3) = 0$ : trois racines pour un degré 3, et le coefficient directeur vaut 1.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Signes inversés : $f(1) = 1 - 4 + 1 + 6 = 4 \\neq 0$, donc 1 n'est pas racine."
+          },
+          {
+            "optionId": "c",
+            "why": "$f(-2) = -8 - 16 - 2 + 6 = -20 \\neq 0$ : $-2$ n'est pas racine."
+          },
+          {
+            "optionId": "d",
+            "why": "Ce produit vaut $x^3 - 6x^2 + 11x - 6$ : le terme constant serait $-6$, pas $+6$."
+          }
+        ],
+        "source": {
+          "file": "2026-03-MAT199-ChapI.pdf",
+          "page": 3,
+          "locator": "Exercice suivant la proposition 1.1.4"
+        }
+      },
+      {
+        "id": "q1-03",
+        "objectiveId": "obj1-polynomes",
+        "bloomLevel": "understand",
+        "type": "true-false",
+        "difficulty": 1,
+        "prompt": "Si $\\Delta = b^2 - 4ac < 0$, le polynôme $ax^2 + bx + c$ n'a aucune racine réelle.",
+        "options": [
+          {
+            "id": "v",
+            "text": "Vrai"
+          },
+          {
+            "id": "f",
+            "text": "Faux"
+          }
+        ],
+        "correct": "v",
+        "explanation": "Proposition 1.1.3 : il existe une racine réelle si, et seulement si, $\\Delta \\geq 0$. Exemple des notes : $3x^2 + 2x + 1$, $\\Delta = -8$, aucune racine réelle.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "f",
+            "why": "$\\sqrt{\\Delta}$ n'existe pas dans $\\mathbb{R}$ quand $\\Delta < 0$ : la formule des racines ne donne rien de réel."
+          }
+        ],
+        "source": {
+          "file": "2026-03-MAT199-ChapI.pdf",
+          "page": 2,
+          "locator": "Proposition 1.1.3"
+        }
+      },
+      {
+        "id": "q1-04",
+        "objectiveId": "obj1-operations",
+        "bloomLevel": "apply",
+        "type": "short-answer",
+        "difficulty": 2,
+        "prompt": "Avec $A = \\begin{pmatrix} 2 & 3 & \\sqrt2 \\\\ -2 & 0 & 0 \\\\ 1 & \\sqrt3 & 2 \\end{pmatrix}$ et $B = \\begin{pmatrix} 2 & 2 \\\\ 0 & 3 \\\\ 0 & \\sqrt2 \\end{pmatrix}$, quel est le $(1, 2)$-terme de $AB$ ?",
+        "correct": "15",
+        "acceptableAnswers": [
+          "15,0"
+        ],
+        "explanation": "Ligne 1 de $A$ fois colonne 2 de $B$ : $2 \\cdot 2 + 3 \\cdot 3 + \\sqrt2 \\cdot \\sqrt2 = 4 + 9 + 2 = 15$.",
+        "source": {
+          "file": "2026-03-MAT199-ChapI.pdf",
+          "page": 7,
+          "locator": "Exercice p. 7"
+        }
+      },
+      {
+        "id": "q1-05",
+        "objectiveId": "obj1-colonnes",
+        "bloomLevel": "apply",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Calculer $\\begin{pmatrix} 1 & 0 & -1 \\\\ 1 & 0 & 1 \\\\ 0 & 1 & 1 \\end{pmatrix}\\begin{pmatrix} 3 \\\\ 4 \\\\ -1 \\end{pmatrix}$ à l'aide de la proposition 1.2.8.",
+        "options": [
+          {
+            "id": "a",
+            "text": "$\\begin{pmatrix} 4 \\\\ 2 \\\\ 3 \\end{pmatrix}$"
+          },
+          {
+            "id": "b",
+            "text": "$\\begin{pmatrix} 2 \\\\ 4 \\\\ 3 \\end{pmatrix}$"
+          },
+          {
+            "id": "c",
+            "text": "$\\begin{pmatrix} 3 \\\\ 4 \\\\ -1 \\end{pmatrix}$"
+          },
+          {
+            "id": "d",
+            "text": "$\\begin{pmatrix} 2 \\\\ 2 \\\\ 3 \\end{pmatrix}$"
+          }
+        ],
+        "correct": "a",
+        "explanation": "$3A_1 + 4A_2 - A_3 = (3, 3, 0) + (0, 0, 4) - (-1, 1, 1) = (4, 2, 3)$.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Les deux premières coordonnées sont échangées : 3A₁ + 4A₂ − A₃ donne 3 + 0 + 1 = 4 en première position."
+          },
+          {
+            "optionId": "c",
+            "why": "C'est le vecteur de départ : on a supposé que A laisse le vecteur inchangé, comme le ferait I₃."
+          },
+          {
+            "optionId": "d",
+            "why": "Erreur de signe sur −A₃ : il faut soustraire −1, donc ajouter 1, à la première coordonnée."
+          }
+        ],
+        "source": {
+          "file": "2026-03-MAT199-ChapI.pdf",
+          "page": 10,
+          "locator": "Exercice p. 10 (1)"
+        }
+      },
+      {
+        "id": "q1-06",
+        "objectiveId": "obj1-proprietes",
+        "bloomLevel": "analyze",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Pour des matrices carrées $A, B, C$ de même ordre, laquelle de ces égalités est FAUSSE en général ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "$AB = BA$"
+          },
+          {
+            "id": "b",
+            "text": "$(AB)C = A(BC)$"
+          },
+          {
+            "id": "c",
+            "text": "$A(B + C) = AB + AC$"
+          },
+          {
+            "id": "d",
+            "text": "$(AB)^T = B^T A^T$"
+          }
+        ],
+        "correct": "a",
+        "explanation": "La multiplication n'est pas commutative. Avec deux matrices de la p. 20 des notes : $\\begin{pmatrix} 1 & 1 \\\\ 0 & 1 \\end{pmatrix}\\begin{pmatrix} 1 & 1 \\\\ 1 & 2 \\end{pmatrix}=\\begin{pmatrix} 2 & 3 \\\\ 1 & 2 \\end{pmatrix}$ mais $\\begin{pmatrix} 1 & 1 \\\\ 1 & 2 \\end{pmatrix}\\begin{pmatrix} 1 & 1 \\\\ 0 & 1 \\end{pmatrix}=\\begin{pmatrix} 1 & 2 \\\\ 1 & 3 \\end{pmatrix}$.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "L'associativité est vraie (proposition 1.2.7(1)) : c'est ce qui permet d'écrire ABC sans parenthèses."
+          },
+          {
+            "optionId": "c",
+            "why": "La distributivité est vraie (proposition 1.2.7(3))."
+          },
+          {
+            "optionId": "d",
+            "why": "C'est la proposition 1.2.13(4) : vraie, avec l'ordre inversé."
+          }
+        ],
+        "source": {
+          "file": "2026-03-MAT199-ChapI.pdf",
+          "page": 8,
+          "locator": "Proposition 1.2.7, remarque (3)"
+        }
+      },
+      {
+        "id": "q1-07",
+        "objectiveId": "obj1-proprietes",
+        "bloomLevel": "recall",
+        "type": "mcq",
+        "difficulty": 1,
+        "prompt": "Si le produit $AB$ est défini, $(AB)^T$ est égal à :",
+        "options": [
+          {
+            "id": "a",
+            "text": "$B^T A^T$"
+          },
+          {
+            "id": "b",
+            "text": "$A^T B^T$"
+          },
+          {
+            "id": "c",
+            "text": "$A B^T$"
+          },
+          {
+            "id": "d",
+            "text": "$B A$"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Proposition 1.2.13(4) : $(AB)^T = B^T A^T$.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "C'est l'erreur classique : l'ordre des facteurs s'inverse en transposant."
+          },
+          {
+            "optionId": "c",
+            "why": "Il faut transposer les deux facteurs, pas seulement le second."
+          },
+          {
+            "optionId": "d",
+            "why": "Transposer n'échange pas simplement les facteurs : chacun doit aussi être transposé."
+          }
+        ],
+        "source": {
+          "file": "2026-03-MAT199-ChapI.pdf",
+          "page": 13,
+          "locator": "Proposition 1.2.13"
+        }
+      },
+      {
+        "id": "q1-08",
+        "objectiveId": "obj1-proprietes",
+        "bloomLevel": "understand",
+        "type": "mcq",
+        "difficulty": 1,
+        "prompt": "Laquelle de ces matrices est symétrique ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "$\\begin{pmatrix} 1 & 2 & 3 \\\\ 2 & 5 & 4 \\\\ 3 & 4 & 6 \\end{pmatrix}$"
+          },
+          {
+            "id": "b",
+            "text": "$\\begin{pmatrix} 1 & 2 & 3 \\\\ 2 & 5 & 4 \\\\ 3 & -4 & 6 \\end{pmatrix}$"
+          },
+          {
+            "id": "c",
+            "text": "$\\begin{pmatrix} 1 & 2 & 3 \\\\ 4 & 5 & 6 \\\\ 7 & 8 & 9 \\end{pmatrix}$"
+          },
+          {
+            "id": "d",
+            "text": "$\\begin{pmatrix} 0 & 1 & 2 \\\\ 0 & 0 & 3 \\end{pmatrix}$"
+          }
+        ],
+        "correct": "a",
+        "explanation": "$A^T = A$ : chaque terme $a_{ij}$ est égal à son miroir $a_{ji}$. C'est la matrice A de l'exercice p. 14.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Le $(3, 2)$-terme vaut $-4$ mais le $(2, 3)$-terme vaut $4$."
+          },
+          {
+            "optionId": "c",
+            "why": "Le $(1, 2)$-terme vaut 2 mais le $(2, 1)$-terme vaut 4."
+          },
+          {
+            "optionId": "d",
+            "why": "Elle n'est même pas carrée : une matrice symétrique est d'abord carrée."
+          }
+        ],
+        "source": {
+          "file": "2026-03-MAT199-ChapI.pdf",
+          "page": 14,
+          "locator": "Exercice suivant la définition 1.2.14"
+        }
+      },
+      {
+        "id": "q1-09",
+        "objectiveId": "obj1-operations",
+        "bloomLevel": "apply",
+        "type": "short-answer",
+        "difficulty": 1,
+        "prompt": "Pondérations du MAT199 dans l'exemple des notes : tests 15 %, intra 35 %, final 50 %. Quelle est la note finale d'un étudiant ayant 80, 56 et 75 ? (un nombre)",
+        "correct": "69,1",
+        "acceptableAnswers": [
+          "69.1"
+        ],
+        "explanation": "$(80, 56, 75)\\,(0{,}15;\\ 0{,}35;\\ 0{,}50)^T = 12 + 19{,}6 + 37{,}5 = 69{,}1$ : un produit ligne par colonne.",
+        "source": {
+          "file": "2026-03-MAT199-ChapI.pdf",
+          "page": 7,
+          "locator": "Exemple p. 7"
+        }
+      },
+      {
+        "id": "q1-10",
+        "objectiveId": "obj1-couleurs",
+        "bloomLevel": "apply",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Quelles sont les coordonnées RVB d'un mélange de 50 % de rouge et 50 % de bleu ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "$(0{,}5;\\ 0;\\ 0{,}5)$"
+          },
+          {
+            "id": "b",
+            "text": "$(1;\\ 0;\\ 1)$"
+          },
+          {
+            "id": "c",
+            "text": "$(0{,}5;\\ 0{,}5;\\ 0{,}5)$"
+          },
+          {
+            "id": "d",
+            "text": "$(0{,}25;\\ 0;\\ 0{,}25)$"
+          }
+        ],
+        "correct": "a",
+        "explanation": "$0{,}5\\,(1, 0, 0)^T + 0{,}5\\,(0, 0, 1)^T = (0{,}5;\\ 0;\\ 0{,}5)^T$.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "C'est le magenta pur : on a additionné les couleurs sans les pondérer par 50 %."
+          },
+          {
+            "optionId": "c",
+            "why": "Le vert n'intervient pas : sa coordonnée reste 0."
+          },
+          {
+            "optionId": "d",
+            "why": "On a multiplié deux fois par 0,5 : chaque couleur n'est pondérée qu'une fois."
+          }
+        ],
+        "source": {
+          "file": "2026-03-MAT199-ChapI.pdf",
+          "page": 10,
+          "locator": "Proposition 1.2.8 appliquée aux couleurs"
+        }
+      },
+      {
+        "id": "q1-11",
+        "objectiveId": "obj1-polynomes",
+        "bloomLevel": "recall",
+        "type": "mcq",
+        "difficulty": 1,
+        "prompt": "Sous quelle hypothèse les notes affirment-elles qu'une racine rationnelle d'un polynôme est un entier qui divise a₀ ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Coefficients entiers et coefficient directeur égal à 1"
+          },
+          {
+            "id": "b",
+            "text": "Polynôme de degré deux avec Δ ≥ 0"
+          },
+          {
+            "id": "c",
+            "text": "Coefficients réels quelconques"
+          },
+          {
+            "id": "d",
+            "text": "Polynôme totalement factorisable sur ℝ"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Proposition 1.1.4 : $f(x) = x^n + a_{n-1}x^{n-1} + \\cdots + a_0$ à coefficients entiers.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "C'est l'hypothèse de la formule du discriminant, une autre proposition (1.1.3)."
+          },
+          {
+            "optionId": "c",
+            "why": "Avec des coefficients non entiers, la proposition ne s'applique pas : voir l'exercice 1.2 de la banque."
+          },
+          {
+            "optionId": "d",
+            "why": "La factorisabilité est une conclusion possible, pas l'hypothèse de la proposition 1.1.4."
+          }
+        ],
+        "source": {
+          "file": "2026-03-MAT199-ChapI.pdf",
+          "page": 3,
+          "locator": "Proposition 1.1.4"
+        }
+      },
+      {
+        "id": "q1-12",
+        "objectiveId": "obj1-proprietes",
+        "bloomLevel": "analyze",
+        "type": "mcq",
+        "difficulty": 3,
+        "prompt": "On sait que $AB = 0_{2 \\times 2}$ pour deux matrices $A, B \\in M_2(\\mathbb{R})$. Que peut-on conclure ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Rien sur A ni sur B : un produit peut être nul sans qu'aucun facteur ne le soit."
+          },
+          {
+            "id": "b",
+            "text": "A = 0 ou B = 0, comme pour les nombres réels."
+          },
+          {
+            "id": "c",
+            "text": "A = 0 et B = 0 : les deux facteurs sont forcément nuls."
+          },
+          {
+            "id": "d",
+            "text": "BA = 0 aussi, puisque le produit est nul dans un sens."
+          }
+        ],
+        "correct": "a",
+        "explanation": "Remarque (4) après la proposition 1.2.7 : le produit $AB$ peut être nul sans que $A$ ou $B$ soit nulle.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Faux pour les matrices : $\\begin{pmatrix} 1 & 0 \\\\ 0 & 0 \\end{pmatrix}\\begin{pmatrix} 0 & 0 \\\\ 0 & 1 \\end{pmatrix} = 0$."
+          },
+          {
+            "optionId": "c",
+            "why": "Encore plus fort que la règle des réels, et faux pour la même raison."
+          },
+          {
+            "optionId": "d",
+            "why": "Le produit n'est pas commutatif ; que AB soit nul ne dit rien de BA."
+          }
+        ],
+        "source": {
+          "file": "2026-03-MAT199-ChapI.pdf",
+          "page": 8,
+          "locator": "Proposition 1.2.7, remarque (4)"
+        }
+      }
+    ]
+  },
+  "test": {
+    "title": "Test du chapitre 1",
+    "instructions": "21 questions couvrant tout le chapitre. Plus long et plus difficile que le quiz.",
+    "estimatedMinutes": 45,
+    "questions": [
+      {
+        "id": "t1-01",
+        "objectiveId": "obj1-operations",
+        "bloomLevel": "recall",
+        "type": "mcq",
+        "difficulty": 1,
+        "prompt": "Dans le $(i, j)$-terme d'une matrice, que désigne $i$ ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "L'indice de ligne"
+          },
+          {
+            "id": "b",
+            "text": "L'indice de colonne"
+          },
+          {
+            "id": "c",
+            "text": "Le nombre de lignes de la matrice"
+          },
+          {
+            "id": "d",
+            "text": "La position sur la diagonale"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Définition 1.2.1 : « $a_{ij}$ s'appelle $(i, j)$-terme où $i$ est l'indice de ligne et $j$ est l'indice de colonne ».",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "C'est le rôle de j : ligne d'abord, colonne ensuite."
+          },
+          {
+            "optionId": "c",
+            "why": "Le nombre de lignes est m, dans le type m × n ; i est une position."
+          },
+          {
+            "optionId": "d",
+            "why": "Seuls les termes aᵢᵢ sont diagonaux ; i repère n'importe quelle ligne."
+          }
+        ],
+        "source": {
+          "file": "2026-03-MAT199-ChapI.pdf",
+          "page": 4,
+          "locator": "Définition 1.2.1"
+        }
+      },
+      {
+        "id": "t1-02",
+        "objectiveId": "obj1-polynomes",
+        "bloomLevel": "apply",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Factoriser au maximum sur $\\mathbb{R}$ le polynôme $x^3 + x^2 - 2$.",
+        "options": [
+          {
+            "id": "a",
+            "text": "$(x - 1)(x^2 + 2x + 2)$"
+          },
+          {
+            "id": "b",
+            "text": "$(x - 1)(x + 1)(x + 2)$"
+          },
+          {
+            "id": "c",
+            "text": "$(x + 1)(x^2 - 2)$"
+          },
+          {
+            "id": "d",
+            "text": "Il ne se factorise pas sur ℝ"
+          }
+        ],
+        "correct": "a",
+        "explanation": "1 divise $-2$ et $f(1) = 0$. La division donne $x^2 + 2x + 2$, de discriminant $4 - 8 = -4 < 0$ : ce facteur ne se factorise plus.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Ce produit vaut $x^3 + 2x^2 - x - 2$, pas $x^3 + x^2 - 2$."
+          },
+          {
+            "optionId": "c",
+            "why": "$-1$ n'est pas racine : $-1 + 1 - 2 = -2 \\neq 0$."
+          },
+          {
+            "optionId": "d",
+            "why": "$f(1) = 1 + 1 - 2 = 0$ : 1 est racine, donc $(x - 1)$ est un facteur."
+          }
+        ],
+        "source": {
+          "file": "2026-03-MAT199-ChapI.pdf",
+          "page": 30,
+          "locator": "Exercice 1.5 n° 1 (2)"
+        }
+      },
+      {
+        "id": "t1-03",
+        "objectiveId": "obj1-polynomes",
+        "bloomLevel": "apply",
+        "type": "short-answer",
+        "difficulty": 2,
+        "prompt": "Combien de racines réelles DISTINCTES le polynôme $x^4 - 9x^2 - 4x + 12$ possède-t-il ? (un nombre)",
+        "correct": "3",
+        "acceptableAnswers": [
+          "trois"
+        ],
+        "explanation": "Les diviseurs de 12 testés donnent $f(1) = 0$, $f(3) = 0$ et $f(-2) = 0$. La factorisation est $(x - 1)(x - 3)(x + 2)^2$ : quatre racines avec multiplicité (1, 3, −2, −2), mais trois racines distinctes.",
+        "source": {
+          "file": "2026-03-MAT199-ChapI.pdf",
+          "page": 30,
+          "locator": "Exercice 1.5 n° 1 (4)"
+        }
+      },
+      {
+        "id": "t1-04",
+        "objectiveId": "obj1-polynomes",
+        "bloomLevel": "understand",
+        "type": "true-false",
+        "difficulty": 1,
+        "prompt": "Un polynôme réel de degré 4 peut avoir 5 racines réelles.",
+        "options": [
+          {
+            "id": "v",
+            "text": "Vrai"
+          },
+          {
+            "id": "f",
+            "text": "Faux"
+          }
+        ],
+        "correct": "f",
+        "explanation": "Proposition 1.1.2(1) : un polynôme de degré n admet au plus n racines réelles. Chaque racine a donne un facteur (x − a) et fait baisser le degré de 1.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "v",
+            "why": "Après 4 facteurs (x − aᵢ), il ne reste qu'une constante, qui ne peut plus s'annuler."
+          }
+        ],
+        "source": {
+          "file": "2026-03-MAT199-ChapI.pdf",
+          "page": 2,
+          "locator": "Proposition 1.1.2"
+        }
+      },
+      {
+        "id": "t1-05",
+        "objectiveId": "obj1-polynomes",
+        "bloomLevel": "apply",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Quelles sont les racines de $2x^2 + 5x - 3$ ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "$\\tfrac12$ et $-3$"
+          },
+          {
+            "id": "b",
+            "text": "$-\\tfrac12$ et $3$"
+          },
+          {
+            "id": "c",
+            "text": "$1$ et $-6$"
+          },
+          {
+            "id": "d",
+            "text": "Aucune racine réelle"
+          }
+        ],
+        "correct": "a",
+        "explanation": "$\\Delta = 5^2 - 4 \\cdot 2 \\cdot (-3) = 49$, $\\sqrt{\\Delta} = 7$, donc $x = \\frac{-5 \\pm 7}{4}$, soit $\\frac12$ et $-3$ : $2x^2 + 5x - 3 = (2x - 1)(x + 3)$.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Signes inversés : on a oublié le $-b$ de la formule."
+          },
+          {
+            "optionId": "c",
+            "why": "On a oublié de diviser par $2a = 4$ : $\\frac{-5 \\pm 7}{4}$."
+          },
+          {
+            "optionId": "d",
+            "why": "$\\Delta = 25 + 24 = 49 > 0$ : deux racines réelles."
+          }
+        ],
+        "source": {
+          "file": "2026-03_MAT199_ex.pdf",
+          "page": 2,
+          "locator": "Exercice 1.1 a)"
+        }
+      },
+      {
+        "id": "t1-06",
+        "objectiveId": "obj1-polynomes",
+        "bloomLevel": "apply",
+        "type": "short-answer",
+        "difficulty": 2,
+        "prompt": "Pour quelle valeur réelle de $a$ le nombre 4 est-il une racine de $f(x) = x^3 - 6x^2 + ax + 10$ ?",
+        "correct": "11/2",
+        "acceptableAnswers": [
+          "5,5",
+          "5.5",
+          "a = 11/2"
+        ],
+        "explanation": "$f(4) = 64 - 96 + 4a + 10 = 4a - 22 = 0$, donc $a = \\frac{11}{2}$.",
+        "source": {
+          "file": "2026-03_MAT199_ex.pdf",
+          "page": 2,
+          "locator": "Exercice 1.2 a)"
+        }
+      },
+      {
+        "id": "t1-07",
+        "objectiveId": "obj1-polynomes",
+        "bloomLevel": "analyze",
+        "type": "mcq",
+        "difficulty": 3,
+        "prompt": "Avec $a = \\frac{11}{2}$, 4 est racine de $x^3 - 6x^2 + ax + 10$, alors que 4 ne divise pas 10. Pourquoi cela ne contredit-il pas la proposition 1.1.4 ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Le coefficient $a = \\frac{11}{2}$ n'est pas entier : l'hypothèse de la proposition n'est pas remplie."
+          },
+          {
+            "id": "b",
+            "text": "Parce que 4 divise bien 10 dans les rationnels, et la proposition parle de racines rationnelles."
+          },
+          {
+            "id": "c",
+            "text": "Parce que la proposition ne concerne que les polynômes de degré deux."
+          },
+          {
+            "id": "d",
+            "text": "Parce que 4 n'est pas un nombre rationnel, donc la proposition ne s'applique pas."
+          }
+        ],
+        "correct": "a",
+        "explanation": "La proposition exige des coefficients entiers et un coefficient directeur égal à 1. Dès qu'un coefficient est fractionnaire, sa conclusion n'est plus garantie : c'est tout l'objet de l'exercice 1.2 b) de la banque.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Dans ℚ, tout nombre non nul divise tout autre ; la proposition parle de divisibilité entière, et 4 ne divise pas 10."
+          },
+          {
+            "optionId": "c",
+            "why": "Elle concerne tout degré n ; c'est la formule du discriminant qui est limitée au degré deux."
+          },
+          {
+            "optionId": "d",
+            "why": "4 est un entier, donc un rationnel."
+          }
+        ],
+        "source": {
+          "file": "2026-03_MAT199_ex.pdf",
+          "page": 2,
+          "locator": "Exercice 1.2 b)"
+        }
+      },
+      {
+        "id": "t1-08",
+        "objectiveId": "obj1-operations",
+        "bloomLevel": "apply",
+        "type": "multi",
+        "difficulty": 2,
+        "prompt": "$A$ est de type $2 \\times 3$, $B$ de type $3 \\times 2$ et $C$ de type $2 \\times 2$. Quels produits sont définis ? (plusieurs réponses)",
+        "options": [
+          {
+            "id": "a",
+            "text": "$AB$"
+          },
+          {
+            "id": "b",
+            "text": "$BA$"
+          },
+          {
+            "id": "c",
+            "text": "$AC$"
+          },
+          {
+            "id": "d",
+            "text": "$CA$"
+          },
+          {
+            "id": "e",
+            "text": "$BC$"
+          },
+          {
+            "id": "f",
+            "text": "$CB$"
+          }
+        ],
+        "correct": [
+          "a",
+          "b",
+          "d",
+          "e"
+        ],
+        "explanation": "Un produit $XY$ est défini quand le nombre de colonnes de $X$ égale le nombre de lignes de $Y$ : $AB$ ($2\\times2$), $BA$ ($3\\times3$), $CA$ ($2\\times3$), $BC$ ($3\\times2$).",
+        "perDistractorExplanation": [
+          {
+            "optionId": "c",
+            "why": "$(2 \\times 3)(2 \\times 2)$ : 3 colonnes contre 2 lignes."
+          },
+          {
+            "optionId": "f",
+            "why": "$(2 \\times 2)(3 \\times 2)$ : 2 colonnes contre 3 lignes."
+          }
+        ],
+        "source": {
+          "file": "2026-03-MAT199-ChapI.pdf",
+          "page": 6,
+          "locator": "Définition 1.2.5"
+        }
+      },
+      {
+        "id": "t1-09",
+        "objectiveId": "obj1-operations",
+        "bloomLevel": "apply",
+        "type": "short-answer",
+        "difficulty": 2,
+        "prompt": "Avec $A = \\begin{pmatrix} 2 & 3 & \\sqrt2 \\\\ -2 & 0 & 0 \\\\ 1 & \\sqrt3 & 2 \\end{pmatrix}$ et $B = \\begin{pmatrix} 2 & 2 \\\\ 0 & 3 \\\\ 0 & \\sqrt2 \\end{pmatrix}$, quel est le $(3, 1)$-terme de $AB$ ?",
+        "correct": "2",
+        "acceptableAnswers": [],
+        "explanation": "Ligne 3 de $A$ fois colonne 1 de $B$ : $1 \\cdot 2 + \\sqrt3 \\cdot 0 + 2 \\cdot 0 = 2$.",
+        "source": {
+          "file": "2026-03-MAT199-ChapI.pdf",
+          "page": 7,
+          "locator": "Exercice p. 7"
+        }
+      },
+      {
+        "id": "t1-10",
+        "objectiveId": "obj1-colonnes",
+        "bloomLevel": "apply",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Calculer $\\begin{pmatrix} 1 & 2 & 3 \\\\ -1 & 4 & 5 \\end{pmatrix}\\begin{pmatrix} 0 & 0 & 1 \\\\ 1 & 0 & 0 \\\\ 0 & 1 & 0 \\end{pmatrix}$ (exercice des notes).",
+        "options": [
+          {
+            "id": "a",
+            "text": "$\\begin{pmatrix} 2 & 3 & 1 \\\\ 4 & 5 & -1 \\end{pmatrix}$"
+          },
+          {
+            "id": "b",
+            "text": "$\\begin{pmatrix} 3 & 1 & 2 \\\\ 5 & -1 & 4 \\end{pmatrix}$"
+          },
+          {
+            "id": "c",
+            "text": "$\\begin{pmatrix} -1 & 4 & 5 \\\\ 1 & 2 & 3 \\end{pmatrix}$"
+          },
+          {
+            "id": "d",
+            "text": "$\\begin{pmatrix} 1 & 2 & 3 \\\\ -1 & 4 & 5 \\end{pmatrix}$"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Proposition 1.2.9 : les colonnes de $B$ sont $e_2, e_3, e_1$, donc les colonnes du produit sont $A_2, A_3, A_1$.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Colonnes réordonnées dans le mauvais sens : la colonne 1 de B est e₂, donc la colonne 1 du produit est A₂."
+          },
+          {
+            "optionId": "c",
+            "why": "On a permuté les LIGNES de A : c'est l'effet d'une multiplication à gauche, pas à droite."
+          },
+          {
+            "optionId": "d",
+            "why": "B n'est pas l'identité : ses colonnes sont e₂, e₃, e₁."
+          }
+        ],
+        "source": {
+          "file": "2026-03-MAT199-ChapI.pdf",
+          "page": 11,
+          "locator": "Exercice suivant la proposition 1.2.9"
+        }
+      },
+      {
+        "id": "t1-11",
+        "objectiveId": "obj1-colonnes",
+        "bloomLevel": "apply",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Calculer $\\begin{pmatrix} 2 & \\sqrt2 & 1 \\\\ 3 & \\sqrt3 & 2 \\end{pmatrix}\\begin{pmatrix} 2 & 0 & 0 \\\\ 0 & 3 & 0 \\\\ 0 & 0 & 4 \\end{pmatrix}$.",
+        "options": [
+          {
+            "id": "a",
+            "text": "$\\begin{pmatrix} 4 & 3\\sqrt2 & 4 \\\\ 6 & 3\\sqrt3 & 8 \\end{pmatrix}$"
+          },
+          {
+            "id": "b",
+            "text": "$\\begin{pmatrix} 4 & 2\\sqrt2 & 2 \\\\ 9 & 3\\sqrt3 & 6 \\end{pmatrix}$"
+          },
+          {
+            "id": "c",
+            "text": "$\\begin{pmatrix} 2 & \\sqrt2 & 1 \\\\ 3 & \\sqrt3 & 2 \\end{pmatrix}$"
+          },
+          {
+            "id": "d",
+            "text": "$\\begin{pmatrix} 8 & 4\\sqrt2 & 4 \\\\ 12 & 4\\sqrt3 & 8 \\end{pmatrix}$"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Proposition 1.2.11 : la colonne 1 est multipliée par 2, la colonne 2 par 3, la colonne 3 par 4.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "On a multiplié les LIGNES par 2 et 3 : une matrice diagonale à droite agit sur les colonnes."
+          },
+          {
+            "optionId": "c",
+            "why": "La matrice diagonale n'est pas l'identité : ses termes diagonaux sont 2, 3 et 4."
+          },
+          {
+            "optionId": "d",
+            "why": "Tout a été multiplié par 4 : chaque colonne a son propre facteur."
+          }
+        ],
+        "source": {
+          "file": "2026-03-MAT199-ChapI.pdf",
+          "page": 12,
+          "locator": "Exercice suivant la proposition 1.2.11"
+        }
+      },
+      {
+        "id": "t1-12",
+        "objectiveId": "obj1-colonnes",
+        "bloomLevel": "understand",
+        "type": "mcq",
+        "difficulty": 1,
+        "prompt": "D'après la proposition 1.2.9, la $j$-ième colonne de $AB$ est :",
+        "options": [
+          {
+            "id": "a",
+            "text": "$A$ fois la $j$-ième colonne de $B$"
+          },
+          {
+            "id": "b",
+            "text": "la $j$-ième colonne de $A$ fois $B$"
+          },
+          {
+            "id": "c",
+            "text": "la $j$-ième ligne de $A$ fois $B$"
+          },
+          {
+            "id": "d",
+            "text": "$B$ fois la $j$-ième colonne de $A$"
+          }
+        ],
+        "correct": "a",
+        "explanation": "$AB = A(B_1 \\cdots B_p) = (AB_1 \\cdots AB_p)$.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Le produit (colonne de A) × B n'est en général même pas défini."
+          },
+          {
+            "optionId": "c",
+            "why": "Cela donne la j-ième LIGNE de AB, pas la colonne."
+          },
+          {
+            "optionId": "d",
+            "why": "L'ordre compte : c'est A qui multiplie, à gauche."
+          }
+        ],
+        "source": {
+          "file": "2026-03-MAT199-ChapI.pdf",
+          "page": 11,
+          "locator": "Proposition 1.2.9"
+        }
+      },
+      {
+        "id": "t1-13",
+        "objectiveId": "obj1-proprietes",
+        "bloomLevel": "recall",
+        "type": "true-false",
+        "difficulty": 1,
+        "prompt": "Toute matrice diagonale est symétrique.",
+        "options": [
+          {
+            "id": "v",
+            "text": "Vrai"
+          },
+          {
+            "id": "f",
+            "text": "Faux"
+          }
+        ],
+        "correct": "v",
+        "explanation": "Remarque après la définition 1.2.14 : hors de la diagonale, tous les termes valent 0, donc $a_{ij} = 0 = a_{ji}$.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "f",
+            "why": "Une matrice diagonale est en miroir par rapport à sa diagonale, puisque tout ce qui n'est pas diagonal est nul."
+          }
+        ],
+        "source": {
+          "file": "2026-03-MAT199-ChapI.pdf",
+          "page": 14,
+          "locator": "Remarque après la définition 1.2.14"
+        }
+      },
+      {
+        "id": "t1-14",
+        "objectiveId": "obj1-proprietes",
+        "bloomLevel": "analyze",
+        "type": "mcq",
+        "difficulty": 3,
+        "prompt": "$A = \\begin{pmatrix} a & b \\\\ b & c \\end{pmatrix}$ et $B = \\begin{pmatrix} 0 & 1 \\\\ 1 & 0 \\end{pmatrix}$ sont symétriques. À quelle condition $AB$ est-il symétrique ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "$a = c$"
+          },
+          {
+            "id": "b",
+            "text": "$b = 0$"
+          },
+          {
+            "id": "c",
+            "text": "Toujours : un produit de matrices symétriques est symétrique."
+          },
+          {
+            "id": "d",
+            "text": "$a = b = c$"
+          }
+        ],
+        "correct": "a",
+        "explanation": "$AB = \\begin{pmatrix} b & a \\\\ c & b \\end{pmatrix}$ est symétrique si, et seulement si, son $(1, 2)$-terme $a$ égale son $(2, 1)$-terme $c$.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "$AB = \\begin{pmatrix} b & a \\\\ c & b \\end{pmatrix}$ : la valeur de b n'intervient pas dans la condition."
+          },
+          {
+            "optionId": "c",
+            "why": "Faux en général : $(AB)^T = B^TA^T = BA$, qui n'est pas toujours égal à $AB$."
+          },
+          {
+            "optionId": "d",
+            "why": "Suffisant, mais trop fort : b est libre."
+          }
+        ],
+        "source": {
+          "file": "2026-03-MAT199-ChapI.pdf",
+          "page": 31,
+          "locator": "Exercice 1.5 n° 8"
+        }
+      },
+      {
+        "id": "t1-15",
+        "objectiveId": "obj1-proprietes",
+        "bloomLevel": "apply",
+        "type": "mcq",
+        "difficulty": 1,
+        "prompt": "Quelle est la transposée de $\\begin{pmatrix} 0 & 1 & 2 \\\\ 0 & 0 & 3 \\end{pmatrix}$ ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "$\\begin{pmatrix} 0 & 0 \\\\ 1 & 0 \\\\ 2 & 3 \\end{pmatrix}$"
+          },
+          {
+            "id": "b",
+            "text": "$\\begin{pmatrix} 0 & 1 \\\\ 2 & 0 \\\\ 0 & 3 \\end{pmatrix}$"
+          },
+          {
+            "id": "c",
+            "text": "$\\begin{pmatrix} 0 & 0 & 3 \\\\ 0 & 1 & 2 \\end{pmatrix}$"
+          },
+          {
+            "id": "d",
+            "text": "$\\begin{pmatrix} 2 & 3 \\\\ 1 & 0 \\\\ 0 & 0 \\end{pmatrix}$"
+          }
+        ],
+        "correct": "a",
+        "explanation": "La $i$-ième ligne de $A^T$ est la $i$-ième colonne de $A$ : $(0, 0)$, $(1, 0)$, $(2, 3)$. Le type passe de $2 \\times 3$ à $3 \\times 2$.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "On a recopié les termes dans l'ordre de lecture sur 3 lignes : ce n'est pas une transposition."
+          },
+          {
+            "optionId": "c",
+            "why": "On a échangé les lignes : la transposée échange lignes et COLONNES et change le type."
+          },
+          {
+            "optionId": "d",
+            "why": "Lignes dans l'ordre inverse : la 1re ligne de Aᵀ est la 1re colonne de A, (0, 0)."
+          }
+        ],
+        "source": {
+          "file": "2026-03-MAT199-ChapI.pdf",
+          "page": 13,
+          "locator": "Exercice suivant la définition 1.2.12"
+        }
+      },
+      {
+        "id": "t1-16",
+        "objectiveId": "obj1-proprietes",
+        "bloomLevel": "understand",
+        "type": "true-false",
+        "difficulty": 2,
+        "prompt": "Dès que les deux membres sont définis, $(AB)^T = A^T B^T$.",
+        "options": [
+          {
+            "id": "v",
+            "text": "Vrai"
+          },
+          {
+            "id": "f",
+            "text": "Faux"
+          }
+        ],
+        "correct": "f",
+        "explanation": "La proposition 1.2.13(4) donne $(AB)^T = B^T A^T$. L'exemple des notes : avec $A$ de type $2 \\times 3$ et $B$ de type $3 \\times 2$, $(AB)^T$ est $2 \\times 2$ et $A^T B^T$ est $3 \\times 3$.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "v",
+            "why": "Même quand les deux membres existent et ont le même type (matrices carrées), ils diffèrent en général : c'est BᵀAᵀ qui est toujours égal à (AB)ᵀ."
+          }
+        ],
+        "source": {
+          "file": "2026-03-MAT199-ChapI.pdf",
+          "page": 13,
+          "locator": "Proposition 1.2.13 et exemple"
+        }
+      },
+      {
+        "id": "t1-17",
+        "objectiveId": "obj1-proprietes",
+        "bloomLevel": "apply",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Pour $A = \\begin{pmatrix} \\frac12 & -\\frac{\\sqrt3}{2} \\\\ \\frac{\\sqrt3}{2} & \\frac12 \\end{pmatrix}$, que vaut $A^T A$ ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "$I_2$"
+          },
+          {
+            "id": "b",
+            "text": "$0_{2 \\times 2}$"
+          },
+          {
+            "id": "c",
+            "text": "$A$"
+          },
+          {
+            "id": "d",
+            "text": "$\\begin{pmatrix} \\frac12 & 0 \\\\ 0 & \\frac12 \\end{pmatrix}$"
+          }
+        ],
+        "correct": "a",
+        "explanation": "$(1, 1)$ : $\\frac14 + \\frac34 = 1$ ; $(1, 2)$ : $-\\frac{\\sqrt3}{4} + \\frac{\\sqrt3}{4} = 0$ ; de même pour les autres. $A^TA = I_2$.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Le $(1, 1)$-terme vaut $\\frac14 + \\frac34 = 1$, pas 0."
+          },
+          {
+            "optionId": "c",
+            "why": "$A^TA$ est symétrique ; $A$ ne l'est pas ($-\\frac{\\sqrt3}{2} \\neq \\frac{\\sqrt3}{2}$)."
+          },
+          {
+            "optionId": "d",
+            "why": "On a multiplié terme à terme au lieu de faire un produit ligne × colonne."
+          }
+        ],
+        "source": {
+          "file": "2026-03-MAT199-ChapI.pdf",
+          "page": 31,
+          "locator": "Exercice 1.5 n° 9"
+        }
+      },
+      {
+        "id": "t1-18",
+        "objectiveId": "obj1-couleurs",
+        "bloomLevel": "apply",
+        "type": "short-answer",
+        "difficulty": 2,
+        "prompt": "On mélange 50 % de jaune et 50 % de cyan. Quelle est la coordonnée v (vert) du résultat ? (un nombre)",
+        "correct": "1",
+        "acceptableAnswers": [],
+        "explanation": "$0{,}5\\,(1, 1, 0)^T + 0{,}5\\,(0, 1, 1)^T = (0{,}5;\\ 1;\\ 0{,}5)^T$. Les deux couleurs contiennent du vert à pleine intensité.",
+        "source": {
+          "file": "2026-03-MAT199-ChapI.pdf",
+          "page": 5,
+          "locator": "Tableau des couleurs, proposition 1.2.8"
+        }
+      },
+      {
+        "id": "t1-19",
+        "objectiveId": "obj1-proprietes",
+        "bloomLevel": "analyze",
+        "type": "multi",
+        "difficulty": 3,
+        "prompt": "Pour $A, B \\in M_n(\\mathbb{R})$, lesquelles de ces affirmations sont toujours vraies ? (plusieurs réponses)",
+        "options": [
+          {
+            "id": "a",
+            "text": "$(AB)^T = B^T A^T$"
+          },
+          {
+            "id": "b",
+            "text": "$(A + B)^T = A^T + B^T$"
+          },
+          {
+            "id": "c",
+            "text": "$AB = BA$"
+          },
+          {
+            "id": "d",
+            "text": "$AB = 0 \\Rightarrow A = 0$ ou $B = 0$"
+          },
+          {
+            "id": "e",
+            "text": "$I_n A = A$"
+          }
+        ],
+        "correct": [
+          "a",
+          "b",
+          "e"
+        ],
+        "explanation": "Les trois vraies sont les propositions 1.2.13(3), 1.2.13(4) et 1.2.7(5). Les deux fausses sont les deux remarques de la p. 8 des notes.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "c",
+            "why": "La multiplication n'est pas commutative."
+          },
+          {
+            "optionId": "d",
+            "why": "Contre-exemple : $\\begin{pmatrix} 1 & 0 \\\\ 0 & 0 \\end{pmatrix}\\begin{pmatrix} 0 & 0 \\\\ 0 & 1 \\end{pmatrix}= 0$."
+          }
+        ],
+        "source": {
+          "file": "2026-03-MAT199-ChapI.pdf",
+          "page": 8,
+          "locator": "Propositions 1.2.7 et 1.2.13"
+        }
+      },
+      {
+        "id": "t1-20",
+        "objectiveId": "obj1-proprietes",
+        "bloomLevel": "analyze",
+        "type": "mcq",
+        "difficulty": 3,
+        "prompt": "Pour montrer que $AA^T$ est symétrique quelle que soit la matrice $A$ (exercice 1.5 n° 11), quel argument convient ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "$(AA^T)^T = (A^T)^T A^T = AA^T$"
+          },
+          {
+            "id": "b",
+            "text": "$(AA^T)^T = A^T (A^T)^T = A^TA$, qui est la même matrice que $AA^T$"
+          },
+          {
+            "id": "c",
+            "text": "$AA^T$ est diagonale, donc symétrique"
+          },
+          {
+            "id": "d",
+            "text": "$A$ et $A^T$ ont les mêmes termes, donc tout produit de l'une par l'autre est symétrique"
+          }
+        ],
+        "correct": "a",
+        "explanation": "On applique $(XY)^T = Y^T X^T$ avec $X = A$, $Y = A^T$, puis $(A^T)^T = A$. Donc $(AA^T)^T = AA^T$ : c'est la définition de symétrique.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "L'ordre est faux, et $A^TA \\neq AA^T$ en général : elles n'ont même pas le même type si A n'est pas carrée."
+          },
+          {
+            "optionId": "c",
+            "why": "Faux en général : pour $A = \\begin{pmatrix} 1 & 2 & 1 \\\\ 2 & 3 & 1 \\end{pmatrix}$, $AA^T = \\begin{pmatrix} 6 & 9 \\\\ 9 & 14 \\end{pmatrix}$ n'est pas diagonale."
+          },
+          {
+            "optionId": "d",
+            "why": "Avoir les mêmes termes ne suffit pas : c'est la règle (XY)ᵀ = YᵀXᵀ qui fait le travail."
+          }
+        ],
+        "source": {
+          "file": "2026-03-MAT199-ChapI.pdf",
+          "page": 31,
+          "locator": "Exercice 1.5 n° 11"
+        }
+      },
+      {
+        "id": "t1-21",
+        "objectiveId": "obj1-proprietes",
+        "bloomLevel": "recall",
+        "type": "fill-blank",
+        "difficulty": 1,
+        "prompt": "Compléter : une matrice carrée $A$ est symétrique si $A^T = $ ____ .",
+        "correct": "A",
+        "acceptableAnswers": [
+          "a"
+        ],
+        "explanation": "Définition 1.2.14 : $A^T = A$, c'est-à-dire $a_{ji} = a_{ij}$ pour tous $i, j$.",
+        "source": {
+          "file": "2026-03-MAT199-ChapI.pdf",
+          "page": 14,
+          "locator": "Définition 1.2.14"
+        }
+      }
+    ]
+  },
+  "flashcards": [
+    {
+      "id": "f1-01",
+      "objectiveId": "obj1-polynomes",
+      "front": "Combien de racines réelles, au plus, pour un polynôme de degré n ?",
+      "back": "Au plus $n$ (proposition 1.1.2). Avec exactement $n$ racines (multiplicités comprises), il est totalement factorisable sur $\\mathbb{R}$."
+    },
+    {
+      "id": "f1-02",
+      "objectiveId": "obj1-polynomes",
+      "front": "Racines de $ax^2 + bx + c$ ?",
+      "back": "$\\Delta = b^2 - 4ac$. Si $\\Delta \\geq 0$ : $\\dfrac{-b \\pm \\sqrt\\Delta}{2a}$. Si $\\Delta < 0$ : aucune racine réelle."
+    },
+    {
+      "id": "f1-03",
+      "objectiveId": "obj1-polynomes",
+      "front": "Où chercher les racines rationnelles d'un polynôme unitaire à coefficients entiers ?",
+      "back": "Parmi les diviseurs entiers du terme constant $a_0$ (proposition 1.1.4)."
+    },
+    {
+      "id": "f1-04",
+      "objectiveId": "obj1-operations",
+      "front": "Type de $AB$ si $A$ est $m \\times n$ et $B$ est $n \\times p$ ?",
+      "back": "$m \\times p$. Il faut que le nombre de colonnes de $A$ égale le nombre de lignes de $B$."
+    },
+    {
+      "id": "f1-05",
+      "objectiveId": "obj1-operations",
+      "front": "$(i, j)$-terme de $AB$ ?",
+      "back": "$\\sum_k a_{ik} b_{kj}$ : ligne $i$ de $A$ fois colonne $j$ de $B$."
+    },
+    {
+      "id": "f1-06",
+      "objectiveId": "obj1-colonnes",
+      "front": "$A\\,(a_1, \\dots, a_n)^T$ = ?",
+      "back": "$a_1 A_1 + \\cdots + a_n A_n$, où les $A_j$ sont les colonnes de $A$ (proposition 1.2.8)."
+    },
+    {
+      "id": "f1-07",
+      "objectiveId": "obj1-colonnes",
+      "front": "$j$-ième colonne de $AB$ ?",
+      "back": "$A$ fois la $j$-ième colonne de $B$ (proposition 1.2.9)."
+    },
+    {
+      "id": "f1-08",
+      "objectiveId": "obj1-colonnes",
+      "front": "Multiplier à droite par une matrice diagonale ?",
+      "back": "Chaque COLONNE de A est multipliée par le terme diagonal correspondant (proposition 1.2.11)."
+    },
+    {
+      "id": "f1-09",
+      "objectiveId": "obj1-proprietes",
+      "front": "$(AB)^T$ = ?",
+      "back": "$B^T A^T$ — l'ordre s'inverse."
+    },
+    {
+      "id": "f1-10",
+      "objectiveId": "obj1-proprietes",
+      "front": "Deux propriétés des réels qui sont fausses pour les matrices ?",
+      "back": "$AB = BA$ (non commutatif) et « $AB = 0 \\Rightarrow A = 0$ ou $B = 0$ »."
+    },
+    {
+      "id": "f1-11",
+      "objectiveId": "obj1-proprietes",
+      "front": "Matrice symétrique ?",
+      "back": "Carrée, avec $A^T = A$, soit $a_{ji} = a_{ij}$. Toute matrice diagonale l'est."
+    },
+    {
+      "id": "f1-12",
+      "objectiveId": "obj1-couleurs",
+      "front": "Coordonnées RVB du cyan, du magenta, du jaune ?",
+      "back": "cyan (0, 1, 1) · magenta (1, 0, 1) · jaune (1, 1, 0)."
+    }
+  ],
+  "exercises": [
+    {
+      "id": "e1-01",
+      "objectiveId": "obj1-polynomes",
+      "difficulty": 2,
+      "mode": "trace",
+      "language": "text",
+      "title": "Factoriser cinq polynômes (exercice 1.5 n° 1)",
+      "statement": "Factoriser, si possible, chacun des polynômes suivants sur ℝ. Pour chacun, indiquer les candidats testés, les racines trouvées, et pourquoi on s'arrête.",
+      "starterCode": "(1) x² + 2x + 2\n(2) x³ + x² − 2\n(3) x⁶ − 3x³ + 2        (poser t = x³)\n(4) x⁴ − 9x² − 4x + 12\n(5) x³ − x² − x − 2",
+      "hints": [
+        "Pour le degré deux, calculer Δ. Pour les autres, tester les diviseurs du terme constant (proposition 1.1.4).",
+        "Chaque racine a trouvée permet de diviser par (x − a) : on recommence sur le quotient.",
+        "Pour (3), t = x³ donne t² − 3t + 2 = (t − 1)(t − 2). Pour (4), une racine est double."
+      ],
+      "solution": "(1) irréductible · (2) (x−1)(x²+2x+2) · (3) (x−1)(x²+x+1)(x³−2) · (4) (x−1)(x−3)(x+2)² · (5) (x−2)(x²+x+1)",
+      "expectedOutput": "(1) $x^2 + 2x + 2$ : $\\Delta = 4 - 8 = -4 < 0$. Aucune racine réelle : ne se factorise pas sur ℝ.\n\n(2) Diviseurs de −2 : ±1, ±2. $f(1) = 1 + 1 - 2 = 0$.\n    $x^3 + x^2 - 2 = (x - 1)(x^2 + 2x + 2)$, et $x^2 + 2x + 2$ a $\\Delta = -4$ : on s'arrête.\n\n(3) Avec $t = x^3$ : $t^2 - 3t + 2 = (t - 1)(t - 2)$, donc $(x^3 - 1)(x^3 - 2)$.\n    $x^3 - 1 = (x - 1)(x^2 + x + 1)$, et $x^2 + x + 1$ a $\\Delta = -3$.\n    $x^3 - 2$ a pour seule racine réelle $\\sqrt[3]{2}$ (non entière : la proposition 1.1.4 ne la trouve pas).\n    Résultat : $(x - 1)(x^2 + x + 1)(x^3 - 2)$, et $x^3 - 2 = (x - \\sqrt[3]{2})(x^2 + \\sqrt[3]{2}\\,x + \\sqrt[3]{4})$.\n\n(4) Diviseurs de 12. $f(1) = 1 - 9 - 4 + 12 = 0$, $f(3) = 81 - 81 - 12 + 12 = 0$, $f(-2) = 16 - 36 + 8 + 12 = 0$.\n    Trois racines distinctes pour un degré 4 : l'une est double. $(x - 1)(x - 3)(x + 2)^2$.\n\n(5) Diviseurs de −2 : $f(2) = 8 - 4 - 2 - 2 = 0$.\n    $x^3 - x^2 - x - 2 = (x - 2)(x^2 + x + 1)$, et $\\Delta = 1 - 4 = -3 < 0$.",
+      "solutionExplanation": "Le cas (4) est le plus instructif : les diviseurs de 12 ne livrent que trois racines, alors que le degré est 4. Il faut alors diviser par $(x-1)(x-3)(x+2) = x^3 - 2x^2 - 5x + 6$ et constater que le quotient est $x + 2$ : la racine $-2$ est double. Le cas (3) montre la limite de la proposition 1.1.4 : $\\sqrt[3]{2}$ est irrationnelle, donc invisible pour la méthode des diviseurs, mais le changement de variable la révèle.",
+      "source": {
+        "file": "2026-03-MAT199-ChapI.pdf",
+        "page": 30,
+        "locator": "Exercice 1.5 n° 1"
+      }
+    },
+    {
+      "id": "e1-02",
+      "objectiveId": "obj1-colonnes",
+      "difficulty": 2,
+      "mode": "predict-output",
+      "language": "text",
+      "title": "Une seule colonne d'un produit (exercice 1.5 n° 4)",
+      "statement": "À l'aide des propositions 1.2.8 et 1.2.9, donner la troisième colonne du produit AB, SANS calculer les autres.",
+      "starterCode": "A = ( 3  0  1  2 )        B = (  2    1     2    )\n    ( 0  9  0  7 )            (  0    1     0    )\n    ( 0  8  1  2 )            (  2    0     0    )\n                              ( √2   −1   1 + √3 )",
+      "hints": [
+        "La troisième colonne de AB est A fois la troisième colonne de B.",
+        "La troisième colonne de B est (2, 0, 0, 1 + √3). Deux de ses termes sont nuls : quelles colonnes de A disparaissent ?",
+        "Il reste 2·A₁ + (1 + √3)·A₄ avec A₁ = (3, 0, 0) et A₄ = (2, 7, 2)."
+      ],
+      "solution": "(8 + 2√3, 7 + 7√3, 2 + 2√3)",
+      "expectedOutput": "Type : A est $3 \\times 4$, B est $4 \\times 3$, donc AB est $3 \\times 3$.\n\nColonne 3 de B : $B_3 = (2,\\ 0,\\ 0,\\ 1 + \\sqrt3)^T$.\n\nProposition 1.2.9 : colonne 3 de AB $= A B_3$.\nProposition 1.2.8 : $A B_3 = 2A_1 + 0A_2 + 0A_3 + (1 + \\sqrt3)A_4$\n\n$= 2\\,(3, 0, 0)^T + (1 + \\sqrt3)\\,(2, 7, 2)^T$\n$= (6 + 2 + 2\\sqrt3,\\ \\ 7 + 7\\sqrt3,\\ \\ 2 + 2\\sqrt3)^T$\n$= (8 + 2\\sqrt3,\\ \\ 7 + 7\\sqrt3,\\ \\ 2 + 2\\sqrt3)^T$",
+      "solutionExplanation": "Tout l'intérêt de la méthode est dans les deux zéros de $B_3$ : ils font disparaître $A_2$ et $A_3$ sans aucun calcul. Calculer tout le produit aurait demandé 36 multiplications ; ici il en faut 6.",
+      "source": {
+        "file": "2026-03-MAT199-ChapI.pdf",
+        "page": 30,
+        "locator": "Exercice 1.5 n° 4"
+      }
+    },
+    {
+      "id": "e1-03",
+      "objectiveId": "obj1-proprietes",
+      "difficulty": 2,
+      "mode": "find-bug",
+      "language": "text",
+      "title": "Trouver l'erreur — la transposée d'un produit",
+      "statement": "Un étudiant veut calculer (AB)ᵀ pour les matrices de l'exemple des notes (p. 13). Trouver l'erreur, dire pourquoi son résultat ne peut pas être juste, et corriger.",
+      "starterCode": "A = ( 0 1 0 )        B = ( 1 0 )\n    ( 0 0 1 )            ( 0 1 )\n                         ( 0 0 )\n\n« (AB)ᵀ = Aᵀ Bᵀ\n\n  Aᵀ = ( 0 0 )      Bᵀ = ( 1 0 0 )\n       ( 1 0 )           ( 0 1 0 )\n       ( 0 1 )\n\n  donc (AB)ᵀ = AᵀBᵀ = ( 0 0 0 )\n                      ( 1 0 0 )\n                      ( 0 1 0 )  »",
+      "hints": [
+        "Quel est le type de AB ? Et donc celui de (AB)ᵀ ?",
+        "Comparer avec le type du résultat de l'étudiant : peut-il s'agir de la même matrice ?",
+        "La proposition 1.2.13(4) donne (AB)ᵀ = BᵀAᵀ."
+      ],
+      "solution": "(AB)ᵀ = BᵀAᵀ = ( 0 0 ; 1 0 )",
+      "expectedOutput": "L'ERREUR\n    La règle utilisée, $(AB)^T = A^T B^T$, est fausse. La proposition 1.2.13(4) dit :\n    $(AB)^T = B^T A^T$ — l'ordre s'inverse.\n\nPOURQUOI LE RÉSULTAT NE PEUT PAS ÊTRE JUSTE\n    A est $2 \\times 3$ et B est $3 \\times 2$, donc AB est $2 \\times 2$ et $(AB)^T$ aussi.\n    Or le résultat de l'étudiant est $3 \\times 3$ : ce ne peut pas être la même matrice.\n\nLA CORRECTION\n    $AB = \\begin{pmatrix} 0 & 1 \\\\ 0 & 0 \\end{pmatrix}$, donc $(AB)^T = \\begin{pmatrix} 0 & 0 \\\\ 1 & 0 \\end{pmatrix}$.\n\n    Vérification par la bonne règle :\n    $B^T A^T = \\begin{pmatrix} 1 & 0 & 0 \\\\ 0 & 1 & 0 \\end{pmatrix}\\begin{pmatrix} 0 & 0 \\\\ 1 & 0 \\\\ 0 & 1 \\end{pmatrix} = \\begin{pmatrix} 0 & 0 \\\\ 1 & 0 \\end{pmatrix}$ ✓",
+      "solutionExplanation": "Le contrôle des types est le premier réflexe à avoir : il détecte l'erreur avant tout calcul. Ici, $A^T B^T$ existe bien — mais c'est une autre matrice, de type $3 \\times 3$. Pour des matrices carrées, le contrôle des types ne suffirait pas, et seule la règle $(AB)^T = B^TA^T$ protège.",
+      "source": {
+        "file": "2026-03-MAT199-ChapI.pdf",
+        "page": 13,
+        "locator": "Proposition 1.2.13 et exemple"
+      }
+    },
+    {
+      "id": "e1-04",
+      "objectiveId": "obj1-couleurs",
+      "difficulty": 2,
+      "mode": "fill-blank",
+      "language": "text",
+      "title": "Compléter un mélange de couleurs",
+      "statement": "On mélange 40 % de cyan et 60 % de pourpre. Compléter le calcul par colonnes, puis dire si le résultat représente bien une couleur numérique.",
+      "starterCode": "Coordonnées RVB :   cyan = ( ____ , 1 , 1 )     pourpre = ( 0,6 , ____ , 1 )\n\nMélange = 0,4 · cyan + 0,6 · pourpre\n\n        = ( 0 , 1 , 1 )·____ + ( 0,6 , 0 , 1 )·0,6\n\n        = ( ____ , 0,4 , ____ )\n\nEst-ce une couleur numérique ? ____",
+      "hints": [
+        "Relire le tableau des couleurs de la définition 1.2.2.",
+        "Chaque coordonnée est une somme : 0,4 × (coordonnée du cyan) + 0,6 × (coordonnée du pourpre).",
+        "r = 0,4 × 0 + 0,6 × 0,6 ; b = 0,4 × 1 + 0,6 × 1. Une couleur exige des coordonnées entre 0 et 1."
+      ],
+      "solution": "cyan r = 0 · pourpre v = 0 · coefficient 0,4 · résultat (0,36 ; 0,4 ; 1) · oui",
+      "expectedOutput": "cyan = (0, 1, 1)          pourpre = (0,6 ; 0 ; 1)\n\nMélange = 0,4 · (0, 1, 1) + 0,6 · (0,6 ; 0 ; 1)\n\n  r = 0,4 × 0 + 0,6 × 0,6 = 0,36\n  v = 0,4 × 1 + 0,6 × 0   = 0,4\n  b = 0,4 × 1 + 0,6 × 1   = 1\n\n  = (0,36 ; 0,4 ; 1)\n\nOui : les trois coordonnées sont entre 0 et 1. Et c'est toujours le cas\nquand les pourcentages sont entre 0 et 1 et totalisent 100 %.",
+      "solutionExplanation": "Le bleu vaut exactement 1 parce que les deux couleurs mélangées sont à pleine intensité de bleu et que les pourcentages totalisent 100 %. Sous forme matricielle, c'est $\\begin{pmatrix} 0 & 0{,}6 \\\\ 1 & 0 \\\\ 1 & 1 \\end{pmatrix}\\begin{pmatrix} 0{,}4 \\\\ 0{,}6 \\end{pmatrix}$ : la proposition 1.2.8.",
+      "source": {
+        "file": "2026-03-MAT199-ChapI.pdf",
+        "page": 5,
+        "locator": "Définition 1.2.2 et tableau des couleurs"
+      }
+    },
+    {
+      "id": "e1-05",
+      "objectiveId": "obj1-proprietes",
+      "difficulty": 3,
+      "mode": "trace",
+      "language": "text",
+      "title": "AᵀA et AAᵀ sont symétriques (exercices 1.5 n° 10 et 11)",
+      "statement": "Pour A ci-dessous, calculer AᵀA et AAᵀ, vérifier qu'elles sont symétriques, puis démontrer que c'est vrai pour TOUTE matrice A.",
+      "starterCode": "A = ( 1 2 1 )\n    ( 2 3 1 )",
+      "hints": [
+        "Types d'abord : A est 2 × 3. Quel est le type de AᵀA ? de AAᵀ ?",
+        "Le (i, j)-terme de AᵀA est le produit de la colonne i de A par la colonne j de A.",
+        "Pour la preuve générale, calculer (AᵀA)ᵀ avec la règle (XY)ᵀ = YᵀXᵀ."
+      ],
+      "solution": "AᵀA = (5 8 3 ; 8 13 5 ; 3 5 2), AAᵀ = (6 9 ; 9 14), et (AᵀA)ᵀ = Aᵀ(Aᵀ)ᵀ = AᵀA.",
+      "expectedOutput": "TYPES\n    A est $2 \\times 3$ : $A^TA$ est $3 \\times 3$, $AA^T$ est $2 \\times 2$. Ce ne sont pas les mêmes matrices.\n\nCALCUL\n    $A^TA = \\begin{pmatrix} 1 & 2 \\\\ 2 & 3 \\\\ 1 & 1 \\end{pmatrix}\\begin{pmatrix} 1 & 2 & 1 \\\\ 2 & 3 & 1 \\end{pmatrix} = \\begin{pmatrix} 5 & 8 & 3 \\\\ 8 & 13 & 5 \\\\ 3 & 5 & 2 \\end{pmatrix}$\n\n    $AA^T = \\begin{pmatrix} 1 & 2 & 1 \\\\ 2 & 3 & 1 \\end{pmatrix}\\begin{pmatrix} 1 & 2 \\\\ 2 & 3 \\\\ 1 & 1 \\end{pmatrix} = \\begin{pmatrix} 6 & 9 \\\\ 9 & 14 \\end{pmatrix}$\n\n    Les deux sont en miroir par rapport à la diagonale : symétriques.\n\nPREUVE GÉNÉRALE (exercice 1.5 n° 11)\n    $(A^TA)^T = A^T (A^T)^T = A^T A$\n    $(AA^T)^T = (A^T)^T A^T = A A^T$\n    Dans les deux cas, la transposée est égale à la matrice : elles sont symétriques.",
+      "solutionExplanation": "La preuve tient en une ligne grâce à deux règles de la proposition 1.2.13 : $(XY)^T = Y^TX^T$ et $(A^T)^T = A$. Le calcul numérique n'est qu'une vérification ; c'est l'argument général qui répond à l'exercice 11. Remarquer aussi que le $(i, j)$-terme de $A^TA$ est « colonne $i$ fois colonne $j$ » : l'échanger avec « colonne $j$ fois colonne $i$ » ne change rien, ce qui est une autre façon de voir la symétrie.",
+      "source": {
+        "file": "2026-03-MAT199-ChapI.pdf",
+        "page": 31,
+        "locator": "Exercices 1.5 n° 10 et 11"
+      }
+    }
+  ]
+}

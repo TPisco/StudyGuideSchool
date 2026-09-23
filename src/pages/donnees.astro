@@ -1,0 +1,15 @@
+---
+import Base from '../layouts/Base.astro';
+import DataManager from '../components/react/DataManager';
+---
+
+<Base title="Données">
+  <header class="mb-6">
+    <h1 class="text-2xl font-bold tracking-tight sm:text-3xl">Mes données</h1>
+    <p class="mt-2 text-sm" style="color: var(--text-muted);">
+      Sauvegarder, restaurer ou transférer ma progression. Aucun compte, aucun serveur.
+    </p>
+  </header>
+
+  <DataManager client:load />
+</Base>

@@ -1,0 +1,99 @@
+{
+  "code": "DEMO-INFO",
+  "title": "Fondements de l'informatique (cours de démonstration)",
+  "term": "Automne 2026",
+  "language": "fr",
+  "accent": "indigo",
+  "sample": true,
+  "description": "Cours de démonstration servant à valider la plateforme de bout en bout. Le contenu est synthétique : il ne provient d'aucun document de professeur. Il couvre la complexité algorithmique, les structures de données linéaires et le modèle relationnel, afin d'exercer tous les types d'artefacts (notes, diagrammes, tableaux, quiz, test, exercices exécutables, cartes mémoire).",
+  "chapters": [
+    { "number": 1, "slug": "01-complexite-algorithmique", "title": "Complexité algorithmique et notation asymptotique" },
+    { "number": 2, "slug": "02-structures-lineaires", "title": "Structures de données linéaires : tableaux, listes chaînées, piles" },
+    { "number": 3, "slug": "03-modele-relationnel-sql", "title": "Le modèle relationnel et SQL" }
+  ],
+  "roadmap": {
+    "title": "Parcours d'apprentissage",
+    "steps": [
+      {
+        "id": "prereq-python",
+        "title": "Bases de la programmation impérative",
+        "description": "Variables, conditions, boucles, fonctions et listes en Python. Ce socle est supposé acquis : aucun document de ce cours ne l'enseigne.",
+        "estimatedMinutes": 180,
+        "prerequisites": [],
+        "external": true,
+        "externalNote": "Non couvert par les documents de ce cours. Réviser avec un cours d'introduction à Python (par exemple les 4 premiers chapitres d'un manuel d'initiation) avant d'attaquer le chapitre 1."
+      },
+      {
+        "id": "prereq-maths",
+        "title": "Logarithmes, puissances et sommes finies",
+        "description": "Manipulation de log₂, des puissances de 2 et de la somme 1+2+…+n. Nécessaire pour lire les calculs de complexité.",
+        "estimatedMinutes": 90,
+        "prerequisites": [],
+        "external": true,
+        "externalNote": "Non couvert par les documents de ce cours. Voir un rappel de mathématiques discrètes (sommes arithmétiques et géométriques, propriétés du logarithme)."
+      },
+      {
+        "id": "ch1",
+        "title": "Complexité algorithmique",
+        "description": "Compter les opérations élémentaires, classer un algorithme avec O, Ω et Θ, distinguer pire cas et cas moyen.",
+        "chapter": 1,
+        "estimatedMinutes": 150,
+        "prerequisites": ["prereq-python", "prereq-maths"]
+      },
+      {
+        "id": "ch1-check",
+        "title": "Point de contrôle — analyser un algorithme inconnu",
+        "description": "Être capable de donner la complexité d'un algorithme jamais vu en cours, en justifiant le comptage. Viser 80 % au test du chapitre 1.",
+        "estimatedMinutes": 40,
+        "prerequisites": ["ch1"],
+        "checkpoint": true
+      },
+      {
+        "id": "ch2",
+        "title": "Structures de données linéaires",
+        "description": "Tableau contigu, liste simplement chaînée, pile. Coût de chaque opération et conséquences sur le choix de structure.",
+        "chapter": 2,
+        "estimatedMinutes": 165,
+        "prerequisites": ["ch1-check"]
+      },
+      {
+        "id": "ch2-check",
+        "title": "Point de contrôle — choisir la bonne structure",
+        "description": "Devant un énoncé, justifier le choix entre tableau et liste chaînée à partir des coûts d'accès et d'insertion.",
+        "estimatedMinutes": 40,
+        "prerequisites": ["ch2"],
+        "checkpoint": true
+      },
+      {
+        "id": "ch3",
+        "title": "Modèle relationnel et SQL",
+        "description": "Relations, clés, intégrité référentielle, et les requêtes SELECT / JOIN / GROUP BY correspondantes.",
+        "chapter": 3,
+        "estimatedMinutes": 180,
+        "prerequisites": ["ch1"]
+      },
+      {
+        "id": "ch3-check",
+        "title": "Point de contrôle — écrire une requête à jointure et agrégat",
+        "description": "Traduire un énoncé en français vers une requête SQL correcte avec JOIN, GROUP BY et HAVING, du premier coup.",
+        "estimatedMinutes": 45,
+        "prerequisites": ["ch3"],
+        "checkpoint": true
+      },
+      {
+        "id": "revision",
+        "title": "Révision finale",
+        "description": "Examen blanc chronométré couvrant les trois chapitres, pondéré vers les objectifs faibles détectés par la plateforme.",
+        "estimatedMinutes": 120,
+        "prerequisites": ["ch1-check", "ch2-check", "ch3-check"],
+        "checkpoint": true
+      }
+    ]
+  },
+  "exam": {
+    "defaultMinutes": 90,
+    "defaultQuestionCount": 30,
+    "mirrorsPastExam": false,
+    "formatNote": "Aucun examen antérieur n'a été fourni pour ce cours de démonstration. Le format par défaut (30 questions, 90 minutes) est une convention de la plateforme, pas celui d'un vrai examen."
+  }
+}

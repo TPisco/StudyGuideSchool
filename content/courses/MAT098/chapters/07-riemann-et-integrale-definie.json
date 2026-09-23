@@ -1,0 +1,1862 @@
+{
+  "course": "MAT098",
+  "chapter": 7,
+  "concepts": [
+    {
+      "id": "c7-partition",
+      "term": "Partition régulière",
+      "definition": "Partition de $[a, b]$ dont tous les sous-intervalles ont la même longueur $\\Delta x = \\frac{b - a}{n}$.",
+      "whyItMatters": "Elle donne $x_k = a + k\\Delta x$ et rend les sommes de Riemann calculables par les formules de sommation.",
+      "commonMisconception": "Croire qu'une partition doit être régulière : la définition générale autorise des largeurs différentes.",
+      "objectiveId": "obj7-riemann",
+      "source": {
+        "file": "2-integrale_definie.pdf",
+        "page": 26,
+        "locator": "Diapositive 26"
+      }
+    },
+    {
+      "id": "c7-somme-riemann",
+      "term": "Somme de Riemann",
+      "definition": "$\\sum_{k=1}^{n} f(x_k^*)\\,\\Delta x_k$, où $x_k^*$ est un point quelconque du $k$-ième sous-intervalle.",
+      "whyItMatters": "Les sommes $\\underline{S_n}$ et $\\overline{S_n}$ en sont des cas particuliers.",
+      "commonMisconception": "Imposer $x_k^*$ au milieu ou à une extrémité : n'importe quel point du sous-intervalle convient.",
+      "objectiveId": "obj7-riemann",
+      "source": {
+        "file": "2-integrale_definie.pdf",
+        "page": 27,
+        "locator": "Diapositive 27"
+      }
+    },
+    {
+      "id": "c7-integrale",
+      "term": "Intégrale définie",
+      "definition": "$\\int_a^b f(x)\\,dx = \\lim_{n \\to \\infty,\\ \\max \\Delta x_k \\to 0} \\sum_{k=1}^{n} f(x_k^*)\\,\\Delta x_k$ ; si la limite existe, $f$ est intégrable au sens de Riemann et l'intégrale est un réel.",
+      "whyItMatters": "Toute fonction continue sur [a, b] y est intégrable.",
+      "commonMisconception": "Confondre l'intégrale définie, un nombre, avec une primitive, une fonction.",
+      "objectiveId": "obj7-definition",
+      "source": {
+        "file": "2-integrale_definie.pdf",
+        "page": 28,
+        "locator": "Diapositive 28"
+      }
+    },
+    {
+      "id": "c7-muette",
+      "term": "Variable d'intégration muette",
+      "definition": "$\\int_a^b f(x)\\,dx = \\int_a^b f(t)\\,dt = \\int_a^b f(u)\\,du$.",
+      "whyItMatters": "Le résultat ne dépend que de f, a et b, pas du nom de la variable.",
+      "commonMisconception": "Croire que $\\int_0^1 t^2\\,dt$ dépend de $t$ : c'est le nombre $\\frac13$.",
+      "objectiveId": "obj7-proprietes",
+      "source": {
+        "file": "2-integrale_definie.pdf",
+        "page": 30,
+        "locator": "Propriété 1"
+      }
+    },
+    {
+      "id": "c7-lineaire-additif",
+      "term": "Linéarité et additivité",
+      "definition": "$\\int_a^b (k_1f + k_2g) = k_1\\int_a^b f + k_2\\int_a^b g$ et $\\int_a^b f + \\int_b^c f = \\int_a^c f$.",
+      "whyItMatters": "Elles permettent de calculer une intégrale à partir d'autres, sans primitive.",
+      "commonMisconception": "Oublier d'inverser le signe en changeant l'ordre des bornes : $\\int_b^a f = -\\int_a^b f$.",
+      "objectiveId": "obj7-proprietes",
+      "source": {
+        "file": "2-integrale_definie.pdf",
+        "page": 30,
+        "locator": "Propriétés 3 à 5"
+      }
+    },
+    {
+      "id": "c7-primitive",
+      "term": "Primitive",
+      "definition": "$F$ est une primitive de $f$ si $F'(x) = f(x)$ ; deux primitives d'une même fonction diffèrent d'une constante.",
+      "whyItMatters": "Trouver une primitive suffit pour calculer une intégrale définie.",
+      "commonMisconception": "Croire qu'une fonction n'a qu'une primitive : $x^2$ et $x^2 + 5$ sont deux primitives de $2x$.",
+      "objectiveId": "obj7-tfc",
+      "source": {
+        "file": "2-integrale_definie.pdf",
+        "page": 33,
+        "locator": "Diapositives 33 et 34"
+      }
+    },
+    {
+      "id": "c7-tfc",
+      "term": "Théorème fondamental du calcul intégral",
+      "definition": "Si $f$ est continue sur $[a, b]$ et $F' = f$, alors $\\int_a^b f(x)\\,dx = F(b) - F(a)$.",
+      "whyItMatters": "Il remplace la limite d'une somme par une simple soustraction.",
+      "commonMisconception": "Calculer $F(a) - F(b)$ : l'ordre est « borne supérieure moins borne inférieure ».",
+      "objectiveId": "obj7-tfc",
+      "source": {
+        "file": "2-integrale_definie.pdf",
+        "page": 33,
+        "locator": "Diapositive 33"
+      }
+    },
+    {
+      "id": "c7-aire",
+      "term": "Intégrale et aire",
+      "definition": "Si $f$ est continue et $f(x) \\ge 0$ sur $[a, b]$, $\\int_a^b f(x)\\,dx$ est l'aire sous la courbe au-dessus de $[a, b]$.",
+      "whyItMatters": "C'est ce qui relie les rectangles du chapitre 6 à l'intégrale.",
+      "commonMisconception": "Appeler « aire » l'intégrale d'une fonction qui prend des valeurs négatives : la propriété 7 exige f ≥ 0.",
+      "objectiveId": "obj7-definition",
+      "source": {
+        "file": "2-integrale_definie.pdf",
+        "page": 35,
+        "locator": "Propriété 7"
+      }
+    }
+  ],
+  "tables": [
+    {
+      "id": "t7-proprietes",
+      "title": "Propriétés de l'intégrale définie",
+      "kind": "cheatsheet",
+      "columns": [
+        {
+          "key": "n",
+          "label": "N°"
+        },
+        {
+          "key": "prop",
+          "label": "Propriété"
+        },
+        {
+          "key": "f",
+          "label": "Formule"
+        }
+      ],
+      "rows": [
+        {
+          "n": "1",
+          "prop": "variable muette",
+          "f": "$\\int_a^b f(x)\\,dx = \\int_a^b f(t)\\,dt$"
+        },
+        {
+          "n": "2",
+          "prop": "longueur nulle",
+          "f": "$\\int_a^a f(x)\\,dx = 0$"
+        },
+        {
+          "n": "3",
+          "prop": "inversion des bornes",
+          "f": "$\\int_a^b f = -\\int_b^a f$"
+        },
+        {
+          "n": "4",
+          "prop": "linéarité",
+          "f": "$\\int_a^b (k_1f + k_2g) = k_1\\int_a^b f + k_2\\int_a^b g$"
+        },
+        {
+          "n": "5",
+          "prop": "additivité",
+          "f": "$\\int_a^b f + \\int_b^c f = \\int_a^c f$"
+        },
+        {
+          "n": "6",
+          "prop": "intégrale d'une dérivée",
+          "f": "$\\int_a^b F'(x)\\,dx = F(b) - F(a)$"
+        },
+        {
+          "n": "7",
+          "prop": "aire",
+          "f": "$f \\ge 0$ continue : $\\int_a^b f$ = aire sous la courbe"
+        }
+      ],
+      "source": {
+        "file": "2-integrale_definie.pdf",
+        "page": 30,
+        "locator": "Théorèmes 2.8 et 2.12 des notes"
+      }
+    },
+    {
+      "id": "t7-deux-chemins",
+      "title": "Deux façons de calculer ∫₀² 2x³ dx",
+      "kind": "comparison",
+      "columns": [
+        {
+          "key": "methode",
+          "label": "Méthode"
+        },
+        {
+          "key": "calcul",
+          "label": "Calcul"
+        },
+        {
+          "key": "res",
+          "label": "Résultat"
+        }
+      ],
+      "rows": [
+        {
+          "methode": "limite de sommes (chapitre 6)",
+          "calcul": "$\\lim_{n \\to \\infty} \\frac{8(n + 1)^2}{n^2}$",
+          "res": "8"
+        },
+        {
+          "methode": "théorème fondamental",
+          "calcul": "$F(x) = \\frac{x^4}{2}$ : $F(2) - F(0)$",
+          "res": "8"
+        }
+      ],
+      "source": {
+        "file": "2-integrale_definie.pdf",
+        "page": 33,
+        "locator": "Diapositive 33 ; exercice 2.4"
+      },
+      "caption": "Calculs de la plateforme, vérifiés par calcul symbolique."
+    }
+  ],
+  "quiz": {
+    "title": "Quiz — vérification rapide",
+    "estimatedMinutes": 15,
+    "questions": [
+      {
+        "id": "q7-01",
+        "objectiveId": "obj7-riemann",
+        "bloomLevel": "recall",
+        "type": "mcq",
+        "difficulty": 1,
+        "prompt": "Quand une partition est-elle régulière ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Quand tous les sous-intervalles ont la même longueur"
+          },
+          {
+            "id": "b",
+            "text": "Quand elle contient un nombre pair de points"
+          },
+          {
+            "id": "c",
+            "text": "Quand a = 0"
+          },
+          {
+            "id": "d",
+            "text": "Quand ses points sont des entiers"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Diapositive 26.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Le nombre de points ne compte pas."
+          },
+          {
+            "optionId": "c",
+            "why": "La borne inférieure peut être quelconque."
+          },
+          {
+            "optionId": "d",
+            "why": "$x_k = 2 + \\frac{8k}{n}$ n'est pas forcément entier."
+          }
+        ],
+        "source": {
+          "file": "2-integrale_definie.pdf",
+          "page": 26,
+          "locator": "Diapositive 26"
+        }
+      },
+      {
+        "id": "q7-02",
+        "objectiveId": "obj7-riemann",
+        "bloomLevel": "recall",
+        "type": "mcq",
+        "difficulty": 1,
+        "prompt": "Dans une somme de Riemann $\\sum f(x_k^*)\\,\\Delta x_k$, où est choisi $x_k^*$ ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "N'importe où dans $[x_{k-1}, x_k]$"
+          },
+          {
+            "id": "b",
+            "text": "Obligatoirement au milieu"
+          },
+          {
+            "id": "c",
+            "text": "Obligatoirement en $x_k$"
+          },
+          {
+            "id": "d",
+            "text": "En dehors du sous-intervalle"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Diapositive 27.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Le milieu est un choix possible parmi d'autres."
+          },
+          {
+            "optionId": "c",
+            "why": "C'est le choix des rectangles circonscrits (pour f croissante)."
+          },
+          {
+            "optionId": "d",
+            "why": "$x_k^* \\in [x_{k-1}, x_k]$."
+          }
+        ],
+        "source": {
+          "file": "2-integrale_definie.pdf",
+          "page": 27,
+          "locator": "Diapositive 27"
+        }
+      },
+      {
+        "id": "q7-03",
+        "objectiveId": "obj7-definition",
+        "bloomLevel": "understand",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Pourquoi la définition exige-t-elle $\\max \\Delta x_k \\to 0$ en plus de $n \\to \\infty$ ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Pour que tous les rectangles s'amincissent"
+          },
+          {
+            "id": "b",
+            "text": "Pour que l'intégrale soit positive"
+          },
+          {
+            "id": "c",
+            "text": "Parce que n → ∞ est impossible"
+          },
+          {
+            "id": "d",
+            "text": "Pour que f soit continue"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Définition 2.7 : même avec une partition non régulière, la plus grande largeur doit tendre vers 0 (explication de la plateforme).",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "L'intégrale peut être négative."
+          },
+          {
+            "optionId": "c",
+            "why": "Les deux conditions sont prises ensemble."
+          },
+          {
+            "optionId": "d",
+            "why": "La continuité est une hypothèse sur f, pas sur la partition."
+          }
+        ],
+        "source": {
+          "file": "2-integrale_definie.pdf",
+          "page": 28,
+          "locator": "Diapositive 28"
+        }
+      },
+      {
+        "id": "q7-04",
+        "objectiveId": "obj7-definition",
+        "bloomLevel": "recall",
+        "type": "true-false",
+        "difficulty": 1,
+        "prompt": "Toute fonction continue sur [a, b] est intégrable sur [a, b].",
+        "options": [
+          {
+            "id": "v",
+            "text": "Vrai"
+          },
+          {
+            "id": "f",
+            "text": "Faux"
+          }
+        ],
+        "correct": "v",
+        "explanation": "Diapositive 28.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "f",
+            "why": "C'est l'énoncé de la diapositive 28."
+          }
+        ],
+        "source": {
+          "file": "2-integrale_definie.pdf",
+          "page": 28,
+          "locator": "Diapositive 28"
+        }
+      },
+      {
+        "id": "q7-05",
+        "objectiveId": "obj7-proprietes",
+        "bloomLevel": "apply",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "$\\int_2^7 f = 9$, $\\int_2^{-1} g = -5$, $\\int_{-1}^7 g = 13$. Que vaut $\\int_2^7 (3f - 2g)$ ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "11"
+          },
+          {
+            "id": "b",
+            "text": "−9"
+          },
+          {
+            "id": "c",
+            "text": "1"
+          },
+          {
+            "id": "d",
+            "text": "37"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Additivité puis linéarité (exercice 2.9, réponse de la plateforme).",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "$\\int_2^7 g = -5 + 13 = 8$, pas $13 - (-5) = 18$."
+          },
+          {
+            "optionId": "c",
+            "why": "$3 \\cdot 9 - 2 \\cdot 13$ : il faut $\\int_2^7 g$, pas $\\int_{-1}^7 g$."
+          },
+          {
+            "optionId": "d",
+            "why": "Le signe de −2g a été perdu."
+          }
+        ],
+        "source": {
+          "file": "2-integrale_definie.pdf",
+          "page": 31,
+          "locator": "Exercice 2.9 (1.4)"
+        }
+      },
+      {
+        "id": "q7-06",
+        "objectiveId": "obj7-proprietes",
+        "bloomLevel": "apply",
+        "type": "mcq",
+        "difficulty": 1,
+        "prompt": "Si $\\int_0^3 x^2\\,dx = 9$, que vaut $\\int_3^0 x^2\\,dx$ ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "−9"
+          },
+          {
+            "id": "b",
+            "text": "9"
+          },
+          {
+            "id": "c",
+            "text": "0"
+          },
+          {
+            "id": "d",
+            "text": "1/9"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Propriété 3.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Inverser les bornes change le signe."
+          },
+          {
+            "optionId": "c",
+            "why": "C'est $\\int_a^a$ qui vaut 0."
+          },
+          {
+            "optionId": "d",
+            "why": "On change le signe, on n'inverse pas le nombre."
+          }
+        ],
+        "source": {
+          "file": "2-integrale_definie.pdf",
+          "page": 30,
+          "locator": "Propriété 3"
+        }
+      },
+      {
+        "id": "q7-07",
+        "objectiveId": "obj7-proprietes",
+        "bloomLevel": "apply",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "$\\int_0^5 f = 10$ et $\\int_3^5 f = 4$. Que vaut $\\int_0^3 f$ ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "6"
+          },
+          {
+            "id": "b",
+            "text": "14"
+          },
+          {
+            "id": "c",
+            "text": "−6"
+          },
+          {
+            "id": "d",
+            "text": "40"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Additivité (exemple de la plateforme).",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "On soustrait : ∫₀³ f + ∫₃⁵ f = ∫₀⁵ f."
+          },
+          {
+            "optionId": "c",
+            "why": "$\\int_0^3 f = 10 - 4 > 0$."
+          },
+          {
+            "optionId": "d",
+            "why": "L'additivité ne multiplie pas."
+          }
+        ],
+        "source": {
+          "file": "2-integrale_definie.pdf",
+          "page": 30,
+          "locator": "Propriété 5"
+        }
+      },
+      {
+        "id": "q7-08",
+        "objectiveId": "obj7-tfc",
+        "bloomLevel": "recall",
+        "type": "mcq",
+        "difficulty": 1,
+        "prompt": "Que dit le théorème fondamental du calcul intégral ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Si $f$ est continue et $F' = f$, $\\int_a^b f(x)\\,dx = F(b) - F(a)$"
+          },
+          {
+            "id": "b",
+            "text": "$\\int_a^b f(x)\\,dx = F(a) - F(b)$"
+          },
+          {
+            "id": "c",
+            "text": "$\\int_a^b f(x)\\,dx = f(b) - f(a)$"
+          },
+          {
+            "id": "d",
+            "text": "$\\int_a^b f(x)\\,dx = F'(b) - F'(a)$"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Diapositive 33 (théorème 2.10 des notes).",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "L'ordre est inversé."
+          },
+          {
+            "optionId": "c",
+            "why": "On évalue une primitive, pas f elle-même."
+          },
+          {
+            "optionId": "d",
+            "why": "$F' = f$ : ce serait $f(b) - f(a)$."
+          }
+        ],
+        "source": {
+          "file": "2-integrale_definie.pdf",
+          "page": 33,
+          "locator": "Diapositive 33"
+        }
+      },
+      {
+        "id": "q7-09",
+        "objectiveId": "obj7-tfc",
+        "bloomLevel": "apply",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Avec $F(x) = x^2$, que vaut $\\int_1^3 2x\\,dx$ ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "8"
+          },
+          {
+            "id": "b",
+            "text": "4"
+          },
+          {
+            "id": "c",
+            "text": "10"
+          },
+          {
+            "id": "d",
+            "text": "−8"
+          }
+        ],
+        "correct": "a",
+        "explanation": "$F(3) - F(1) = 9 - 1$ (exemple de la plateforme).",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "C'est $3 - 1$ multiplié par 2 : on évalue $F$, pas $x$."
+          },
+          {
+            "optionId": "c",
+            "why": "$F(3) + F(1)$ : il faut soustraire."
+          },
+          {
+            "optionId": "d",
+            "why": "F(b) − F(a), pas F(a) − F(b)."
+          }
+        ],
+        "source": {
+          "file": "2-integrale_definie.pdf",
+          "page": 33,
+          "locator": "Diapositive 33"
+        }
+      },
+      {
+        "id": "q7-10",
+        "objectiveId": "obj7-tfc",
+        "bloomLevel": "analyze",
+        "type": "mcq",
+        "difficulty": 3,
+        "prompt": "$F$ et $G$ sont deux primitives de $f$ sur $[a, b]$. Que peut-on dire de $F(b) - F(a)$ et $G(b) - G(a)$ ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Ils sont égaux, car G = F + C"
+          },
+          {
+            "id": "b",
+            "text": "Ils diffèrent de la constante C"
+          },
+          {
+            "id": "c",
+            "text": "Ils diffèrent de 2C"
+          },
+          {
+            "id": "d",
+            "text": "On ne peut rien dire"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Théorème 2.11 : (F(b) + C) − (F(a) + C) = F(b) − F(a).",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "La constante s'annule dans la différence."
+          },
+          {
+            "optionId": "c",
+            "why": "C s'ajoute aux deux valeurs puis se soustrait."
+          },
+          {
+            "optionId": "d",
+            "why": "Le théorème 2.11 relie F et G."
+          }
+        ],
+        "source": {
+          "file": "2-integrale_definie.pdf",
+          "page": 34,
+          "locator": "Diapositive 34"
+        }
+      },
+      {
+        "id": "q7-11",
+        "objectiveId": "obj7-definition",
+        "bloomLevel": "understand",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "$\\int_0^2 2x^3\\,dx = 8$ et $2x^3 \\ge 0$ sur $[0, 2]$. Que représente ce 8 ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "L'aire de la surface sous la courbe au-dessus de [0, 2]"
+          },
+          {
+            "id": "b",
+            "text": "La pente de la courbe en x = 2"
+          },
+          {
+            "id": "c",
+            "text": "La valeur maximale de la fonction"
+          },
+          {
+            "id": "d",
+            "text": "Une primitive de $2x^3$"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Propriété 7 (théorème 2.12 des notes).",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "C'est la dérivée qui donne une pente."
+          },
+          {
+            "optionId": "c",
+            "why": "$f(2) = 16$."
+          },
+          {
+            "optionId": "d",
+            "why": "Une intégrale définie est un nombre, pas une fonction."
+          }
+        ],
+        "source": {
+          "file": "2-integrale_definie.pdf",
+          "page": 35,
+          "locator": "Propriété 7"
+        }
+      },
+      {
+        "id": "q7-12",
+        "objectiveId": "obj7-tfc",
+        "bloomLevel": "analyze",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Quel est l'avantage du théorème fondamental sur la définition par la limite ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Il remplace la limite d'une somme par F(b) − F(a)"
+          },
+          {
+            "id": "b",
+            "text": "Il donne une valeur approchée plus rapide"
+          },
+          {
+            "id": "c",
+            "text": "Il ne s'applique qu'aux polynômes"
+          },
+          {
+            "id": "d",
+            "text": "Il évite de connaître les bornes"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Diapositives 32 et 33.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Il donne la valeur exacte."
+          },
+          {
+            "optionId": "c",
+            "why": "Il s'applique à toute fonction continue dont on connaît une primitive."
+          },
+          {
+            "optionId": "d",
+            "why": "Les bornes restent indispensables."
+          }
+        ],
+        "source": {
+          "file": "2-integrale_definie.pdf",
+          "page": 32,
+          "locator": "Diapositives 32 et 33"
+        }
+      }
+    ]
+  },
+  "test": {
+    "title": "Test du chapitre 7",
+    "instructions": "21 questions couvrant tout le chapitre. Plus long et plus difficile que le quiz.",
+    "estimatedMinutes": 45,
+    "questions": [
+      {
+        "id": "t7-01",
+        "objectiveId": "obj7-riemann",
+        "bloomLevel": "recall",
+        "type": "mcq",
+        "difficulty": 1,
+        "prompt": "Que vaut $\\Delta x$ pour une partition régulière de $[a, b]$ en $n$ sous-intervalles ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "$\\frac{b - a}{n}$"
+          },
+          {
+            "id": "b",
+            "text": "$\\frac{a - b}{n}$"
+          },
+          {
+            "id": "c",
+            "text": "$n(b - a)$"
+          },
+          {
+            "id": "d",
+            "text": "$\\frac{b - a}{n - 1}$"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Diapositive 26.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "La largeur est positive : b − a."
+          },
+          {
+            "optionId": "c",
+            "why": "On partage, on ne multiplie pas."
+          },
+          {
+            "optionId": "d",
+            "why": "Il y a n sous-intervalles, donc on divise par n."
+          }
+        ],
+        "source": {
+          "file": "2-integrale_definie.pdf",
+          "page": 26,
+          "locator": "Diapositive 26"
+        }
+      },
+      {
+        "id": "t7-02",
+        "objectiveId": "obj7-riemann",
+        "bloomLevel": "understand",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Les sommes $\\underline{S_n}$ et $\\overline{S_n}$ du chapitre 6 sont-elles des sommes de Riemann ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Oui : ce sont les choix $x_k^* = x_{k-1}$ et $x_k^* = x_k$"
+          },
+          {
+            "id": "b",
+            "text": "Non : une somme de Riemann exige x*ₖ au milieu"
+          },
+          {
+            "id": "c",
+            "text": "Seulement la somme inscrite"
+          },
+          {
+            "id": "d",
+            "text": "Non : elles ne sont pas des limites"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Diapositive 27.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Tout point du sous-intervalle convient."
+          },
+          {
+            "optionId": "c",
+            "why": "Les deux choix sont des points du sous-intervalle."
+          },
+          {
+            "optionId": "d",
+            "why": "Une somme de Riemann n'est pas une limite ; l'intégrale, oui."
+          }
+        ],
+        "source": {
+          "file": "2-integrale_definie.pdf",
+          "page": 27,
+          "locator": "Diapositive 27"
+        }
+      },
+      {
+        "id": "t7-03",
+        "objectiveId": "obj7-riemann",
+        "bloomLevel": "apply",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Somme de Riemann de $f(x) = x^2$ sur $[0, 3]$ avec $n$ sous-intervalles égaux et $x_k^* = x_k$ :",
+        "options": [
+          {
+            "id": "a",
+            "text": "$\\sum_{k=1}^{n} \\left(\\frac{3k}{n}\\right)^2 \\frac{3}{n}$"
+          },
+          {
+            "id": "b",
+            "text": "$\\sum_{k=1}^{n} \\left(\\frac{3k}{n}\\right)^2$"
+          },
+          {
+            "id": "c",
+            "text": "$\\sum_{k=1}^{n} \\left(\\frac{k}{n}\\right)^2 \\frac{3}{n}$"
+          },
+          {
+            "id": "d",
+            "text": "$\\sum_{k=0}^{n} \\left(\\frac{3k}{n}\\right)^2 \\frac{3}{n}$"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Exemple de la plateforme ; sa limite vaut 9.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Il manque la largeur $\\Delta x = \\frac3n$."
+          },
+          {
+            "optionId": "c",
+            "why": "$x_k = \\frac{3k}{n}$, pas $\\frac{k}{n}$."
+          },
+          {
+            "optionId": "d",
+            "why": "Avec x*ₖ = xₖ, la somme va de 1 à n."
+          }
+        ],
+        "source": {
+          "file": "2-integrale_definie.pdf",
+          "page": 27,
+          "locator": "Diapositive 27"
+        }
+      },
+      {
+        "id": "t7-04",
+        "objectiveId": "obj7-definition",
+        "bloomLevel": "apply",
+        "type": "mcq",
+        "difficulty": 3,
+        "prompt": "Cette somme vaut $\\frac{9(n + 1)(2n + 1)}{2n^2}$. Que vaut $\\int_0^3 x^2\\,dx$ ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "9"
+          },
+          {
+            "id": "b",
+            "text": "18"
+          },
+          {
+            "id": "c",
+            "text": "$\\frac92$"
+          },
+          {
+            "id": "d",
+            "text": "$\\infty$"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Définition 2.7 ; calcul de la plateforme, confirmé par F(x) = x³/3.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "$\\frac{(n + 1)(2n + 1)}{n^2} \\to 2$, et $\\frac{9 \\cdot 2}{2} = 9$."
+          },
+          {
+            "optionId": "c",
+            "why": "$\\frac{(n + 1)(2n + 1)}{n^2}$ tend vers 2, pas vers 1."
+          },
+          {
+            "optionId": "d",
+            "why": "Numérateur et dénominateur sont de degré 2."
+          }
+        ],
+        "source": {
+          "file": "2-integrale_definie.pdf",
+          "page": 28,
+          "locator": "Diapositive 28"
+        }
+      },
+      {
+        "id": "t7-05",
+        "objectiveId": "obj7-definition",
+        "bloomLevel": "understand",
+        "type": "true-false",
+        "difficulty": 1,
+        "prompt": "L'intégrale définie d'une fonction intégrable est un nombre réel.",
+        "options": [
+          {
+            "id": "v",
+            "text": "Vrai"
+          },
+          {
+            "id": "f",
+            "text": "Faux"
+          }
+        ],
+        "correct": "v",
+        "explanation": "Diapositive 28.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "f",
+            "why": "Une primitive est une fonction ; une intégrale définie est un nombre."
+          }
+        ],
+        "source": {
+          "file": "2-integrale_definie.pdf",
+          "page": 28,
+          "locator": "Diapositive 28"
+        }
+      },
+      {
+        "id": "t7-06",
+        "objectiveId": "obj7-definition",
+        "bloomLevel": "recall",
+        "type": "mcq",
+        "difficulty": 1,
+        "prompt": "Dans $\\int_a^b f(x)\\,dx$, comment s'appellent $a$ et $b$ ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "La borne inférieure et la borne supérieure"
+          },
+          {
+            "id": "b",
+            "text": "Les zéros de f"
+          },
+          {
+            "id": "c",
+            "text": "La primitive et la dérivée"
+          },
+          {
+            "id": "d",
+            "text": "Les sous-intervalles"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Diapositive 28.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Ce sont les extrémités de l'intervalle d'intégration."
+          },
+          {
+            "optionId": "c",
+            "why": "a et b sont des nombres."
+          },
+          {
+            "optionId": "d",
+            "why": "Les sous-intervalles viennent de la partition."
+          }
+        ],
+        "source": {
+          "file": "2-integrale_definie.pdf",
+          "page": 28,
+          "locator": "Diapositive 28"
+        }
+      },
+      {
+        "id": "t7-07",
+        "objectiveId": "obj7-proprietes",
+        "bloomLevel": "recall",
+        "type": "mcq",
+        "difficulty": 1,
+        "prompt": "Que vaut $\\int_a^a f(x)\\,dx$ ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "0"
+          },
+          {
+            "id": "b",
+            "text": "f(a)"
+          },
+          {
+            "id": "c",
+            "text": "F(a)"
+          },
+          {
+            "id": "d",
+            "text": "Elle n'est pas définie"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Propriété 2.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "L'intervalle est de longueur nulle."
+          },
+          {
+            "optionId": "c",
+            "why": "F(a) − F(a) = 0."
+          },
+          {
+            "optionId": "d",
+            "why": "Elle est définie et vaut 0."
+          }
+        ],
+        "source": {
+          "file": "2-integrale_definie.pdf",
+          "page": 30,
+          "locator": "Propriété 2"
+        }
+      },
+      {
+        "id": "t7-08",
+        "objectiveId": "obj7-proprietes",
+        "bloomLevel": "understand",
+        "type": "mcq",
+        "difficulty": 1,
+        "prompt": "$\\int_0^1 t^2\\,dt$ et $\\int_0^1 u^2\\,du$ sont…",
+        "options": [
+          {
+            "id": "a",
+            "text": "égales : la variable d'intégration est muette"
+          },
+          {
+            "id": "b",
+            "text": "différentes, car t ≠ u"
+          },
+          {
+            "id": "c",
+            "text": "des fonctions de t et de u"
+          },
+          {
+            "id": "d",
+            "text": "égales seulement si t = u"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Propriété 1.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Le nom de la variable ne change rien."
+          },
+          {
+            "optionId": "c",
+            "why": "Ce sont des nombres."
+          },
+          {
+            "optionId": "d",
+            "why": "Elles sont toujours égales."
+          }
+        ],
+        "source": {
+          "file": "2-integrale_definie.pdf",
+          "page": 30,
+          "locator": "Propriété 1"
+        }
+      },
+      {
+        "id": "t7-09",
+        "objectiveId": "obj7-proprietes",
+        "bloomLevel": "apply",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Si $\\int_0^1 f(x)\\,dx = 3$, que vaut $\\int_0^1 \\big(2f(x) + 5\\big)\\,dx$ ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "11"
+          },
+          {
+            "id": "b",
+            "text": "6"
+          },
+          {
+            "id": "c",
+            "text": "30"
+          },
+          {
+            "id": "d",
+            "text": "16"
+          }
+        ],
+        "correct": "a",
+        "explanation": "$2 \\cdot 3 + 5 \\cdot 1$ (propriété 4 ; exemple de la plateforme).",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Il manque l'intégrale de la constante 5 sur [0, 1]."
+          },
+          {
+            "optionId": "c",
+            "why": "La linéarité ne multiplie pas les deux termes."
+          },
+          {
+            "optionId": "d",
+            "why": "$\\int_0^1 5\\,dx = 5$, pas 10."
+          }
+        ],
+        "source": {
+          "file": "2-integrale_definie.pdf",
+          "page": 30,
+          "locator": "Propriété 4"
+        }
+      },
+      {
+        "id": "t7-10",
+        "objectiveId": "obj7-proprietes",
+        "bloomLevel": "apply",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Dans l'exercice 2.9, que vaut $\\int_2^7 g(x)\\,dx$ ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "8"
+          },
+          {
+            "id": "b",
+            "text": "18"
+          },
+          {
+            "id": "c",
+            "text": "13"
+          },
+          {
+            "id": "d",
+            "text": "−8"
+          }
+        ],
+        "correct": "a",
+        "explanation": "$\\int_2^{-1} g + \\int_{-1}^7 g = -5 + 13$ (additivité ; réponse de la plateforme).",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "$\\int_2^{-1} g = -5$ s'ajoute avec son signe."
+          },
+          {
+            "optionId": "c",
+            "why": "C'est $\\int_{-1}^7 g$."
+          },
+          {
+            "optionId": "d",
+            "why": "$-5 + 13 = 8$."
+          }
+        ],
+        "source": {
+          "file": "2-integrale_definie.pdf",
+          "page": 31,
+          "locator": "Exercice 2.9 (1.4)"
+        }
+      },
+      {
+        "id": "t7-11",
+        "objectiveId": "obj7-proprietes",
+        "bloomLevel": "analyze",
+        "type": "mcq",
+        "difficulty": 3,
+        "prompt": "Un étudiant écrit $\\int_2^7 g = \\int_{-1}^7 g - \\int_{-1}^2 g = 13 - (-5) = 18$. Où est l'erreur ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "$\\int_{-1}^2 g = +5$, pas $-5$ : les bornes de la donnée sont inversées"
+          },
+          {
+            "id": "b",
+            "text": "L'additivité ne s'applique pas ici"
+          },
+          {
+            "id": "c",
+            "text": "Il fallait additionner $\\int_{-1}^7 g$ et $\\int_{-1}^2 g$"
+          },
+          {
+            "id": "d",
+            "text": "Aucune erreur"
+          }
+        ],
+        "correct": "a",
+        "explanation": "On connaît $\\int_2^{-1} g = -5$, donc $\\int_{-1}^2 g = 5$ (propriété 3), et $\\int_2^7 g = 13 - 5 = 8$.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Elle s'applique ; c'est la valeur utilisée qui est fausse."
+          },
+          {
+            "optionId": "c",
+            "why": "La soustraction est correcte avec la bonne valeur."
+          },
+          {
+            "optionId": "d",
+            "why": "La bonne valeur est $13 - 5 = 8$."
+          }
+        ],
+        "source": {
+          "file": "2-integrale_definie.pdf",
+          "page": 31,
+          "locator": "Exercice 2.9 (1.4)"
+        }
+      },
+      {
+        "id": "t7-12",
+        "objectiveId": "obj7-tfc",
+        "bloomLevel": "recall",
+        "type": "mcq",
+        "difficulty": 1,
+        "prompt": "Qu'est-ce qu'une primitive de f ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Une fonction $F$ telle que $F'(x) = f(x)$"
+          },
+          {
+            "id": "b",
+            "text": "La dérivée de $f$"
+          },
+          {
+            "id": "c",
+            "text": "L'intégrale définie de $f$ sur $[a, b]$"
+          },
+          {
+            "id": "d",
+            "text": "Une fonction $F$ telle que $F(x) = f'(x)$"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Diapositive 33.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "C'est l'opération inverse."
+          },
+          {
+            "optionId": "c",
+            "why": "C'est un nombre, pas une fonction."
+          },
+          {
+            "optionId": "d",
+            "why": "C'est la dérivée de f."
+          }
+        ],
+        "source": {
+          "file": "2-integrale_definie.pdf",
+          "page": 33,
+          "locator": "Diapositive 33"
+        }
+      },
+      {
+        "id": "t7-13",
+        "objectiveId": "obj7-tfc",
+        "bloomLevel": "understand",
+        "type": "true-false",
+        "difficulty": 2,
+        "prompt": "Une fonction donnée possède une seule primitive.",
+        "options": [
+          {
+            "id": "v",
+            "text": "Vrai"
+          },
+          {
+            "id": "f",
+            "text": "Faux"
+          }
+        ],
+        "correct": "f",
+        "explanation": "Diapositive 34 : une fonction possède plus d'une primitive ; deux primitives diffèrent d'une constante (théorème 2.11).",
+        "perDistractorExplanation": [
+          {
+            "optionId": "v",
+            "why": "$x^2$ et $x^2 + 5$ sont deux primitives de $2x$."
+          }
+        ],
+        "source": {
+          "file": "2-integrale_definie.pdf",
+          "page": 34,
+          "locator": "Diapositive 34"
+        }
+      },
+      {
+        "id": "t7-14",
+        "objectiveId": "obj7-tfc",
+        "bloomLevel": "apply",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Avec la primitive $F(x) = x^3 + x$, que vaut $\\int_1^2 (3x^2 + 1)\\,dx$ ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "8"
+          },
+          {
+            "id": "b",
+            "text": "10"
+          },
+          {
+            "id": "c",
+            "text": "12"
+          },
+          {
+            "id": "d",
+            "text": "9"
+          }
+        ],
+        "correct": "a",
+        "explanation": "$F(2) - F(1) = 10 - 2$ (exemple de la plateforme).",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "C'est $F(2)$ seul ; il faut soustraire $F(1) = 2$."
+          },
+          {
+            "optionId": "c",
+            "why": "$F(2) + F(1)$ : il faut soustraire."
+          },
+          {
+            "optionId": "d",
+            "why": "C'est $f(2) - f(1) = 13 - 4$ : on évalue $F$, pas $f$."
+          }
+        ],
+        "source": {
+          "file": "2-integrale_definie.pdf",
+          "page": 33,
+          "locator": "Diapositive 33"
+        }
+      },
+      {
+        "id": "t7-15",
+        "objectiveId": "obj7-tfc",
+        "bloomLevel": "apply",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Que vaut $\\int_0^2 2x^3\\,dx$ par le théorème fondamental ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "8"
+          },
+          {
+            "id": "b",
+            "text": "16"
+          },
+          {
+            "id": "c",
+            "text": "32"
+          },
+          {
+            "id": "d",
+            "text": "4"
+          }
+        ],
+        "correct": "a",
+        "explanation": "$F(x) = \\frac{x^4}{2}$ ; $F(2) - F(0) = 8$ — la valeur trouvée au chapitre 6 par les rectangles.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "C'est $f(2)$."
+          },
+          {
+            "optionId": "c",
+            "why": "$F(x) = \\frac{x^4}{2}$, pas $2x^4$."
+          },
+          {
+            "optionId": "d",
+            "why": "$\\frac{2^4}{2} = 8$."
+          }
+        ],
+        "source": {
+          "file": "2-integrale_definie.pdf",
+          "page": 33,
+          "locator": "Diapositive 33 ; exercice 2.4"
+        }
+      },
+      {
+        "id": "t7-16",
+        "objectiveId": "obj7-tfc",
+        "bloomLevel": "understand",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Que vaut $\\int_a^b F'(x)\\,dx$ si $F'$ est continue ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "$F(b) - F(a)$"
+          },
+          {
+            "id": "b",
+            "text": "$F'(b) - F'(a)$"
+          },
+          {
+            "id": "c",
+            "text": "$F''(b) - F''(a)$"
+          },
+          {
+            "id": "d",
+            "text": "0"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Propriété 6 (théorème 2.12 des notes).",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "On intègre F′ : on revient à F."
+          },
+          {
+            "optionId": "c",
+            "why": "L'intégrale défait la dérivée, elle ne dérive pas."
+          },
+          {
+            "optionId": "d",
+            "why": "Seulement si F(b) = F(a)."
+          }
+        ],
+        "source": {
+          "file": "2-integrale_definie.pdf",
+          "page": 35,
+          "locator": "Propriété 6"
+        }
+      },
+      {
+        "id": "t7-17",
+        "objectiveId": "obj7-definition",
+        "bloomLevel": "analyze",
+        "type": "mcq",
+        "difficulty": 3,
+        "prompt": "Quelle condition la propriété 7 exige-t-elle pour lire $\\int_a^b f(x)\\,dx$ comme une aire ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "$f$ continue et $f(x) \\ge 0$ sur $[a, b]$"
+          },
+          {
+            "id": "b",
+            "text": "$f$ croissante sur $[a, b]$"
+          },
+          {
+            "id": "c",
+            "text": "$a = 0$"
+          },
+          {
+            "id": "d",
+            "text": "$f$ dérivable"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Propriété 7.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "La croissance servait aux rectangles inscrits, pas ici."
+          },
+          {
+            "optionId": "c",
+            "why": "La borne inférieure peut être quelconque."
+          },
+          {
+            "optionId": "d",
+            "why": "La propriété demande la continuité et le signe."
+          }
+        ],
+        "source": {
+          "file": "2-integrale_definie.pdf",
+          "page": 35,
+          "locator": "Propriété 7"
+        }
+      },
+      {
+        "id": "t7-18",
+        "objectiveId": "obj7-proprietes",
+        "bloomLevel": "understand",
+        "type": "multi",
+        "difficulty": 2,
+        "prompt": "Lesquelles sont des propriétés de l'intégrale définie ? (plusieurs réponses)",
+        "options": [
+          {
+            "id": "a",
+            "text": "$\\int_a^b f = -\\int_b^a f$"
+          },
+          {
+            "id": "b",
+            "text": "$\\int_a^b f + \\int_b^c f = \\int_a^c f$"
+          },
+          {
+            "id": "c",
+            "text": "$\\int_a^b kf = k\\int_a^b f$"
+          },
+          {
+            "id": "d",
+            "text": "$\\int_a^b fg = \\int_a^b f \\cdot \\int_a^b g$"
+          },
+          {
+            "id": "e",
+            "text": "$\\int_a^b \\frac{f}{g} = \\frac{\\int_a^b f}{\\int_a^b g}$"
+          }
+        ],
+        "correct": [
+          "a",
+          "b",
+          "c"
+        ],
+        "explanation": "Théorème 2.8 des notes, propriétés 3 à 5.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "d",
+            "why": "Aucune propriété ne porte sur le produit."
+          },
+          {
+            "optionId": "e",
+            "why": "Aucune propriété ne porte sur le quotient."
+          }
+        ],
+        "source": {
+          "file": "2-integrale_definie.pdf",
+          "page": 30,
+          "locator": "Propriétés 3 à 5"
+        }
+      },
+      {
+        "id": "t7-19",
+        "objectiveId": "obj7-tfc",
+        "bloomLevel": "recall",
+        "type": "fill-blank",
+        "difficulty": 1,
+        "prompt": "Compléter : si $F'(x) = G'(x)$ sur $]a, b[$, alors $F(x) = G(x) + $ ____, une constante.",
+        "correct": "C",
+        "acceptableAnswers": [
+          "c",
+          "une constante"
+        ],
+        "explanation": "Théorème 2.11.",
+        "source": {
+          "file": "2-integrale_definie.pdf",
+          "page": 34,
+          "locator": "Diapositive 34"
+        }
+      },
+      {
+        "id": "t7-20",
+        "objectiveId": "obj7-tfc",
+        "bloomLevel": "analyze",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Pourquoi le cours dit-il que la définition par la limite devient « impraticable » ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Parce qu'il faut une formule de somme pour chaque fonction, ce qui n'existe pas en général"
+          },
+          {
+            "id": "b",
+            "text": "Parce que la limite n'existe pas pour les fonctions continues"
+          },
+          {
+            "id": "c",
+            "text": "Parce que les partitions régulières sont interdites"
+          },
+          {
+            "id": "d",
+            "text": "Parce qu'elle donne des résultats faux"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Diapositive 32 ; justification de la plateforme (il faut sommer f(xₖ) sous forme close).",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Elle existe : toute fonction continue est intégrable."
+          },
+          {
+            "optionId": "c",
+            "why": "Elles sont autorisées."
+          },
+          {
+            "optionId": "d",
+            "why": "Elle donne le résultat exact, mais difficilement."
+          }
+        ],
+        "source": {
+          "file": "2-integrale_definie.pdf",
+          "page": 32,
+          "locator": "Diapositive 32"
+        }
+      },
+      {
+        "id": "t7-21",
+        "objectiveId": "obj7-proprietes",
+        "bloomLevel": "apply",
+        "type": "short-answer",
+        "difficulty": 2,
+        "prompt": "$\\int_0^3 x^2\\,dx = 9$. Que vaut $\\int_0^3 (x^2 - 3)\\,dx$ ?",
+        "correct": "0",
+        "acceptableAnswers": [],
+        "explanation": "$9 - 3 \\cdot 3 = 0$ par linéarité (exemple de la plateforme).",
+        "source": {
+          "file": "2-integrale_definie.pdf",
+          "page": 30,
+          "locator": "Propriété 4"
+        }
+      }
+    ]
+  },
+  "flashcards": [
+    {
+      "id": "f7-01",
+      "objectiveId": "obj7-riemann",
+      "front": "Partition régulière ?",
+      "back": "Sous-intervalles de même longueur $\\Delta x = \\frac{b - a}{n}$."
+    },
+    {
+      "id": "f7-02",
+      "objectiveId": "obj7-riemann",
+      "front": "Somme de Riemann ?",
+      "back": "$\\sum_{k=1}^{n} f(x_k^*)\\,\\Delta x_k$, $x_k^* \\in [x_{k-1}, x_k]$."
+    },
+    {
+      "id": "f7-03",
+      "objectiveId": "obj7-definition",
+      "front": "Définition de l'intégrale définie ?",
+      "back": "Limite des sommes de Riemann quand $n \\to \\infty$ et $\\max \\Delta x_k \\to 0$."
+    },
+    {
+      "id": "f7-04",
+      "objectiveId": "obj7-definition",
+      "front": "Continue ⟹ ?",
+      "back": "Intégrable sur [a, b]."
+    },
+    {
+      "id": "f7-05",
+      "objectiveId": "obj7-proprietes",
+      "front": "$\\int_a^b f$ en fonction de $\\int_b^a f$ ?",
+      "back": "$-\\int_b^a f$."
+    },
+    {
+      "id": "f7-06",
+      "objectiveId": "obj7-proprietes",
+      "front": "Additivité ?",
+      "back": "$\\int_a^b f + \\int_b^c f = \\int_a^c f$."
+    },
+    {
+      "id": "f7-07",
+      "objectiveId": "obj7-proprietes",
+      "front": "Linéarité ?",
+      "back": "$\\int (k_1f + k_2g) = k_1\\int f + k_2\\int g$."
+    },
+    {
+      "id": "f7-08",
+      "objectiveId": "obj7-tfc",
+      "front": "Primitive ?",
+      "back": "$F$ telle que $F' = f$."
+    },
+    {
+      "id": "f7-09",
+      "objectiveId": "obj7-tfc",
+      "front": "Théorème fondamental ?",
+      "back": "$\\int_a^b f(x)\\,dx = F(b) - F(a)$."
+    },
+    {
+      "id": "f7-10",
+      "objectiveId": "obj7-tfc",
+      "front": "Deux primitives de f ?",
+      "back": "Elles diffèrent d'une constante."
+    },
+    {
+      "id": "f7-11",
+      "objectiveId": "obj7-definition",
+      "front": "Intégrale = aire quand ?",
+      "back": "f continue et f ≥ 0 sur [a, b]."
+    },
+    {
+      "id": "f7-12",
+      "objectiveId": "obj7-proprietes",
+      "front": "Exercice 2.9 : ∫₂⁷(3f − 2g) ?",
+      "back": "3 · 9 − 2 · 8 = 11."
+    }
+  ],
+  "exercises": [
+    {
+      "id": "e7-01",
+      "objectiveId": "obj7-proprietes",
+      "difficulty": 2,
+      "mode": "trace",
+      "language": "text",
+      "title": "Combiner des intégrales connues (exercice 2.9, ou 1.4)",
+      "statement": "f et g sont intégrables sur [−1, 7], avec ∫₂⁷ f dx = 9, ∫₂⁻¹ g dx = −5 et ∫₋₁⁷ g dx = 13. Déterminer ∫₂⁷ (3f(x) − 2g(x)) dx en nommant chaque propriété utilisée.",
+      "starterCode": "∫₂⁷ f = 9    ∫₂⁻¹ g = −5    ∫₋₁⁷ g = 13",
+      "hints": [
+        "Il manque ∫₂⁷ g : l'obtenir par additivité en passant par −1.",
+        "∫₂⁷ g = ∫₂⁻¹ g + ∫₋₁⁷ g.",
+        "Puis linéarité : 3 ∫ f − 2 ∫ g."
+      ],
+      "solution": "11",
+      "expectedOutput": "1) Additivité (propriété 5) : ∫₂⁷ g = ∫₂⁻¹ g + ∫₋₁⁷ g = −5 + 13 = 8\n2) Linéarité (propriété 4) : ∫₂⁷ (3f − 2g) = 3 ∫₂⁷ f − 2 ∫₂⁷ g = 27 − 16 = 11",
+      "solutionExplanation": "L'additivité s'applique même si la borne intermédiaire −1 n'est pas entre 2 et 7. Réponse de la plateforme.",
+      "source": {
+        "file": "2-integrale_definie.pdf",
+        "page": 31,
+        "locator": "Exercice 2.9 (1.4)"
+      }
+    },
+    {
+      "id": "e7-02",
+      "objectiveId": "obj7-definition",
+      "difficulty": 3,
+      "mode": "trace",
+      "language": "text",
+      "title": "De la somme de Riemann à l'intégrale",
+      "statement": "Pour f(x) = x² sur [0, 3], écrire la somme de Riemann avec n sous-intervalles égaux et x*ₖ = xₖ, la simplifier avec la formule des carrés, puis calculer ∫₀³ x² dx comme limite. Vérifier avec le théorème fondamental.",
+      "starterCode": "f(x) = x² sur [0, 3]",
+      "hints": [
+        "Δx = 3/n et xₖ = 3k/n.",
+        "Σ (3k/n)² (3/n) = (27/n³) Σ k².",
+        "Vérification : F(x) = x³/3."
+      ],
+      "solution": "9",
+      "expectedOutput": "Δx = 3/n,  xₖ = 3k/n\nSₙ = Σ_{k=1}^{n} (9k²/n²)(3/n) = (27/n³) · n(n + 1)(2n + 1)/6 = 9(n + 1)(2n + 1)/(2n²)\nlim_{n→∞} Sₙ = 9 · 2/2 = 9\n\nThéorème fondamental : F(x) = x³/3,  F(3) − F(0) = 9 − 0 = 9",
+      "solutionExplanation": "Les deux méthodes donnent 9 ; la seconde tient en une ligne, ce qui montre l'intérêt du théorème fondamental. Exemple de la plateforme, vérifié par calcul symbolique.",
+      "source": {
+        "file": "2-integrale_definie.pdf",
+        "page": 28,
+        "locator": "Diapositives 28 et 33"
+      }
+    },
+    {
+      "id": "e7-03",
+      "objectiveId": "obj7-proprietes",
+      "difficulty": 3,
+      "mode": "find-bug",
+      "language": "text",
+      "title": "Trouver l'erreur — des bornes inversées",
+      "statement": "Un étudiant traite l'exercice 2.9. Trouver la ligne fausse.",
+      "starterCode": "∫₂⁷ g = ∫₋₁⁷ g − ∫₋₁² g\n      = 13 − (−5)\n      = 18\n∫₂⁷ (3f − 2g) = 27 − 36 = −9",
+      "hints": [
+        "La donnée est ∫₂⁻¹ g = −5 : quelles sont ses bornes ?",
+        "∫₋₁² g = −∫₂⁻¹ g (propriété 3).",
+        "∫₋₁² g = +5."
+      ],
+      "solution": "Ligne 2 : ∫₋₁² g = +5, donc ∫₂⁷ g = 13 − 5 = 8 et la réponse est 11.",
+      "expectedOutput": "La ligne 1 est juste (additivité). À la ligne 2, la donnée ∫₂⁻¹ g = −5 a été utilisée pour ∫₋₁² g sans changer le signe.\nPropriété 3 : ∫₋₁² g = −∫₂⁻¹ g = 5\n∫₂⁷ g = 13 − 5 = 8  ⇒  ∫₂⁷ (3f − 2g) = 27 − 16 = 11",
+      "solutionExplanation": "Recopier les bornes exactement comme dans la donnée évite ce piège. Réponse de la plateforme.",
+      "source": {
+        "file": "2-integrale_definie.pdf",
+        "page": 31,
+        "locator": "Exercice 2.9 (1.4)"
+      }
+    },
+    {
+      "id": "e7-04",
+      "objectiveId": "obj7-tfc",
+      "difficulty": 2,
+      "mode": "predict-output",
+      "language": "text",
+      "title": "Deux primitives, une même intégrale",
+      "statement": "F(x) = x² et G(x) = x² + 7 sont deux primitives de f(x) = 2x. Calculer ∫₁³ 2x dx avec F, puis avec G. Que constate-t-on ?",
+      "starterCode": "f(x) = 2x,  F(x) = x²,  G(x) = x² + 7,  [1, 3]",
+      "hints": [
+        "F(3) − F(1).",
+        "G(3) − G(1).",
+        "La constante 7 apparaît deux fois, avec des signes opposés."
+      ],
+      "solution": "8 dans les deux cas",
+      "expectedOutput": "Avec F : 9 − 1 = 8\nAvec G : 16 − 8 = 8\nLa constante s'annule : toute primitive convient (théorème 2.11).",
+      "solutionExplanation": "C'est pourquoi on peut choisir C = 0 pour appliquer le théorème fondamental. Exemple de la plateforme.",
+      "source": {
+        "file": "2-integrale_definie.pdf",
+        "page": 34,
+        "locator": "Diapositives 33 et 34"
+      }
+    },
+    {
+      "id": "e7-05",
+      "objectiveId": "obj7-tfc",
+      "difficulty": 2,
+      "mode": "fill-blank",
+      "language": "text",
+      "title": "Compléter — le théorème fondamental",
+      "statement": "Compléter l'énoncé et l'exemple.",
+      "starterCode": "Si f est ____ sur [a, b] et si F′(x) = ____ pour tout x ∈ [a, b], alors ∫ₐᵇ f(x) dx = ____ .\n\nExemple : ∫₁² (3x² + 1) dx, avec F(x) = x³ + x : F(2) − F(1) = ____ − ____ = ____",
+      "hints": [
+        "Hypothèse sur f : celle qui garantit l'intégrabilité.",
+        "F est une primitive de f.",
+        "F(2) = 10, F(1) = 2."
+      ],
+      "solution": "continue · f(x) · F(b) − F(a) · 10 · 2 · 8",
+      "expectedOutput": "Si f est continue sur [a, b] et si F′(x) = f(x), alors ∫ₐᵇ f(x) dx = F(b) − F(a).\nF(2) − F(1) = 10 − 2 = 8",
+      "solutionExplanation": "Diapositive 33 ; exemple de la plateforme.",
+      "source": {
+        "file": "2-integrale_definie.pdf",
+        "page": 33,
+        "locator": "Diapositive 33"
+      }
+    }
+  ]
+}

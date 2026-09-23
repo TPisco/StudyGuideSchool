@@ -1,0 +1,1688 @@
+{
+  "course": "MAT199",
+  "chapter": 2,
+  "concepts": [
+    {
+      "id": "c2-echelonnee",
+      "term": "Matrice échelonnée et pivot",
+      "definition": "Les lignes nulles sont en bas, et le premier terme non nul de chaque ligne non nulle — son pivot — est strictement à droite de celui de la ligne du dessus. Chaque ligne et chaque colonne contient au plus un pivot.",
+      "whyItMatters": "C'est la forme à laquelle on ramène toute matrice pour lire son rang, résoudre un système ou inverser une matrice. Le nombre de pivots est au plus $\\min\\{m, n\\}$.",
+      "commonMisconception": "Exiger que le premier pivot soit dans la colonne 1 : une première colonne nulle est permise.",
+      "objectiveId": "obj2-echelon",
+      "source": {
+        "file": "2026-03-MAT199-ChapI.pdf",
+        "page": 14,
+        "locator": "Définition 1.3.1"
+      }
+    },
+    {
+      "id": "c2-operations",
+      "term": "Opérations élémentaires sur les lignes",
+      "definition": "Type 1 : $L_i \\leftrightarrow L_j$. Type 2 : $L_i + aL_j$ avec $i \\neq j$. Type 3 : $aL_i$ avec $a \\neq 0$. Chacune est inversible : $L_i \\leftrightarrow L_j$, $L_i - aL_j$, $a^{-1}L_i$.",
+      "whyItMatters": "Comme chaque opération se défait, réduire une matrice ne perd aucune information : le rang, et plus tard l'ensemble des solutions d'un système, sont conservés.",
+      "commonMisconception": "Utiliser $L_i + aL_i$ ou $0 \\cdot L_i$ : ce ne sont pas des opérations élémentaires, et elles peuvent détruire une ligne.",
+      "objectiveId": "obj2-echelon",
+      "source": {
+        "file": "2026-03-MAT199-ChapI.pdf",
+        "page": 15,
+        "locator": "Définition 1.3.2, lemme 1.3.3"
+      }
+    },
+    {
+      "id": "c2-rang",
+      "term": "Rang",
+      "definition": "Le nombre de pivots de n'importe quelle forme échelonnée de $A$, noté $\\operatorname{rg}(A)$. On a $\\operatorname{rg}(A) \\leq \\min\\{m, n\\}$, $\\operatorname{rg}(A^T) = \\operatorname{rg}(A)$, et $\\operatorname{rg}(A) = 0$ si, et seulement si, $A$ est nulle.",
+      "whyItMatters": "Le rang décide de l'inversibilité (chapitre 2), de la compatibilité d'un système (chapitre 4) et de l'indépendance d'une famille de vecteurs (chapitre 5).",
+      "commonMisconception": "Compter les lignes non nulles de la matrice de départ. Seule une forme échelonnée donne le rang : deux lignes non nulles peuvent être proportionnelles.",
+      "objectiveId": "obj2-rang",
+      "source": {
+        "file": "2026-03-MAT199-ChapI.pdf",
+        "page": 17,
+        "locator": "Théorème 1.3.5, lemme 1.3.6"
+      }
+    },
+    {
+      "id": "c2-inversible",
+      "term": "Matrice inversible",
+      "definition": "$A \\in M_n(\\mathbb{R})$ est inversible s'il existe $B$ avec $AB = I_n$ et $BA = I_n$ ; on note $B = A^{-1}$. Critère : $A$ est inversible si, et seulement si, $\\operatorname{rg}(A) = n$.",
+      "whyItMatters": "Le critère du rang transforme une question d'existence en un calcul : échelonner et compter les pivots.",
+      "commonMisconception": "Parler de l'inverse d'une matrice rectangulaire : la définition ne concerne que les matrices carrées.",
+      "objectiveId": "obj2-inverse",
+      "source": {
+        "file": "2026-03-MAT199-ChapI.pdf",
+        "page": 18,
+        "locator": "Définition 1.4.1, théorème 1.4.3"
+      }
+    },
+    {
+      "id": "c2-inverse-produit",
+      "term": "Inverse d'un produit, d'une transposée",
+      "definition": "$(AB)^{-1} = B^{-1}A^{-1}$, $(A^{-1})^{-1} = A$, $(A^T)^{-1} = (A^{-1})^T$. Et si $AB = C$ avec $A$ inversible, $B = A^{-1}C$.",
+      "whyItMatters": "Ces règles permettent d'inverser un produit sans le calculer, comme dans l'exemple des notes pour $\\begin{pmatrix} 2 & 3 \\\\ 1 & 2 \\end{pmatrix}$.",
+      "commonMisconception": "Écrire $(AB)^{-1} = A^{-1}B^{-1}$, ou « diviser » par $A$ du mauvais côté.",
+      "objectiveId": "obj2-inverse",
+      "source": {
+        "file": "2026-03-MAT199-ChapI.pdf",
+        "page": 19,
+        "locator": "Proposition 1.4.2"
+      }
+    },
+    {
+      "id": "c2-methode-AB",
+      "term": "Méthode (A | B)",
+      "definition": "Si $(A \\mid B)$ s'échelonne à $(I_n \\mid C)$, alors $A$ est inversible et $C = A^{-1}B$. Avec $B = I_n$, on obtient $A^{-1}$.",
+      "whyItMatters": "Une seule réduction donne directement $A^{-1}B$, sans calculer $A^{-1}$ ; et si une ligne nulle apparaît à gauche, $A$ n'est pas inversible.",
+      "commonMisconception": "Appliquer les opérations seulement à la partie gauche : elles doivent porter sur les lignes ENTIÈRES de (A | B).",
+      "objectiveId": "obj2-calcul-inverse",
+      "source": {
+        "file": "2026-03-MAT199-ChapI.pdf",
+        "page": 25,
+        "locator": "Théorème 1.4.6"
+      }
+    },
+    {
+      "id": "c2-puissances",
+      "term": "Puissances d'une matrice",
+      "definition": "$A^r = A \\cdots A$ ($r$ fois), $A^0 = I_n$, et pour $A$ inversible $A^{-r} = (A^{-1})^r$. Alors $A^rA^s = A^{r+s}$ et $(A^r)^s = A^{rs}$ pour tous $r, s \\in \\mathbb{Z}$.",
+      "whyItMatters": "Pour $A^{-3}$, on inverse une seule fois puis on élève $A^{-1}$ au cube.",
+      "commonMisconception": "Calculer $A^{-3}$ en inversant terme à terme, ou croire que $A^{-1}$ a pour termes les $1/a_{ij}$.",
+      "objectiveId": "obj2-calcul-inverse",
+      "source": {
+        "file": "2026-03-MAT199-ChapI.pdf",
+        "page": 26,
+        "locator": "Définition 1.4.7"
+      }
+    },
+    {
+      "id": "c2-lu",
+      "term": "Décomposition LU",
+      "definition": "Si $A$ s'échelonne en $U$ par des opérations triangulaires inférieures ($L_i + aL_j$ avec $i > j$, ou $aL_i$), et qu'on applique à $I_n$ leurs inverses dans l'ordre inverse, on obtient $L$ triangulaire inférieure avec $A = LU$.",
+      "whyItMatters": "Elle servira à calculer un déterminant (produit des termes diagonaux) et à résoudre des systèmes.",
+      "commonMisconception": "Croire que toute matrice admet une décomposition LU : un échange de lignes n'est pas une opération triangulaire inférieure.",
+      "objectiveId": "obj2-lu",
+      "source": {
+        "file": "2026-03-MAT199-ChapI.pdf",
+        "page": 28,
+        "locator": "Définition 1.4.8, théorème 1.4.10"
+      }
+    }
+  ],
+  "tables": [
+    {
+      "id": "t2-operations",
+      "title": "Les trois opérations élémentaires",
+      "kind": "reference",
+      "columns": [
+        {
+          "key": "type",
+          "label": "Type"
+        },
+        {
+          "key": "op",
+          "label": "Opération"
+        },
+        {
+          "key": "notation",
+          "label": "Notation"
+        },
+        {
+          "key": "inverse",
+          "label": "Inverse"
+        },
+        {
+          "key": "lu",
+          "label": "Triangulaire inférieure ?"
+        }
+      ],
+      "rows": [
+        {
+          "type": "1",
+          "op": "échanger deux lignes",
+          "notation": "$L_i \\leftrightarrow L_j$",
+          "inverse": "$L_i \\leftrightarrow L_j$",
+          "lu": "non"
+        },
+        {
+          "type": "2",
+          "op": "ajouter un multiple d'une autre ligne",
+          "notation": "$L_i + aL_j$, $i \\neq j$",
+          "inverse": "$L_i - aL_j$",
+          "lu": "oui si $i > j$"
+        },
+        {
+          "type": "3",
+          "op": "multiplier par un nombre non nul",
+          "notation": "$aL_i$, $a \\neq 0$",
+          "inverse": "$a^{-1}L_i$",
+          "lu": "oui"
+        }
+      ],
+      "source": {
+        "file": "2026-03-MAT199-ChapI.pdf",
+        "page": 15,
+        "locator": "Définition 1.3.2, lemme 1.3.3, définition 1.4.8"
+      }
+    },
+    {
+      "id": "t2-inverse",
+      "title": "Inversible ou non : les critères du chapitre",
+      "kind": "cheatsheet",
+      "columns": [
+        {
+          "key": "critere",
+          "label": "Critère"
+        },
+        {
+          "key": "conclusion",
+          "label": "Conclusion"
+        },
+        {
+          "key": "ref",
+          "label": "Référence"
+        }
+      ],
+      "rows": [
+        {
+          "critere": "$\\operatorname{rg}(A) = n$",
+          "conclusion": "inversible",
+          "ref": "théorème 1.4.3"
+        },
+        {
+          "critere": "$\\operatorname{rg}(A) < n$ (une ligne nulle en échelonnant)",
+          "conclusion": "non inversible",
+          "ref": "théorème 1.4.3"
+        },
+        {
+          "critere": "$(A \\mid I_n) \\to (I_n \\mid C)$",
+          "conclusion": "inversible, $A^{-1} = C$",
+          "ref": "théorème 1.4.6"
+        },
+        {
+          "critere": "$A, B$ inversibles",
+          "conclusion": "$AB$ inversible, $(AB)^{-1} = B^{-1}A^{-1}$",
+          "ref": "proposition 1.4.2(4)"
+        },
+        {
+          "critere": "$A$ inversible",
+          "conclusion": "$A^T$ inversible, $(A^T)^{-1} = (A^{-1})^T$",
+          "ref": "proposition 1.4.2(1)"
+        }
+      ],
+      "source": {
+        "file": "2026-03-MAT199-ChapI.pdf",
+        "page": 19,
+        "locator": "Proposition 1.4.2, théorèmes 1.4.3 et 1.4.6"
+      }
+    }
+  ],
+  "quiz": {
+    "title": "Quiz — vérification rapide",
+    "estimatedMinutes": 15,
+    "questions": [
+      {
+        "id": "q2-01",
+        "objectiveId": "obj2-echelon",
+        "bloomLevel": "recall",
+        "type": "mcq",
+        "difficulty": 1,
+        "prompt": "Laquelle de ces matrices est échelonnée ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "$\\begin{pmatrix} 0 & 3 & 2 & 1 \\\\ 0 & 0 & 0 & 5 \\\\ 0 & 0 & 0 & 0 \\end{pmatrix}$"
+          },
+          {
+            "id": "b",
+            "text": "$\\begin{pmatrix} 0 & 0 \\\\ 0 & 1 \\end{pmatrix}$"
+          },
+          {
+            "id": "c",
+            "text": "$\\begin{pmatrix} 2 & 1 & 2 \\\\ 0 & 1 & 0 \\\\ 2 & 0 & 0 \\end{pmatrix}$"
+          },
+          {
+            "id": "d",
+            "text": "$\\begin{pmatrix} 3 & 0 & 1 & 2 \\\\ 0 & 9 & 0 & 1 \\\\ 0 & 8 & 1 & 2 \\end{pmatrix}$"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Les pivots 3 et 5 sont dans les colonnes 2 et 4, strictement vers la droite, et la ligne nulle est en bas. Les trois autres sont des exemples de matrices non échelonnées des notes (p. 15).",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "La première ligne est nulle mais pas la seconde : les lignes nulles doivent être en bas."
+          },
+          {
+            "optionId": "c",
+            "why": "Le premier terme non nul de la ligne 3 est dans la colonne 1, à gauche de celui de la ligne 2."
+          },
+          {
+            "optionId": "d",
+            "why": "Les lignes 2 et 3 ont leur premier terme non nul dans la même colonne 2."
+          }
+        ],
+        "source": {
+          "file": "2026-03-MAT199-ChapI.pdf",
+          "page": 15,
+          "locator": "Exemples après la définition 1.3.1"
+        }
+      },
+      {
+        "id": "q2-02",
+        "objectiveId": "obj2-echelon",
+        "bloomLevel": "understand",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Quelle est l'opération inverse de $L_2 - 4L_1$ ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "$L_2 + 4L_1$"
+          },
+          {
+            "id": "b",
+            "text": "$L_2 + 4L_2$"
+          },
+          {
+            "id": "c",
+            "text": "$\\frac14 L_2$"
+          },
+          {
+            "id": "d",
+            "text": "$L_1 - 4L_2$"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Lemme 1.3.3(2) : l'inverse de $L_i + aL_j$ est $L_i - aL_j$. Avec $a = -4$ : $L_2 + 4L_1$.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "C'est la coquille de l'exemple p. 16. $L_2 + 4L_2$ multiplierait la ligne 2 par 5."
+          },
+          {
+            "optionId": "c",
+            "why": "Une opération de type 2 se défait par une opération de type 2, pas de type 3."
+          },
+          {
+            "optionId": "d",
+            "why": "On doit rajouter à la MÊME ligne (L₂) ce qu'on lui a retiré."
+          }
+        ],
+        "source": {
+          "file": "2026-03-MAT199-ChapI.pdf",
+          "page": 16,
+          "locator": "Lemme 1.3.3"
+        }
+      },
+      {
+        "id": "q2-03",
+        "objectiveId": "obj2-rang",
+        "bloomLevel": "apply",
+        "type": "short-answer",
+        "difficulty": 2,
+        "prompt": "Quel est le rang de $\\begin{pmatrix} 0 & 2 & 4 & 2 & 10 \\\\ 0 & 1 & 2 & 2 & 7 \\\\ 0 & 1 & 2 & 1 & 5 \\end{pmatrix}$ ? (un nombre)",
+        "correct": "2",
+        "acceptableAnswers": [
+          "deux"
+        ],
+        "explanation": "$L_1 \\leftrightarrow L_2$, puis $L_2 - 2L_1$ et $L_3 - L_1$ donnent les lignes $(0,0,0,-2,-4)$ et $(0,0,0,-1,-2)$, proportionnelles : $L_3 - \\frac12 L_2$ annule la dernière. Deux pivots.",
+        "source": {
+          "file": "2026-03-MAT199-ChapI.pdf",
+          "page": 17,
+          "locator": "Exercice p. 17"
+        }
+      },
+      {
+        "id": "q2-04",
+        "objectiveId": "obj2-rang",
+        "bloomLevel": "recall",
+        "type": "true-false",
+        "difficulty": 1,
+        "prompt": "Pour toute matrice $A$, $\\operatorname{rg}(A^T) = \\operatorname{rg}(A)$.",
+        "options": [
+          {
+            "id": "v",
+            "text": "Vrai"
+          },
+          {
+            "id": "f",
+            "text": "Faux"
+          }
+        ],
+        "correct": "v",
+        "explanation": "Lemme 1.3.6(4). L'exemple des notes s'en sert : $A = \\begin{pmatrix} 2 & 0 & 0 \\\\ 3 & 1 & 0 \\\\ 4 & 5 & 5 \\end{pmatrix}$ n'est pas échelonnée, mais $A^T$ l'est, avec trois pivots.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "f",
+            "why": "Le rang ne dépend pas de l'orientation : transposer ne change pas le nombre de pivots."
+          }
+        ],
+        "source": {
+          "file": "2026-03-MAT199-ChapI.pdf",
+          "page": 17,
+          "locator": "Lemme 1.3.6"
+        }
+      },
+      {
+        "id": "q2-05",
+        "objectiveId": "obj2-inverse",
+        "bloomLevel": "understand",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "$A \\in M_4(\\mathbb{R})$ a pour forme échelonnée une matrice avec une ligne nulle. Que peut-on dire ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "$A$ n'est pas inversible, car $\\operatorname{rg}(A) \\leq 3 < 4$."
+          },
+          {
+            "id": "b",
+            "text": "$A$ est inversible si ses autres pivots sont non nuls."
+          },
+          {
+            "id": "c",
+            "text": "On ne peut rien conclure sans calculer $A^{-1}$."
+          },
+          {
+            "id": "d",
+            "text": "$A$ est inversible si son rang vaut 3."
+          }
+        ],
+        "correct": "a",
+        "explanation": "Théorème 1.4.3 : $A \\in M_n(\\mathbb{R})$ est inversible si, et seulement si, $\\operatorname{rg}(A) = n$. Une ligne nulle limite le rang à 3.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Les pivots sont non nuls par définition ; le problème est qu'il n'y en a que trois au plus."
+          },
+          {
+            "optionId": "c",
+            "why": "Le théorème 1.4.3 conclut directement à partir du rang."
+          },
+          {
+            "optionId": "d",
+            "why": "Pour une matrice d'ordre 4, il faut $\\operatorname{rg}(A) = 4$."
+          }
+        ],
+        "source": {
+          "file": "2026-03-MAT199-ChapI.pdf",
+          "page": 20,
+          "locator": "Théorème 1.4.3"
+        }
+      },
+      {
+        "id": "q2-06",
+        "objectiveId": "obj2-inverse",
+        "bloomLevel": "recall",
+        "type": "mcq",
+        "difficulty": 1,
+        "prompt": "Si $A$ et $B$ sont inversibles de même ordre, $(AB)^{-1}$ vaut :",
+        "options": [
+          {
+            "id": "a",
+            "text": "$B^{-1}A^{-1}$"
+          },
+          {
+            "id": "b",
+            "text": "$A^{-1}B^{-1}$"
+          },
+          {
+            "id": "c",
+            "text": "$(BA)^{-1}$"
+          },
+          {
+            "id": "d",
+            "text": "$A^{-1} + B^{-1}$"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Proposition 1.4.2(4). En effet $(AB)(B^{-1}A^{-1}) = A(BB^{-1})A^{-1} = AA^{-1} = I_n$.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "L'ordre s'inverse, comme pour la transposée."
+          },
+          {
+            "optionId": "c",
+            "why": "$(BA)^{-1} = A^{-1}B^{-1}$, qui diffère en général de $(AB)^{-1}$."
+          },
+          {
+            "optionId": "d",
+            "why": "L'inverse d'un produit n'a rien à voir avec une somme d'inverses."
+          }
+        ],
+        "source": {
+          "file": "2026-03-MAT199-ChapI.pdf",
+          "page": 19,
+          "locator": "Proposition 1.4.2"
+        }
+      },
+      {
+        "id": "q2-07",
+        "objectiveId": "obj2-inverse",
+        "bloomLevel": "analyze",
+        "type": "mcq",
+        "difficulty": 3,
+        "prompt": "Pour quelles valeurs de $a$ la matrice $\\begin{pmatrix} 1 & a & 1 \\\\ 1 & 1 & 2 \\\\ a & 1 & a \\end{pmatrix}$ est-elle inversible ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "$a \\neq 1$ et $a \\neq -1$"
+          },
+          {
+            "id": "b",
+            "text": "$a \\neq 1$ seulement"
+          },
+          {
+            "id": "c",
+            "text": "$a \\neq 0$"
+          },
+          {
+            "id": "d",
+            "text": "Pour toute valeur de a"
+          }
+        ],
+        "correct": "a",
+        "explanation": "$L_2 - L_1$, $L_3 - aL_1$ donnent $(0, 1-a, 1)$ et $(0, 1-a^2, 0)$. Le rang vaut 2 si $a = \\pm 1$, et 3 sinon (après $L_3 - (1+a)L_2$, on obtient $(0, 0, -(1+a))$).",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Pour $a = -1$ aussi, les lignes 2 et 3 réduites deviennent $(0, 2, 1)$ et $(0, 0, 0)$ : rang 2."
+          },
+          {
+            "optionId": "c",
+            "why": "Pour $a = 0$ le rang vaut 3 : la matrice est inversible."
+          },
+          {
+            "optionId": "d",
+            "why": "Pour $a = 1$, les lignes 1 et 3 sont égales : rang 2."
+          }
+        ],
+        "source": {
+          "file": "2026-03-MAT199-ChapI.pdf",
+          "page": 21,
+          "locator": "Exercice p. 21"
+        }
+      },
+      {
+        "id": "q2-08",
+        "objectiveId": "obj2-calcul-inverse",
+        "bloomLevel": "apply",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Quelle est l'inverse de $\\begin{pmatrix} 1 & 2 \\\\ 3 & 4 \\end{pmatrix}$ ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "$\\begin{pmatrix} -2 & 1 \\\\ \\frac32 & -\\frac12 \\end{pmatrix}$"
+          },
+          {
+            "id": "b",
+            "text": "$\\begin{pmatrix} 1 & \\frac12 \\\\ \\frac13 & \\frac14 \\end{pmatrix}$"
+          },
+          {
+            "id": "c",
+            "text": "$\\begin{pmatrix} 4 & -2 \\\\ -3 & 1 \\end{pmatrix}$"
+          },
+          {
+            "id": "d",
+            "text": "$\\begin{pmatrix} -2 & \\frac32 \\\\ 1 & -\\frac12 \\end{pmatrix}$"
+          }
+        ],
+        "correct": "a",
+        "explanation": "$(A \\mid I_2)$ : $L_2 - 3L_1$, $-\\frac12 L_2$, $L_1 - 2L_2$ donnent $(I_2 \\mid A^{-1})$ avec $A^{-1} = \\begin{pmatrix} -2 & 1 \\\\ \\frac32 & -\\frac12 \\end{pmatrix}$.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Ce sont les inverses des termes, $1/a_{ij}$ : ce n'est pas l'inverse d'une matrice."
+          },
+          {
+            "optionId": "c",
+            "why": "Il manque le facteur : ce produit donne $-2 I_2$, pas $I_2$."
+          },
+          {
+            "optionId": "d",
+            "why": "C'est la transposée de l'inverse, qui est l'inverse de Aᵀ."
+          }
+        ],
+        "source": {
+          "file": "2026-03-MAT199-ChapI.pdf",
+          "page": 25,
+          "locator": "Exercice p. 25"
+        }
+      },
+      {
+        "id": "q2-09",
+        "objectiveId": "obj2-calcul-inverse",
+        "bloomLevel": "recall",
+        "type": "fill-blank",
+        "difficulty": 1,
+        "prompt": "Compléter : si $(A \\mid B)$ s'échelonne à $(I_n \\mid C)$, alors $C = $ ____ .",
+        "correct": "A⁻¹B",
+        "acceptableAnswers": [
+          "A^-1B",
+          "A^{-1}B",
+          "A-1B",
+          "inverse de A fois B"
+        ],
+        "explanation": "Théorème 1.4.6(1) : $C = A^{-1}B$. Avec $B = I_n$, on obtient $A^{-1}$.",
+        "source": {
+          "file": "2026-03-MAT199-ChapI.pdf",
+          "page": 25,
+          "locator": "Théorème 1.4.6"
+        }
+      },
+      {
+        "id": "q2-10",
+        "objectiveId": "obj2-calcul-inverse",
+        "bloomLevel": "apply",
+        "type": "short-answer",
+        "difficulty": 3,
+        "prompt": "Pour $A = \\begin{pmatrix} 1 & 2 \\\\ 3 & 5 \\end{pmatrix}$, quel est le $(1, 1)$-terme de $A^{-3}$ ? (un nombre)",
+        "correct": "-191",
+        "acceptableAnswers": [
+          "−191"
+        ],
+        "explanation": "$A^{-1} = \\begin{pmatrix} -5 & 2 \\\\ 3 & -1 \\end{pmatrix}$, $A^{-2} = \\begin{pmatrix} 31 & -12 \\\\ -18 & 7 \\end{pmatrix}$, $A^{-3} = A^{-2}A^{-1} = \\begin{pmatrix} -191 & 74 \\\\ 111 & -43 \\end{pmatrix}$.",
+        "source": {
+          "file": "2026-03-MAT199-ChapI.pdf",
+          "page": 26,
+          "locator": "Exercice p. 26"
+        }
+      },
+      {
+        "id": "q2-11",
+        "objectiveId": "obj2-lu",
+        "bloomLevel": "understand",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Laquelle de ces opérations est triangulaire inférieure ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "$L_3 - 2L_1$"
+          },
+          {
+            "id": "b",
+            "text": "$L_1 - 2L_3$"
+          },
+          {
+            "id": "c",
+            "text": "$L_1 \\leftrightarrow L_2$"
+          },
+          {
+            "id": "d",
+            "text": "$0 \\cdot L_2$"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Définition 1.4.8 : $L_i + aL_j$ avec $i > j$ (ici $i = 3 > j = 1$), ou $aL_i$ avec $a \\neq 0$.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "On ajoute un multiple d'une ligne du DESSOUS à la ligne 1 : i = 1 < j = 3."
+          },
+          {
+            "optionId": "c",
+            "why": "Un échange de lignes n'est jamais triangulaire inférieur."
+          },
+          {
+            "optionId": "d",
+            "why": "Ce n'est même pas une opération élémentaire : il faut a ≠ 0."
+          }
+        ],
+        "source": {
+          "file": "2026-03-MAT199-ChapI.pdf",
+          "page": 28,
+          "locator": "Définition 1.4.8"
+        }
+      },
+      {
+        "id": "q2-12",
+        "objectiveId": "obj2-lu",
+        "bloomLevel": "analyze",
+        "type": "mcq",
+        "difficulty": 3,
+        "prompt": "On échelonne $A = \\begin{pmatrix} 2 & 4 & 6 \\\\ 3 & 5 & 7 \\\\ 1 & 2 & 3 \\end{pmatrix}$ par $L_2 - \\frac32 L_1$ puis $L_3 - \\frac12 L_1$. Quelle est la matrice $L$ de la décomposition LU ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "$\\begin{pmatrix} 1 & 0 & 0 \\\\ \\frac32 & 1 & 0 \\\\ \\frac12 & 0 & 1 \\end{pmatrix}$"
+          },
+          {
+            "id": "b",
+            "text": "$\\begin{pmatrix} 1 & 0 & 0 \\\\ -\\frac32 & 1 & 0 \\\\ -\\frac12 & 0 & 1 \\end{pmatrix}$"
+          },
+          {
+            "id": "c",
+            "text": "$\\begin{pmatrix} 1 & \\frac32 & \\frac12 \\\\ 0 & 1 & 0 \\\\ 0 & 0 & 1 \\end{pmatrix}$"
+          },
+          {
+            "id": "d",
+            "text": "$\\begin{pmatrix} 2 & 0 & 0 \\\\ 3 & -1 & 0 \\\\ 1 & 0 & 0 \\end{pmatrix}$"
+          }
+        ],
+        "correct": "a",
+        "explanation": "On applique à $I_3$ les inverses dans l'ordre inverse : $L_3 + \\frac12 L_1$, puis $L_2 + \\frac32 L_1$. On vérifie que $LU = A$ avec $U = \\begin{pmatrix} 2 & 4 & 6 \\\\ 0 & -1 & -2 \\\\ 0 & 0 & 0 \\end{pmatrix}$.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Ce sont les opérations elles-mêmes ; $L$ se construit avec leurs INVERSES, $L_2 + \\frac32 L_1$ et $L_3 + \\frac12 L_1$."
+          },
+          {
+            "optionId": "c",
+            "why": "C'est la transposée : L est triangulaire INFÉRIEURE."
+          },
+          {
+            "optionId": "d",
+            "why": "On a recopié la première colonne de $A$ : la diagonale de $L$ doit rester à 1 quand on n'utilise que des opérations de type 2."
+          }
+        ],
+        "source": {
+          "file": "2026-03-MAT199-ChapI.pdf",
+          "page": 29,
+          "locator": "Exercice p. 29"
+        }
+      }
+    ]
+  },
+  "test": {
+    "title": "Test du chapitre 2",
+    "instructions": "21 questions couvrant tout le chapitre. Plus long et plus difficile que le quiz.",
+    "estimatedMinutes": 45,
+    "questions": [
+      {
+        "id": "t2-01",
+        "objectiveId": "obj2-echelon",
+        "bloomLevel": "recall",
+        "type": "mcq",
+        "difficulty": 1,
+        "prompt": "Combien de pivots, au plus, une matrice de type $3 \\times 5$ peut-elle avoir ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "3"
+          },
+          {
+            "id": "b",
+            "text": "5"
+          },
+          {
+            "id": "c",
+            "text": "15"
+          },
+          {
+            "id": "d",
+            "text": "8"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Remarque (4) après la définition 1.3.1 : le nombre de pivots est au plus $\\min\\{m, n\\} = \\min\\{3, 5\\} = 3$.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Chaque LIGNE contient au plus un pivot : avec 3 lignes, pas plus de 3."
+          },
+          {
+            "optionId": "c",
+            "why": "Chaque ligne et chaque colonne contient au plus un pivot : on est loin de 15."
+          },
+          {
+            "optionId": "d",
+            "why": "Il n'y a pas de somme : c'est le minimum de m et n qui compte."
+          }
+        ],
+        "source": {
+          "file": "2026-03-MAT199-ChapI.pdf",
+          "page": 14,
+          "locator": "Remarque après la définition 1.3.1"
+        }
+      },
+      {
+        "id": "t2-02",
+        "objectiveId": "obj2-echelon",
+        "bloomLevel": "understand",
+        "type": "multi",
+        "difficulty": 2,
+        "prompt": "Lesquelles sont des opérations élémentaires sur les lignes ? (plusieurs réponses)",
+        "options": [
+          {
+            "id": "a",
+            "text": "$L_1 \\leftrightarrow L_3$"
+          },
+          {
+            "id": "b",
+            "text": "$L_2 + 5L_3$"
+          },
+          {
+            "id": "c",
+            "text": "$-2L_1$"
+          },
+          {
+            "id": "d",
+            "text": "$L_2 + 3L_2$"
+          },
+          {
+            "id": "e",
+            "text": "$0 \\cdot L_3$"
+          }
+        ],
+        "correct": [
+          "a",
+          "b",
+          "c"
+        ],
+        "explanation": "Types 1, 2 et 3 de la définition 1.3.2, avec leurs conditions : i ≠ j pour le type 2, a ≠ 0 pour le type 3.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "d",
+            "why": "Le type 2 exige $i \\neq j$ : on ajoute le multiple d'une AUTRE ligne."
+          },
+          {
+            "optionId": "e",
+            "why": "Le type 3 exige un facteur non nul ; multiplier par 0 efface la ligne et ne se défait pas."
+          }
+        ],
+        "source": {
+          "file": "2026-03-MAT199-ChapI.pdf",
+          "page": 15,
+          "locator": "Définition 1.3.2"
+        }
+      },
+      {
+        "id": "t2-03",
+        "objectiveId": "obj2-echelon",
+        "bloomLevel": "understand",
+        "type": "true-false",
+        "difficulty": 2,
+        "prompt": "Si $A$ se réduit à $B$, alors $B$ se réduit à $A$.",
+        "options": [
+          {
+            "id": "v",
+            "text": "Vrai"
+          },
+          {
+            "id": "f",
+            "text": "Faux"
+          }
+        ],
+        "correct": "v",
+        "explanation": "Corollaire 1.3.4 : chaque opération élémentaire a une inverse (lemme 1.3.3). En appliquant les inverses dans l'ordre inverse, on revient de B à A.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "f",
+            "why": "Les opérations élémentaires sont justement choisies pour être réversibles : on ne perd jamais d'information en réduisant."
+          }
+        ],
+        "source": {
+          "file": "2026-03-MAT199-ChapI.pdf",
+          "page": 16,
+          "locator": "Corollaire 1.3.4"
+        }
+      },
+      {
+        "id": "t2-04",
+        "objectiveId": "obj2-rang",
+        "bloomLevel": "apply",
+        "type": "short-answer",
+        "difficulty": 2,
+        "prompt": "Quel est le rang de $\\begin{pmatrix} 1 & 1 & 2 & -3 \\\\ 2 & 3 & 6 & -5 \\\\ 3 & -1 & 2 & -7 \\end{pmatrix}$ ? (exercice 1.5 n° 12 (1))",
+        "correct": "3",
+        "acceptableAnswers": [
+          "trois"
+        ],
+        "explanation": "$L_2 - 2L_1$ et $L_3 - 3L_1$ donnent $(0, 1, 2, 1)$ et $(0, -4, -4, 2)$ ; puis $L_3 + 4L_2$ donne $(0, 0, 4, 6)$. Trois pivots : le rang vaut 3, le maximum pour 3 lignes.",
+        "source": {
+          "file": "2026-03-MAT199-ChapI.pdf",
+          "page": 31,
+          "locator": "Exercice 1.5 n° 12 (1)"
+        }
+      },
+      {
+        "id": "t2-05",
+        "objectiveId": "obj2-rang",
+        "bloomLevel": "apply",
+        "type": "short-answer",
+        "difficulty": 2,
+        "prompt": "Quel est le rang de $\\begin{pmatrix} 1 & -1 & 2 & -1 \\\\ 3 & 1 & 4 & 3 \\\\ -5 & -3 & -6 & -7 \\\\ -2 & 2 & -4 & 2 \\end{pmatrix}$ ? (exercice 1.5 n° 12 (2))",
+        "correct": "2",
+        "acceptableAnswers": [
+          "deux"
+        ],
+        "explanation": "$L_4 = -2L_1$ s'annule avec $L_4 + 2L_1$. $L_2 - 3L_1 = (0, 4, -2, 6)$ et $L_3 + 5L_1 = (0, -8, 4, -12) = -2(L_2 - 3L_1)$ : après échelonnement, deux lignes non nulles.",
+        "source": {
+          "file": "2026-03-MAT199-ChapI.pdf",
+          "page": 31,
+          "locator": "Exercice 1.5 n° 12 (2)"
+        }
+      },
+      {
+        "id": "t2-06",
+        "objectiveId": "obj2-rang",
+        "bloomLevel": "analyze",
+        "type": "mcq",
+        "difficulty": 3,
+        "prompt": "Selon $a$, quel est le rang de $\\begin{pmatrix} 1 & 1 & a & 1 \\\\ 1 & 2 & 1 & 1 \\\\ 1 & a & 1 & a \\end{pmatrix}$ ? (exercices dirigés, séance 1)",
+        "options": [
+          {
+            "id": "a",
+            "text": "2 si $a = 1$, et 3 sinon"
+          },
+          {
+            "id": "b",
+            "text": "2 si $a = 1$ ou $a = 2$, et 3 sinon"
+          },
+          {
+            "id": "c",
+            "text": "3 pour toute valeur de $a$"
+          },
+          {
+            "id": "d",
+            "text": "2 si $a = 2$, et 3 sinon"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Après $L_2 - L_1$, $L_3 - L_1$, $L_3 - (a-1)L_2$, la dernière ligne est $(0, 0, (a-1)(a-2), a-1)$. Elle est nulle seulement si $a = 1$.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Pour $a = 2$, la dernière ligne réduite vaut $(0, 0, 0, 1)$ : elle garde un pivot, dans la dernière colonne."
+          },
+          {
+            "optionId": "c",
+            "why": "Pour $a = 1$, la dernière ligne réduite s'annule entièrement."
+          },
+          {
+            "optionId": "d",
+            "why": "Pour $a = 2$, il reste le terme $a - 1 = 1$ dans la dernière colonne."
+          }
+        ],
+        "source": {
+          "file": "2026-03_MAT199_ed.pdf",
+          "page": 1,
+          "locator": "Séance 1, n° 8"
+        }
+      },
+      {
+        "id": "t2-07",
+        "objectiveId": "obj2-rang",
+        "bloomLevel": "apply",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "On échelonne $\\begin{pmatrix} 7 & 8 & 0 & 9 \\\\ 2 & 9 & 3 & 8 \\\\ 5 & 4 & 8 & 7 \\\\ 9 & 17 & 3 & 17 \\end{pmatrix}$ et on trouve 3 pivots. Que conclure ? (exercices dirigés, séance 1, n° 7)",
+        "options": [
+          {
+            "id": "a",
+            "text": "Son rang vaut 3 et elle n'est pas inversible."
+          },
+          {
+            "id": "b",
+            "text": "Son rang vaut 3 et elle est inversible."
+          },
+          {
+            "id": "c",
+            "text": "Son rang vaut 4, puisqu'elle a 4 lignes."
+          },
+          {
+            "id": "d",
+            "text": "On ne peut pas conclure sans calculer son inverse."
+          }
+        ],
+        "correct": "a",
+        "explanation": "Ici $L_4 = L_1 + L_2$ : une ligne est combinaison des autres, d'où une ligne nulle après échelonnement. $\\operatorname{rg}(A) = 3 < 4$ : non inversible (théorème 1.4.3).",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Une matrice d'ordre 4 est inversible seulement si son rang vaut 4."
+          },
+          {
+            "optionId": "c",
+            "why": "Le rang compte les pivots d'une forme échelonnée, pas les lignes de départ."
+          },
+          {
+            "optionId": "d",
+            "why": "Le théorème 1.4.3 suffit : le rang tranche."
+          }
+        ],
+        "source": {
+          "file": "2026-03_MAT199_ed.pdf",
+          "page": 1,
+          "locator": "Séance 1, n° 7"
+        }
+      },
+      {
+        "id": "t2-08",
+        "objectiveId": "obj2-inverse",
+        "bloomLevel": "understand",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Parmi $A = \\begin{pmatrix} 2 & 4 & 2 \\\\ 1 & 2 & 2 \\\\ 1 & 2 & 1 \\end{pmatrix}$ et $B = \\begin{pmatrix} 1 & 0 & 0 \\\\ a & 2 & 0 \\\\ b & c & 3 \\end{pmatrix}$, laquelle est inversible ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "$B$ seulement, quels que soient $a, b, c$"
+          },
+          {
+            "id": "b",
+            "text": "$A$ seulement"
+          },
+          {
+            "id": "c",
+            "text": "Les deux"
+          },
+          {
+            "id": "d",
+            "text": "$B$ seulement si $a = b = c = 0$"
+          }
+        ],
+        "correct": "a",
+        "explanation": "$\\operatorname{rg}(B) = \\operatorname{rg}(B^T) = 3$ car $B^T$ est échelonnée à trois pivots non nuls. $A$ s'échelonne en deux pivots seulement.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "La colonne 2 de $A$ est le double de la colonne 1 : $\\operatorname{rg}(A) = 2$."
+          },
+          {
+            "optionId": "c",
+            "why": "$A$ est de rang 2 < 3."
+          },
+          {
+            "optionId": "d",
+            "why": "Le rang de $B$ vaut 3 pour tous $a, b, c$ : sa transposée est échelonnée avec les pivots 1, 2, 3."
+          }
+        ],
+        "source": {
+          "file": "2026-03-MAT199-ChapI.pdf",
+          "page": 20,
+          "locator": "Exercice p. 20"
+        }
+      },
+      {
+        "id": "t2-09",
+        "objectiveId": "obj2-inverse",
+        "bloomLevel": "recall",
+        "type": "true-false",
+        "difficulty": 1,
+        "prompt": "Si $A$ est inversible, alors $A^T$ est inversible et $(A^T)^{-1} = (A^{-1})^T$.",
+        "options": [
+          {
+            "id": "v",
+            "text": "Vrai"
+          },
+          {
+            "id": "f",
+            "text": "Faux"
+          }
+        ],
+        "correct": "v",
+        "explanation": "Proposition 1.4.2(1). Exemple des notes : $\\left(\\begin{pmatrix} 1 & 0 \\\\ 1 & 1 \\end{pmatrix}\\right)^{-1} = \\left(\\begin{pmatrix} 1 & -1 \\\\ 0 & 1 \\end{pmatrix}\\right)^T = \\begin{pmatrix} 1 & 0 \\\\ -1 & 1 \\end{pmatrix}$.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "f",
+            "why": "Transposer et inverser commutent : on peut faire l'un puis l'autre dans n'importe quel ordre."
+          }
+        ],
+        "source": {
+          "file": "2026-03-MAT199-ChapI.pdf",
+          "page": 19,
+          "locator": "Proposition 1.4.2(1)"
+        }
+      },
+      {
+        "id": "t2-10",
+        "objectiveId": "obj2-inverse",
+        "bloomLevel": "apply",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "On sait que $AX = C$ avec $A$ inversible. Que vaut $X$ ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "$A^{-1}C$"
+          },
+          {
+            "id": "b",
+            "text": "$CA^{-1}$"
+          },
+          {
+            "id": "c",
+            "text": "$C/A$"
+          },
+          {
+            "id": "d",
+            "text": "$C - A$"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Proposition 1.4.2(2) : $A^{-1}(AX) = (A^{-1}A)X = X$, donc $X = A^{-1}C$.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "On multiplie à GAUCHE par A⁻¹ pour isoler X, puisque A est à gauche de X."
+          },
+          {
+            "optionId": "c",
+            "why": "On ne divise pas par une matrice."
+          },
+          {
+            "optionId": "d",
+            "why": "Rien ne justifie une soustraction."
+          }
+        ],
+        "source": {
+          "file": "2026-03-MAT199-ChapI.pdf",
+          "page": 19,
+          "locator": "Proposition 1.4.2(2)"
+        }
+      },
+      {
+        "id": "t2-11",
+        "objectiveId": "obj2-inverse",
+        "bloomLevel": "apply",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Sachant que $\\left(\\begin{pmatrix} 1 & 1 \\\\ 1 & 2 \\end{pmatrix}\\right)^{-1} = \\begin{pmatrix} 2 & -1 \\\\ -1 & 1 \\end{pmatrix}$ et $\\left(\\begin{pmatrix} 1 & 1 \\\\ 0 & 1 \\end{pmatrix}\\right)^{-1} = \\begin{pmatrix} 1 & -1 \\\\ 0 & 1 \\end{pmatrix}$, que vaut $\\left(\\begin{pmatrix} 2 & 3 \\\\ 1 & 2 \\end{pmatrix}\\right)^{-1}$, sachant que $\\begin{pmatrix} 2 & 3 \\\\ 1 & 2 \\end{pmatrix}=\\begin{pmatrix} 1 & 1 \\\\ 0 & 1 \\end{pmatrix}\\begin{pmatrix} 1 & 1 \\\\ 1 & 2 \\end{pmatrix}$ ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "$\\begin{pmatrix} 2 & -3 \\\\ -1 & 2 \\end{pmatrix}$"
+          },
+          {
+            "id": "b",
+            "text": "$\\begin{pmatrix} 3 & -2 \\\\ -1 & 1 \\end{pmatrix}$"
+          },
+          {
+            "id": "c",
+            "text": "$\\begin{pmatrix} 2 & -1 \\\\ -1 & 1 \\end{pmatrix}$"
+          },
+          {
+            "id": "d",
+            "text": "$\\begin{pmatrix} \\frac12 & \\frac13 \\\\ 1 & \\frac12 \\end{pmatrix}$"
+          }
+        ],
+        "correct": "a",
+        "explanation": "$(XY)^{-1} = Y^{-1}X^{-1} = \\begin{pmatrix} 2 & -1 \\\\ -1 & 1 \\end{pmatrix}\\begin{pmatrix} 1 & -1 \\\\ 0 & 1 \\end{pmatrix} = \\begin{pmatrix} 2 & -3 \\\\ -1 & 2 \\end{pmatrix}$. C'est l'exemple de la p. 20.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "C'est $\\left(\\begin{pmatrix} 1 & 1 \\\\ 0 & 1 \\end{pmatrix}\\right)^{-1}\\left(\\begin{pmatrix} 1 & 1 \\\\ 1 & 2 \\end{pmatrix}\\right)^{-1}$ : l'ordre n'a pas été inversé."
+          },
+          {
+            "optionId": "c",
+            "why": "C'est seulement l'inverse du second facteur."
+          },
+          {
+            "optionId": "d",
+            "why": "Ce sont les inverses des termes, pas l'inverse de la matrice."
+          }
+        ],
+        "source": {
+          "file": "2026-03-MAT199-ChapI.pdf",
+          "page": 20,
+          "locator": "Exemple (2) après la proposition 1.4.2"
+        }
+      },
+      {
+        "id": "t2-12",
+        "objectiveId": "obj2-calcul-inverse",
+        "bloomLevel": "apply",
+        "type": "short-answer",
+        "difficulty": 2,
+        "prompt": "Avec $A = \\begin{pmatrix} 1 & 2 \\\\ 3 & 4 \\end{pmatrix}$ et $B = \\begin{pmatrix} 2 & 3 & 4 \\\\ 1 & 2 & 0 \\end{pmatrix}$, quel est le $(1, 3)$-terme de $A^{-1}B$ ?",
+        "correct": "-8",
+        "acceptableAnswers": [
+          "−8"
+        ],
+        "explanation": "$(A \\mid B) \\to (I_2 \\mid A^{-1}B)$ avec $A^{-1}B = \\begin{pmatrix} -3 & -4 & -8 \\\\ \\frac52 & \\frac72 & 6 \\end{pmatrix}$.",
+        "source": {
+          "file": "2026-03-MAT199-ChapI.pdf",
+          "page": 25,
+          "locator": "Exercice p. 25"
+        }
+      },
+      {
+        "id": "t2-13",
+        "objectiveId": "obj2-calcul-inverse",
+        "bloomLevel": "apply",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Quelle est l'inverse de $\\begin{pmatrix} 2 & 7 \\\\ 4 & 10 \\end{pmatrix}$ ? (banque, exercice 1.10 a)",
+        "options": [
+          {
+            "id": "a",
+            "text": "$\\begin{pmatrix} -\\frac54 & \\frac78 \\\\ \\frac12 & -\\frac14 \\end{pmatrix}$"
+          },
+          {
+            "id": "b",
+            "text": "$\\begin{pmatrix} \\frac54 & -\\frac78 \\\\ -\\frac12 & \\frac14 \\end{pmatrix}$"
+          },
+          {
+            "id": "c",
+            "text": "$\\begin{pmatrix} \\frac12 & \\frac17 \\\\ \\frac14 & \\frac{1}{10} \\end{pmatrix}$"
+          },
+          {
+            "id": "d",
+            "text": "$\\begin{pmatrix} -\\frac54 & \\frac12 \\\\ \\frac78 & -\\frac14 \\end{pmatrix}$"
+          }
+        ],
+        "correct": "a",
+        "explanation": "$(A \\mid I_2)$ : $L_2 - 2L_1$ donne $(0, -4 \\mid -2, 1)$, puis $-\\frac14 L_2$ et $L_1 - 7L_2$, $\\frac12 L_1$. On vérifie : $\\begin{pmatrix} 2 & 7 \\\\ 4 & 10 \\end{pmatrix}\\begin{pmatrix} -\\frac54 & \\frac78 \\\\ \\frac12 & -\\frac14 \\end{pmatrix}= I_2$.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Signe global inversé : le produit avec $A$ donne $-I_2$."
+          },
+          {
+            "optionId": "c",
+            "why": "Ce sont les $1/a_{ij}$ : ce n'est pas une inverse de matrice."
+          },
+          {
+            "optionId": "d",
+            "why": "C'est la transposée de l'inverse."
+          }
+        ],
+        "source": {
+          "file": "2026-03_MAT199_ex.pdf",
+          "page": 4,
+          "locator": "Exercice 1.10 a)"
+        }
+      },
+      {
+        "id": "t2-14",
+        "objectiveId": "obj2-calcul-inverse",
+        "bloomLevel": "understand",
+        "type": "true-false",
+        "difficulty": 2,
+        "prompt": "Si, en échelonnant $(A \\mid I_n)$, une ligne nulle apparaît dans la partie gauche, alors $A$ n'est pas inversible.",
+        "options": [
+          {
+            "id": "v",
+            "text": "Vrai"
+          },
+          {
+            "id": "f",
+            "text": "Faux"
+          }
+        ],
+        "correct": "v",
+        "explanation": "Une ligne nulle à gauche signifie que la forme échelonnée de $A$ a moins de $n$ pivots : $\\operatorname{rg}(A) < n$, donc $A$ n'est pas inversible (théorème 1.4.3).",
+        "perDistractorExplanation": [
+          {
+            "optionId": "f",
+            "why": "On ne pourra jamais obtenir Iₙ à gauche : une ligne nulle ne redevient pas non nulle par des opérations élémentaires."
+          }
+        ],
+        "source": {
+          "file": "2026-03-MAT199-ChapI.pdf",
+          "page": 25,
+          "locator": "Théorèmes 1.4.3 et 1.4.6"
+        }
+      },
+      {
+        "id": "t2-15",
+        "objectiveId": "obj2-calcul-inverse",
+        "bloomLevel": "understand",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Comment les notes définissent-elles $A^{-3}$ pour $A$ inversible ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "$(A^{-1})^3$"
+          },
+          {
+            "id": "b",
+            "text": "$-A^3$"
+          },
+          {
+            "id": "c",
+            "text": "La matrice des $1/a_{ij}^3$"
+          },
+          {
+            "id": "d",
+            "text": "$(A^3)^T$"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Définition 1.4.7 : $A^{-r} = (A^{-1})^r$. On a aussi $A^{-3} = (A^3)^{-1}$, mais on inverse alors une matrice plus compliquée.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "L'exposant négatif n'a rien à voir avec un signe moins devant la matrice."
+          },
+          {
+            "optionId": "c",
+            "why": "On n'inverse jamais terme à terme."
+          },
+          {
+            "optionId": "d",
+            "why": "La transposée ne joue aucun rôle ici."
+          }
+        ],
+        "source": {
+          "file": "2026-03-MAT199-ChapI.pdf",
+          "page": 26,
+          "locator": "Définition 1.4.7"
+        }
+      },
+      {
+        "id": "t2-16",
+        "objectiveId": "obj2-calcul-inverse",
+        "bloomLevel": "apply",
+        "type": "short-answer",
+        "difficulty": 3,
+        "prompt": "Pour $A = \\begin{pmatrix} 3 & 4 \\\\ 2 & 1 \\end{pmatrix}$ (exercice 1.5 n° 15 (1)), quel est le $(1, 1)$-terme de $A^{-3}$ ? (une fraction)",
+        "correct": "-41/125",
+        "acceptableAnswers": [
+          "−41/125",
+          "-0,328",
+          "-0.328"
+        ],
+        "explanation": "$A^{-1} = \\frac{1}{5}\\begin{pmatrix} -1 & 4 \\\\ 2 & -3 \\end{pmatrix}$, $A^{-2} = \\frac{1}{25}\\begin{pmatrix} 9 & -16 \\\\ -8 & 17 \\end{pmatrix}$, $A^{-3} = \\frac{1}{125}\\begin{pmatrix} -41 & 84 \\\\ 42 & -83 \\end{pmatrix}$.",
+        "source": {
+          "file": "2026-03-MAT199-ChapI.pdf",
+          "page": 32,
+          "locator": "Exercice 1.5 n° 15 (1)"
+        }
+      },
+      {
+        "id": "t2-17",
+        "objectiveId": "obj2-lu",
+        "bloomLevel": "recall",
+        "type": "mcq",
+        "difficulty": 1,
+        "prompt": "Les notes affirment-elles que toute matrice carrée admet une décomposition LU ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Non : ce n'est pas vrai pour toute matrice."
+          },
+          {
+            "id": "b",
+            "text": "Oui, puisque toute matrice se réduit à une forme échelonnée."
+          },
+          {
+            "id": "c",
+            "text": "Oui, mais seulement pour les matrices inversibles."
+          },
+          {
+            "id": "d",
+            "text": "Non : seulement les matrices triangulaires."
+          }
+        ],
+        "correct": "a",
+        "explanation": "Remarque après le théorème 1.4.10 : « Ce n'est pas vrai que toute matrice admet une décomposition LU. »",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "La réduction peut exiger un échange de lignes, qui n'est pas une opération triangulaire inférieure."
+          },
+          {
+            "optionId": "c",
+            "why": "Les notes ne donnent pas ce critère, et l'exemple p. 29 a justement une matrice NON inversible qui admet une LU."
+          },
+          {
+            "optionId": "d",
+            "why": "La matrice de l'exercice p. 29 n'est pas triangulaire et admet pourtant une LU."
+          }
+        ],
+        "source": {
+          "file": "2026-03-MAT199-ChapI.pdf",
+          "page": 28,
+          "locator": "Remarque après le théorème 1.4.10"
+        }
+      },
+      {
+        "id": "t2-18",
+        "objectiveId": "obj2-lu",
+        "bloomLevel": "apply",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Quelle est la matrice $U$ d'une décomposition LU de $\\begin{pmatrix} 1 & 1 & 2 \\\\ 2 & 3 & 6 \\\\ 3 & -1 & 2 \\end{pmatrix}$ ? (exercice 1.5 n° 16 (1))",
+        "options": [
+          {
+            "id": "a",
+            "text": "$\\begin{pmatrix} 1 & 1 & 2 \\\\ 0 & 1 & 2 \\\\ 0 & 0 & 4 \\end{pmatrix}$"
+          },
+          {
+            "id": "b",
+            "text": "$\\begin{pmatrix} 1 & 1 & 2 \\\\ 0 & 1 & 2 \\\\ 0 & -4 & -4 \\end{pmatrix}$"
+          },
+          {
+            "id": "c",
+            "text": "$\\begin{pmatrix} 1 & 1 & 2 \\\\ 0 & 1 & 2 \\\\ 0 & 0 & -4 \\end{pmatrix}$"
+          },
+          {
+            "id": "d",
+            "text": "$\\begin{pmatrix} 1 & 0 & 0 \\\\ 2 & 1 & 0 \\\\ 3 & -4 & 1 \\end{pmatrix}$"
+          }
+        ],
+        "correct": "a",
+        "explanation": "$L_2 - 2L_1$, $L_3 - 3L_1$ puis $L_3 + 4L_2$ donnent $U = \\begin{pmatrix} 1 & 1 & 2 \\\\ 0 & 1 & 2 \\\\ 0 & 0 & 4 \\end{pmatrix}$, et $L = \\begin{pmatrix} 1 & 0 & 0 \\\\ 2 & 1 & 0 \\\\ 3 & -4 & 1 \\end{pmatrix}$ ; on vérifie $LU = A$.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "L'échelonnement n'est pas fini : il reste $L_3 + 4L_2$."
+          },
+          {
+            "optionId": "c",
+            "why": "Erreur de signe : $(0, -4, -4) + 4\\,(0, 1, 2) = (0, 0, 4)$."
+          },
+          {
+            "optionId": "d",
+            "why": "C'est L, la partie triangulaire inférieure."
+          }
+        ],
+        "source": {
+          "file": "2026-03-MAT199-ChapI.pdf",
+          "page": 32,
+          "locator": "Exercice 1.5 n° 16 (1)"
+        }
+      },
+      {
+        "id": "t2-19",
+        "objectiveId": "obj2-lu",
+        "bloomLevel": "analyze",
+        "type": "mcq",
+        "difficulty": 3,
+        "prompt": "Pourquoi exige-t-on $i > j$ dans une opération $L_i + aL_j$ utilisée pour la décomposition LU ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Pour que les opérations inverses, appliquées à Iₙ, ne produisent que des termes SOUS la diagonale : L reste triangulaire inférieure."
+          },
+          {
+            "id": "b",
+            "text": "Pour que la matrice U obtenue à la fin de l'échelonnement soit toujours inversible."
+          },
+          {
+            "id": "c",
+            "text": "Parce qu'une opération Lᵢ + aLⱼ avec i < j n'est pas inversible et ne peut donc pas être défaite."
+          },
+          {
+            "id": "d",
+            "text": "Pour que le rang de la matrice reste inchangé pendant toute la réduction."
+          }
+        ],
+        "correct": "a",
+        "explanation": "Lemme 1.4.9 : les opérations triangulaires inférieures préservent les matrices triangulaires inférieures. Partant de $I_n$, on obtient donc un $L$ triangulaire inférieur. L'exemple (2) de la p. 28 montre qu'avec $L_1 + 3L_2$ (où $i < j$), on sort des matrices triangulaires inférieures.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "U peut ne pas être inversible : dans l'exemple p. 29, sa dernière ligne est nulle."
+          },
+          {
+            "optionId": "c",
+            "why": "Toute opération de type 2 est inversible, quel que soit l'ordre de i et j."
+          },
+          {
+            "optionId": "d",
+            "why": "Toutes les opérations élémentaires conservent le rang, y compris avec i < j."
+          }
+        ],
+        "source": {
+          "file": "2026-03-MAT199-ChapI.pdf",
+          "page": 28,
+          "locator": "Lemme 1.4.9 et exemple"
+        }
+      },
+      {
+        "id": "t2-20",
+        "objectiveId": "obj2-lu",
+        "bloomLevel": "recall",
+        "type": "fill-blank",
+        "difficulty": 1,
+        "prompt": "Compléter : pour construire $L$, on applique à $I_n$ les opérations inverses $T_i^{-1}$ dans l'ordre ____ .",
+        "correct": "inverse",
+        "acceptableAnswers": [
+          "inverse de la reduction",
+          "contraire",
+          "oppose"
+        ],
+        "explanation": "Théorème 1.4.10 : si $A \\xrightarrow{T_1} \\cdots \\xrightarrow{T_r} U$, alors $I_n \\xrightarrow{T_r^{-1}} \\cdots \\xrightarrow{T_1^{-1}} L$.",
+        "source": {
+          "file": "2026-03-MAT199-ChapI.pdf",
+          "page": 28,
+          "locator": "Théorème 1.4.10"
+        }
+      },
+      {
+        "id": "t2-21",
+        "objectiveId": "obj2-echelon",
+        "bloomLevel": "apply",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "On réduit $\\begin{pmatrix} 1 & 2 & -2 \\\\ 0 & 1 & 1 \\\\ 0 & 0 & 2 \\end{pmatrix}$ à $I_3$ en partant du dernier pivot. Quelle est la première opération sensée ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "$\\frac12 L_3$"
+          },
+          {
+            "id": "b",
+            "text": "$L_1 - 2L_2$"
+          },
+          {
+            "id": "c",
+            "text": "$L_2 - L_1$"
+          },
+          {
+            "id": "d",
+            "text": "$L_1 \\leftrightarrow L_3$"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Proposition 1.4.5(2) : on part du dernier pivot. $\\frac12 L_3$ le ramène à 1, puis $L_2 - L_3$ et $L_1 + 2L_3$ vident la colonne 3, puis $L_1 - 2L_2$ donne $I_3$.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Possible plus tard, mais la proposition 1.4.5 commence par le DERNIER pivot."
+          },
+          {
+            "optionId": "c",
+            "why": "Cette opération recrée un terme non nul sous la diagonale."
+          },
+          {
+            "optionId": "d",
+            "why": "Un échange détruirait la forme échelonnée déjà obtenue."
+          }
+        ],
+        "source": {
+          "file": "2026-03-MAT199-ChapI.pdf",
+          "page": 24,
+          "locator": "Exercice p. 24"
+        }
+      }
+    ]
+  },
+  "flashcards": [
+    {
+      "id": "f2-01",
+      "objectiveId": "obj2-echelon",
+      "front": "Matrice échelonnée ?",
+      "back": "Lignes nulles en bas ; le pivot (premier terme non nul) de chaque ligne est strictement à droite de celui de la ligne du dessus."
+    },
+    {
+      "id": "f2-02",
+      "objectiveId": "obj2-echelon",
+      "front": "Les 3 opérations élémentaires et leurs inverses ?",
+      "back": "$L_i \\leftrightarrow L_j$ (elle-même) · $L_i + aL_j$, $i \\neq j$ ($L_i - aL_j$) · $aL_i$, $a \\neq 0$ ($a^{-1}L_i$)."
+    },
+    {
+      "id": "f2-03",
+      "objectiveId": "obj2-rang",
+      "front": "Rang ?",
+      "back": "Nombre de pivots d'une forme échelonnée. $\\operatorname{rg}(A) \\leq \\min\\{m, n\\}$ et $\\operatorname{rg}(A^T) = \\operatorname{rg}(A)$."
+    },
+    {
+      "id": "f2-04",
+      "objectiveId": "obj2-rang",
+      "front": "Le rang change-t-il par opérations élémentaires ?",
+      "back": "Non : si $A$ se réduit à $B$, $\\operatorname{rg}(A) = \\operatorname{rg}(B)$ (lemme 1.3.6)."
+    },
+    {
+      "id": "f2-05",
+      "objectiveId": "obj2-inverse",
+      "front": "Critère d'inversibilité du chapitre I ?",
+      "back": "$A \\in M_n(\\mathbb{R})$ inversible $\\iff \\operatorname{rg}(A) = n$ (théorème 1.4.3)."
+    },
+    {
+      "id": "f2-06",
+      "objectiveId": "obj2-inverse",
+      "front": "$(AB)^{-1}$ ?",
+      "back": "$B^{-1}A^{-1}$ — l'ordre s'inverse."
+    },
+    {
+      "id": "f2-07",
+      "objectiveId": "obj2-inverse",
+      "front": "$AX = C$ avec $A$ inversible : $X$ = ?",
+      "back": "$X = A^{-1}C$ (multiplier à gauche)."
+    },
+    {
+      "id": "f2-08",
+      "objectiveId": "obj2-calcul-inverse",
+      "front": "Calculer A⁻¹B en une seule réduction ?",
+      "back": "Échelonner $(A \\mid B)$ jusqu'à $(I_n \\mid C)$ : alors $C = A^{-1}B$."
+    },
+    {
+      "id": "f2-09",
+      "objectiveId": "obj2-calcul-inverse",
+      "front": "$A^{-3}$ ?",
+      "back": "$(A^{-1})^3$ : inverser une fois, puis élever au cube."
+    },
+    {
+      "id": "f2-10",
+      "objectiveId": "obj2-lu",
+      "front": "Opération triangulaire inférieure ?",
+      "back": "$L_i + aL_j$ avec $i > j$ (multiple d'une ligne du dessus), ou $aL_i$ avec $a \\neq 0$. Jamais un échange."
+    },
+    {
+      "id": "f2-11",
+      "objectiveId": "obj2-lu",
+      "front": "Construire L dans A = LU ?",
+      "back": "Appliquer à $I_n$ les inverses des opérations, dans l'ordre inverse. Les multiples retranchés se retrouvent sous la diagonale."
+    },
+    {
+      "id": "f2-12",
+      "objectiveId": "obj2-calcul-inverse",
+      "front": "Réduire une matrice échelonnée inversible à Iₙ ?",
+      "back": "Rendre les pivots égaux à 1, puis éliminer au-dessus des pivots en partant du DERNIER (proposition 1.4.5)."
+    }
+  ],
+  "exercises": [
+    {
+      "id": "e2-01",
+      "objectiveId": "obj2-rang",
+      "difficulty": 2,
+      "mode": "trace",
+      "language": "text",
+      "title": "Échelonner et lire le rang",
+      "statement": "Échelonner chacune des matrices suivantes en notant chaque opération, puis donner son rang. La seconde est celle des exercices dirigés (séance 1, n° 8) : discuter selon a.",
+      "starterCode": "(1)  ( 1  1  2  −3 )          (2)  ( 1  1  a  1 )\n     ( 2  3  6  −5 )               ( 1  2  1  1 )\n     ( 3 −1  2  −7 )               ( 1  a  1  a )",
+      "hints": [
+        "Utiliser le premier pivot pour annuler toute la première colonne sous lui, puis recommencer avec le pivot suivant.",
+        "Pour (2), ne jamais diviser par une expression en a sans vérifier qu'elle est non nulle. Préférer L₃ − (a − 1)L₂.",
+        "Dans (2), la dernière ligne réduite est (0, 0, (a − 1)(a − 2), a − 1). Quand est-elle entièrement nulle ?"
+      ],
+      "solution": "(1) rang 3 · (2) rang 2 si a = 1, rang 3 sinon",
+      "expectedOutput": "(1)  $L_2 - 2L_1$ : $(0, 1, 2, 1)$ ;  $L_3 - 3L_1$ : $(0, -4, -4, 2)$ ;  $L_3 + 4L_2$ : $(0, 0, 4, 6)$\n\n     $\\begin{pmatrix} 1 & 1 & 2 & -3 \\\\ 0 & 1 & 2 & 1 \\\\ 0 & 0 & 4 & 6 \\end{pmatrix}$     trois pivots : $\\operatorname{rg} = 3$.\n\n(2)  $L_2 - L_1$ : $(0, 1, 1 - a, 0)$ ;  $L_3 - L_1$ : $(0, a - 1, 1 - a, a - 1)$\n     $L_3 - (a - 1)L_2$ : $(0, 0, (1 - a) - (a - 1)(1 - a),\\ a - 1) = (0, 0, (a-1)(a-2),\\ a - 1)$\n\n     • $a = 1$ : dernière ligne $(0, 0, 0, 0)$ → rang 2.\n     • $a = 2$ : dernière ligne $(0, 0, 0, 1)$ → encore un pivot (colonne 4) → rang 3.\n     • sinon : $(a-1)(a-2) \\neq 0$ → pivot en colonne 3 → rang 3.",
+      "solutionExplanation": "Le piège de (2) est $a = 2$ : le terme de la colonne 3 s'annule, et on est tenté de conclure à une ligne nulle. Mais le dernier terme $a - 1$ vaut alors 1, et le pivot se déplace simplement dans la colonne 4. Une ligne n'est nulle que si TOUS ses termes le sont.",
+      "source": {
+        "file": "2026-03_MAT199_ed.pdf",
+        "page": 1,
+        "locator": "Séance 1, n° 8 ; exercice 1.5 n° 12 (1)"
+      }
+    },
+    {
+      "id": "e2-02",
+      "objectiveId": "obj2-calcul-inverse",
+      "difficulty": 2,
+      "mode": "trace",
+      "language": "text",
+      "title": "Inverser par la méthode (A | I)",
+      "statement": "Inverser B par la méthode (B | I₃), en notant chaque opération (banque, exercice 1.10 b). Vérifier le résultat par un produit.",
+      "starterCode": "B = ( 2   2  1 )\n    ( 4   5  2 )\n    ( 1  −1  1 )",
+      "hints": [
+        "Commencer par L₁ ↔ L₃ pour avoir un pivot égal à 1 en haut à gauche — ou garder 2 et travailler avec des fractions.",
+        "Une fois la forme échelonnée obtenue, éliminer au-dessus des pivots en partant du dernier.",
+        "Le résultat a des coefficients entiers : si des fractions persistent à la fin, une erreur s'est glissée."
+      ],
+      "solution": "B⁻¹ = (7 −3 −1 ; −2 1 0 ; −9 4 2)",
+      "expectedOutput": "$(B \\mid I_3) = \\left(\\begin{array}{ccc|ccc} 2 & 2 & 1 & 1 & 0 & 0 \\\\ 4 & 5 & 2 & 0 & 1 & 0 \\\\ 1 & -1 & 1 & 0 & 0 & 1 \\end{array}\\right)$\n\n$L_1 \\leftrightarrow L_3$, puis $L_2 - 4L_1$, $L_3 - 2L_1$ :\n$\\left(\\begin{array}{ccc|ccc} 1 & -1 & 1 & 0 & 0 & 1 \\\\ 0 & 9 & -2 & 0 & 1 & -4 \\\\ 0 & 4 & -1 & 1 & 0 & -2 \\end{array}\\right)$\n\n$9L_3 - 4L_2$ n'est pas élémentaire ; on fait $L_3 - \\frac49 L_2$ :  $(0, 0, -\\frac19 \\mid 1, -\\frac49, -\\frac29)$, puis $-9L_3$ :  $(0, 0, 1 \\mid -9, 4, 2)$.\n\nEn remontant : $L_2 + 2L_3$, puis $\\frac19 L_2$ :  $(0, 1, 0 \\mid -2, 1, 0)$ ;\n$L_1 - L_3$, puis $L_1 + L_2$ :  $(1, 0, 0 \\mid 7, -3, -1)$.\n\n$B^{-1} = \\begin{pmatrix} 7 & -3 & -1 \\\\ -2 & 1 & 0 \\\\ -9 & 4 & 2 \\end{pmatrix}$\n\nVérification : ligne 1 de $B$ × colonne 1 de $B^{-1}$ $= 14 - 4 - 9 = 1$ ; ligne 1 × colonne 2 $= -6 + 2 + 4 = 0$ ; … on obtient $I_3$.",
+      "solutionExplanation": "Les solutions des exercices dirigés utilisent volontiers des opérations combinées comme $L_3 \\to 47L_3 - 99L_2$ : c'est un type 3 ($47L_3$) suivi d'un type 2, parfaitement légitime pour échelonner, calculer un rang ou un inverse par $(B \\mid I_3)$, puisque chaque étape est réversible. Il n'y a qu'un cas où il faut la décomposer consciemment : le calcul d'un DÉTERMINANT (chapitre 3), où le facteur 47 multiplie le résultat et doit être compensé.",
+      "source": {
+        "file": "2026-03_MAT199_ex.pdf",
+        "page": 4,
+        "locator": "Exercice 1.10 b)"
+      }
+    },
+    {
+      "id": "e2-03",
+      "objectiveId": "obj2-inverse",
+      "difficulty": 3,
+      "mode": "find-bug",
+      "language": "text",
+      "title": "Trouver l'erreur — l'inverse d'un produit",
+      "statement": "Un étudiant veut calculer l'inverse de M = (2 3 ; 1 2) en l'écrivant comme un produit, comme dans les notes (p. 20). Trouver l'erreur et corriger.",
+      "starterCode": "« M = ( 1 1 ) ( 1 1 )     et je connais les deux inverses :\n       ( 0 1 ) ( 1 2 )\n\n  ( 1 1 )⁻¹ = ( 1 −1 )        ( 1 1 )⁻¹ = (  2 −1 )\n  ( 0 1 )     ( 0  1 )        ( 1 2 )     ( −1  1 )\n\n  Donc M⁻¹ = ( 1 −1 ) (  2 −1 ) = (  3 −2 )  »\n             ( 0  1 ) ( −1  1 )   ( −1  1 )",
+      "hints": [
+        "Écrire M = XY. Quelle est la règle de la proposition 1.4.2(4) pour (XY)⁻¹ ?",
+        "Vérifier le résultat de l'étudiant : M fois sa matrice donne-t-il I₂ ?",
+        "Refaire le produit dans l'autre ordre."
+      ],
+      "solution": "M⁻¹ = Y⁻¹X⁻¹ = (2 −3 ; −1 2)",
+      "expectedOutput": "L'ERREUR\n    L'étudiant a calculé $X^{-1}Y^{-1}$. Or la proposition 1.4.2(4) dit $(XY)^{-1} = Y^{-1}X^{-1}$.\n\nLA VÉRIFICATION QUI LE RÉVÈLE\n    $\\begin{pmatrix} 2 & 3 \\\\ 1 & 2 \\end{pmatrix}\\begin{pmatrix} 3 & -2 \\\\ -1 & 1 \\end{pmatrix} = \\begin{pmatrix} 3 & -1 \\\\ 1 & 0 \\end{pmatrix} \\neq I_2$.\n\nLA CORRECTION\n    $M^{-1} = \\begin{pmatrix} 2 & -1 \\\\ -1 & 1 \\end{pmatrix}\\begin{pmatrix} 1 & -1 \\\\ 0 & 1 \\end{pmatrix} = \\begin{pmatrix} 2 & -3 \\\\ -1 & 2 \\end{pmatrix}$\n\n    et $\\begin{pmatrix} 2 & 3 \\\\ 1 & 2 \\end{pmatrix}\\begin{pmatrix} 2 & -3 \\\\ -1 & 2 \\end{pmatrix} = \\begin{pmatrix} 1 & 0 \\\\ 0 & 1 \\end{pmatrix}$ ✓",
+      "solutionExplanation": "Vérifier un inverse coûte un seul produit — et détecte à coup sûr l'erreur d'ordre. Le résultat faux n'est d'ailleurs pas absurde : c'est l'inverse de $YX$, l'autre produit. La même inversion d'ordre se retrouve pour la transposée, $(AB)^T = B^TA^T$.",
+      "source": {
+        "file": "2026-03-MAT199-ChapI.pdf",
+        "page": 20,
+        "locator": "Proposition 1.4.2(4) et exemple (2)"
+      }
+    },
+    {
+      "id": "e2-04",
+      "objectiveId": "obj2-lu",
+      "difficulty": 2,
+      "mode": "fill-blank",
+      "language": "text",
+      "title": "Compléter une décomposition LU",
+      "statement": "Compléter la décomposition LU de A (exercice 1.5 n° 16 (2)) : opérations, U, puis L.",
+      "starterCode": "A = ( 1   2  −1 )\n    ( 1   4  −3 )\n    ( 3  −6  −7 )\n\nT₁ : L₂ − ____ L₁      →  ligne 2 = ( 0 , 2 , −2 )\nT₂ : L₃ − 3 L₁          →  ligne 3 = ( 0 , ____ , −4 )\nT₃ : L₃ + ____ L₂      →  ligne 3 = ( 0 , 0 , ____ )\n\nU = ( 1  2  −1 )        L = (  1    0   0 )\n    ( 0  2  −2 )            ( ____  1   0 )\n    ( 0  0  ____ )          (  3  ____  1 )",
+      "hints": [
+        "T₁ doit annuler le 1 sous le premier pivot.",
+        "Ligne 3 après T₂ : (3, −6, −7) − 3·(1, 2, −1). Puis T₃ doit annuler la colonne 2 avec le pivot 2.",
+        "Dans L, chaque terme sous la diagonale est le multiple RETRANCHÉ : +1, +3 et … le multiple retranché dans T₃ est négatif."
+      ],
+      "solution": "T₁ : L₂ − 1·L₁ · ligne 3 après T₂ : (0, −12, −4) · T₃ : L₃ + 6L₂ → (0, 0, −16) · L = (1 0 0 ; 1 1 0 ; 3 −6 1)",
+      "expectedOutput": "T₁ : $L_2 - 1 \\cdot L_1$   →  $(0, 2, -2)$\nT₂ : $L_3 - 3L_1$         →  $(3, -6, -7) - (3, 6, -3) = (0, -12, -4)$\nT₃ : $L_3 + 6L_2$         →  $(0, -12, -4) + (0, 12, -12) = (0, 0, -16)$\n\n$U = \\begin{pmatrix} 1 & 2 & -1 \\\\ 0 & 2 & -2 \\\\ 0 & 0 & -16 \\end{pmatrix}$\n\nOn applique à $I_3$ : $T_3^{-1} = L_3 - 6L_2$, $T_2^{-1} = L_3 + 3L_1$, $T_1^{-1} = L_2 + L_1$ :\n\n$L = \\begin{pmatrix} 1 & 0 & 0 \\\\ 1 & 1 & 0 \\\\ 3 & -6 & 1 \\end{pmatrix}$\n\nVérification : ligne 3 de $LU$ $= 3\\,(1, 2, -1) - 6\\,(0, 2, -2) + (0, 0, -16) = (3, -6, -7)$ ✓",
+      "solutionExplanation": "Le $-6$ de $L$ est le point délicat : T₃ ajoute $6L_2$, c'est-à-dire retranche $-6L_2$. Dans $L$, on retrouve toujours le multiple RETRANCHÉ, avec son signe. Le contrôle final par la ligne 3 de $LU$ vérifie d'un coup les trois opérations.",
+      "source": {
+        "file": "2026-03-MAT199-ChapI.pdf",
+        "page": 32,
+        "locator": "Exercice 1.5 n° 16 (2)"
+      }
+    },
+    {
+      "id": "e2-05",
+      "objectiveId": "obj2-calcul-inverse",
+      "difficulty": 3,
+      "mode": "predict-output",
+      "language": "text",
+      "title": "Puissances négatives",
+      "statement": "Pour A = (1 2 ; 3 5) (exercice des notes, p. 26), vérifier que A est inversible, puis calculer A⁻¹, A⁻² et A⁻³. Vérifier A⁻³ d'une seconde façon.",
+      "starterCode": "A = ( 1  2 )\n    ( 3  5 )",
+      "hints": [
+        "Échelonner (A | I₂) : deux pivots → inversible, et la partie droite donne A⁻¹.",
+        "A⁻² = A⁻¹·A⁻¹, puis A⁻³ = A⁻²·A⁻¹ (définition 1.4.7).",
+        "Seconde façon : A⁻³ est l'inverse de A³ ; il suffit de vérifier que A³·A⁻³ = I₂."
+      ],
+      "solution": "A⁻¹ = (−5 2 ; 3 −1), A⁻² = (31 −12 ; −18 7), A⁻³ = (−191 74 ; 111 −43)",
+      "expectedOutput": "$(A \\mid I_2)$ : $L_2 - 3L_1$ → $(0, -1 \\mid -3, 1)$ ; $-L_2$ → $(0, 1 \\mid 3, -1)$ ; $L_1 - 2L_2$ → $(1, 0 \\mid -5, 2)$.\nDeux pivots : $\\operatorname{rg}(A) = 2$, $A$ est inversible.\n\n$A^{-1} = \\begin{pmatrix} -5 & 2 \\\\ 3 & -1 \\end{pmatrix}$\n\n$A^{-2} = \\begin{pmatrix} -5 & 2 \\\\ 3 & -1 \\end{pmatrix}\\begin{pmatrix} -5 & 2 \\\\ 3 & -1 \\end{pmatrix} = \\begin{pmatrix} 31 & -12 \\\\ -18 & 7 \\end{pmatrix}$\n\n$A^{-3} = A^{-2}A^{-1} = \\begin{pmatrix} 31 & -12 \\\\ -18 & 7 \\end{pmatrix}\\begin{pmatrix} -5 & 2 \\\\ 3 & -1 \\end{pmatrix} = \\begin{pmatrix} -191 & 74 \\\\ 111 & -43 \\end{pmatrix}$\n\nSECONDE VÉRIFICATION\n$A^3 = \\begin{pmatrix} 43 & 74 \\\\ 111 & 191 \\end{pmatrix}$  et  $\\begin{pmatrix} 43 & 74 \\\\ 111 & 191 \\end{pmatrix}\\begin{pmatrix} -191 & 74 \\\\ 111 & -43 \\end{pmatrix} = I_2$ ✓\n(par exemple : $43 \\times (-191) + 74 \\times 111 = -8213 + 8214 = 1$)",
+      "solutionExplanation": "La vérification par $A^3 A^{-3} = I_2$ est indépendante du calcul principal : elle attrape une erreur de signe ou d'ordre dans les produits. Elle illustre aussi la définition : $A^{-3}$ est bien l'inverse de $A^3$, puisque $(A^{-1})^3 A^3 = I_2$.",
+      "source": {
+        "file": "2026-03-MAT199-ChapI.pdf",
+        "page": 26,
+        "locator": "Exercice p. 26"
+      }
+    }
+  ]
+}

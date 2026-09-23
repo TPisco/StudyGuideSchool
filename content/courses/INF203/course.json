@@ -1,0 +1,64 @@
+{
+  "code": "INF203",
+  "title": "Informatique et société",
+  "term": "Automne 2026",
+  "language": "fr",
+  "accent": "rose",
+  "sample": false,
+  "description": "Le cadre juridique dans lequel travaille une personne en informatique au Québec et au Canada : types de responsabilité, partage des pouvoirs et des compétences, hiérarchie des sources du droit, puis la responsabilité civile extracontractuelle — l'article 1457 du Code civil du Québec, ses éléments constitutifs, ses limites, et la tension entre liberté d'expression et diffamation.",
+  "chapters": [
+    { "number": 1, "slug": "01-droit-et-sources", "title": "Droit, morale et sources de la responsabilité" },
+    { "number": 2, "slug": "02-responsabilite-civile", "title": "Responsabilité civile extracontractuelle" }
+  ],
+  "roadmap": {
+    "title": "Parcours d'apprentissage",
+    "steps": [
+      {
+        "id": "ch1",
+        "title": "Droit, morale et sources de la responsabilité",
+        "description": "Organisation du cours, types de responsabilité, partage des pouvoirs et des compétences au Canada, hiérarchie des normes, démarche d'analyse d'un enjeu.",
+        "chapter": 1,
+        "estimatedMinutes": 120,
+        "prerequisites": []
+      },
+      {
+        "id": "ch1-check",
+        "title": "Point de contrôle — fédéral, provincial ou partagé ?",
+        "description": "Classer une série de domaines (télécommunications, éducation, immigration, propriété intellectuelle…) selon le partage des compétences, et ordonner les six sources du cadre juridique.",
+        "estimatedMinutes": 25,
+        "prerequisites": ["ch1"],
+        "checkpoint": true
+      },
+      {
+        "id": "ch2",
+        "title": "Responsabilité civile extracontractuelle",
+        "description": "Portée d'un jugement, tribunaux, article 1457 C.c.Q., éléments constitutifs, fardeau de la preuve, limites et partage de la responsabilité, diffamation.",
+        "chapter": 2,
+        "estimatedMinutes": 150,
+        "prerequisites": ["ch1-check"]
+      },
+      {
+        "id": "ch2-check",
+        "title": "Point de contrôle — les quatre éléments",
+        "description": "Devant une situation, vérifier un à un les quatre éléments constitutifs de la responsabilité et dire lequel manque.",
+        "estimatedMinutes": 30,
+        "prerequisites": ["ch2"],
+        "checkpoint": true
+      },
+      {
+        "id": "revision",
+        "title": "Révision finale",
+        "description": "Examen blanc chronométré couvrant les deux chapitres, pondéré vers les objectifs faibles détectés par la plateforme.",
+        "estimatedMinutes": 60,
+        "prerequisites": ["ch1-check", "ch2-check"],
+        "checkpoint": true
+      }
+    ]
+  },
+  "exam": {
+    "defaultMinutes": 60,
+    "defaultQuestionCount": 25,
+    "mirrorsPastExam": false,
+    "formatNote": "Les diapositives annoncent un examen de mi-session et un examen final de 20 % chacun, et exigent une moyenne de 60 % sur l'ensemble des évaluations individuelles pour réussir le cours. Elles ne décrivent pas la forme des examens et aucun examen antérieur n'a été fourni : le format de l'examen blanc (25 questions, 60 minutes) est une convention de la plateforme."
+  }
+}

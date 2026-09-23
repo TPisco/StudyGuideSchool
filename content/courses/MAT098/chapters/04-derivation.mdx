@@ -1,0 +1,212 @@
+---
+course: MAT098
+number: 4
+title: Dérivation et applications
+summary: >-
+  La dérivée comme taux de variation instantané : définition par la limite,
+  lien avec la continuité, règles de dérivation, signe de la dérivée et
+  croissance, dérivées d'ordre supérieur, dérivation en chaîne et dérivées
+  des fonctions exponentielles, logarithmiques et trigonométriques.
+estimatedMinutes: 210
+prerequisites:
+  - "Chapitre 3 — limites, continuité"
+objectives:
+  - id: obj4-definition
+    text: Calculer une dérivée à l'aide de la définition par la limite et interpréter f′(a) comme la pente de la tangente.
+    bloom: apply
+  - id: obj4-continuite
+    text: Distinguer dérivabilité et continuité, et reconnaître un point où une fonction continue n'est pas dérivable.
+    bloom: understand
+  - id: obj4-regles
+    text: Appliquer les règles de dérivation (constante, somme, produit, quotient, puissance) et les dérivées d'ordre supérieur.
+    bloom: apply
+  - id: obj4-chaine
+    text: Dériver une composée par la dérivation en chaîne, y compris les fonctions exponentielles, logarithmiques et trigonométriques.
+    bloom: apply
+  - id: obj4-signe
+    text: Relier le signe de la dérivée à la croissance et aux extremums relatifs à l'aide d'un tableau des signes.
+    bloom: analyze
+sources:
+  - file: "1-rappels_calcul_differentiel.pdf"
+    page: 149
+    locator: "Chapitre 1, section Dérivation et applications (diapositives 149 à 198)"
+  - file: "noteChapitre1.txt"
+    page: 1
+    locator: "Notes en ligne, sections 1.4.1 à 1.4.6"
+---
+
+## 1. La dérivée
+
+La **variation** d'une fonction sur $[a, b]$ est $\Delta f = f(b) - f(a)$ et
+celle de la variable, $\Delta x = b - a$.
+
+**Définition 1.49 (dérivée en un point).** La dérivée d'une fonction au
+point $(a, f(a))$ est son **taux de variation instantané** en ce point :
+
+$$
+f'(a) = \left.\frac{df}{dx}\right|_{x = a} = \lim_{\Delta x \to 0} \frac{f(a + \Delta x) - f(a)}{\Delta x},
+$$
+
+lorsque la limite existe. On dit alors que $f$ est **dérivable** en $a$, et
+$f'(a)$ est la **pente de la tangente** à la courbe au point $(a, f(a))$.
+
+**Définition 1.50 (fonction dérivée).** Pour éviter de refaire le calcul en
+chaque point, on définit la fonction dérivée :
+
+$$
+f'(x) = \frac{df}{dx} = \frac{d}{dx}[f(x)] = \frac{dy}{dx} = y' = \lim_{\Delta x \to 0} \frac{f(x + \Delta x) - f(x)}{\Delta x}.
+$$
+
+<Callout type="warning" title="dy/dx n'est pas un quotient">
+Il faut voir $\frac{d}{dx}$ comme un **opérateur** qui dit de dériver par
+rapport à $x$. Avec $f'(x)$ ou $y'$, s'assurer qu'il n'y a pas de confusion
+sur la variable de dérivation, qui n'est pas écrite.
+</Callout>
+
+<Callout type="example" title="Exercice 1.51 a — par la définition (réponse de la plateforme)">
+Pour $y = 3x^2$ :
+$$
+\frac{3(x + \Delta x)^2 - 3x^2}{\Delta x} = \frac{6x\,\Delta x + 3(\Delta x)^2}{\Delta x} = 6x + 3\Delta x \xrightarrow[\Delta x \to 0]{} 6x.
+$$
+</Callout>
+
+<Source file="1-rappels_calcul_differentiel.pdf" page={152} locator="Définitions 1.49 et 1.50, exercice 1.51 (diapositives 152 à 157)" />
+
+## 2. Dérivabilité et continuité
+
+**Théorème 1.52.** Si $f$ est dérivable en $x = a$, alors elle est continue
+en $x = a$.
+
+$$
+\text{Dérivabilité} \implies \text{Continuité} \qquad \text{mais} \qquad \text{Continuité} \not\implies \text{Dérivabilité}.
+$$
+
+Par la **contraposée** : une fonction **non continue** en $a$ n'y est **pas
+dérivable**.
+
+<Callout type="example" title="Exemple 1.53 — la valeur absolue">
+$f(x) = |x|$ est continue en $0$, mais $f'(x) = 1$ si $x > 0$ et $-1$ si
+$x < 0$ : les limites à gauche et à droite du taux de variation diffèrent, et
+$f'(0)$ n'existe pas. En règle générale, là où le graphique présente un
+**point anguleux**, il n'y a pas de tangente et la fonction n'est pas
+dérivable.
+</Callout>
+
+<Source file="1-rappels_calcul_differentiel.pdf" page={158} locator="Théorème 1.52, exemple 1.53, exercice 1.54 (diapositives 158 à 163)" />
+
+## 3. Règles de dérivation
+
+$u$ et $v$ sont des fonctions dérivables de $x$, $k$ une constante :
+
+| Théorème | Règle |
+| --- | --- |
+| 1.55 constante | $\frac{d}{dx}[k] = 0$ |
+| 1.56 identité | $\frac{d}{dx}[x] = 1$ |
+| 1.57 multiple | $\frac{d}{dx}[ku] = k\frac{du}{dx}$ |
+| 1.58 somme, différence | $\frac{d}{dx}[u \pm v] = \frac{du}{dx} \pm \frac{dv}{dx}$ |
+| 1.59 produit | $\frac{d}{dx}[uv] = u\frac{dv}{dx} + v\frac{du}{dx}$ |
+| 1.60 quotient ($v \neq 0$) | $\frac{d}{dx}\left[\frac{u}{v}\right] = \dfrac{v\frac{du}{dx} - u\frac{dv}{dx}}{v^2}$ |
+| 1.61 puissance ($n \in \mathbb{R}$) | $\frac{d}{dx}[x^n] = nx^{n-1}$ |
+
+<Callout type="misconception" title="Le produit et le quotient ne se dérivent pas terme à terme">
+$\frac{d}{dx}[uv] \neq \frac{du}{dx}\cdot\frac{dv}{dx}$ et
+$\frac{d}{dx}\left[\frac{u}{v}\right] \neq \frac{du}{dx} \Big/ \frac{dv}{dx}$.
+Par exemple, $(x^2 + x)(x^2 - x) = x^4 - x^2$ a pour dérivée $4x^3 - 2x$, et
+non $(2x + 1)(2x - 1) = 4x^2 - 1$ (exercice 1.62 d, réponse de la
+plateforme).
+</Callout>
+
+La dérivée d'une dérivée est la **dérivée seconde**,
+$\frac{d^2f}{dx^2} = f''(x) = f^{(2)}(x)$, puis la dérivée troisième
+$f'''(x) = f^{(3)}(x)$, et en général la **dérivée d'ordre $n$**,
+$\frac{d^nf}{dx^n} = f^{(n)}(x)$. Par exemple (exercice 1.64, réponse de la
+plateforme) : $\frac{d^2}{dx^2}\left(4x^6 - 2x^5 + 3x - 1\right) = 120x^4 - 40x^3$.
+
+<Source file="1-rappels_calcul_differentiel.pdf" page={165} locator="Théorèmes 1.55 à 1.61, exercices 1.62 et 1.64 (diapositives 165 à 173, 183 à 186)" />
+
+## 4. Signe de la dérivée
+
+$f'(a)$ est la pente de la tangente en $(a, f(a))$. Sur un intervalle :
+
+| Signe de $f'$ | Comportement de $f$ |
+| --- | --- |
+| $f'(x) > 0$ | $f$ **croissante** |
+| $f'(x) < 0$ | $f$ **décroissante** |
+| $f'$ passe de $+$ à $-$ en $a$ ($f'(a) = 0$) | **maximum relatif** en $a$ |
+| $f'$ passe de $-$ à $+$ en $a$ ($f'(a) = 0$) | **minimum relatif** en $a$ |
+
+Pourquoi : si $f$ croît sur $[a, a + \Delta x]$ avec $\Delta x > 0$, le
+numérateur $f(a + \Delta x) - f(a)$ et le dénominateur $\Delta x$ du taux de
+variation sont tous deux positifs.
+
+L'outil pour étudier un signe est le **tableau des signes**.
+
+<Callout type="example" title="Exemple 1.63">
+$P(x) = 2x^2 - 5x - 3 = 2\left(x + \frac12\right)(x - 3)$.
+
+| $x$ | $]-\infty, -\frac12[$ | $-\frac12$ | $]-\frac12, 3[$ | $3$ | $]3, \infty[$ |
+| --- | --- | --- | --- | --- | --- |
+| $P(x)$ | $+$ | $0$ | $-$ | $0$ | $+$ |
+
+$P$ est positive sur $]-\infty, -\frac12[\ \cup\ ]3, \infty[$, négative sur
+$]-\frac12, 3[$, nulle en $-\frac12$ et $3$.
+</Callout>
+
+Le signe de la **dérivée seconde** renseigne de la même façon sur la
+croissance ou la décroissance de $f'$ — ce qui servira à la concavité au
+chapitre 5.
+
+<Source file="1-rappels_calcul_differentiel.pdf" page={175} locator="Signe de la dérivée, exemple 1.63 (diapositives 175 à 185)" />
+
+## 5. Dérivation en chaîne
+
+La règle $\frac{d}{dx}[x^n] = nx^{n-1}$ **ne s'applique pas** telle quelle à
+une puissance de fonction. **Théorème 1.65** :
+
+$$
+\frac{d}{dx}\left[\big(u(x)\big)^n\right] = n\big(u(x)\big)^{n-1}\frac{d}{dx}\left[u(x)\right].
+$$
+
+C'est un cas particulier de la **dérivation en chaîne** (théorème 1.66) :
+si $y = f(u)$ et $u = u(x)$ sont dérivables,
+
+$$
+\frac{dy}{dx} = \frac{dy}{du}\cdot\frac{du}{dx}.
+$$
+
+<Callout type="example" title="Exercice 1.67 — avec des valeurs seulement (réponse de la plateforme)">
+$f(2) = 1$, $f(4) = 4$, $f'(2) = -2$, $f'(4) = 3$, $g(2) = 4$, $g(4) = 2$,
+$g'(2) = 3$, $g'(4) = -1$.
+
+- $F(x) = f(g(x))$ : $F'(4) = f'(g(4))\,g'(4) = f'(2)\cdot(-1) = (-2)(-1) = 2$.
+- $F(x) = (g(x))^2$ : $F'(4) = 2g(4)\,g'(4) = 2 \cdot 2 \cdot (-1) = -4$.
+</Callout>
+
+<Source file="1-rappels_calcul_differentiel.pdf" page={188} locator="Théorèmes 1.65 et 1.66, exercice 1.67 (diapositives 188 à 191)" />
+
+## 6. Dérivées des fonctions transcendantes
+
+Toutes s'écrivent avec la dérivée $\frac{du}{dx}$ de la fonction intérieure
+— c'est la dérivation en chaîne :
+
+| Fonction | Dérivée | Condition |
+| --- | --- | --- |
+| $e^{u}$ | $e^{u}\,u'$ | |
+| $b^{u}$ | $b^{u}\ln b\,u'$ | $b > 0$, $b \neq 1$ |
+| $\ln u$ | $\frac{1}{u}\,u'$ | $u > 0$ |
+| $\log_b u$ | $\frac{1}{u\ln b}\,u'$ | $u > 0$, $b > 0$, $b \neq 1$ |
+| $\sin u$ | $\cos u \cdot u'$ | |
+| $\cos u$ | $-\sin u \cdot u'$ | |
+| $\tan u$ | $\sec^2 u \cdot u'$ | |
+| $\cot u$ | $-\csc^2 u \cdot u'$ | |
+| $\sec u$ | $\sec u \tan u \cdot u'$ | |
+| $\csc u$ | $-\csc u \cot u \cdot u'$ | |
+
+<Callout type="example" title="Exercices 1.70 et 1.73 — réponses de la plateforme">
+- $\frac{d}{dx}\left[x^3\ln x\right] = 3x^2\ln x + x^3\cdot\frac1x = 3x^2\ln x + x^2$ (produit).
+- $\frac{d}{dx}\left[2^{\sqrt x}\right] = 2^{\sqrt x}\ln 2 \cdot \frac{1}{2\sqrt x}$.
+- $\frac{d}{dx}\left[\csc(2x)\right] = -2\csc(2x)\cot(2x)$.
+- $\frac{d}{d\theta}\left[\cos^3(\sin 4\theta)\right] = 3\cos^2(\sin 4\theta)\cdot\big(-\sin(\sin 4\theta)\big)\cdot 4\cos 4\theta = -12\cos^2(\sin 4\theta)\sin(\sin 4\theta)\cos 4\theta$ — trois couches, trois facteurs.
+</Callout>
+
+<Source file="1-rappels_calcul_differentiel.pdf" page={193} locator="Théorèmes 1.68, 1.69, 1.71 et 1.72, exercices 1.70 et 1.73 (diapositives 193 à 198)" />

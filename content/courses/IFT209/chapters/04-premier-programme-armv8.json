@@ -1,0 +1,968 @@
+{
+  "course": "IFT209",
+  "chapter": 4,
+  "concepts": [
+    {
+      "id": "c4-registres",
+      "term": "Utilisation des registres",
+      "definition": "Normes du cours : x19 à x28 sans limitation, utilisation intensive ; x0 à x7 limités, pour paramètres et retours ; x9 à x15 à éviter le plus possible ; x16, x17, x18, x29 et x30 à ne pas utiliser.",
+      "whyItMatters": "Seuls x19 à x28 sont sauvegardés au début d'un sous-programme (SAVE) : leur contenu survit à un bl printf ou bl scanf. x0 à x7 et x9 à x15 ne sont pas sauvegardés par les sous-programmes.",
+      "commonMisconception": "Croire que tous les registres se valent. Un compteur de boucle rangé dans x9 peut être modifié par un printf appelé dans la boucle.",
+      "objectiveId": "obj4-normes",
+      "source": { "file": "Chapitre 4.pdf", "page": 3, "locator": "Diapositive 3" }
+    },
+    {
+      "id": "c4-ligne",
+      "term": "Format d'une ligne",
+      "definition": "Une ligne est divisée en 4 colonnes alignées : Étiquette | Mnémonique | Opérandes | Commentaires. Une seule instruction par ligne, une ligne blanche entre les groupes d'instructions.",
+      "whyItMatters": "Un code assembleur aligné se lit colonne par colonne : on repère d'un coup d'œil les étiquettes (les points de branchement) et les instructions.",
+      "commonMisconception": "Penser que la mise en forme est facultative parce que l'assembleur l'ignore. C'est une norme de programmation du cours, pas une contrainte de l'outil.",
+      "objectiveId": "obj4-normes",
+      "source": { "file": "Chapitre 4.pdf", "page": 4, "locator": "Diapositive 4" }
+    },
+    {
+      "id": "c4-etiquettes",
+      "term": "Étiquette",
+      "definition": "Suite de caractères qui se termine par « : ». Seule sur sa ligne pour les instructions ; sur la même ligne que la pseudo-instruction pour les données. Les étiquettes d'instructions commencent par les 3 ou 4 premières lettres du point d'entrée, suivies de chiffres en ordre croissant.",
+      "whyItMatters": "La numérotation croissante (rect00, rect10, rect20) aide à voir l'ordre d'exécution du programme ; les noms significatifs des données (points, scfmt1) disent ce qu'elles contiennent.",
+      "commonMisconception": "Donner aux étiquettes d'instructions des noms libres comme « boucle » ou « fin ». Les noms significatifs sont réservés aux données.",
+      "objectiveId": "obj4-normes",
+      "source": { "file": "Chapitre 4.pdf", "page": 5, "locator": "Diapositive 5" }
+    },
+    {
+      "id": "c4-sections",
+      "term": "Sections .text, .rodata, .data, .bss",
+      "definition": ".text : les instructions, en lecture seulement. .rodata : les données en lecture seulement, donc les constantes. .data : les données initialisées. .bss : les données non initialisées, donc les variables.",
+      "whyItMatters": "Chaque donnée a sa place selon deux questions : sera-t-elle modifiée ? a-t-elle une valeur de départ ? Les chaînes de format vont en .rodata, les coordonnées lues au clavier en .bss.",
+      "commonMisconception": "Mettre en .rodata une valeur que le programme modifie, ou en .bss une valeur qui a besoin d'une valeur initiale.",
+      "objectiveId": "obj4-sections",
+      "source": { "file": "Chapitre 4.pdf", "page": 7, "locator": "Diapositive 7" }
+    },
+    {
+      "id": "c4-pseudo",
+      "term": "Pseudo-instruction",
+      "definition": "Directive qui guide l'assembleur ; commence toujours par « . ». Ce n'est pas une instruction machine. Exemples : .section, .global, .align, .skip, .ascii, .asciz, .byte, .half, .word, .xword, .single, .double.",
+      "whyItMatters": "C'est par elles qu'on réserve et initialise la mémoire : .byte réserve 1 octet, .half 2, .word 4, .xword 8, et .skip taille réserve le nombre d'octets demandé.",
+      "commonMisconception": "Croire que .skip 32 et .skip 8*4 diffèrent. La taille est une expression : les deux réservent 32 octets ; la seconde écriture dit simplement « 8 mots ».",
+      "objectiveId": "obj4-pseudo",
+      "source": { "file": "Chapitre 4.pdf", "page": 10, "locator": "Diapositives 9 et 10" }
+    },
+    {
+      "id": "c4-ascii-asciz",
+      "term": ".ascii et .asciz",
+      "definition": ".asciz prépare une chaîne automatiquement terminée par un 0. .ascii prépare la suite de caractères sans le 0 final : elle doit se terminer par 0 si c'est une chaîne complète.",
+      "whyItMatters": "printf et scanf lisent une chaîne jusqu'au 0. Une chaîne en .ascii se prolonge donc dans ce qui suit en mémoire — le programme du rectangle s'en sert pour afficher deux lignes avec un seul printf.",
+      "commonMisconception": "Utiliser .ascii pour un format isolé : printf continue alors à lire les octets suivants comme s'ils faisaient partie du format.",
+      "objectiveId": "obj4-pseudo",
+      "source": { "file": "Chapitre 4.pdf", "page": 10, "locator": "Diapositive 10" }
+    },
+    {
+      "id": "c4-printf",
+      "term": "Appel de printf",
+      "definition": "Adresse du format dans x0 (adr x0,format), valeurs à afficher dans x1, x2, … dans l'ordre des codes % du format, puis bl printf.",
+      "whyItMatters": "L'assembleur n'a pas d'instruction d'affichage : le cours emprunte la fonction printf de la bibliothèque C.",
+      "commonMisconception": "Mettre la première valeur à afficher dans x0. x0 est déjà occupé par l'adresse du format.",
+      "objectiveId": "obj4-io",
+      "source": { "file": "Chapitre 4.pdf", "page": 13, "locator": "Diapositives 12 et 13" }
+    },
+    {
+      "id": "c4-scanf",
+      "term": "Appel de scanf",
+      "definition": "Adresse du format dans x0, puis ADRESSE de la variable où écrire la donnée lue dans x1 (adr x1,var), puis bl scanf.",
+      "whyItMatters": "C'est le & de scanf(\"%u\", &age) : scanf ne reçoit pas une valeur mais l'endroit où ranger ce qu'il lit.",
+      "commonMisconception": "Charger la valeur de la variable (ldrsw x1,[x19]) au lieu de passer son adresse (mov x1,x19). scanf écrit alors à une adresse qui n'a rien à voir.",
+      "objectiveId": "obj4-io",
+      "source": { "file": "Chapitre 4.pdf", "page": 15, "locator": "Diapositives 14 et 15" }
+    },
+    {
+      "id": "c4-save-exit",
+      "term": "SAVE et exit",
+      "definition": "SAVE est une macro du cours qui sauvegarde l'état des registres x19 à x30 (RESTORE les récupère). Le programme du rectangle commence par SAVE et se termine par mov x0,0 puis bl exit : code d'erreur 0, aucune erreur.",
+      "whyItMatters": "SAVE protège les registres de l'appelant avant que le programme ne les utilise intensivement ; exit termine proprement en transmettant un code d'erreur.",
+      "commonMisconception": "Croire que SAVE sauvegarde x0 à x7. Ce sont justement ceux que les sous-programmes ne sauvegardent pas.",
+      "objectiveId": "obj4-programme",
+      "source": { "file": "ResumeARM.pdf", "page": 10, "locator": "Les instructions les plus utiles — SAVE et RESTORE" }
+    }
+  ],
+  "tables": [
+    {
+      "id": "t4-registres",
+      "title": "Les registres : consigne et raison",
+      "kind": "reference",
+      "caption": "La consigne vient de la diapositive 3 ; la raison, de l'aide-mémoire ResumeARM.",
+      "columns": [
+        { "key": "reg", "label": "Registres", "mono": true },
+        { "key": "consigne", "label": "Consigne du cours" },
+        { "key": "raison", "label": "Pourquoi (ResumeARM)" }
+      ],
+      "rows": [
+        { "reg": "x19 à x28", "consigne": "Aucune limitation, utilisation intensive", "raison": "Registres locaux, sauvegardés au début d'un sous-programme (SAVE / RESTORE)" },
+        { "reg": "x0 à x7", "consigne": "Limité, pour paramètres et retours", "raison": "Paramètres et retour ; ne seront pas sauvegardés par les sous-programmes" },
+        { "reg": "x9 à x15", "consigne": "À éviter le plus possible", "raison": "Usage temporaire ; ne seront pas sauvegardés par les sous-programmes" },
+        { "reg": "x16, x17", "consigne": "N'utilisez pas ces registres", "raison": "Utilisés par les bibliothèques partagées (libC)" },
+        { "reg": "x18", "consigne": "N'utilisez pas ces registres", "raison": "Usage dépendant de l'implémentation, peut être réservé au système" },
+        { "reg": "x29 (fp)", "consigne": "N'utilisez pas ces registres", "raison": "Pointeur de portée (frame pointer)" },
+        { "reg": "x30 (lr)", "consigne": "N'utilisez pas ces registres", "raison": "Adresse de retour, écrite par chaque bl" }
+      ],
+      "source": { "file": "ResumeARM.pdf", "page": 1, "locator": "Tableau des registres" }
+    },
+    {
+      "id": "t4-sections",
+      "title": "Les sections d'un programme",
+      "kind": "reference",
+      "columns": [
+        { "key": "section", "label": "Section", "mono": true },
+        { "key": "contenu", "label": "Contenu" },
+        { "key": "exemple", "label": "Dans le programme du rectangle" }
+      ],
+      "rows": [
+        { "section": ".text", "contenu": "Les instructions, en lecture seulement", "exemple": "Tout le code, de Rectangle: à bl exit" },
+        { "section": ".rodata", "contenu": "Données en lecture seulement : les constantes", "exemple": "scfmt1, ptfmt1, ptfmt2, ptfmt3" },
+        { "section": ".data", "contenu": "Données initialisées", "exemple": "Déclarée, mais vide" },
+        { "section": ".bss", "contenu": "Données non initialisées : les variables", "exemple": "points: .skip 4*4" }
+      ],
+      "source": { "file": "Chapitre 4.pdf", "page": 7, "locator": "Diapositives 7 et 22" }
+    },
+    {
+      "id": "t4-pseudo",
+      "title": "Pseudo-instructions de données",
+      "kind": "cheatsheet",
+      "caption": "Toutes commencent par un point ; aucune n'est une instruction machine.",
+      "columns": [
+        { "key": "pseudo", "label": "Pseudo-instruction", "mono": true },
+        { "key": "effet", "label": "Effet" },
+        { "key": "taille", "label": "Octets" },
+        { "key": "exemple", "label": "Exemple", "mono": true }
+      ],
+      "rows": [
+        { "pseudo": ".byte n", "effet": "Un octet initialisé à n", "taille": "1", "exemple": ".byte 'a'" },
+        { "pseudo": ".half n", "effet": "Un demi-mot initialisé à n", "taille": "2", "exemple": ".half 16565" },
+        { "pseudo": ".word n", "effet": "Un mot initialisé à n", "taille": "4", "exemple": ".word 2095437" },
+        { "pseudo": ".xword n", "effet": "Un mot étendu initialisé à n", "taille": "8", "exemple": ".xword 797867987987" },
+        { "pseudo": ".single n", "effet": "Virgule flottante simple précision", "taille": "4", "exemple": ".single 0r3.14" },
+        { "pseudo": ".double n", "effet": "Virgule flottante double précision", "taille": "8", "exemple": ".double 0r3.14" },
+        { "pseudo": ".ascii \"…\"", "effet": "Chaîne SANS 0 final", "taille": "nb de caractères", "exemple": ".ascii \"bonjour\"" },
+        { "pseudo": ".asciz \"…\"", "effet": "Chaîne terminée par un 0", "taille": "nb de caractères + 1", "exemple": ".asciz \"%d\"" },
+        { "pseudo": ".skip taille", "effet": "Réserve taille octets", "taille": "taille", "exemple": ".skip 4*4" },
+        { "pseudo": ".align valeur", "effet": "Aligne la donnée suivante sur une frontière", "taille": "selon l'adresse", "exemple": ".align 4" }
+      ],
+      "source": { "file": "ResumeARM.pdf", "page": 9, "locator": "Pseudo-Instructions" }
+    },
+    {
+      "id": "t4-formats",
+      "title": "Les formats de printf et scanf",
+      "kind": "reference",
+      "caption": "Les mêmes formats servent à la lecture et à l'écriture ; seul le sens de la conversion change.",
+      "columns": [
+        { "key": "format", "label": "Format", "mono": true },
+        { "key": "lecture", "label": "Lecture (scanf)" },
+        { "key": "ecriture", "label": "Écriture (printf)" }
+      ],
+      "rows": [
+        { "format": "%c", "lecture": "Caractère → code ASCII", "ecriture": "Code ASCII → caractère" },
+        { "format": "%s", "lecture": "Chaîne → suite de codes ASCII", "ecriture": "Suite de codes ASCII → chaîne" },
+        { "format": "%d", "lecture": "Entier décimal → binaire", "ecriture": "Binaire → entier décimal" },
+        { "format": "%u", "lecture": "Entier non signé décimal → binaire", "ecriture": "Binaire → entier non signé décimal" },
+        { "format": "%o", "lecture": "Entier octal → binaire", "ecriture": "Binaire → entier octal" },
+        { "format": "%x", "lecture": "Entier hexadécimal → binaire", "ecriture": "Binaire → entier hexadécimal" },
+        { "format": "%f", "lecture": "Virgule flottante (simple précision) → binaire", "ecriture": "Binaire → virgule flottante (double précision)" }
+      ],
+      "source": { "file": "Chapitre 4.pdf", "page": 16, "locator": "Diapositive 16 ; précisions sur %f de ResumeARM p. 8" }
+    },
+    {
+      "id": "t4-gdb",
+      "title": "GDB : commandes de base",
+      "kind": "cheatsheet",
+      "columns": [
+        { "key": "cmd", "label": "Commande", "mono": true },
+        { "key": "effet", "label": "Effet" }
+      ],
+      "rows": [
+        { "cmd": "gdb exec", "effet": "Charge l'exécutable ./exec en mode débogage" },
+        { "cmd": "break etiq", "effet": "Point d'interruption à l'étiquette etiq" },
+        { "cmd": "run", "effet": "Débute l'exécution en mode débogage" },
+        { "cmd": "continue", "effet": "Continue jusqu'au prochain point d'interruption" },
+        { "cmd": "stepi", "effet": "Exécute la prochaine instruction" },
+        { "cmd": "nexti", "effet": "Exécute la prochaine instruction sans entrer dans les sous-programmes" },
+        { "cmd": "info reg", "effet": "Affiche le contenu des registres" },
+        { "cmd": "x &etiq", "effet": "Affiche la mémoire à l'adresse de l'étiquette" },
+        { "cmd": "p/d $x24", "effet": "Affiche un registre dans un format (u, d, x, t, f, c)" },
+        { "cmd": "x/4dw &points", "effet": "Affiche 4 mots en décimal à partir de points" },
+        { "cmd": "run < fichier", "effet": "Exécute avec l'entrée lue dans un fichier" },
+        { "cmd": "quit", "effet": "Quitte le débogueur" }
+      ],
+      "source": { "file": "Sommaire ARMv8 + Débogage GDB.pdf", "page": 5, "locator": "Débogage avec GDB" }
+    }
+  ],
+  "quiz": {
+    "title": "Quiz — vérification rapide",
+    "estimatedMinutes": 15,
+    "questions": [
+      {
+        "id": "q4-01",
+        "objectiveId": "obj4-normes",
+        "bloomLevel": "recall",
+        "type": "mcq",
+        "difficulty": 1,
+        "prompt": "Selon les normes du cours, quels registres s'utilisent « sans limitation, utilisation intensive » ?",
+        "options": [
+          { "id": "a", "text": "x19 à x28" },
+          { "id": "b", "text": "x0 à x7" },
+          { "id": "c", "text": "x9 à x15" },
+          { "id": "d", "text": "x29 et x30" }
+        ],
+        "correct": "a",
+        "explanation": "x19 à x28 sont les registres locaux, sauvegardés par SAVE au début d'un sous-programme : ce sont ceux que le programme peut utiliser intensivement, et dont le contenu survit aux appels de printf ou scanf.",
+        "perDistractorExplanation": [
+          { "optionId": "b", "why": "x0 à x7 sont « limité, pour paramètres et retours » : ils servent à passer les arguments de printf et scanf." },
+          { "optionId": "c", "why": "x9 à x15 sont « à éviter le plus possible » : usage temporaire, non sauvegardés par les sous-programmes." },
+          { "optionId": "d", "why": "x29 et x30 font partie des registres à ne pas utiliser : pointeur de portée et adresse de retour." }
+        ],
+        "source": { "file": "Chapitre 4.pdf", "page": 3 }
+      },
+      {
+        "id": "q4-02",
+        "objectiveId": "obj4-normes",
+        "bloomLevel": "understand",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Un programme garde son compteur de boucle dans x9, et la boucle appelle printf. Quel est le risque ?",
+        "options": [
+          { "id": "a", "text": "printf ne sauvegarde pas x9 : au retour du bl, le compteur a pu être modifié." },
+          { "id": "b", "text": "x9 est réservé au système : l'assembleur refusera de compiler le programme." },
+          { "id": "c", "text": "x9 reçoit l'adresse de retour du bl, qui écrase donc le compteur à chaque appel." },
+          { "id": "d", "text": "Aucun risque : seuls x0 à x7 peuvent être modifiés par un appel de fonction." }
+        ],
+        "correct": "a",
+        "explanation": "ResumeARM : x9 à x15 sont à usage temporaire et « ne seront pas sauvegardés par les sous-programmes ». Rien n'empêche printf de s'en servir. C'est pour cela que le programme du rectangle garde son compteur dans x20.",
+        "perDistractorExplanation": [
+          { "optionId": "b", "why": "C'est x18 dont l'usage peut être réservé au système. L'assembleur accepte x9 sans broncher — le défaut n'apparaît qu'à l'exécution." },
+          { "optionId": "c", "why": "C'est x30 (lr) qui reçoit l'adresse de retour à chaque bl, pas x9." },
+          { "optionId": "d", "why": "x9 à x15 non plus ne sont pas sauvegardés par les sous-programmes. Seuls x19 à x28 sont protégés." }
+        ],
+        "source": { "file": "ResumeARM.pdf", "page": 1 }
+      },
+      {
+        "id": "q4-03",
+        "objectiveId": "obj4-sections",
+        "bloomLevel": "recall",
+        "type": "mcq",
+        "difficulty": 1,
+        "prompt": "Dans quelle section déclare-t-on une chaîne de format que le programme ne modifiera jamais ?",
+        "options": [
+          { "id": "a", "text": ".rodata" },
+          { "id": "b", "text": ".data" },
+          { "id": "c", "text": ".bss" },
+          { "id": "d", "text": ".text" }
+        ],
+        "correct": "a",
+        "explanation": ".rodata contient les données en lecture seulement, donc toutes les constantes. Les quatre formats du programme du rectangle y sont.",
+        "perDistractorExplanation": [
+          { "optionId": "b", "why": ".data est pour les données initialisées qu'on peut modifier. Une constante n'a rien à y faire." },
+          { "optionId": "c", "why": ".bss est pour les données NON initialisées. Une chaîne de format a un contenu dès le départ." },
+          { "optionId": "d", "why": ".text est réservé aux instructions." }
+        ],
+        "source": { "file": "Chapitre 4.pdf", "page": 7 }
+      },
+      {
+        "id": "q4-04",
+        "objectiveId": "obj4-sections",
+        "bloomLevel": "understand",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Un tableau de 100 mots sera rempli par le programme pendant l'exécution ; il n'a aucune valeur de départ. Où et comment le déclarer ?",
+        "options": [
+          { "id": "a", "text": "En .bss, réservé avec .skip 100*4" },
+          { "id": "b", "text": "En .data, réservé avec .skip 100*4" },
+          { "id": "c", "text": "En .rodata, réservé avec .word 100" },
+          { "id": "d", "text": "En .bss, réservé avec .skip 100" }
+        ],
+        "correct": "a",
+        "explanation": "Sans valeur initiale : .bss, la section des variables. 100 mots de 4 octets = 400 octets, que .skip 100*4 réserve en disant clairement « 100 valeurs de 4 octets ».",
+        "perDistractorExplanation": [
+          { "optionId": "b", "why": ".data est pour les données INITIALISÉES. Ici, rien n'est initialisé." },
+          { "optionId": "c", "why": ".rodata est en lecture seule, alors que le programme va écrire dans le tableau ; et .word 100 réserve UN mot valant 100." },
+          { "optionId": "d", "why": ".skip 100 réserve 100 OCTETS, soit seulement 25 mots. La taille de .skip se compte en octets." }
+        ],
+        "source": { "file": "Chapitre 4.pdf", "page": 10 }
+      },
+      {
+        "id": "q4-05",
+        "objectiveId": "obj4-pseudo",
+        "bloomLevel": "apply",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Combien d'octets la déclaration scfmt1: .asciz \"%d\" occupe-t-elle en mémoire ?",
+        "options": [
+          { "id": "a", "text": "3 octets" },
+          { "id": "b", "text": "2 octets" },
+          { "id": "c", "text": "4 octets" },
+          { "id": "d", "text": "1 octet" }
+        ],
+        "correct": "a",
+        "explanation": "Deux caractères, « % » et « d », plus le 0 que .asciz ajoute automatiquement à la fin : 3 octets.",
+        "perDistractorExplanation": [
+          { "optionId": "b", "why": "C'est la taille avec .ascii. .asciz ajoute le caractère de fin 0." },
+          { "optionId": "c", "why": "Une chaîne n'est pas arrondie à un mot. Seul .align pourrait ajouter des octets, et il porte sur la donnée SUIVANTE." },
+          { "optionId": "d", "why": "%d n'est pas un code unique : ce sont deux caractères ASCII distincts, stockés tels quels." }
+        ],
+        "source": { "file": "Chapitre 4.pdf", "page": 10 }
+      },
+      {
+        "id": "q4-06",
+        "objectiveId": "obj4-pseudo",
+        "bloomLevel": "understand",
+        "type": "true-false",
+        "difficulty": 2,
+        "prompt": ".skip 8*4 et .skip 16*2 réservent la même quantité de mémoire.",
+        "options": [
+          { "id": "v", "text": "Vrai" },
+          { "id": "f", "text": "Faux" }
+        ],
+        "correct": "v",
+        "explanation": "8 × 4 = 16 × 2 = 32 octets. La diapositive 10 donne précisément ces écritures pour la même réservation de 32 octets : de la place pour 8 mots, ou pour 16 demi-mots.",
+        "perDistractorExplanation": [
+          { "optionId": "f", "why": "La taille de .skip est une expression évaluée en octets. L'écriture change le message au lecteur, pas la place réservée." }
+        ],
+        "source": { "file": "Chapitre 4.pdf", "page": 10 }
+      },
+      {
+        "id": "q4-07",
+        "objectiveId": "obj4-io",
+        "bloomLevel": "recall",
+        "type": "fill-blank",
+        "difficulty": 1,
+        "prompt": "Pour appeler printf en assembleur, l'adresse du format est placée dans le registre ____ .",
+        "correct": "x0",
+        "acceptableAnswers": ["x0 (adr x0,format)"],
+        "explanation": "adr x0,format : le premier paramètre, x0, reçoit l'adresse du format. Les valeurs à afficher suivent dans x1, x2, …",
+        "source": { "file": "Chapitre 4.pdf", "page": 13 }
+      },
+      {
+        "id": "q4-08",
+        "objectiveId": "obj4-io",
+        "bloomLevel": "apply",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "x19 contient l'adresse de la variable où scanf doit écrire l'entier lu, et x0 contient déjà l'adresse du format. Quelle instruction place le bon paramètre avant bl scanf ?",
+        "options": [
+          { "id": "a", "text": "mov x1,x19" },
+          { "id": "b", "text": "ldrsw x1,[x19]" },
+          { "id": "c", "text": "adr x1,x19" },
+          { "id": "d", "text": "mov x0,x19" }
+        ],
+        "correct": "a",
+        "explanation": "scanf veut l'ADRESSE où écrire. x19 la contient déjà : il suffit de la copier dans x1, exactement comme le programme du rectangle.",
+        "perDistractorExplanation": [
+          { "optionId": "b", "why": "ldrsw lit la mémoire à cette adresse : x1 recevrait la VALEUR de la variable, pas son adresse." },
+          { "optionId": "c", "why": "adr prend une ÉTIQUETTE, dont il calcule l'adresse par le mode relatif. Il ne s'applique pas à un registre." },
+          { "optionId": "d", "why": "x0 doit contenir l'adresse du format ; l'adresse de la variable est le DEUXIÈME paramètre, x1." }
+        ],
+        "source": { "file": "Chapitre 4.pdf", "page": 20 }
+      },
+      {
+        "id": "q4-09",
+        "objectiveId": "obj4-programme",
+        "bloomLevel": "analyze",
+        "type": "mcq",
+        "difficulty": 3,
+        "prompt": "Le programme du rectangle affiche le périmètre ET la surface, sur deux lignes, avec un seul bl printf. Comment ?",
+        "options": [
+          { "id": "a", "text": "ptfmt3 est déclaré avec .ascii : sans 0 final, le format se prolonge dans la chaîne suivante, qui contient le second %u." },
+          { "id": "b", "text": "printf affiche automatiquement toutes les chaînes de la section .rodata qui suivent le format donné." },
+          { "id": "c", "text": "Le \\n du premier format demande à printf de recommencer l'affichage avec le registre suivant." },
+          { "id": "d", "text": "mov x2,x26 déclenche un second affichage au moment où printf rend la main." }
+        ],
+        "correct": "a",
+        "explanation": "printf lit le format jusqu'au 0. ptfmt3 (.ascii) n'en a pas ; la ligne suivante, en .asciz et sans étiquette, en a un. Le format effectif contient donc les deux phrases et deux %u, alimentés par x1 (périmètre) et x2 (surface).",
+        "perDistractorExplanation": [
+          { "optionId": "b", "why": "printf s'arrête au premier 0. Si ptfmt3 était en .asciz, seule la phrase du périmètre serait affichée." },
+          { "optionId": "c", "why": "\\n est un simple saut de ligne dans le texte affiché ; il ne relance rien." },
+          { "optionId": "d", "why": "mov prépare un registre avant l'appel ; il n'affiche rien. x2 est consommé par le second %u du même format." }
+        ],
+        "source": { "file": "Chapitre 4.pdf", "page": 22 }
+      },
+      {
+        "id": "q4-10",
+        "objectiveId": "obj4-programme",
+        "bloomLevel": "apply",
+        "type": "code-output",
+        "difficulty": 2,
+        "prompt": "Les coordonnées lues sont X1 = −1, Y1 = 2, X2 = 3, Y2 = 8 (dans x20, x21, x22, x23). Que contiennent x24 et x26 à la fin ? Répondre « x24, x26 ».",
+        "code": {
+          "lang": "asm",
+          "value": "        subs    x24,x22,x20\n        b.gt    rect10\n        neg     x24,x24\nrect10:\n        subs    x25,x23,x21\n        b.gt    rect20\n        neg     x25,x25\nrect20:\n        mul     x26,x24,x25\n        add     x24,x24,x25\n        add     x24,x24,x24"
+        },
+        "correct": "20, 24",
+        "acceptableAnswers": ["20,24", "20 et 24", "x24 = 20, x26 = 24", "20 24"],
+        "explanation": "x24 = 3 − (−1) = 4, positif : pas de neg. x25 = 8 − 2 = 6, positif. x26 = 4 × 6 = 24 (surface). x24 = 4 + 6 = 10, puis 10 + 10 = 20 (périmètre).",
+        "source": { "file": "Chapitre 4.pdf", "page": 23 }
+      },
+      {
+        "id": "q4-11",
+        "objectiveId": "obj4-programme",
+        "bloomLevel": "analyze",
+        "type": "mcq",
+        "difficulty": 3,
+        "prompt": "Pourquoi le programme charge-t-il les coordonnées avec ldrsw plutôt qu'avec ldr w20,[x19] ?",
+        "options": [
+          { "id": "a", "text": "Ce sont des entiers signés de 32 bits : ldrsw recopie le bit de signe dans les 32 bits de poids fort, ldr y mettrait des 0." },
+          { "id": "b", "text": "ldr n'accepte pas de déplacement comme [x19,4] ; seul ldrsw permet l'adressage indexé." },
+          { "id": "c", "text": "ldrsw lit 8 octets d'un coup, ce qui charge X et Y dans le même registre." },
+          { "id": "d", "text": "scanf a écrit des valeurs de 64 bits, que seul ldrsw sait lire en entier." }
+        ],
+        "correct": "a",
+        "explanation": "scanf avec %d a rangé des entiers signés de 32 bits. Une coordonnée négative comme −2 doit rester −2 dans un registre de 64 bits : il faut propager le bit de signe. Avec ldr w20, −2 deviendrait 4 294 967 294.",
+        "perDistractorExplanation": [
+          { "optionId": "b", "why": "Toutes les instructions de chargement acceptent les modes d'adressage de l'ARM, y compris [x19,4]." },
+          { "optionId": "c", "why": "ldrsw lit un MOT (4 octets). Lire 8 octets, c'est ldr avec un registre x." },
+          { "optionId": "d", "why": "%d porte sur des nombres de 32 bits ; c'est %ld qui servirait pour 64 bits. D'où les déplacements de 4 en 4." }
+        ],
+        "source": { "file": "Chapitre 4.pdf", "page": 23 }
+      },
+      {
+        "id": "q4-12",
+        "objectiveId": "obj4-normes",
+        "bloomLevel": "apply",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Le point d'entrée d'un programme s'appelle Moyenne. Quelle suite d'étiquettes d'instructions, dans l'ordre du code, respecte les normes du cours ?",
+        "options": [
+          { "id": "a", "text": "moy00, moy10, moy20" },
+          { "id": "b", "text": "moy20, moy10, moy00" },
+          { "id": "c", "text": "boucle, calcul, fin" },
+          { "id": "d", "text": "debut1, debut2, debut3" }
+        ],
+        "correct": "a",
+        "explanation": "Les 3 ou 4 premières lettres du point d'entrée, suivies de chiffres qui vont toujours en ordre croissant d'une étiquette à l'autre.",
+        "perDistractorExplanation": [
+          { "optionId": "b", "why": "Les chiffres doivent aller en ordre CROISSANT : c'est ce qui aide à voir l'ordre d'exécution." },
+          { "optionId": "c", "why": "Les noms significatifs sont réservés aux étiquettes de DONNÉES." },
+          { "optionId": "d", "why": "Les étiquettes doivent commencer par les lettres du point d'entrée (moy ou moye), pas par un mot libre." }
+        ],
+        "source": { "file": "Chapitre 4.pdf", "page": 5 }
+      }
+    ]
+  },
+  "test": {
+    "title": "Test du chapitre 4",
+    "instructions": "21 questions couvrant tout le chapitre, dont la lecture du programme du rectangle. Plus long et plus difficile que le quiz.",
+    "estimatedMinutes": 45,
+    "questions": [
+      {
+        "id": "tt4-01",
+        "objectiveId": "obj4-normes",
+        "bloomLevel": "recall",
+        "type": "mcq",
+        "difficulty": 1,
+        "prompt": "Quels registres les normes du cours interdisent-elles d'utiliser ?",
+        "options": [
+          { "id": "a", "text": "x16, x17, x18, x29, x30" },
+          { "id": "b", "text": "x19 à x28" },
+          { "id": "c", "text": "x0 à x7" },
+          { "id": "d", "text": "x9 à x15" }
+        ],
+        "correct": "a",
+        "explanation": "Diapositive 3 : « N'utilisez pas ces registres » — x16, x17, x18, x29, x30. Ils servent aux bibliothèques partagées, au système, au pointeur de portée et à l'adresse de retour.",
+        "perDistractorExplanation": [
+          { "optionId": "b", "why": "Au contraire : aucune limitation, utilisation intensive." },
+          { "optionId": "c", "why": "Limités, mais permis : ils servent aux paramètres et aux retours." },
+          { "optionId": "d", "why": "À éviter le plus possible, mais pas interdits." }
+        ],
+        "source": { "file": "Chapitre 4.pdf", "page": 3 }
+      },
+      {
+        "id": "tt4-02",
+        "objectiveId": "obj4-normes",
+        "bloomLevel": "understand",
+        "type": "multi",
+        "difficulty": 2,
+        "prompt": "D'après les conventions de ResumeARM, lesquels de ces registres conservent leur valeur après un bl printf ? (plusieurs réponses)",
+        "options": [
+          { "id": "a", "text": "x19" },
+          { "id": "b", "text": "x25" },
+          { "id": "c", "text": "x3" },
+          { "id": "d", "text": "x12" },
+          { "id": "e", "text": "x0" }
+        ],
+        "correct": ["a", "b"],
+        "explanation": "x19 à x28 sont des registres locaux que les sous-programmes sauvegardent (SAVE / RESTORE) : x19 et x25 survivent à l'appel.",
+        "perDistractorExplanation": [
+          { "optionId": "c", "why": "x0 à x7 : paramètres et retour, « ne seront pas sauvegardés par les sous-programmes »." },
+          { "optionId": "d", "why": "x9 à x15 : usage temporaire, non sauvegardés non plus." },
+          { "optionId": "e", "why": "x0 reçoit même le RETOUR de la fonction appelée : il est presque certainement modifié." }
+        ],
+        "source": { "file": "ResumeARM.pdf", "page": 1 }
+      },
+      {
+        "id": "tt4-03",
+        "objectiveId": "obj4-normes",
+        "bloomLevel": "recall",
+        "type": "true-false",
+        "difficulty": 1,
+        "prompt": "Selon les normes du cours, une étiquette qui marque une instruction s'écrit seule sur sa ligne.",
+        "options": [
+          { "id": "v", "text": "Vrai" },
+          { "id": "f", "text": "Faux" }
+        ],
+        "correct": "v",
+        "explanation": "Diapositive 5 : l'étiquette « est seule sur sa ligne pour les instructions », et sur la même ligne que la pseudo-instruction pour les données.",
+        "perDistractorExplanation": [
+          { "optionId": "f", "why": "C'est pour les DONNÉES que l'étiquette partage la ligne (points: .skip 4*4). Pour les instructions, elle est seule (rect10:)." }
+        ],
+        "source": { "file": "Chapitre 4.pdf", "page": 5 }
+      },
+      {
+        "id": "tt4-04",
+        "objectiveId": "obj4-normes",
+        "bloomLevel": "understand",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Selon les diapositives, à quoi sert la numérotation croissante des étiquettes (rect00, rect10, rect20) ?",
+        "options": [
+          { "id": "a", "text": "À voir l'ordre d'exécution du programme." },
+          { "id": "b", "text": "À permettre à l'assembleur de calculer les déplacements." },
+          { "id": "c", "text": "À distinguer les étiquettes de données des autres." },
+          { "id": "d", "text": "À indiquer combien de fois chaque boucle s'exécute." }
+        ],
+        "correct": "a",
+        "explanation": "Diapositive 5 : les chiffres vont toujours en ordre croissant, ce qui « aide à voir l'ordre d'exécution du programme ». C'est une aide au lecteur humain.",
+        "perDistractorExplanation": [
+          { "optionId": "b", "why": "L'assembleur calcule les déplacements quel que soit le nom de l'étiquette ; le nom ne joue aucun rôle." },
+          { "optionId": "c", "why": "Ce qui distingue les données, c'est leur nom significatif et leur place sur la ligne, pas une numérotation." },
+          { "optionId": "d", "why": "Le numéro ne dit rien du nombre de passages : rect00 est exécutée deux fois, rect10 une seule." }
+        ],
+        "source": { "file": "Chapitre 4.pdf", "page": 5 }
+      },
+      {
+        "id": "tt4-05",
+        "objectiveId": "obj4-sections",
+        "bloomLevel": "recall",
+        "type": "fill-blank",
+        "difficulty": 1,
+        "prompt": "La section qui contient les données non initialisées, donc les variables, s'appelle ____ .",
+        "correct": ".bss",
+        "acceptableAnswers": ["bss", "section .bss"],
+        "explanation": ".bss : données non initialisées. Dans le programme du rectangle, c'est là que se trouve points, la zone des quatre coordonnées.",
+        "source": { "file": "Chapitre 4.pdf", "page": 7 }
+      },
+      {
+        "id": "tt4-06",
+        "objectiveId": "obj4-sections",
+        "bloomLevel": "apply",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Un compteur de vies démarre à 10 puis diminue pendant la partie. Comment le déclarer ?",
+        "options": [
+          { "id": "a", "text": "En .data, avec .word 10" },
+          { "id": "b", "text": "En .rodata, avec .word 10" },
+          { "id": "c", "text": "En .bss, avec .word 10" },
+          { "id": "d", "text": "En .bss, avec .skip 10" }
+        ],
+        "correct": "a",
+        "explanation": "La donnée a une valeur de départ (10) ET sera modifiée : c'est la définition de .data, les données initialisées. .word 10 réserve un mot valant 10.",
+        "perDistractorExplanation": [
+          { "optionId": "b", "why": ".rodata est en lecture seulement ; le compteur doit pouvoir diminuer." },
+          { "optionId": "c", "why": ".bss est pour les données NON initialisées : on n'y donne pas de valeur de départ." },
+          { "optionId": "d", "why": ".skip 10 réserve 10 OCTETS sans valeur ; il ne met pas la valeur 10 en mémoire." }
+        ],
+        "source": { "file": "Chapitre 4.pdf", "page": 7 }
+      },
+      {
+        "id": "tt4-07",
+        "objectiveId": "obj4-sections",
+        "bloomLevel": "understand",
+        "type": "true-false",
+        "difficulty": 2,
+        "prompt": "Une chaîne de format déclarée dans .rodata peut être modifiée par le programme pendant l'exécution.",
+        "options": [
+          { "id": "v", "text": "Vrai" },
+          { "id": "f", "text": "Faux" }
+        ],
+        "correct": "f",
+        "explanation": ".rodata contient les données en LECTURE SEULEMENT — c'est tout son intérêt pour les constantes comme les chaînes de format.",
+        "perDistractorExplanation": [
+          { "optionId": "v", "why": "Une donnée que le programme doit modifier va en .data (si elle est initialisée) ou en .bss (sinon)." }
+        ],
+        "source": { "file": "Chapitre 4.pdf", "page": 7 }
+      },
+      {
+        "id": "tt4-08",
+        "objectiveId": "obj4-pseudo",
+        "bloomLevel": "apply",
+        "type": "code-output",
+        "difficulty": 2,
+        "prompt": "Ces déclarations se suivent en mémoire, sans .align. Combien d'octets occupent-elles au total ? (un nombre)",
+        "code": {
+          "lang": "asm",
+          "value": "        .section \".data\"\nv1:     .byte   7\nv2:     .half   300\nv3:     .word   5\nv4:     .asciz  \"ok\""
+        },
+        "correct": "10",
+        "acceptableAnswers": ["10 octets"],
+        "explanation": ".byte : 1 octet. .half : 2 octets (300 tient sur un demi-mot). .word : 4 octets. .asciz \"ok\" : 2 caractères + le 0 final = 3. Total : 1 + 2 + 4 + 3 = 10.",
+        "source": { "file": "Chapitre 4.pdf", "page": 10 }
+      },
+      {
+        "id": "tt4-09",
+        "objectiveId": "obj4-pseudo",
+        "bloomLevel": "recall",
+        "type": "mcq",
+        "difficulty": 1,
+        "prompt": "Quelle pseudo-instruction termine automatiquement la chaîne par un 0 ?",
+        "options": [
+          { "id": "a", "text": ".asciz" },
+          { "id": "b", "text": ".ascii" },
+          { "id": "c", "text": ".byte" },
+          { "id": "d", "text": ".skip" }
+        ],
+        "correct": "a",
+        "explanation": "Le z de .asciz rappelle le zéro final ajouté automatiquement.",
+        "perDistractorExplanation": [
+          { "optionId": "b", "why": ".ascii n'ajoute rien : la chaîne doit se terminer par 0 si c'est une chaîne complète." },
+          { "optionId": "c", "why": ".byte réserve un seul octet initialisé ; il ne prépare pas de chaîne." },
+          { "optionId": "d", "why": ".skip réserve de l'espace sans l'initialiser." }
+        ],
+        "source": { "file": "Chapitre 4.pdf", "page": 10 }
+      },
+      {
+        "id": "tt4-10",
+        "objectiveId": "obj4-pseudo",
+        "bloomLevel": "analyze",
+        "type": "mcq",
+        "difficulty": 3,
+        "prompt": "Avec les déclarations ci-dessous, un programme exécute adr x0,msg1 puis bl printf. Qu'est-ce qui s'affiche ?\n\nmsg1: .ascii \"Bonjour\"\nmsg2: .asciz \"Salut\"",
+        "options": [
+          { "id": "a", "text": "BonjourSalut" },
+          { "id": "b", "text": "Bonjour" },
+          { "id": "c", "text": "Bonjour, un saut de ligne, puis Salut" },
+          { "id": "d", "text": "Rien : printf refuse une chaîne sans 0" }
+        ],
+        "correct": "a",
+        "explanation": "msg1 n'a pas de 0 final : printf continue dans les octets suivants, qui sont ceux de msg2, jusqu'au 0 ajouté par .asciz. Rien ne sépare les deux mots : aucun espace, aucun saut de ligne n'a été déclaré.",
+        "perDistractorExplanation": [
+          { "optionId": "b", "why": "Il faudrait un 0 après Bonjour, donc .asciz. L'étiquette msg2 n'est qu'un nom : elle ne coupe rien en mémoire." },
+          { "optionId": "c", "why": "Un saut de ligne n'apparaît que s'il est écrit (\\n). Changer de ligne dans le source n'en met aucun en mémoire." },
+          { "optionId": "d", "why": "printf ne peut pas savoir où la chaîne « devait » finir : il lit jusqu'au premier 0 qu'il rencontre." }
+        ],
+        "source": { "file": "Chapitre 4.pdf", "page": 10 }
+      },
+      {
+        "id": "tt4-11",
+        "objectiveId": "obj4-io",
+        "bloomLevel": "recall",
+        "type": "mcq",
+        "difficulty": 1,
+        "prompt": "Où place-t-on les valeurs à afficher avant bl printf ?",
+        "options": [
+          { "id": "a", "text": "Dans x1, x2, …, dans l'ordre des codes % du format" },
+          { "id": "b", "text": "Dans x0, x1, …, en commençant par x0" },
+          { "id": "c", "text": "En mémoire, juste après la chaîne de format" },
+          { "id": "d", "text": "Dans x19 à x28, qui sont sauvegardés" }
+        ],
+        "correct": "a",
+        "explanation": "Diapositive 13 : l'adresse du format dans x0, la première valeur dans x1, la deuxième dans x2, puis bl printf.",
+        "perDistractorExplanation": [
+          { "optionId": "b", "why": "x0 est déjà pris par l'adresse du format." },
+          { "optionId": "c", "why": "printf lit ses paramètres dans les registres, pas à la suite du format." },
+          { "optionId": "d", "why": "Les paramètres passent par x0 à x7. x19 à x28 servent à garder des valeurs à travers les appels." }
+        ],
+        "source": { "file": "Chapitre 4.pdf", "page": 13 }
+      },
+      {
+        "id": "tt4-12",
+        "objectiveId": "obj4-io",
+        "bloomLevel": "apply",
+        "type": "fill-blank",
+        "difficulty": 2,
+        "prompt": "Compléter pour lire un entier dans var : adr x0,format · ____ x1,var · bl scanf",
+        "correct": "adr",
+        "acceptableAnswers": ["adr x1,var", "adr x1, var"],
+        "explanation": "scanf a besoin de l'ADRESSE de var ; adr la calcule à partir de l'étiquette par le mode relatif. C'est la ligne de la diapositive 15.",
+        "source": { "file": "Chapitre 4.pdf", "page": 15 }
+      },
+      {
+        "id": "tt4-13",
+        "objectiveId": "obj4-io",
+        "bloomLevel": "analyze",
+        "type": "mcq",
+        "difficulty": 3,
+        "prompt": "Pour lire un entier dans var, un étudiant écrit : adr x19,var · adr x0,format · ldrsw x1,[x19] · bl scanf. Que se passe-t-il ?",
+        "options": [
+          { "id": "a", "text": "scanf reçoit la valeur actuelle de var comme si c'était une adresse, et tente d'écrire le nombre lu à cet endroit." },
+          { "id": "b", "text": "Le programme fonctionne : ldrsw charge l'adresse de var dans x1, comme adr le ferait." },
+          { "id": "c", "text": "scanf lit un nombre signé au lieu d'un nombre non signé, sans autre conséquence." },
+          { "id": "d", "text": "L'assembleur refuse le programme, car ldrsw ne peut pas précéder un bl." }
+        ],
+        "correct": "a",
+        "explanation": "ldrsw lit la MÉMOIRE à l'adresse contenue dans x19 : x1 reçoit le contenu de var, pas son adresse. scanf interprète ce contenu comme l'endroit où écrire — une adresse sans rapport, ce qui fait en général planter le programme. Il fallait mov x1,x19 (ou adr x1,var).",
+        "perDistractorExplanation": [
+          { "optionId": "b", "why": "Les crochets signalent l'indirection : [x19] désigne la mémoire à l'adresse x19, pas l'adresse elle-même." },
+          { "optionId": "c", "why": "Le type lu dépend du FORMAT (%d ou %u), pas de l'instruction qui prépare x1. Le problème est l'adresse." },
+          { "optionId": "d", "why": "Le programme s'assemble sans erreur : le défaut n'apparaît qu'à l'exécution." }
+        ],
+        "source": { "file": "Chapitre 4.pdf", "page": 15 }
+      },
+      {
+        "id": "tt4-14",
+        "objectiveId": "obj4-io",
+        "bloomLevel": "understand",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Utilisé par printf, que fait le format %x ?",
+        "options": [
+          { "id": "a", "text": "Il convertit le binaire reçu en entier hexadécimal à afficher." },
+          { "id": "b", "text": "Il convertit un hexadécimal tapé au clavier en binaire." },
+          { "id": "c", "text": "Il affiche le caractère dont le code ASCII est reçu." },
+          { "id": "d", "text": "Il affiche l'adresse de la variable plutôt que sa valeur." }
+        ],
+        "correct": "a",
+        "explanation": "Diapositive 16 : en écriture, %x fait « binaire → entier hexadécimal ». Le même format, en lecture, fait la conversion inverse.",
+        "perDistractorExplanation": [
+          { "optionId": "b", "why": "C'est le sens LECTURE du même format, donc son rôle avec scanf." },
+          { "optionId": "c", "why": "C'est %c : code ASCII → caractère." },
+          { "optionId": "d", "why": "%x affiche la valeur reçue en hexadécimal ; il ne sait pas d'où elle vient." }
+        ],
+        "source": { "file": "Chapitre 4.pdf", "page": 16 }
+      },
+      {
+        "id": "tt4-15",
+        "objectiveId": "obj4-io",
+        "bloomLevel": "apply",
+        "type": "code-output",
+        "difficulty": 2,
+        "prompt": "Qu'affiche ce fragment ?",
+        "code": {
+          "lang": "asm",
+          "value": "        adr     x0,fmt\n        mov     x1,7\n        mov     x2,12\n        bl      printf\n\n        .section \".rodata\"\nfmt:    .asciz  \"%d + %d\""
+        },
+        "correct": "7 + 12",
+        "acceptableAnswers": ["7+12"],
+        "explanation": "Le premier %d est remplacé par x1 (7), le second par x2 (12). Le reste du format est recopié tel quel.",
+        "source": { "file": "Chapitre 4.pdf", "page": 13 }
+      },
+      {
+        "id": "tt4-16",
+        "objectiveId": "obj4-programme",
+        "bloomLevel": "understand",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Pourquoi le programme du rectangle refait-il adr x19,points juste avant les quatre ldrsw ?",
+        "options": [
+          { "id": "a", "text": "Pendant la lecture, x19 a avancé de 4 à chaque coordonnée : il pointe maintenant 16 octets après points." },
+          { "id": "b", "text": "Les appels à printf et scanf ont effacé x19, qu'il faut donc recharger." },
+          { "id": "c", "text": "En ARM, adr doit être répété avant chaque accès à la mémoire." },
+          { "id": "d", "text": "La section active a changé entre la lecture et le calcul." }
+        ],
+        "correct": "a",
+        "explanation": "Chaque lecture fait add x19,x19,4. Après quatre lectures, x19 = points + 16, juste après Y2. Pour lire X1 avec [x19] et les autres avec les déplacements 4, 8 et 12, il faut repartir du début.",
+        "perDistractorExplanation": [
+          { "optionId": "b", "why": "x19 fait partie des registres sauvegardés : il survit aux appels. C'est justement pour ça qu'il sert de pointeur." },
+          { "optionId": "c", "why": "Une fois l'adresse dans un registre, on peut l'utiliser autant de fois qu'on veut." },
+          { "optionId": "d", "why": "Les sections organisent le fichier source ; elles ne changent rien à l'exécution des instructions." }
+        ],
+        "source": { "file": "Chapitre 4.pdf", "page": 23 }
+      },
+      {
+        "id": "tt4-17",
+        "objectiveId": "obj4-programme",
+        "bloomLevel": "apply",
+        "type": "code-output",
+        "difficulty": 2,
+        "prompt": "Quelles valeurs le %u de ptfmt1 affiche-t-il successivement pendant l'exécution ? Répondre « a, b ».",
+        "code": {
+          "lang": "asm",
+          "value": "        mov     x20,2\nrect00:\n        adr     x0,ptfmt1\n        mov     x1,3\n        sub     x1,x1,x20\n        bl      printf\n        // ... lecture de X, puis de Y ...\n        sub     x20,x20,1\n        cmp     x20,0\n        b.gt    rect00"
+        },
+        "correct": "1, 2",
+        "acceptableAnswers": ["1,2", "1 2", "1 puis 2", "1 et 2"],
+        "explanation": "1er passage : x20 = 2, donc 3 − 2 = 1. x20 passe à 1, 1 > 0 : on recommence. 2e passage : 3 − 1 = 2. x20 passe à 0 : la boucle s'arrête.",
+        "source": { "file": "Chapitre 4.pdf", "page": 21 }
+      },
+      {
+        "id": "tt4-18",
+        "objectiveId": "obj4-programme",
+        "bloomLevel": "analyze",
+        "type": "mcq",
+        "difficulty": 3,
+        "prompt": "Dans le programme du rectangle, on remplace subs x24,x22,x20 par sub x24,x22,x20 (le reste est inchangé). Conséquence ?",
+        "options": [
+          { "id": "a", "text": "b.gt décide d'après les codes condition laissés par le dernier cmp x20,0 : le neg s'exécute toujours, et x24 vaut X1 − X2." },
+          { "id": "b", "text": "Rien ne change : sub et subs mettent tous deux à jour les codes condition." },
+          { "id": "c", "text": "L'assembleur refuse le programme, car b.gt doit suivre immédiatement un subs." },
+          { "id": "d", "text": "La soustraction se fait sur 32 bits au lieu de 64, et le signe est perdu." }
+        ],
+        "correct": "a",
+        "explanation": "Seuls cmp, adds, subs et negs modifient les codes condition (Sommaire ARMv8). Sans le s, les codes sont ceux du dernier cmp x20,0 de la boucle, où x20 valait 0 : « plus grand » est faux, donc b.gt ne saute jamais. neg s'exécute toujours : x24 = −(X2 − X1), négatif dès que X2 > X1.",
+        "perDistractorExplanation": [
+          { "optionId": "b", "why": "C'est justement le rôle du s : sub calcule sans toucher aux codes condition." },
+          { "optionId": "c", "why": "b.gt lit les codes condition quels qu'ils soient ; aucune règle d'assemblage n'impose l'instruction précédente." },
+          { "optionId": "d", "why": "La taille dépend des registres : x24, x22, x20 sont des registres de 64 bits, avec ou sans s." }
+        ],
+        "source": { "file": "Sommaire ARMv8 + Débogage GDB.pdf", "page": 1, "locator": "Arithmétique (entiers)" }
+      },
+      {
+        "id": "tt4-19",
+        "objectiveId": "obj4-programme",
+        "bloomLevel": "recall",
+        "type": "true-false",
+        "difficulty": 2,
+        "prompt": "La macro SAVE, au début du programme, sauvegarde l'état des registres x0 à x7.",
+        "options": [
+          { "id": "v", "text": "Vrai" },
+          { "id": "f", "text": "Faux" }
+        ],
+        "correct": "f",
+        "explanation": "ResumeARM : SAVE « sauvegarde l'état des registres x19 à x30 » ; RESTORE le récupère.",
+        "perDistractorExplanation": [
+          { "optionId": "v", "why": "x0 à x7 sont justement ceux qui NE sont PAS sauvegardés par les sous-programmes : ils servent aux paramètres et aux retours." }
+        ],
+        "source": { "file": "ResumeARM.pdf", "page": 10 }
+      },
+      {
+        "id": "tt4-20",
+        "objectiveId": "obj4-pseudo",
+        "bloomLevel": "apply",
+        "type": "short-answer",
+        "difficulty": 2,
+        "prompt": "Pour réserver en .bss la place de 10 mots étendus, quelle expression écrire après .skip ? (forme a*b, ou le total)",
+        "correct": "10*8",
+        "acceptableAnswers": ["8*10", "80", "10 * 8", "8 * 10"],
+        "explanation": "Un mot étendu fait 8 octets : 10 × 8 = 80 octets. L'écriture 10*8 dit au lecteur « 10 valeurs de 8 octets », dans l'esprit de la diapositive 10.",
+        "source": { "file": "Chapitre 4.pdf", "page": 10 }
+      },
+      {
+        "id": "tt4-21",
+        "objectiveId": "obj4-programme",
+        "bloomLevel": "recall",
+        "type": "mcq",
+        "difficulty": 1,
+        "prompt": "Dans GDB, le programme est arrêté sur un bl printf. Quelle commande exécute l'appel sans descendre dans printf ?",
+        "options": [
+          { "id": "a", "text": "nexti" },
+          { "id": "b", "text": "stepi" },
+          { "id": "c", "text": "continue" },
+          { "id": "d", "text": "info reg" }
+        ],
+        "correct": "a",
+        "explanation": "nexti exécute la prochaine instruction « sans entrer dans les sous-programmes » : le bl printf s'exécute en entier et GDB s'arrête à l'instruction suivante.",
+        "perDistractorExplanation": [
+          { "optionId": "b", "why": "stepi entrerait dans printf, instruction par instruction, dans la bibliothèque C." },
+          { "optionId": "c", "why": "continue va jusqu'au prochain point d'interruption, pas à l'instruction suivante." },
+          { "optionId": "d", "why": "info reg affiche les registres ; il n'exécute rien." }
+        ],
+        "source": { "file": "Sommaire ARMv8 + Débogage GDB.pdf", "page": 5 }
+      }
+    ]
+  },
+  "flashcards": [
+    { "id": "f4-01", "objectiveId": "obj4-normes", "front": "Registres à utiliser sans limitation, de façon intensive ?", "back": "x19 à x28 — registres locaux, sauvegardés par SAVE : ils survivent aux appels de printf et scanf." },
+    { "id": "f4-02", "objectiveId": "obj4-normes", "front": "Registres à ne pas utiliser ?", "back": "x16, x17 (bibliothèques partagées), x18 (système), x29 (fp) et x30 (lr, adresse de retour)." },
+    { "id": "f4-03", "objectiveId": "obj4-normes", "front": "x0 à x7 et x9 à x15 : que retenir ?", "back": "x0–x7 : paramètres et retours. x9–x15 : temporaires, à éviter. Ni les uns ni les autres ne sont sauvegardés par les sous-programmes." },
+    { "id": "f4-04", "objectiveId": "obj4-normes", "front": "Les 4 colonnes d'une ligne d'assembleur ?", "back": "Étiquette | Mnémonique | Opérandes | Commentaires — alignées, une instruction par ligne." },
+    { "id": "f4-05", "objectiveId": "obj4-normes", "front": "Nom d'une étiquette d'instructions ?", "back": "Les 3 ou 4 premières lettres du point d'entrée + des chiffres croissants : rect00, rect10, rect20. Seule sur sa ligne." },
+    { "id": "f4-06", "objectiveId": "obj4-sections", "front": "Les 4 sections et leur contenu ?", "back": ".text : instructions · .rodata : constantes · .data : données initialisées · .bss : données non initialisées (variables)." },
+    { "id": "f4-07", "objectiveId": "obj4-pseudo", "front": ".ascii contre .asciz ?", "back": ".asciz ajoute le 0 final automatiquement. .ascii non : la chaîne se prolonge dans ce qui suit en mémoire." },
+    { "id": "f4-08", "objectiveId": "obj4-pseudo", "front": "Taille réservée par .byte, .half, .word, .xword ?", "back": "1, 2, 4 et 8 octets." },
+    { "id": "f4-09", "objectiveId": "obj4-io", "front": "Préparer un appel à printf ?", "back": "adr x0,format · valeurs dans x1, x2, … dans l'ordre des % · bl printf." },
+    { "id": "f4-10", "objectiveId": "obj4-io", "front": "Préparer un appel à scanf ?", "back": "adr x0,format · ADRESSE de la variable dans x1 (adr x1,var ou mov x1,x19) · bl scanf." },
+    { "id": "f4-11", "objectiveId": "obj4-programme", "front": "Pourquoi ldrsw dans le programme du rectangle ?", "back": "scanf %d range des entiers signés de 32 bits ; ldrsw propage le bit de signe vers les 64 bits. Avec ldr w, −2 deviendrait 4 294 967 294." },
+    { "id": "f4-12", "objectiveId": "obj4-programme", "front": "GDB : stepi ou nexti ?", "back": "stepi entre dans les sous-programmes ; nexti exécute un bl en entier et s'arrête à l'instruction suivante." }
+  ],
+  "exercises": [
+    {
+      "id": "e4-01",
+      "objectiveId": "obj4-programme",
+      "difficulty": 2,
+      "mode": "trace",
+      "language": "asm",
+      "title": "Tracer le programme du rectangle",
+      "statement": "L'utilisateur entre le sommet (−3, 4) puis le sommet (2, −2).\n\n1. Pendant la boucle de lecture, donner après chaque scanf la valeur de x19 (en fonction de P, l'adresse de points), de x20, et le numéro de point affiché.\n2. Donner x20 à x26 à la fin des calculs, en précisant quels neg s'exécutent.\n3. Écrire les deux dernières lignes affichées.",
+      "starterCode": "        adr     x19,points          // x19 = P\n        mov     x20,2\nrect00: // X : printf(ptfmt1, 3-x20) ; scanf(\"%d\", x19) ; x19 += 4\n        // Y : printf(ptfmt2, 3-x20) ; scanf(\"%d\", x19) ; x19 += 4\n        sub     x20,x20,1\n        cmp     x20,0\n        b.gt    rect00\n\n        adr     x19,points\n        ldrsw   x20,[x19]\n        ldrsw   x21,[x19,4]\n        ldrsw   x22,[x19,8]\n        ldrsw   x23,[x19,12]\n        subs    x24,x22,x20\n        b.gt    rect10\n        neg     x24,x24\nrect10: subs    x25,x23,x21\n        b.gt    rect20\n        neg     x25,x25\nrect20: mul     x26,x24,x25\n        add     x24,x24,x25\n        add     x24,x24,x24",
+      "hints": [
+        "Dans la boucle, x19 avance de 4 après CHAQUE scanf, et x20 ne diminue qu'une fois par tour (après X et Y).",
+        "Pour les calculs, x24 = X2 − X1 et x25 = Y2 − Y1 : ne faire le neg que si le résultat n'est pas strictement positif.",
+        "X2 − X1 = 2 − (−3) = 5 ; Y2 − Y1 = −2 − 4 = −6. Il reste la surface et le périmètre."
+      ],
+      "solution": "Numéros affichés 1, 1, 2, 2 · x19 : P+4, P+8, P+12, P+16 · x24 = 5 (pas de neg), x25 = 6 (neg) · surface 30, périmètre 22",
+      "expectedOutput": "1. LA BOUCLE DE LECTURE\n\n   scanf        point affiché   x19 après    x20\n   X du pt 1         1          P + 4         2\n   Y du pt 1         1          P + 8         2  -> puis 1 ; 1 > 0 : on recommence\n   X du pt 2         2          P + 12        1\n   Y du pt 2         2          P + 16        1  -> puis 0 ; fin de la boucle\n\n   En memoire :  [P] = -3   [P+4] = 4   [P+8] = 2   [P+12] = -2\n\n2. LES CALCULS\n\n   x19 = P (remis au debut par adr)\n   x20 = -3    x21 = 4    x22 = 2    x23 = -2      (ldrsw : signe conserve)\n\n   subs x24 = 2 - (-3) = 5      > 0 -> b.gt saute, PAS de neg     x24 = 5\n   subs x25 = -2 - 4  = -6     <= 0 -> neg s'execute               x25 = 6\n   mul  x26 = 5 x 6 = 30                                          (surface)\n   add  x24 = 5 + 6 = 11\n   add  x24 = 11 + 11 = 22                                        (perimetre)\n\n3. L'AFFICHAGE\n\n   Le périmètre du rectangle est : 22\n   La surface du rectangle est : 30",
+      "solutionExplanation": "Deux pièges dans cette trace. D'abord, x19 et x20 n'avancent pas au même rythme : x19 bouge à chaque scanf (4 fois), x20 une fois par sommet (2 fois) — d'où le numéro de point affiché deux fois de suite. Ensuite, les coordonnées négatives n'ont rien de spécial pour le programme parce que ldrsw a conservé leur signe ; c'est ce qui rend la valeur absolue par subs / b.gt / neg correcte.",
+      "source": { "file": "Chapitre 4.pdf", "page": 20, "locator": "Diapositives 20 à 24" }
+    },
+    {
+      "id": "e4-02",
+      "objectiveId": "obj4-programme",
+      "difficulty": 3,
+      "mode": "find-bug",
+      "language": "asm",
+      "title": "Trouver le bogue — des coordonnées négatives qui explosent",
+      "statement": "Un étudiant a réécrit le chargement des coordonnées. Son programme donne le bon résultat pour (1, 5) et (4, 1), mais avec le sommet (−2, 1) puis (3, 5) il affiche des nombres de plus de quatre milliards.\n\nTrouver l'erreur, calculer ce que contient x20 puis x24, et corriger.",
+      "starterCode": "        adr     x19,points\n        ldr     w20,[x19]           // X1\n        ldr     w21,[x19,4]         // Y1\n        ldr     w22,[x19,8]         // X2\n        ldr     w23,[x19,12]        // Y2\n\n        subs    x24,x22,x20         // X2-X1\n        b.gt    rect10\n        neg     x24,x24\nrect10:\n        subs    x25,x23,x21         // Y2-Y1\n        b.gt    rect20\n        neg     x25,x25\nrect20:\n        mul     x26,x24,x25\n        add     x24,x24,x25\n        add     x24,x24,x24",
+      "hints": [
+        "Les calculs utilisent les registres x (64 bits), mais le chargement remplit des registres w (32 bits). Que deviennent les 32 bits de poids fort ?",
+        "Le Sommaire ARMv8 : ldr wd charge 4 octets et met xd⟨63, 32⟩ à 0. Or −2 sur 32 bits s'écrit FFFFFFFE en hexadécimal.",
+        "Comparer avec ldrsw, qui recopie le bit de signe au lieu de mettre des 0."
+      ],
+      "solution": "Remplacer les quatre ldr wN,[…] par ldrsw xN,[…] (comme dans le programme du cours).",
+      "expectedOutput": "L'ERREUR\n    ldr w20,[x19] charge 4 octets et met les 32 bits de poids fort a 0.\n    Les coordonnees sont des entiers SIGNES de 32 bits (scanf avec %d).\n    Tant qu'elles sont positives, aucun probleme : le bit de signe vaut 0.\n\nAVEC X1 = -2\n    En memoire, -2 sur 32 bits = FFFFFFFE (hexadecimal).\n    Apres ldr w20 :  x20 = 00000000 FFFFFFFE = 4 294 967 294   (au lieu de -2)\n\n    subs x24 = 3 - 4 294 967 294 = -4 294 967 291   -> pas > 0 -> neg\n    x24 = 4 294 967 291   (au lieu de 5)\n\n    x25 = 5 - 1 = 4 (correct : Y1 et Y2 sont positifs)\n    x26 = 4 294 967 291 x 4                  -> surface absurde\n    x24 = (4 294 967 291 + 4) x 2            -> perimetre absurde\n\n    Comme %u affiche un nombre de 32 bits, on voit a l'ecran\n    4294967294 pour le perimetre et 4294967276 pour la surface,\n    au lieu de 18 et 20.\n\nLA CORRECTION\n        ldrsw   x20,[x19]\n        ldrsw   x21,[x19,4]\n        ldrsw   x22,[x19,8]\n        ldrsw   x23,[x19,12]\n\n    ldrsw recopie le bit de signe dans les 32 bits de poids fort :\n    x20 = FFFFFFFF FFFFFFFE = -2 sur 64 bits.\n    Resultat : perimetre 18, surface 20.",
+      "solutionExplanation": "C'est le même défaut que le ldrb / ldrsb du chapitre 3, un étage plus haut : compléter par des zéros détruit le signe. Il reste invisible tant que les tests n'utilisent que des coordonnées positives — ce qui est exactement le cas de l'exemple (1, 5) / (4, 1). Un bon jeu de tests pour ce programme contient au moins une coordonnée négative.",
+      "source": { "file": "Sommaire ARMv8 + Débogage GDB.pdf", "page": 1, "locator": "Accès mémoire — ldr wd, ldrsw" }
+    },
+    {
+      "id": "e4-03",
+      "objectiveId": "obj4-io",
+      "difficulty": 2,
+      "mode": "fill-blank",
+      "language": "asm",
+      "title": "Compléter un programme de lecture et d'affichage",
+      "statement": "Ce programme demande un âge, le lit, puis affiche « Vous avez … ans ». Compléter les six trous numérotés.",
+      "starterCode": "        .global Age\n        .section \".text\"\nAge:\n        SAVE                        // sauvegarde x19 a x30\n        adr     x0,fmtQ             // question\n        bl      printf\n\n        adr     x0,fmtLu            // format de lecture\n        ____    x1,age              // (1) ou scanf doit ecrire\n        bl      ____                // (2)\n\n        adr     x19,age\n        ____                        // (3) charger l'age (entier NON signe de 32 bits) dans x20\n        adr     x0,fmtAff\n        ____    x1,x20              // (4) valeur a afficher\n        bl      printf\n\n        mov     x0,0                // code d'erreur 0\n        bl      exit\n\n        .section \".rodata\"\nfmtQ:   .asciz  \"Quel est votre age ? \"\nfmtLu:  ____    \"%u\"                // (5) chaine complete\nfmtAff: .asciz  \"Vous avez %u ans\\n\"\n\n        .section \".bss\"\n        .align  4\nage:    .skip   ____                // (6) un entier de 32 bits",
+      "hints": [
+        "Les trous (1) et (4) préparent un paramètre : l'un doit être une ADRESSE, l'autre une VALEUR.",
+        "Pour (3), relire le tableau des chargements du chapitre 3 : quelle instruction charge un mot NON signé en mettant les 32 bits de poids fort à 0 ?",
+        "(5) : le format doit se terminer par un 0 sans qu'on l'écrive. (6) : combien d'octets pour un entier de 32 bits ?"
+      ],
+      "solution": "(1) adr · (2) scanf · (3) ldr w20,[x19] · (4) mov · (5) .asciz · (6) 4",
+      "expectedOutput": "(1) adr     x1,age        scanf recoit l'ADRESSE de age (le & du C)\n(2) bl      scanf\n(3) ldr     w20,[x19]     mot NON signe : les 32 bits de poids fort a 0\n                          (ldrsw x20,[x19] donnerait le meme resultat pour\n                           tout age realiste, mais %u annonce un non signe)\n(4) mov     x1,x20        printf recoit la VALEUR a afficher\n(5) .asciz  \"%u\"         le 0 final est ajoute automatiquement\n(6) .skip   4             un mot = 4 octets\n\nSEPARER LES DEUX APPELS\n    scanf :  x0 = adresse du format, x1 = ADRESSE de la variable\n    printf : x0 = adresse du format, x1 = VALEUR a afficher",
+      "solutionExplanation": "Les trous (1) et (4) sont le cœur de l'exercice : même registre x1, même position de paramètre, mais une adresse pour scanf et une valeur pour printf. Le choix de x19 et x20 n'est pas un hasard non plus : ils sont sauvegardés et survivent au bl printf, conformément aux normes du cours.",
+      "source": { "file": "Chapitre 4.pdf", "page": 15, "locator": "Diapositives 13 à 15" }
+    },
+    {
+      "id": "e4-04",
+      "objectiveId": "obj4-pseudo",
+      "difficulty": 2,
+      "mode": "predict-output",
+      "language": "text",
+      "title": "Où tombe chaque donnée ?",
+      "statement": "La section ci-dessous commence à l'adresse 0x1000. Aucune pseudo-instruction .align n'est utilisée : les données se suivent sans trou.\n\n1. Donner l'adresse de chaque étiquette et la taille totale.\n2. Donner, octet par octet, ce qu'il y a de d à la fin de e.\n3. Lesquelles des données b, c et f ne respectent pas la contrainte de frontière du chapitre 2 ?",
+      "starterCode": "        .section \".data\"\na:      .byte   65\nb:      .half   300\nc:      .word   -1\nd:      .ascii  \"OK\"\ne:      .asciz  \"ok\"\nf:      .xword  5\ng:      .skip   3*2\nh:      .byte   'a'",
+      "hints": [
+        "Tailles : .byte 1, .half 2, .word 4, .xword 8 ; .ascii : le nombre de caractères ; .asciz : un de plus ; .skip : l'expression.",
+        "Additionner les tailles une à une à partir de 0x1000, en hexadécimal.",
+        "Contrainte de frontière : un demi-mot à une adresse paire, un mot à une adresse multiple de 4, un mot étendu à un multiple de 8."
+      ],
+      "solution": "a 0x1000 · b 0x1001 · c 0x1003 · d 0x1007 · e 0x1009 · f 0x100C · g 0x1014 · h 0x101A · total 27 octets · b, c et f mal alignées",
+      "expectedOutput": "1. ADRESSES\n\n   etiq  declaration        taille   adresse\n   a     .byte 65              1     0x1000\n   b     .half 300             2     0x1001\n   c     .word -1              4     0x1003\n   d     .ascii \"OK\"           2     0x1007\n   e     .asciz \"ok\"           3     0x1009\n   f     .xword 5              8     0x100C\n   g     .skip 3*2             6     0x1014\n   h     .byte 'a'             1     0x101A\n                                     fin : 0x101B\n\n   Total : 1+2+4+2+3+8+6+1 = 27 octets (0x1B).\n\n2. DE d A LA FIN DE e\n\n   0x1007  'O'\n   0x1008  'K'\n   0x1009  'o'      <- e commence ici\n   0x100A  'k'\n   0x100B  0        <- ajoute par .asciz\n\n   Aucun 0 entre \"OK\" et \"ok\" : un printf sur d afficherait \"OKok\".\n\n3. FRONTIERES\n\n   b  demi-mot a 0x1001 : impair            -> MAL aligne\n   c  mot a 0x1003 : pas multiple de 4      -> MAL aligne\n   f  mot etendu a 0x100C = 4108 :\n      multiple de 4 mais pas de 8           -> MAL aligne\n\n   Le programme du rectangle evite ce probleme en placant .align avant\n   sa zone de mots (points).",
+      "solutionExplanation": "La question 3 relie deux chapitres : les pseudo-instructions placent les données bout à bout, sans se soucier des frontières, et c'est au programmeur d'ajouter .align quand une donnée sera lue par mot ou par mot étendu. Le cas de f est le plus trompeur : 0x100C est bien multiple de 4, mais pas de 8.",
+      "source": { "file": "ResumeARM.pdf", "page": 9, "locator": "Pseudo-Instructions" }
+    },
+    {
+      "id": "e4-05",
+      "objectiveId": "obj4-io",
+      "difficulty": 3,
+      "mode": "find-bug",
+      "language": "asm",
+      "title": "Trouver les trois bogues — lire et afficher trois nombres",
+      "statement": "Ce programme devrait lire trois entiers, afficher chacun après sa lecture (« Lu : … »), puis afficher « Termine. » une seule fois.\n\nIl s'assemble sans erreur, mais contient trois bogues : un dans le passage des paramètres, un dans le choix d'un registre, un dans les déclarations. Les trouver, dire ce qu'ils provoquent, et les corriger.",
+      "starterCode": "        .global Lire\n        .section \".text\"\nLire:\n        SAVE\n        adr     x19,nombres         // case courante\n        mov     x9,3                // 3 nombres a lire\nlire00:\n        adr     x0,fmtLec           // Param1 : format de lecture\n        ldrsw   x1,[x19]            // Param2 : la case a remplir\n        bl      scanf\n\n        adr     x0,fmtAff           // Param1 : format d'affichage\n        ldrsw   x1,[x19]            // Param2 : le nombre lu\n        bl      printf\n\n        add     x19,x19,4           // case suivante\n        sub     x9,x9,1             // un nombre de moins\n        cmp     x9,0\n        b.gt    lire00\n\n        adr     x0,fmtFin\n        bl      printf\n        mov     x0,0\n        bl      exit\n\n        .section \".rodata\"\nfmtLec: .asciz  \"%d\"\nfmtAff: .ascii  \"Lu : %d\\n\"\nfmtFin: .asciz  \"Termine.\\n\"\n\n        .section \".bss\"\n        .align  4\nnombres: .skip  3*4",
+      "hints": [
+        "Comparer les deux ldrsw x1,[x19] : l'un est correct, l'autre non. Que veut scanf, une valeur ou une adresse ?",
+        "Quels registres les sous-programmes ne sauvegardent-ils pas ? Le compteur est-il dans l'un d'eux ?",
+        "Regarder les trois chaînes de .rodata : laquelle n'a pas de 0 final, et qu'est-ce qui la suit en mémoire ?"
+      ],
+      "solution": "(1) ldrsw x1,[x19] avant scanf → mov x1,x19 · (2) compteur x9 → x20 · (3) fmtAff .ascii → .asciz",
+      "expectedOutput": "BOGUE 1 - le parametre de scanf\n    ldrsw x1,[x19]   (avant bl scanf)\n    x1 recoit le CONTENU de la case, pas son adresse. scanf ecrit alors le\n    nombre lu a une adresse sans rapport : le plus souvent, plantage.\n    CORRECTION :  mov x1,x19\n    (Le ldrsw x1,[x19] AVANT printf, lui, est correct : printf veut la valeur.)\n\nBOGUE 2 - le compteur dans x9\n    x9 a x15 : usage temporaire, « ne seront pas sauvegardes par les\n    sous-programmes ». scanf et printf peuvent modifier x9 : le nombre de\n    tours de boucle devient imprevisible. C'est aussi contraire a la norme\n    « x9 a x15 : a eviter le plus possible ».\n    CORRECTION :  mov x20,3 ... sub x20,x20,1 ... cmp x20,0\n    (x19 a x28 sont sauvegardes et survivent aux appels.)\n\nBOGUE 3 - fmtAff declare avec .ascii\n    Pas de 0 final : le format se prolonge dans fmtFin.\n    Format recu par printf :  \"Lu : %d\\nTermine.\\n\"\n    Effet : « Termine. » s'affiche apres CHAQUE nombre, puis encore une fois\n    a la fin.\n    CORRECTION :  fmtAff: .asciz \"Lu : %d\\n\"\n\nC'est le meme mecanisme que ptfmt3 dans le programme du rectangle ;\nla-bas il est voulu, ici il est accidentel.",
+      "solutionExplanation": "Les trois bogues ont un point commun : l'assembleur les accepte tous. Le premier confond valeur et adresse — la distinction centrale entre printf et scanf. Le deuxième ignore la convention de sauvegarde des registres, qui est la raison d'être des normes du cours. Le troisième réutilise le mécanisme .ascii du programme du rectangle sans en avoir l'intention. Aucun n'est détectable sans lire le code en se demandant, pour chaque registre et chaque chaîne, ce qu'il contient réellement.",
+      "source": { "file": "Chapitre 4.pdf", "page": 15, "locator": "Diapositives 3, 10, 13 à 15" }
+    }
+  ]
+}

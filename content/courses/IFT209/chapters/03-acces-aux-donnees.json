@@ -1,0 +1,1842 @@
+{
+  "course": "IFT209",
+  "chapter": 3,
+  "concepts": [
+    {
+      "id": "c3-hierarchie",
+      "term": "Hiérarchie des mémoires",
+      "definition": "Quatre niveaux : registres, mémoire cache, mémoire centrale, disques et rubans. Du haut vers le bas : plus lent, moins coûteux, plus grande capacité.",
+      "whyItMatters": "Les données de la mémoire secondaire doivent passer par le bus pour être utilisées ; plusieurs unités de stockage sont employées justement pour assurer un accès rapide malgré cette contrainte.",
+      "commonMisconception": "Croire qu'on peut ranger volontairement une valeur en cache. Les notes précisent que la mémoire cache « n'est pas directement programmable » : c'est le matériel qui décide de son contenu.",
+      "objectiveId": "obj3-hierarchie",
+      "source": {
+        "file": "Chapitre 3.pdf",
+        "page": 3,
+        "locator": "Diapositive 3"
+      }
+    },
+    {
+      "id": "c3-adresse-effective",
+      "term": "Adresse effective",
+      "definition": "Adresse obtenue à partir de transformations sur une adresse initiale : adresse indexée, adresse indirecte, adresse relative.",
+      "whyItMatters": "C'est ce que le mode d'adressage produit à l'exécution. Le schéma de la vie d'un programme se termine sur l'égalité : mode d'adressage(adresses numériques) = adresse effective.",
+      "commonMisconception": "Confondre adresse symbolique et adresse effective. L'étiquette est résolue dès la compilation ; l'adresse effective n'existe qu'au moment de l'exécution de l'instruction.",
+      "objectiveId": "obj3-adresses",
+      "source": {
+        "file": "Chapitre 3.pdf",
+        "page": 7,
+        "locator": "Diapositive 7"
+      }
+    },
+    {
+      "id": "c3-vie-programme",
+      "term": "Vie d'un programme",
+      "definition": "Cinq étapes : création, compilation (assembleur), édition des liens, chargement, exécution. À chaque étape les adresses symboliques cèdent du terrain aux adresses numériques.",
+      "whyItMatters": "Le programme est déplacé à chaque étape — d'abord de l, puis de c — donc une adresse écrite en dur devient fausse. C'est ce qui justifie l'adressage relatif.",
+      "commonMisconception": "Croire que le code objet contient les adresses finales. Il faudra encore l'édition des liens, puis le chargement, chacun décalant l'ensemble.",
+      "objectiveId": "obj3-adresses",
+      "source": {
+        "file": "Chapitre 3.pdf",
+        "page": 8,
+        "locator": "Diapositives 8 et 9"
+      }
+    },
+    {
+      "id": "c3-immediat",
+      "term": "Adressage immédiat",
+      "definition": "L'opérande est DANS l'instruction. Utilisé lorsque la valeur de l'opérande est constante ; la valeur est généralement petite en RISC.",
+      "whyItMatters": "C'est le seul mode qui n'exige aucun accès mémoire ni registre pour obtenir l'opérande — d'où sa rapidité et la contrainte de taille qui l'accompagne.",
+      "commonMisconception": "Croire qu'il permet de charger n'importe quelle valeur. En ARM, la constante d'un mov est limitée à 12 bits ; au-delà, l'assembleur doit la fabriquer autrement.",
+      "objectiveId": "obj3-modes",
+      "source": {
+        "file": "Chapitre 3.pdf",
+        "page": 11,
+        "locator": "Diapositive 11"
+      }
+    },
+    {
+      "id": "c3-registre-differe",
+      "term": "Adressage par registre différé",
+      "definition": "Le registre contient l'ADRESSE de l'opérande, et non l'opérande lui-même. Aussi appelé indirect par registre.",
+      "whyItMatters": "C'est le mode de base de tout accès mémoire en ARM, puisque les modes direct et indirect n'existent pas dans cette architecture.",
+      "commonMisconception": "Le confondre avec l'adressage par registre. En adressage par registre, l'opérande EST dans le registre ; en registre différé, le registre ne contient qu'une adresse.",
+      "objectiveId": "obj3-modes",
+      "source": {
+        "file": "Chapitre 3.pdf",
+        "page": 15,
+        "locator": "Diapositive 15"
+      }
+    },
+    {
+      "id": "c3-relatif",
+      "term": "Adressage relatif",
+      "definition": "L'opérande est en mémoire, le repère est variable — c'est le contenu du PC — et le déplacement est contenu dans l'instruction. C'est l'assembleur qui calcule le déplacement.",
+      "whyItMatters": "Il est indépendant de l'emplacement du programme en mémoire, ce qui le rend robuste aux décalages successifs de l'édition des liens et du chargement. C'est aussi la réponse au problème des adresses 64 bits dans des instructions de 32 bits.",
+      "commonMisconception": "Croire qu'il sert uniquement aux branchements. En ARM, il sert aussi à copier une adresse dans un registre — c'est le rôle de l'instruction adr.",
+      "objectiveId": "obj3-arm",
+      "source": {
+        "file": "Chapitre 3.pdf",
+        "page": 20,
+        "locator": "Diapositives 20 et 27"
+      }
+    },
+    {
+      "id": "c3-ldr-str",
+      "term": "Instructions de chargement et de stockage",
+      "definition": "ldr charge depuis la mémoire vers un registre, str stocke d'un registre vers la mémoire. Les suffixes b, h, w donnent la taille ; un s intercalé indique une valeur signée.",
+      "whyItMatters": "Charger un octet dans un registre de 64 bits laisse 56 bits à remplir : ldrb les met à 0, ldrsb propage le bit de signe. Le choix change la valeur obtenue pour tout nombre négatif.",
+      "commonMisconception": "Utiliser ldrb pour une valeur signée. Les 56 bits de poids fort seront mis à 0, ce qui transforme un octet négatif en un grand nombre positif.",
+      "objectiveId": "obj3-arm",
+      "source": {
+        "file": "Chapitre 3.pdf",
+        "page": 30,
+        "locator": "Diapositives 30 et 31"
+      }
+    },
+    {
+      "id": "c3-mov-synthetique",
+      "term": "Instruction synthétique",
+      "definition": "Instruction qui n'existe pas telle quelle dans le jeu machine et que l'assembleur traduit selon le contexte. MOV en est une : mov x20, 153 devient add x20, xzr, 153 et mov x20, -153 devient sub x20, xzr, 153.",
+      "whyItMatters": "Cela explique le rôle du registre xzr, qui contient toujours 0 : additionner à zéro revient à copier. Et cela explique pourquoi la constante est limitée à 12 bits — c'est la place disponible dans l'instruction add.",
+      "commonMisconception": "Croire que toute constante peut être générée par décalage. Les notes préviennent : « ce ne sont pas toutes les constantes qui peuvent être générées ainsi. L'assembleur donnera un message d'erreur s'il n'y arrive pas. »",
+      "objectiveId": "obj3-mov",
+      "source": {
+        "file": "Chapitre 3.pdf",
+        "page": 32,
+        "locator": "Diapositives 32 et 33"
+      }
+    }
+  ],
+  "tables": [
+    {
+      "id": "t3-modes",
+      "title": "Les modes d'adressage : où est l'opérande",
+      "kind": "reference",
+      "caption": "Deux de ces modes n'existent pas en ARM.",
+      "columns": [
+        {
+          "key": "mode",
+          "label": "Mode"
+        },
+        {
+          "key": "ou",
+          "label": "Où est l'opérande"
+        },
+        {
+          "key": "instr",
+          "label": "Ce que contient l'instruction"
+        },
+        {
+          "key": "arm",
+          "label": "En ARM ?"
+        }
+      ],
+      "rows": [
+        {
+          "mode": "1. Immédiat",
+          "ou": "dans l'instruction",
+          "instr": "la valeur elle-même",
+          "arm": "oui"
+        },
+        {
+          "mode": "2. Direct",
+          "ou": "en mémoire",
+          "instr": "l'adresse de l'opérande",
+          "arm": "NON"
+        },
+        {
+          "mode": "3. Par registre",
+          "ou": "dans un registre",
+          "instr": "le numéro du registre",
+          "arm": "oui"
+        },
+        {
+          "mode": "4. Indirect",
+          "ou": "en mémoire",
+          "instr": "une adresse qui contient une adresse",
+          "arm": "NON"
+        },
+        {
+          "mode": "5. Par registre différé",
+          "ou": "en mémoire",
+          "instr": "le numéro d'un registre contenant l'adresse",
+          "arm": "oui"
+        },
+        {
+          "mode": "6. Base et déplacement",
+          "ou": "en mémoire",
+          "instr": "numéro du registre de base + déplacement",
+          "arm": "oui (indexé)"
+        },
+        {
+          "mode": "Auto-incrément",
+          "ou": "en mémoire",
+          "instr": "numéro de registre ; adresse incrémentée À LA FIN",
+          "arm": "oui (post-incrémenté)"
+        },
+        {
+          "mode": "Auto-décrément",
+          "ou": "en mémoire",
+          "instr": "numéro de registre ; adresse décrémentée EN PREMIER",
+          "arm": "oui (pré-incrémenté)"
+        },
+        {
+          "mode": "Indexé",
+          "ou": "en mémoire",
+          "instr": "repère + index, éventuellement en registres",
+          "arm": "oui"
+        },
+        {
+          "mode": "Relatif",
+          "ou": "en mémoire",
+          "instr": "déplacement ; le repère est le PC",
+          "arm": "oui"
+        }
+      ],
+      "source": {
+        "file": "Chapitre 3.pdf",
+        "page": 25,
+        "locator": "Diapositives 11 à 25"
+      }
+    },
+    {
+      "id": "t3-chargement",
+      "title": "Instructions de chargement ARMv8",
+      "kind": "syntax",
+      "caption": "La différence se joue sur les bits de poids fort qui restent à remplir.",
+      "columns": [
+        {
+          "key": "instr",
+          "label": "Instruction",
+          "mono": true
+        },
+        {
+          "key": "taille",
+          "label": "Taille chargée"
+        },
+        {
+          "key": "fort",
+          "label": "Bits de poids fort"
+        }
+      ],
+      "rows": [
+        {
+          "instr": "ldrb",
+          "taille": "octet non signé",
+          "fort": "les 56 bits de poids fort à 0"
+        },
+        {
+          "instr": "ldrsb",
+          "taille": "octet signé",
+          "fort": "0 si positif, 1 sinon (56 bits)"
+        },
+        {
+          "instr": "ldrh",
+          "taille": "demi-mot non signé",
+          "fort": "les 48 bits de poids fort à 0"
+        },
+        {
+          "instr": "ldrsh",
+          "taille": "demi-mot signé",
+          "fort": "0 si positif, 1 sinon (48 bits)"
+        },
+        {
+          "instr": "ldr (avec w0-w30)",
+          "taille": "mot non signé",
+          "fort": "les 32 bits de poids fort à 0"
+        },
+        {
+          "instr": "ldrsw",
+          "taille": "mot signé",
+          "fort": "0 si positif, 1 sinon (32 bits)"
+        },
+        {
+          "instr": "ldr (avec x0-x30)",
+          "taille": "mot étendu (64 bits)",
+          "fort": "aucun bit à compléter"
+        }
+      ],
+      "source": {
+        "file": "Chapitre 3.pdf",
+        "page": 30
+      }
+    },
+    {
+      "id": "t3-stockage",
+      "title": "Instructions de stockage ARMv8",
+      "kind": "syntax",
+      "caption": "Rien à compléter au stockage : on tronque le registre.",
+      "columns": [
+        {
+          "key": "instr",
+          "label": "Instruction",
+          "mono": true
+        },
+        {
+          "key": "effet",
+          "label": "Effet"
+        }
+      ],
+      "rows": [
+        {
+          "instr": "strb",
+          "effet": "copie les 8 bits de poids faible du registre dans la mémoire"
+        },
+        {
+          "instr": "strh",
+          "effet": "copie les 16 bits de poids faible"
+        },
+        {
+          "instr": "str (avec w0-w30)",
+          "effet": "copie les 32 bits de poids faible"
+        },
+        {
+          "instr": "str (avec x0-x30) — écrit « stx » sur la diapositive 31",
+          "effet": "copie les 64 bits du registre"
+        }
+      ],
+      "source": {
+        "file": "Chapitre 3.pdf",
+        "page": 31
+      }
+    }
+  ],
+  "quiz": {
+    "title": "Quiz — vérification rapide",
+    "estimatedMinutes": 15,
+    "questions": [
+      {
+        "id": "q3-01",
+        "objectiveId": "obj3-hierarchie",
+        "bloomLevel": "recall",
+        "type": "mcq",
+        "difficulty": 1,
+        "prompt": "Quelle particularité les notes attribuent-elles à la mémoire cache ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Elle n'est pas directement programmable."
+          },
+          {
+            "id": "b",
+            "text": "Elle est plus lente que la mémoire centrale."
+          },
+          {
+            "id": "c",
+            "text": "Elle conserve les données après extinction."
+          },
+          {
+            "id": "d",
+            "text": "Elle remplace les registres du processeur."
+          }
+        ],
+        "correct": "a",
+        "explanation": "Elle est jusqu'à dix fois plus rapide que la mémoire principale et comporte plusieurs niveaux, mais son contenu est décidé par le matériel : on ne peut pas y ranger une valeur volontairement.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "C'est l'inverse : jusqu'à dix fois PLUS rapide que la mémoire principale."
+          },
+          {
+            "optionId": "c",
+            "why": "Conserver les données sur une longue période est le rôle des disques et rubans."
+          },
+          {
+            "optionId": "d",
+            "why": "Elle s'intercale entre les registres et la mémoire centrale sans les remplacer ; les registres restent le niveau le plus rapide."
+          }
+        ],
+        "source": {
+          "file": "Chapitre 3.pdf",
+          "page": 3
+        }
+      },
+      {
+        "id": "q3-02",
+        "objectiveId": "obj3-modes",
+        "bloomLevel": "understand",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "En adressage IMMÉDIAT, où se trouve l'opérande ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Dans l'instruction elle-même."
+          },
+          {
+            "id": "b",
+            "text": "Dans un registre."
+          },
+          {
+            "id": "c",
+            "text": "En mémoire, à l'adresse contenue dans l'instruction."
+          },
+          {
+            "id": "d",
+            "text": "En mémoire, à l'adresse contenue dans un registre."
+          }
+        ],
+        "correct": "a",
+        "explanation": "C'est le seul mode où l'opérande ne demande aucun accès supplémentaire. Il est utilisé lorsque la valeur est constante, et cette valeur est généralement petite en RISC — d'où la limite de 12 bits en ARM.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "C'est l'adressage par registre : mov x19, x20."
+          },
+          {
+            "optionId": "c",
+            "why": "C'est l'adressage direct, qui n'existe pas en ARM."
+          },
+          {
+            "optionId": "d",
+            "why": "C'est l'adressage par registre différé, le mode de base des accès mémoire en ARM."
+          }
+        ],
+        "source": {
+          "file": "Chapitre 3.pdf",
+          "page": 11
+        }
+      },
+      {
+        "id": "q3-03",
+        "objectiveId": "obj3-modes",
+        "bloomLevel": "recall",
+        "type": "multi",
+        "difficulty": 2,
+        "prompt": "Quels modes d'adressage les notes signalent-elles comme ABSENTS de l'ARM ? (plusieurs réponses)",
+        "options": [
+          {
+            "id": "a",
+            "text": "L'adressage direct"
+          },
+          {
+            "id": "b",
+            "text": "L'adressage indirect"
+          },
+          {
+            "id": "c",
+            "text": "L'adressage immédiat"
+          },
+          {
+            "id": "d",
+            "text": "L'adressage relatif"
+          }
+        ],
+        "correct": [
+          "a",
+          "b"
+        ],
+        "explanation": "Les diapositives 12 et 14 portent toutes deux la mention « Il n'y a pas dans ARM ». C'est cohérent avec le chapitre 2 : en RISC, l'adressage est limité.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "c",
+            "why": "L'immédiat est le premier des sept modes ARM listés à la diapositive 25."
+          },
+          {
+            "optionId": "d",
+            "why": "Le relatif est le septième mode ARM, et joue un rôle central : branchements et chargement d'adresses."
+          }
+        ],
+        "source": {
+          "file": "Chapitre 3.pdf",
+          "page": 14
+        }
+      },
+      {
+        "id": "q3-04",
+        "objectiveId": "obj3-arm",
+        "bloomLevel": "analyze",
+        "type": "mcq",
+        "difficulty": 3,
+        "prompt": "Comment l'ARM écrit-il une adresse de 64 bits alors que ses instructions font 32 bits ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Par le mode relatif : l'adresse est calculée à partir du PC, qui contient déjà une adresse valide."
+          },
+          {
+            "id": "b",
+            "text": "En utilisant deux instructions consécutives de 32 bits."
+          },
+          {
+            "id": "c",
+            "text": "En stockant l'adresse dans le registre xzr."
+          },
+          {
+            "id": "d",
+            "text": "En tronquant l'adresse à 32 bits."
+          }
+        ],
+        "correct": "a",
+        "explanation": "C'est la question que pose la diapositive 26 et la réponse de la diapositive 27 : en additionnant le PC et la distance entre l'instruction courante et la donnée désirée, on obtient une adresse valide. Le déplacement peut faire 21 bits, soit ± 1 Mo.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Les notes ne décrivent pas ce mécanisme ; elles présentent le mode relatif comme la solution."
+          },
+          {
+            "optionId": "c",
+            "why": "xzr contient toujours 0 et une écriture n'y a aucun effet."
+          },
+          {
+            "optionId": "d",
+            "why": "Tronquer produirait une adresse fausse ; tout l'intérêt du procédé est d'obtenir une adresse valide."
+          }
+        ],
+        "source": {
+          "file": "Chapitre 3.pdf",
+          "page": 27
+        }
+      },
+      {
+        "id": "q3-05",
+        "objectiveId": "obj3-arm",
+        "bloomLevel": "apply",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Quelle instruction charge un octet SIGNÉ dans un registre ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "ldrsb"
+          },
+          {
+            "id": "b",
+            "text": "ldrb"
+          },
+          {
+            "id": "c",
+            "text": "ldrsh"
+          },
+          {
+            "id": "d",
+            "text": "strb"
+          }
+        ],
+        "correct": "a",
+        "explanation": "ldrsb = load register, signed byte. Si la valeur est positive elle met des 0 dans les 56 bits de poids fort, sinon des 1 — c'est la propagation du bit de signe.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "ldrb charge un octet NON signé et met systématiquement les 56 bits de poids fort à 0."
+          },
+          {
+            "optionId": "c",
+            "why": "ldrsh charge un demi-mot signé, soit 16 bits et non 8."
+          },
+          {
+            "optionId": "d",
+            "why": "strb est une instruction de STOCKAGE : elle copie vers la mémoire, pas depuis."
+          }
+        ],
+        "source": {
+          "file": "Chapitre 3.pdf",
+          "page": 30
+        }
+      },
+      {
+        "id": "q3-06",
+        "objectiveId": "obj3-mov",
+        "bloomLevel": "understand",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "En quoi `mov x20, 153` est-elle traduite par l'assembleur ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "add x20, xzr, 153"
+          },
+          {
+            "id": "b",
+            "text": "sub x20, xzr, 153"
+          },
+          {
+            "id": "c",
+            "text": "ldr x20, 153"
+          },
+          {
+            "id": "d",
+            "text": "str x20, 153"
+          }
+        ],
+        "correct": "a",
+        "explanation": "MOV est une instruction synthétique. Comme xzr contient toujours 0, additionner 153 à zéro revient à copier 153. Pour une valeur négative, l'assembleur utilise sub : mov x20, -153 devient sub x20, xzr, 153.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "C'est la traduction d'une valeur NÉGATIVE : mov x20, -153."
+          },
+          {
+            "optionId": "c",
+            "why": "ldr lit en mémoire ; ici il n'y a aucun accès mémoire, la constante est dans l'instruction."
+          },
+          {
+            "optionId": "d",
+            "why": "str écrit en mémoire, ce qui est l'inverse de l'effet recherché."
+          }
+        ],
+        "source": {
+          "file": "Chapitre 3.pdf",
+          "page": 32
+        }
+      },
+      {
+        "id": "q3-07",
+        "objectiveId": "obj3-adresses",
+        "bloomLevel": "understand",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Pourquoi une adresse écrite en dur dans le code source devient-elle problématique ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Parce que le programme est décalé à l'édition des liens puis au chargement."
+          },
+          {
+            "id": "b",
+            "text": "Parce que les adresses numériques sont interdites en assembleur."
+          },
+          {
+            "id": "c",
+            "text": "Parce que le processeur ne comprend que les adresses symboliques."
+          },
+          {
+            "id": "d",
+            "text": "Parce que la mémoire virtuelle empêche toute adresse fixe."
+          }
+        ],
+        "correct": "a",
+        "explanation": "Le schéma de la diapositive 9 suit une donnée : à l'adresse a dans le code objet, à a+l après édition des liens, à a+l+c après chargement. Une valeur figée dans le source ne suit pas ces décalages.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Elles ne sont pas interdites — les notes les disent seulement « rares » au stade de la création."
+          },
+          {
+            "optionId": "c",
+            "why": "C'est l'inverse : les adresses symboliques disparaissent progressivement au profit des numériques."
+          },
+          {
+            "optionId": "d",
+            "why": "La mémoire virtuelle ajoute une traduction supplémentaire, mais le problème des décalages existe avant elle."
+          }
+        ],
+        "source": {
+          "file": "Chapitre 3.pdf",
+          "page": 9
+        }
+      },
+      {
+        "id": "q3-08",
+        "objectiveId": "obj3-modes",
+        "bloomLevel": "analyze",
+        "type": "mcq",
+        "difficulty": 3,
+        "prompt": "Quelle est la différence entre auto-incrément et auto-décrément ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "L'auto-incrément modifie l'adresse à la fin, l'auto-décrément la modifie en premier."
+          },
+          {
+            "id": "b",
+            "text": "L'auto-incrément ajoute 1, l'auto-décrément retire 1."
+          },
+          {
+            "id": "c",
+            "text": "L'auto-incrément fonctionne sur les registres, l'auto-décrément sur la mémoire."
+          },
+          {
+            "id": "d",
+            "text": "Il n'y a pas de différence de fonctionnement, seulement de signe."
+          }
+        ],
+        "correct": "a",
+        "explanation": "Les notes insistent sur le MOMENT : « À la fin de l'exécution, la valeur de l'adresse est incrémentée par i » pour l'un, et « On décrémente l'adresse en premier » pour l'autre. C'est cette dissymétrie qui permet d'empiler et de dépiler correctement.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Le pas est i, pas nécessairement 1, et le signe n'est pas la seule différence : le moment de l'opération l'est aussi."
+          },
+          {
+            "optionId": "c",
+            "why": "Les deux modes utilisent un registre contenant une adresse et accèdent à la mémoire."
+          },
+          {
+            "optionId": "d",
+            "why": "L'ordre des opérations change le résultat : décrémenter avant ou après désigne deux cellules différentes."
+          }
+        ],
+        "source": {
+          "file": "Chapitre 3.pdf",
+          "page": 18
+        }
+      },
+      {
+        "id": "q3-09",
+        "objectiveId": "obj3-arm",
+        "bloomLevel": "recall",
+        "type": "fill-blank",
+        "difficulty": 1,
+        "prompt": "Compléter : en ARM, le déplacement du mode relatif peut avoir au maximum ____ bits, ce qui représente ± 1 Mo de distance.",
+        "correct": "21",
+        "acceptableAnswers": [
+          "21 bits"
+        ],
+        "explanation": "21 bits. Au-delà de ± 1 Mo de l'instruction courante, l'assembleur ne peut plus produire l'adresse par ce mécanisme.",
+        "source": {
+          "file": "Chapitre 3.pdf",
+          "page": 27
+        }
+      },
+      {
+        "id": "q3-10",
+        "objectiveId": "obj3-mov",
+        "bloomLevel": "analyze",
+        "type": "mcq",
+        "difficulty": 3,
+        "prompt": "Pourquoi `mov x20, 8960` est-il traduit par `add x20, xzr, 35, lsl 8` ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Parce que 8960 dépasse 12 bits : on fabrique la constante par 35 × 2⁸."
+          },
+          {
+            "id": "b",
+            "text": "Parce que l'addition est plus rapide que la copie."
+          },
+          {
+            "id": "c",
+            "text": "Parce que 8960 doit être stocké en mémoire d'abord."
+          },
+          {
+            "id": "d",
+            "text": "Parce que lsl est obligatoire avec xzr."
+          }
+        ],
+        "correct": "a",
+        "explanation": "La constante d'un mov est limitée à 12 bits. 8960 = 35 × 256 et 256 = 2⁸ : décaler 35 de 8 places à gauche produit la bonne valeur. Les notes préviennent que toutes les constantes ne peuvent pas être générées ainsi.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "La vitesse n'est pas en cause : mov est de toute façon traduit en add, même pour une petite constante."
+          },
+          {
+            "optionId": "c",
+            "why": "Aucun accès mémoire n'intervient ; la constante est entièrement produite par des opérations sur registres."
+          },
+          {
+            "optionId": "d",
+            "why": "lsl n'apparaît que lorsqu'un décalage est nécessaire : mov x20, 153 devient add x20, xzr, 153 sans décalage."
+          }
+        ],
+        "source": {
+          "file": "Chapitre 3.pdf",
+          "page": 33
+        }
+      },
+      {
+        "id": "q3-11",
+        "objectiveId": "obj3-hierarchie",
+        "bloomLevel": "understand",
+        "type": "true-false",
+        "difficulty": 2,
+        "prompt": "Les données d'un disque peuvent être utilisées directement par le processeur, sans passer par la mémoire centrale.",
+        "options": [
+          {
+            "id": "v",
+            "text": "Vrai"
+          },
+          {
+            "id": "f",
+            "text": "Faux"
+          }
+        ],
+        "correct": "f",
+        "explanation": "La diapositive 3 l'énonce pour les disques et rubans : « Doit transiter par la mémoire centrale pour être utilisée ». C'est cohérent avec le modèle de von Neumann, où le programme et ses données sont toujours en mémoire principale.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "v",
+            "why": "Ce serait contredire à la fois la hiérarchie des mémoires et le principe fondateur du chapitre 2."
+          }
+        ],
+        "source": {
+          "file": "Chapitre 3.pdf",
+          "page": 3
+        }
+      },
+      {
+        "id": "q3-12",
+        "objectiveId": "obj3-modes",
+        "bloomLevel": "apply",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Dans l'adressage BASE ET DÉPLACEMENT, qu'est-ce qui se trouve dans l'instruction ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Le numéro du registre de base et le déplacement."
+          },
+          {
+            "id": "b",
+            "text": "L'adresse de base et l'opérande."
+          },
+          {
+            "id": "c",
+            "text": "Uniquement le déplacement, la base étant dans le PC."
+          },
+          {
+            "id": "d",
+            "text": "L'adresse effective déjà calculée."
+          }
+        ],
+        "correct": "a",
+        "explanation": "Le repère — la base — est dans un registre, et l'instruction en donne le numéro ; le déplacement, lui, est contenu dans l'instruction. L'adresse effective est la somme des deux.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "L'opérande est en mémoire, pas dans l'instruction — ce serait l'adressage immédiat."
+          },
+          {
+            "optionId": "c",
+            "why": "Le repère dans le PC caractérise l'adressage RELATIF, pas base et déplacement."
+          },
+          {
+            "optionId": "d",
+            "why": "L'adresse effective est justement le résultat du calcul fait à l'exécution, elle n'est pas pré-écrite."
+          }
+        ],
+        "source": {
+          "file": "Chapitre 3.pdf",
+          "page": 16
+        }
+      }
+    ]
+  },
+  "test": {
+    "title": "Test du chapitre 3",
+    "instructions": "20 questions couvrant tout le chapitre. Plus long et plus difficile que le quiz.",
+    "estimatedMinutes": 45,
+    "questions": [
+      {
+        "id": "tt3-01",
+        "objectiveId": "obj3-hierarchie",
+        "bloomLevel": "recall",
+        "type": "mcq",
+        "difficulty": 1,
+        "prompt": "Classer du plus rapide au plus lent les niveaux de la hiérarchie des mémoires.",
+        "options": [
+          {
+            "id": "a",
+            "text": "Registres, cache, mémoire centrale, disques"
+          },
+          {
+            "id": "b",
+            "text": "Cache, registres, disques, mémoire centrale"
+          },
+          {
+            "id": "c",
+            "text": "Mémoire centrale, registres, cache, disques"
+          },
+          {
+            "id": "d",
+            "text": "Disques, mémoire centrale, cache, registres"
+          }
+        ],
+        "correct": "a",
+        "explanation": "C'est l'ordre du schéma de la diapositive 4. Plus on descend, plus c'est grand, lent et bon marché.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Les registres sont le niveau le plus rapide, devant le cache."
+          },
+          {
+            "optionId": "c",
+            "why": "La mémoire centrale est plus lente que le cache, qui est jusqu'à dix fois plus rapide qu'elle."
+          },
+          {
+            "optionId": "d",
+            "why": "C'est l'ordre exactement inverse — du plus lent au plus rapide."
+          }
+        ],
+        "source": {
+          "file": "Chapitre 3.pdf",
+          "page": 4
+        }
+      },
+      {
+        "id": "tt3-02",
+        "objectiveId": "obj3-adresses",
+        "bloomLevel": "understand",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Quelles sont les cinq étapes de la vie d'un programme ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Création, compilation, édition des liens, chargement, exécution."
+          },
+          {
+            "id": "b",
+            "text": "Création, exécution, compilation, chargement, édition des liens."
+          },
+          {
+            "id": "c",
+            "text": "Compilation, chargement, édition des liens, création, exécution."
+          },
+          {
+            "id": "d",
+            "text": "Création, compilation, exécution."
+          }
+        ],
+        "correct": "a",
+        "explanation": "Chaque étape produit un artefact : programme source, code objet, module chargeable, processus. Et à chaque passage les adresses symboliques cèdent du terrain aux adresses numériques.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "L'exécution est nécessairement la dernière étape : elle porte sur le processus, produit par le chargement."
+          },
+          {
+            "optionId": "c",
+            "why": "La création précède tout le reste — c'est elle qui produit le programme source."
+          },
+          {
+            "optionId": "d",
+            "why": "Il manque l'édition des liens, qui intègre les librairies statiques, et le chargement."
+          }
+        ],
+        "source": {
+          "file": "Chapitre 3.pdf",
+          "page": 8
+        }
+      },
+      {
+        "id": "tt3-03",
+        "objectiveId": "obj3-modes",
+        "bloomLevel": "apply",
+        "type": "code-output",
+        "difficulty": 2,
+        "prompt": "Quel mode d'adressage chacune de ces deux instructions utilise-t-elle ? Répondre sous la forme « mode1, mode2 ».",
+        "code": {
+          "lang": "text",
+          "value": "mov x19, 42\nmov x19, x20"
+        },
+        "correct": "immédiat, registre",
+        "acceptableAnswers": [
+          "immediat, registre",
+          "immédiat et registre",
+          "immediat / registre"
+        ],
+        "explanation": "Dans la première, la valeur 42 est DANS l'instruction : adressage immédiat. Dans la seconde, l'opérande est dans le registre x20 : adressage par registre. Ce sont les deux exemples donnés aux diapositives 11 et 13.",
+        "source": {
+          "file": "Chapitre 3.pdf",
+          "page": 13
+        }
+      },
+      {
+        "id": "tt3-04",
+        "objectiveId": "obj3-modes",
+        "bloomLevel": "understand",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Que signifie le qualificatif « différé » appliqué à un mode d'adressage ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Au lieu d'avoir l'opérande, on a l'adresse de l'opérande."
+          },
+          {
+            "id": "b",
+            "text": "L'instruction est exécutée un cycle plus tard."
+          },
+          {
+            "id": "c",
+            "text": "L'adresse est calculée par l'assembleur au lieu du processeur."
+          },
+          {
+            "id": "d",
+            "text": "Le résultat est écrit après la fin de l'instruction."
+          }
+        ],
+        "correct": "a",
+        "explanation": "C'est la définition donnée à la diapositive 21 : « Différé → Au lieu d'avoir l'opérande, on a l'adresse de l'opérande. L'opérande est donc toujours en mémoire. » Le même suffixe s'applique aux modes indexé et relatif.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Le terme ne concerne pas le temps d'exécution mais le niveau d'indirection."
+          },
+          {
+            "optionId": "c",
+            "why": "C'est une caractéristique de l'adressage relatif — l'assembleur calcule le déplacement — indépendante du différé."
+          },
+          {
+            "optionId": "d",
+            "why": "C'est le mécanisme de l'auto-incrément, où l'adresse est modifiée à la fin."
+          }
+        ],
+        "source": {
+          "file": "Chapitre 3.pdf",
+          "page": 21
+        }
+      },
+      {
+        "id": "tt3-05",
+        "objectiveId": "obj3-arm",
+        "bloomLevel": "apply",
+        "type": "mcq",
+        "difficulty": 3,
+        "prompt": "On charge un octet valant −5 depuis la mémoire avec `ldrb`. Que contient le registre 64 bits ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Un grand nombre positif : les 56 bits de poids fort ont été mis à 0."
+          },
+          {
+            "id": "b",
+            "text": "La valeur −5, correctement étendue."
+          },
+          {
+            "id": "c",
+            "text": "Zéro, car ldrb refuse les valeurs négatives."
+          },
+          {
+            "id": "d",
+            "text": "Une erreur d'exécution."
+          }
+        ],
+        "correct": "a",
+        "explanation": "ldrb charge un octet NON signé et met systématiquement les 56 bits de poids fort à 0. L'octet 11111011 (−5 en complément à deux sur 8 bits) devient donc 251, un grand nombre positif. Pour obtenir −5, il fallait ldrsb.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "C'est ce que ferait ldrsb, qui propage le bit de signe dans les 56 bits de poids fort."
+          },
+          {
+            "optionId": "c",
+            "why": "Aucun refus : ldrb copie les bits tels quels et complète par des zéros. La mémoire ne sait pas que l'octet représentait un négatif."
+          },
+          {
+            "optionId": "d",
+            "why": "Rien n'est signalé — c'est précisément ce qui rend l'erreur difficile à repérer."
+          }
+        ],
+        "source": {
+          "file": "Chapitre 3.pdf",
+          "page": 30
+        }
+      },
+      {
+        "id": "tt3-06",
+        "objectiveId": "obj3-arm",
+        "bloomLevel": "recall",
+        "type": "multi",
+        "difficulty": 2,
+        "prompt": "Parmi les sept modes d'adressage ARM, lesquels figurent dans la liste de la diapositive 25 ? (plusieurs réponses)",
+        "options": [
+          {
+            "id": "a",
+            "text": "Mode indexé pré-incrémenté"
+          },
+          {
+            "id": "b",
+            "text": "Mode indexé post-incrémenté"
+          },
+          {
+            "id": "c",
+            "text": "Mode direct"
+          },
+          {
+            "id": "d",
+            "text": "Mode indirect à n niveaux"
+          }
+        ],
+        "correct": [
+          "a",
+          "b"
+        ],
+        "explanation": "Les sept modes ARM sont : immédiat, registre, registre différé, indexé, indexé pré-incrémenté, indexé post-incrémenté, relatif.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "c",
+            "why": "La diapositive 12 porte la mention « Il n'y a pas dans ARM » pour l'adressage direct."
+          },
+          {
+            "optionId": "d",
+            "why": "L'indirect est absent de l'ARM, a fortiori sa version à n niveaux présentée à la diapositive 24 comme cas général."
+          }
+        ],
+        "source": {
+          "file": "Chapitre 3.pdf",
+          "page": 25
+        }
+      },
+      {
+        "id": "tt3-07",
+        "objectiveId": "obj3-modes",
+        "bloomLevel": "analyze",
+        "type": "mcq",
+        "difficulty": 3,
+        "prompt": "Qu'est-ce qui distingue fondamentalement l'adressage RELATIF des autres modes utilisant un registre comme repère ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Le repère est variable : c'est le contenu du PC, et le déplacement est calculé par l'assembleur."
+          },
+          {
+            "id": "b",
+            "text": "Il n'utilise aucun registre : l'adresse est écrite en entier."
+          },
+          {
+            "id": "c",
+            "text": "Il accède directement à l'opérande sans calcul."
+          },
+          {
+            "id": "d",
+            "text": "Il ne fonctionne que pour les constantes placées dans l'instruction."
+          }
+        ],
+        "correct": "a",
+        "explanation": "Les notes le résument par « Très pratique — indépendant de l'emplacement du programme en mémoire ». Comme le PC suit le programme où qu'il soit chargé, un déplacement relatif reste valide malgré les décalages de l'édition des liens et du chargement.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Il utilise le PC, qui est bien un registre — simplement un registre spécialisé que le programmeur ne choisit pas."
+          },
+          {
+            "optionId": "c",
+            "why": "Une addition est nécessaire : PC + déplacement. C'est un mode à calcul, comme base et déplacement."
+          },
+          {
+            "optionId": "d",
+            "why": "Il sert aux branchements et au chargement d'adresses, c'est-à-dire précisément à ce qui n'est pas constant."
+          }
+        ],
+        "source": {
+          "file": "Chapitre 3.pdf",
+          "page": 20
+        }
+      },
+      {
+        "id": "tt3-08",
+        "objectiveId": "obj3-mov",
+        "bloomLevel": "understand",
+        "type": "true-false",
+        "difficulty": 2,
+        "prompt": "Toutes les constantes peuvent être générées par les instructions ARM, quitte à combiner décalages et additions.",
+        "options": [
+          {
+            "id": "v",
+            "text": "Vrai"
+          },
+          {
+            "id": "f",
+            "text": "Faux"
+          }
+        ],
+        "correct": "f",
+        "explanation": "Les notes sont explicites : « ce ne sont pas toutes les constantes qui peuvent être générées ainsi. L'assembleur donnera un message d'erreur s'il n'y arrive pas. » Pour une adresse de 64 bits, il faut d'ailleurs le mode relatif, pas une constante.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "v",
+            "why": "Plusieurs instructions peuvent effectivement être mises à contribution, mais les notes bornent explicitement le procédé."
+          }
+        ],
+        "source": {
+          "file": "Chapitre 3.pdf",
+          "page": 33
+        }
+      },
+      {
+        "id": "tt3-09",
+        "objectiveId": "obj3-arm",
+        "bloomLevel": "apply",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Quelle instruction copie les 32 bits de poids faible d'un registre vers la mémoire ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "str avec w0-w30"
+          },
+          {
+            "id": "b",
+            "text": "strh"
+          },
+          {
+            "id": "c",
+            "text": "str avec x0-x30"
+          },
+          {
+            "id": "d",
+            "text": "ldrsw"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Les noms de registres w0 à w30 désignent la moitié basse des registres x. Le tableau de la diapositive 31 associe str avec w0-w30 à la copie des 32 bits de poids faible. C'est donc le NOM DU REGISTRE (w ou x), et non le mnémonique, qui fixe la taille écrite par str.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "strh copie 16 bits de poids faible, soit un demi-mot."
+          },
+          {
+            "optionId": "c",
+            "why": "str avec x0-x30 copie les 64 bits complets du registre. (La diapositive 31 écrit « stx » ; ResumeARM et le Sommaire ARMv8 donnent str xs, adr.)"
+          },
+          {
+            "optionId": "d",
+            "why": "ldrsw est une instruction de CHARGEMENT — elle lit un mot signé depuis la mémoire."
+          }
+        ],
+        "source": {
+          "file": "Chapitre 3.pdf",
+          "page": 31
+        }
+      },
+      {
+        "id": "tt3-10",
+        "objectiveId": "obj3-adresses",
+        "bloomLevel": "recall",
+        "type": "fill-blank",
+        "difficulty": 1,
+        "prompt": "Compléter : une adresse obtenue à partir de transformations sur une adresse initiale est appelée adresse ____ .",
+        "correct": "effective",
+        "acceptableAnswers": [
+          "adresse effective",
+          "effectives"
+        ],
+        "explanation": "Adresse effective. Les adresses indexée, indirecte et relative en sont les trois formes citées par les notes.",
+        "source": {
+          "file": "Chapitre 3.pdf",
+          "page": 7
+        }
+      },
+      {
+        "id": "tt3-11",
+        "objectiveId": "obj3-adresses",
+        "bloomLevel": "analyze",
+        "type": "mcq",
+        "difficulty": 3,
+        "prompt": "Une donnée est à l'adresse a dans le code objet. Le module est décalé de l à l'édition des liens, puis de c au chargement. Où se trouve-t-elle en mémoire ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "À a + l + c"
+          },
+          {
+            "id": "b",
+            "text": "À a + l"
+          },
+          {
+            "id": "c",
+            "text": "À a, les décalages n'affectant que le code"
+          },
+          {
+            "id": "d",
+            "text": "À a × l × c"
+          }
+        ],
+        "correct": "a",
+        "explanation": "C'est exactement le schéma de la diapositive 9 : a dans le code objet, a+l dans le module chargeable, a+l+c en mémoire. Les décalages s'accumulent, ce qui explique qu'une adresse figée dans le source devienne fausse.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "C'est la position intermédiaire, dans le module chargeable — avant le chargement en mémoire."
+          },
+          {
+            "optionId": "c",
+            "why": "Les données sont décalées avec le module : c'est tout l'objet du schéma."
+          },
+          {
+            "optionId": "d",
+            "why": "Les décalages s'additionnent, ils ne se multiplient pas : ce sont des déplacements, pas des facteurs d'échelle."
+          }
+        ],
+        "source": {
+          "file": "Chapitre 3.pdf",
+          "page": 9
+        }
+      },
+      {
+        "id": "tt3-12",
+        "objectiveId": "obj3-modes",
+        "bloomLevel": "understand",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Dans l'adressage INDEXÉ, que contient l'instruction ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Le repère (adresse indexée) et un index, éventuellement sous forme de numéros de registres."
+          },
+          {
+            "id": "b",
+            "text": "Uniquement l'opérande, directement dans l'instruction."
+          },
+          {
+            "id": "c",
+            "text": "Une adresse qui contient elle-même une autre adresse."
+          },
+          {
+            "id": "d",
+            "text": "Le contenu du PC, auquel on ajoute un déplacement."
+          }
+        ],
+        "correct": "a",
+        "explanation": "L'adresse effective est la somme du repère et de l'index. Les notes précisent que « le repère et/ou l'index seront dans des registres, l'instruction contiendra alors les numéros de registres ».",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "L'opérande dans l'instruction caractérise l'adressage immédiat."
+          },
+          {
+            "optionId": "c",
+            "why": "C'est l'adressage indirect, absent de l'ARM."
+          },
+          {
+            "optionId": "d",
+            "why": "Le PC comme repère caractérise l'adressage relatif."
+          }
+        ],
+        "source": {
+          "file": "Chapitre 3.pdf",
+          "page": 19
+        }
+      },
+      {
+        "id": "tt3-13",
+        "objectiveId": "obj3-hierarchie",
+        "bloomLevel": "understand",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Pourquoi utilise-t-on plusieurs unités de stockage plutôt qu'une seule ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Pour assurer un accès rapide malgré le passage obligé par le bus."
+          },
+          {
+            "id": "b",
+            "text": "Pour pouvoir exécuter les instructions directement sur le disque."
+          },
+          {
+            "id": "c",
+            "text": "Parce que la mémoire centrale ne peut contenir que des instructions."
+          },
+          {
+            "id": "d",
+            "text": "Pour permettre l'adressage indirect."
+          }
+        ],
+        "correct": "a",
+        "explanation": "La diapositive 2 pose le problème : les données de la mémoire secondaire doivent passer par le bus, « afin d'assurer un accès rapide, on utilise plusieurs unités de stockage ». La hiérarchie est une réponse à un goulot d'étranglement.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Les données du disque doivent au contraire transiter par la mémoire centrale pour être utilisées."
+          },
+          {
+            "optionId": "c",
+            "why": "La mémoire centrale contient le programme ET ses données, comme le précise le modèle de von Neumann."
+          },
+          {
+            "optionId": "d",
+            "why": "Les modes d'adressage sont indépendants du nombre de niveaux de mémoire — et l'indirect n'existe pas en ARM."
+          }
+        ],
+        "source": {
+          "file": "Chapitre 3.pdf",
+          "page": 2
+        }
+      },
+      {
+        "id": "tt3-14",
+        "objectiveId": "obj3-arm",
+        "bloomLevel": "analyze",
+        "type": "mcq",
+        "difficulty": 3,
+        "prompt": "Pourquoi le stockage ne comporte-t-il pas de variantes signées, contrairement au chargement ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Parce qu'il tronque le registre : il n'y a aucun bit à compléter."
+          },
+          {
+            "id": "b",
+            "text": "Parce que la mémoire ne stocke que des valeurs positives."
+          },
+          {
+            "id": "c",
+            "text": "Parce que le signe est perdu de toute façon."
+          },
+          {
+            "id": "d",
+            "text": "Parce que str ne fonctionne qu'avec des registres 64 bits."
+          }
+        ],
+        "correct": "a",
+        "explanation": "Le tableau de stockage dit simplement « copie les n bits de poids faible ». Le problème du signe ne se pose qu'au chargement, où un octet doit remplir un registre de 64 bits et où il faut décider quoi mettre dans les 56 bits restants.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Le chapitre 2 rappelle que la mémoire ne distingue rien : l'interprétation est laissée au programmeur."
+          },
+          {
+            "optionId": "c",
+            "why": "Le signe n'est pas perdu : dans une représentation en complément à deux, il est porté par le bit de poids fort de la valeur tronquée."
+          },
+          {
+            "optionId": "d",
+            "why": "str fonctionne avec w0-w30 comme avec x0-x30 ; c'est justement le choix qui détermine le nombre de bits copiés."
+          }
+        ],
+        "source": {
+          "file": "Chapitre 3.pdf",
+          "page": 31
+        }
+      },
+      {
+        "id": "tt3-15",
+        "objectiveId": "obj3-mov",
+        "bloomLevel": "apply",
+        "type": "short-answer",
+        "difficulty": 2,
+        "prompt": "Quelle est la taille maximale, en bits, de la constante d'une instruction mov en ARM ? (un nombre)",
+        "correct": "12",
+        "acceptableAnswers": [
+          "12 bits"
+        ],
+        "explanation": "12 bits. Au-delà, l'assembleur doit fabriquer la constante par d'autres moyens — décalages et additions — et il n'y parvient pas toujours.",
+        "source": {
+          "file": "Chapitre 3.pdf",
+          "page": 32
+        }
+      },
+      {
+        "id": "tt3-16",
+        "objectiveId": "obj3-modes",
+        "bloomLevel": "apply",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "L'adressage DIRECT n'existe pas en ARM. Quel mode joue un rôle comparable pour accéder à une donnée en mémoire ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Le mode registre différé : l'adresse est d'abord placée dans un registre."
+          },
+          {
+            "id": "b",
+            "text": "Le mode immédiat."
+          },
+          {
+            "id": "c",
+            "text": "Le mode par registre."
+          },
+          {
+            "id": "d",
+            "text": "Aucun : l'ARM n'accède pas à la mémoire."
+          }
+        ],
+        "correct": "a",
+        "explanation": "C'est le troisième des sept modes ARM. L'adresse est chargée dans un registre — souvent par adr en mode relatif — puis l'accès mémoire se fait à travers ce registre.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "L'immédiat n'accède pas à la mémoire : l'opérande est dans l'instruction."
+          },
+          {
+            "optionId": "c",
+            "why": "En mode registre, l'opérande EST dans le registre ; aucune mémoire n'est lue."
+          },
+          {
+            "optionId": "d",
+            "why": "L'ARM accède bien à la mémoire, mais uniquement par certaines instructions — ldr et str — conformément au principe RISC."
+          }
+        ],
+        "source": {
+          "file": "Chapitre 3.pdf",
+          "page": 25
+        }
+      },
+      {
+        "id": "tt3-17",
+        "objectiveId": "obj3-adresses",
+        "bloomLevel": "understand",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Combien de cellules un système peut-il adresser avec des adresses de n bits ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "2ⁿ cellules, numérotées de 0 à 2ⁿ − 1."
+          },
+          {
+            "id": "b",
+            "text": "n cellules, une par bit d'adresse."
+          },
+          {
+            "id": "c",
+            "text": "2ⁿ − 1 cellules, de 1 à 2ⁿ − 1."
+          },
+          {
+            "id": "d",
+            "text": "n² cellules, de 0 à n² − 1."
+          }
+        ],
+        "correct": "a",
+        "explanation": "C'est l'application directe de Max(B, n) du chapitre 1 : avec n bits on écrit 2ⁿ valeurs distinctes, de 0 à 2ⁿ − 1.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Ce serait une croissance linéaire ; chaque bit ajouté DOUBLE le nombre d'adresses."
+          },
+          {
+            "optionId": "c",
+            "why": "2ⁿ − 1 est la plus grande ADRESSE, pas le nombre de cellules — l'adresse 0 compte aussi."
+          },
+          {
+            "optionId": "d",
+            "why": "Aucune puissance de n n'intervient : c'est n qui est l'exposant de 2."
+          }
+        ],
+        "source": {
+          "file": "Chapitre 3.pdf",
+          "page": 7
+        }
+      },
+      {
+        "id": "tt3-18",
+        "objectiveId": "obj3-arm",
+        "bloomLevel": "understand",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "À quoi sert le mode relatif en ARM, en plus des branchements ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "À copier une adresse dans un registre."
+          },
+          {
+            "id": "b",
+            "text": "À incrémenter automatiquement un index."
+          },
+          {
+            "id": "c",
+            "text": "À charger une constante de 64 bits."
+          },
+          {
+            "id": "d",
+            "text": "À accéder aux registres à virgule flottante."
+          }
+        ],
+        "correct": "a",
+        "explanation": "La diapositive 25 donne les deux usages du septième mode : branchements, et copie d'une adresse dans un registre. C'est ce second usage que la diapositive 27 détaille comme réponse au problème des 64 bits dans 32.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "C'est le rôle des modes indexés pré- et post-incrémentés."
+          },
+          {
+            "optionId": "c",
+            "why": "Le mode relatif produit une ADRESSE, pas une constante quelconque — et il le fait par addition au PC."
+          },
+          {
+            "optionId": "d",
+            "why": "Les registres à virgule flottante relèvent du chapitre 2 et ne dépendent pas d'un mode d'adressage particulier."
+          }
+        ],
+        "source": {
+          "file": "Chapitre 3.pdf",
+          "page": 25
+        }
+      },
+      {
+        "id": "tt3-19",
+        "objectiveId": "obj3-modes",
+        "bloomLevel": "analyze",
+        "type": "multi",
+        "difficulty": 3,
+        "prompt": "Quels modes exigent un accès à la MÉMOIRE pour obtenir l'opérande ? (plusieurs réponses)",
+        "options": [
+          {
+            "id": "a",
+            "text": "Adressage direct"
+          },
+          {
+            "id": "b",
+            "text": "Adressage par registre différé"
+          },
+          {
+            "id": "c",
+            "text": "Adressage immédiat"
+          },
+          {
+            "id": "d",
+            "text": "Adressage par registre"
+          }
+        ],
+        "correct": [
+          "a",
+          "b"
+        ],
+        "explanation": "La question « où est l'opérande ? » tranche : en mémoire pour le direct et le registre différé, donc un accès mémoire est nécessaire dans les deux cas.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "c",
+            "why": "En immédiat, l'opérande est dans l'instruction, déjà extraite : aucun accès supplémentaire."
+          },
+          {
+            "optionId": "d",
+            "why": "En adressage par registre, l'opérande est dans le registre — d'où sa rapidité, puisqu'on ne dépend pas du bus de données."
+          }
+        ],
+        "source": {
+          "file": "Chapitre 3.pdf",
+          "page": 15
+        }
+      },
+      {
+        "id": "tt3-20",
+        "objectiveId": "obj3-mov",
+        "bloomLevel": "analyze",
+        "type": "mcq",
+        "difficulty": 3,
+        "prompt": "Quel lien y a-t-il entre le registre xzr du chapitre 2 et l'instruction synthétique MOV ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Comme xzr vaut toujours 0, additionner une constante à xzr revient à la copier."
+          },
+          {
+            "id": "b",
+            "text": "xzr sert de zone tampon pour la constante."
+          },
+          {
+            "id": "c",
+            "text": "MOV écrit son résultat dans xzr avant de le recopier."
+          },
+          {
+            "id": "d",
+            "text": "Aucun : MOV est une vraie instruction machine."
+          }
+        ],
+        "correct": "a",
+        "explanation": "mov x20, 153 devient add x20, xzr, 153. Le registre zéro fournit un opérande neutre pour l'addition, ce qui évite d'avoir une instruction machine dédiée à la copie — un choix typiquement RISC.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "xzr ne stocke rien : le chapitre 2 précise qu'une écriture n'y a aucun effet."
+          },
+          {
+            "optionId": "c",
+            "why": "Écrire dans xzr serait sans effet ; il n'est utilisé qu'en lecture, comme source valant 0."
+          },
+          {
+            "optionId": "d",
+            "why": "Les notes la présentent explicitement comme « une instruction synthétique », traduite selon le contexte."
+          }
+        ],
+        "source": {
+          "file": "Chapitre 3.pdf",
+          "page": 32
+        }
+      }
+    ]
+  },
+  "flashcards": [
+    {
+      "id": "f3-01",
+      "objectiveId": "obj3-hierarchie",
+      "front": "Les quatre niveaux de la hiérarchie des mémoires ?",
+      "back": "Registres · mémoire cache · mémoire centrale · disques et rubans. Du haut vers le bas : plus lent, moins cher, plus grand."
+    },
+    {
+      "id": "f3-02",
+      "objectiveId": "obj3-hierarchie",
+      "front": "Deux particularités : la cache et les disques ?",
+      "back": "La cache n'est PAS directement programmable. Les disques DOIVENT transiter par la mémoire centrale pour être utilisés."
+    },
+    {
+      "id": "f3-03",
+      "objectiveId": "obj3-adresses",
+      "front": "Les cinq étapes de la vie d'un programme ?",
+      "back": "Création → compilation (assembleur) → édition des liens → chargement → exécution.",
+      "extra": "À chaque étape, les adresses symboliques cèdent la place aux adresses numériques."
+    },
+    {
+      "id": "f3-04",
+      "objectiveId": "obj3-adresses",
+      "front": "Qu'est-ce qu'une adresse effective ?",
+      "back": "Une adresse obtenue par transformation d'une adresse initiale : indexée, indirecte, ou relative. À l'exécution : mode d'adressage(adresses numériques) = adresse effective."
+    },
+    {
+      "id": "f3-05",
+      "objectiveId": "obj3-modes",
+      "front": "Immédiat, direct, registre, registre différé : où est l'opérande dans chaque cas ?",
+      "back": "Immédiat : dans l'instruction. Direct : en mémoire, l'instruction donne l'adresse. Registre : dans le registre. Registre différé : en mémoire, le registre donne l'adresse."
+    },
+    {
+      "id": "f3-06",
+      "objectiveId": "obj3-modes",
+      "front": "Quels modes n'existent PAS en ARM ?",
+      "back": "L'adressage direct et l'adressage indirect. Cohérent avec RISC : « l'adressage est limité »."
+    },
+    {
+      "id": "f3-07",
+      "objectiveId": "obj3-modes",
+      "front": "Auto-incrément ou auto-décrément : quand l'adresse est-elle modifiée ?",
+      "back": "Auto-incrément : À LA FIN de l'exécution. Auto-décrément : EN PREMIER."
+    },
+    {
+      "id": "f3-08",
+      "objectiveId": "obj3-arm",
+      "front": "Les sept modes d'adressage de l'ARM ?",
+      "back": "Immédiat · registre · registre différé · indexé · indexé pré-incrémenté · indexé post-incrémenté · relatif.",
+      "source": {
+        "file": "Chapitre 3.pdf",
+        "page": 25
+      }
+    },
+    {
+      "id": "f3-09",
+      "objectiveId": "obj3-arm",
+      "front": "Comment écrire une adresse de 64 bits dans une instruction de 32 bits ?",
+      "back": "Par le mode relatif : PC + distance jusqu'à la donnée. Le déplacement fait au maximum 21 bits, soit ± 1 Mo."
+    },
+    {
+      "id": "f3-10",
+      "objectiveId": "obj3-arm",
+      "front": "ldrb ou ldrsb : quelle différence ?",
+      "back": "ldrb (non signé) met les 56 bits de poids fort à 0. ldrsb (signé) y met des 0 si positif, des 1 sinon — il propage le bit de signe."
+    },
+    {
+      "id": "f3-11",
+      "objectiveId": "obj3-arm",
+      "front": "Comment lire les mnémoniques ldr/str ?",
+      "back": "ldr = load register, str = store register. Suffixes : b = byte, h = half, w = word. Un s intercalé = signed. Donc ldrsb = load register, signed byte."
+    },
+    {
+      "id": "f3-12",
+      "objectiveId": "obj3-mov",
+      "front": "En quoi MOV est-elle traduite, et quelle est sa limite ?",
+      "back": "mov x20, 153 = add x20, xzr, 153 ; mov x20, -153 = sub x20, xzr, 153. La constante est limitée à 12 bits.",
+      "extra": "Au-delà, l'assembleur fabrique la constante par décalage — mais pas toujours avec succès."
+    }
+  ],
+  "exercises": [
+    {
+      "id": "e3-01",
+      "objectiveId": "obj3-modes",
+      "difficulty": 2,
+      "mode": "predict-output",
+      "language": "text",
+      "title": "Identifier le mode et localiser l'opérande",
+      "statement": "Pour chacune des six situations, donner le nom du mode d'adressage et dire OÙ se trouve effectivement l'opérande.\n\nIndiquer aussi, pour chacun, s'il existe en ARM.",
+      "starterCode": "(A) L'instruction contient la valeur 42.\n\n(B) L'instruction contient le numero du registre x20, et l'operande est\n    la valeur qui s'y trouve.\n\n(C) L'instruction contient le numero d'un registre ; ce registre contient\n    une ADRESSE, et l'operande est a cette adresse en memoire.\n\n(D) L'instruction contient une adresse ; a cette adresse en memoire se\n    trouve une autre adresse ; l'operande est a cette seconde adresse.\n\n(E) L'instruction contient un numero de registre de base et un\n    deplacement ; l'operande est a la somme des deux.\n\n(F) L'instruction contient un deplacement ; le repere est le contenu du PC.",
+      "hints": [
+        "La question à poser pour chaque cas est toujours la même : où est l'opérande — dans l'instruction, dans un registre, ou en mémoire ?",
+        "Le mot « différé » signale un niveau d'indirection : on a l'adresse de l'opérande au lieu de l'opérande.",
+        "Deux des six modes portent la mention « Il n'y a pas dans ARM » dans les diapositives."
+      ],
+      "solution": "A immédiat · B registre · C registre différé · D indirect · E base et déplacement · F relatif",
+      "expectedOutput": "(A) ADRESSAGE IMMEDIAT\n    Operande : DANS L'INSTRUCTION.\n    Exemple du cours : mov x19, 42\n    En ARM : oui (mode 1).\n\n(B) ADRESSAGE PAR REGISTRE\n    Operande : DANS UN REGISTRE.\n    Exemple du cours : mov x19, x20\n    En ARM : oui (mode 2).\n    Avantage note : tres rapide, on ne depend pas du bus de donnees.\n\n(C) ADRESSAGE PAR REGISTRE DIFFERE  (= indirect par registre)\n    Operande : EN MEMOIRE, a l'adresse contenue dans le registre.\n    En ARM : oui (mode 3). C'est le mode de base des acces memoire,\n    puisque le mode direct n'existe pas.\n\n(D) ADRESSAGE INDIRECT\n    Operande : EN MEMOIRE, apres DEUX niveaux d'indirection.\n    En ARM : NON — « Il n'y a pas dans ARM » (diapositive 14).\n    Le cours en donne la generalisation a n niveaux (diapositive 24).\n\n(E) ADRESSAGE BASE ET DEPLACEMENT\n    Operande : EN MEMOIRE, a (contenu du registre de base) + deplacement.\n    En ARM : oui, sous la forme du mode indexe (mode 4).\n\n(F) ADRESSAGE RELATIF\n    Operande : EN MEMOIRE, a PC + deplacement.\n    En ARM : oui (mode 7). Sert aux branchements ET a copier une adresse\n    dans un registre.\n    Particularite : c'est l'ASSEMBLEUR qui calcule le deplacement.\n\nA RETENIR : (B) et (C) se ressemblent et se confondent facilement. Dans (B)\nle registre CONTIENT l'operande ; dans (C) il ne contient qu'une adresse.",
+      "solutionExplanation": "La confusion la plus fréquente est entre (B) et (C), et elle a une conséquence concrète : dans le programme du chapitre 4, `mov x1,x19` place l'adresse contenue dans x19 dans x1 — c'est de l'adressage par registre appliqué à une valeur qui se trouve être une adresse — tandis que `ldrsw x20,[x19]` lit la mémoire à cette adresse, ce qui est du registre différé. Les crochets sont le signe visible de l'indirection.",
+      "source": {
+        "file": "Chapitre 3.pdf",
+        "page": 15,
+        "locator": "Diapositives 11 à 20"
+      }
+    },
+    {
+      "id": "e3-02",
+      "objectiveId": "obj3-arm",
+      "difficulty": 3,
+      "mode": "find-bug",
+      "language": "asm",
+      "title": "Trouver le bogue — mauvaise instruction de chargement",
+      "statement": "Un programme lit en mémoire une température stockée sur un octet signé, pouvant valoir −20. L'octet en mémoire contient 11101100₂.\n\nIdentifier l'erreur, calculer la valeur réellement obtenue, et donner la correction.",
+      "starterCode": "// En memoire, a l'adresse pointee par x19 :\n//    un octet SIGNE representant une temperature,\n//    ici 11101100 (soit -20 en complement a deux sur 8 bits)\n\n    ldrb   x20, [x19]        // <-- instruction suspecte\n\n// x20 est ensuite affiche comme un entier signe.",
+      "hints": [
+        "Relire le tableau des instructions de chargement : que fait ldrb des 56 bits de poids fort ?",
+        "Calculer la valeur non signée de 11101100₂, puis comparer avec −20.",
+        "Quelle instruction propage le bit de signe au lieu de mettre des zéros ?"
+      ],
+      "solution": "ldrsb x20, [x19]",
+      "expectedOutput": "L'ERREUR\n    ldrb charge un octet NON SIGNE. Le tableau de la diapositive 30 precise :\n    « Met les 56 bits de poids fort a 0. »\n\n    L'octet vaut 11101100. En le completant par 56 zeros, le registre contient\n    la valeur NON SIGNEE de cet octet :\n\n        11101100 = 128 + 64 + 32 + 8 + 4 = 236\n\n    Le programme affichera donc 236 au lieu de -20.\n\nVERIFICATION que l'octet vaut bien -20 en signe :\n    complement a 1 de 11101100 -> 00010011\n    + 1                        -> 00010100  =  16 + 4 = 20\n    Donc 11101100 represente -20.  (Voir le chapitre 1 pour la methode.)\n\nLA CORRECTION\n\n    ldrsb  x20, [x19]\n\n    ldrsb charge un octet SIGNE : « Si la valeur est positive, met des 0 dans\n    les 56 bits de poids fort, sinon, met 1. » Le bit de poids fort de l'octet\n    valant 1, les 56 bits sont remplis de 1, et le registre 64 bits represente\n    correctement -20.\n\nPOURQUOI C'EST DIFFICILE A REPERER\n    Aucune erreur n'est signalee. Tant que les temperatures testees sont\n    POSITIVES (bit de poids fort a 0), ldrb et ldrsb donnent exactement le\n    meme resultat. Le defaut n'apparait que sur une valeur negative.",
+      "solutionExplanation": "C'est le même piège que le chapitre 1 décrivait pour le passage de 8 à 16 bits : compléter par des zéros détruit le signe. Ici l'extension est faite par l'instruction et non à la main, mais la règle est identique — il faut propager le bit de poids fort. La leçon pratique est qu'un jeu de tests composé uniquement de valeurs positives ne révèle jamais ce défaut.",
+      "source": {
+        "file": "Chapitre 3.pdf",
+        "page": 30,
+        "locator": "Diapositive 30"
+      }
+    },
+    {
+      "id": "e3-03",
+      "objectiveId": "obj3-mov",
+      "difficulty": 3,
+      "mode": "trace",
+      "language": "text",
+      "title": "Fabriquer une constante par décalage",
+      "statement": "L'instruction `mov` accepte au maximum une constante de 12 bits. Pour les valeurs plus grandes, l'assembleur tente de les fabriquer par décalage.\n\nReproduire le raisonnement de la diapositive 33 pour 8960, puis l'appliquer à 5120 et à 4097. Conclure sur le cas problématique.",
+      "starterCode": "Contrainte : constante de mov limitee a 12 bits.\n              12 bits non signes -> valeurs de 0 a 4095.\n\nTechnique : add xN, xzr, <petite valeur>, lsl <decalage>\n            equivaut a  <petite valeur> x 2^<decalage>\n\nA traiter :\n   (a) 8960\n   (b) 5120\n   (c) 4097",
+      "hints": [
+        "Pour chaque valeur, chercher à l'écrire comme un petit nombre multiplié par une puissance de 2.",
+        "Autrement dit : diviser par 2 tant que le résultat reste entier, et regarder si ce qui reste tient sur 12 bits.",
+        "Pour 4097, essayer la division par 2. Que remarque-t-on ?"
+      ],
+      "solution": "(a) 35 lsl 8 · (b) 5 lsl 10 · (c) impossible par simple décalage — 4097 est impair",
+      "expectedOutput": "(a) 8960\n    8960 / 2 = 4480 / 2 = 2240 / 2 = 1120 / 2 = 560 / 2 = 280 / 2 = 140\n         / 2 = 70 / 2 = 35        -> 8 divisions, reste impair\n    Donc 8960 = 35 x 2^8 = 35 x 256.\n    35 tient largement sur 12 bits.\n\n        mov x20, 8960   =   add x20, xzr, 35, lsl 8\n\n    En binaire : 35 = 100011, decale de 8 -> 10001100000000 = 8960.\n\n(b) 5120\n    5120 / 2 = 2560 / ... / 2 = 5   -> 10 divisions\n    Donc 5120 = 5 x 2^10 = 5 x 1024.\n\n        mov x20, 5120   =   add x20, xzr, 5, lsl 10\n\n(c) 4097\n    4097 est IMPAIR : aucune division par 2 n'est possible.\n    Il faudrait donc l'ecrire comme 4097 x 2^0, c'est-a-dire tel quel.\n    Or 4097 > 4095, donc il ne tient PAS sur 12 bits.\n\n    -> La technique du simple decalage ECHOUE.\n\n    L'assembleur peut encore tenter d'autres combinaisons d'instructions,\n    mais les notes previennent :\n      « ce ne sont pas toutes les constantes qui peuvent etre generees ainsi.\n        L'assembleur donnera un message d'erreur s'il n'y arrive pas. »\n\nCE QUE LE CAS (c) MONTRE\n    Une valeur a peine superieure a la limite peut etre plus difficile a\n    produire qu'une valeur beaucoup plus grande : 8960 passe, 4097 non.\n    Ce n'est pas la TAILLE qui compte, c'est la FACTORISATION.",
+      "solutionExplanation": "Le cas (c) est le plus instructif parce qu'il contredit l'intuition : on s'attend à ce que les grandes constantes soient les difficiles. En réalité le critère est la décomposition en petit facteur × puissance de 2 — un nombre impair juste au-dessus de la limite est le pire cas. Pour une adresse, d'ailleurs, on n'essaie même pas : le chapitre indique de passer par le mode relatif, c'est-à-dire par `adr`.",
+      "source": {
+        "file": "Chapitre 3.pdf",
+        "page": 33,
+        "locator": "Diapositive 33"
+      }
+    },
+    {
+      "id": "e3-04",
+      "objectiveId": "obj3-adresses",
+      "difficulty": 2,
+      "mode": "fill-blank",
+      "language": "text",
+      "title": "Compléter la vie d'un programme",
+      "statement": "Compléter les étapes, les artefacts produits et le type d'adresses présentes à chaque stade.",
+      "starterCode": "  Creation (editeur de texte)\n      adresses numeriques (rares), adresses ____________ (1), modes d'adressage\n           |\n           v  produit : ____________ (2)\n  ____________ (3)  (assembleur)\n      adresses numeriques, adresses symboliques (rares), modes d'adressage\n           |\n           v  produit : Code objet\n  Edition des liens (editeur de liens)   + integre les ____________ (4)\n      adresses numeriques, modes d'adressage\n           |\n           v  produit : ____________ (5)\n  Chargement (chargeur)\n           |\n           v  produit : Processus\n  Execution (processeur)\n      mode d'adressage(adresses numeriques) = ____________ (6)",
+      "hints": [
+        "Au stade de la création, on écrit surtout des étiquettes plutôt que des nombres.",
+        "L'étape (4) est celle qui va chercher du code déjà compilé ailleurs pour l'intégrer.",
+        "La dernière ligne définit une notion centrale du chapitre : le résultat du calcul d'adresse à l'exécution."
+      ],
+      "solution": "symboliques ; Programme source ; Compilation ; librairies statiques ; Module chargeable ; Adresse effective",
+      "expectedOutput": "  Creation (editeur de texte)\n      adresses numeriques (rares), adresses SYMBOLIQUES, modes d'adressage\n           |\n           v  produit : PROGRAMME SOURCE\n  COMPILATION (assembleur)\n      adresses numeriques, adresses symboliques (rares), modes d'adressage\n           |\n           v  produit : Code objet\n  Edition des liens (editeur de liens)   + integre les LIBRAIRIES STATIQUES\n      adresses numeriques, modes d'adressage\n           |\n           v  produit : MODULE CHARGEABLE\n  Chargement (chargeur)\n           |\n           v  produit : Processus\n  Execution (processeur)\n      mode d'adressage(adresses numeriques) = ADRESSE EFFECTIVE\n\nLA TENDANCE A OBSERVER\n    Creation          : symboliques dominantes, numeriques rares\n    Compilation       : numeriques dominantes, symboliques rares\n    Edition des liens : plus que des numeriques\n    Execution         : les modes d'adressage produisent l'adresse effective\n\n    Les adresses symboliques disparaissent progressivement ; les modes\n    d'adressage, eux, survivent jusqu'a l'execution — ils ne sont resolus\n    qu'au dernier moment.\n\n    A l'execution intervient en outre l'unite de gestion memoire, qui traduit\n    entre adresse PHYSIQUE et adresse VIRTUELLE.",
+      "solutionExplanation": "Le point qui mérite l'attention est que les modes d'adressage figurent à toutes les lignes, du début à la fin. Contrairement aux étiquettes, ils ne sont pas résolus par l'assembleur : ils survivent dans le code machine et ne produisent une adresse qu'à l'exécution. C'est exactement ce que dit la dernière ligne, et c'est ce qui permet au programme d'être déplacé de l puis de c sans devenir faux.",
+      "source": {
+        "file": "Chapitre 3.pdf",
+        "page": 8,
+        "locator": "Diapositives 8 et 9"
+      }
+    },
+    {
+      "id": "e3-05",
+      "objectiveId": "obj3-arm",
+      "difficulty": 2,
+      "mode": "predict-output",
+      "language": "text",
+      "title": "Choisir l'instruction de chargement",
+      "statement": "Pour chacun des cinq cas, choisir l'instruction ARM de chargement ou de stockage appropriée, et justifier en une ligne.",
+      "starterCode": "(1) Lire un compteur non signe stocke sur 2 octets.\n\n(2) Lire une coordonnee entiere signee stockee sur 4 octets\n    (comme dans le programme du chapitre 4).\n\n(3) Lire une adresse stockee en memoire (64 bits).\n\n(4) Ecrire en memoire le caractere contenu dans les 8 bits de poids\n    faible d'un registre.\n\n(5) Lire un code d'erreur signe stocke sur 1 octet.",
+      "hints": [
+        "Décomposer le mnémonique : ldr/str, puis la taille (b, h, w, rien), puis le signe (s intercalé).",
+        "Pour un mot signé de 4 octets, une instruction dédiée existe — elle n'a pas de w dans le nom du registre.",
+        "Pour 64 bits, aucun bit n'est à compléter : c'est le cas le plus simple."
+      ],
+      "solution": "(1) ldrh · (2) ldrsw · (3) ldr avec x · (4) strb · (5) ldrsb",
+      "expectedOutput": "(1) ldrh\n    Demi-mot (2 octets) NON signe. Met les 48 bits de poids fort a 0.\n\n(2) ldrsw\n    Mot (4 octets) SIGNE. Propage le bit de signe sur les 32 bits de poids\n    fort. C'est exactement l'instruction employee dans le programme du\n    chapitre 4 : ldrsw x20,[x19] pour lire une coordonnee, qui peut etre\n    negative.\n\n(3) ldr  (avec un registre x0-x30)\n    Mot etendu, 64 bits. Aucun bit a completer, donc aucune variante signee\n    n'est necessaire.\n\n(4) strb\n    Copie les 8 bits de poids faible du registre dans la memoire.\n    Au STOCKAGE, aucune question de signe ne se pose : on tronque.\n\n(5) ldrsb\n    Octet (1 octet) SIGNE. Met des 1 dans les 56 bits de poids fort si la\n    valeur est negative.\n\nLA REGLE GENERALE\n    Au CHARGEMENT, il faut decider quoi mettre dans les bits de poids fort\n    qui restent -> la question du signe se pose.\n    Au STOCKAGE, on tronque le registre -> la question ne se pose pas.\n    C'est pourquoi le tableau des chargements compte 7 lignes et celui des\n    stockages seulement 4.",
+      "solutionExplanation": "Le cas (2) vaut d'être retenu parce qu'il apparaît tel quel dans le programme complet du chapitre 4. Les coordonnées d'un point peuvent être négatives, et le programme calcule ensuite `subs x24,x22,x20` puis teste le signe pour prendre une valeur absolue — ce qui n'aurait aucun sens si le chargement avait détruit le signe en utilisant `ldr` avec un registre w.",
+      "source": {
+        "file": "Chapitre 3.pdf",
+        "page": 31,
+        "locator": "Diapositives 30 et 31"
+      }
+    }
+  ]
+}

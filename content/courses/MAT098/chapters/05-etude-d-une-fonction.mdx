@@ -1,0 +1,150 @@
+---
+course: MAT098
+number: 5
+title: Étude d'une fonction
+summary: >-
+  Esquisser le graphique d'une fonction à partir de son expression : les six
+  étapes de l'étude (domaine, asymptotes, zéros, valeurs critiques, points
+  d'inflexion possibles, tableau des signes), la concavité et les points
+  d'inflexion.
+estimatedMinutes: 150
+prerequisites:
+  - "Chapitre 3 — limites, asymptotes"
+  - "Chapitre 4 — dérivées première et seconde, tableau des signes"
+objectives:
+  - id: obj5-etapes
+    text: Nommer et ordonner les six étapes de l'étude d'une fonction.
+    bloom: recall
+  - id: obj5-critiques
+    text: Trouver les valeurs critiques et en déduire croissance, décroissance et extremums relatifs.
+    bloom: apply
+  - id: obj5-concavite
+    text: Déterminer les intervalles de concavité et les points d'inflexion à l'aide de la dérivée seconde.
+    bloom: apply
+  - id: obj5-etude
+    text: Mener une étude complète et repérer les pièges — valeur hors du domaine, zéro de f″ sans changement de signe, trou sans asymptote.
+    bloom: analyze
+sources:
+  - file: "1-rappels_calcul_differentiel.pdf"
+    page: 199
+    locator: "Chapitre 1, section Étude d'une fonction (diapositives 199 à 212)"
+  - file: "noteChapitre1.txt"
+    page: 1
+    locator: "Notes en ligne, section 1.5"
+---
+
+## 1. Les six étapes
+
+Pour esquisser le graphique d'une fonction, on détermine ses points de
+discontinuité, ses extremums relatifs, ses points d'inflexion et ses
+asymptotes : c'est l'**étude** (ou l'**analyse**) de la fonction.
+
+<Mermaid caption="Les six étapes de l'étude d'une fonction (diapositives 200 à 202)." chart={`
+flowchart TB
+  A["1. Domaine"] --> B["2. Asymptotes verticales et horizontales"]
+  B --> C["3. Ordonnée à l'origine et zéros"]
+  C --> D["4. Valeurs critiques : f′(x) = 0 ou f′ n'existe pas"]
+  D --> E["5. Points d'inflexion possibles : f″(x) = 0 ou f″ n'existe pas"]
+  E --> F["6. Tableau des signes de f′ et f″"]
+`} />
+
+1. **Domaine** : les réels pour lesquels la fonction est définie.
+2. **Asymptotes.** *Verticales* : les valeurs de $x$ susceptibles d'en
+   produire annulent le dénominateur d'une fraction ou l'argument d'un
+   logarithme — il faut ensuite le **vérifier par une limite**.
+   *Horizontales* : $y$ tel que $\lim_{x \to \infty} f(x) = y$ ou
+   $\lim_{x \to -\infty} f(x) = y$.
+3. **Ordonnée à l'origine et zéros** : $f(0)$ si $0 \in \mathrm{Dom}_f$, et
+   les $x$ tels que $f(x) = 0$.
+4. **Valeurs critiques** : les valeurs **du domaine** qui annulent $f'$ ou
+   pour lesquelles $f'$ n'existe pas.
+5. **Valeurs susceptibles de produire un point d'inflexion** : les valeurs
+   **du domaine** qui annulent $f''$ ou pour lesquelles $f''$ n'existe pas.
+6. **Tableau des signes** de $f'$ et $f''$ : intervalles de croissance et de
+   décroissance, extremums relatifs, intervalles de concavité, points
+   d'inflexion.
+
+<Callout type="warning" title="Trois types d'asymptotes, ou deux ?">
+La diapositive 201 annonce qu'« une fonction peut posséder **trois** types
+d'asymptotes », mais n'en décrit que deux, verticale et horizontale ; les
+notes en ligne disent « on considère **ici deux** types d'asymptotes ». Le
+troisième type n'est présenté nulle part dans les documents : ce chapitre
+s'en tient aux deux décrits.
+</Callout>
+
+<Source file="1-rappels_calcul_differentiel.pdf" page={200} locator="Diapositives 200 à 202" />
+
+## 2. Concavité et points d'inflexion
+
+**Définition 1.74.** Soit $f$ continue sur $[a, b]$.
+- $f$ est **concave vers le haut** sur $[a, b]$ si sa courbe est
+  **au-dessus** de chacune des tangentes qu'on peut tracer sur $]a, b[$.
+- $f$ est **concave vers le bas** si sa courbe est **au-dessous** de chacune
+  de ces tangentes.
+
+**Théorème 1.75.** Si $f''(x) > 0$ en tout point intérieur de l'intervalle
+$I$, $f$ est concave vers le haut sur $I$ ; si $f''(x) < 0$, concave vers le
+bas.
+
+**Définition 1.76.** $(c, f(c))$ est un **point d'inflexion** si la courbe
+**change de concavité** en ce point. Si c'est un point d'inflexion, alors
+$f''(c) = 0$ ou $f''(c)$ n'existe pas.
+
+<Callout type="misconception" title="f″(c) = 0 ne suffit pas">
+La condition $f''(c) = 0$ est **nécessaire, pas suffisante** : il faut que
+$f''$ **change de signe** en $c$. Pour $f(x) = -x^5 + 2x^4 - 1$,
+$f''(x) = -4x^2(5x - 6)$ s'annule en $0$ et en $\frac65$, mais ne change de
+signe qu'en $\frac65$ — le facteur $x^2$ reste positif de part et d'autre de
+0. Un seul point d'inflexion, en $x = \frac65$ (exercice 1.78 b, réponse de
+la plateforme).
+</Callout>
+
+La **stratégie** des diapositives : calculer $f''$, trouver les valeurs
+susceptibles, construire le tableau des signes de $f''$, déterminer le signe
+sur chaque sous-intervalle, en tirer les intervalles de concavité, puis les
+points d'inflexion.
+
+<Callout type="example" title="Exercice 1.77 — rester dans le domaine">
+Avec $\mathrm{Dom}_f = [-\sqrt2, \sqrt2]$ et
+$f''(x) = \frac{2x(x^2 - 3)}{(2 - x^2)^{3/2}}$, le numérateur s'annule en
+$0$ et en $\pm\sqrt3$ — mais $\pm\sqrt3 \approx \pm 1{,}73$ **n'appartient
+pas** au domaine. Il reste $x = 0$, et les bornes $\pm\sqrt2$, où $f''$ n'est
+pas définie ; une inflexion exige un changement de concavité **de part et
+d'autre**, ce qui n'est possible qu'en $x = 0$ (réponse de la plateforme).
+</Callout>
+
+<Source file="1-rappels_calcul_differentiel.pdf" page={203} locator="Définitions 1.74 et 1.76, théorème 1.75, exercices 1.77 et 1.78 (diapositives 203 à 210)" />
+
+## 3. Une étude complète : $f(x) = x^3 - 3x$ (exercice 1.79 a)
+
+Solution rédigée par la plateforme et vérifiée par calcul symbolique.
+
+1. **Domaine** : $\mathbb{R}$ (polynôme).
+2. **Asymptotes** : aucune — pas de dénominateur, et
+   $\lim_{x \to \pm\infty} f(x) = \pm\infty$.
+3. **Zéros** : $x(x^2 - 3) = 0$, donc $x = 0$ ou $x = \pm\sqrt3$ ;
+   ordonnée à l'origine $f(0) = 0$.
+4. **Valeurs critiques** : $f'(x) = 3x^2 - 3 = 3(x - 1)(x + 1)$, nulle en
+   $x = \pm 1$.
+5. **Inflexion possible** : $f''(x) = 6x$, nulle en $x = 0$.
+6. **Tableau des signes** :
+
+| $x$ | $]-\infty, -1[$ | $-1$ | $]-1, 0[$ | $0$ | $]0, 1[$ | $1$ | $]1, \infty[$ |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| $f'$ | $+$ | $0$ | $-$ | $-$ | $-$ | $0$ | $+$ |
+| $f''$ | $-$ | $-$ | $-$ | $0$ | $+$ | $+$ | $+$ |
+| $f$ | croît, ∩ | **max** $2$ | décroît, ∩ | **inflexion** $0$ | décroît, ∪ | **min** $-2$ | croît, ∪ |
+
+Maximum relatif $(-1, 2)$, minimum relatif $(1, -2)$, point d'inflexion
+$(0, 0)$ ; concave vers le bas sur $]-\infty, 0[$, vers le haut sur
+$]0, \infty[$.
+
+<Callout type="tip" title="Un trou n'est pas une asymptote">
+Pour $f(x) = \frac{x^3 - 1}{x - 1}$ (exercice 1.79 c), $x = 1$ annule le
+dénominateur, mais $\frac{x^3 - 1}{x - 1} = x^2 + x + 1$ pour $x \neq 1$ et
+$\lim_{x \to 1} f(x) = 3$ : **pas d'asymptote verticale**, seulement un
+point manquant $(1, 3)$ sur la parabole. D'où l'importance de vérifier
+chaque valeur susceptible par une limite (réponse de la plateforme).
+</Callout>
+
+<Source file="1-rappels_calcul_differentiel.pdf" page={211} locator="Exercices 1.79 et 1.80 (diapositives 211 et 212)" />

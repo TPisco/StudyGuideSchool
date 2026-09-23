@@ -1,0 +1,322 @@
+---
+course: IFT209
+number: 3
+title: L'accès aux données
+summary: >-
+  Comment une instruction désigne l'opérande sur lequel elle travaille : la
+  hiérarchie des mémoires, les transformations que subit une adresse au cours
+  de la vie d'un programme, et les modes d'adressage — les dix du cas général,
+  les sept de l'ARM.
+estimatedMinutes: 165
+prerequisites:
+  - "Chapitre 2 — mémoire centrale, registres, cycle d'instruction"
+objectives:
+  - id: obj3-hierarchie
+    text: Situer les quatre niveaux de la hiérarchie des mémoires et leurs compromis.
+    bloom: understand
+  - id: obj3-adresses
+    text: Décrire les transformations que subit une adresse au cours de la vie d'un programme.
+    bloom: understand
+  - id: obj3-modes
+    text: Identifier un mode d'adressage et dire où se trouve effectivement l'opérande.
+    bloom: apply
+  - id: obj3-arm
+    text: Nommer les modes d'adressage de l'ARM et choisir la bonne instruction de chargement ou de stockage.
+    bloom: apply
+  - id: obj3-mov
+    text: Expliquer pourquoi MOV est une instruction synthétique et comment une grande constante est produite.
+    bloom: analyze
+sources:
+  - file: "Chapitre 3.pdf"
+    page: 1
+    locator: "Chapitre 3 — L'accès aux données, diapositives 1 à 34"
+  - file: "ResumeARM.pdf"
+    page: 3
+    locator: "Aide-mémoire du cours — accès mémoire"
+  - file: "Sommaire ARMv8 + Débogage GDB.pdf"
+    page: 1
+    locator: "Aide-mémoire du cours — accès mémoire"
+---
+
+## 1. La hiérarchie des mémoires
+
+Toute information — un prix, un texte légal, une image, du son — est
+représentée sous forme binaire ; transformée en binaire, on l'appelle des
+**données**. Pour être utilisées, les données stockées en mémoire secondaire
+**doivent passer par le bus**. Afin d'assurer un accès rapide, on utilise
+**plusieurs unités de stockage**.
+
+<Figure caption="Les quatre niveaux. Plus on descend, plus c'est grand, lent et bon marché.">
+<svg viewBox="0 0 640 280" role="img" aria-label="Pyramide des mémoires : registres, cache, mémoire centrale, disques">
+  <polygon points="320,20 380,80 260,80" fill="#fb7185" fill-opacity="0.3" stroke="#fb7185" stroke-width="1.5" />
+  <polygon points="260,82 380,82 430,142 210,142" fill="#fbbf24" fill-opacity="0.25" stroke="#fbbf24" stroke-width="1.5" />
+  <polygon points="210,144 430,144 480,204 160,204" fill="#38bdf8" fill-opacity="0.22" stroke="#38bdf8" stroke-width="1.5" />
+  <polygon points="160,206 480,206 530,266 110,266" fill="#34d399" fill-opacity="0.2" stroke="#34d399" stroke-width="1.5" />
+
+  <text x="320" y="68" font-size="13" text-anchor="middle" fill="currentColor" font-weight="600">Registres</text>
+  <text x="320" y="118" font-size="13" text-anchor="middle" fill="currentColor" font-weight="600">Mémoire cache</text>
+  <text x="320" y="180" font-size="13" text-anchor="middle" fill="currentColor" font-weight="600">Mémoire centrale</text>
+  <text x="320" y="242" font-size="13" text-anchor="middle" fill="currentColor" font-weight="600">Disques et rubans</text>
+
+  <text x="556" y="46" font-size="12" fill="currentColor" opacity="0.75">plus rapide</text>
+  <text x="556" y="64" font-size="12" fill="currentColor" opacity="0.75">plus coûteux</text>
+  <text x="556" y="82" font-size="12" fill="currentColor" opacity="0.75">plus petit</text>
+
+  <text x="24" y="240" font-size="12" fill="currentColor" opacity="0.75">très lent</text>
+  <text x="24" y="258" font-size="12" fill="currentColor" opacity="0.75">coût très faible</text>
+  <text x="24" y="276" font-size="12" fill="currentColor" opacity="0.75">très grande capacité</text>
+</svg>
+</Figure>
+
+| Niveau | Caractéristiques |
+| --- | --- |
+| **Registre** | plus rapide, plus coûteux, plus petit |
+| **Mémoire cache** | jusqu'à **dix fois plus rapide** que la mémoire principale, plusieurs niveaux. **N'est pas directement programmable** |
+| **Mémoire centrale** (RAM, ROM, VRAM) | stockage principal pour les programmes et leurs données |
+| **Disque et ruban** (disque/SSD/CD, DVD) | garde les données sur une plus longue période ; **coût très faible, très grande capacité, très lent**. **Doit transiter par la mémoire centrale** pour être utilisée |
+
+<Callout type="note" title="Deux détails qui distinguent ces niveaux">
+La mémoire cache **n'est pas directement programmable** — on ne peut pas y
+ranger une valeur volontairement, c'est le matériel qui décide. Et les disques
+**ne sont jamais lus directement** par le processeur : tout passe d'abord par
+la mémoire centrale.
+</Callout>
+
+<Source file="Chapitre 3.pdf" page={3} locator="Diapositives 2 à 4" />
+
+## 2. Les adresses
+
+Chaque cellule de mémoire est désignée par une **adresse** : un entier binaire
+de longueur $n$, permettant $2^n$ cellules numérotées de 0 à $2^n - 1$.
+
+Dans le code d'un programme, on distingue :
+
+- l'**adresse numérique** — une valeur écrite telle quelle ;
+- l'**adresse symbolique** — une étiquette ;
+- l'**adresse effective** — obtenue **à partir de transformations** sur une
+  adresse initiale : adresse indexée, adresse indirecte, adresse relative.
+
+S'y ajoute, avec la mémoire virtuelle, l'**adresse virtuelle**.
+
+### 2.1 La vie d'un programme
+
+<Mermaid caption="Les cinq étapes de la diapositive 8. À chaque passage, les adresses symboliques cèdent du terrain aux adresses numériques." chart={`
+flowchart TD
+    A["Creation<br/>(editeur de texte)"] -->|"Programme source"| B["Compilation<br/>(assembleur)"]
+    B -->|"Code objet"| C["Edition des liens<br/>(editeur de liens)"]
+    C -->|"Module chargeable"| D["Chargement<br/>(chargeur)"]
+    D -->|"Processus"| E["Execution<br/>(processeur)"]
+    A -.-> A1["adresses numeriques (rares)<br/>adresses symboliques<br/>modes d'adressage"]
+    B -.-> B1["adresses numeriques<br/>adresses symboliques (rares)<br/>modes d'adressage"]
+    C -.-> C1["adresses numeriques<br/>modes d'adressage"]
+    D -.-> D1["adresses numeriques<br/>modes d'adressage"]
+    E -.-> E1["mode d'adressage(adresses numeriques)<br/>= ADRESSE EFFECTIVE"]
+`} />
+
+L'**édition des liens** intègre en outre les **librairies statiques**, et
+l'**unité de gestion mémoire** traduit, à l'exécution, entre adresse physique
+et adresse virtuelle.
+
+### 2.2 Ce que subit une adresse
+
+Le schéma de la diapositive 9 suit une donnée à travers trois étapes. Dans le
+code objet elle est à l'adresse $a$ ; après édition des liens, le module a été
+décalé de $l$, donc elle est à $a + l$ ; après chargement en mémoire, décalé de
+$c$, elle est à $a + l + c$.
+
+<Callout type="tip" title="Pourquoi l'adressage relatif est précieux">
+Puisque le programme peut être **déplacé** à chaque étape, toute adresse écrite
+en dur devient fausse. L'adressage **relatif**, calculé à partir du PC, reste
+valable quel que soit l'emplacement final — les notes le qualifient de « très
+pratique, indépendant de l'emplacement du programme en mémoire ».
+</Callout>
+
+<Source file="Chapitre 3.pdf" page={9} locator="Diapositives 7 à 9" />
+
+## 3. Les modes d'adressage
+
+Un mode d'adressage répond à une seule question : **où est l'opérande ?**
+
+### 3.1 Les modes de base
+
+| # | Mode | Où est l'opérande | Ce que contient l'instruction |
+| --- | --- | --- | --- |
+| 1 | **Immédiat** | **dans l'instruction** | la valeur elle-même |
+| 2 | **Direct** | en mémoire | l'**adresse** de l'opérande |
+| 3 | **Par registre** | dans un registre | le **numéro** du registre |
+| 4 | **Indirect** | en mémoire | une adresse **qui contient une adresse** |
+| 5 | **Par registre différé** | en mémoire | le numéro d'un registre **qui contient l'adresse** |
+| 6 | **Base et déplacement** | en mémoire | le numéro du registre de **base** + un **déplacement** |
+
+```
+mov x19, 42     // immediat  : la valeur 42 est dans l'instruction
+mov x19, x20    // registre  : l'operande est dans x20
+```
+
+<Callout type="warning" title="Deux modes que l'ARM n'a pas">
+Les notes le signalent deux fois : **l'adressage direct** (« Il n'y a pas dans
+ARM ») et **l'adressage indirect** (« Il n'y a pas dans ARM ») sont absents.
+C'est cohérent avec le chapitre 2 : en RISC, « l'adressage est limité ».
+</Callout>
+
+### 3.2 Les modes dérivés
+
+- **Auto-incrément** — le registre contient l'adresse de l'opérande ; **à la
+  fin** de l'exécution, l'adresse est incrémentée de $i$.
+- **Auto-décrément** — on **décrémente l'adresse en premier**.
+- **Indexé** — l'instruction contient le **repère** (adresse indexée) et un
+  **index**, éventuellement tous deux dans des registres.
+- **Relatif** — le repère est **variable** : c'est le contenu du **PC**. Le
+  déplacement est dans l'instruction, et **c'est l'assembleur qui le calcule**.
+- Les modes **différés** — immédiat différé, indexé différé, relatif différé :
+  « au lieu d'avoir l'opérande, on a l'**adresse** de l'opérande », donc
+  l'opérande est toujours en mémoire.
+- **Indirect à $n$ niveaux** — l'adresse d'une adresse, d'une adresse…
+
+<Callout type="misconception" title="Erreur classique">
+Confondre auto-incrément et auto-décrément sur le **moment** de l'opération.
+L'auto-incrément modifie l'adresse **à la fin** ; l'auto-décrément la modifie
+**en premier**. Sur une pile qui croît vers le bas, c'est exactement ce qui
+distingue un empilement d'un dépilement.
+</Callout>
+
+<Source file="Chapitre 3.pdf" page={24} locator="Diapositives 11 à 24" />
+
+## 4. Les particularités de l'ARM
+
+### 4.1 Sept modes pour accéder aux données
+
+1. Mode **immédiat**
+2. Mode **registre**
+3. Mode **registre différé** (indirect par registre) — l'adresse est dans un
+   registre
+4. Mode **indexé** (indirect par registre indexé) — l'adresse de base est dans
+   un registre, l'index dans un autre registre **ou dans l'instruction**
+5. Mode **indexé pré-incrémenté**
+6. Mode **indexé post-incrémenté**
+7. Mode **relatif** — utilisé par les **branchements**, et pour **copier une
+   adresse dans un registre**
+
+### 4.2 Le problème des 64 bits dans 32
+
+> Les instructions sont encodées sur **32 bits**. Les registres peuvent contenir
+> des valeurs **64 bits**. Les adresses font **64 bits**.
+>
+> **Comment écrire une adresse de 64 bits dans une instruction longue de
+> 32 bits ?**
+
+La réponse est le **mode relatif**. L'adresse est calculée à partir du compteur
+ordinal, **qui contient déjà une adresse valide**. En additionnant le PC et la
+**distance** entre l'instruction courante et la donnée désirée, on obtient une
+adresse valide également.
+
+<Callout type="note" title="La limite chiffrée">
+Le déplacement peut avoir **au maximum 21 bits**, donc représenter **± 1 Mo**
+de distance avec l'instruction courante. Au-delà, l'assembleur ne peut plus
+produire l'adresse de cette façon.
+</Callout>
+
+<Source file="Chapitre 3.pdf" page={27} locator="Diapositives 25 à 27" />
+
+### 4.3 Charger et stocker
+
+C'est ici que la taille et le signe entrent en jeu. Charger un octet dans un
+registre de 64 bits laisse 56 bits à remplir — et ce qu'on y met dépend du
+signe.
+
+| Instruction | Effet |
+| --- | --- |
+| `ldrb` | charge un **octet non signé** ; met les **56 bits de poids fort à 0** |
+| `ldrsb` | charge un **octet signé** ; met des 0 dans les 56 bits de poids fort si positif, **sinon des 1** |
+| `ldrh` | charge un **demi-mot non signé** ; met les **48 bits de poids fort à 0** |
+| `ldrsh` | charge un **demi-mot signé** ; 0 si positif, **1 sinon** |
+| `ldr` (avec `w0`–`w30`) | charge un **mot non signé** ; met les **32 bits de poids fort à 0** |
+| `ldrsw` | charge un **mot signé** ; 0 si positif, **1 sinon** |
+| `ldr` (avec `x0`–`x30`) | charge un **mot étendu** |
+
+Et pour le stockage, plus simple — il n'y a rien à compléter :
+
+| Instruction | Effet |
+| --- | --- |
+| `strb` | copie les **8 bits de poids faible** du registre dans la mémoire |
+| `strh` | copie les **16 bits de poids faible** |
+| `str` (avec `w0`–`w30`) | copie les **32 bits de poids faible** |
+| `str` (avec `x0`–`x30`) | copie les **64 bits** du registre |
+
+<Callout type="warning" title="« stx » sur la diapositive 31">
+Le tableau de la diapositive 31 écrit « stx (avec x0-x30) » pour le stockage
+64 bits. Les deux aide-mémoire du cours donnent pourtant `str` dans les deux
+cas : ResumeARM (`str xs, adr` et `str ws, adr`, exemple `str x23,[x20]`) et
+le Sommaire ARMv8 (« `str xd, a` — stocke 8 octets »). C'est donc la **taille
+du registre** (`x` ou `w`) qui fixe le nombre d'octets écrits, et non le
+mnémonique. Les notes de cette page suivent les aide-mémoire. À confirmer au
+cours.
+</Callout>
+
+<Source file="ResumeARM.pdf" page={3} locator="Accès mémoire — str" />
+<Source file="Sommaire ARMv8 + Débogage GDB.pdf" page={1} locator="Accès mémoire — str" />
+
+<Callout type="tip" title="Lire les mnémoniques">
+`ldr` = load register, `str` = store register. Puis `b` = byte, `h` = half,
+`w` = word, et le `s` intercalé signifie **signed**. Ainsi `ldrsb` se lit
+« load register, signed byte ».
+</Callout>
+
+<Source file="Chapitre 3.pdf" page={31} locator="Diapositives 30 et 31" />
+
+## 5. MOV n'existe pas vraiment
+
+`MOV` est une **instruction synthétique** : selon le contexte, elle sera
+traduite en une de plusieurs instructions machine.
+
+```
+mov x20, 153    =  add x20, xzr, 153
+mov x20, -153   =  sub x20, xzr, 153
+```
+
+C'est ici que le registre `xzr` du chapitre 2 prend son sens : additionner à
+zéro, c'est copier.
+
+<Callout type="warning" title="La contrainte de taille">
+**La constante doit avoir une taille maximale de 12 bits.** Au-delà,
+l'assembleur doit ruser.
+</Callout>
+
+### 5.1 Générer une grande constante
+
+```
+mov x20, 8960   =  add x20, xzr, 35, lsl 8
+```
+
+Le raisonnement des notes, pas à pas :
+
+- $8960 = 35 \times 256$ et $256 = 2^8$ ;
+- ajouter 8 zéros à droite de 35 en binaire **multiplie par 256** ;
+- il suffit donc de **décaler 35 à gauche de 8 places** pour créer la bonne
+  constante :
+
+$$
+35 = 100011_2 \quad\Longrightarrow\quad 35 \ll 8 = 10001100000000_2 = 8960
+$$
+
+<Callout type="warning" title="Une écriture à vérifier sur la diapositive">
+La diapositive 33 écrit « 35 = 100101 » et « 8960 = 10010100000000 ». Or
+$100101_2 = 37$, et $10010100000000_2 = 9472$. Le **principe** et les
+**valeurs décimales** — 8960, 35, un décalage de 8 — sont corrects ; seule
+l'écriture binaire de 35 ne correspond pas : 35 s'écrit $100011_2$. À
+confirmer au cours.
+</Callout>
+
+> Plusieurs des instructions ARM peuvent être mises à contribution pour générer
+> une constante, mais **ce ne sont pas toutes les constantes qui peuvent être
+> générées ainsi. L'assembleur donnera un message d'erreur s'il n'y arrive
+> pas.**
+
+<Callout type="misconception" title="Erreur classique">
+Croire que `mov` peut charger n'importe quelle valeur. La limite de 12 bits est
+réelle, et le contournement par décalage ne couvre que les constantes qui se
+factorisent en une petite valeur et une puissance de 2. Pour une adresse — 64
+bits — il faut le mode **relatif** de la section 4.2, pas `mov`.
+</Callout>
+
+<Source file="Chapitre 3.pdf" page={33} locator="Diapositives 32 et 33" />

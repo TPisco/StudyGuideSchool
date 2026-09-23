@@ -1,0 +1,39 @@
+{
+  "name": "studyguide",
+  "type": "module",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "node --experimental-strip-types --disable-warning=ExperimentalWarning scripts/validate-content.mjs && node scripts/check-math.mjs && astro check && astro build",
+    "build:fast": "node --experimental-strip-types --disable-warning=ExperimentalWarning scripts/validate-content.mjs && astro build",
+    "preview": "astro preview",
+    "typecheck": "astro check",
+    "validate": "node --experimental-strip-types --disable-warning=ExperimentalWarning scripts/validate-content.mjs && node scripts/check-math.mjs",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "@astrojs/mdx": "^4.3.0",
+    "@astrojs/react": "^4.3.0",
+    "@tailwindcss/typography": "^0.5.16",
+    "@tailwindcss/vite": "^4.1.11",
+    "astro": "^5.12.0",
+    "katex": "^0.16.22",
+    "mermaid": "^11.9.0",
+    "minisearch": "^7.1.2",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "rehype-katex": "^7.0.1",
+    "remark-math": "^6.0.0",
+    "tailwindcss": "^4.1.11",
+    "zod": "^3.25.0"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.4",
+    "@types/react": "^19.1.8",
+    "@types/react-dom": "^19.1.6",
+    "typescript": "^5.8.3",
+    "yaml": "^2.9.1"
+  }
+}

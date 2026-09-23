@@ -1,0 +1,1706 @@
+{
+  "course": "MAT115",
+  "chapter": 4,
+  "concepts": [
+    {
+      "id": "c4-valuation",
+      "term": "Valuation",
+      "definition": "Affectation d'une valeur 0 ou 1 à chaque variable : $V = [X_1 := v_1, \\dots, X_n := v_n]$. La valeur de $A$ sous $V$ se note $A_V$.",
+      "whyItMatters": "Une ligne de table de vérité est une valuation ; la table les énumère toutes.",
+      "commonMisconception": "Évaluer sans parenthéser d'abord : la priorité des opérateurs décide du résultat.",
+      "objectiveId": "obj4-valuation",
+      "source": {
+        "file": "Semaine 3.pdf",
+        "page": 3,
+        "locator": "Diapositive 3"
+      }
+    },
+    {
+      "id": "c4-modele",
+      "term": "Modèle",
+      "definition": "$V$ est un modèle de $A$ — on dit que $V$ satisfait $A$, noté $V \\Vdash A$ — si, et seulement si, $A_V = 1$. $V$ est un modèle d'un ensemble $\\Gamma$ s'il est un modèle de chacune de ses formules.",
+      "whyItMatters": "Toutes les notions du chapitre — satisfaisable, valide, cohérent, conséquence — se définissent à partir des modèles.",
+      "commonMisconception": "Croire qu'un modèle d'une des formules de Γ est un modèle de Γ : il faut les satisfaire toutes en même temps.",
+      "objectiveId": "obj4-modele",
+      "source": {
+        "file": "Semaine 3.pdf",
+        "page": 5,
+        "locator": "Diapositive 5"
+      }
+    },
+    {
+      "id": "c4-satisfaisable",
+      "term": "Satisfaisable et valide",
+      "definition": "$A$ est satisfaisable si elle a au moins un modèle ; valide, noté $\\Vdash A$, si toute valuation est un modèle. Une tautologie est un synonyme de formule valide.",
+      "whyItMatters": "Pour montrer qu'une formule n'est pas valide, une seule valuation qui la rend fausse suffit.",
+      "commonMisconception": "Proposer, comme la diapositive 6, une valuation qui ne rend pas la formule fausse : il faut vérifier le calcul.",
+      "objectiveId": "obj4-modele",
+      "source": {
+        "file": "Semaine 3.pdf",
+        "page": 5,
+        "locator": "Diapositives 5 et 6"
+      }
+    },
+    {
+      "id": "c4-coherence",
+      "term": "Ensemble cohérent",
+      "definition": "$\\Gamma = \\{A_1, \\dots, A_n\\}$ est cohérent si, et seulement si, il existe un modèle pour $\\Gamma$.",
+      "whyItMatters": "Affirmer ensemble des formules incohérentes, c'est se contredire.",
+      "commonMisconception": "Vérifier chaque formule séparément : chacune peut être satisfaisable sans que l'ensemble le soit, comme X₁ ⇒ X₂, X₁ et ¬X₂.",
+      "objectiveId": "obj4-coherence",
+      "source": {
+        "file": "Semaine 3.pdf",
+        "page": 7,
+        "locator": "Diapositive 7"
+      }
+    },
+    {
+      "id": "c4-consequence",
+      "term": "Conséquence logique",
+      "definition": "$\\Gamma \\vDash B$ si, et seulement si, tout modèle de $\\Gamma$ est aussi un modèle de $B$.",
+      "whyItMatters": "Sur une table de vérité : parmi les lignes où toutes les formules de Γ sont vraies, B doit l'être partout.",
+      "commonMisconception": "Regarder aussi les lignes où une hypothèse est fausse : elles ne comptent pas.",
+      "objectiveId": "obj4-consequence",
+      "source": {
+        "file": "Semaine 3.pdf",
+        "page": 8,
+        "locator": "Diapositive 8"
+      }
+    },
+    {
+      "id": "c4-contre-exemple",
+      "term": "Contre-exemple à une conséquence",
+      "definition": "Une valuation qui rend toutes les formules de $\\Gamma$ vraies et $B$ fausse montre que $\\Gamma \\nvDash B$.",
+      "whyItMatters": "Dans le second exemple, les lignes 3 et 5 montrent que $X_3$ n'est pas conséquence de $X_1 \\vee X_2$ et $X_1 \\wedge X_2 \\Rightarrow X_3$.",
+      "commonMisconception": "Confondre « les trois formules ont un modèle commun » (cohérence) et « la troisième découle des deux autres » (conséquence).",
+      "objectiveId": "obj4-consequence",
+      "source": {
+        "file": "Semaine 3.pdf",
+        "page": 17,
+        "locator": "Diapositive 17"
+      }
+    }
+  ],
+  "tables": [
+    {
+      "id": "t4-notions",
+      "title": "Les notions sémantiques",
+      "kind": "cheatsheet",
+      "columns": [
+        {
+          "key": "notion",
+          "label": "Notion"
+        },
+        {
+          "key": "notation",
+          "label": "Notation"
+        },
+        {
+          "key": "def",
+          "label": "Définition"
+        },
+        {
+          "key": "table",
+          "label": "Sur la table de vérité"
+        }
+      ],
+      "rows": [
+        {
+          "notion": "modèle",
+          "notation": "$V \\Vdash A$",
+          "def": "$A_V = 1$",
+          "table": "une ligne où A vaut 1"
+        },
+        {
+          "notion": "satisfaisable",
+          "notation": "—",
+          "def": "au moins un modèle",
+          "table": "au moins un 1 dans la colonne de A"
+        },
+        {
+          "notion": "valide (tautologie)",
+          "notation": "$\\Vdash A$",
+          "def": "toute valuation est un modèle",
+          "table": "que des 1 dans la colonne de A"
+        },
+        {
+          "notion": "modèle de Γ",
+          "notation": "$V \\Vdash \\Gamma$",
+          "def": "modèle de chaque formule de Γ",
+          "table": "une ligne où toutes les formules valent 1"
+        },
+        {
+          "notion": "cohérent",
+          "notation": "—",
+          "def": "Γ a au moins un modèle",
+          "table": "au moins une ligne où toutes valent 1"
+        },
+        {
+          "notion": "conséquence logique",
+          "notation": "$\\Gamma \\vDash B$",
+          "def": "tout modèle de Γ est un modèle de B",
+          "table": "sur chaque ligne où Γ est vrai, B vaut 1"
+        }
+      ],
+      "source": {
+        "file": "Semaine 3.pdf",
+        "page": 5,
+        "locator": "Diapositives 5, 7 et 8"
+      }
+    },
+    {
+      "id": "t4-exemples",
+      "title": "Les deux exemples de la semaine 3",
+      "kind": "comparison",
+      "columns": [
+        {
+          "key": "gamma",
+          "label": "Formules"
+        },
+        {
+          "key": "modeles",
+          "label": "Modèles des trois"
+        },
+        {
+          "key": "cons",
+          "label": "(3) conséquence de (1), (2) ?"
+        },
+        {
+          "key": "coh",
+          "label": "Cohérentes ?"
+        }
+      ],
+      "rows": [
+        {
+          "gamma": "$X_1 \\wedge X_2$, $X_1 \\wedge X_2 \\Rightarrow X_3$, $X_3$",
+          "modeles": "ligne 8",
+          "cons": "oui (seule ligne 8)",
+          "coh": "oui"
+        },
+        {
+          "gamma": "$X_1 \\vee X_2$, $X_1 \\wedge X_2 \\Rightarrow X_3$, $X_3$",
+          "modeles": "lignes 4, 6, 8",
+          "cons": "non (lignes 3 et 5)",
+          "coh": "oui"
+        }
+      ],
+      "source": {
+        "file": "Semaine 3.pdf",
+        "page": 17,
+        "locator": "Diapositives 8 à 19"
+      }
+    }
+  ],
+  "quiz": {
+    "title": "Quiz — vérification rapide",
+    "estimatedMinutes": 15,
+    "questions": [
+      {
+        "id": "q4-01",
+        "objectiveId": "obj4-valuation",
+        "bloomLevel": "recall",
+        "type": "mcq",
+        "difficulty": 1,
+        "prompt": "Qu'est-ce qu'une valuation ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Une affectation de 0 ou 1 à chaque variable"
+          },
+          {
+            "id": "b",
+            "text": "La valeur de vérité d'une formule"
+          },
+          {
+            "id": "c",
+            "text": "Une formule toujours vraie"
+          },
+          {
+            "id": "d",
+            "text": "Un ensemble de formules"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Diapositive 3.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "C'est $A_V$, qui DÉPEND d'une valuation."
+          },
+          {
+            "optionId": "c",
+            "why": "C'est une tautologie."
+          },
+          {
+            "optionId": "d",
+            "why": "C'est Γ."
+          }
+        ],
+        "source": {
+          "file": "Semaine 3.pdf",
+          "page": 3,
+          "locator": "Diapositive 3"
+        }
+      },
+      {
+        "id": "q4-02",
+        "objectiveId": "obj4-valuation",
+        "bloomLevel": "apply",
+        "type": "short-answer",
+        "difficulty": 2,
+        "prompt": "$A \\equiv X_1 \\wedge \\neg X_2 \\vee X_3 \\Rightarrow X_4$ : que vaut $A_V$ pour $V = [X_1 := 1, X_2 := 0, X_3 := 0, X_4 := 1]$ ? (0 ou 1)",
+        "correct": "1",
+        "acceptableAnswers": [],
+        "explanation": "$\\big((1 \\wedge \\neg 0) \\vee 0\\big) \\Rightarrow 1 = (1 \\vee 0) \\Rightarrow 1 = 1$ (diapositive 4).",
+        "source": {
+          "file": "Semaine 3.pdf",
+          "page": 4,
+          "locator": "Diapositive 4"
+        }
+      },
+      {
+        "id": "q4-03",
+        "objectiveId": "obj4-valuation",
+        "bloomLevel": "apply",
+        "type": "short-answer",
+        "difficulty": 2,
+        "prompt": "$A \\equiv X_1 \\wedge \\neg X_2 \\vee X_3 \\Rightarrow X_4$ : que vaut $A_V$ pour $V = [X_1 := 1, X_2 := 0, X_3 := 0, X_4 := 0]$ ? (0 ou 1)",
+        "correct": "0",
+        "acceptableAnswers": [],
+        "explanation": "$\\big((1 \\wedge 1) \\vee 0\\big) \\Rightarrow 0 = 1 \\Rightarrow 0 = 0$ : c'est une valuation qui montre que $A$ n'est pas valide.",
+        "source": {
+          "file": "Semaine 3.pdf",
+          "page": 6,
+          "locator": "Diapositive 6"
+        }
+      },
+      {
+        "id": "q4-04",
+        "objectiveId": "obj4-modele",
+        "bloomLevel": "understand",
+        "type": "mcq",
+        "difficulty": 1,
+        "prompt": "Que signifie $V \\Vdash A$ ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "$A_V = 1$ : $V$ est un modèle de $A$"
+          },
+          {
+            "id": "b",
+            "text": "$A$ est vraie pour toute valuation"
+          },
+          {
+            "id": "c",
+            "text": "$A_V = 0$"
+          },
+          {
+            "id": "d",
+            "text": "$V$ est une conséquence logique de $A$"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Diapositive 5.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "C'est $\\Vdash A$, sans $V$ : $A$ est valide."
+          },
+          {
+            "optionId": "c",
+            "why": "C'est le contraire."
+          },
+          {
+            "optionId": "d",
+            "why": "Une valuation n'est pas une formule ; la conséquence relie des formules."
+          }
+        ],
+        "source": {
+          "file": "Semaine 3.pdf",
+          "page": 5,
+          "locator": "Diapositive 5"
+        }
+      },
+      {
+        "id": "q4-05",
+        "objectiveId": "obj4-modele",
+        "bloomLevel": "recall",
+        "type": "mcq",
+        "difficulty": 1,
+        "prompt": "De quelle notion « tautologie » est-elle un synonyme ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Formule valide"
+          },
+          {
+            "id": "b",
+            "text": "Formule satisfaisable"
+          },
+          {
+            "id": "c",
+            "text": "Ensemble cohérent"
+          },
+          {
+            "id": "d",
+            "text": "Conséquence logique"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Diapositive 5 : « Une tautologie est donc un synonyme de formule valide. »",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Satisfaisable exige un seul modèle ; une tautologie les a tous."
+          },
+          {
+            "optionId": "c",
+            "why": "La cohérence porte sur un ensemble et exige un seul modèle."
+          },
+          {
+            "optionId": "d",
+            "why": "C'est une relation entre Γ et B."
+          }
+        ],
+        "source": {
+          "file": "Semaine 3.pdf",
+          "page": 5,
+          "locator": "Diapositive 5"
+        }
+      },
+      {
+        "id": "q4-06",
+        "objectiveId": "obj4-modele",
+        "bloomLevel": "understand",
+        "type": "true-false",
+        "difficulty": 2,
+        "prompt": "Toute formule valide est satisfaisable.",
+        "options": [
+          {
+            "id": "v",
+            "text": "Vrai"
+          },
+          {
+            "id": "f",
+            "text": "Faux"
+          }
+        ],
+        "correct": "v",
+        "explanation": "Si toute valuation est un modèle, il y a au moins un modèle.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "f",
+            "why": "Valide exige que TOUTES les valuations soient des modèles ; il y en a donc au moins une."
+          }
+        ],
+        "source": {
+          "file": "Semaine 3.pdf",
+          "page": 5,
+          "locator": "Diapositive 5"
+        }
+      },
+      {
+        "id": "q4-07",
+        "objectiveId": "obj4-coherence",
+        "bloomLevel": "apply",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "L'ensemble $\\{X_1 \\Rightarrow X_2,\\ X_1,\\ \\neg X_2\\}$ est-il cohérent ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Non : $X_1$ et $\\neg X_2$ forcent $X_1 := 1$, $X_2 := 0$"
+          },
+          {
+            "id": "b",
+            "text": "Oui : chaque formule est satisfaisable"
+          },
+          {
+            "id": "c",
+            "text": "Oui, avec $V = [X_1 := 1, X_2 := 1]$"
+          },
+          {
+            "id": "d",
+            "text": "Oui, avec X₁ := 0"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Exemple de la diapositive 7 : $V = [X_1 := 1, X_2 := 0]$ rend $X_1 \\Rightarrow X_2$ fausse.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Il faut un modèle COMMUN aux trois, pas un modèle par formule."
+          },
+          {
+            "optionId": "c",
+            "why": "Cette valuation rend $\\neg X_2$ fausse."
+          },
+          {
+            "optionId": "d",
+            "why": "Cette valuation rend X₁ fausse."
+          }
+        ],
+        "source": {
+          "file": "Semaine 3.pdf",
+          "page": 7,
+          "locator": "Diapositive 7"
+        }
+      },
+      {
+        "id": "q4-08",
+        "objectiveId": "obj4-consequence",
+        "bloomLevel": "recall",
+        "type": "mcq",
+        "difficulty": 1,
+        "prompt": "Que signifie $\\Gamma \\vDash B$ ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Tout modèle de $\\Gamma$ est aussi un modèle de $B$"
+          },
+          {
+            "id": "b",
+            "text": "$\\Gamma$ et $B$ ont au moins un modèle commun"
+          },
+          {
+            "id": "c",
+            "text": "Tout modèle de $B$ est un modèle de $\\Gamma$"
+          },
+          {
+            "id": "d",
+            "text": "$B$ est une tautologie"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Diapositive 8.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "C'est la cohérence de Γ ∪ {B}, plus faible."
+          },
+          {
+            "optionId": "c",
+            "why": "Le sens est inversé."
+          },
+          {
+            "optionId": "d",
+            "why": "B n'a besoin d'être vraie que là où Γ l'est."
+          }
+        ],
+        "source": {
+          "file": "Semaine 3.pdf",
+          "page": 8,
+          "locator": "Diapositive 8"
+        }
+      },
+      {
+        "id": "q4-09",
+        "objectiveId": "obj4-consequence",
+        "bloomLevel": "analyze",
+        "type": "mcq",
+        "difficulty": 3,
+        "prompt": "$X_3$ est-elle conséquence logique de $X_1 \\vee X_2$ et $X_1 \\wedge X_2 \\Rightarrow X_3$ ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Non : sur les lignes 3 et 5, les deux premières formules sont vraies et X₃ est fausse"
+          },
+          {
+            "id": "b",
+            "text": "Oui : sur les lignes 4, 6 et 8, les trois formules sont vraies"
+          },
+          {
+            "id": "c",
+            "text": "Oui : la ligne 8 le montre"
+          },
+          {
+            "id": "d",
+            "text": "Non : la ligne 7 le montre"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Diapositive 17.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "C'est la cohérence ; pour la conséquence, il faut TOUS les modèles des deux premières."
+          },
+          {
+            "optionId": "c",
+            "why": "Une ligne favorable ne suffit pas ; une seule ligne défavorable réfute."
+          },
+          {
+            "optionId": "d",
+            "why": "Sur la ligne 7, la deuxième formule est fausse : elle ne compte pas."
+          }
+        ],
+        "source": {
+          "file": "Semaine 3.pdf",
+          "page": 17,
+          "locator": "Diapositive 17"
+        }
+      },
+      {
+        "id": "q4-10",
+        "objectiveId": "obj4-consequence",
+        "bloomLevel": "apply",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Quels sont les modèles communs de $X_1 \\wedge X_2$, $X_1 \\wedge X_2 \\Rightarrow X_3$ et $X_3$ ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "La seule ligne 8 (X₁ = X₂ = X₃ = 1)"
+          },
+          {
+            "id": "b",
+            "text": "Les lignes 7 et 8"
+          },
+          {
+            "id": "c",
+            "text": "Toutes les lignes où X₃ = 1"
+          },
+          {
+            "id": "d",
+            "text": "Aucune ligne"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Diapositive 10 : « Oui, la ligne 8. »",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Sur la ligne 7, X₃ = 0 et la deuxième formule vaut 0."
+          },
+          {
+            "optionId": "c",
+            "why": "X₁ ∧ X₂ doit aussi être vraie."
+          },
+          {
+            "optionId": "d",
+            "why": "La ligne 8 convient."
+          }
+        ],
+        "source": {
+          "file": "Semaine 3.pdf",
+          "page": 10,
+          "locator": "Diapositive 10"
+        }
+      },
+      {
+        "id": "q4-11",
+        "objectiveId": "obj4-modele",
+        "bloomLevel": "analyze",
+        "type": "mcq",
+        "difficulty": 3,
+        "prompt": "$A \\equiv X_1 \\wedge \\neg X_2 \\vee X_3 \\Rightarrow X_4$ : que vaut $A$ sous $V_1 = [X_1 := 0, X_2 := 1, X_3 := 0, X_4 := 0]$, la valuation citée par la diapositive 6 ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "1 : l'hypothèse est fausse, donc l'implication est vraie"
+          },
+          {
+            "id": "b",
+            "text": "0, comme l'affirme la diapositive"
+          },
+          {
+            "id": "c",
+            "text": "0, car X₄ vaut 0"
+          },
+          {
+            "id": "d",
+            "text": "Indéterminée"
+          }
+        ],
+        "correct": "a",
+        "explanation": "$V_1$ est en fait un modèle de $A$. Pour montrer que $A$ n'est pas valide, il faut par exemple $[X_1 := 1, X_2 := 0, X_3 := 0, X_4 := 0]$.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "$(0 \\wedge 0) \\vee 0 = 0$, et $0 \\Rightarrow 0 = 1$."
+          },
+          {
+            "optionId": "c",
+            "why": "X₄ faux ne suffit pas : il faudrait aussi une hypothèse vraie."
+          },
+          {
+            "optionId": "d",
+            "why": "Toutes les variables ont une valeur."
+          }
+        ],
+        "source": {
+          "file": "Semaine 3.pdf",
+          "page": 6,
+          "locator": "Diapositive 6"
+        }
+      },
+      {
+        "id": "q4-12",
+        "objectiveId": "obj4-consequence",
+        "bloomLevel": "understand",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Pour décider si $\\Gamma \\vDash B$ sur une table de vérité, quelles lignes faut-il examiner ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Seulement celles où toutes les formules de $\\Gamma$ sont vraies"
+          },
+          {
+            "id": "b",
+            "text": "Celles où $B$ est vraie"
+          },
+          {
+            "id": "c",
+            "text": "Toutes les lignes"
+          },
+          {
+            "id": "d",
+            "text": "Celles où au moins une formule de $\\Gamma$ est vraie"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Définition de la diapositive 8 : tout modèle de Γ doit être un modèle de B.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "B vraie ne dit rien : c'est B fausse avec Γ vrai qui réfute."
+          },
+          {
+            "optionId": "c",
+            "why": "Les lignes où une formule de Γ est fausse ne comptent pas."
+          },
+          {
+            "optionId": "d",
+            "why": "Il faut qu'elles le soient TOUTES."
+          }
+        ],
+        "source": {
+          "file": "Semaine 3.pdf",
+          "page": 8,
+          "locator": "Diapositive 8"
+        }
+      }
+    ]
+  },
+  "test": {
+    "title": "Test du chapitre 4",
+    "instructions": "21 questions couvrant tout le chapitre. Plus long et plus difficile que le quiz.",
+    "estimatedMinutes": 45,
+    "questions": [
+      {
+        "id": "t4-01",
+        "objectiveId": "obj4-valuation",
+        "bloomLevel": "recall",
+        "type": "mcq",
+        "difficulty": 1,
+        "prompt": "Comment note-t-on la valeur de vérité de $A$ sous la valuation $V$ ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "$A_V$"
+          },
+          {
+            "id": "b",
+            "text": "$V_A$"
+          },
+          {
+            "id": "c",
+            "text": "$V \\Vdash A$"
+          },
+          {
+            "id": "d",
+            "text": "$\\Vdash A$"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Diapositive 3.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "L'indice est la valuation."
+          },
+          {
+            "optionId": "c",
+            "why": "C'est l'affirmation que A_V = 1."
+          },
+          {
+            "optionId": "d",
+            "why": "C'est l'affirmation que A est valide."
+          }
+        ],
+        "source": {
+          "file": "Semaine 3.pdf",
+          "page": 3,
+          "locator": "Diapositive 3"
+        }
+      },
+      {
+        "id": "t4-02",
+        "objectiveId": "obj4-valuation",
+        "bloomLevel": "apply",
+        "type": "mcq",
+        "difficulty": 1,
+        "prompt": "Dans quel ordre la diapositive 4 calcule-t-elle A_V ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Parenthéser, substituer les variables, calculer à partir des parenthèses les plus internes"
+          },
+          {
+            "id": "b",
+            "text": "Substituer, calculer de gauche à droite, parenthéser"
+          },
+          {
+            "id": "c",
+            "text": "Calculer la table de vérité complète, puis lire la ligne"
+          },
+          {
+            "id": "d",
+            "text": "Substituer, puis calculer à partir des parenthèses les plus externes"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Diapositive 4.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Calculer de gauche à droite ignore la priorité."
+          },
+          {
+            "optionId": "c",
+            "why": "Possible, mais ce n'est pas la démarche de la diapositive, qui ne calcule qu'une ligne."
+          },
+          {
+            "optionId": "d",
+            "why": "On commence par les plus INTERNES."
+          }
+        ],
+        "source": {
+          "file": "Semaine 3.pdf",
+          "page": 4,
+          "locator": "Diapositive 4"
+        }
+      },
+      {
+        "id": "t4-03",
+        "objectiveId": "obj4-valuation",
+        "bloomLevel": "apply",
+        "type": "short-answer",
+        "difficulty": 2,
+        "prompt": "$A \\equiv X_1 \\wedge \\neg X_2 \\vee X_3 \\Rightarrow X_4$ : que vaut $A_V$ pour $V = [X_1 := 0, X_2 := 0, X_3 := 1, X_4 := 0]$ ? (0 ou 1)",
+        "correct": "0",
+        "acceptableAnswers": [],
+        "explanation": "$\\big((0 \\wedge 1) \\vee 1\\big) \\Rightarrow 0 = 1 \\Rightarrow 0 = 0$. C'est $X_3$ qui rend l'hypothèse vraie.",
+        "source": {
+          "file": "Semaine 3.pdf",
+          "page": 4,
+          "locator": "Diapositive 4"
+        }
+      },
+      {
+        "id": "t4-04",
+        "objectiveId": "obj4-valuation",
+        "bloomLevel": "apply",
+        "type": "short-answer",
+        "difficulty": 2,
+        "prompt": "$B \\equiv X_4 \\Rightarrow X_1 \\wedge (X_2 \\vee \\neg X_3)$ : que vaut $B_V$ pour $V = [X_1 := 1, X_2 := 0, X_3 := 0, X_4 := 1]$ ? (0 ou 1)",
+        "correct": "1",
+        "acceptableAnswers": [],
+        "explanation": "$1 \\Rightarrow \\big(1 \\wedge (0 \\vee \\neg 0)\\big) = 1 \\Rightarrow (1 \\wedge 1) = 1$ : $V$ est aussi un modèle de $B$ (diapositive 6).",
+        "source": {
+          "file": "Semaine 3.pdf",
+          "page": 6,
+          "locator": "Diapositive 6"
+        }
+      },
+      {
+        "id": "t4-05",
+        "objectiveId": "obj4-modele",
+        "bloomLevel": "understand",
+        "type": "mcq",
+        "difficulty": 1,
+        "prompt": "Quand une formule est-elle satisfaisable ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Quand elle a au moins un modèle"
+          },
+          {
+            "id": "b",
+            "text": "Quand toute valuation est un modèle"
+          },
+          {
+            "id": "c",
+            "text": "Quand elle n'a aucun modèle"
+          },
+          {
+            "id": "d",
+            "text": "Quand elle contient une seule variable"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Diapositive 5 : lorsque V ⊩ A, on dit que A est satisfaisable.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "C'est la définition de valide."
+          },
+          {
+            "optionId": "c",
+            "why": "C'est le contraire."
+          },
+          {
+            "optionId": "d",
+            "why": "La forme ne décide pas."
+          }
+        ],
+        "source": {
+          "file": "Semaine 3.pdf",
+          "page": 5,
+          "locator": "Diapositive 5"
+        }
+      },
+      {
+        "id": "t4-06",
+        "objectiveId": "obj4-modele",
+        "bloomLevel": "understand",
+        "type": "multi",
+        "difficulty": 2,
+        "prompt": "Lesquelles de ces affirmations sont vraies ? (plusieurs réponses)",
+        "options": [
+          {
+            "id": "a",
+            "text": "Une tautologie est une formule valide."
+          },
+          {
+            "id": "b",
+            "text": "Une formule valide est satisfaisable."
+          },
+          {
+            "id": "c",
+            "text": "V est un modèle de Γ si, et seulement si, V est un modèle de chaque formule de Γ."
+          },
+          {
+            "id": "d",
+            "text": "Une formule satisfaisable est valide."
+          },
+          {
+            "id": "e",
+            "text": "Une formule sans modèle est satisfaisable."
+          }
+        ],
+        "correct": [
+          "a",
+          "b",
+          "c"
+        ],
+        "explanation": "Diapositive 5.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "d",
+            "why": "Un seul modèle ne suffit pas pour être valide ; X₁ est satisfaisable mais pas valide."
+          },
+          {
+            "optionId": "e",
+            "why": "Satisfaisable exige au moins un modèle."
+          }
+        ],
+        "source": {
+          "file": "Semaine 3.pdf",
+          "page": 5,
+          "locator": "Diapositive 5"
+        }
+      },
+      {
+        "id": "t4-07",
+        "objectiveId": "obj4-modele",
+        "bloomLevel": "analyze",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "$A \\equiv X_1 \\wedge \\neg X_2 \\vee X_3 \\Rightarrow X_4$ n'est pas valide. Quelle valuation le montre ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "$[X_1 := 1, X_2 := 0, X_3 := 0, X_4 := 0]$"
+          },
+          {
+            "id": "b",
+            "text": "$[X_1 := 0, X_2 := 1, X_3 := 0, X_4 := 0]$"
+          },
+          {
+            "id": "c",
+            "text": "$[X_1 := 1, X_2 := 0, X_3 := 0, X_4 := 1]$"
+          },
+          {
+            "id": "d",
+            "text": "$[X_1 := 0, X_2 := 0, X_3 := 0, X_4 := 0]$"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Il faut l'hypothèse vraie et X₄ faux : (1 ∧ 1) ∨ 0 = 1, puis 1 ⇒ 0 = 0.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "C'est la valuation de la diapositive 6, mais elle rend A VRAIE : l'hypothèse y est fausse."
+          },
+          {
+            "optionId": "c",
+            "why": "C'est un modèle de A (diapositive 4)."
+          },
+          {
+            "optionId": "d",
+            "why": "L'hypothèse est fausse : A vaut 1."
+          }
+        ],
+        "source": {
+          "file": "Semaine 3.pdf",
+          "page": 6,
+          "locator": "Diapositive 6"
+        }
+      },
+      {
+        "id": "t4-08",
+        "objectiveId": "obj4-modele",
+        "bloomLevel": "apply",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Laquelle de ces valuations est un modèle de $\\Gamma = \\{A, B\\}$, avec $A \\equiv X_1 \\wedge \\neg X_2 \\vee X_3 \\Rightarrow X_4$ et $B \\equiv X_4 \\Rightarrow X_1 \\wedge (X_2 \\vee \\neg X_3)$ ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "$[X_1 := 1, X_2 := 0, X_3 := 0, X_4 := 1]$"
+          },
+          {
+            "id": "b",
+            "text": "$[X_1 := 1, X_2 := 0, X_3 := 0, X_4 := 0]$"
+          },
+          {
+            "id": "c",
+            "text": "$[X_1 := 0, X_2 := 0, X_3 := 1, X_4 := 1]$"
+          },
+          {
+            "id": "d",
+            "text": "$[X_1 := 1, X_2 := 0, X_3 := 1, X_4 := 0]$"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Diapositive 6 : V est un modèle des deux formules.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Elle rend A fausse."
+          },
+          {
+            "optionId": "c",
+            "why": "Elle rend $B$ fausse : $1 \\Rightarrow (0 \\wedge \\dots) = 0$."
+          },
+          {
+            "optionId": "d",
+            "why": "Elle rend A fausse : hypothèse vraie, X₄ faux."
+          }
+        ],
+        "source": {
+          "file": "Semaine 3.pdf",
+          "page": 6,
+          "locator": "Diapositive 6"
+        }
+      },
+      {
+        "id": "t4-09",
+        "objectiveId": "obj4-coherence",
+        "bloomLevel": "recall",
+        "type": "mcq",
+        "difficulty": 1,
+        "prompt": "Quand un ensemble de formules est-il cohérent ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Quand il existe une valuation qui est un modèle de toutes ses formules"
+          },
+          {
+            "id": "b",
+            "text": "Quand chacune de ses formules est satisfaisable"
+          },
+          {
+            "id": "c",
+            "text": "Quand toutes ses formules sont valides"
+          },
+          {
+            "id": "d",
+            "text": "Quand ses formules sont toutes différentes"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Diapositive 7.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Chacune peut l'être sans qu'un modèle soit commun à toutes."
+          },
+          {
+            "optionId": "c",
+            "why": "C'est bien plus fort que nécessaire."
+          },
+          {
+            "optionId": "d",
+            "why": "La cohérence est une question de modèles."
+          }
+        ],
+        "source": {
+          "file": "Semaine 3.pdf",
+          "page": 7,
+          "locator": "Diapositive 7"
+        }
+      },
+      {
+        "id": "t4-10",
+        "objectiveId": "obj4-coherence",
+        "bloomLevel": "apply",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "L'ensemble $\\{X_1 \\vee X_2,\\ \\neg X_1,\\ \\neg X_2\\}$ est-il cohérent ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Non : il faudrait $X_1 = X_2 = 0$, qui rend $X_1 \\vee X_2$ fausse"
+          },
+          {
+            "id": "b",
+            "text": "Oui, avec $X_1 := 1$"
+          },
+          {
+            "id": "c",
+            "text": "Oui : chaque formule a au moins un modèle"
+          },
+          {
+            "id": "d",
+            "text": "Oui, avec $X_1 := 0$, $X_2 := 1$"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Même raisonnement que la diapositive 7 : les formules d'une seule variable fixent les valeurs, puis on teste la dernière.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Cette valuation rend $\\neg X_1$ fausse."
+          },
+          {
+            "optionId": "c",
+            "why": "Il faut un modèle commun aux trois."
+          },
+          {
+            "optionId": "d",
+            "why": "Cette valuation rend $\\neg X_2$ fausse."
+          }
+        ],
+        "source": {
+          "file": "Semaine 3.pdf",
+          "page": 7,
+          "locator": "Diapositive 7"
+        }
+      },
+      {
+        "id": "t4-11",
+        "objectiveId": "obj4-coherence",
+        "bloomLevel": "understand",
+        "type": "true-false",
+        "difficulty": 2,
+        "prompt": "Un ensemble qui contient une tautologie est forcément cohérent.",
+        "options": [
+          {
+            "id": "v",
+            "text": "Vrai"
+          },
+          {
+            "id": "f",
+            "text": "Faux"
+          }
+        ],
+        "correct": "f",
+        "explanation": "$\\{X_1 \\vee \\neg X_1,\\ X_1,\\ \\neg X_1\\}$ contient une tautologie mais n'a aucun modèle : $X_1$ et $\\neg X_1$ ne peuvent être vraies ensemble.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "v",
+            "why": "La tautologie est satisfaite par toute valuation, mais les autres formules peuvent se contredire entre elles."
+          }
+        ],
+        "source": {
+          "file": "Semaine 3.pdf",
+          "page": 7,
+          "locator": "Diapositive 7"
+        }
+      },
+      {
+        "id": "t4-12",
+        "objectiveId": "obj4-consequence",
+        "bloomLevel": "analyze",
+        "type": "mcq",
+        "difficulty": 3,
+        "prompt": "Si $\\Gamma$ est incohérent, que dit la définition de la diapositive 8 de $\\Gamma \\vDash B$, pour n'importe quelle formule $B$ ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Elle est vraie : $\\Gamma$ n'a aucun modèle, donc « tout modèle de $\\Gamma$ est un modèle de $B$ » est vérifié"
+          },
+          {
+            "id": "b",
+            "text": "Elle est fausse : un ensemble incohérent n'a pas de conséquence"
+          },
+          {
+            "id": "c",
+            "text": "Elle dépend de la valeur de $B$ sur la ligne 1"
+          },
+          {
+            "id": "d",
+            "text": "Elle n'a de sens que si $B$ est une tautologie"
+          }
+        ],
+        "correct": "a",
+        "explanation": "C'est une conséquence directe de la définition (raisonnement de la plateforme) : on ne peut trouver aucune valuation qui rende Γ vrai et B faux.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "La définition ne l'exclut pas : il n'y a simplement aucun modèle à vérifier."
+          },
+          {
+            "optionId": "c",
+            "why": "Aucune ligne ne rend Γ vrai : aucune ligne ne compte."
+          },
+          {
+            "optionId": "d",
+            "why": "La définition s'applique à toute formule B."
+          }
+        ],
+        "source": {
+          "file": "Semaine 3.pdf",
+          "page": 8,
+          "locator": "Diapositive 8"
+        }
+      },
+      {
+        "id": "t4-13",
+        "objectiveId": "obj4-consequence",
+        "bloomLevel": "apply",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "$X_3$ est-elle conséquence logique de $X_1 \\wedge X_2$ et $X_1 \\wedge X_2 \\Rightarrow X_3$ ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Oui : la ligne 8 est la seule où les deux sont vraies, et X₃ y est vraie"
+          },
+          {
+            "id": "b",
+            "text": "Non : sur les lignes 1 à 6, X₃ est parfois fausse"
+          },
+          {
+            "id": "c",
+            "text": "Non : sur la ligne 7, X₃ est fausse"
+          },
+          {
+            "id": "d",
+            "text": "On ne peut pas conclure avec une seule ligne"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Diapositive 11.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Sur ces lignes, X₁ ∧ X₂ est fausse : elles ne comptent pas."
+          },
+          {
+            "optionId": "c",
+            "why": "Sur la ligne 7, la deuxième formule est fausse."
+          },
+          {
+            "optionId": "d",
+            "why": "Une seule ligne suffit si c'est la seule où Γ est vrai."
+          }
+        ],
+        "source": {
+          "file": "Semaine 3.pdf",
+          "page": 11,
+          "locator": "Diapositive 11"
+        }
+      },
+      {
+        "id": "t4-14",
+        "objectiveId": "obj4-consequence",
+        "bloomLevel": "apply",
+        "type": "short-answer",
+        "difficulty": 2,
+        "prompt": "Sur combien de lignes $X_1 \\vee X_2$ et $X_1 \\wedge X_2 \\Rightarrow X_3$ sont-elles vraies toutes les deux ? (un nombre)",
+        "correct": "5",
+        "acceptableAnswers": [
+          "cinq"
+        ],
+        "explanation": "Les lignes 3, 4, 5, 6 et 8 (diapositive 17).",
+        "source": {
+          "file": "Semaine 3.pdf",
+          "page": 17,
+          "locator": "Diapositive 17"
+        }
+      },
+      {
+        "id": "t4-15",
+        "objectiveId": "obj4-consequence",
+        "bloomLevel": "apply",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Quelles lignes montrent que $X_3$ n'est PAS conséquence de $X_1 \\vee X_2$ et $X_1 \\wedge X_2 \\Rightarrow X_3$ ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Les lignes 3 et 5"
+          },
+          {
+            "id": "b",
+            "text": "Les lignes 1 et 3"
+          },
+          {
+            "id": "c",
+            "text": "La ligne 7"
+          },
+          {
+            "id": "d",
+            "text": "Les lignes 4, 6 et 8"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Sur les lignes 3 et 5, les deux hypothèses sont vraies et X₃ fausse.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Sur la ligne 1, X₁ ∨ X₂ est fausse : elle ne compte pas."
+          },
+          {
+            "optionId": "c",
+            "why": "Sur la ligne 7, la deuxième formule est fausse."
+          },
+          {
+            "optionId": "d",
+            "why": "Sur ces lignes, X₃ est vraie : elles sont favorables."
+          }
+        ],
+        "source": {
+          "file": "Semaine 3.pdf",
+          "page": 17,
+          "locator": "Diapositive 17"
+        }
+      },
+      {
+        "id": "t4-16",
+        "objectiveId": "obj4-consequence",
+        "bloomLevel": "analyze",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Dans le second exemple, pourquoi les lignes 1 et 2 n'interviennent-elles pas dans la question de la conséquence ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Parce que $X_1 \\vee X_2$ y est fausse : ce ne sont pas des modèles des hypothèses"
+          },
+          {
+            "id": "b",
+            "text": "Parce que $X_3$ y vaut 0 et 1"
+          },
+          {
+            "id": "c",
+            "text": "Parce que les tables commencent à la ligne 3"
+          },
+          {
+            "id": "d",
+            "text": "Parce que $X_1 \\wedge X_2 \\Rightarrow X_3$ y est fausse"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Seuls les modèles de Γ comptent (définition de la diapositive 8).",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "La valeur de X₃ n'importe que sur les modèles des hypothèses."
+          },
+          {
+            "optionId": "c",
+            "why": "Toutes les lignes figurent dans la table."
+          },
+          {
+            "optionId": "d",
+            "why": "Elle y vaut 1 ; c'est la première formule qui est fausse."
+          }
+        ],
+        "source": {
+          "file": "Semaine 3.pdf",
+          "page": 17,
+          "locator": "Diapositive 17"
+        }
+      },
+      {
+        "id": "t4-17",
+        "objectiveId": "obj4-coherence",
+        "bloomLevel": "understand",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Les diapositives 16 et 17 donnent deux réponses différentes pour les modèles des trois formules $X_1 \\vee X_2$, $X_1 \\wedge X_2 \\Rightarrow X_3$, $X_3$. Quelle est la bonne ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Les lignes 4, 6 et 8"
+          },
+          {
+            "id": "b",
+            "text": "Les lignes 4 et 8"
+          },
+          {
+            "id": "c",
+            "text": "La ligne 8 seulement"
+          },
+          {
+            "id": "d",
+            "text": "Les lignes 3, 4, 5, 6 et 8"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Vérification ligne par ligne ; la diapositive 17 corrige la 16.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "La ligne 6 ($X_1 = 1$, $X_2 = 0$, $X_3 = 1$) rend aussi les trois formules vraies."
+          },
+          {
+            "optionId": "c",
+            "why": "C'est la réponse du premier exemple, avec X₁ ∧ X₂."
+          },
+          {
+            "optionId": "d",
+            "why": "Ce sont les modèles des deux premières seulement ; X₃ est fausse sur 3 et 5."
+          }
+        ],
+        "source": {
+          "file": "Semaine 3.pdf",
+          "page": 17,
+          "locator": "Diapositives 16 et 17"
+        }
+      },
+      {
+        "id": "t4-18",
+        "objectiveId": "obj4-modele",
+        "bloomLevel": "recall",
+        "type": "mcq",
+        "difficulty": 1,
+        "prompt": "Que signifie $\\Vdash A$ (sans valuation à gauche) ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "$A$ est valide : toute valuation en est un modèle"
+          },
+          {
+            "id": "b",
+            "text": "$A$ a au moins un modèle"
+          },
+          {
+            "id": "c",
+            "text": "$A$ n'a aucun modèle"
+          },
+          {
+            "id": "d",
+            "text": "$A$ est une conséquence de $\\Gamma$"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Diapositive 5.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "C'est « satisfaisable »."
+          },
+          {
+            "optionId": "c",
+            "why": "C'est le contraire."
+          },
+          {
+            "optionId": "d",
+            "why": "Cela s'écrit $\\Gamma \\vDash A$."
+          }
+        ],
+        "source": {
+          "file": "Semaine 3.pdf",
+          "page": 5,
+          "locator": "Diapositive 5"
+        }
+      },
+      {
+        "id": "t4-19",
+        "objectiveId": "obj4-modele",
+        "bloomLevel": "apply",
+        "type": "multi",
+        "difficulty": 1,
+        "prompt": "Lesquelles de ces valuations sont des modèles de $X_1 \\Rightarrow X_2$ ? (plusieurs réponses)",
+        "options": [
+          {
+            "id": "a",
+            "text": "$[X_1 := 0, X_2 := 0]$"
+          },
+          {
+            "id": "b",
+            "text": "$[X_1 := 0, X_2 := 1]$"
+          },
+          {
+            "id": "c",
+            "text": "$[X_1 := 1, X_2 := 1]$"
+          },
+          {
+            "id": "d",
+            "text": "$[X_1 := 1, X_2 := 0]$"
+          }
+        ],
+        "correct": [
+          "a",
+          "b",
+          "c"
+        ],
+        "explanation": "Trois modèles sur quatre valuations : l'implication n'est fausse que pour (1, 0).",
+        "perDistractorExplanation": [
+          {
+            "optionId": "d",
+            "why": "C'est le seul cas où l'implication est fausse."
+          }
+        ],
+        "source": {
+          "file": "Semaine 3.pdf",
+          "page": 5,
+          "locator": "Diapositive 5"
+        }
+      },
+      {
+        "id": "t4-20",
+        "objectiveId": "obj4-valuation",
+        "bloomLevel": "apply",
+        "type": "short-answer",
+        "difficulty": 1,
+        "prompt": "Combien de valuations différentes existe-t-il pour une formule à 4 variables ? (un nombre)",
+        "correct": "16",
+        "acceptableAnswers": [
+          "2^4"
+        ],
+        "explanation": "Chaque variable vaut 0 ou 1 : $2^4 = 16$ valuations, une par ligne de la table.",
+        "source": {
+          "file": "Semaine 3.pdf",
+          "page": 3,
+          "locator": "Diapositive 3"
+        }
+      },
+      {
+        "id": "t4-21",
+        "objectiveId": "obj4-consequence",
+        "bloomLevel": "apply",
+        "type": "fill-blank",
+        "difficulty": 1,
+        "prompt": "Compléter : $B$ est conséquence logique de $\\Gamma$ si tout ____ de $\\Gamma$ est aussi un modèle de $B$.",
+        "correct": "modèle",
+        "acceptableAnswers": [
+          "modele"
+        ],
+        "explanation": "Définition de la diapositive 8.",
+        "source": {
+          "file": "Semaine 3.pdf",
+          "page": 8,
+          "locator": "Diapositive 8"
+        }
+      }
+    ]
+  },
+  "flashcards": [
+    {
+      "id": "f4-01",
+      "objectiveId": "obj4-valuation",
+      "front": "Valuation ?",
+      "back": "$V = [X_1 := v_1, \\dots, X_n := v_n]$ ; la valeur de $A$ sous $V$ se note $A_V$."
+    },
+    {
+      "id": "f4-02",
+      "objectiveId": "obj4-valuation",
+      "front": "Calculer A_V ?",
+      "back": "Parenthéser, substituer, calculer à partir des parenthèses les plus internes."
+    },
+    {
+      "id": "f4-03",
+      "objectiveId": "obj4-modele",
+      "front": "$V \\Vdash A$ ?",
+      "back": "$A_V = 1$ : $V$ est un modèle de $A$."
+    },
+    {
+      "id": "f4-04",
+      "objectiveId": "obj4-modele",
+      "front": "Satisfaisable ?",
+      "back": "Au moins un modèle."
+    },
+    {
+      "id": "f4-05",
+      "objectiveId": "obj4-modele",
+      "front": "Valide ($\\Vdash A$) ?",
+      "back": "Toute valuation est un modèle. Synonyme : tautologie."
+    },
+    {
+      "id": "f4-06",
+      "objectiveId": "obj4-modele",
+      "front": "Montrer qu'une formule n'est pas valide ?",
+      "back": "Exhiber UNE valuation qui la rend fausse — et vérifier le calcul."
+    },
+    {
+      "id": "f4-07",
+      "objectiveId": "obj4-coherence",
+      "front": "Ensemble cohérent ?",
+      "back": "Il existe un modèle commun à toutes ses formules."
+    },
+    {
+      "id": "f4-08",
+      "objectiveId": "obj4-coherence",
+      "front": "$\\{X_1 \\Rightarrow X_2, X_1, \\neg X_2\\}$ ?",
+      "back": "Incohérent : $X_1$ et $\\neg X_2$ forcent $[1, 0]$, qui rend $X_1 \\Rightarrow X_2$ fausse."
+    },
+    {
+      "id": "f4-09",
+      "objectiveId": "obj4-consequence",
+      "front": "$\\Gamma \\vDash B$ ?",
+      "back": "Tout modèle de $\\Gamma$ est un modèle de $B$."
+    },
+    {
+      "id": "f4-10",
+      "objectiveId": "obj4-consequence",
+      "front": "Vérifier une conséquence sur une table ?",
+      "back": "Regarder seulement les lignes où toutes les formules de Γ valent 1 ; B doit y valoir 1 partout."
+    },
+    {
+      "id": "f4-11",
+      "objectiveId": "obj4-consequence",
+      "front": "Réfuter Γ ⊨ B ?",
+      "back": "Une ligne où Γ est vrai et B faux."
+    },
+    {
+      "id": "f4-12",
+      "objectiveId": "obj4-coherence",
+      "front": "Cohérence ou conséquence ?",
+      "back": "Cohérence : UN modèle commun existe. Conséquence : TOUS les modèles de Γ satisfont B."
+    }
+  ],
+  "exercises": [
+    {
+      "id": "e4-01",
+      "objectiveId": "obj4-modele",
+      "difficulty": 2,
+      "mode": "trace",
+      "language": "text",
+      "title": "Modèle ou pas ?",
+      "statement": "Pour A ≡ X₁ ∧ ¬X₂ ∨ X₃ ⇒ X₄ (diapositives 4 et 6), calculer A_V pour chacune des quatre valuations en détaillant, et dire lesquelles sont des modèles de A. Conclure : A est-elle valide ? satisfaisable ?",
+      "starterCode": "V  = [X₁ := 1, X₂ := 0, X₃ := 0, X₄ := 1]\nV₁ = [X₁ := 0, X₂ := 1, X₃ := 0, X₄ := 0]\nV₂ = [X₁ := 1, X₂ := 0, X₃ := 0, X₄ := 0]\nV₃ = [X₁ := 0, X₂ := 0, X₃ := 1, X₄ := 0]",
+      "hints": [
+        "Parenthéser : ((X₁ ∧ (¬X₂)) ∨ X₃) ⇒ X₄.",
+        "Calculer d'abord l'hypothèse H = (X₁ ∧ ¬X₂) ∨ X₃, puis H ⇒ X₄.",
+        "A n'est fausse que si H vaut 1 et X₄ vaut 0."
+      ],
+      "solution": "V : 1 · V₁ : 1 · V₂ : 0 · V₃ : 0 — satisfaisable, non valide",
+      "expectedOutput": "Forme parenthésée : ((X₁ ∧ (¬X₂)) ∨ X₃) ⇒ X₄\n\nV  : H = (1 ∧ 1) ∨ 0 = 1 ;  1 ⇒ 1 = 1   → modèle\nV₁ : H = (0 ∧ 0) ∨ 0 = 0 ;  0 ⇒ 0 = 1   → modèle\nV₂ : H = (1 ∧ 1) ∨ 0 = 1 ;  1 ⇒ 0 = 0   → pas un modèle\nV₃ : H = (0 ∧ 1) ∨ 1 = 1 ;  1 ⇒ 0 = 0   → pas un modèle\n\nA a des modèles (V, V₁) : elle est SATISFAISABLE.\nA n'est pas satisfaite par V₂ : elle n'est PAS VALIDE.",
+      "solutionExplanation": "V₁ est la valuation que la diapositive 6 présente comme rendant A fausse ; le calcul montre qu'elle en est un modèle. La conclusion de la diapositive — A n'est pas valide — reste vraie, grâce à V₂ ou V₃. Leçon : un contre-exemple se vérifie toujours par le calcul.",
+      "source": {
+        "file": "Semaine 3.pdf",
+        "page": 6,
+        "locator": "Diapositives 4 et 6"
+      }
+    },
+    {
+      "id": "e4-02",
+      "objectiveId": "obj4-consequence",
+      "difficulty": 2,
+      "mode": "trace",
+      "language": "text",
+      "title": "Le second exemple, en entier",
+      "statement": "Pour (1) X₁ ∨ X₂, (2) X₁ ∧ X₂ ⇒ X₃, (3) X₃ : dresser la table de vérité, puis répondre aux questions de la semaine 3.\n(b) Existe-t-il un modèle pour les trois formules ?\n(c) (3) est-elle une conséquence logique de (1) et (2) ?\n(d) Les trois formules sont-elles cohérentes ?",
+      "starterCode": "no | X₁ X₂ X₃ | (1) | (2) | (3)\n---+----------+-----+-----+----",
+      "hints": [
+        "8 lignes. (2) n'est fausse que si X₁ ∧ X₂ = 1 et X₃ = 0.",
+        "(b) et (d) : chercher les lignes où les trois colonnes valent 1.",
+        "(c) : parmi les lignes où (1) et (2) valent 1, (3) vaut-elle toujours 1 ?"
+      ],
+      "solution": "(b) oui, lignes 4, 6, 8 · (c) non, lignes 3 et 5 · (d) oui",
+      "expectedOutput": "no | X₁ X₂ X₃ | (1) (2) (3)\n 1 |  0  0  0 |  0   1   0\n 2 |  0  0  1 |  0   1   1\n 3 |  0  1  0 |  1   1   0   ← (1), (2) vraies, (3) fausse\n 4 |  0  1  1 |  1   1   1   ← modèle des trois\n 5 |  1  0  0 |  1   1   0   ← (1), (2) vraies, (3) fausse\n 6 |  1  0  1 |  1   1   1   ← modèle des trois\n 7 |  1  1  0 |  1   0   0\n 8 |  1  1  1 |  1   1   1   ← modèle des trois\n\n(b) Oui : lignes 4, 6 et 8.\n(c) Non : (1) et (2) sont vraies sur 3, 4, 5, 6, 8, et (3) est fausse sur 3 et 5.\n(d) Oui : les lignes 4, 6 et 8 sont des modèles des trois.",
+      "solutionExplanation": "Comparer avec le premier exemple, où (1) était X₁ ∧ X₂ : il n'y avait alors qu'un modèle de (1) et (2), la ligne 8, et la conséquence était vraie. Passer de ∧ à ∨ ajoute les lignes 3 et 5, où X₃ n'est plus forcée. (La diapositive 16 oublie la ligne 6 à la question (b) ; la 17 la rétablit.)",
+      "source": {
+        "file": "Semaine 3.pdf",
+        "page": 17,
+        "locator": "Diapositives 14 à 19"
+      }
+    },
+    {
+      "id": "e4-03",
+      "objectiveId": "obj4-consequence",
+      "difficulty": 3,
+      "mode": "find-bug",
+      "language": "text",
+      "title": "Trouver l'erreur — cohérence prise pour conséquence",
+      "statement": "Un étudiant répond à la question (c) du second exemple. Trouver l'erreur.",
+      "starterCode": "(1) X₁ ∨ X₂    (2) X₁ ∧ X₂ ⇒ X₃    (3) X₃\n\n« Sur les lignes 4, 6 et 8, les trois formules sont vraies en même temps.\n  Donc (3) est une conséquence logique de (1) et (2). »",
+      "hints": [
+        "Relire la définition : « tout modèle de Γ est un modèle de B ». Qui est Γ ici ?",
+        "Les lignes 4, 6 et 8 sont-elles TOUS les modèles de (1) et (2) ?",
+        "Regarder les lignes 3 et 5."
+      ],
+      "solution": "Il a montré la cohérence, pas la conséquence : (1) et (2) ont aussi pour modèles les lignes 3 et 5, où (3) est fausse.",
+      "expectedOutput": "L'ERREUR\n    Trouver des lignes où les TROIS formules sont vraies montre que l'ensemble\n    {(1), (2), (3)} est COHÉRENT (question (d)), pas que (3) découle de (1) et (2).\n\nLA BONNE MÉTHODE\n    Lister TOUS les modèles de Γ = {(1), (2)} : lignes 3, 4, 5, 6, 8.\n    (3) doit être vraie sur chacun. Elle est fausse sur 3 et 5.\n\nCONCLUSION\n    (3) n'est PAS conséquence logique de (1) et (2).",
+      "solutionExplanation": "La confusion vient de ce que les deux questions se lisent sur la même table. La différence est dans les quantificateurs : cohérence = IL EXISTE une ligne où tout est vrai ; conséquence = POUR TOUTES les lignes où Γ est vrai, B est vrai.",
+      "source": {
+        "file": "Semaine 3.pdf",
+        "page": 17,
+        "locator": "Diapositive 17"
+      }
+    },
+    {
+      "id": "e4-04",
+      "objectiveId": "obj4-coherence",
+      "difficulty": 1,
+      "mode": "fill-blank",
+      "language": "text",
+      "title": "Compléter l'argument d'incohérence",
+      "statement": "Compléter le raisonnement de la diapositive 7 pour l'ensemble {X₁ ⇒ X₂, X₁, ¬X₂}.",
+      "starterCode": "- La seule valuation pouvant satisfaire X₁ contient X₁ := ____.\n- La seule valuation pouvant satisfaire ¬X₂ contient X₂ := ____.\n- La valuation [X₁ := 1, X₂ := 0] donne X₁ ⇒ X₂ = ____ ⇒ ____ = ____.\n- Il n'existe donc aucun ____ commun : l'ensemble est ____.",
+      "hints": [
+        "Une formule réduite à une variable n'est vraie que si la variable vaut 1.",
+        "¬X₂ n'est vraie que si X₂ vaut 0.",
+        "1 ⇒ 0 est le seul cas où l'implication est fausse."
+      ],
+      "solution": "1 · 0 · 1 ⇒ 0 = 0 · modèle · incohérent",
+      "expectedOutput": "- X₁ := 1\n- X₂ := 0\n- X₁ ⇒ X₂ = 1 ⇒ 0 = 0\n- Il n'existe aucun modèle commun : l'ensemble est incohérent.",
+      "solutionExplanation": "Les deux formules les plus simples fixent entièrement la valuation ; il ne reste qu'à tester la troisième. C'est la démarche la plus rapide dès que Γ contient des variables seules ou leurs négations.",
+      "source": {
+        "file": "Semaine 3.pdf",
+        "page": 7,
+        "locator": "Diapositive 7"
+      }
+    },
+    {
+      "id": "e4-05",
+      "objectiveId": "obj4-consequence",
+      "difficulty": 2,
+      "mode": "predict-output",
+      "language": "text",
+      "title": "Deux conséquences à tester",
+      "statement": "Soit Γ = {X₁ ∨ X₂, ¬X₁}. Sans table complète, trouver les modèles de Γ, puis prédire : X₂ est-elle conséquence logique de Γ ? Et ¬X₂ ?",
+      "starterCode": "Γ = { X₁ ∨ X₂ ,  ¬X₁ }\n\nΓ ⊨ X₂  ?\nΓ ⊨ ¬X₂ ?",
+      "hints": [
+        "¬X₁ fixe X₁.",
+        "Avec X₁ := 0, que faut-il pour que X₁ ∨ X₂ soit vraie ?",
+        "Il n'y a qu'un modèle de Γ : il suffit de tester X₂ et ¬X₂ dessus."
+      ],
+      "solution": "Unique modèle [X₁ := 0, X₂ := 1] · Γ ⊨ X₂ : oui · Γ ⊨ ¬X₂ : non",
+      "expectedOutput": "¬X₁ vraie  ⇒  X₁ := 0.\nX₁ ∨ X₂ vraie avec X₁ = 0  ⇒  X₂ := 1.\n\nUnique modèle de Γ : [X₁ := 0, X₂ := 1].\n\nΓ ⊨ X₂  : X₂ vaut 1 sur ce modèle → OUI.\nΓ ⊨ ¬X₂ : ¬X₂ vaut 0 sur ce modèle → NON (ce modèle est un contre-exemple).",
+      "solutionExplanation": "Un seul modèle de Γ, donc une seule ligne à regarder : la conséquence se décide immédiatement. On retrouve un raisonnement très courant — « l'un ou l'autre, et pas le premier, donc le second ».",
+      "source": {
+        "file": "Semaine 3.pdf",
+        "page": 8,
+        "locator": "Diapositive 8"
+      }
+    }
+  ]
+}

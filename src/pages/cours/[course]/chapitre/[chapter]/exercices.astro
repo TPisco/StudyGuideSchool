@@ -1,0 +1,54 @@
+---
+import Base from '../../../../../layouts/Base.astro';
+import ExerciseRunner from '../../../../../components/react/ExerciseRunner';
+import { getAllBundles } from '../../../../../lib/content';
+import { routes } from '../../../../../lib/paths';
+import { EXERCISE_MODE_LABELS } from '../../../../../lib/utils';
+
+export async function getStaticPaths() {
+  const bundles = await getAllBundles();
+  return bundles.flatMap((b) =>
+    b.chapters.map((ch) => ({ params: { course: b.id, chapter: ch.slug }, props: { bundle: b, chapter: ch } })),
+  );
+}
+
+const { bundle, chapter } = Astro.props;
+const exercises = [...chapter.data.exercises].sort((a, b) => a.difficulty - b.difficulty);
+const runnable = exercises.filter((e) => e.mode === 'run');
+const reasoning = exercises.filter((e) => e.mode !== 'run');
+---
+
+<Base title={`Exercices — ${chapter.title}`} accent={bundle.course.accent}>
+  <nav aria-label="Fil d'Ariane" class="mb-5 flex flex-wrap items-center gap-1.5 text-sm" style="color: var(--text-faint);">
+    <a href={routes.course(bundle.id)} class="hover:underline">{bundle.course.code}</a>
+    <span aria-hidden="true">/</span>
+    <a href={routes.chapter(bundle.id, chapter.slug)} class="hover:underline">Chapitre {chapter.number}</a>
+    <span aria-hidden="true">/</span>
+    <span>Exercices</span>
+  </nav>
+
+  <header class="mb-6">
+    <h1 class="text-2xl font-bold tracking-tight">Exercices — {chapter.title}</h1>
+    <p class="mt-2 text-sm" style="color: var(--text-muted);">
+      {runnable.length} exercice(s) s'exécutent réellement dans le navigateur avec leurs tests.
+      {reasoning.length > 0 &&
+        ` Les ${reasoning.length} autres portent sur des langages qu'un navigateur ne peut pas exécuter : ils se résolvent par le raisonnement, puis s'auto-évaluent.`}
+    </p>
+    <div class="mt-3 flex flex-wrap gap-1.5">
+      {
+        [...new Set(exercises.map((e) => e.mode))].map((m) => (
+          <span class="chip">{EXERCISE_MODE_LABELS[m] ?? m}</span>
+        ))
+      }
+    </div>
+  </header>
+
+  <div class="space-y-5">
+    {exercises.map((ex) => <ExerciseRunner exercise={ex} courseId={bundle.id} client:visible />)}
+  </div>
+
+  <div class="mt-8 flex flex-wrap gap-2">
+    <a href={routes.chapter(bundle.id, chapter.slug)} class="btn">← Retour au chapitre</a>
+    <a href={routes.test(bundle.id, chapter.slug)} class="btn">Passer au test</a>
+  </div>
+</Base>

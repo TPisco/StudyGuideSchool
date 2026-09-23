@@ -1,0 +1,932 @@
+{
+  "course": "DEMO-INFO",
+  "chapter": 1,
+  "concepts": [
+    {
+      "id": "c1-modele-cout",
+      "term": "Modèle de coût",
+      "definition": "Convention qui fixe quelles opérations sont comptées pour 1 : affectation, comparaison, opération arithmétique, accès indexé à un tableau.",
+      "whyItMatters": "Sans modèle de coût, « compter les opérations » n'a pas de sens : deux personnes obtiennent deux résultats différents sur le même code.",
+      "commonMisconception": "Croire qu'un appel de fonction coûte toujours 1. Un appel à `sorted(t)` coûte Θ(n log n), pas Θ(1) — le coût d'un appel est celui de son corps.",
+      "objectiveId": "obj1-compter",
+      "source": { "file": "demo-notes-complexite.pdf", "page": 3, "locator": "Section 1.2" }
+    },
+    {
+      "id": "c1-grand-o",
+      "term": "Notation O (grand O)",
+      "definition": "f(n) = O(g(n)) s'il existe c > 0 et n₀ tels que f(n) ≤ c·g(n) pour tout n ≥ n₀. C'est une borne supérieure asymptotique.",
+      "whyItMatters": "C'est la garantie que l'on donne quand on promet qu'un programme « ne fera pas pire que » : elle borne le temps d'exécution par le haut.",
+      "commonMisconception": "Lire O comme « égale à ». O(n²) ne dit pas que le coût est n² : il dit qu'il ne dépasse pas n² à une constante près. Un algorithme en Θ(n) est aussi, correctement, en O(n²).",
+      "objectiveId": "obj1-notation",
+      "source": { "file": "demo-diapos-cours01.pdf", "page": 9, "locator": "Diapositive 9" }
+    },
+    {
+      "id": "c1-omega",
+      "term": "Notation Ω (grand oméga)",
+      "definition": "f(n) = Ω(g(n)) s'il existe c > 0 et n₀ tels que f(n) ≥ c·g(n) pour tout n ≥ n₀. C'est une borne inférieure asymptotique.",
+      "whyItMatters": "Ω sert à démontrer qu'un problème est difficile : dire qu'un tri par comparaisons est en Ω(n log n) signifie qu'aucun algorithme de ce type ne peut faire mieux.",
+      "commonMisconception": "Confondre Ω avec le meilleur cas. Ω borne la fonction de coût étudiée, quelle qu'elle soit ; on peut parfaitement écrire « le pire cas est en Ω(n²) ».",
+      "objectiveId": "obj1-notation",
+      "source": { "file": "demo-diapos-cours01.pdf", "page": 10, "locator": "Diapositive 10" }
+    },
+    {
+      "id": "c1-theta",
+      "term": "Notation Θ (grand thêta)",
+      "definition": "f(n) = Θ(g(n)) si f(n) = O(g(n)) et f(n) = Ω(g(n)) simultanément : g encadre f par le haut et par le bas.",
+      "whyItMatters": "C'est la notation à privilégier quand le comptage est exact : elle dit la vraie vitesse de croissance, pas seulement une majoration prudente.",
+      "commonMisconception": "Écrire O par habitude quand Θ est connu. Annoncer O(n²) pour le tri par insertion est vrai mais cache l'information utile : c'est Θ(n²) dans le pire cas.",
+      "objectiveId": "obj1-notation",
+      "source": { "file": "demo-diapos-cours01.pdf", "page": 11, "locator": "Diapositive 11" }
+    },
+    {
+      "id": "c1-terme-dominant",
+      "term": "Terme dominant",
+      "definition": "Dans une somme de termes, celui qui croît le plus vite ; les autres deviennent négligeables quand n tend vers l'infini.",
+      "whyItMatters": "C'est la règle de simplification qui transforme un comptage exact (3n² + 50n + 900) en une classe de complexité (Θ(n²)).",
+      "commonMisconception": "Penser que les termes négligés ne comptent jamais. Pour n = 10, 50n + 900 dépasse 3n² : l'asymptotique ne dit rien sur les petites entrées.",
+      "objectiveId": "obj1-classer",
+      "source": { "file": "demo-notes-complexite.pdf", "page": 5, "locator": "Section 1.3" }
+    },
+    {
+      "id": "c1-pire-cas",
+      "term": "Pire cas",
+      "definition": "Le coût maximal sur toutes les entrées de taille n. C'est l'analyse annoncée par défaut.",
+      "whyItMatters": "C'est la seule vraie garantie : elle tient quelle que soit l'entrée, sans hypothèse sur la distribution des données.",
+      "commonMisconception": "Croire que le pire cas est « une entrée rare, donc peu importante ». Les entrées défavorables sont souvent les plus fréquentes en pratique (données déjà triées, valeurs absentes).",
+      "objectiveId": "obj1-cas",
+      "source": { "file": "demo-diapos-cours01.pdf", "page": 14, "locator": "Diapositive 14" }
+    },
+    {
+      "id": "c1-cas-moyen",
+      "term": "Cas moyen",
+      "definition": "L'espérance du coût sur les entrées de taille n, pour une distribution de probabilité donnée sur ces entrées.",
+      "whyItMatters": "Il décrit mieux le comportement habituel d'un algorithme comme le tri rapide, dont le pire cas (Θ(n²)) est très rare en pratique.",
+      "commonMisconception": "Calculer le cas moyen comme la moyenne entre meilleur et pire cas. C'est une espérance sur toutes les entrées, pas la moyenne de deux extrêmes.",
+      "objectiveId": "obj1-cas",
+      "source": { "file": "demo-notes-complexite.pdf", "page": 8, "locator": "Section 1.5" }
+    },
+    {
+      "id": "c1-recurrence",
+      "term": "Relation de récurrence",
+      "definition": "Équation exprimant le coût T(n) d'un algorithme récursif en fonction du coût sur des entrées plus petites, par exemple T(n) = T(n/2) + 1.",
+      "whyItMatters": "C'est l'outil qui permet d'analyser tout algorithme « diviser pour régner » : sans elle, on ne peut pas justifier le Θ(log n) de la dichotomie.",
+      "commonMisconception": "Oublier le cas de base. Sans T(1) = 1, la récurrence n'a pas de solution et le déroulement ne s'arrête jamais.",
+      "objectiveId": "obj1-recursif",
+      "source": { "file": "demo-notes-complexite.pdf", "page": 11, "locator": "Section 1.6" }
+    }
+  ],
+  "tables": [
+    {
+      "id": "t1-classes",
+      "title": "Classes de complexité usuelles",
+      "kind": "complexity",
+      "caption": "Effet d'un doublement de n, et algorithme représentatif de chaque classe.",
+      "columns": [
+        { "key": "classe", "label": "Classe", "mono": true },
+        { "key": "nom", "label": "Nom" },
+        { "key": "doublement", "label": "Si n double, le coût…" },
+        { "key": "exemple", "label": "Exemple vu en cours" }
+      ],
+      "rows": [
+        { "classe": "Θ(1)", "nom": "constante", "doublement": "ne change pas", "exemple": "accès tableau[i]" },
+        { "classe": "Θ(log n)", "nom": "logarithmique", "doublement": "augmente de 1 opération", "exemple": "recherche dichotomique" },
+        { "classe": "Θ(n)", "nom": "linéaire", "doublement": "double", "exemple": "recherche séquentielle, somme" },
+        { "classe": "Θ(n log n)", "nom": "quasi-linéaire", "doublement": "un peu plus que double", "exemple": "tri fusion" },
+        { "classe": "Θ(n²)", "nom": "quadratique", "doublement": "est multiplié par 4", "exemple": "compte_paires, tri par insertion" },
+        { "classe": "Θ(n³)", "nom": "cubique", "doublement": "est multiplié par 8", "exemple": "produit de matrices naïf" },
+        { "classe": "Θ(2ⁿ)", "nom": "exponentielle", "doublement": "est élevé au carré", "exemple": "énumération des sous-ensembles" }
+      ],
+      "source": { "file": "demo-diapos-cours01.pdf", "page": 12, "locator": "Diapositive 12" }
+    },
+    {
+      "id": "t1-notations",
+      "title": "O, Ω et Θ : que garantit chaque notation",
+      "kind": "comparison",
+      "columns": [
+        { "key": "notation", "label": "Notation", "mono": true },
+        { "key": "definition", "label": "Définition", "mono": true },
+        { "key": "sens", "label": "Se lit" },
+        { "key": "usage", "label": "Quand l'employer" }
+      ],
+      "rows": [
+        {
+          "notation": "O(g)",
+          "definition": "f(n) ≤ c·g(n) pour n ≥ n₀",
+          "sens": "ne croît pas plus vite que",
+          "usage": "on ne connaît qu'une majoration, ou on veut une garantie"
+        },
+        {
+          "notation": "Ω(g)",
+          "definition": "f(n) ≥ c·g(n) pour n ≥ n₀",
+          "sens": "croît au moins aussi vite que",
+          "usage": "on démontre qu'on ne peut pas faire mieux"
+        },
+        {
+          "notation": "Θ(g)",
+          "definition": "O(g) et Ω(g) à la fois",
+          "sens": "croît exactement comme",
+          "usage": "le comptage est exact — c'est le cas le plus fréquent en TP"
+        }
+      ],
+      "source": { "file": "demo-notes-complexite.pdf", "page": 6, "locator": "Tableau 1.1" }
+    }
+  ],
+  "quiz": {
+    "title": "Quiz — vérification rapide",
+    "estimatedMinutes": 12,
+    "questions": [
+      {
+        "id": "q1-01",
+        "objectiveId": "obj1-notation",
+        "bloomLevel": "recall",
+        "type": "mcq",
+        "difficulty": 1,
+        "prompt": "Quelle est la définition exacte de f(n) = O(g(n)) ?",
+        "options": [
+          { "id": "a", "text": "∃c > 0, ∃n₀, ∀n ≥ n₀ : f(n) ≤ c·g(n)" },
+          { "id": "b", "text": "∃c > 0, ∃n₀, ∀n ≥ n₀ : f(n) ≥ c·g(n)" },
+          { "id": "c", "text": "∀n : f(n) ≤ g(n)" },
+          { "id": "d", "text": "lim f(n)/g(n) = 1 quand n → ∞" }
+        ],
+        "correct": "a",
+        "explanation": "O est une borne supérieure asymptotique : au-delà d'un certain rang n₀, f reste sous un multiple constant de g. Les deux quantificateurs existentiels (c et n₀) sont essentiels — ils autorisent à ignorer les facteurs constants et les petites valeurs de n.",
+        "perDistractorExplanation": [
+          { "optionId": "b", "why": "C'est la définition de Ω, la borne inférieure. L'inégalité est inversée." },
+          { "optionId": "c", "why": "Il manque la constante c et le rang n₀. Avec cette définition, 2n ne serait pas O(n), ce qui est faux." },
+          { "optionId": "d", "why": "Cette limite caractérise une équivalence stricte (f ~ g), bien plus forte que O : elle interdirait même le facteur constant." }
+        ],
+        "source": { "file": "demo-diapos-cours01.pdf", "page": 9 }
+      },
+      {
+        "id": "q1-02",
+        "objectiveId": "obj1-notation",
+        "bloomLevel": "understand",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Le tri par insertion est en Θ(n²) dans le pire cas. Que penser de l'affirmation « le tri par insertion est en O(n³) » ?",
+        "options": [
+          { "id": "a", "text": "Vraie, mais peu informative." },
+          { "id": "b", "text": "Fausse, car sa complexité est Θ(n²)." },
+          { "id": "c", "text": "Vraie, et équivalente à dire Θ(n³)." },
+          { "id": "d", "text": "Dénuée de sens : O ne s'emploie qu'avec la classe exacte." }
+        ],
+        "correct": "a",
+        "explanation": "O est une majoration. Comme n² ≤ n³ pour n ≥ 1, tout algorithme en Θ(n²) est aussi en O(n³), en O(n⁴), etc. L'affirmation est donc correcte, simplement très lâche : elle ne dit rien d'utile.",
+        "perDistractorExplanation": [
+          { "optionId": "b", "why": "Confusion entre O et Θ : Θ(n²) n'interdit pas O(n³), il l'implique au contraire." },
+          { "optionId": "c", "why": "Θ(n³) serait faux : il affirmerait aussi Ω(n³), donc que le tri par insertion coûte au moins n³ — ce qui est faux." },
+          { "optionId": "d", "why": "O s'emploie justement pour majorer sans connaître la classe exacte ; c'est son usage normal." }
+        ]
+      },
+      {
+        "id": "q1-03",
+        "objectiveId": "obj1-notation",
+        "bloomLevel": "understand",
+        "type": "true-false",
+        "difficulty": 2,
+        "prompt": "Si f(n) = Θ(g(n)), alors on peut affirmer f(n) = O(g(n)).",
+        "options": [
+          { "id": "v", "text": "Vrai" },
+          { "id": "f", "text": "Faux" }
+        ],
+        "correct": "v",
+        "explanation": "Par définition, Θ(g) = O(g) ∩ Ω(g). Θ est donc strictement plus fort que O : il contient l'information de O plus celle de Ω. La réciproque, elle, est fausse.",
+        "perDistractorExplanation": [
+          { "optionId": "f", "why": "Ce serait vrai dans l'autre sens : de O(g) on ne peut pas déduire Θ(g). Ici l'implication va du plus fort vers le plus faible, elle est valide." }
+        ]
+      },
+      {
+        "id": "q1-04",
+        "objectiveId": "obj1-compter",
+        "bloomLevel": "apply",
+        "type": "code-output",
+        "difficulty": 2,
+        "prompt": "Qu'affiche exactement ce programme ?",
+        "code": {
+          "lang": "python",
+          "value": "n = 6\nc = 0\nfor i in range(n):\n    for j in range(i + 1, n):\n        c += 1\nprint(c)"
+        },
+        "correct": "15",
+        "acceptableAnswers": ["15 "],
+        "explanation": "La boucle interne fait n−1−i tours. La somme vaut 5+4+3+2+1+0 = 15, soit n(n−1)/2 = 6×5/2 = 15. C'est le schéma des boucles imbriquées « triangulaires », en Θ(n²).",
+        "source": { "file": "demo-notes-complexite.pdf", "page": 9 }
+      },
+      {
+        "id": "q1-05",
+        "objectiveId": "obj1-compter",
+        "bloomLevel": "apply",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Quelle est la complexité de ce fragment, en fonction de n ?\n\n    for i in range(n):\n        for j in range(3):\n            total += tableau[i]",
+        "options": [
+          { "id": "a", "text": "Θ(n)" },
+          { "id": "b", "text": "Θ(n²)" },
+          { "id": "c", "text": "Θ(3n²)" },
+          { "id": "d", "text": "Θ(log n)" }
+        ],
+        "correct": "a",
+        "explanation": "La boucle interne fait exactement 3 tours, indépendamment de n. Le total est 3n opérations, soit Θ(n). Le nombre de boucles imbriquées ne détermine pas la classe : c'est le nombre de tours qui compte.",
+        "perDistractorExplanation": [
+          { "optionId": "b", "why": "Réflexe « deux boucles imbriquées donc n² ». Ici la boucle interne ne dépend pas de n, elle ne contribue qu'un facteur constant." },
+          { "optionId": "c", "why": "Double erreur : la classe n'est pas quadratique, et on n'écrit jamais de constante multiplicative dans une notation asymptotique." },
+          { "optionId": "d", "why": "Rien ici ne divise l'espace de travail ; un Θ(log n) suppose une réduction par un facteur constant à chaque étape." }
+        ]
+      },
+      {
+        "id": "q1-06",
+        "objectiveId": "obj1-classer",
+        "bloomLevel": "analyze",
+        "type": "multi",
+        "difficulty": 3,
+        "prompt": "Parmi ces affirmations, lesquelles sont vraies ? (plusieurs réponses)",
+        "options": [
+          { "id": "a", "text": "3n² + 50n + 900 = Θ(n²)" },
+          { "id": "b", "text": "n log n = O(n²)" },
+          { "id": "c", "text": "2ⁿ = O(n¹⁰⁰)" },
+          { "id": "d", "text": "n² = Ω(n³)" }
+        ],
+        "correct": ["a", "b"],
+        "explanation": "(a) le terme dominant est n², les autres sont négligeables. (b) log n ≤ n donc n log n ≤ n², la majoration est correcte. Une exponentielle finit toujours par dépasser n'importe quel polynôme, et n² croît moins vite que n³.",
+        "perDistractorExplanation": [
+          { "optionId": "c", "why": "Faux : 2ⁿ dépasse n¹⁰⁰ à partir d'un certain rang. Aucun polynôme ne majore une exponentielle, même avec un exposant énorme." },
+          { "optionId": "d", "why": "Faux : Ω(n³) signifierait n² ≥ c·n³ pour n grand, donc 1 ≥ c·n — impossible. C'est n³ qui est Ω(n²)." }
+        ]
+      },
+      {
+        "id": "q1-07",
+        "objectiveId": "obj1-compter",
+        "bloomLevel": "apply",
+        "type": "short-answer",
+        "difficulty": 2,
+        "prompt": "Pour n = 1000, combien de comparaisons exactement la double boucle de `compte_paires` effectue-t-elle ? (donner le nombre entier)",
+        "correct": "499500",
+        "acceptableAnswers": ["499 500", "499'500"],
+        "explanation": "Le comptage vaut n(n−1)/2 = 1000 × 999 / 2 = 499 500. C'est bien de l'ordre de n²/2, donc Θ(n²) — la constante 1/2 disparaît en notation asymptotique mais pas dans le calcul exact.",
+        "source": { "file": "demo-notes-complexite.pdf", "page": 9 }
+      },
+      {
+        "id": "q1-08",
+        "objectiveId": "obj1-notation",
+        "bloomLevel": "recall",
+        "type": "fill-blank",
+        "difficulty": 1,
+        "prompt": "Compléter : la notation ____ fournit une borne inférieure asymptotique, celle qui sert à prouver qu'un problème ne peut pas être résolu plus vite.",
+        "correct": "Ω",
+        "acceptableAnswers": ["Omega", "omega", "oméga", "grand oméga", "grand omega"],
+        "explanation": "Ω (grand oméga) minore : f(n) ≥ c·g(n) au-delà de n₀. C'est la notation employée pour les bornes inférieures de problèmes, par exemple « tout tri par comparaisons est en Ω(n log n) »."
+      },
+      {
+        "id": "q1-09",
+        "objectiveId": "obj1-classer",
+        "bloomLevel": "recall",
+        "type": "mcq",
+        "difficulty": 1,
+        "prompt": "Un algorithme est en Θ(n²). Si on double la taille de l'entrée, le nombre d'opérations est approximativement multiplié par :",
+        "options": [
+          { "id": "a", "text": "4" },
+          { "id": "b", "text": "2" },
+          { "id": "c", "text": "8" },
+          { "id": "d", "text": "1, il ne change pas" }
+        ],
+        "correct": "a",
+        "explanation": "(2n)² = 4n² : doubler l'entrée quadruple le coût. C'est le test le plus rapide pour reconnaître une complexité quadratique sur des mesures expérimentales.",
+        "perDistractorExplanation": [
+          { "optionId": "b", "why": "Un doublement du coût correspond à Θ(n), pas à Θ(n²)." },
+          { "optionId": "c", "why": "Un facteur 8 correspond à Θ(n³), puisque (2n)³ = 8n³." },
+          { "optionId": "d", "why": "Un coût insensible à n caractérise Θ(1)." }
+        ]
+      },
+      {
+        "id": "q1-10",
+        "objectiveId": "obj1-classer",
+        "bloomLevel": "analyze",
+        "type": "mcq",
+        "difficulty": 3,
+        "prompt": "L'algorithme A effectue 1000n opérations, l'algorithme B en effectue n²/2. Que conclure ?",
+        "options": [
+          { "id": "a", "text": "B est préférable pour les petites entrées, A pour les grandes." },
+          { "id": "b", "text": "A est préférable quelle que soit la taille de l'entrée." },
+          { "id": "c", "text": "B est préférable quelle que soit la taille de l'entrée." },
+          { "id": "d", "text": "Impossible de comparer : les constantes ne comptent pas." }
+        ],
+        "correct": "a",
+        "explanation": "n²/2 < 1000n équivaut à n < 2000. En dessous de 2000 éléments, B gagne ; au-delà, A gagne, et l'écart se creuse sans limite. L'asymptotique départage les grandes entrées, pas toutes les entrées.",
+        "perDistractorExplanation": [
+          { "optionId": "b", "why": "Faux pour n < 2000 : la constante 1000 pénalise lourdement A sur les petites entrées, ce qui est justement pourquoi on bascule sur un tri par insertion sous un certain seuil." },
+          { "optionId": "c", "why": "Faux pour n > 2000 : le terme quadratique finit par dominer n'importe quelle constante." },
+          { "optionId": "d", "why": "Les constantes sont ignorées dans la *classification* asymptotique, mais elles restent décisives dans une comparaison concrète à n donné." }
+        ]
+      },
+      {
+        "id": "q1-11",
+        "objectiveId": "obj1-cas",
+        "bloomLevel": "understand",
+        "type": "true-false",
+        "difficulty": 2,
+        "prompt": "Le cas moyen se calcule en faisant la moyenne entre le coût du meilleur cas et celui du pire cas.",
+        "options": [
+          { "id": "v", "text": "Vrai" },
+          { "id": "f", "text": "Faux" }
+        ],
+        "correct": "f",
+        "explanation": "Le cas moyen est une espérance mathématique sur l'ensemble des entrées de taille n, pondérée par leur probabilité. Pour la recherche séquentielle avec cible présente, cela donne (n+1)/2 — qui ne se déduit pas de la moyenne entre 1 et n.",
+        "perDistractorExplanation": [
+          { "optionId": "v", "why": "Cette moyenne n'a aucune justification : elle suppose implicitement que meilleur et pire cas sont équiprobables et seuls possibles, ce qui est faux." }
+        ]
+      },
+      {
+        "id": "q1-12",
+        "objectiveId": "obj1-recursif",
+        "bloomLevel": "apply",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Un algorithme vérifie T(n) = T(n/2) + 1 avec T(1) = 1. Quelle est sa complexité ?",
+        "options": [
+          { "id": "a", "text": "Θ(log n)" },
+          { "id": "b", "text": "Θ(n)" },
+          { "id": "c", "text": "Θ(n log n)" },
+          { "id": "d", "text": "Θ(n/2)" }
+        ],
+        "correct": "a",
+        "explanation": "En déroulant : T(n) = T(n/2ᵏ) + k. L'arrêt survient quand n/2ᵏ = 1, soit k = log₂ n. D'où T(n) = 1 + log₂ n = Θ(log n). C'est exactement la récurrence de la recherche dichotomique.",
+        "perDistractorExplanation": [
+          { "optionId": "b", "why": "Θ(n) correspondrait à T(n) = T(n−1) + 1, où l'on retire un élément à chaque étape au lieu de diviser par deux." },
+          { "optionId": "c", "why": "Θ(n log n) vient de T(n) = 2T(n/2) + Θ(n), la récurrence du tri fusion : deux appels récursifs et un travail linéaire de fusion." },
+          { "optionId": "d", "why": "Θ(n/2) n'est pas une classe distincte : la constante 1/2 disparaît, cela s'écrit Θ(n)." }
+        ],
+        "source": { "file": "demo-notes-complexite.pdf", "page": 11 }
+      }
+    ]
+  },
+  "test": {
+    "title": "Test du chapitre 1",
+    "instructions": "20 questions couvrant tout le chapitre. Plus long et plus difficile que le quiz.",
+    "estimatedMinutes": 40,
+    "questions": [
+      {
+        "id": "t1-01",
+        "objectiveId": "obj1-notation",
+        "bloomLevel": "recall",
+        "type": "mcq",
+        "difficulty": 1,
+        "prompt": "Dans la définition de O, à quoi sert le rang n₀ ?",
+        "options": [
+          { "id": "a", "text": "À autoriser l'inégalité à être fausse pour les petites valeurs de n." },
+          { "id": "b", "text": "À fixer la taille maximale de l'entrée acceptée." },
+          { "id": "c", "text": "À compter le nombre d'opérations élémentaires." },
+          { "id": "d", "text": "À garantir que la constante c est entière." }
+        ],
+        "correct": "a",
+        "explanation": "La notation est asymptotique : elle ne décrit le comportement que « pour n assez grand ». n₀ est le seuil au-delà duquel la majoration doit tenir ; en dessous, rien n'est exigé.",
+        "perDistractorExplanation": [
+          { "optionId": "b", "why": "Il n'y a aucune borne supérieure sur n — c'est même tout l'inverse, on regarde n → ∞." },
+          { "optionId": "c", "why": "Le comptage des opérations produit la fonction f ; n₀ intervient après, dans la comparaison de f à g." },
+          { "optionId": "d", "why": "c est un réel strictement positif quelconque ; rien n'impose qu'il soit entier." }
+        ]
+      },
+      {
+        "id": "t1-02",
+        "objectiveId": "obj1-compter",
+        "bloomLevel": "apply",
+        "type": "code-output",
+        "difficulty": 2,
+        "prompt": "Qu'affiche ce programme ?",
+        "code": {
+          "lang": "python",
+          "value": "n = 16\nc = 0\nk = n\nwhile k > 1:\n    k = k // 2\n    c += 1\nprint(c)"
+        },
+        "correct": "4",
+        "explanation": "k prend les valeurs 16 → 8 → 4 → 2 → 1, soit 4 divisions. C'est log₂ 16 = 4 : la boucle « diviser par deux jusqu'à 1 » est le schéma canonique du Θ(log n).",
+        "acceptableAnswers": []
+      },
+      {
+        "id": "t1-03",
+        "objectiveId": "obj1-classer",
+        "bloomLevel": "understand",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Classer par ordre croissant de vitesse de croissance : n log n, n², log n, n.",
+        "options": [
+          { "id": "a", "text": "log n ≺ n ≺ n log n ≺ n²" },
+          { "id": "b", "text": "log n ≺ n log n ≺ n ≺ n²" },
+          { "id": "c", "text": "n ≺ log n ≺ n log n ≺ n²" },
+          { "id": "d", "text": "log n ≺ n ≺ n² ≺ n log n" }
+        ],
+        "correct": "a",
+        "explanation": "log n croît moins vite que n ; n log n vaut n multiplié par un facteur croissant, donc dépasse n ; et n log n reste sous n² car log n ≺ n.",
+        "perDistractorExplanation": [
+          { "optionId": "b", "why": "n log n est placé avant n, alors que n log n ≥ n dès que log n ≥ 1." },
+          { "optionId": "c", "why": "n est placé avant log n : c'est l'inverse, log n croît beaucoup plus lentement que n." },
+          { "optionId": "d", "why": "n² est placé avant n log n, alors que n² croît strictement plus vite puisque n ≻ log n." }
+        ]
+      },
+      {
+        "id": "t1-04",
+        "objectiveId": "obj1-cas",
+        "bloomLevel": "apply",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Recherche séquentielle dans un tableau de n éléments, la cible étant absente. Quel est le nombre de comparaisons ?",
+        "options": [
+          { "id": "a", "text": "n" },
+          { "id": "b", "text": "(n+1)/2" },
+          { "id": "c", "text": "1" },
+          { "id": "d", "text": "log₂ n" }
+        ],
+        "correct": "a",
+        "explanation": "Une cible absente oblige à parcourir tout le tableau avant de conclure. C'est le pire cas de la recherche séquentielle : n comparaisons, soit Θ(n).",
+        "perDistractorExplanation": [
+          { "optionId": "b", "why": "C'est le cas moyen lorsque la cible est *présente* à une position uniforme — hypothèse contredite par l'énoncé." },
+          { "optionId": "c", "why": "C'est le meilleur cas, cible en position 0 — impossible si elle est absente." },
+          { "optionId": "d", "why": "log₂ n est le coût de la dichotomie, qui exige un tableau trié ; la recherche séquentielle ne fait aucune hypothèse de tri." }
+        ]
+      },
+      {
+        "id": "t1-05",
+        "objectiveId": "obj1-notation",
+        "bloomLevel": "analyze",
+        "type": "true-false",
+        "difficulty": 3,
+        "prompt": "Si f(n) = O(g(n)) et g(n) = O(f(n)), alors f(n) = Θ(g(n)).",
+        "options": [
+          { "id": "v", "text": "Vrai" },
+          { "id": "f", "text": "Faux" }
+        ],
+        "correct": "v",
+        "explanation": "g = O(f) signifie g(n) ≤ c·f(n), donc f(n) ≥ (1/c)·g(n) : c'est exactement f = Ω(g). Avec f = O(g), on obtient les deux bornes, donc Θ(g).",
+        "perDistractorExplanation": [
+          { "optionId": "f", "why": "L'implication est valide : la seconde hypothèse se réécrit en f = Ω(g), et O ∩ Ω = Θ par définition." }
+        ]
+      },
+      {
+        "id": "t1-06",
+        "objectiveId": "obj1-compter",
+        "bloomLevel": "apply",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Quelle est la complexité de ce fragment ?\n\n    i = 1\n    while i < n:\n        i = i * 2",
+        "options": [
+          { "id": "a", "text": "Θ(log n)" },
+          { "id": "b", "text": "Θ(n)" },
+          { "id": "c", "text": "Θ(n log n)" },
+          { "id": "d", "text": "Θ(√n)" }
+        ],
+        "correct": "a",
+        "explanation": "i prend les valeurs 1, 2, 4, 8, … 2ᵏ. La boucle s'arrête quand 2ᵏ ≥ n, soit k ≥ log₂ n. Le nombre de tours est donc Θ(log n). Multiplier par 2 à chaque tour est le symétrique de diviser par 2.",
+        "perDistractorExplanation": [
+          { "optionId": "b", "why": "Θ(n) supposerait un incrément additif (i = i + 1), pas multiplicatif." },
+          { "optionId": "c", "why": "Il n'y a qu'une seule boucle, sans travail linéaire à chaque tour ; rien ne produit le facteur n." },
+          { "optionId": "d", "why": "Θ(√n) viendrait d'une condition du type i*i < n, pas d'un doublement." }
+        ]
+      },
+      {
+        "id": "t1-07",
+        "objectiveId": "obj1-classer",
+        "bloomLevel": "recall",
+        "type": "fill-blank",
+        "difficulty": 1,
+        "prompt": "Compléter : l'accès à `tableau[i]` par son indice se fait en temps ____ , noté Θ(1).",
+        "correct": "constant",
+        "acceptableAnswers": ["constante", "en temps constant"],
+        "explanation": "L'adresse de la case i se calcule directement (adresse de base + i × taille d'un élément), sans parcourir le tableau. Le coût ne dépend donc ni de i ni de n."
+      },
+      {
+        "id": "t1-08",
+        "objectiveId": "obj1-recursif",
+        "bloomLevel": "analyze",
+        "type": "mcq",
+        "difficulty": 3,
+        "prompt": "Un algorithme vérifie T(n) = 2·T(n/2) + n, avec T(1) = 1. Quelle est sa complexité ?",
+        "options": [
+          { "id": "a", "text": "Θ(n log n)" },
+          { "id": "b", "text": "Θ(log n)" },
+          { "id": "c", "text": "Θ(n)" },
+          { "id": "d", "text": "Θ(n²)" }
+        ],
+        "correct": "a",
+        "explanation": "L'arbre d'appels a log₂ n niveaux, et chaque niveau totalise un travail de n (deux moitiés de n/2, puis quatre quarts, etc.). Le total est n × log₂ n = Θ(n log n). C'est la récurrence du tri fusion.",
+        "perDistractorExplanation": [
+          { "optionId": "b", "why": "Θ(log n) correspondrait à T(n) = T(n/2) + 1 : un seul appel récursif et un travail constant, comme la dichotomie." },
+          { "optionId": "c", "why": "Oubli du terme +n répété à chaque niveau : le travail de fusion n'est pas fait une seule fois mais log n fois." },
+          { "optionId": "d", "why": "Θ(n²) viendrait de T(n) = 2T(n/2) + n², ou de T(n) = T(n−1) + n — ici la taille est divisée, pas décrémentée." }
+        ]
+      },
+      {
+        "id": "t1-09",
+        "objectiveId": "obj1-cas",
+        "bloomLevel": "understand",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Pourquoi annonce-t-on par défaut la complexité dans le pire cas ?",
+        "options": [
+          { "id": "a", "text": "Parce que c'est la seule garantie valable sans hypothèse sur les données." },
+          { "id": "b", "text": "Parce que c'est toujours le plus facile à calculer." },
+          { "id": "c", "text": "Parce que le pire cas est le plus fréquent en pratique." },
+          { "id": "d", "text": "Parce que le cas moyen est mathématiquement indéfinissable." }
+        ],
+        "correct": "a",
+        "explanation": "Le pire cas majore toutes les entrées possibles : la borne tient quoi qu'il arrive. Le cas moyen, lui, dépend d'une hypothèse de distribution qui peut ne pas correspondre aux données réelles.",
+        "perDistractorExplanation": [
+          { "optionId": "b", "why": "Souvent vrai, mais ce n'est pas la raison : on choisit le pire cas pour la garantie qu'il offre, pas par commodité." },
+          { "optionId": "c", "why": "Rien ne l'impose. Le pire cas du tri rapide est même extrêmement rare — on l'annonce quand même." },
+          { "optionId": "d", "why": "Le cas moyen se définit très bien comme une espérance ; il exige simplement une distribution de probabilité explicite." }
+        ]
+      },
+      {
+        "id": "t1-10",
+        "objectiveId": "obj1-compter",
+        "bloomLevel": "apply",
+        "type": "short-answer",
+        "difficulty": 2,
+        "prompt": "Combien d'itérations au maximum la recherche dichotomique effectue-t-elle sur un tableau trié de 1024 éléments ? (nombre entier)",
+        "correct": "11",
+        "acceptableAnswers": ["11 itérations"],
+        "explanation": "Chaque tour divise l'intervalle par deux : 1024 → 512 → 256 → 128 → 64 → 32 → 16 → 8 → 4 → 2 → 1. Cela fait log₂(1024) = 10 divisions, plus le tour final qui examine le dernier élément, soit 11 itérations au pire.",
+        "source": { "file": "demo-notes-complexite.pdf", "page": 12 }
+      },
+      {
+        "id": "t1-11",
+        "objectiveId": "obj1-classer",
+        "bloomLevel": "analyze",
+        "type": "multi",
+        "difficulty": 3,
+        "prompt": "Un algorithme traite 1 000 éléments en 1 seconde. Lesquelles de ces prédictions sont correctes pour 10 000 éléments ? (plusieurs réponses)",
+        "options": [
+          { "id": "a", "text": "S'il est en Θ(n), il prendra environ 10 secondes." },
+          { "id": "b", "text": "S'il est en Θ(n²), il prendra environ 100 secondes." },
+          { "id": "c", "text": "S'il est en Θ(n²), il prendra environ 10 secondes." },
+          { "id": "d", "text": "S'il est en Θ(1), il prendra environ 10 secondes." }
+        ],
+        "correct": ["a", "b"],
+        "explanation": "Multiplier n par 10 multiplie le coût par 10 en Θ(n) et par 10² = 100 en Θ(n²). Un algorithme en Θ(1) est insensible à n : il reste à 1 seconde.",
+        "perDistractorExplanation": [
+          { "optionId": "c", "why": "Confusion entre Θ(n) et Θ(n²) : en quadratique, le facteur sur le temps est le carré du facteur sur n." },
+          { "optionId": "d", "why": "Θ(1) signifie coût indépendant de la taille de l'entrée : le temps reste d'environ 1 seconde." }
+        ]
+      },
+      {
+        "id": "t1-12",
+        "objectiveId": "obj1-notation",
+        "bloomLevel": "understand",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Pourquoi écrit-on Θ(log n) sans préciser la base du logarithme ?",
+        "options": [
+          { "id": "a", "text": "Parce que changer de base ne multiplie que par une constante, qui disparaît." },
+          { "id": "b", "text": "Parce que la base est toujours 2 en informatique, donc implicite." },
+          { "id": "c", "text": "Parce que le logarithme croît si lentement que la base est négligeable." },
+          { "id": "d", "text": "Parce que la notation Θ interdit les indices." }
+        ],
+        "correct": "a",
+        "explanation": "log_a n = log_b n / log_b a. Le rapport 1/log_b a est une constante strictement positive, exactement le type de facteur que la notation asymptotique ignore. Θ(log₂ n) et Θ(log₁₀ n) désignent donc la même classe.",
+        "perDistractorExplanation": [
+          { "optionId": "b", "why": "La base 2 est effectivement la plus courante, mais ce n'est pas la justification : l'écriture serait tout aussi valable en base 10." },
+          { "optionId": "c", "why": "Argument flou et faux : la lenteur de croissance n'autorise pas en soi à ignorer un facteur. C'est le caractère *constant* du facteur qui le permet." },
+          { "optionId": "d", "why": "Aucune règle de notation n'interdit d'écrire Θ(log₂ n) ; c'est simplement redondant." }
+        ]
+      },
+      {
+        "id": "t1-13",
+        "objectiveId": "obj1-compter",
+        "bloomLevel": "analyze",
+        "type": "code-output",
+        "difficulty": 3,
+        "prompt": "Qu'affiche ce programme ?",
+        "code": {
+          "lang": "python",
+          "value": "n = 8\nc = 0\nfor i in range(n):\n    k = n\n    while k > 1:\n        k = k // 2\n        c += 1\nprint(c)"
+        },
+        "correct": "24",
+        "explanation": "La boucle interne fait log₂ 8 = 3 tours, et elle est relancée n = 8 fois. Total : 8 × 3 = 24. Le schéma « boucle linéaire contenant une boucle logarithmique » donne Θ(n log n).",
+        "acceptableAnswers": []
+      },
+      {
+        "id": "t1-14",
+        "objectiveId": "obj1-classer",
+        "bloomLevel": "understand",
+        "type": "true-false",
+        "difficulty": 2,
+        "prompt": "Un algorithme en Θ(n log n) est toujours plus rapide en pratique qu'un algorithme en Θ(n²), quelle que soit la taille de l'entrée.",
+        "options": [
+          { "id": "v", "text": "Vrai" },
+          { "id": "f", "text": "Faux" }
+        ],
+        "correct": "f",
+        "explanation": "L'asymptotique ne départage que les grandes entrées. Les constantes cachées peuvent rendre le Θ(n²) plus rapide sur de petits tableaux — c'est pourquoi les bibliothèques de tri basculent sur un tri par insertion en dessous d'une dizaine d'éléments.",
+        "perDistractorExplanation": [
+          { "optionId": "v", "why": "Le mot « toujours » est le piège : la comparaison n'est garantie qu'à partir d'un certain rang n₀, pas pour tout n." }
+        ]
+      },
+      {
+        "id": "t1-15",
+        "objectiveId": "obj1-cas",
+        "bloomLevel": "apply",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Recherche séquentielle, cible présente, position uniformément distribuée. Combien de comparaisons en moyenne ?",
+        "options": [
+          { "id": "a", "text": "(n+1)/2" },
+          { "id": "b", "text": "n/2 exactement" },
+          { "id": "c", "text": "n" },
+          { "id": "d", "text": "log₂ n" }
+        ],
+        "correct": "a",
+        "explanation": "Si la cible est en position i (1-indexée), il faut i comparaisons. L'espérance vaut (1 + 2 + … + n)/n = [n(n+1)/2]/n = (n+1)/2. C'est Θ(n) : la moyenne ne change pas la classe.",
+        "perDistractorExplanation": [
+          { "optionId": "b", "why": "Approximation courante mais inexacte : la somme 1+…+n divisée par n donne (n+1)/2, pas n/2. L'écart d'une demi-comparaison vient de l'indexation à partir de 1." },
+          { "optionId": "c", "why": "n est le pire cas (cible absente ou en dernière position), pas la moyenne." },
+          { "optionId": "d", "why": "log₂ n suppose un tableau trié et une recherche dichotomique ; la recherche séquentielle n'exploite aucun ordre." }
+        ]
+      },
+      {
+        "id": "t1-16",
+        "objectiveId": "obj1-notation",
+        "bloomLevel": "recall",
+        "type": "mcq",
+        "difficulty": 1,
+        "prompt": "Quelle notation employer pour affirmer « aucun tri par comparaisons ne peut faire mieux que n log n » ?",
+        "options": [
+          { "id": "a", "text": "Ω(n log n)" },
+          { "id": "b", "text": "O(n log n)" },
+          { "id": "c", "text": "Θ(n log n)" },
+          { "id": "d", "text": "o(n log n)" }
+        ],
+        "correct": "a",
+        "explanation": "« On ne peut pas faire mieux » est une borne inférieure sur tous les algorithmes de la classe : c'est exactement Ω. On écrit : tout tri par comparaisons est en Ω(n log n) dans le pire cas.",
+        "perDistractorExplanation": [
+          { "optionId": "b", "why": "O majore : cela affirmerait qu'on peut atteindre n log n, pas qu'on ne peut pas faire mieux." },
+          { "optionId": "c", "why": "Θ dirait que tout tri par comparaisons coûte exactement n log n — faux, un tri peut être bien pire (tri à bulles en n²)." },
+          { "optionId": "d", "why": "o (petit o) exprime une croissance strictement plus lente ; cela affirmerait l'inverse de l'énoncé." }
+        ]
+      },
+      {
+        "id": "t1-17",
+        "objectiveId": "obj1-compter",
+        "bloomLevel": "apply",
+        "type": "fill-blank",
+        "difficulty": 2,
+        "prompt": "La somme 1 + 2 + 3 + … + (n−1) vaut ____ . C'est ce qui rend les boucles imbriquées triangulaires quadratiques.",
+        "correct": "n(n-1)/2",
+        "acceptableAnswers": ["n(n−1)/2", "n*(n-1)/2", "(n(n-1))/2", "n(n-1)÷2", "n²/2 - n/2"],
+        "explanation": "C'est la somme arithmétique des n−1 premiers entiers. Le terme dominant est n²/2, donc Θ(n²) — la constante 1/2 disparaît en notation asymptotique."
+      },
+      {
+        "id": "t1-18",
+        "objectiveId": "obj1-classer",
+        "bloomLevel": "analyze",
+        "type": "mcq",
+        "difficulty": 3,
+        "prompt": "Un algorithme exponentiel en Θ(2ⁿ) traite n = 40 en 1 heure. Combien de temps pour n = 45 ?",
+        "options": [
+          { "id": "a", "text": "Environ 32 heures" },
+          { "id": "b", "text": "Environ 1 h 15" },
+          { "id": "c", "text": "Environ 5 heures" },
+          { "id": "d", "text": "Environ 2 heures" }
+        ],
+        "correct": "a",
+        "explanation": "2⁴⁵ / 2⁴⁰ = 2⁵ = 32. Cinq éléments de plus multiplient le temps par 32. C'est ce qui rend les algorithmes exponentiels inutilisables : l'obstacle n'est pas la machine, c'est le taux de croissance.",
+        "perDistractorExplanation": [
+          { "optionId": "b", "why": "Raisonnement linéaire (45/40 = 1,125) appliqué à une exponentielle — l'erreur la plus fréquente sur cette classe." },
+          { "optionId": "c", "why": "Le facteur 5 correspond à l'écart sur n, pas sur 2ⁿ. C'est l'exposant qui augmente de 5, donc le temps qui est multiplié par 2⁵." },
+          { "optionId": "d", "why": "Un doublement correspondrait à un seul élément supplémentaire (n = 41), pas à cinq." }
+        ]
+      },
+      {
+        "id": "t1-19",
+        "objectiveId": "obj1-recursif",
+        "bloomLevel": "understand",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Que se passe-t-il si l'on omet le cas de base T(1) dans l'analyse d'une récurrence ?",
+        "options": [
+          { "id": "a", "text": "Le déroulement de la récurrence ne se termine pas et aucune solution close n'est obtenue." },
+          { "id": "b", "text": "La complexité obtenue est correcte mais à une constante près." },
+          { "id": "c", "text": "La complexité est surestimée d'un facteur log n." },
+          { "id": "d", "text": "Cela n'a aucune conséquence : le cas de base est purement décoratif." }
+        ],
+        "correct": "a",
+        "explanation": "Le cas de base fixe le rang d'arrêt du déroulement. Sans lui, on ne peut pas déterminer la valeur de k dans T(n) = T(n/2ᵏ) + k, donc pas conclure que k = log₂ n.",
+        "perDistractorExplanation": [
+          { "optionId": "b", "why": "Ce n'est pas une imprécision de constante : sans point d'arrêt, il n'y a tout simplement pas de solution à exhiber." },
+          { "optionId": "c", "why": "Aucun facteur log n n'apparaît : le problème est l'absence de terminaison du déroulement, pas un biais d'estimation." },
+          { "optionId": "d", "why": "C'est lui qui détermine le nombre de niveaux de récursion, donc directement la classe de complexité." }
+        ]
+      },
+      {
+        "id": "t1-20",
+        "objectiveId": "obj1-cas",
+        "bloomLevel": "analyze",
+        "type": "mcq",
+        "difficulty": 3,
+        "prompt": "Le tri rapide est en Θ(n log n) en moyenne et Θ(n²) dans le pire cas. Le tri fusion est en Θ(n log n) dans tous les cas. Que peut-on en conclure ?",
+        "options": [
+          { "id": "a", "text": "Le tri fusion offre une meilleure garantie, ce qui n'empêche pas le tri rapide d'être souvent plus rapide en pratique." },
+          { "id": "b", "text": "Le tri fusion est strictement plus rapide que le tri rapide sur toute entrée." },
+          { "id": "c", "text": "Le tri rapide est à proscrire, puisque son pire cas est quadratique." },
+          { "id": "d", "text": "Les deux algorithmes sont interchangeables, leur cas moyen étant identique." }
+        ],
+        "correct": "a",
+        "explanation": "Les deux analyses répondent à deux questions différentes. Le tri fusion garantit n log n quoi qu'il arrive ; le tri rapide a des constantes plus faibles et un meilleur comportement mémoire, ce qui le rend souvent plus rapide malgré un pire cas plus mauvais.",
+        "perDistractorExplanation": [
+          { "optionId": "b", "why": "Une classe asymptotique ne permet pas de conclure sur « toute entrée » : les constantes cachées, ignorées par Θ, décident du résultat concret." },
+          { "optionId": "c", "why": "Ce pire cas est évitable (choix aléatoire du pivot) et rare ; les bibliothèques standard utilisent massivement des variantes du tri rapide." },
+          { "optionId": "d", "why": "Un cas moyen identique ne rend pas deux algorithmes interchangeables : ils diffèrent sur le pire cas, la mémoire et la stabilité." }
+        ]
+      }
+    ]
+  },
+  "flashcards": [
+    {
+      "id": "f1-01",
+      "objectiveId": "obj1-notation",
+      "front": "Définition formelle de f(n) = O(g(n)) ?",
+      "back": "∃c > 0, ∃n₀, ∀n ≥ n₀ : f(n) ≤ c·g(n)",
+      "extra": "Borne supérieure. Les deux quantificateurs existentiels permettent d'ignorer les constantes et les petites valeurs de n.",
+      "source": { "file": "demo-diapos-cours01.pdf", "page": 9 }
+    },
+    {
+      "id": "f1-02",
+      "objectiveId": "obj1-notation",
+      "front": "Définition formelle de f(n) = Ω(g(n)) ?",
+      "back": "∃c > 0, ∃n₀, ∀n ≥ n₀ : f(n) ≥ c·g(n)",
+      "extra": "Borne inférieure. Sert à prouver qu'on ne peut pas faire mieux."
+    },
+    {
+      "id": "f1-03",
+      "objectiveId": "obj1-notation",
+      "front": "Que signifie f(n) = Θ(g(n)) ?",
+      "back": "f = O(g) ET f = Ω(g) : g encadre f par le haut et par le bas.",
+      "extra": "À privilégier dès que le comptage est exact."
+    },
+    {
+      "id": "f1-04",
+      "objectiveId": "obj1-classer",
+      "front": "Θ(n²) : si n double, le coût est multiplié par combien ?",
+      "back": "Par 4, car (2n)² = 4n².",
+      "extra": "Θ(n) → ×2 ; Θ(n³) → ×8 ; Θ(2ⁿ) → mis au carré."
+    },
+    {
+      "id": "f1-05",
+      "objectiveId": "obj1-classer",
+      "front": "Ordre croissant des classes usuelles ?",
+      "back": "Θ(1) ≺ Θ(log n) ≺ Θ(n) ≺ Θ(n log n) ≺ Θ(n²) ≺ Θ(n³) ≺ Θ(2ⁿ) ≺ Θ(n!)"
+    },
+    {
+      "id": "f1-06",
+      "objectiveId": "obj1-compter",
+      "front": "Combien vaut 1 + 2 + … + (n−1) ?",
+      "back": "n(n−1)/2, soit Θ(n²).",
+      "extra": "C'est le comptage des boucles imbriquées « triangulaires » (for j in range(i+1, n))."
+    },
+    {
+      "id": "f1-07",
+      "objectiveId": "obj1-recursif",
+      "front": "Solution de T(n) = T(n/2) + 1, T(1) = 1 ?",
+      "back": "Θ(log n)",
+      "extra": "Récurrence de la recherche dichotomique : un seul appel récursif, travail constant."
+    },
+    {
+      "id": "f1-08",
+      "objectiveId": "obj1-recursif",
+      "front": "Solution de T(n) = 2·T(n/2) + n ?",
+      "back": "Θ(n log n)",
+      "extra": "Récurrence du tri fusion : log n niveaux, travail n à chaque niveau."
+    },
+    {
+      "id": "f1-09",
+      "objectiveId": "obj1-cas",
+      "front": "Recherche séquentielle : meilleur / pire / moyen ?",
+      "back": "Meilleur : Θ(1). Pire : Θ(n). Moyen (cible présente, position uniforme) : (n+1)/2 comparaisons, soit Θ(n).",
+      "source": { "file": "demo-diapos-cours01.pdf", "page": 14 }
+    },
+    {
+      "id": "f1-10",
+      "objectiveId": "obj1-cas",
+      "front": "Pourquoi annonce-t-on le pire cas par défaut ?",
+      "back": "C'est la seule garantie qui tient sans hypothèse sur la distribution des entrées.",
+      "extra": "Le cas moyen exige une hypothèse probabiliste, souvent fausse sur des données réelles."
+    },
+    {
+      "id": "f1-11",
+      "objectiveId": "obj1-compter",
+      "front": "Deux boucles imbriquées : est-ce forcément Θ(n²) ?",
+      "back": "Non. Il faut compter les tours de la boucle interne. Si elle fait un nombre constant de tours (range(3)), le total est Θ(n).",
+      "extra": "L'imbrication n'est pas le critère — le nombre d'exécutions l'est."
+    },
+    {
+      "id": "f1-12",
+      "objectiveId": "obj1-notation",
+      "front": "Pourquoi écrit-on Θ(log n) sans base ?",
+      "back": "log_a n = log_b n / log_b a : changer de base ne multiplie que par une constante, ignorée par la notation asymptotique."
+    }
+  ],
+  "exercises": [
+    {
+      "id": "e1-01",
+      "objectiveId": "obj1-compter",
+      "difficulty": 1,
+      "mode": "run",
+      "language": "python",
+      "title": "Somme en temps constant",
+      "statement": "La fonction naïve qui calcule 1 + 2 + … + n avec une boucle est en Θ(n). Écrire `somme_jusqua(n)` qui retourne le même résultat en Θ(1), c'est-à-dire sans aucune boucle ni récursion.\n\nOn suppose n ≥ 0.",
+      "starterCode": "def somme_jusqua(n):\n    # Retourner 1 + 2 + ... + n en temps constant.\n    pass\n",
+      "hints": [
+        "Le chapitre donne la formule de la somme des premiers entiers. Elle est dans le tableau de synthèse et dans la carte mémoire f1-06.",
+        "1 + 2 + … + n = n(n+1)/2. Attention : la carte donne la somme jusqu'à n−1, ici on va jusqu'à n.",
+        "Utiliser la division entière `//` pour retourner un entier : `return n * (n + 1) // 2`."
+      ],
+      "solution": "def somme_jusqua(n):\n    return n * (n + 1) // 2\n",
+      "solutionExplanation": "La formule ferme remplace n additions par une multiplication, une addition et une division : trois opérations quel que soit n, donc Θ(1). Avec n = 10⁹, la version à boucle met plusieurs secondes, celle-ci est instantanée.",
+      "tests": [
+        { "name": "somme_jusqua(0) vaut 0", "call": "somme_jusqua(0)", "expected": "0" },
+        { "name": "somme_jusqua(10) vaut 55", "call": "somme_jusqua(10)", "expected": "55" },
+        { "name": "somme_jusqua(100) vaut 5050", "call": "somme_jusqua(100)", "expected": "5050" },
+        { "name": "reste exact sur une grande entrée", "call": "somme_jusqua(1000000)", "expected": "500000500000", "hidden": true }
+      ],
+      "source": { "file": "demo-tp01-enonce.pdf", "page": 1, "locator": "Exercice 1" }
+    },
+    {
+      "id": "e1-02",
+      "objectiveId": "obj1-recursif",
+      "difficulty": 2,
+      "mode": "run",
+      "language": "python",
+      "title": "Recherche dichotomique",
+      "statement": "Implémenter `dichotomie(tableau, cible)` qui retourne l'indice de `cible` dans un tableau **trié par ordre croissant**, ou −1 si elle est absente.\n\nL'algorithme doit être en Θ(log n) : interdiction de parcourir le tableau élément par élément.",
+      "starterCode": "def dichotomie(tableau, cible):\n    debut, fin = 0, len(tableau) - 1\n    while debut <= fin:\n        # Calculer le milieu, comparer, puis reduire l'intervalle.\n        pass\n    return -1\n",
+      "hints": [
+        "Le milieu se calcule avec une division entière : `milieu = (debut + fin) // 2`.",
+        "Trois cas après la comparaison : égal (on a trouvé), trop petit (chercher à droite), trop grand (chercher à gauche).",
+        "Pour ne pas boucler indéfiniment, les nouvelles bornes doivent exclure le milieu déjà testé : `debut = milieu + 1` ou `fin = milieu - 1`."
+      ],
+      "solution": "def dichotomie(tableau, cible):\n    debut, fin = 0, len(tableau) - 1\n    while debut <= fin:\n        milieu = (debut + fin) // 2\n        if tableau[milieu] == cible:\n            return milieu\n        elif tableau[milieu] < cible:\n            debut = milieu + 1\n        else:\n            fin = milieu - 1\n    return -1\n",
+      "solutionExplanation": "Chaque tour élimine la moitié de l'intervalle restant, d'où T(n) = T(n/2) + 1 = Θ(log n). Les affectations `milieu + 1` et `milieu - 1` sont indispensables : avec `debut = milieu`, l'intervalle cesse de rétrécir dès qu'il ne reste que deux éléments et la boucle ne se termine jamais.",
+      "tests": [
+        { "name": "trouve un element au milieu", "call": "dichotomie([1, 3, 5, 7, 9, 11], 7)", "expected": "3" },
+        { "name": "trouve le premier element", "call": "dichotomie([1, 3, 5, 7, 9, 11], 1)", "expected": "0" },
+        { "name": "trouve le dernier element", "call": "dichotomie([1, 3, 5, 7, 9, 11], 11)", "expected": "5" },
+        { "name": "retourne -1 si absent", "call": "dichotomie([1, 3, 5, 7, 9, 11], 4)", "expected": "-1" },
+        { "name": "gere le tableau vide", "call": "dichotomie([], 4)", "expected": "-1", "hidden": true },
+        { "name": "reste rapide sur 200 000 elements", "call": "dichotomie(list(range(0, 400000, 2)), 399998)", "expected": "199999", "hidden": true }
+      ],
+      "source": { "file": "demo-tp01-enonce.pdf", "page": 2, "locator": "Exercice 3" }
+    },
+    {
+      "id": "e1-03",
+      "objectiveId": "obj1-compter",
+      "difficulty": 2,
+      "mode": "predict-output",
+      "language": "c",
+      "title": "Prédire la sortie — boucles imbriquées en C",
+      "statement": "Le C ne s'exécute pas dans un navigateur : cet exercice se fait de tête, puis on vérifie.\n\nLire le programme suivant et écrire **exactement** ce qu'il affiche, puis donner la complexité de la double boucle en fonction de n.",
+      "starterCode": "#include <stdio.h>\n\nint main(void) {\n    int n = 5;\n    int c = 0;\n    for (int i = 0; i < n; i++) {\n        for (int j = i; j < n; j++) {\n            c++;\n        }\n    }\n    printf(\"%d\\n\", c);\n    return 0;\n}\n",
+      "hints": [
+        "La boucle interne démarre à j = i, pas à j = 0. Combien de tours fait-elle pour chaque valeur de i ?",
+        "Pour i = 0 elle fait 5 tours, pour i = 1 elle en fait 4… Écrire les cinq valeurs et les additionner.",
+        "5 + 4 + 3 + 2 + 1. C'est la somme des n premiers entiers, soit n(n+1)/2."
+      ],
+      "solution": "15",
+      "expectedOutput": "15\n\nComplexité : la boucle interne fait n − i tours, donc le total est\n n + (n−1) + … + 1 = n(n+1)/2, soit Θ(n²).",
+      "solutionExplanation": "Attention à la borne de départ : ici `j = i` (et non `j = i + 1`), donc la somme va de n jusqu'à 1 et vaut n(n+1)/2 = 15, alors que `j = i + 1` aurait donné n(n−1)/2 = 10. Cette différence d'un indice ne change pas la classe Θ(n²), mais elle change le résultat exact.",
+      "source": { "file": "demo-tp01-enonce.pdf", "page": 3, "locator": "Exercice 4a" }
+    },
+    {
+      "id": "e1-04",
+      "objectiveId": "obj1-recursif",
+      "difficulty": 3,
+      "mode": "find-bug",
+      "language": "java",
+      "title": "Trouver le bogue — dichotomie en Java",
+      "statement": "Cette implémentation Java de la recherche dichotomique contient **un** défaut. Identifier la ligne fautive, expliquer le symptôme observé à l'exécution, et donner la correction.",
+      "starterCode": "public static int dichotomie(int[] t, int cible) {\n    int debut = 0;\n    int fin = t.length - 1;\n    while (debut <= fin) {\n        int milieu = (debut + fin) / 2;\n        if (t[milieu] == cible) {\n            return milieu;\n        } else if (t[milieu] < cible) {\n            debut = milieu;          // <-- ligne suspecte\n        } else {\n            fin = milieu - 1;\n        }\n    }\n    return -1;\n}",
+      "hints": [
+        "Dérouler l'exécution à la main sur un tout petit tableau, par exemple t = {1, 3} avec cible = 3.",
+        "Que valent debut, fin et milieu au deuxième tour ? L'intervalle rétrécit-il vraiment ?",
+        "Comparer avec la branche `else`, qui écrit `milieu - 1`. Pourquoi ce décalage est-il nécessaire des deux côtés ?"
+      ],
+      "solution": "debut = milieu + 1;",
+      "expectedOutput": "Ligne fautive : `debut = milieu;` dans la branche `t[milieu] < cible`.\n\nSymptôme : boucle infinie (le programme se fige) dès que la cible se trouve dans la moitié droite d'un intervalle de deux éléments.\n\nDéroulement sur t = {1, 3}, cible = 3 :\n  tour 1 : debut = 0, fin = 1, milieu = (0+1)/2 = 0, t[0] = 1 < 3 → debut = 0 (inchangé !)\n  tour 2 : debut = 0, fin = 1, milieu = 0 → état identique, la boucle ne progresse plus.\n\nCorrection : `debut = milieu + 1;`\n\nJustification : l'élément d'indice `milieu` vient d'être comparé et n'est pas la cible ; il doit être exclu de l'intervalle restant. Sans le +1, l'intervalle cesse de rétrécir et la condition `debut <= fin` reste vraie indéfiniment.",
+      "solutionExplanation": "C'est l'erreur d'indice la plus fréquente sur la dichotomie. La branche `else` est correcte parce qu'elle écrit bien `fin = milieu - 1` : il faut la même exclusion des deux côtés. Un symptôme voisin — mais distinct — apparaît si l'on écrit `while (debut < fin)` : là, pas de boucle infinie, mais le dernier élément n'est jamais testé.",
+      "source": { "file": "demo-tp01-enonce.pdf", "page": 3, "locator": "Exercice 4b" }
+    },
+    {
+      "id": "e1-05",
+      "objectiveId": "obj1-compter",
+      "difficulty": 2,
+      "mode": "trace",
+      "language": "pseudocode",
+      "title": "Tracer l'exécution — combien de tours ?",
+      "statement": "Tracer l'exécution de cet algorithme pour n = 100 : donner la suite des valeurs prises par `i`, le nombre total de tours de boucle, puis la complexité en Θ.",
+      "starterCode": "i ← 1\ntours ← 0\ntant que i < n faire\n    i ← i × 3\n    tours ← tours + 1\nfin tant que\nretourner tours",
+      "hints": [
+        "i est multiplié par 3 à chaque tour, il ne progresse pas d'un pas constant.",
+        "Écrire la suite : 1, 3, 9, 27, … Jusqu'où faut-il aller pour dépasser 100 ?",
+        "La boucle s'arrête quand 3ᵏ ≥ n. Isoler k avec un logarithme de base 3."
+      ],
+      "solution": "5 tours ; Θ(log n)",
+      "expectedOutput": "Suite des valeurs de i : 1 → 3 → 9 → 27 → 81 → 243\n\nLe test `i < 100` est évalué avant chaque tour :\n  i = 1   < 100 → tour 1, i devient 3\n  i = 3   < 100 → tour 2, i devient 9\n  i = 9   < 100 → tour 3, i devient 27\n  i = 27  < 100 → tour 4, i devient 81\n  i = 81  < 100 → tour 5, i devient 243\n  i = 243 ≥ 100 → arrêt\n\nTotal : 5 tours.\n\nComplexité : la boucle s'arrête quand 3ᵏ ≥ n, soit k = ⌈log₃ n⌉. Comme les logarithmes ne diffèrent que d'une constante multiplicative, cela s'écrit Θ(log n).",
+      "solutionExplanation": "Le piège est de croire que la base 3 change la classe de complexité. Elle change le nombre de tours (log₃ 100 ≈ 4,2 contre log₂ 100 ≈ 6,6) mais pas la classe : log₃ n = log₂ n / log₂ 3, et le facteur 1/log₂ 3 est une constante. On écrit donc Θ(log n) dans les deux cas.",
+      "source": { "file": "demo-tp01-enonce.pdf", "page": 2, "locator": "Exercice 2" }
+    }
+  ]
+}
