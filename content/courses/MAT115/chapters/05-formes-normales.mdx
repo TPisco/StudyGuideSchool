@@ -1,0 +1,194 @@
+---
+course: MAT115
+number: 5
+title: Formes normales conjonctive et disjonctive
+summary: >-
+  Deux formes standard pour toute formule propositionnelle : la FNC, une
+  conjonction de disjonctions, et la FND, une disjonction de conjonctions.
+  Les reconnaître, comprendre pourquoi une formule n'y est pas, et y
+  transformer n'importe quelle formule avec six lois.
+estimatedMinutes: 120
+prerequisites:
+  - "Chapitre 3 — lois LP-11, LP-12, De Morgan, LP-21, LP-22, LP-40"
+objectives:
+  - id: obj5-fnc
+    text: Reconnaître une formule en forme normale conjonctive et justifier pourquoi une formule n'y est pas.
+    bloom: understand
+  - id: obj5-fnd
+    text: Reconnaître une formule en forme normale disjonctive et justifier pourquoi une formule n'y est pas.
+    bloom: understand
+  - id: obj5-lois
+    text: Citer les lois qui servent à la transformation et le rôle de chacune.
+    bloom: recall
+  - id: obj5-transformer
+    text: Transformer une formule en FNC ou en FND en citant la loi utilisée à chaque étape.
+    bloom: apply
+  - id: obj5-verifier
+    text: Repérer une étape de transformation incorrecte et vérifier l'équivalence d'un résultat.
+    bloom: analyze
+sources:
+  - file: "Semaine 4.pdf"
+    page: 2
+    locator: "Semaine 4 — FNC, FND et transformations (diapositives 2 à 22)"
+---
+
+## 1. La forme normale conjonctive (FNC)
+
+Une formule est en **forme normale conjonctive** (FNC) si, et seulement si,
+elle est de la forme
+
+$$
+(A_1 \vee A_2 \vee \dots \vee A_k) \wedge \dots \wedge (A_p \vee A_{p+1} \vee \dots \vee A_n)
+$$
+
+où **chaque $A_i$ est une variable $X_i$ ou la négation d'une variable
+$\neg X_i$**. Une formule en FNC est une **« conjonction de disjonctions »**,
+et les éléments des disjonctions sont des variables ou des négations de
+variables.
+
+| Formule | En FNC ? | Pourquoi |
+| --- | --- | --- |
+| $(X_1 \vee X_2) \wedge (\neg X_1 \vee X_4)$ | **oui** | conjonction de deux disjonctions |
+| $(X_1 \vee X_2) \wedge \neg X_3 \wedge (\neg X_1 \vee X_2 \vee X_4)$ | **oui** | $\neg X_3$ est une disjonction de longueur 1 |
+| $\neg X_1 \vee X_2$ | **oui** | une conjonction de longueur 1 : le $\wedge$ n'a pas besoin d'apparaître |
+| $\neg X_1 \wedge X_2$ | **oui** | toutes ses disjonctions sont de longueur 1 |
+| $X_1$, $\neg X_1$ | **oui** | conjonction de longueur 1 d'une disjonction de longueur 1 |
+| $(X_1 \vee X_2) \wedge \neg X_3 \wedge \neg(X_1 \vee X_2 \vee X_4)$ | non | la **négation s'applique à une formule** ; elle ne peut s'appliquer qu'à une variable |
+| $X_1 \vee (X_2 \wedge \neg X_3)$ | non | la **disjonction s'applique à une conjonction** |
+| $X_1 \wedge \big(X_2 \vee (X_1 \wedge \neg X_3)\big)$ | non | à l'intérieur, une disjonction s'applique à une conjonction |
+
+<Callout type="tip" title="Le test en deux questions">
+1. Les négations ne portent-elles que sur des **variables** ?
+2. Aucun $\wedge$ ne se trouve-t-il **sous** un $\vee$ ?
+
+Deux « oui » : la formule est en FNC.
+</Callout>
+
+<Source file="Semaine 4.pdf" page={2} locator="Diapositives 2 à 9" />
+
+## 2. La forme normale disjonctive (FND)
+
+Symétriquement, une formule est en **forme normale disjonctive** (FND) si, et
+seulement si, elle est de la forme
+
+$$
+(A_1 \wedge A_2 \wedge \dots \wedge A_k) \vee \dots \vee (A_p \wedge A_{p+1} \wedge \dots \wedge A_n)
+$$
+
+avec les mêmes $A_i$ : une **« disjonction de conjonctions »**.
+
+| Formule | En FND ? | Pourquoi |
+| --- | --- | --- |
+| $(X_1 \wedge X_2) \vee (\neg X_1 \wedge X_4)$ | **oui** | disjonction de deux conjonctions |
+| $(X_1 \wedge X_2) \vee \neg X_3 \vee (\neg X_1 \wedge X_2 \vee X_4)$ | **oui** | $\neg X_3$ est une conjonction de longueur 1 |
+| $\neg X_1 \vee X_2$ | **oui** | disjonction de deux conjonctions de longueur 1 |
+| $\neg X_1 \wedge X_2$ | **oui** | disjonction de longueur 1, dont la seule conjonction est de longueur 2 |
+| $X_1$, $\neg X_1$ | **oui** | disjonction de longueur 1 d'une conjonction de longueur 1 |
+| $(X_1 \wedge X_2) \vee \neg X_3 \vee \neg(X_1 \wedge X_2 \wedge X_4)$ | non | la négation s'applique à une formule |
+| $X_1 \wedge (X_2 \vee \neg X_3)$ | non | la **conjonction s'applique à une disjonction** |
+| $X_1 \vee \big(X_2 \wedge (X_1 \vee \neg X_3)\big)$ | non | à l'intérieur, une conjonction s'applique à une disjonction |
+
+<Callout type="note" title="Certaines formules sont dans les deux formes">
+$\neg X_1 \vee X_2$, $\neg X_1 \wedge X_2$, $X_1$ et $\neg X_1$ sont à la fois
+en FNC et en FND. Ce n'est pas une contradiction : ce sont les cas où toutes
+les disjonctions, ou toutes les conjonctions, sont de longueur 1.
+</Callout>
+
+<Callout type="warning" title="Des explications recopiées de la FNC (diapositives 12 à 17)">
+Pour les exemples 3 et 4 de la FND, les diapositives concluent correctement
+« en FND », mais l'explication est celle de la FNC : « ¬X₁ ∨ X₂ … il s'agit
+d'une **conjonction** de longueur 1 », « ¬X₁ ∧ X₂ … toutes ses
+**disjonctions** sont de longueur 1 ». Pour la FND, il faut lire les rôles
+inversés, comme dans le tableau ci-dessus. De même, les diapositives 15 à 17
+écrivent « (FNC) » dans la définition de la FND, et la 17 annonce « ne sont
+pas en FNC » pour des exemples de FND. Le contenu des exemples, lui, est
+juste.
+</Callout>
+
+<Source file="Semaine 4.pdf" page={11} locator="Diapositives 10 à 17" />
+
+## 3. Transformer une formule en forme normale
+
+**Toute formule propositionnelle peut être transformée en une formule
+équivalente en FNC** à l'aide de six lois :
+
+| Loi | Formule | Rôle |
+| --- | --- | --- |
+| LP-40 | $(A \Leftrightarrow B) \Leftrightarrow (A \Rightarrow B) \wedge (B \Rightarrow A)$ | éliminer $\Leftrightarrow$ |
+| LP-22 | $A \Rightarrow B \Leftrightarrow \neg A \vee B$ | éliminer $\Rightarrow$ |
+| LP-17 | $\neg(A \wedge B) \Leftrightarrow \neg A \vee \neg B$ | faire entrer $\neg$ |
+| LP-18 | $\neg(A \vee B) \Leftrightarrow \neg A \wedge \neg B$ | faire entrer $\neg$ |
+| LP-21 | $\neg\neg A \Leftrightarrow A$ | supprimer les doubles négations |
+| LP-12 | $A \vee (B \wedge C) \Leftrightarrow (A \vee B) \wedge (A \vee C)$ | faire entrer $\vee$ sous $\wedge$ (FNC) |
+
+**Pour la FND**, mêmes lois, mais **LP-11**
+$A \wedge (B \vee C) \Leftrightarrow (A \wedge B) \vee (A \wedge C)$ au lieu de
+LP-12. Ces lois déplacent les connecteurs vers l'intérieur et remplacent
+$\Leftrightarrow$ et $\Rightarrow$.
+
+<Mermaid caption="L'ordre de travail : chaque étape rapproche la formule de la forme normale." chart={`
+flowchart LR
+  A["Éliminer ⇔ (LP-40)"] --> B["Éliminer ⇒ (LP-22)"]
+  B --> C["Faire entrer ¬ (LP-17, LP-18) et supprimer ¬¬ (LP-21)"]
+  C --> D{"Forme visée ?"}
+  D -->|"FNC"| E["Distribuer ∨ sur ∧ (LP-12)"]
+  D -->|"FND"| F["Distribuer ∧ sur ∨ (LP-11)"]
+`} />
+
+### 3.1 Exemple 1 : $X_1 \wedge \big(X_2 \vee (X_1 \wedge \neg X_3)\big)$
+
+**En FNC** (diapositive 19) :
+
+$$
+\begin{aligned}
+& X_1 \wedge \big(X_2 \vee (X_1 \wedge \neg X_3)\big) \\
+\Leftrightarrow\ & X_1 \wedge \big((X_2 \vee X_1) \wedge (X_2 \vee \neg X_3)\big) && (\text{LP-12}) \\
+\Leftrightarrow\ & X_1 \wedge (X_2 \vee X_1) \wedge (X_2 \vee \neg X_3) && \text{(parenthèses inutiles)}
+\end{aligned}
+$$
+
+**En FND** (diapositive 21) :
+
+$$
+X_1 \wedge \big(X_2 \vee (X_1 \wedge \neg X_3)\big)
+\ \Leftrightarrow\ (X_1 \wedge X_2) \vee (X_1 \wedge X_1 \wedge \neg X_3) \qquad (\text{LP-11})
+$$
+
+### 3.2 Exemple 2 : $\neg(X_1 \vee \neg X_3) \vee X_3$
+
+$$
+\begin{aligned}
+& \neg(X_1 \vee \neg X_3) \vee X_3 \\
+\Leftrightarrow\ & (\neg X_1 \wedge \neg\neg X_3) \vee X_3 && (\text{LP-18}) \\
+\Leftrightarrow\ & (\neg X_1 \wedge X_3) \vee X_3 && (\text{LP-21}) \\
+\Leftrightarrow\ & X_3 \vee (\neg X_1 \wedge X_3) && (\text{LP-8, commutativité})
+\end{aligned}
+$$
+
+C'est déjà une **FND** (diapositive 22). Pour la **FNC** (diapositive 20), on
+distribue encore :
+
+$$
+X_3 \vee (\neg X_1 \wedge X_3) \ \Leftrightarrow\ (X_3 \vee \neg X_1) \wedge (X_3 \vee X_3) \qquad (\text{LP-12}).
+$$
+
+<Callout type="warning" title="LP-18 mal appliquée sur les diapositives 20 et 22">
+La deuxième ligne des deux exemples est écrite
+$(\neg X_1 \vee \neg\neg X_3) \vee X_3$ : le $\vee$ entre $\neg X_1$ et
+$\neg\neg X_3$ devrait être un **$\wedge$**. LP-18 transforme la négation
+d'une disjonction en **conjonction** des négations. La ligne suivante,
+$(\neg X_1 \wedge X_3) \vee X_3$, est correcte. Par ailleurs, ces deux
+diapositives renvoient aux « diapo 26 » et « diapo 27 », qui correspondent
+en fait aux diapositives 19 et 20 de ce document.
+</Callout>
+
+<Callout type="tip" title="On peut aller plus loin avec les lois du chapitre 3">
+Les diapositives s'arrêtent à $(X_3 \vee \neg X_1) \wedge (X_3 \vee X_3)$. Avec
+l'idempotence (LP-6), $X_3 \vee X_3 \Leftrightarrow X_3$, puis l'absorption
+(LP-13 après une commutativité), la formule entière se simplifie en
+$X_3$ — qui est à la fois en FNC et en FND. Une forme normale n'est pas
+unique ; la transformation garantit seulement l'**équivalence**. (Remarque de
+la plateforme, vérifiée par table de vérité.)
+</Callout>
+
+<Source file="Semaine 4.pdf" page={18} locator="Diapositives 18 à 22" />

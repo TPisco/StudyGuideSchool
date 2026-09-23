@@ -1,0 +1,115 @@
+{
+  "code": "MAT115",
+  "title": "Logique et mathématiques discrètes",
+  "term": "Automne 2026",
+  "language": "fr",
+  "accent": "violet",
+  "sample": false,
+  "description": "Le langage formel qui élimine les ambiguïtés du français. Le cours construit la logique propositionnelle — connecteurs, tables de vérité, priorité et parenthésage —, l'étend à la logique du premier ordre avec prédicats et quantificateurs, en tire les lois de la logique et les règles de la déduction naturelle, en donne la sémantique — valuations, modèles, conséquence logique — et termine, pour l'instant, par les formes normales conjonctive et disjonctive. Les outils Tarski UdeS et Panda servent de terrain d'essai.",
+  "chapters": [
+    { "number": 1, "slug": "01-logique-propositionnelle", "title": "Logique propositionnelle" },
+    { "number": 2, "slug": "02-logique-du-premier-ordre", "title": "Logique du premier ordre" },
+    { "number": 3, "slug": "03-lois-et-deduction-naturelle", "title": "Lois de la logique et déduction naturelle" },
+    { "number": 4, "slug": "04-semantique", "title": "Sémantique : valuations, modèles, conséquence logique" },
+    { "number": 5, "slug": "05-formes-normales", "title": "Formes normales conjonctive et disjonctive" }
+  ],
+  "roadmap": {
+    "title": "Parcours d'apprentissage",
+    "steps": [
+      {
+        "id": "ch1",
+        "title": "Logique propositionnelle",
+        "description": "Propositions, formules, les sept connecteurs et leurs tables de vérité, priorité des opérateurs, parenthésage et indentation.",
+        "chapter": 1,
+        "estimatedMinutes": 150,
+        "prerequisites": []
+      },
+      {
+        "id": "ch1-check",
+        "title": "Point de contrôle — parenthéser sans hésiter",
+        "description": "Parenthéser complètement une formule de cinq connecteurs et en dresser la table de vérité, sans se tromper sur l'implication.",
+        "estimatedMinutes": 40,
+        "prerequisites": ["ch1"],
+        "checkpoint": true
+      },
+      {
+        "id": "ch2",
+        "title": "Logique du premier ordre",
+        "description": "Prédicats, fonctions propositionnelles, quantificateurs ∀ et ∃, priorité, portée, variables libres et liées, formules fermées, Tarski UdeS.",
+        "chapter": 2,
+        "estimatedMinutes": 150,
+        "prerequisites": ["ch1-check"]
+      },
+      {
+        "id": "ch2-check",
+        "title": "Point de contrôle — lier chaque occurrence",
+        "description": "Dans une formule à plusieurs quantificateurs imbriqués, dire à quel quantificateur chaque occurrence est liée, ou qu'elle est libre.",
+        "estimatedMinutes": 40,
+        "prerequisites": ["ch2"],
+        "checkpoint": true
+      },
+      {
+        "id": "ch3",
+        "title": "Lois de la logique et déduction naturelle",
+        "description": "Tautologies, les lois LP-1 à LP-55, preuves par réécriture, séquents, et les règles d'introduction et d'élimination de la déduction naturelle.",
+        "chapter": 3,
+        "estimatedMinutes": 210,
+        "prerequisites": ["ch1-check"]
+      },
+      {
+        "id": "ch3-check",
+        "title": "Point de contrôle — une preuve par cas",
+        "description": "Construire, en déduction naturelle, une preuve qui décharge une hypothèse ([I⇒]) et raisonne par cas ([E∨]).",
+        "estimatedMinutes": 50,
+        "prerequisites": ["ch3"],
+        "checkpoint": true
+      },
+      {
+        "id": "ch4",
+        "title": "Sémantique",
+        "description": "Valuations, modèles, formules satisfaisables et valides, ensembles cohérents, conséquence logique.",
+        "chapter": 4,
+        "estimatedMinutes": 120,
+        "prerequisites": ["ch1-check"]
+      },
+      {
+        "id": "ch4-check",
+        "title": "Point de contrôle — lire une table de vérité",
+        "description": "Sur une table de vérité de trois formules, désigner les modèles, décider de la cohérence et de la conséquence logique, en justifiant par des lignes précises.",
+        "estimatedMinutes": 40,
+        "prerequisites": ["ch4"],
+        "checkpoint": true
+      },
+      {
+        "id": "ch5",
+        "title": "Formes normales",
+        "description": "FNC et FND : reconnaître une forme normale, et y transformer une formule avec les lois de De Morgan, de la double négation et de distributivité.",
+        "chapter": 5,
+        "estimatedMinutes": 120,
+        "prerequisites": ["ch3-check"]
+      },
+      {
+        "id": "ch5-check",
+        "title": "Point de contrôle — transformer en FNC",
+        "description": "Transformer une formule contenant ⇒ et une négation de disjonction en FNC, en citant la loi utilisée à chaque étape.",
+        "estimatedMinutes": 40,
+        "prerequisites": ["ch5"],
+        "checkpoint": true
+      },
+      {
+        "id": "revision",
+        "title": "Révision finale",
+        "description": "Examen blanc chronométré couvrant les cinq chapitres, pondéré vers les objectifs faibles détectés par la plateforme.",
+        "estimatedMinutes": 120,
+        "prerequisites": ["ch1-check", "ch2-check", "ch3-check", "ch4-check", "ch5-check"],
+        "checkpoint": true
+      }
+    ]
+  },
+  "exam": {
+    "defaultMinutes": 90,
+    "defaultQuestionCount": 30,
+    "mirrorsPastExam": false,
+    "formatNote": "Aucun examen antérieur n'a été fourni. Le plan de cours annonce deux examens de 180 minutes (intra et final, 40 % chacun) avec tout le matériel autorisé, mais ne décrit pas leur forme : le format de l'examen blanc (30 questions, 90 minutes) est une convention de la plateforme et ne prédit rien de ce qui sera évalué."
+  }
+}

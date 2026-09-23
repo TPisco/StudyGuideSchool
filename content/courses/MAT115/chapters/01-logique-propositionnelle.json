@@ -1,0 +1,1824 @@
+{
+  "course": "MAT115",
+  "chapter": 1,
+  "concepts": [
+    {
+      "id": "c1-proposition",
+      "term": "Proposition logique",
+      "definition": "Un énoncé qui est soit vrai, soit faux, mais pas les deux en même temps.",
+      "whyItMatters": "Seules les propositions ont une valeur de vérité ; c'est ce qui permet de les combiner avec des connecteurs.",
+      "commonMisconception": "Croire qu'une affirmation fausse n'est pas une proposition. « Tous les entiers sont impairs » est une proposition — fausse. Ce sont les questions et les ordres qui n'en sont pas.",
+      "objectiveId": "obj1-proposition",
+      "source": {
+        "file": "Semaine 1.pdf",
+        "page": 9,
+        "locator": "Diapositive 9"
+      }
+    },
+    {
+      "id": "c1-formule",
+      "term": "Formule propositionnelle",
+      "definition": "Expression construite à partir de variables propositionnelles ($X$, $X_0, X_1, \\dots$), des constantes vrai ($1$, $\\top$) et faux ($0$, $\\bot$), et des connecteurs logiques. Les formules sont notées $A, B, C, \\dots$",
+      "whyItMatters": "Les formules se composent comme des expressions arithmétiques : une formule peut contenir d'autres formules.",
+      "commonMisconception": "Confondre la variable X, qui représente une proposition, et la lettre A, qui désigne une formule quelconque dans un énoncé général.",
+      "objectiveId": "obj1-proposition",
+      "source": {
+        "file": "Semaine 1.pdf",
+        "page": 10,
+        "locator": "Diapositive 10"
+      }
+    },
+    {
+      "id": "c1-implication",
+      "term": "Implication A ⇒ B",
+      "definition": "Fausse seulement quand $A$ est vraie et $B$ fausse ; vraie dans tous les autres cas. $A$ est l'hypothèse, $B$ la conclusion.",
+      "whyItMatters": "C'est le connecteur des énoncés mathématiques « si… alors… » et des règles de déduction.",
+      "commonMisconception": "Penser qu'une implication à hypothèse fausse est fausse. Elle est vraie : 0 ⇒ 0 = 1 et 0 ⇒ 1 = 1.",
+      "objectiveId": "obj1-connecteurs",
+      "source": {
+        "file": "Semaine 1.pdf",
+        "page": 16,
+        "locator": "Diapositives 16 et 17"
+      }
+    },
+    {
+      "id": "c1-necessaire",
+      "term": "Condition nécessaire, condition suffisante",
+      "definition": "$A \\Rightarrow B$ se lit « $A$ est une condition suffisante pour $B$ », « $B$ est nécessaire pour $A$ », « $A$ seulement si $B$ », « $B$ si $A$ », « $B$ dès que $A$ ».",
+      "whyItMatters": "Les énoncés des devoirs et des examens sont en français : les traduire exige de repérer l'hypothèse et la conclusion.",
+      "commonMisconception": "Lire « A seulement si B » comme B ⇒ A. C'est A ⇒ B : A ne peut être vrai que si B l'est.",
+      "objectiveId": "obj1-implication",
+      "source": {
+        "file": "Semaine 1.pdf",
+        "page": 16,
+        "locator": "Diapositive 16"
+      }
+    },
+    {
+      "id": "c1-ou-exclusif",
+      "term": "Disjonction et disjonction exclusive",
+      "definition": "$A \\vee B$ est vraie si $A$ ou $B$ ou les deux sont vraies ; $A \\oplus B$ est vraie si exactement l'une des deux l'est.",
+      "whyItMatters": "Le « ou » français est souvent exclusif ; le « ou » logique $\\vee$ ne l'est pas.",
+      "commonMisconception": "Donner la valeur 0 à $1 \\vee 1$ : c'est $1 \\oplus 1$ qui vaut 0.",
+      "objectiveId": "obj1-connecteurs",
+      "source": {
+        "file": "Semaine 1.pdf",
+        "page": 14,
+        "locator": "Diapositives 14 et 15"
+      }
+    },
+    {
+      "id": "c1-priorite",
+      "term": "Priorité des opérateurs",
+      "definition": "Des plus prioritaires aux moins prioritaires : parenthèses intérieures, $\\neg$, $\\wedge$, $\\vee$ et $\\oplus$, $\\Rightarrow$ et $\\Leftarrow$, $\\Leftrightarrow$.",
+      "whyItMatters": "C'est ce qui donne un sens unique à une formule sans parenthèses, comme $A \\wedge \\neg B \\vee C \\Rightarrow D$.",
+      "commonMisconception": "Appliquer les connecteurs de gauche à droite. $\\wedge$ passe avant $\\vee$ où qu'il soit, comme × avant + en arithmétique.",
+      "objectiveId": "obj1-priorite",
+      "source": {
+        "file": "Semaine 1.pdf",
+        "page": 21,
+        "locator": "Diapositive 21"
+      }
+    },
+    {
+      "id": "c1-associativite",
+      "term": "Opérateurs associatifs et commutatifs",
+      "definition": "$\\wedge$, $\\vee$, $\\oplus$ et $\\Leftrightarrow$ sont associatifs et commutatifs. L'implication n'est pas associative : $(A \\Rightarrow B) \\Rightarrow C \\not\\Leftrightarrow A \\Rightarrow (B \\Rightarrow C)$.",
+      "whyItMatters": "On peut écrire $A \\wedge B \\wedge C$ sans parenthèses, mais jamais une chaîne d'implications.",
+      "commonMisconception": "Supposer que $\\Rightarrow$ se comporte comme $\\wedge$ : les deux lectures d'une chaîne d'implications diffèrent dès que $A$ et $C$ sont faux.",
+      "objectiveId": "obj1-table",
+      "source": {
+        "file": "Semaine 1.pdf",
+        "page": 23,
+        "locator": "Diapositives 23 et 24"
+      }
+    },
+    {
+      "id": "c1-indentation",
+      "term": "Parenthéser et indenter",
+      "definition": "Parenthéser : entourer les opérandes de chaque connecteur, de l'extérieur (moins prioritaire) vers l'intérieur, ou l'inverse. Indenter : placer le connecteur principal le plus à gauche et indenter ses opérandes, récursivement.",
+      "whyItMatters": "Le connecteur principal — celui qui s'applique en dernier — détermine la nature de la formule : implication, équivalence, conjonction…",
+      "commonMisconception": "Prendre pour connecteur principal le premier symbole lu. C'est le MOINS prioritaire qui s'applique en dernier.",
+      "objectiveId": "obj1-priorite",
+      "source": {
+        "file": "Semaine 1.pdf",
+        "page": 25,
+        "locator": "Diapositives 25 à 28"
+      }
+    }
+  ],
+  "tables": [
+    {
+      "id": "t1-connecteurs",
+      "title": "Tables de vérité des connecteurs binaires",
+      "kind": "cheatsheet",
+      "columns": [
+        {
+          "key": "A",
+          "label": "A"
+        },
+        {
+          "key": "B",
+          "label": "B"
+        },
+        {
+          "key": "et",
+          "label": "A ∧ B"
+        },
+        {
+          "key": "ou",
+          "label": "A ∨ B"
+        },
+        {
+          "key": "oux",
+          "label": "A ⊕ B"
+        },
+        {
+          "key": "imp",
+          "label": "A ⇒ B"
+        },
+        {
+          "key": "eq",
+          "label": "A ⇔ B"
+        }
+      ],
+      "rows": [
+        {
+          "A": "0",
+          "B": "0",
+          "et": "0",
+          "ou": "0",
+          "oux": "0",
+          "imp": "1",
+          "eq": "1"
+        },
+        {
+          "A": "0",
+          "B": "1",
+          "et": "0",
+          "ou": "1",
+          "oux": "1",
+          "imp": "1",
+          "eq": "0"
+        },
+        {
+          "A": "1",
+          "B": "0",
+          "et": "0",
+          "ou": "1",
+          "oux": "1",
+          "imp": "0",
+          "eq": "0"
+        },
+        {
+          "A": "1",
+          "B": "1",
+          "et": "1",
+          "ou": "1",
+          "oux": "0",
+          "imp": "1",
+          "eq": "1"
+        }
+      ],
+      "source": {
+        "file": "Semaine 1.pdf",
+        "page": 13,
+        "locator": "Diapositives 12 à 18"
+      }
+    },
+    {
+      "id": "t1-formulations",
+      "title": "Les formulations françaises de l'implication",
+      "kind": "reference",
+      "columns": [
+        {
+          "key": "phrase",
+          "label": "On lit…"
+        },
+        {
+          "key": "formule",
+          "label": "Formule"
+        }
+      ],
+      "rows": [
+        {
+          "phrase": "si A alors B",
+          "formule": "$A \\Rightarrow B$"
+        },
+        {
+          "phrase": "B si A",
+          "formule": "$A \\Rightarrow B$"
+        },
+        {
+          "phrase": "A implique B",
+          "formule": "$A \\Rightarrow B$"
+        },
+        {
+          "phrase": "B est nécessaire pour A",
+          "formule": "$A \\Rightarrow B$"
+        },
+        {
+          "phrase": "A seulement si B",
+          "formule": "$A \\Rightarrow B$"
+        },
+        {
+          "phrase": "B dès que A",
+          "formule": "$A \\Rightarrow B$"
+        },
+        {
+          "phrase": "une condition suffisante pour B est A",
+          "formule": "$A \\Rightarrow B$"
+        },
+        {
+          "phrase": "A si et seulement si B",
+          "formule": "$A \\Leftrightarrow B$"
+        },
+        {
+          "phrase": "A est nécessaire et suffisante pour B",
+          "formule": "$A \\Leftrightarrow B$"
+        }
+      ],
+      "source": {
+        "file": "Semaine 1.pdf",
+        "page": 16,
+        "locator": "Diapositives 16 et 18"
+      }
+    },
+    {
+      "id": "t1-priorite",
+      "title": "Ordre de priorité",
+      "kind": "cheatsheet",
+      "columns": [
+        {
+          "key": "rang",
+          "label": "Priorité"
+        },
+        {
+          "key": "ops",
+          "label": "Opérateurs"
+        }
+      ],
+      "rows": [
+        {
+          "rang": "0",
+          "ops": "parenthèses les plus intérieures"
+        },
+        {
+          "rang": "1",
+          "ops": "$\\neg$"
+        },
+        {
+          "rang": "2",
+          "ops": "$\\wedge$"
+        },
+        {
+          "rang": "3",
+          "ops": "$\\vee$, $\\oplus$"
+        },
+        {
+          "rang": "4",
+          "ops": "$\\Rightarrow$, $\\Leftarrow$"
+        },
+        {
+          "rang": "5",
+          "ops": "$\\Leftrightarrow$"
+        }
+      ],
+      "source": {
+        "file": "Semaine 1.pdf",
+        "page": 21,
+        "locator": "Diapositive 21"
+      }
+    }
+  ],
+  "quiz": {
+    "title": "Quiz — vérification rapide",
+    "estimatedMinutes": 15,
+    "questions": [
+      {
+        "id": "q1-01",
+        "objectiveId": "obj1-proposition",
+        "bloomLevel": "understand",
+        "type": "mcq",
+        "difficulty": 1,
+        "prompt": "Lequel de ces énoncés est une proposition logique ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Tous les entiers sont impairs."
+          },
+          {
+            "id": "b",
+            "text": "Comment allez-vous ?"
+          },
+          {
+            "id": "c",
+            "text": "Viens ici."
+          },
+          {
+            "id": "d",
+            "text": "$x < 2$"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Une proposition est vraie ou fausse. Celle-ci est fausse — et c'est bien une proposition, comme dans l'exemple (c) des diapositives.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "C'est une question : elle n'est ni vraie ni fausse."
+          },
+          {
+            "optionId": "c",
+            "why": "C'est un ordre : il n'a pas de valeur de vérité."
+          },
+          {
+            "optionId": "d",
+            "why": "Sa valeur de vérité dépend de x : ce n'est pas encore une proposition (voir le chapitre 2)."
+          }
+        ],
+        "source": {
+          "file": "Semaine 1.pdf",
+          "page": 9,
+          "locator": "Diapositive 9"
+        }
+      },
+      {
+        "id": "q1-02",
+        "objectiveId": "obj1-connecteurs",
+        "bloomLevel": "recall",
+        "type": "mcq",
+        "difficulty": 1,
+        "prompt": "Dans quel cas l'implication $A \\Rightarrow B$ est-elle fausse ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "$A$ vraie et $B$ fausse"
+          },
+          {
+            "id": "b",
+            "text": "$A$ fausse et $B$ vraie"
+          },
+          {
+            "id": "c",
+            "text": "$A$ et $B$ toutes deux fausses"
+          },
+          {
+            "id": "d",
+            "text": "Dès que $A$ et $B$ ont des valeurs différentes"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Diapositive 16 : l'implication est fausse quand A est vraie et B fausse, et vraie dans tous les autres cas.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Une hypothèse fausse rend l'implication vraie."
+          },
+          {
+            "optionId": "c",
+            "why": "$0 \\Rightarrow 0 = 1$ : hypothèse fausse, implication vraie."
+          },
+          {
+            "optionId": "d",
+            "why": "C'est le cas où $A \\Leftrightarrow B$ est fausse ; pour $\\Rightarrow$, seul (1, 0) la rend fausse."
+          }
+        ],
+        "source": {
+          "file": "Semaine 1.pdf",
+          "page": 16,
+          "locator": "Diapositive 16"
+        }
+      },
+      {
+        "id": "q1-03",
+        "objectiveId": "obj1-connecteurs",
+        "bloomLevel": "recall",
+        "type": "true-false",
+        "difficulty": 1,
+        "prompt": "$A \\oplus B$ est vraie quand $A$ et $B$ sont toutes les deux vraies.",
+        "options": [
+          {
+            "id": "v",
+            "text": "Vrai"
+          },
+          {
+            "id": "f",
+            "text": "Faux"
+          }
+        ],
+        "correct": "f",
+        "explanation": "Le ou exclusif est vrai si l'un des opérandes est vrai mais pas les deux : $1 \\oplus 1 = 0$.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "v",
+            "why": "C'est le ou inclusif $\\vee$ qui vaut 1 quand les deux sont vraies."
+          }
+        ],
+        "source": {
+          "file": "Semaine 1.pdf",
+          "page": 15,
+          "locator": "Diapositive 15"
+        }
+      },
+      {
+        "id": "q1-04",
+        "objectiveId": "obj1-table",
+        "bloomLevel": "apply",
+        "type": "short-answer",
+        "difficulty": 1,
+        "prompt": "Que vaut $(X_1 \\wedge X_2) \\vee X_3$ pour $X_1 = 1$, $X_2 = 0$, $X_3 = 0$ ? (0 ou 1)",
+        "correct": "0",
+        "acceptableAnswers": [],
+        "explanation": "$X_1 \\wedge X_2 = 1 \\wedge 0 = 0$, puis $0 \\vee 0 = 0$. C'est la ligne 5 de la table des diapositives.",
+        "source": {
+          "file": "Semaine 1.pdf",
+          "page": 20,
+          "locator": "Diapositive 20"
+        }
+      },
+      {
+        "id": "q1-05",
+        "objectiveId": "obj1-implication",
+        "bloomLevel": "understand",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Quelle formule traduit « B est nécessaire pour A » ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "$A \\Rightarrow B$"
+          },
+          {
+            "id": "b",
+            "text": "$B \\Rightarrow A$"
+          },
+          {
+            "id": "c",
+            "text": "$A \\Leftrightarrow B$"
+          },
+          {
+            "id": "d",
+            "text": "$A \\wedge B$"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Diapositive 16 : « B est nécessaire pour A » est l'une des formulations de A ⇒ B. Sans B, A ne peut pas être vraie.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "C'est « B est suffisante pour A ». La condition nécessaire se place à DROITE de la flèche."
+          },
+          {
+            "optionId": "c",
+            "why": "Il faudrait « nécessaire ET suffisante »."
+          },
+          {
+            "optionId": "d",
+            "why": "« Nécessaire » exprime une implication, pas une conjonction."
+          }
+        ],
+        "source": {
+          "file": "Semaine 1.pdf",
+          "page": 16,
+          "locator": "Diapositive 16"
+        }
+      },
+      {
+        "id": "q1-06",
+        "objectiveId": "obj1-implication",
+        "bloomLevel": "understand",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Quelle formule traduit « A seulement si B » ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "$A \\Rightarrow B$"
+          },
+          {
+            "id": "b",
+            "text": "$B \\Rightarrow A$"
+          },
+          {
+            "id": "c",
+            "text": "$A \\Leftrightarrow B$"
+          },
+          {
+            "id": "d",
+            "text": "$\\neg A \\Rightarrow B$"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Diapositive 16 : « A seulement si B » est une formulation de A ⇒ B.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "C'est « A si B ». « Seulement si » inverse le sens par rapport à « si »."
+          },
+          {
+            "optionId": "c",
+            "why": "« Si et seulement si » donnerait l'équivalence ; « seulement si » seul ne donne qu'un sens."
+          },
+          {
+            "optionId": "d",
+            "why": "Aucune négation n'apparaît dans la phrase."
+          }
+        ],
+        "source": {
+          "file": "Semaine 1.pdf",
+          "page": 16,
+          "locator": "Diapositive 16"
+        }
+      },
+      {
+        "id": "q1-07",
+        "objectiveId": "obj1-priorite",
+        "bloomLevel": "recall",
+        "type": "mcq",
+        "difficulty": 1,
+        "prompt": "Parmi $\\wedge$, $\\vee$, $\\Rightarrow$ et $\\Leftrightarrow$, lequel est le PLUS prioritaire ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "$\\wedge$"
+          },
+          {
+            "id": "b",
+            "text": "$\\vee$"
+          },
+          {
+            "id": "c",
+            "text": "$\\Rightarrow$"
+          },
+          {
+            "id": "d",
+            "text": "$\\Leftrightarrow$"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Diapositive 21 : $\\neg$ (1), $\\wedge$ (2), $\\vee$ et $\\oplus$ (3), $\\Rightarrow$ et $\\Leftarrow$ (4), $\\Leftrightarrow$ (5).",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "$\\vee$ vient juste après $\\wedge$ (rang 3 contre 2)."
+          },
+          {
+            "optionId": "c",
+            "why": "L'implication est au rang 4."
+          },
+          {
+            "optionId": "d",
+            "why": "L'équivalence est la MOINS prioritaire (rang 5)."
+          }
+        ],
+        "source": {
+          "file": "Semaine 1.pdf",
+          "page": 21,
+          "locator": "Diapositive 21"
+        }
+      },
+      {
+        "id": "q1-08",
+        "objectiveId": "obj1-priorite",
+        "bloomLevel": "apply",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Comment se parenthèse $A \\wedge \\neg B \\vee C \\Rightarrow D$ ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "$((A \\wedge (\\neg B)) \\vee C) \\Rightarrow D$"
+          },
+          {
+            "id": "b",
+            "text": "$A \\wedge (\\neg B \\vee (C \\Rightarrow D))$"
+          },
+          {
+            "id": "c",
+            "text": "$(A \\wedge \\neg (B \\vee C)) \\Rightarrow D$"
+          },
+          {
+            "id": "d",
+            "text": "$A \\wedge ((\\neg B \\vee C) \\Rightarrow D)$"
+          }
+        ],
+        "correct": "a",
+        "explanation": "C'est l'exemple de la diapositive 22 : ¬B, puis A ∧ ¬B, puis ∨ C, puis ⇒ D.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "On a lu de droite à gauche ; ∧ est plus prioritaire que ∨, lui-même plus prioritaire que ⇒."
+          },
+          {
+            "optionId": "c",
+            "why": "La négation ne s'applique qu'à B : ¬ est le plus prioritaire."
+          },
+          {
+            "optionId": "d",
+            "why": "$\\wedge$ s'applique avant $\\vee$ et $\\Rightarrow$ : il lie $A$ et $\\neg B$ en premier."
+          }
+        ],
+        "source": {
+          "file": "Semaine 1.pdf",
+          "page": 22,
+          "locator": "Diapositive 22"
+        }
+      },
+      {
+        "id": "q1-09",
+        "objectiveId": "obj1-table",
+        "bloomLevel": "apply",
+        "type": "short-answer",
+        "difficulty": 1,
+        "prompt": "Combien de lignes compte la table de vérité d'une formule à 4 variables ? (un nombre)",
+        "correct": "16",
+        "acceptableAnswers": [
+          "2^4",
+          "2⁴"
+        ],
+        "explanation": "Chaque variable a 2 valeurs possibles : $2^4 = 16$ combinaisons.",
+        "source": {
+          "file": "Semaine 1.pdf",
+          "page": 20,
+          "locator": "Diapositive 20"
+        }
+      },
+      {
+        "id": "q1-10",
+        "objectiveId": "obj1-table",
+        "bloomLevel": "analyze",
+        "type": "mcq",
+        "difficulty": 3,
+        "prompt": "Pour montrer que $(A \\Rightarrow B) \\Rightarrow C$ et $A \\Rightarrow (B \\Rightarrow C)$ ne sont pas équivalentes, quelle ligne suffit ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "$A = 0$, $B = 0$, $C = 0$"
+          },
+          {
+            "id": "b",
+            "text": "$A = 1$, $B = 1$, $C = 1$"
+          },
+          {
+            "id": "c",
+            "text": "$A = 1$, $B = 1$, $C = 0$"
+          },
+          {
+            "id": "d",
+            "text": "$A = 1$, $B = 0$, $C = 0$"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Pour $A = B = C = 0$ : $(0 \\Rightarrow 0) \\Rightarrow 0 = 1 \\Rightarrow 0 = 0$, alors que $0 \\Rightarrow (0 \\Rightarrow 0) = 1$. Une seule ligne différente suffit à montrer la non-équivalence (diapositive 24).",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Les deux formules y valent 1 : cette ligne ne les distingue pas."
+          },
+          {
+            "optionId": "c",
+            "why": "Les deux y valent 0 : $(1 \\Rightarrow 1) \\Rightarrow 0 = 0$ et $1 \\Rightarrow (1 \\Rightarrow 0) = 0$."
+          },
+          {
+            "optionId": "d",
+            "why": "Les deux y valent 1 : $(1 \\Rightarrow 0) \\Rightarrow 0 = 0 \\Rightarrow 0 = 1$ et $1 \\Rightarrow (0 \\Rightarrow 0) = 1$."
+          }
+        ],
+        "source": {
+          "file": "Semaine 1.pdf",
+          "page": 24,
+          "locator": "Diapositive 24"
+        }
+      },
+      {
+        "id": "q1-11",
+        "objectiveId": "obj1-priorite",
+        "bloomLevel": "analyze",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Quel est le connecteur principal de $A \\Rightarrow B \\vee \\neg C \\wedge D \\Leftrightarrow E \\Rightarrow F$ ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "$\\Leftrightarrow$"
+          },
+          {
+            "id": "b",
+            "text": "le premier $\\Rightarrow$"
+          },
+          {
+            "id": "c",
+            "text": "$\\wedge$"
+          },
+          {
+            "id": "d",
+            "text": "$\\neg$"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Le connecteur principal est le MOINS prioritaire, $\\Leftrightarrow$ : $\\big(A \\Rightarrow (B \\vee ((\\neg C) \\wedge D))\\big) \\Leftrightarrow (E \\Rightarrow F)$ (diapositives 25 et 26).",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Il est plus prioritaire que ⇔ : il s'applique avant, à l'intérieur du côté gauche."
+          },
+          {
+            "optionId": "c",
+            "why": "C'est l'un des plus prioritaires : il s'applique parmi les premiers, pas en dernier."
+          },
+          {
+            "optionId": "d",
+            "why": "La négation est la plus prioritaire et ne porte que sur C."
+          }
+        ],
+        "source": {
+          "file": "Semaine 1.pdf",
+          "page": 26,
+          "locator": "Diapositive 26"
+        }
+      },
+      {
+        "id": "q1-12",
+        "objectiveId": "obj1-connecteurs",
+        "bloomLevel": "understand",
+        "type": "true-false",
+        "difficulty": 1,
+        "prompt": "Une implication dont l'hypothèse est fausse est vraie, quelle que soit la conclusion.",
+        "options": [
+          {
+            "id": "v",
+            "text": "Vrai"
+          },
+          {
+            "id": "f",
+            "text": "Faux"
+          }
+        ],
+        "correct": "v",
+        "explanation": "Table de $\\Rightarrow$ : $0 \\Rightarrow 0 = 1$ et $0 \\Rightarrow 1 = 1$.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "f",
+            "why": "L'implication n'est fausse que si l'hypothèse est vraie et la conclusion fausse."
+          }
+        ],
+        "source": {
+          "file": "Semaine 1.pdf",
+          "page": 16,
+          "locator": "Diapositive 16"
+        }
+      }
+    ]
+  },
+  "test": {
+    "title": "Test du chapitre 1",
+    "instructions": "21 questions couvrant tout le chapitre. Plus long et plus difficile que le quiz.",
+    "estimatedMinutes": 45,
+    "questions": [
+      {
+        "id": "t1-01",
+        "objectiveId": "obj1-proposition",
+        "bloomLevel": "recall",
+        "type": "mcq",
+        "difficulty": 1,
+        "prompt": "Qu'est-ce qu'une proposition logique ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Un énoncé qui est soit vrai, soit faux, mais pas les deux"
+          },
+          {
+            "id": "b",
+            "text": "Un énoncé vrai"
+          },
+          {
+            "id": "c",
+            "text": "Toute phrase grammaticalement correcte"
+          },
+          {
+            "id": "d",
+            "text": "Une formule qui contient au moins un connecteur"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Définition de la diapositive 9.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Une proposition peut être fausse : « Toronto est la capitale du Canada » en est une."
+          },
+          {
+            "optionId": "c",
+            "why": "Une question ou un ordre sont des phrases correctes, mais pas des propositions."
+          },
+          {
+            "optionId": "d",
+            "why": "Une proposition simple n'a aucun connecteur."
+          }
+        ],
+        "source": {
+          "file": "Semaine 1.pdf",
+          "page": 9,
+          "locator": "Diapositive 9"
+        }
+      },
+      {
+        "id": "t1-02",
+        "objectiveId": "obj1-proposition",
+        "bloomLevel": "understand",
+        "type": "multi",
+        "difficulty": 2,
+        "prompt": "Lesquels de ces énoncés sont des propositions logiques ? (plusieurs réponses)",
+        "options": [
+          {
+            "id": "a",
+            "text": "Toronto est la capitale du Canada."
+          },
+          {
+            "id": "b",
+            "text": "$2 - 3 = -1$"
+          },
+          {
+            "id": "c",
+            "text": "Tous les entiers sont impairs."
+          },
+          {
+            "id": "d",
+            "text": "Comment allez-vous ?"
+          },
+          {
+            "id": "e",
+            "text": "Viens ici."
+          }
+        ],
+        "correct": [
+          "a",
+          "b",
+          "c"
+        ],
+        "explanation": "Exemple de la diapositive 9 : (a) et (c) sont fausses, (b) est vraie — toutes trois sont des propositions.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "d",
+            "why": "Une question n'a pas de valeur de vérité."
+          },
+          {
+            "optionId": "e",
+            "why": "Un ordre n'a pas de valeur de vérité."
+          }
+        ],
+        "source": {
+          "file": "Semaine 1.pdf",
+          "page": 9,
+          "locator": "Diapositive 9"
+        }
+      },
+      {
+        "id": "t1-03",
+        "objectiveId": "obj1-proposition",
+        "bloomLevel": "recall",
+        "type": "mcq",
+        "difficulty": 1,
+        "prompt": "Comment les diapositives notent-elles les constantes vrai et faux ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "vrai : $1$ ou $\\top$ ; faux : $0$ ou $\\bot$"
+          },
+          {
+            "id": "b",
+            "text": "vrai : $\\bot$ ; faux : $\\top$"
+          },
+          {
+            "id": "c",
+            "text": "vrai : $X_1$ ; faux : $X_0$"
+          },
+          {
+            "id": "d",
+            "text": "vrai : $A$ ; faux : $\\neg A$"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Diapositive 10.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "C'est l'inverse : $\\top$ pour vrai, $\\bot$ pour faux."
+          },
+          {
+            "optionId": "c",
+            "why": "$X_0, X_1, \\dots$ sont des variables propositionnelles, pas des constantes."
+          },
+          {
+            "optionId": "d",
+            "why": "A désigne une formule quelconque."
+          }
+        ],
+        "source": {
+          "file": "Semaine 1.pdf",
+          "page": 10,
+          "locator": "Diapositive 10"
+        }
+      },
+      {
+        "id": "t1-04",
+        "objectiveId": "obj1-connecteurs",
+        "bloomLevel": "recall",
+        "type": "mcq",
+        "difficulty": 1,
+        "prompt": "Quand $A \\vee B$ est-elle fausse ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Seulement quand $A$ et $B$ sont toutes les deux fausses"
+          },
+          {
+            "id": "b",
+            "text": "Quand $A$ et $B$ sont toutes les deux vraies"
+          },
+          {
+            "id": "c",
+            "text": "Dès que l'une des deux est fausse"
+          },
+          {
+            "id": "d",
+            "text": "Jamais"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Diapositive 14 : A ∨ B est vraie si A ou B ou les deux sont vraies.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "C'est $A \\oplus B$ qui est fausse dans ce cas ; $1 \\vee 1 = 1$."
+          },
+          {
+            "optionId": "c",
+            "why": "C'est la condition pour que $A \\wedge B$ soit fausse."
+          },
+          {
+            "optionId": "d",
+            "why": "$0 \\vee 0 = 0$."
+          }
+        ],
+        "source": {
+          "file": "Semaine 1.pdf",
+          "page": 14,
+          "locator": "Diapositive 14"
+        }
+      },
+      {
+        "id": "t1-05",
+        "objectiveId": "obj1-connecteurs",
+        "bloomLevel": "apply",
+        "type": "short-answer",
+        "difficulty": 1,
+        "prompt": "Que vaut $A \\oplus B$ pour $A = 1$ et $B = 1$ ? (0 ou 1)",
+        "correct": "0",
+        "acceptableAnswers": [],
+        "explanation": "Le ou exclusif est vrai si l'un est vrai mais pas les deux.",
+        "source": {
+          "file": "Semaine 1.pdf",
+          "page": 15,
+          "locator": "Diapositive 15"
+        }
+      },
+      {
+        "id": "t1-06",
+        "objectiveId": "obj1-connecteurs",
+        "bloomLevel": "apply",
+        "type": "mcq",
+        "difficulty": 1,
+        "prompt": "Que vaut $A \\Leftrightarrow B$ pour $A = 0$ et $B = 0$ ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "1"
+          },
+          {
+            "id": "b",
+            "text": "0"
+          },
+          {
+            "id": "c",
+            "text": "Indéfini"
+          },
+          {
+            "id": "d",
+            "text": "Cela dépend de la formule A"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Diapositive 18 : vraie quand A et B ont les mêmes valeurs de vérité.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "L'équivalence est vraie quand les deux ont la MÊME valeur, même si c'est 0."
+          },
+          {
+            "optionId": "c",
+            "why": "Toute combinaison de valeurs donne une valeur de vérité."
+          },
+          {
+            "optionId": "d",
+            "why": "A et B ont reçu une valeur ; le résultat est déterminé."
+          }
+        ],
+        "source": {
+          "file": "Semaine 1.pdf",
+          "page": 18,
+          "locator": "Diapositive 18"
+        }
+      },
+      {
+        "id": "t1-07",
+        "objectiveId": "obj1-connecteurs",
+        "bloomLevel": "understand",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "A : « Nous sommes vendredi » est vraie et B : « Il fait nuit » est fausse. Laquelle de ces propositions est vraie ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "$A \\oplus B$"
+          },
+          {
+            "id": "b",
+            "text": "$A \\wedge B$"
+          },
+          {
+            "id": "c",
+            "text": "$A \\Rightarrow B$"
+          },
+          {
+            "id": "d",
+            "text": "$A \\Leftrightarrow B$"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Avec une proposition vraie et une fausse, ⊕ vaut 1. C'est la situation des exemples des diapositives 13 à 15, où A ∧ B est fausse et A ∨ B, A ⊕ B sont vraies.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Il faudrait que les deux soient vraies."
+          },
+          {
+            "optionId": "c",
+            "why": "Hypothèse vraie, conclusion fausse : c'est le seul cas où l'implication est fausse."
+          },
+          {
+            "optionId": "d",
+            "why": "Les deux n'ont pas la même valeur."
+          }
+        ],
+        "source": {
+          "file": "Semaine 1.pdf",
+          "page": 15,
+          "locator": "Diapositives 13 à 15"
+        }
+      },
+      {
+        "id": "t1-08",
+        "objectiveId": "obj1-implication",
+        "bloomLevel": "understand",
+        "type": "mcq",
+        "difficulty": 1,
+        "prompt": "« A est nécessaire et suffisante pour B » se traduit par :",
+        "options": [
+          {
+            "id": "a",
+            "text": "$A \\Leftrightarrow B$"
+          },
+          {
+            "id": "b",
+            "text": "$A \\Rightarrow B$"
+          },
+          {
+            "id": "c",
+            "text": "$B \\Rightarrow A$"
+          },
+          {
+            "id": "d",
+            "text": "$A \\wedge B$"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Diapositive 18.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Cela ne traduit que « suffisante »."
+          },
+          {
+            "optionId": "c",
+            "why": "Cela ne traduit que « nécessaire »."
+          },
+          {
+            "optionId": "d",
+            "why": "Les deux conditions se combinent en une équivalence, pas en une conjonction."
+          }
+        ],
+        "source": {
+          "file": "Semaine 1.pdf",
+          "page": 18,
+          "locator": "Diapositive 18"
+        }
+      },
+      {
+        "id": "t1-09",
+        "objectiveId": "obj1-implication",
+        "bloomLevel": "apply",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "A : « Il a la grippe », B : « Il fait de la fièvre ». Quelle formule traduit « Il fait de la fièvre dès qu'il a la grippe » ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "$A \\Rightarrow B$"
+          },
+          {
+            "id": "b",
+            "text": "$B \\Rightarrow A$"
+          },
+          {
+            "id": "c",
+            "text": "$A \\Leftrightarrow B$"
+          },
+          {
+            "id": "d",
+            "text": "$A \\wedge B$"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Diapositive 16 : « B dès que A » est une formulation de A ⇒ B.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "« B dès que A » : c'est A qui déclenche B."
+          },
+          {
+            "optionId": "c",
+            "why": "Rien ne dit que la fièvre entraîne la grippe."
+          },
+          {
+            "optionId": "d",
+            "why": "La phrase exprime une condition, pas une simultanéité."
+          }
+        ],
+        "source": {
+          "file": "Semaine 1.pdf",
+          "page": 16,
+          "locator": "Diapositives 16 et 17"
+        }
+      },
+      {
+        "id": "t1-10",
+        "objectiveId": "obj1-priorite",
+        "bloomLevel": "recall",
+        "type": "mcq",
+        "difficulty": 1,
+        "prompt": "Quel opérateur a la même priorité que $\\vee$ ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "$\\oplus$"
+          },
+          {
+            "id": "b",
+            "text": "$\\wedge$"
+          },
+          {
+            "id": "c",
+            "text": "$\\Leftarrow$"
+          },
+          {
+            "id": "d",
+            "text": "$\\neg$"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Diapositive 21 : rang 3, ∨ et ⊕.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "$\\wedge$ est plus prioritaire (rang 2)."
+          },
+          {
+            "optionId": "c",
+            "why": "$\\Leftarrow$ partage le rang 4 avec $\\Rightarrow$."
+          },
+          {
+            "optionId": "d",
+            "why": "La négation est la plus prioritaire."
+          }
+        ],
+        "source": {
+          "file": "Semaine 1.pdf",
+          "page": 21,
+          "locator": "Diapositive 21"
+        }
+      },
+      {
+        "id": "t1-11",
+        "objectiveId": "obj1-priorite",
+        "bloomLevel": "apply",
+        "type": "short-answer",
+        "difficulty": 2,
+        "prompt": "Que vaut $A \\wedge \\neg B \\vee C \\Rightarrow D$ pour $A = 1$, $B = 0$, $C = 0$, $D = 0$ ? (0 ou 1)",
+        "correct": "0",
+        "acceptableAnswers": [],
+        "explanation": "$((1 \\wedge \\neg 0) \\vee 0) \\Rightarrow 0 = (1 \\vee 0) \\Rightarrow 0 = 1 \\Rightarrow 0 = 0$. Avec une mauvaise lecture comme $A \\wedge (\\neg B \\vee (C \\Rightarrow D))$, on trouverait 1.",
+        "source": {
+          "file": "Semaine 1.pdf",
+          "page": 22,
+          "locator": "Diapositive 22"
+        }
+      },
+      {
+        "id": "t1-12",
+        "objectiveId": "obj1-priorite",
+        "bloomLevel": "apply",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Quelle est la forme complètement parenthésée de $A \\Rightarrow B \\vee \\neg C \\wedge D \\Leftrightarrow E \\Rightarrow F$ ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "$\\big(A \\Rightarrow (B \\vee ((\\neg C) \\wedge D))\\big) \\Leftrightarrow (E \\Rightarrow F)$"
+          },
+          {
+            "id": "b",
+            "text": "$A \\Rightarrow \\big((B \\vee (\\neg C)) \\wedge (D \\Leftrightarrow (E \\Rightarrow F))\\big)$"
+          },
+          {
+            "id": "c",
+            "text": "$\\big((A \\Rightarrow B) \\vee ((\\neg C) \\wedge D)\\big) \\Leftrightarrow (E \\Rightarrow F)$"
+          },
+          {
+            "id": "d",
+            "text": "$\\Big(A \\Rightarrow \\big(B \\vee (\\neg (C \\wedge D))\\big)\\Big) \\Leftrightarrow (E \\Rightarrow F)$"
+          }
+        ],
+        "correct": "a",
+        "explanation": "C'est le résultat des diapositives 26 et 27.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "∨ ne s'applique pas avant ∧, et ⇔ est le connecteur principal."
+          },
+          {
+            "optionId": "c",
+            "why": "⇒ est moins prioritaire que ∨ : il porte sur toute la disjonction B ∨ …"
+          },
+          {
+            "optionId": "d",
+            "why": "¬ ne porte que sur C : c'est l'opérateur le plus prioritaire."
+          }
+        ],
+        "source": {
+          "file": "Semaine 1.pdf",
+          "page": 26,
+          "locator": "Diapositive 26"
+        }
+      },
+      {
+        "id": "t1-13",
+        "objectiveId": "obj1-priorite",
+        "bloomLevel": "analyze",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Quel est le connecteur principal de $A \\wedge \\neg B \\vee C \\Rightarrow D$ ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "$\\Rightarrow$"
+          },
+          {
+            "id": "b",
+            "text": "$\\wedge$"
+          },
+          {
+            "id": "c",
+            "text": "$\\vee$"
+          },
+          {
+            "id": "d",
+            "text": "$\\neg$"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Le connecteur principal est celui qui s'applique en dernier, donc le moins prioritaire : ⇒. La formule est une implication.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "C'est le premier symbole binaire lu, mais il est plus prioritaire que ∨ et ⇒ : il s'applique en premier."
+          },
+          {
+            "optionId": "c",
+            "why": "Il s'applique avant ⇒."
+          },
+          {
+            "optionId": "d",
+            "why": "Il est le plus prioritaire et ne porte que sur B."
+          }
+        ],
+        "source": {
+          "file": "Semaine 1.pdf",
+          "page": 27,
+          "locator": "Diapositive 27"
+        }
+      },
+      {
+        "id": "t1-14",
+        "objectiveId": "obj1-table",
+        "bloomLevel": "analyze",
+        "type": "true-false",
+        "difficulty": 2,
+        "prompt": "$(A \\Rightarrow B) \\Rightarrow C \\Leftrightarrow A \\Rightarrow (B \\Rightarrow C)$ est une tautologie.",
+        "options": [
+          {
+            "id": "v",
+            "text": "Vrai"
+          },
+          {
+            "id": "f",
+            "text": "Faux"
+          }
+        ],
+        "correct": "f",
+        "explanation": "La diapositive 24 montre que l'implication n'est pas associative : pour $A = B = C = 0$, la première vaut 0 et la seconde 1.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "v",
+            "why": "Une seule ligne où les deux côtés diffèrent suffit à rendre l'équivalence fausse."
+          }
+        ],
+        "source": {
+          "file": "Semaine 1.pdf",
+          "page": 24,
+          "locator": "Diapositive 24"
+        }
+      },
+      {
+        "id": "t1-15",
+        "objectiveId": "obj1-table",
+        "bloomLevel": "apply",
+        "type": "short-answer",
+        "difficulty": 3,
+        "prompt": "Sur combien des 8 lignes $(A \\Rightarrow B) \\Rightarrow C$ et $A \\Rightarrow (B \\Rightarrow C)$ ont-elles des valeurs DIFFÉRENTES ? (un nombre)",
+        "correct": "2",
+        "acceptableAnswers": [
+          "deux"
+        ],
+        "explanation": "Les lignes $(0, 0, 0)$ et $(0, 1, 0)$ : $A$ faux rend $A \\Rightarrow (B \\Rightarrow C)$ vraie, alors que $(A \\Rightarrow B) \\Rightarrow C = 1 \\Rightarrow 0 = 0$. Partout ailleurs, elles coïncident.",
+        "source": {
+          "file": "Semaine 1.pdf",
+          "page": 24,
+          "locator": "Diapositive 24"
+        }
+      },
+      {
+        "id": "t1-16",
+        "objectiveId": "obj1-table",
+        "bloomLevel": "recall",
+        "type": "multi",
+        "difficulty": 1,
+        "prompt": "Lesquels de ces opérateurs sont associatifs et commutatifs ? (plusieurs réponses)",
+        "options": [
+          {
+            "id": "a",
+            "text": "$\\wedge$"
+          },
+          {
+            "id": "b",
+            "text": "$\\oplus$"
+          },
+          {
+            "id": "c",
+            "text": "$\\Leftrightarrow$"
+          },
+          {
+            "id": "d",
+            "text": "$\\Rightarrow$"
+          }
+        ],
+        "correct": [
+          "a",
+          "b",
+          "c"
+        ],
+        "explanation": "Diapositive 23 : ∧, ∨, ⊕ et ⇔.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "d",
+            "why": "L'implication n'est ni associative (diapositive 24) ni commutative."
+          }
+        ],
+        "source": {
+          "file": "Semaine 1.pdf",
+          "page": 23,
+          "locator": "Diapositive 23"
+        }
+      },
+      {
+        "id": "t1-17",
+        "objectiveId": "obj1-priorite",
+        "bloomLevel": "understand",
+        "type": "mcq",
+        "difficulty": 1,
+        "prompt": "Pour indenter une formule, que place-t-on le plus à gauche ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Le connecteur principal, celui qui s'applique en dernier"
+          },
+          {
+            "id": "b",
+            "text": "La première variable de la formule"
+          },
+          {
+            "id": "c",
+            "text": "La négation la plus intérieure"
+          },
+          {
+            "id": "d",
+            "text": "Toutes les parenthèses"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Diapositive 27.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "L'indentation part des connecteurs, pas des variables."
+          },
+          {
+            "optionId": "c",
+            "why": "C'est l'opérateur le plus prioritaire : il apparaît au plus profond de l'indentation."
+          },
+          {
+            "optionId": "d",
+            "why": "On part d'une formule parenthésée, mais c'est le connecteur principal qui ouvre l'indentation."
+          }
+        ],
+        "source": {
+          "file": "Semaine 1.pdf",
+          "page": 27,
+          "locator": "Diapositive 27"
+        }
+      },
+      {
+        "id": "t1-18",
+        "objectiveId": "obj1-table",
+        "bloomLevel": "apply",
+        "type": "mcq",
+        "difficulty": 1,
+        "prompt": "Dans la table de $(X_1 \\wedge X_2) \\vee X_3$, que vaut la formule pour $X_1 = 1$, $X_2 = 1$, $X_3 = 0$ ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "1"
+          },
+          {
+            "id": "b",
+            "text": "0"
+          },
+          {
+            "id": "c",
+            "text": "Cela dépend de l'ordre des lignes"
+          },
+          {
+            "id": "d",
+            "text": "2"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Ligne 7 de la table de la diapositive 20.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "$X_1 \\wedge X_2 = 1$, donc la disjonction vaut 1 même si $X_3 = 0$."
+          },
+          {
+            "optionId": "c",
+            "why": "Une ligne de la table correspond à une valuation précise ; son ordre n'a pas d'importance."
+          },
+          {
+            "optionId": "d",
+            "why": "Les valeurs de vérité sont 0 ou 1, jamais une somme."
+          }
+        ],
+        "source": {
+          "file": "Semaine 1.pdf",
+          "page": 20,
+          "locator": "Diapositive 20"
+        }
+      },
+      {
+        "id": "t1-19",
+        "objectiveId": "obj1-implication",
+        "bloomLevel": "analyze",
+        "type": "mcq",
+        "difficulty": 3,
+        "prompt": "A : « Nous sommes vendredi », B : « Il fait nuit ». Quelle formule traduit « Il fait nuit si nous sommes vendredi » ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "$A \\Rightarrow B$"
+          },
+          {
+            "id": "b",
+            "text": "$B \\Rightarrow A$"
+          },
+          {
+            "id": "c",
+            "text": "$A \\Leftrightarrow B$"
+          },
+          {
+            "id": "d",
+            "text": "$\\neg A \\vee \\neg B$"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Diapositive 16 : « B si A » se lit A ⇒ B. Le piège : B apparaît en premier dans la phrase, mais c'est la conclusion.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "« B si A » : c'est A, après le « si », qui est l'hypothèse."
+          },
+          {
+            "optionId": "c",
+            "why": "Il faudrait « si et seulement si »."
+          },
+          {
+            "optionId": "d",
+            "why": "La phrase ne contient aucune négation."
+          }
+        ],
+        "source": {
+          "file": "Semaine 1.pdf",
+          "page": 16,
+          "locator": "Diapositive 16"
+        }
+      },
+      {
+        "id": "t1-20",
+        "objectiveId": "obj1-proposition",
+        "bloomLevel": "understand",
+        "type": "mcq",
+        "difficulty": 1,
+        "prompt": "Pourquoi « Comment allez-vous ? » n'est-il pas une proposition logique ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Parce qu'une question n'est ni vraie ni fausse"
+          },
+          {
+            "id": "b",
+            "text": "Parce qu'il est faux"
+          },
+          {
+            "id": "c",
+            "text": "Parce qu'il contient une variable"
+          },
+          {
+            "id": "d",
+            "text": "Parce qu'il n'a pas de connecteur"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Diapositive 9 : (d) est une question, (e) un commandement.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Un énoncé faux peut être une proposition."
+          },
+          {
+            "optionId": "c",
+            "why": "Il ne contient aucune variable."
+          },
+          {
+            "optionId": "d",
+            "why": "Une proposition simple n'a pas besoin de connecteur."
+          }
+        ],
+        "source": {
+          "file": "Semaine 1.pdf",
+          "page": 9,
+          "locator": "Diapositive 9"
+        }
+      },
+      {
+        "id": "t1-21",
+        "objectiveId": "obj1-table",
+        "bloomLevel": "apply",
+        "type": "fill-blank",
+        "difficulty": 1,
+        "prompt": "Compléter : une formule à $n$ variables a une table de vérité de ____ lignes.",
+        "correct": "2^n",
+        "acceptableAnswers": [
+          "2ⁿ",
+          "2 puissance n",
+          "2**n"
+        ],
+        "explanation": "Chaque variable a 2 valeurs : $2 \\times 2 \\times \\cdots \\times 2 = 2^n$ (diapositive 20).",
+        "source": {
+          "file": "Semaine 1.pdf",
+          "page": 20,
+          "locator": "Diapositive 20"
+        }
+      }
+    ]
+  },
+  "flashcards": [
+    {
+      "id": "f1-01",
+      "objectiveId": "obj1-proposition",
+      "front": "Proposition logique ?",
+      "back": "Énoncé soit vrai, soit faux, pas les deux. Une question ou un ordre n'en sont pas."
+    },
+    {
+      "id": "f1-02",
+      "objectiveId": "obj1-proposition",
+      "front": "Constantes vrai et faux ?",
+      "back": "vrai : $1$ ou $\\top$ · faux : $0$ ou $\\bot$."
+    },
+    {
+      "id": "f1-03",
+      "objectiveId": "obj1-connecteurs",
+      "front": "$A \\Rightarrow B$ est fausse quand ?",
+      "back": "Seulement quand $A$ est vraie et $B$ fausse."
+    },
+    {
+      "id": "f1-04",
+      "objectiveId": "obj1-connecteurs",
+      "front": "$A \\oplus B$ ?",
+      "back": "Vrai si exactement l'un des deux est vrai."
+    },
+    {
+      "id": "f1-05",
+      "objectiveId": "obj1-connecteurs",
+      "front": "$A \\Leftrightarrow B$ ?",
+      "back": "Vrai quand A et B ont la même valeur de vérité."
+    },
+    {
+      "id": "f1-06",
+      "objectiveId": "obj1-implication",
+      "front": "« B est nécessaire pour A » ?",
+      "back": "$A \\Rightarrow B$."
+    },
+    {
+      "id": "f1-07",
+      "objectiveId": "obj1-implication",
+      "front": "« A seulement si B » ?",
+      "back": "$A \\Rightarrow B$."
+    },
+    {
+      "id": "f1-08",
+      "objectiveId": "obj1-implication",
+      "front": "« Une condition suffisante pour B est A » ?",
+      "back": "$A \\Rightarrow B$."
+    },
+    {
+      "id": "f1-09",
+      "objectiveId": "obj1-priorite",
+      "front": "Ordre de priorité ?",
+      "back": "parenthèses · $\\neg$ · $\\wedge$ · $\\vee, \\oplus$ · $\\Rightarrow, \\Leftarrow$ · $\\Leftrightarrow$."
+    },
+    {
+      "id": "f1-10",
+      "objectiveId": "obj1-priorite",
+      "front": "Connecteur principal ?",
+      "back": "Celui qui s'applique en dernier : le moins prioritaire. On le place le plus à gauche pour indenter."
+    },
+    {
+      "id": "f1-11",
+      "objectiveId": "obj1-table",
+      "front": "Nombre de lignes d'une table de vérité à n variables ?",
+      "back": "$2^n$."
+    },
+    {
+      "id": "f1-12",
+      "objectiveId": "obj1-table",
+      "front": "L'implication est-elle associative ?",
+      "back": "Non : $(A \\Rightarrow B) \\Rightarrow C$ et $A \\Rightarrow (B \\Rightarrow C)$ diffèrent pour $A = B = C = 0$."
+    }
+  ],
+  "exercises": [
+    {
+      "id": "e1-01",
+      "objectiveId": "obj1-table",
+      "difficulty": 2,
+      "mode": "trace",
+      "language": "text",
+      "title": "L'implication n'est pas associative",
+      "statement": "Dresser la table de vérité complète de (A ⇒ B) ⇒ C et de A ⇒ (B ⇒ C), avec une colonne par sous-formule. Conclure : ces deux formules sont-elles équivalentes ?",
+      "starterCode": " A | B | C | A ⇒ B | B ⇒ C | (A ⇒ B) ⇒ C | A ⇒ (B ⇒ C)\n---+---+---+-------+-------+-------------+-------------\n 0 | 0 | 0 |       |       |             |\n 0 | 0 | 1 |       |       |             |\n ...",
+      "hints": [
+        "Trois variables : 2³ = 8 lignes.",
+        "Pour chaque ligne, calculer d'abord A ⇒ B et B ⇒ C, puis les deux formules complètes.",
+        "Se rappeler qu'une implication n'est fausse que pour (1, 0). Où A ⇒ (B ⇒ C) peut-elle être fausse ?"
+      ],
+      "solution": "Non équivalentes : elles diffèrent sur les lignes (0,0,0) et (0,1,0).",
+      "expectedOutput": " A B C | A⇒B | B⇒C | (A⇒B)⇒C | A⇒(B⇒C)\n 0 0 0 |  1  |  1  |    0    |    1      ← diffèrent\n 0 0 1 |  1  |  1  |    1    |    1\n 0 1 0 |  1  |  0  |    0    |    1      ← diffèrent\n 0 1 1 |  1  |  1  |    1    |    1\n 1 0 0 |  0  |  1  |    1    |    1\n 1 0 1 |  0  |  1  |    1    |    1\n 1 1 0 |  1  |  0  |    0    |    0\n 1 1 1 |  1  |  1  |    1    |    1\n\nLes deux dernières colonnes diffèrent sur 2 lignes : les formules ne sont pas\néquivalentes. L'implication n'est pas associative (diapositive 24).",
+      "solutionExplanation": "A ⇒ (B ⇒ C) n'est fausse qu'une seule fois (A = B = 1, C = 0) ; (A ⇒ B) ⇒ C est fausse dès que A ⇒ B est vraie et C fausse — trois fois. La différence vient des lignes où A est faux : la première formule est alors automatiquement vraie, pas la seconde.",
+      "source": {
+        "file": "Semaine 1.pdf",
+        "page": 24,
+        "locator": "Diapositive 24"
+      }
+    },
+    {
+      "id": "e1-02",
+      "objectiveId": "obj1-priorite",
+      "difficulty": 2,
+      "mode": "trace",
+      "language": "text",
+      "title": "Parenthéser par l'autre méthode",
+      "statement": "Les diapositives parenthèsent A ⇒ B ∨ ¬C ∧ D ⇔ E ⇒ F de l'EXTÉRIEUR vers l'intérieur. Refaire le travail de l'INTÉRIEUR vers l'extérieur (du plus prioritaire au moins prioritaire), en écrivant la formule après chaque niveau de priorité. Vérifier qu'on obtient le même résultat.",
+      "starterCode": "A ⇒ B ∨ ¬C ∧ D ⇔ E ⇒ F",
+      "hints": [
+        "Commencer par l'opérateur le plus prioritaire, ¬ : sur quoi porte-t-il ?",
+        "Puis ∧ (rang 2), puis ∨ (rang 3), puis les deux ⇒ (rang 4), enfin ⇔.",
+        "Au rang 4, chaque ⇒ prend ce qui l'entoure jusqu'au ⇔ : A avec la disjonction, E avec F."
+      ],
+      "solution": "(A ⇒ (B ∨ ((¬C) ∧ D))) ⇔ (E ⇒ F)",
+      "expectedOutput": "Rang 1, ¬ :   A ⇒ B ∨ (¬C) ∧ D ⇔ E ⇒ F\nRang 2, ∧ :   A ⇒ B ∨ ((¬C) ∧ D) ⇔ E ⇒ F\nRang 3, ∨ :   A ⇒ (B ∨ ((¬C) ∧ D)) ⇔ E ⇒ F\nRang 4, ⇒ :   (A ⇒ (B ∨ ((¬C) ∧ D))) ⇔ (E ⇒ F)\nRang 5, ⇔ :   c'est le connecteur principal ; rien à ajouter.\n\nMême résultat que la diapositive 26, obtenu dans l'autre sens.",
+      "solutionExplanation": "Les deux méthodes donnent forcément le même résultat, puisque la priorité fixe un seul arbre. L'intérieur vers l'extérieur est plus sûr quand on hésite sur un opérateur ; l'extérieur vers l'intérieur fait voir tout de suite le connecteur principal — celui dont on a besoin pour indenter.",
+      "source": {
+        "file": "Semaine 1.pdf",
+        "page": 25,
+        "locator": "Diapositives 25 et 26"
+      }
+    },
+    {
+      "id": "e1-03",
+      "objectiveId": "obj1-priorite",
+      "difficulty": 2,
+      "mode": "predict-output",
+      "language": "text",
+      "title": "Évaluer une formule pour trois valuations",
+      "statement": "Évaluer A ∧ ¬B ∨ C ⇒ D pour chacune des trois valuations, en parenthésant d'abord.",
+      "starterCode": "(1) A = 1, B = 0, C = 0, D = 0\n(2) A = 0, B = 0, C = 0, D = 0\n(3) A = 1, B = 1, C = 1, D = 0",
+      "hints": [
+        "Parenthéser : ((A ∧ (¬B)) ∨ C) ⇒ D.",
+        "Calculer l'hypothèse (A ∧ ¬B) ∨ C, puis appliquer ⇒ D.",
+        "D vaut 0 dans les trois cas : la formule vaut donc la négation de son hypothèse."
+      ],
+      "solution": "(1) 0 · (2) 1 · (3) 0",
+      "expectedOutput": "Forme parenthésée : ((A ∧ (¬B)) ∨ C) ⇒ D\n\n(1) ¬B = 1 ; A ∧ ¬B = 1 ; ∨ C = 1 ; 1 ⇒ 0 = 0\n(2) ¬B = 1 ; A ∧ ¬B = 0 ; ∨ C = 0 ; 0 ⇒ 0 = 1\n(3) ¬B = 0 ; A ∧ ¬B = 0 ; ∨ C = 1 ; 1 ⇒ 0 = 0",
+      "solutionExplanation": "En (2), l'hypothèse est fausse : l'implication est vraie sans même regarder D. En (3), c'est C qui rend l'hypothèse vraie, bien que A ∧ ¬B soit faux — le ∨ ne demande qu'un opérande vrai.",
+      "source": {
+        "file": "Semaine 1.pdf",
+        "page": 22,
+        "locator": "Diapositive 22"
+      }
+    },
+    {
+      "id": "e1-04",
+      "objectiveId": "obj1-priorite",
+      "difficulty": 3,
+      "mode": "find-bug",
+      "language": "text",
+      "title": "Trouver l'erreur — une priorité mal appliquée",
+      "statement": "Un étudiant évalue A ∧ ¬B ∨ C ⇒ D pour A = 1, B = 0, C = 0, D = 0 et trouve 1. Trouver l'erreur.",
+      "starterCode": "« Je lis de droite à gauche :\n   C ⇒ D = 0 ⇒ 0 = 1\n   ¬B ∨ 1 = 1\n   A ∧ 1 = 1 ∧ 1 = 1\n   Donc la formule vaut 1. »",
+      "hints": [
+        "Quelle parenthèse l'étudiant a-t-il implicitement utilisée ?",
+        "Relire l'ordre de priorité : ∧ avant ∨ avant ⇒.",
+        "La bonne lecture est ((A ∧ (¬B)) ∨ C) ⇒ D."
+      ],
+      "solution": "Il a lu A ∧ (¬B ∨ (C ⇒ D)). Correctement : ((1 ∧ 1) ∨ 0) ⇒ 0 = 0.",
+      "expectedOutput": "L'ERREUR\n    Lire de droite à gauche revient à parenthéser A ∧ (¬B ∨ (C ⇒ D)) : le ⇒ y est\n    appliqué en PREMIER, alors qu'il est moins prioritaire que ∧ et ∨.\n\nLA BONNE LECTURE (diapositive 22)\n    ((A ∧ (¬B)) ∨ C) ⇒ D\n    = ((1 ∧ 1) ∨ 0) ⇒ 0\n    = (1 ∨ 0) ⇒ 0\n    = 1 ⇒ 0\n    = 0\n\nLes deux lectures donnent des résultats opposés : ce ne sont pas les mêmes formules.",
+      "solutionExplanation": "La priorité joue le même rôle qu'en arithmétique : 2 + 3 × 4 ne se calcule pas de gauche à droite. Ici, le connecteur principal est ⇒ ; la formule est une implication, et sa valeur ne peut être 0 que si l'hypothèse est vraie et D faux — exactement la situation de cette valuation.",
+      "source": {
+        "file": "Semaine 1.pdf",
+        "page": 21,
+        "locator": "Diapositives 21 et 22"
+      }
+    },
+    {
+      "id": "e1-05",
+      "objectiveId": "obj1-implication",
+      "difficulty": 2,
+      "mode": "fill-blank",
+      "language": "text",
+      "title": "Traduire les formulations de l'implication",
+      "statement": "Avec A : « Il a la grippe » et B : « Il fait de la fièvre » (exemple des diapositives), compléter chaque traduction par A ⇒ B, B ⇒ A ou A ⇔ B.",
+      "starterCode": "(1) Il fait de la fièvre s'il a la grippe.                    ____\n(2) Il a la grippe seulement s'il fait de la fièvre.            ____\n(3) Faire de la fièvre est nécessaire pour avoir la grippe.     ____\n(4) Avoir la grippe est suffisant pour faire de la fièvre.      ____\n(5) Il a la grippe s'il fait de la fièvre.                      ____\n(6) Il a la grippe si et seulement s'il fait de la fièvre.      ____",
+      "hints": [
+        "Repérer l'hypothèse : après « si », avant « seulement si », ce qui est « suffisant ».",
+        "La condition nécessaire est la conclusion (à droite de ⇒).",
+        "Attention à (5) : c'est « A si B »."
+      ],
+      "solution": "(1) A ⇒ B · (2) A ⇒ B · (3) A ⇒ B · (4) A ⇒ B · (5) B ⇒ A · (6) A ⇔ B",
+      "expectedOutput": "(1) « B si A »                      →  A ⇒ B\n(2) « A seulement si B »            →  A ⇒ B\n(3) « B est nécessaire pour A »     →  A ⇒ B\n(4) « A est suffisante pour B »     →  A ⇒ B\n(5) « A si B »                      →  B ⇒ A\n(6) « A si et seulement si B »      →  A ⇔ B",
+      "solutionExplanation": "Les quatre premières phrases disent toutes la même chose, sous quatre formes de la diapositive 16. La (5) inverse le sens : l'hypothèse est ce qui suit « si ». Et (2) + (5) ensemble donnent (6) : « seulement si » et « si » combinés font « si et seulement si ».",
+      "source": {
+        "file": "Semaine 1.pdf",
+        "page": 16,
+        "locator": "Diapositives 16 à 18"
+      }
+    }
+  ]
+}

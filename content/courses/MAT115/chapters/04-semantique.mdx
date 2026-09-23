@@ -1,0 +1,187 @@
+---
+course: MAT115
+number: 4
+title: "Sémantique : valuations, modèles, conséquence logique"
+summary: >-
+  Donner une valeur de vérité à une formule en fixant celles de ses
+  variables : valuations, modèles, formules satisfaisables et valides,
+  ensembles cohérents, et la conséquence logique Γ ⊨ B — toutes lues sur une
+  table de vérité.
+estimatedMinutes: 120
+prerequisites:
+  - "Chapitre 1 — tables de vérité, priorité"
+objectives:
+  - id: obj4-valuation
+    text: Calculer la valeur de vérité d'une formule sous une valuation donnée.
+    bloom: apply
+  - id: obj4-modele
+    text: Distinguer modèle, formule satisfaisable et formule valide (tautologie).
+    bloom: understand
+  - id: obj4-coherence
+    text: Décider si un ensemble de formules est cohérent, en exhibant un modèle ou en montrant qu'il n'y en a pas.
+    bloom: apply
+  - id: obj4-consequence
+    text: Décider si une formule est conséquence logique d'un ensemble de formules, en justifiant par les lignes d'une table de vérité.
+    bloom: analyze
+sources:
+  - file: "Semaine 3.pdf"
+    page: 3
+    locator: "Semaine 3 — valuation, modèle, cohérence, conséquence logique (diapositives 3 à 19)"
+---
+
+## 1. Valuations
+
+Une **valuation** $V$ affecte une valeur à chaque variable propositionnelle :
+
+$$
+V = [X_1 := v_1, \dots, X_n := v_n], \qquad v_i \in \{0, 1\}.
+$$
+
+La valeur de vérité d'une formule $A$ sous $V$ est notée $A_V$ :
+$A_V \equiv A[X_1 := v_1, \dots, X_n := v_n]$, qui vaut 0 ou 1. On la calcule
+en remplaçant les variables par leur valeur, puis en appliquant les tables de
+vérité.
+
+<Callout type="example" title="L'exemple des diapositives (p. 4)">
+$A \equiv X_1 \wedge \neg X_2 \vee X_3 \Rightarrow X_4$ sous
+$V = [X_1 := 1, X_2 := 0, X_3 := 0, X_4 := 1]$ :
+
+1. **parenthéser** la formule : $\big((X_1 \wedge (\neg X_2)) \vee X_3\big) \Rightarrow X_4$ ;
+2. **substituer** les variables : $\big((1 \wedge (\neg 0)) \vee 0\big) \Rightarrow 1$ ;
+3. **calculer** à partir des parenthèses les plus internes : $\neg 0 = 1$,
+   $1 \wedge 1 = 1$, $1 \vee 0 = 1$, $1 \Rightarrow 1 = 1$.
+
+Donc $A_V = 1$.
+</Callout>
+
+Une ligne d'une table de vérité **est** une valuation : la table énumère les
+$2^n$ valuations possibles.
+
+<Source file="Semaine 3.pdf" page={4} locator="Diapositives 3 et 4" />
+
+## 2. Modèles, formules satisfaisables et valides
+
+| Notion | Notation | Définition |
+| --- | --- | --- |
+| $V$ **satisfait** $A$ ; $V$ est un **modèle** de $A$ | $V \Vdash A$ | $A_V = 1$ |
+| $A$ est **satisfaisable** | | $A$ a au moins un modèle |
+| $A$ est **valide** | $\Vdash A$ | **toute** valuation est un modèle de $A$ |
+| $V$ est un modèle de $\Gamma = \{A_1, \dots, A_n\}$ | $V \Vdash \Gamma$ | $V$ est un modèle de **chaque** formule de $\Gamma$ |
+
+**Une tautologie est un synonyme de formule valide.**
+
+<Callout type="warning" title="Une valuation mal choisie sur la diapositive 6">
+Pour montrer que $A \equiv X_1 \wedge \neg X_2 \vee X_3 \Rightarrow X_4$ n'est
+pas valide, la diapositive 6 affirme que $A_{V_1} = 0$ pour
+$V_1 = [X_1 := 0, X_2 := 1, X_3 := 0, X_4 := 0]$. Or
+
+$$
+\big((0 \wedge \neg 1) \vee 0\big) \Rightarrow 0 = (0 \vee 0) \Rightarrow 0 = 0 \Rightarrow 0 = 1 .
+$$
+
+L'hypothèse est fausse, donc l'implication est **vraie** : $V_1$ est un
+modèle de $A$. La **conclusion** de la diapositive reste juste — $A$ n'est pas
+valide —, mais il faut une autre valuation, qui rende l'hypothèse vraie et
+$X_4$ faux, par exemple $V_2 = [X_1 := 1, X_2 := 0, X_3 := 0, X_4 := 0]$ :
+$\big((1 \wedge 1) \vee 0\big) \Rightarrow 0 = 1 \Rightarrow 0 = 0$.
+</Callout>
+
+La diapositive 6 montre aussi que $V = [X_1 := 1, X_2 := 0, X_3 := 0, X_4 := 1]$
+est un modèle de $\Gamma = \{A, B\}$ avec
+$B \equiv X_4 \Rightarrow X_1 \wedge (X_2 \vee \neg X_3)$ : sous $V$,
+$B_V = 1 \Rightarrow \big(1 \wedge (0 \vee 1)\big) = 1 \Rightarrow 1 = 1$, et
+l'on a déjà $A_V = 1$.
+
+<Callout type="tip" title="Pour réfuter une implication, visez le seul cas qui la rend fausse">
+Une implication n'est fausse que si son hypothèse est vraie et sa conclusion
+fausse. Pour trouver une valuation qui rend $A$ fausse, on commence donc par
+$X_4 := 0$, puis on cherche des valeurs qui rendent
+$(X_1 \wedge \neg X_2) \vee X_3$ vraie.
+</Callout>
+
+<Source file="Semaine 3.pdf" page={6} locator="Diapositives 5 et 6" />
+
+## 3. Cohérence
+
+Un ensemble de formules $\Gamma = \{A_1, \dots, A_n\}$ est **cohérent** si, et
+seulement si, **il existe un modèle** $V$ pour $\Gamma$ — une valuation qui
+rend toutes les formules vraies **en même temps**.
+
+<Callout type="example" title="Trois formules incohérentes (diapositive 7)">
+$$
+X_1 \Rightarrow X_2 \quad (1) \qquad X_1 \quad (2) \qquad \neg X_2 \quad (3)
+$$
+
+- Pour satisfaire (2), il faut $X_1 := 1$.
+- Pour satisfaire (3), il faut $X_2 := 0$.
+- Mais $V = [X_1 := 1, X_2 := 0]$ ne satisfait pas (1) : $1 \Rightarrow 0 = 0$.
+
+Aucune valuation ne satisfait les trois : l'ensemble est **incohérent**.
+Quelqu'un qui affirme que ces trois formules sont vraies est incohérent.
+</Callout>
+
+<Source file="Semaine 3.pdf" page={7} locator="Diapositive 7" />
+
+## 4. Conséquence logique
+
+$B$ est une **conséquence logique** de $\Gamma$, notée $\Gamma \vDash B$, si,
+et seulement si, **tout modèle de $\Gamma$ est aussi un modèle de $B$**. On la
+vérifie sur la table de vérité : on repère les lignes où **toutes** les
+formules de $\Gamma$ sont vraies, et on regarde si $B$ l'est sur **chacune**
+d'elles.
+
+<Callout type="misconception" title="On ne regarde QUE les lignes où les hypothèses sont vraies">
+Une ligne où une formule de $\Gamma$ est fausse ne dit rien sur
+$\Gamma \vDash B$ — même si $B$ y est fausse. Une seule ligne compte comme
+contre-exemple : toutes les hypothèses vraies **et** $B$ fausse.
+</Callout>
+
+### 4.1 Premier exemple : $X_1 \wedge X_2$, $\ X_1 \wedge X_2 \Rightarrow X_3$, $\ X_3$
+
+| no | $X_1$ | $X_2$ | $X_3$ | (1) $X_1 \wedge X_2$ | (2) $X_1 \wedge X_2 \Rightarrow X_3$ | (3) $X_3$ |
+| --- | --- | --- | --- | --- | --- | --- |
+| 1 | 0 | 0 | 0 | 0 | 1 | 0 |
+| 2 | 0 | 0 | 1 | 0 | 1 | 1 |
+| 3 | 0 | 1 | 0 | 0 | 1 | 0 |
+| 4 | 0 | 1 | 1 | 0 | 1 | 1 |
+| 5 | 1 | 0 | 0 | 0 | 1 | 0 |
+| 6 | 1 | 0 | 1 | 0 | 1 | 1 |
+| 7 | 1 | 1 | 0 | 1 | 0 | 0 |
+| 8 | 1 | 1 | 1 | 1 | 1 | 1 |
+
+- **Un modèle pour les trois ?** Oui, la ligne 8.
+- **(3) est-elle conséquence logique de (1) et (2) ?** Oui : la ligne 8 est la
+  **seule** où (1) et (2) sont vraies, et (3) y est vraie. C'est le
+  *modus ponens* vu du côté sémantique.
+- **Cohérentes ?** Oui, la ligne 8 est un modèle des trois.
+
+### 4.2 Second exemple : $X_1 \vee X_2$, $\ X_1 \wedge X_2 \Rightarrow X_3$, $\ X_3$
+
+| no | $X_1$ | $X_2$ | $X_3$ | (1) $X_1 \vee X_2$ | (2) $X_1 \wedge X_2 \Rightarrow X_3$ | (3) $X_3$ |
+| --- | --- | --- | --- | --- | --- | --- |
+| 1 | 0 | 0 | 0 | 0 | 1 | 0 |
+| 2 | 0 | 0 | 1 | 0 | 1 | 1 |
+| 3 | 0 | 1 | 0 | **1** | **1** | **0** |
+| 4 | 0 | 1 | 1 | 1 | 1 | 1 |
+| 5 | 1 | 0 | 0 | **1** | **1** | **0** |
+| 6 | 1 | 0 | 1 | 1 | 1 | 1 |
+| 7 | 1 | 1 | 0 | 1 | 0 | 0 |
+| 8 | 1 | 1 | 1 | 1 | 1 | 1 |
+
+- **Modèles des trois formules** : les lignes **4, 6 et 8**.
+- **(3) conséquence logique de (1) et (2) ?** **Non.** (1) et (2) sont vraies
+  sur les lignes 3, 4, 5, 6 et 8 — cinq modèles — et (3) est fausse sur les
+  lignes **3 et 5**.
+- **Cohérentes ?** Oui : les lignes 4, 6 et 8 sont des modèles des trois.
+
+<Callout type="warning" title="Deux diapositives qui ne donnent pas les mêmes modèles (16 et 17)">
+À la question (b), la diapositive 16 répond « les lignes 4 et 8 » ; la
+diapositive 17, qui reprend la même question, répond « les lignes 4, 6 et 8 ».
+La ligne 6 ($X_1 = 1$, $X_2 = 0$, $X_3 = 1$) rend bien les trois formules
+vraies : **4, 6 et 8** est la bonne réponse. (La réponse à la question (d) cite
+seulement les lignes 4 et 8, ce qui suffit à prouver la cohérence.) Et dans la
+réponse (c), « les formules $X_1$ et $X_2$ ont cinq modèles » désigne en fait
+les formules **(1) et (2)**.
+</Callout>
+
+<Source file="Semaine 3.pdf" page={17} locator="Diapositives 8 à 19" />

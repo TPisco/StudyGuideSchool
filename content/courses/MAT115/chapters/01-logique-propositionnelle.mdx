@@ -1,0 +1,226 @@
+---
+course: MAT115
+number: 1
+title: Logique propositionnelle
+summary: >-
+  Le langage formel de base : propositions, formules, les sept connecteurs
+  et leurs tables de vérité, la priorité des opérateurs, et les deux gestes
+  techniques qui reviennent partout ensuite — parenthéser une formule et
+  l'indenter.
+estimatedMinutes: 150
+prerequisites: []
+objectives:
+  - id: obj1-proposition
+    text: Reconnaître une proposition logique et distinguer variables propositionnelles, constantes et formules.
+    bloom: understand
+  - id: obj1-connecteurs
+    text: Donner la table de vérité de chacun des connecteurs ¬, ∧, ∨, ⊕, ⇒, ⇐, ⇔.
+    bloom: recall
+  - id: obj1-implication
+    text: Traduire les formulations françaises de l'implication — « nécessaire », « suffisante », « seulement si ».
+    bloom: understand
+  - id: obj1-priorite
+    text: Parenthéser et indenter une formule selon la priorité des opérateurs.
+    bloom: apply
+  - id: obj1-table
+    text: Dresser la table de vérité d'une formule et s'en servir pour comparer deux formules.
+    bloom: analyze
+sources:
+  - file: "Semaine 1.pdf"
+    page: 6
+    locator: "Semaine 1, section 1.1 — Logique propositionnelle (diapositives 6 à 28)"
+---
+
+Le langage naturel est ambigu : un même énoncé peut se lire de plusieurs
+façons. La logique propositionnelle offre un **langage formel** sans
+ambiguïté, des **règles de raisonnement** qui permettent de conclure de
+manière certaine, et un cadre où **toute affirmation a une valeur de vérité
+bien définie**.
+
+## 1. Propositions et formules
+
+Une **proposition logique** est un énoncé qui est **soit vrai, soit faux,
+mais pas les deux** en même temps.
+
+<Callout type="example" title="L'exemple des diapositives">
+Parmi (a) « Toronto est la capitale du Canada », (b) « 2 − 3 = −1 »,
+(c) « Tous les entiers sont impairs », (d) « Comment allez-vous ? » et
+(e) « Viens ici. » :
+
+- (a) et (c) sont des propositions **fausses**, (b) une proposition **vraie** ;
+- (d) est une question et (e) un ordre : **ce ne sont pas des propositions**.
+
+Une proposition fausse reste une proposition : ce qui compte est qu'elle ait
+une valeur de vérité.
+</Callout>
+
+Une **formule propositionnelle** se construit à partir :
+
+1. de **variables propositionnelles** — notées $X$, ou $X_0, X_1, \dots$ ;
+2. des **constantes** vrai (notée aussi $1$ ou $\top$) et faux (notée aussi
+   $0$ ou $\bot$) ;
+3. des **opérateurs** (connecteurs) logiques.
+
+Les formules elles-mêmes sont désignées par les lettres $A, B, C, \dots$
+
+<Source file="Semaine 1.pdf" page={9} locator="Diapositives 6 à 10" />
+
+## 2. Les connecteurs
+
+| Connecteur | Nom | Autres notations | Vrai si… |
+| --- | --- | --- | --- |
+| $\neg A$ | négation, « non » | | $A$ est faux |
+| $A \wedge B$ | conjonction, « et » | | $A$ et $B$ sont vrais **en même temps** |
+| $A \vee B$ | disjonction, « ou » | | $A$ ou $B$ **ou les deux** sont vrais |
+| $A \oplus B$ | disjonction exclusive, « ou exclusif » | | **un seul** des deux est vrai |
+| $A \Rightarrow B$ | implication | $\rightarrow$ | sauf si $A$ est vrai et $B$ faux |
+| $A \Leftarrow B$ | implication inverse | $\leftarrow$ | sauf si $B$ est vrai et $A$ faux |
+| $A \Leftrightarrow B$ | équivalence | $\leftrightarrow$ | $A$ et $B$ ont **la même valeur** |
+
+Les tables de vérité complètes, pour les quatre combinaisons de $A$ et $B$ :
+
+| $A$ | $B$ | $A \wedge B$ | $A \vee B$ | $A \oplus B$ | $A \Rightarrow B$ | $A \Leftrightarrow B$ |
+| --- | --- | --- | --- | --- | --- | --- |
+| 0 | 0 | 0 | 0 | 0 | **1** | 1 |
+| 0 | 1 | 0 | 1 | 1 | **1** | 0 |
+| 1 | 0 | 0 | 1 | 1 | **0** | 0 |
+| 1 | 1 | 1 | 1 | 0 | 1 | 1 |
+
+<Callout type="misconception" title="L'implication à hypothèse fausse est VRAIE">
+$A \Rightarrow B$ n'est fausse que dans **un seul** cas : $A$ vrai et $B$ faux.
+Quand l'hypothèse $A$ est fausse, l'implication est vraie, quelle que soit
+$B$. « S'il a la grippe, il fait de la fièvre » n'est pas contredit par
+quelqu'un qui n'a pas la grippe.
+</Callout>
+
+### 2.1 Lire une implication en français
+
+Dans $A \Rightarrow B$, $A$ est l'**hypothèse** (antécédent, prémisse) et $B$
+la **conclusion** (conséquence). Toutes ces phrases disent $A \Rightarrow B$ :
+
+- si $A$ alors $B$ ; $B$ si $A$ ; $A$ implique $B$ ;
+- **$B$ est nécessaire pour $A$** ;
+- **$A$ seulement si $B$** ;
+- $B$ dès que $A$ ;
+- **une condition suffisante pour $B$ est $A$**.
+
+Et $A \Leftrightarrow B$ se dit « $A$ si et seulement si $B$ » ou « $A$ est
+nécessaire et suffisante pour $B$ ».
+
+<Callout type="tip" title="Nécessaire ou suffisante : le moyen de s'en souvenir">
+La condition **suffisante** est à gauche de la flèche : elle suffit à
+déclencher la conclusion. La condition **nécessaire** est à droite : sans
+elle, l'hypothèse ne peut pas être vraie. Avec l'exemple des diapositives
+($A$ : il a la grippe ; $B$ : il fait de la fièvre), « avoir la grippe est
+une condition suffisante pour faire de la fièvre » et « faire de la fièvre
+est nécessaire pour avoir la grippe » disent tous les deux
+$A \Rightarrow B$.
+</Callout>
+
+<Callout type="warning" title="Un jour qui change en cours d'exemple (diapositive 18)">
+L'exemple de l'équivalence pose « $A$ : Nous sommes **jeudi** », puis traduit
+$A \Leftrightarrow B$ par « Nous sommes **vendredi** si et seulement si il
+fait nuit ». L'une des deux lignes a gardé le jour des exemples précédents ;
+le principe n'en dépend pas.
+</Callout>
+
+<Source file="Semaine 1.pdf" page={16} locator="Diapositives 11 à 18" />
+
+## 3. Tables de vérité
+
+Pour évaluer une formule à $n$ variables, on énumère toutes les combinaisons
+de valeurs : **$2^n$ lignes**. Avec trois variables, $2 \times 2 \times 2 = 8$ :
+
+| | $X_1$ | $X_2$ | $X_3$ | $X_1 \wedge X_2$ | $(X_1 \wedge X_2) \vee X_3$ |
+| --- | --- | --- | --- | --- | --- |
+| 1 | 0 | 0 | 0 | 0 | 0 |
+| 2 | 0 | 0 | 1 | 0 | 1 |
+| 3 | 0 | 1 | 0 | 0 | 0 |
+| 4 | 0 | 1 | 1 | 0 | 1 |
+| 5 | 1 | 0 | 0 | 0 | 0 |
+| 6 | 1 | 0 | 1 | 0 | 1 |
+| 7 | 1 | 1 | 0 | 1 | 1 |
+| 8 | 1 | 1 | 1 | 1 | 1 |
+
+On ajoute **une colonne par sous-formule**, de la plus intérieure à la
+formule complète.
+
+<Source file="Semaine 1.pdf" page={20} locator="Diapositives 19 et 20" />
+
+## 4. Priorité, associativité, parenthésage
+
+### 4.1 L'ordre de priorité
+
+| Priorité | Opérateurs |
+| --- | --- |
+| 0 | les parenthèses les plus intérieures |
+| 1 | $\neg$ |
+| 2 | $\wedge$ |
+| 3 | $\vee$, $\oplus$ |
+| 4 | $\Rightarrow$, $\Leftarrow$ |
+| 5 | $\Leftrightarrow$ |
+
+Ainsi $A \wedge \neg B \vee C \Rightarrow D$ s'évalue dans l'ordre $\neg B$,
+puis $A \wedge \neg B$, puis $\vee C$, puis $\Rightarrow D$ :
+
+$$
+A \wedge \neg B \vee C \Rightarrow D \quad\text{se lit}\quad \big((A \wedge (\neg B)) \vee C\big) \Rightarrow D .
+$$
+
+### 4.2 Associativité et commutativité
+
+$\wedge$, $\vee$, $\oplus$ et $\Leftrightarrow$ sont **associatifs et
+commutatifs** : par exemple
+$A \wedge B \wedge C \Leftrightarrow (A \wedge B) \wedge C \Leftrightarrow A \wedge (B \wedge C)$
+et $A \wedge B \Leftrightarrow B \wedge A$.
+
+**L'implication n'est pas associative** :
+$(A \Rightarrow B) \Rightarrow C \not\Leftrightarrow A \Rightarrow (B \Rightarrow C)$.
+La table de vérité le montre sur la ligne $A = B = C = 0$ : la première
+formule vaut $1 \Rightarrow 0 = 0$, la seconde vaut $0 \Rightarrow \dots = 1$.
+
+<Callout type="warning" title="Il faut donc toujours parenthéser les chaînes d'implications">
+Comme les deux lectures de $A \Rightarrow B \Rightarrow C$ ne sont pas
+équivalentes, une chaîne d'implications sans parenthèses est ambiguë. Les
+diapositives parenthèsent systématiquement ces cas.
+</Callout>
+
+### 4.3 Parenthéser une formule
+
+Deux méthodes : de l'intérieur vers l'extérieur (du plus prioritaire au moins
+prioritaire), ou **de l'extérieur vers l'intérieur** (du moins prioritaire au
+plus prioritaire). Les diapositives détaillent la seconde sur
+$A \Rightarrow B \vee \neg C \wedge D \Leftrightarrow E \Rightarrow F$ :
+
+1. l'opérateur le **moins** prioritaire est $\Leftrightarrow$ : on entoure ses
+   deux côtés, $(A \Rightarrow B \vee \neg C \wedge D) \Leftrightarrow (E \Rightarrow F)$ ;
+2. à gauche, le moins prioritaire est $\Rightarrow$ :
+   $\big(A \Rightarrow (B \vee \neg C \wedge D)\big) \Leftrightarrow (E \Rightarrow F)$ ;
+3. et ainsi de suite :
+
+$$
+\Big(A \Rightarrow \big(B \vee ((\neg C) \wedge D)\big)\Big) \Leftrightarrow (E \Rightarrow F).
+$$
+
+### 4.4 Indenter une formule
+
+Pour une formule trop longue, on place le **connecteur principal** (celui qui
+s'applique en dernier) le plus à gauche, et on indente les formules auxquelles
+il s'applique ; puis on recommence à l'intérieur. La même formule, après les
+quatre étapes des diapositives :
+
+```text
+⇔ │ E ⇒ F
+  │
+  │ ⇒ │ A
+  │   │
+  │   │ ∨ │ B
+  │   │   │
+  │   │   │ ∧ │ ¬C
+  │   │   │   │ D
+```
+
+On lit l'arbre de la formule : $\Leftrightarrow$ relie $E \Rightarrow F$ et
+une implication ; celle-ci relie $A$ et une disjonction ; etc.
+
+<Source file="Semaine 1.pdf" page={21} locator="Diapositives 21 à 28" />
