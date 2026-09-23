@@ -1,0 +1,538 @@
+---
+course: IFT209
+number: 4
+title: Premier programme ARMv8
+summary: >-
+  Le tour rapide d'un premier programme complet en assembleur ARMv8 : les
+  normes de programmation du cours, les sections et les pseudo-instructions qui
+  déclarent les données, les entrées-sorties par printf et scanf, puis la
+  lecture pas à pas du programme du rectangle — et comment l'exécuter et le
+  déboguer.
+estimatedMinutes: 180
+prerequisites:
+  - "Chapitre 3 — modes d'adressage, adr, ldrsw"
+  - "Bases du C : printf et scanf (prérequis externe, voir le parcours)"
+objectives:
+  - id: obj4-normes
+    text: Appliquer les normes de programmation du cours — choix des registres, colonnes, étiquettes et commentaires.
+    bloom: apply
+  - id: obj4-sections
+    text: Placer chaque donnée dans la bonne section (.text, .rodata, .data, .bss).
+    bloom: understand
+  - id: obj4-pseudo
+    text: Réserver et initialiser des données avec les pseudo-instructions, et calculer la place qu'elles occupent.
+    bloom: apply
+  - id: obj4-io
+    text: Appeler printf et scanf en assembleur en préparant correctement x0, x1, x2…
+    bloom: apply
+  - id: obj4-programme
+    text: Tracer le programme du rectangle et justifier chacun de ses choix d'instructions.
+    bloom: analyze
+sources:
+  - file: "Chapitre 4.pdf"
+    page: 1
+    locator: "Chapitre 4 — Tour rapide d'un premier programme ARM v8, diapositives 1 à 25"
+  - file: "ResumeARM.pdf"
+    page: 1
+    locator: "Aide-mémoire du cours — registres, formats, pseudo-instructions"
+  - file: "Sommaire ARMv8 + Débogage GDB.pdf"
+    page: 5
+    locator: "Débogage avec GDB"
+  - file: "Guide VM 2026.docx"
+    page: 1
+    locator: "Section 5 — Compilation et exécution"
+---
+
+Les trois chapitres précédents ont posé les pièces : la représentation des
+nombres, la machine de von Neumann, les modes d'adressage. Ce chapitre les
+assemble en un **programme qui tourne** : il lit quatre coordonnées au clavier,
+calcule le périmètre et la surface d'un rectangle, et affiche le résultat.
+
+Avant le programme, les règles du jeu : les **normes de programmation** que le
+cours impose, puis la façon de **déclarer des données** et de **parler à
+l'utilisateur**.
+
+## 1. Les normes de programmation
+
+### 1.1 L'utilisation des registres
+
+Les 31 registres `x0` à `x30` ne sont pas interchangeables. Le cours fixe une
+consigne pour chaque groupe :
+
+| Registres | Consigne du cours |
+| --- | --- |
+| `x19` à `x28` | **Aucune limitation, utilisation intensive** |
+| `x0` à `x7` | **Limité**, pour paramètres et retours |
+| `x9` à `x15` | **À éviter** le plus possible |
+| `x16`, `x17`, `x18`, `x29`, `x30` | **N'utilisez pas** ces registres |
+
+L'aide-mémoire du cours (ResumeARM) donne la **raison** de chaque consigne :
+
+- `x19` à `x28` sont des **registres locaux**, sauvegardés au début d'un
+  sous-programme (par la macro `SAVE`) : leur contenu **survit** à un appel
+  comme `bl printf`.
+- `x0` à `x7` servent à passer les **paramètres** et à recevoir le **retour**.
+  Ils **ne seront pas sauvegardés** par les sous-programmes.
+- `x9` à `x15` sont à **usage temporaire** et, eux non plus, **ne seront pas
+  sauvegardés** par les sous-programmes.
+- `x30` (`lr`) reçoit l'**adresse de retour** à chaque `bl` ; `x29` (`fp`) est
+  le pointeur de portée ; `x16` et `x17` sont utilisés par les bibliothèques
+  partagées (la libC, par exemple) ; l'usage de `x18` dépend de
+  l'implémentation et peut être réservé au système.
+
+<Callout type="misconception" title="Erreur classique">
+Garder un compteur de boucle dans `x9` alors que la boucle appelle `printf` ou
+`scanf`. Rien n'oblige ces fonctions à préserver `x9` : après le `bl`, le
+compteur peut avoir changé. C'est exactement pour cela que le programme du
+rectangle garde son compteur dans **`x20`** et son pointeur dans **`x19`**.
+</Callout>
+
+<Source file="Chapitre 4.pdf" page={3} locator="Diapositive 3" />
+<Source file="ResumeARM.pdf" page={1} locator="Tableau des registres" />
+
+### 1.2 Une ligne, quatre colonnes
+
+Une ligne est divisée en **4 colonnes**, qui sont **alignées** :
+
+```
+Étiquette | Mnémonique | Opérandes | Commentaires
+```
+
+- **Une seule instruction par ligne.**
+- **Une ligne blanche** entre les groupes d'instructions.
+
+```asm
+rect10:
+        subs    x25,x23,x21         // Y2-Y1
+        b.gt    rect20              // déjà positif : rien à faire
+```
+
+### 1.3 Les étiquettes
+
+Une étiquette est une **suite de caractères qui se termine par « : »**.
+
+- Pour les **instructions**, elle est **seule sur sa ligne**.
+- Pour les **données**, elle est **sur la même ligne que la
+  pseudo-instruction** : `points: .skip 4*4`.
+- Une étiquette de **données** a un **nom significatif** (`points`, `scfmt1`).
+- Une étiquette d'**instructions** commence par les **3 ou 4 premières lettres
+  du point d'entrée, suivies de chiffres** : pour le point d'entrée
+  `Rectangle`, on obtient `rect00`, `rect10`, `rect20`.
+- Les chiffres vont **toujours en ordre croissant** d'une étiquette à l'autre,
+  ce qui **aide à voir l'ordre d'exécution** du programme.
+
+<Callout type="tip" title="Pourquoi numéroter de 10 en 10">
+Le programme du cours saute de `rect00` à `rect10` puis `rect20`. Laisser des
+trous permet d'insérer plus tard une étiquette `rect15` entre deux autres sans
+renuméroter — tout en gardant l'ordre croissant exigé par la norme.
+</Callout>
+
+### 1.4 Les commentaires
+
+Comme en C, C++, Java ou C# :
+
+- `/* … */` pour un commentaire **sur plusieurs lignes** ;
+- `//` pour un commentaire **jusqu'à la fin de la ligne**.
+
+La consigne des diapositives est sans ambiguïté : **le plus de commentaires
+possible après les instructions.**
+
+<Source file="Chapitre 4.pdf" page={5} locator="Diapositives 4 à 6" />
+
+## 2. Déclarer les données
+
+### 2.1 Les sections
+
+Un programme est découpé en **sections**, chacune avec un rôle précis :
+
+| Section | Contenu |
+| --- | --- |
+| `.text` | les **instructions**, en lecture seulement |
+| `.rodata` | les données **en lecture seulement** — donc toutes les **constantes** |
+| `.data` | les données **initialisées** |
+| `.bss` | les données **non initialisées** — donc les **variables** |
+
+On change de section avec la pseudo-instruction `.section` :
+`.section ".text"`, `.section ".rodata"`, etc. Les données statiques et
+globales se déclarent dans **toute section autre que `.text`**.
+
+<Callout type="note" title="Choisir la section d'une donnée">
+Deux questions suffisent. **Le programme va-t-il la modifier ?** Sinon :
+`.rodata`. **A-t-elle une valeur de départ ?** Oui : `.data`. Non : `.bss`.
+Dans le programme du rectangle, les chaînes de format ne changent jamais
+(`.rodata`) et les quatre coordonnées sont lues au clavier, donc sans valeur
+initiale (`.bss`).
+</Callout>
+
+<Source file="Chapitre 4.pdf" page={7} locator="Diapositives 7 et 8" />
+
+### 2.2 Les pseudo-instructions
+
+Les pseudo-instructions **servent à guider le compilateur** ; elles
+**commencent toujours par le caractère « . »**. ResumeARM le précise : ce sont
+des **directives pour l'assembleur**, **pas des instructions machine**.
+
+| Pseudo-instruction | Effet |
+| --- | --- |
+| `.section "nom"` | change de section |
+| `.global etiquette` | publie une étiquette pour les autres modules ou l'éditeur de liens — utile pour le **point d'entrée** |
+| `.align valeur` | aligne la donnée suivante sur une frontière |
+| `.skip taille` | **réserve** `taille` octets |
+| `.ascii "…"` | prépare une chaîne, **sans** caractère de fin |
+| `.asciz "…"` | prépare une chaîne, **automatiquement terminée par un 0** |
+| `.byte n` | réserve **1 octet** initialisé à `n` |
+| `.half n` | réserve un **demi-mot** (2 octets) initialisé à `n` |
+| `.word n` | réserve un **mot** (4 octets) initialisé à `n` |
+| `.xword n` | réserve un **mot étendu** (8 octets) initialisé à `n` |
+| `.single n` | réserve un **virgule flottante** sur un mot |
+| `.double n` | réserve un **virgule flottante** sur un mot étendu |
+
+Le détail de `.skip` qui mérite d'être retenu : la taille est une
+**expression**, et les diapositives écrivent volontiers la même réservation de
+32 octets de plusieurs façons selon ce qu'on compte y ranger :
+
+$$
+32 = 4 \times 8 = 8 \times 4 = 16 \times 2
+$$
+
+soit de la place pour **4 mots étendus**, **8 mots** ou **16 demi-mots**.
+Écrire `.skip 4*4` plutôt que `.skip 16` dit au lecteur « quatre valeurs de
+4 octets ».
+
+<Callout type="warning" title=".ascii contre .asciz">
+Une chaîne passée à `printf` ou `scanf` doit **se terminer par un 0** : c'est
+ce 0 qui en marque la fin. `.asciz` l'ajoute automatiquement ; `.ascii` non —
+la diapositive 10 précise que la suite de caractères « doit se terminer par 0
+si c'est une chaîne complète ». Une chaîne déclarée avec `.ascii` **se
+prolonge donc dans ce qui suit en mémoire**. La section 4.4 montre que le
+programme du cours s'en sert volontairement.
+</Callout>
+
+Les trois documents du cours décrivent `.align` de la même façon : la donnée
+suivante est placée à une adresse **multiple de la valeur** (« frontière 2, 4
+ou 8 » sur la diapositive 10 ; `.align 8`, `.align 16` en exemple dans
+ResumeARM ; « adresse divisible par k » dans le Sommaire). Le programme du
+rectangle écrit `.align 4` avant ses coordonnées, avec le commentaire
+« Aligné pour des mots ».
+
+<Callout type="external" title="Ce que fait l'assembleur GNU de .align sur ARM">
+La documentation de l'assembleur GNU (`as`) indique que, pour les cibles ARM,
+l'argument de `.align` est un **exposant** : `.align 4` aligne alors sur
+$2^4 = 16$ octets, et `.balign 4` sur 4 octets. En pratique, cela ne casse
+aucun programme du cours — une adresse multiple de 16 est aussi multiple de 4
+— mais cela peut expliquer un « trou » inattendu entre deux données quand on
+inspecte la mémoire avec GDB. Ce point ne vient pas des documents du cours :
+**à vérifier sur la machine virtuelle et avec le professeur**. Les exercices
+de cette plateforme suivent la règle du cours.
+</Callout>
+
+<Source file="Chapitre 4.pdf" page={10} locator="Diapositives 9 et 10" />
+<Source file="ResumeARM.pdf" page={9} locator="Pseudo-instructions" />
+
+## 3. Les entrées-sorties
+
+L'assembleur n'a pas d'instruction « afficher » ni « lire ». Le cours emprunte
+les fonctions de la **bibliothèque C** : `printf` pour écrire, `scanf` pour
+lire. Les appeler revient à **préparer les registres de paramètres**, puis à
+faire `bl`.
+
+<Callout type="note" title="Prérequis hors du cours">
+Les diapositives supposent connues les signatures C `printf(format, data…)` et
+`scanf(format, &data…)`. Si ce n'est pas le cas, voir l'étape externe
+« Programmation impérative et C » du parcours.
+</Callout>
+
+### 3.1 Écrire avec printf
+
+En C : `printf("Allo, mon nom est %s et mon âge est %u", nom, age);` — le
+**format**, puis les **données à afficher**.
+
+En assembleur, la règle est simple : **le format dans `x0`, les valeurs dans
+`x1`, `x2`, …, dans l'ordre**, puis `bl printf`.
+
+```asm
+        adr     x0,format           // x0 : ADRESSE du format
+        mov     x1,x20              // x1 : 1re VALEUR à afficher
+        mov     x2,x21              // x2 : 2e VALEUR à afficher
+        bl      printf              // appel de la fonction C
+
+format: .asciz  "Valeur de 2 nombres: %d %d "
+```
+
+On reconnaît le chapitre 3 : `adr` utilise le **mode relatif** pour copier une
+**adresse** dans un registre — la façon que le cours donne pour placer une
+adresse de 64 bits dans un registre, puisque `mov` est limité à 12 bits.
+
+### 3.2 Lire avec scanf
+
+En C : `scanf("%u", &age);` — le format, puis **l'adresse** où écrire la donnée
+lue. Tout est dans le `&`.
+
+```asm
+        adr     x0,format           // x0 : ADRESSE du format
+        adr     x1,var              // x1 : ADRESSE de la variable
+        bl      scanf               // scanf écrit la valeur lue à cette adresse
+
+format: .asciz  "%u"
+        .align  4
+var:    .skip   4
+```
+
+<Callout type="misconception" title="Erreur classique">
+Passer à `scanf` une **valeur** au lieu d'une **adresse**. `printf` reçoit ce
+qu'il doit afficher ; `scanf` reçoit **où** ranger ce qu'il lit. D'où `mov
+x1,x20` pour `printf` mais `adr x1,var` — ou `mov x1,x19` quand `x19`
+**contient** déjà l'adresse — pour `scanf`.
+</Callout>
+
+<Source file="Chapitre 4.pdf" page={13} locator="Diapositives 12 à 15" />
+
+### 3.3 Les formats
+
+Les formats sont **les mêmes pour la lecture et l'écriture** ; seul le sens de
+la conversion change.
+
+| Format | Lecture (clavier → mémoire) | Écriture (mémoire → écran) |
+| --- | --- | --- |
+| `%c` | caractère → code ASCII | code ASCII → caractère |
+| `%s` | chaîne → suite de codes ASCII | suite de codes ASCII → chaîne |
+| `%d` | entier décimal → binaire | binaire → entier décimal |
+| `%u` | entier non signé décimal → binaire | binaire → entier non signé décimal |
+| `%o` | entier octal → binaire | binaire → entier octal |
+| `%x` | entier hexadécimal → binaire | binaire → entier hexadécimal |
+| `%f` | virgule flottante → binaire | binaire → virgule flottante |
+
+Le Sommaire ARMv8 précise la **taille** des entiers : `%d`, `%u` et `%X`
+portent sur des **nombres de 32 bits** ; pour 64 bits, on écrit `%ld`, `%lu`
+et `%lX`. Ce détail explique un choix du programme du rectangle
+(section 4.3). Pour `%f`, ResumeARM ajoute une asymétrie : en **lecture**, un
+nombre en simple précision ; en **écriture**, un nombre en double précision.
+
+<Source file="Chapitre 4.pdf" page={16} locator="Diapositive 16" />
+<Source file="Sommaire ARMv8 + Débogage GDB.pdf" page={4} locator="Entrées/sorties (haut niveau)" />
+
+## 4. Le programme du rectangle
+
+### 4.1 Le problème et l'analyse
+
+> Dans le plan cartésien, trouver le **périmètre** et la **surface** d'un
+> rectangle connu par les coordonnées de **deux de ses sommets diamétralement
+> opposés**. Les côtés du rectangle sont **parallèles aux axes**.
+
+L'analyse-conception des diapositives :
+
+- **Entrées** : $X_1, Y_1$ (1er sommet) et $X_2, Y_2$ (2e sommet).
+- **Intermédiaires** : $\text{Base} = X_2 - X_1$ et $\text{Hauteur} = Y_2 - Y_1$.
+- **Sorties** : $\text{Périmètre} = 2 \times (\text{Base} + \text{Hauteur})$ et
+  $\text{Surface} = \text{Base} \times \text{Hauteur}$.
+
+Le programme calcule en fait $|X_2 - X_1|$ et $|Y_2 - Y_1|$ : rien n'oblige
+l'utilisateur à donner d'abord le sommet en bas à gauche.
+
+<Mermaid caption="Le déroulement du programme. La boucle rect00 s'exécute deux fois, une par sommet." chart={`
+flowchart TD
+  A["SAVE<br/>x19 ← adresse de points<br/>x20 ← 2"] --> B["rect00 : demander X du point 3 − x20<br/>scanf %d à l'adresse x19<br/>x19 ← x19 + 4"]
+  B --> C["demander Y du point 3 − x20<br/>scanf %d à l'adresse x19<br/>x19 ← x19 + 4"]
+  C --> D["x20 ← x20 − 1"]
+  D -->|"x20 > 0"| B
+  D -->|"sinon"| E["x19 ← adresse de points<br/>ldrsw x20, x21, x22, x23"]
+  E --> F["x24 ← valeur absolue de X2 − X1<br/>x25 ← valeur absolue de Y2 − Y1"]
+  F --> G["x26 ← x24 × x25 (surface)<br/>x24 ← 2 × (x24 + x25) (périmètre)"]
+  G --> H["printf ptfmt3 avec x1 et x2<br/>exit 0"]
+`} />
+
+### 4.2 Les données
+
+```asm
+        .section ".bss"             // variables : pas de valeur initiale
+        .align  4
+points: .skip   4*4                 // X1, Y1, X2, Y2 : quatre mots
+
+        .section ".rodata"          // constantes
+scfmt1: .asciz  "%d"
+ptfmt1: .asciz  "Entrez la coordonnée en X du point %u : "
+ptfmt2: .asciz  "Entrez la coordonnée en Y du point %u : "
+ptfmt3: .ascii  "Le périmètre du rectangle est : %u \n"
+        .asciz  "La surface du rectangle est : %u \n"
+```
+
+<Figure caption="La zone points après la lecture : quatre mots consécutifs, d'où les déplacements 0, 4, 8 et 12.">
+<svg viewBox="0 0 640 170" role="img" aria-label="Quatre cases de 4 octets : X1 au déplacement 0, Y1 à 4, X2 à 8, Y2 à 12">
+  <rect x="60" y="50" width="130" height="56" rx="6" fill="#fbbf24" fill-opacity="0.18" stroke="#fbbf24" stroke-width="1.5" />
+  <rect x="190" y="50" width="130" height="56" rx="6" fill="#fbbf24" fill-opacity="0.18" stroke="#fbbf24" stroke-width="1.5" />
+  <rect x="320" y="50" width="130" height="56" rx="6" fill="#38bdf8" fill-opacity="0.18" stroke="#38bdf8" stroke-width="1.5" />
+  <rect x="450" y="50" width="130" height="56" rx="6" fill="#38bdf8" fill-opacity="0.18" stroke="#38bdf8" stroke-width="1.5" />
+  <text x="125" y="84" font-size="15" text-anchor="middle" fill="currentColor" font-weight="600">X1</text>
+  <text x="255" y="84" font-size="15" text-anchor="middle" fill="currentColor" font-weight="600">Y1</text>
+  <text x="385" y="84" font-size="15" text-anchor="middle" fill="currentColor" font-weight="600">X2</text>
+  <text x="515" y="84" font-size="15" text-anchor="middle" fill="currentColor" font-weight="600">Y2</text>
+  <text x="60" y="36" font-size="12" fill="currentColor" opacity="0.8">points</text>
+  <text x="60" y="128" font-size="12" fill="currentColor" opacity="0.8" font-family="monospace">[x19]</text>
+  <text x="190" y="128" font-size="12" fill="currentColor" opacity="0.8" font-family="monospace">[x19,4]</text>
+  <text x="320" y="128" font-size="12" fill="currentColor" opacity="0.8" font-family="monospace">[x19,8]</text>
+  <text x="450" y="128" font-size="12" fill="currentColor" opacity="0.8" font-family="monospace">[x19,12]</text>
+  <text x="190" y="156" font-size="12" text-anchor="middle" fill="currentColor" opacity="0.7">1er sommet</text>
+  <text x="450" y="156" font-size="12" text-anchor="middle" fill="currentColor" opacity="0.7">2e sommet</text>
+</svg>
+</Figure>
+
+### 4.3 La lecture et les calculs
+
+**La lecture** est une boucle sur les deux sommets. Le programme commence par
+`SAVE`, une **macro** du cours qui sauvegarde l'état des registres `x19` à
+`x30`, puis :
+
+```asm
+        adr     x19,points          // x19 pointe sur la 1re coordonnée
+        mov     x20,2               // 2 sommets à lire
+rect00:
+        adr     x0,ptfmt1           // format de la question « X du point %u »
+        mov     x1,3
+        sub     x1,x1,x20           // no du point : 3 - x20, donc 1 puis 2
+        bl      printf
+        adr     x0,scfmt1           // format "%d"
+        mov     x1,x19              // ADRESSE où écrire X
+        bl      scanf
+        add     x19,x19,4           // mot suivant
+        // … même bloc pour Y avec ptfmt2 …
+        sub     x20,x20,1           // un sommet de moins à lire
+        cmp     x20,0
+        b.gt    rect00              // encore un sommet ? on recommence
+```
+
+Trois choix à savoir justifier :
+
+- **`mov x1,x19`** et non `adr` : `x19` **contient déjà** l'adresse de la
+  prochaine case, et elle avance de 4 à chaque lecture.
+- **`add x19,x19,4`** : `%d` lit un entier de **32 bits**, soit **4 octets**.
+- **`3 - x20`** : le compteur descend de 2 à 1, le numéro affiché monte de 1
+  à 2.
+
+**Les calculs** repartent du début de la zone :
+
+```asm
+        adr     x19,points          // x19 a avancé de 16 : on le remet au début
+        ldrsw   x20,[x19]           // X1
+        ldrsw   x21,[x19,4]         // Y1
+        ldrsw   x22,[x19,8]         // X2
+        ldrsw   x23,[x19,12]        // Y2
+
+        subs    x24,x22,x20         // X2-X1, et mise à jour des codes condition
+        b.gt    rect10              // positif : rien à faire
+        neg     x24,x24             // sinon : on change le signe
+rect10:
+        subs    x25,x23,x21         // Y2-Y1
+        b.gt    rect20
+        neg     x25,x25
+rect20:
+        mul     x26,x24,x25         // surface
+        add     x24,x24,x25         // base + hauteur
+        add     x24,x24,x24         // × 2 : périmètre
+```
+
+<Callout type="note" title="Pourquoi ldrsw et pas ldr">
+`scanf` avec `%d` a rangé des **entiers signés de 32 bits** — une coordonnée
+peut être négative. Pour les charger dans des registres de **64 bits** sans
+perdre le signe, il faut `ldrsw` (chapitre 3) : il **recopie le bit de signe**
+dans les 32 bits de poids fort. Un `ldr w20,[x19]` mettrait des 0, et $-2$
+deviendrait 4 294 967 294.
+</Callout>
+
+<Callout type="tip" title="subs, pas sub">
+`b.gt` décide en lisant les **codes condition**. Or seul **`subs`** (avec le
+`s`) les met à jour ; un simple `sub` laisserait `b.gt` décider sur le résultat
+d'une opération précédente. La valeur absolue tient ensuite en trois lignes :
+si le résultat est positif, on saute par-dessus le `neg`.
+</Callout>
+
+<Callout type="warning" title="Un commentaire à corriger sur la diapositive 23">
+Le commentaire du second `neg` indique « |X2-X1| » alors que l'instruction
+calcule $|Y_2 - Y_1|$ dans `x25`. Seul le **commentaire** est erroné ; le code
+est juste.
+</Callout>
+
+<Source file="Chapitre 4.pdf" page={20} locator="Diapositives 18 à 24" />
+
+### 4.4 L'affichage et la fin
+
+```asm
+        adr     x0,ptfmt3           // format
+        mov     x1,x24              // 1er %u : le périmètre
+        mov     x2,x26              // 2e %u : la surface
+        bl      printf
+        mov     x0,0                // code d'erreur 0 : aucune erreur
+        bl      exit                // fin du programme
+```
+
+<Callout type="example" title="Un seul printf pour deux lignes">
+`ptfmt3` est déclaré avec **`.ascii`**, donc **sans 0 final**. La chaîne se
+prolonge dans la ligne suivante, déclarée avec `.asciz` et **sans étiquette**.
+Pour `printf`, le format est donc :
+
+`"Le périmètre du rectangle est : %u \nLa surface du rectangle est : %u \n"`
+
+Il contient **deux** `%u`, d'où `x1` (périmètre) **et** `x2` (surface) avant
+l'unique `bl printf`.
+</Callout>
+
+**Trace complète** avec le sommet $(1, 5)$ puis le sommet $(4, 1)$ :
+
+| Étape | Registre | Valeur |
+| --- | --- | --- |
+| lecture | `x20`, `x21`, `x22`, `x23` | 1, 5, 4, 1 |
+| `subs x24,x22,x20` | `x24` | 4 − 1 = 3 → positif, on saute le `neg` |
+| `subs x25,x23,x21` | `x25` | 1 − 5 = −4 → `neg` → 4 |
+| `mul x26,x24,x25` | `x26` | 3 × 4 = **12** |
+| `add` puis `add` | `x24` | 3 + 4 = 7, puis 7 + 7 = **14** |
+
+```
+Entrez la coordonnée en X du point 1 : 1
+Entrez la coordonnée en Y du point 1 : 5
+Entrez la coordonnée en X du point 2 : 4
+Entrez la coordonnée en Y du point 2 : 1
+Le périmètre du rectangle est : 14
+La surface du rectangle est : 12
+```
+
+<Source file="Chapitre 4.pdf" page={24} locator="Diapositives 22 et 24" />
+
+## 5. Compiler, exécuter, déboguer
+
+Sur la machine virtuelle du cours, le guide d'installation indique, depuis le
+terminal `login_arm` et dans le répertoire du laboratoire :
+
+| Commande | Effet |
+| --- | --- |
+| `make` | compile le programme du laboratoire |
+| `./labo1` | exécute le programme compilé |
+| `make NAME=foo` | compile un fichier nommé autrement, ici `foo.s` ; on l'exécute avec `./foo` |
+| `make clean` | supprime les fichiers objets et exécutables |
+
+<Source file="Guide VM 2026.docx" page={1} locator="Sections 5 et 6" />
+
+Pour voir ce qui se passe **instruction par instruction**, le Sommaire ARMv8
+présente GDB :
+
+| Commande | Effet |
+| --- | --- |
+| `gdb exec` | charge l'exécutable `./exec` en mode débogage |
+| `break etiq` | ajoute un point d'interruption à l'étiquette `etiq` |
+| `run` | débute l'exécution |
+| `continue` | continue jusqu'au prochain point d'interruption |
+| `stepi` | exécute la prochaine instruction |
+| `nexti` | idem, **sans entrer** dans les sous-programmes |
+| `info reg` | affiche le contenu des registres |
+| `x &etiq` | affiche la mémoire à l'adresse de l'étiquette |
+| `p/d $x24` | affiche un registre dans un format : `u`, `d`, `x`, `t` (binaire), `f`, `c` |
+| `x/nsu adr` | affiche `n` unités de format `s` ; unité `b`, `h`, `w` ou `g` |
+| `run < fichier` | exécute avec l'entrée lue dans un fichier |
+
+<Callout type="tip" title="Appliqué au rectangle">
+`break rect20` arrête le programme juste avant les calculs finaux ;
+`p/d $x24` et `p/d $x25` montrent alors la base et la hauteur, et
+`x/4dw &points` affiche les quatre coordonnées lues, en décimal, par mots de
+4 octets. `nexti` est le bon choix pour passer par-dessus `bl printf` sans
+descendre dans la bibliothèque C.
+</Callout>
+
+<Source file="Sommaire ARMv8 + Débogage GDB.pdf" page={5} locator="Débogage avec GDB" />

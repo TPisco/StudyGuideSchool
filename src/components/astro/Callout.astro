@@ -1,6 +1,11 @@
 ---
 interface Props {
-  type?: 'note' | 'warning' | 'misconception' | 'example' | 'tip';
+  /**
+   * `external` marks knowledge that does NOT come from the course documents
+   * (fidelity rule 2). It is dashed like external roadmap steps so it can
+   * never be mistaken for the professor's material.
+   */
+  type?: 'note' | 'warning' | 'misconception' | 'example' | 'tip' | 'external';
   title?: string;
 }
 const { type = 'note', title } = Astro.props;
@@ -11,14 +16,17 @@ const styles = {
   warning:       { color: 'var(--warn)',   icon: '!',  fallback: 'Attention' },
   misconception: { color: 'var(--bad)',    icon: '✗',  fallback: 'Erreur classique' },
   example:       { color: 'var(--accent)', icon: '▸',  fallback: 'Exemple' },
+  external:      { color: 'var(--info)',   icon: '↗',  fallback: 'Hors des documents du cours' },
 } as const;
 
 const s = styles[type] ?? styles.note;
+const isExternal = type === 'external';
 ---
 
 <aside
   class="not-prose my-6 rounded-xl border p-4 sm:p-5"
-  style={`border-color: color-mix(in srgb, ${s.color} 38%, transparent); background: color-mix(in srgb, ${s.color} 9%, transparent);`}
+  style={`border-color: color-mix(in srgb, ${s.color} 38%, transparent); background: color-mix(in srgb, ${s.color} ${isExternal ? 4 : 9}%, transparent);${isExternal ? ' border-style: dashed; border-width: 2px;' : ''}`}
+  data-external={isExternal ? 'true' : undefined}
 >
   <p class="mb-2 flex items-center gap-2 text-[0.92rem] font-semibold" style={`color: ${s.color};`}>
     <span
@@ -27,6 +35,7 @@ const s = styles[type] ?? styles.note;
       style={`background: color-mix(in srgb, ${s.color} 20%, transparent);`}>{s.icon}</span
     >
     {title ?? s.fallback}
+    {isExternal && title && <span class="chip chip-info ml-auto text-[0.7rem] font-medium">hors cours</span>}
   </p>
   <div class="callout-body text-[0.95rem] leading-relaxed [&>p]:my-2 [&>p:first-child]:mt-0 [&>p:last-child]:mb-0 [&_ul]:my-2 [&_ul]:list-disc [&_ul]:pl-5 [&_li]:my-1">
     <slot />

@@ -254,7 +254,7 @@ export const testSchema = questionSetSchema('test', 20, 30);
 /** Languages we can genuinely execute in the browser. Never ship a fake runner. */
 export const runnableLanguageSchema = z.enum(['python', 'javascript', 'typescript', 'sql']);
 /** Languages that cannot run client-side - these get reasoning exercises instead. */
-export const staticLanguageSchema = z.enum(['c', 'cpp', 'java', 'pseudocode', 'text']);
+export const staticLanguageSchema = z.enum(['c', 'cpp', 'java', 'asm', 'pseudocode', 'text']);
 
 export const exerciseModeSchema = z.enum([
   'run', // write code, we execute it and run tests

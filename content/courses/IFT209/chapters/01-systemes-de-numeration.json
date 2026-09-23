@@ -1,0 +1,934 @@
+{
+  "course": "IFT209",
+  "chapter": 1,
+  "concepts": [
+    {
+      "id": "c1-systeme-numeration",
+      "term": "Système de numération",
+      "definition": "Couple composé d'un ensemble de symboles S et d'un ensemble de règles R. Les chiffres romains en sont un : S = (I, V, X, L, C, D, M) avec les règles d'écriture correspondantes.",
+      "whyItMatters": "C'est la notion la plus générale ; le système positionnel n'en est qu'un cas particulier, obtenu en y ajoutant une base.",
+      "commonMisconception": "Croire que tout système de numération est positionnel. Dans les chiffres romains, la valeur d'un symbole ne dépend pas de sa position : le X de LXVI vaut 10 où qu'il soit.",
+      "objectiveId": "obj1-systemes",
+      "source": { "file": "Chapitre 1.pdf", "page": 4, "locator": "Diapositive 4" }
+    },
+    {
+      "id": "c1-positionnel",
+      "term": "Système de numération positionnel",
+      "definition": "Système de numération auquel on ajoute une base B. Le nombre de symboles est B, la valeur maximale d'un symbole est B−1, et un symbole a à la i-ième position vaut a × Bⁱ.",
+      "whyItMatters": "C'est la propriété qui rend l'arithmétique mécanisable : la valeur associée à un chiffre dépend de sa position, donc un calcul peut être fait chiffre par chiffre.",
+      "commonMisconception": "Oublier que le nombre de symboles est exactement B. En base 5, les symboles vont de 0 à 4 : écrire un 5 dans un nombre en base 5 n'a pas de sens.",
+      "objectiveId": "obj1-systemes",
+      "source": { "file": "Chapitre 1.pdf", "page": 5, "locator": "Diapositive 5" }
+    },
+    {
+      "id": "c1-expansion",
+      "term": "Expansion",
+      "definition": "Conversion vers la base 10 par la somme Y₁₀ = Σ sᵢ × Bⁱ, i allant de −m à n.",
+      "whyItMatters": "C'est la procédure valable pour toute base, y compris celles dont les symboles dépassent les chiffres — en base 36, J = 19, K = 20, R = 27.",
+      "commonMisconception": "Oublier les exposants négatifs pour la partie fractionnaire. Le premier chiffre après la virgule est multiplié par B⁻¹, pas par B⁰.",
+      "objectiveId": "obj1-vers-decimal",
+      "source": { "file": "Chapitre 1.pdf", "page": 14, "locator": "Diapositive 14" }
+    },
+    {
+      "id": "c1-divisions",
+      "term": "Divisions successives",
+      "definition": "Procédure de conversion de la partie entière depuis la base 10 : on divise par B et on conserve le reste, jusqu'à obtenir un quotient nul. Les restes lus de bas en haut donnent le nombre.",
+      "whyItMatters": "Elle découle directement du schéma de Horner : chaque division extrait le chiffre le moins significatif restant.",
+      "commonMisconception": "Lire les restes dans l'ordre où ils sortent. Le premier reste obtenu est le chiffre le MOINS significatif : il se place tout à droite.",
+      "objectiveId": "obj1-depuis-decimal",
+      "source": { "file": "Chapitre 1.pdf", "page": 18, "locator": "Diapositives 17 et 18" }
+    },
+    {
+      "id": "c1-multiplications",
+      "term": "Multiplications successives",
+      "definition": "Procédure de conversion de la partie fractionnaire depuis la base 10 : on multiplie par B et on conserve la partie entière du produit, en poursuivant avec la partie fractionnaire.",
+      "whyItMatters": "C'est le symétrique des divisions pour les puissances négatives de B, et la seule façon de convertir une fraction sans passer par une fraction rationnelle.",
+      "commonMisconception": "Lire les parties entières de bas en haut, comme les restes. Ici c'est l'inverse : la première partie entière obtenue est le chiffre le PLUS significatif après la virgule.",
+      "objectiveId": "obj1-depuis-decimal",
+      "source": { "file": "Chapitre 1.pdf", "page": 20, "locator": "Diapositives 19 et 20" }
+    },
+    {
+      "id": "c1-groupement",
+      "term": "Groupement",
+      "definition": "Conversion de la base B vers la base Bᵐ : on forme des groupes de m symboles, en partant de la droite pour la partie entière et de la gauche pour la partie fractionnaire, en complétant par des zéros.",
+      "whyItMatters": "C'est ce qui rend l'octal et l'hexadécimal utiles : la conversion depuis le binaire est immédiate, sans aucun calcul.",
+      "commonMisconception": "Grouper depuis la gauche pour la partie entière. Il faut partir de la virgule et aller vers l'extérieur, sinon les groupes sont décalés et le résultat est faux.",
+      "objectiveId": "obj1-groupement",
+      "source": { "file": "Chapitre 1.pdf", "page": 25, "locator": "Diapositive 25" }
+    },
+    {
+      "id": "c1-eclatement",
+      "term": "Éclatement",
+      "definition": "Conversion de la base Bᵐ vers la base B : on remplace chaque symbole de la base Bᵐ par la suite de m symboles équivalents dans la base B.",
+      "whyItMatters": "C'est l'opération inverse du groupement, et la première moitié de toute conversion entre deux bases puissances d'une même base — comme l'hexadécimal vers l'octal.",
+      "commonMisconception": "Omettre les zéros de tête dans un groupe. Le C de 6A,C₁₆ s'éclate en 1100, pas en 110 : chaque symbole donne exactement m bits.",
+      "objectiveId": "obj1-groupement",
+      "source": { "file": "Chapitre 1.pdf", "page": 27, "locator": "Diapositive 27" }
+    },
+    {
+      "id": "c1-capacite",
+      "term": "Capacité maximale Max(B, n)",
+      "definition": "La plus grande valeur exprimable dans une base B à l'aide de n symboles vaut Bⁿ − 1.",
+      "whyItMatters": "C'est ce qui relie une largeur de représentation à un intervalle de valeurs — sur 8 bits, 2⁸ − 1 = 255, la plus grande valeur d'un octet.",
+      "commonMisconception": "Calculer Bⁿ au lieu de Bⁿ − 1. Le raisonnement des solutions est : le plus grand nombre s'écrit avec le symbole maximal répété n fois, et ce nombre vaut la puissance suivante moins un.",
+      "objectiveId": "obj1-capacite",
+      "source": { "file": "Chapitre 1.pdf", "page": 11, "locator": "Diapositive 11" }
+    }
+  ],
+  "tables": [
+    {
+      "id": "t1-six-cas",
+      "title": "Les six cas de conversion et leur procédure",
+      "kind": "reference",
+      "caption": "Deux d'entre eux ne passent jamais par la base 10.",
+      "columns": [
+        { "key": "cas", "label": "Cas", "mono": true },
+        { "key": "proc", "label": "Procédure" },
+        { "key": "cond", "label": "Condition" }
+      ],
+      "rows": [
+        { "cas": "X_B → Y₁₀", "proc": "expansion : somme des sᵢ × Bⁱ", "cond": "aucune" },
+        { "cas": "Y₁₀ → X_B", "proc": "divisions successives (entier), multiplications successives (fraction)", "cond": "aucune" },
+        { "cas": "X_B1 → Y_B2", "proc": "expansion calculée dans B2, ou passage par la base 10", "cond": "aucune" },
+        { "cas": "X_B → Y_Bᵐ", "proc": "groupement par m symboles", "cond": "la cible est une puissance de la source" },
+        { "cas": "X_Bᵐ → Y_B", "proc": "éclatement : 1 symbole → m symboles", "cond": "la source est une puissance de la cible" },
+        { "cas": "X_Bᵐ → Y_Bⁿ", "proc": "éclatement en m, puis regroupement en n", "cond": "les deux sont puissances d'une même base B" }
+      ],
+      "source": { "file": "Chapitre 1.pdf", "page": 13, "locator": "Diapositive 13" }
+    },
+    {
+      "id": "t1-bases",
+      "title": "Correspondance décimal, binaire, octal, hexadécimal",
+      "kind": "reference",
+      "columns": [
+        { "key": "dec", "label": "Décimal", "mono": true },
+        { "key": "bin", "label": "Binaire", "mono": true },
+        { "key": "oct", "label": "Octal", "mono": true },
+        { "key": "hex", "label": "Hexadécimal", "mono": true }
+      ],
+      "rows": [
+        { "dec": "0", "bin": "0", "oct": "0", "hex": "0" },
+        { "dec": "1", "bin": "1", "oct": "1", "hex": "1" },
+        { "dec": "7", "bin": "111", "oct": "7", "hex": "7" },
+        { "dec": "8", "bin": "1000", "oct": "10", "hex": "8" },
+        { "dec": "9", "bin": "1001", "oct": "11", "hex": "9" },
+        { "dec": "10", "bin": "1010", "oct": "12", "hex": "A" },
+        { "dec": "11", "bin": "1011", "oct": "13", "hex": "B" },
+        { "dec": "12", "bin": "1100", "oct": "14", "hex": "C" },
+        { "dec": "13", "bin": "1101", "oct": "15", "hex": "D" },
+        { "dec": "14", "bin": "1110", "oct": "16", "hex": "E" },
+        { "dec": "15", "bin": "1111", "oct": "17", "hex": "F" },
+        { "dec": "16", "bin": "10000", "oct": "20", "hex": "10" },
+        { "dec": "20", "bin": "10100", "oct": "24", "hex": "14" }
+      ],
+      "source": { "file": "Chapitre 1.pdf", "page": 10, "locator": "Diapositive 10" }
+    },
+    {
+      "id": "t1-prefixes",
+      "title": "Préfixes décimaux et préfixes des octets",
+      "kind": "comparison",
+      "caption": "Le même mot désigne deux facteurs différents selon le contexte.",
+      "columns": [
+        { "key": "prefixe", "label": "Préfixe" },
+        { "key": "dec", "label": "Système décimal", "mono": true },
+        { "key": "oct", "label": "Octets en informatique", "mono": true }
+      ],
+      "rows": [
+        { "prefixe": "Kilo", "dec": "10³", "oct": "2¹⁰" },
+        { "prefixe": "Mega", "dec": "10⁶", "oct": "2²⁰" },
+        { "prefixe": "Giga", "dec": "10⁹", "oct": "2³⁰" },
+        { "prefixe": "Tera", "dec": "10¹²", "oct": "2⁴⁰" },
+        { "prefixe": "Peta", "dec": "10¹⁵", "oct": "2⁵⁰" },
+        { "prefixe": "Exa", "dec": "10¹⁸", "oct": "2⁶⁰" }
+      ],
+      "source": { "file": "Chapitre 1.pdf", "page": 32, "locator": "Diapositives 31 et 32" }
+    }
+  ],
+  "quiz": {
+    "title": "Quiz — vérification rapide",
+    "estimatedMinutes": 15,
+    "questions": [
+      {
+        "id": "q1-01",
+        "objectiveId": "obj1-systemes",
+        "bloomLevel": "recall",
+        "type": "mcq",
+        "difficulty": 1,
+        "prompt": "Dans un système de numération positionnel de base B, combien y a-t-il de symboles dans l'ensemble S ?",
+        "options": [
+          { "id": "a", "text": "Exactement B symboles, de 0 à B−1." },
+          { "id": "b", "text": "Exactement B−1 symboles, de 1 à B−1." },
+          { "id": "c", "text": "Exactement B+1 symboles, de 0 à B." },
+          { "id": "d", "text": "Le nombre de symboles est indépendant de la base." }
+        ],
+        "correct": "a",
+        "explanation": "La diapositive 5 l'énonce : le nombre d'éléments dans l'ensemble des symboles est B, et la valeur maximale d'un symbole est B−1. En base 5 : {0, 1, 2, 3, 4}.",
+        "perDistractorExplanation": [
+          { "optionId": "b", "why": "Le zéro fait partie des symboles — sans lui, on ne pourrait pas écrire 10 ni marquer une position vide." },
+          { "optionId": "c", "why": "Le symbole B lui-même n'existe pas : en base 10 il n'y a pas de chiffre valant 10, on écrit 10 sur deux positions." },
+          { "optionId": "d", "why": "C'est vrai d'un système de numération quelconque comme les chiffres romains, mais pas d'un système positionnel, où la base fixe le nombre de symboles." }
+        ],
+        "source": { "file": "Chapitre 1.pdf", "page": 5 }
+      },
+      {
+        "id": "q1-02",
+        "objectiveId": "obj1-vers-decimal",
+        "bloomLevel": "apply",
+        "type": "short-answer",
+        "difficulty": 2,
+        "prompt": "Convertir 412₅ en décimal. (un nombre)",
+        "correct": "107",
+        "acceptableAnswers": ["107₁₀"],
+        "explanation": "Expansion : 4 × 5² + 1 × 5¹ + 2 × 5⁰ = 100 + 5 + 2 = 107. C'est l'exemple de la diapositive 14.",
+        "source": { "file": "Chapitre 1.pdf", "page": 14 }
+      },
+      {
+        "id": "q1-03",
+        "objectiveId": "obj1-capacite",
+        "bloomLevel": "apply",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Quelle est la plus grande valeur représentable sur 8 symboles en base 16 ?",
+        "options": [
+          { "id": "a", "text": "16⁸ − 1 = 4 294 967 295" },
+          { "id": "b", "text": "16⁸ = 4 294 967 296" },
+          { "id": "c", "text": "8¹⁶ − 1" },
+          { "id": "d", "text": "16 × 8 − 1 = 127" }
+        ],
+        "correct": "a",
+        "explanation": "Max(B, n) = Bⁿ − 1. Le plus grand nombre s'écrit FFFFFFFF₁₆, soit 100000000₁₆ − 1 = 16⁸ − 1. C'est la solution de l'exercice 8 du professeur.",
+        "perDistractorExplanation": [
+          { "optionId": "b", "why": "16⁸ est le NOMBRE de valeurs représentables, pas la plus grande. Comme on compte à partir de 0, la plus grande vaut une unité de moins." },
+          { "optionId": "c", "why": "La base et le nombre de symboles sont inversés : c'est B qui est élevé à la puissance n, pas l'inverse." },
+          { "optionId": "d", "why": "Un produit au lieu d'une puissance. La croissance est exponentielle en n, pas linéaire." }
+        ],
+        "source": { "file": "Exchap1-sol.pdf", "page": 7, "locator": "Exercice 8" }
+      },
+      {
+        "id": "q1-04",
+        "objectiveId": "obj1-depuis-decimal",
+        "bloomLevel": "understand",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Après avoir converti une partie entière par divisions successives, dans quel ordre lit-on les restes ?",
+        "options": [
+          { "id": "a", "text": "Du dernier obtenu au premier — le premier reste est le chiffre le moins significatif." },
+          { "id": "b", "text": "Du premier obtenu au dernier — le premier reste est le chiffre le plus significatif." },
+          { "id": "c", "text": "Dans l'ordre croissant des restes." },
+          { "id": "d", "text": "L'ordre n'a pas d'importance." }
+        ],
+        "correct": "a",
+        "explanation": "Chaque division extrait le chiffre le moins significatif restant. Dans l'exemple 314₁₀ = 102122₃, le premier reste obtenu est 2 et il se place tout à droite ; le dernier, 1, est le chiffre de tête.",
+        "perDistractorExplanation": [
+          { "optionId": "b", "why": "C'est l'ordre de lecture des parties entières lors des MULTIPLICATIONS successives, pour la partie fractionnaire. Les deux procédures se lisent en sens inverse l'une de l'autre." },
+          { "optionId": "c", "why": "Les restes ne se trient pas : leur position dans le nombre est déterminée par l'étape où ils ont été produits." },
+          { "optionId": "d", "why": "L'ordre est tout : lire 102122₃ à l'envers donnerait 221201₃, un nombre entièrement différent." }
+        ],
+        "source": { "file": "Chapitre 1.pdf", "page": 18 }
+      },
+      {
+        "id": "q1-05",
+        "objectiveId": "obj1-groupement",
+        "bloomLevel": "apply",
+        "type": "short-answer",
+        "difficulty": 2,
+        "prompt": "Convertir 101011,100101₂ en octal. (écrire le résultat avec la virgule, sans indiquer la base)",
+        "correct": "53,45",
+        "acceptableAnswers": ["53.45", "53,45₈"],
+        "explanation": "8 = 2³, donc regroupement par 3 en partant de la virgule : 101 011 , 100 101 → 5 3 , 4 5. C'est l'exercice 5a du professeur.",
+        "source": { "file": "Exchap1-sol.pdf", "page": 4, "locator": "Exercice 5a" }
+      },
+      {
+        "id": "q1-06",
+        "objectiveId": "obj1-groupement",
+        "bloomLevel": "analyze",
+        "type": "mcq",
+        "difficulty": 3,
+        "prompt": "Pourquoi ne peut-on PAS convertir directement de la base 3 vers la base 5 par groupement ?",
+        "options": [
+          { "id": "a", "text": "Parce que 5 n'est pas une puissance entière de 3." },
+          { "id": "b", "text": "Parce que 5 est un nombre premier." },
+          { "id": "c", "text": "Parce que 3 et 5 n'ont pas le même nombre de symboles." },
+          { "id": "d", "text": "Parce que le groupement ne fonctionne que vers la base 2." }
+        ],
+        "correct": "a",
+        "explanation": "Le groupement suppose que la base cible soit Bᵐ pour la base source B : m symboles de la source valent exactement un symbole de la cible. Il n'existe aucun entier m tel que 3ᵐ = 5, donc aucun regroupement ne préserve la valeur.",
+        "perDistractorExplanation": [
+          { "optionId": "b", "why": "La primalité n'est pas le critère : on ne peut pas non plus grouper de la base 3 vers la base 4, alors que 4 n'est pas premier." },
+          { "optionId": "c", "why": "Deux bases différentes n'ont jamais le même nombre de symboles ; cela n'empêche pas le groupement entre 2 et 16." },
+          { "optionId": "d", "why": "Le groupement fonctionne dans les deux sens et entre bien d'autres bases : 3 vers 9, 2 vers 8, 2 vers 16." }
+        ],
+        "source": { "file": "Chapitre 1.pdf", "page": 25 }
+      },
+      {
+        "id": "q1-07",
+        "objectiveId": "obj1-systemes",
+        "bloomLevel": "understand",
+        "type": "true-false",
+        "difficulty": 2,
+        "prompt": "Dans le système des chiffres romains, la valeur d'un symbole dépend de sa position.",
+        "options": [
+          { "id": "v", "text": "Vrai" },
+          { "id": "f", "text": "Faux" }
+        ],
+        "correct": "f",
+        "explanation": "La diapositive 4 le souligne explicitement : dans ce système, la valeur d'un symbole ne dépend pas de sa position. Le X vaut 10 partout. C'est justement ce que l'ajout d'une base change dans un système positionnel.",
+        "perDistractorExplanation": [
+          { "optionId": "v", "why": "La position modifie l'interprétation par les règles — IV vaut 4 et VI vaut 6 — mais le V continue de valoir 5 dans les deux cas. La valeur du symbole, elle, ne change pas." }
+        ],
+        "source": { "file": "Chapitre 1.pdf", "page": 4 }
+      },
+      {
+        "id": "q1-08",
+        "objectiveId": "obj1-vers-decimal",
+        "bloomLevel": "analyze",
+        "type": "mcq",
+        "difficulty": 3,
+        "prompt": "En base 36, les symboles sont {0…9, A…Z}. Que vaut le symbole K en décimal ?",
+        "options": [
+          { "id": "a", "text": "20" },
+          { "id": "b", "text": "11" },
+          { "id": "c", "text": "21" },
+          { "id": "d", "text": "10" }
+        ],
+        "correct": "a",
+        "explanation": "Les dix premiers symboles sont les chiffres 0 à 9, puis A vaut 10, B vaut 11, et ainsi de suite. K est la 11ᵉ lettre, donc 10 + 10 = 20. La solution de l'exercice 1 donne J = 19, K = 20, R = 27.",
+        "perDistractorExplanation": [
+          { "optionId": "b", "why": "11 est la position de K dans l'alphabet, mais A vaut 10 et non 1 : il faut ajouter 9, pas 0." },
+          { "optionId": "c", "why": "Erreur d'un rang : ce serait la valeur de L. K est précédé de J = 19." },
+          { "optionId": "d", "why": "10 est la valeur de A, le premier symbole alphabétique." }
+        ],
+        "source": { "file": "Exchap1-sol.pdf", "page": 1, "locator": "Exercice 1" }
+      },
+      {
+        "id": "q1-09",
+        "objectiveId": "obj1-depuis-decimal",
+        "bloomLevel": "apply",
+        "type": "fill-blank",
+        "difficulty": 2,
+        "prompt": "Compléter : pour convertir la partie FRACTIONNAIRE d'un nombre décimal vers la base B, on effectue des ____ successives par B.",
+        "correct": "multiplications",
+        "acceptableAnswers": ["multiplication", "des multiplications"],
+        "explanation": "Multiplications. La partie entière utilise des divisions ; la partie fractionnaire des multiplications, dont on conserve la partie entière du produit à chaque étape.",
+        "source": { "file": "Chapitre 1.pdf", "page": 19 }
+      },
+      {
+        "id": "q1-10",
+        "objectiveId": "obj1-groupement",
+        "bloomLevel": "understand",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Pour la partie fractionnaire, de quel côté commence-t-on le groupement ?",
+        "options": [
+          { "id": "a", "text": "De la gauche, c'est-à-dire depuis la virgule." },
+          { "id": "b", "text": "De la droite, c'est-à-dire depuis le dernier chiffre." },
+          { "id": "c", "text": "Du milieu, en équilibrant les groupes." },
+          { "id": "d", "text": "Indifféremment : le résultat est le même." }
+        ],
+        "correct": "a",
+        "explanation": "La règle de la diapositive 25 : on part de la droite pour la partie entière, de la gauche pour la partie fractionnaire. Dans les deux cas cela revient à partir de la virgule et à s'en éloigner, les zéros de complément allant vers l'extérieur.",
+        "perDistractorExplanation": [
+          { "optionId": "b", "why": "Ce serait décaler tous les groupes si le nombre de chiffres n'est pas un multiple de m ; les zéros de complément doivent aller à droite, pas à gauche." },
+          { "optionId": "c", "why": "Aucun équilibrage n'est prévu : la virgule est le seul point de départ." },
+          { "optionId": "d", "why": "Sur 1010 01, grouper depuis la gauche donne 1010 0100 = A8, depuis la droite 0010 1001 — deux résultats différents." }
+        ],
+        "source": { "file": "Chapitre 1.pdf", "page": 25 }
+      },
+      {
+        "id": "q1-11",
+        "objectiveId": "obj1-capacite",
+        "bloomLevel": "recall",
+        "type": "mcq",
+        "difficulty": 1,
+        "prompt": "En informatique, à quoi correspond le préfixe « Kilo » appliqué aux octets ?",
+        "options": [
+          { "id": "a", "text": "2¹⁰" },
+          { "id": "b", "text": "10³" },
+          { "id": "c", "text": "2³" },
+          { "id": "d", "text": "10¹⁰" }
+        ],
+        "correct": "a",
+        "explanation": "La diapositive 32 donne les préfixes des octets en puissances de 2 : Kilo = 2¹⁰, Mega = 2²⁰, Giga = 2³⁰. Le tableau décimal de la diapositive 31 donne, lui, Kilo = 10³.",
+        "perDistractorExplanation": [
+          { "optionId": "b", "why": "C'est le Kilo du système décimal, celui de la diapositive 31. Les deux tableaux sont donnés séparément précisément parce qu'ils diffèrent." },
+          { "optionId": "c", "why": "2³ = 8, l'ordre de grandeur d'un octet en bits, pas d'un kilooctet." },
+          { "optionId": "d", "why": "Mélange les deux systèmes : la base 10 avec l'exposant 10." }
+        ],
+        "source": { "file": "Chapitre 1.pdf", "page": 32 }
+      },
+      {
+        "id": "q1-12",
+        "objectiveId": "obj1-groupement",
+        "bloomLevel": "analyze",
+        "type": "multi",
+        "difficulty": 3,
+        "prompt": "Entre quelles paires de bases le groupement ou l'éclatement est-il possible ? (plusieurs réponses)",
+        "options": [
+          { "id": "a", "text": "Base 2 et base 8" },
+          { "id": "b", "text": "Base 3 et base 9" },
+          { "id": "c", "text": "Base 2 et base 6" },
+          { "id": "d", "text": "Base 5 et base 7" }
+        ],
+        "correct": ["a", "b"],
+        "explanation": "Il faut que l'une soit une puissance entière de l'autre : 8 = 2³ (groupes de 3) et 9 = 3² (groupes de 2). L'exercice 7 du professeur exploite précisément 9 = 3² pour obtenir la base 9 à partir de la base 3 déjà calculée.",
+        "perDistractorExplanation": [
+          { "optionId": "c", "why": "6 n'est pas une puissance de 2 : 2² = 4 et 2³ = 8. Aucun nombre entier de bits ne correspond à un symbole en base 6." },
+          { "optionId": "d", "why": "5 et 7 sont deux nombres premiers distincts ; aucune puissance de l'un ne donne l'autre." }
+        ],
+        "source": { "file": "Exchap1-sol.pdf", "page": 7, "locator": "Exercice 7" }
+      }
+    ]
+  },
+  "test": {
+    "title": "Test du chapitre 1",
+    "instructions": "20 questions couvrant tout le chapitre. Plus long et plus difficile que le quiz.",
+    "estimatedMinutes": 45,
+    "questions": [
+      {
+        "id": "t1-01",
+        "objectiveId": "obj1-systemes",
+        "bloomLevel": "recall",
+        "type": "mcq",
+        "difficulty": 1,
+        "prompt": "De quoi un système de numération est-il composé, selon les notes ?",
+        "options": [
+          { "id": "a", "text": "D'un ensemble de symboles S et d'un ensemble de règles R." },
+          { "id": "b", "text": "D'une base B et d'un ensemble de symboles S." },
+          { "id": "c", "text": "D'une base B seulement." },
+          { "id": "d", "text": "D'un ensemble de règles R seulement." }
+        ],
+        "correct": "a",
+        "explanation": "La diapositive 4 définit le système de numération comme un couple (S, R). La base B n'est ajoutée qu'à la diapositive suivante, pour former un système POSITIONNEL.",
+        "perDistractorExplanation": [
+          { "optionId": "b", "why": "La base caractérise le système positionnel, qui est un cas particulier. Les chiffres romains forment un système de numération sans base." },
+          { "optionId": "c", "why": "Sans symboles ni règles, une base ne permet d'écrire aucun nombre." },
+          { "optionId": "d", "why": "Il faut aussi les symboles auxquels les règles s'appliquent." }
+        ],
+        "source": { "file": "Chapitre 1.pdf", "page": 4 }
+      },
+      {
+        "id": "t1-02",
+        "objectiveId": "obj1-vers-decimal",
+        "bloomLevel": "apply",
+        "type": "code-output",
+        "difficulty": 2,
+        "prompt": "Que vaut ce nombre binaire en décimal ?",
+        "code": {
+          "lang": "text",
+          "value": "1011,1101₂",
+          "caption": "Exemple de la diapositive 8."
+        },
+        "correct": "11,8125",
+        "acceptableAnswers": ["11.8125", "11,8125₁₀"],
+        "explanation": "1 × 2³ + 1 × 2¹ + 1 × 2⁰ + 1 × 2⁻¹ + 1 × 2⁻² + 1 × 2⁻⁴ = 8 + 2 + 1 + 0,5 + 0,25 + 0,0625 = 11,8125. Noter que le troisième chiffre après la virgule est un 0 : il ne contribue pas.",
+        "source": { "file": "Chapitre 1.pdf", "page": 8 }
+      },
+      {
+        "id": "t1-03",
+        "objectiveId": "obj1-depuis-decimal",
+        "bloomLevel": "apply",
+        "type": "short-answer",
+        "difficulty": 2,
+        "prompt": "Convertir 968 en binaire. (la suite de chiffres, sans indiquer la base)",
+        "correct": "1111001000",
+        "acceptableAnswers": ["1111001000₂"],
+        "explanation": "Divisions successives par 2 : restes 0,0,0,1,0,0,1,1,1,1 lus de bas en haut. Vérification : 512 + 256 + 128 + 64 + 8 = 968. C'est l'exercice 2 du professeur.",
+        "source": { "file": "Exchap1-sol.pdf", "page": 1, "locator": "Exercice 2" }
+      },
+      {
+        "id": "t1-04",
+        "objectiveId": "obj1-depuis-decimal",
+        "bloomLevel": "apply",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "On convertit 0,687 en base 5. Quels sont les trois premiers chiffres après la virgule ?",
+        "options": [
+          { "id": "a", "text": "3, 2, 0" },
+          { "id": "b", "text": "0, 2, 3" },
+          { "id": "c", "text": "3, 4, 1" },
+          { "id": "d", "text": "6, 8, 7" }
+        ],
+        "correct": "a",
+        "explanation": "0,687 × 5 = 3,435 → 3 ; 0,435 × 5 = 2,175 → 2 ; 0,175 × 5 = 0,875 → 0. Le résultat complet de l'exercice 3 est 0,320414₅.",
+        "perDistractorExplanation": [
+          { "optionId": "b", "why": "Les chiffres sont lus à l'envers. Pour la partie fractionnaire, la première partie entière obtenue est le chiffre le PLUS significatif." },
+          { "optionId": "c", "why": "Ce sont des chiffres apparaissant plus loin dans le développement (0,320414₅), pas les trois premiers." },
+          { "optionId": "d", "why": "Ce sont les chiffres décimaux d'origine, recopiés tels quels — la conversion n'a pas eu lieu." }
+        ],
+        "source": { "file": "Exchap1-sol.pdf", "page": 2, "locator": "Exercice 3" }
+      },
+      {
+        "id": "t1-05",
+        "objectiveId": "obj1-groupement",
+        "bloomLevel": "apply",
+        "type": "short-answer",
+        "difficulty": 2,
+        "prompt": "Convertir 101011,100101₂ en hexadécimal. (avec la virgule, sans indiquer la base)",
+        "correct": "2B,94",
+        "acceptableAnswers": ["2b,94", "2B.94"],
+        "explanation": "16 = 2⁴, donc groupes de 4 depuis la virgule, complétés par des zéros : 0010 1011 , 1001 0100 → 2 B , 9 4. C'est l'exercice 5b du professeur.",
+        "source": { "file": "Exchap1-sol.pdf", "page": 4, "locator": "Exercice 5b" }
+      },
+      {
+        "id": "t1-06",
+        "objectiveId": "obj1-groupement",
+        "bloomLevel": "analyze",
+        "type": "mcq",
+        "difficulty": 3,
+        "prompt": "Pour convertir EB37,12₁₆ en octal, quelle est la procédure correcte ?",
+        "options": [
+          { "id": "a", "text": "Éclater chaque symbole en 4 bits, puis regrouper les bits par 3." },
+          { "id": "b", "text": "Regrouper directement les symboles hexadécimaux par 3." },
+          { "id": "c", "text": "Convertir en décimal, puis diviser successivement par 8." },
+          { "id": "d", "text": "Éclater chaque symbole en 3 bits, puis regrouper par 4." }
+        ],
+        "correct": "a",
+        "explanation": "16 = 2⁴ et 8 = 2³. On passe par la base commune 2 : éclatement de 1 vers 4 symboles, puis regroupement de 3 vers 1. C'est le sixième cas de conversion, et l'exercice 6 du professeur.",
+        "perDistractorExplanation": [
+          { "optionId": "b", "why": "8 n'est pas une puissance de 16 : aucun nombre entier de symboles hexadécimaux ne vaut un symbole octal." },
+          { "optionId": "c", "why": "Cela fonctionne mais c'est la voie longue, que les notes réservent au cas où les bases n'ont pas de base commune." },
+          { "optionId": "d", "why": "Les tailles sont inversées : un symbole hexadécimal vaut 4 bits, un symbole octal 3." }
+        ],
+        "source": { "file": "Exchap1-sol.pdf", "page": 5, "locator": "Exercice 6" }
+      },
+      {
+        "id": "t1-07",
+        "objectiveId": "obj1-capacite",
+        "bloomLevel": "apply",
+        "type": "short-answer",
+        "difficulty": 2,
+        "prompt": "Quelle est la plus grande valeur représentable sur 8 symboles en base 2 ? (un nombre décimal)",
+        "correct": "255",
+        "acceptableAnswers": ["2^8-1", "255₁₀"],
+        "explanation": "11111111₂ = 100000000₂ − 1 = 2⁸ − 1 = 256 − 1 = 255. C'est aussi la plus grande valeur d'un octet, ce que le chapitre 2 réutilisera.",
+        "source": { "file": "Exchap1-sol.pdf", "page": 7, "locator": "Exercice 8" }
+      },
+      {
+        "id": "t1-08",
+        "objectiveId": "obj1-systemes",
+        "bloomLevel": "understand",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Pourquoi les ordinateurs utilisent-ils le binaire, selon les notes ?",
+        "options": [
+          { "id": "a", "text": "Parce qu'ils fonctionnent à l'électricité : le courant passe (1) ou ne passe pas (0)." },
+          { "id": "b", "text": "Parce que le binaire permet de représenter de plus grands nombres." },
+          { "id": "c", "text": "Parce que les humains comptent naturellement en base 2." },
+          { "id": "d", "text": "Parce que l'octal et l'hexadécimal sont trop complexes." }
+        ],
+        "correct": "a",
+        "explanation": "La diapositive 9 donne la raison physique : deux états électriques distincts, donc deux symboles. Les notes ajoutent que cela sert à simplifier les calculs.",
+        "perDistractorExplanation": [
+          { "optionId": "b", "why": "À nombre de symboles égal, une base plus grande représente de plus grandes valeurs — Max(B,n) = Bⁿ−1 croît avec B." },
+          { "optionId": "c", "why": "Les notes disent l'inverse : le système décimal est le plus utilisé par les humains." },
+          { "optionId": "d", "why": "L'octal et l'hexadécimal sont au contraire utilisés en plus du binaire, pour SIMPLIFIER la notation des nombres binaires." }
+        ],
+        "source": { "file": "Chapitre 1.pdf", "page": 9 }
+      },
+      {
+        "id": "t1-09",
+        "objectiveId": "obj1-vers-decimal",
+        "bloomLevel": "apply",
+        "type": "code-output",
+        "difficulty": 2,
+        "prompt": "Que vaut ce nombre en décimal ?",
+        "code": {
+          "lang": "text",
+          "value": "1010111,11₂"
+        },
+        "correct": "87,75",
+        "acceptableAnswers": ["87.75", "87,75₁₀"],
+        "explanation": "64 + 16 + 4 + 2 + 1 + 0,5 + 0,25 = 87,75. C'est la première étape de l'exercice 7 du professeur, celle qui sert ensuite à obtenir la base 3 puis la base 9.",
+        "source": { "file": "Exchap1-sol.pdf", "page": 5, "locator": "Exercice 7a" }
+      },
+      {
+        "id": "t1-10",
+        "objectiveId": "obj1-groupement",
+        "bloomLevel": "recall",
+        "type": "fill-blank",
+        "difficulty": 1,
+        "prompt": "Compléter : la technique qui remplace un symbole de la base Bᵐ par m symboles de la base B s'appelle l'____ .",
+        "correct": "éclatement",
+        "acceptableAnswers": ["eclatement", "l'éclatement"],
+        "explanation": "L'éclatement. L'opération inverse — former des groupes de m symboles pour obtenir la base Bᵐ — s'appelle le groupement.",
+        "source": { "file": "Chapitre 1.pdf", "page": 27 }
+      },
+      {
+        "id": "t1-11",
+        "objectiveId": "obj1-depuis-decimal",
+        "bloomLevel": "analyze",
+        "type": "mcq",
+        "difficulty": 3,
+        "prompt": "Lors de la conversion de 0,314₁₀ en base 3, la suite des multiplications est 0,942 / 2,826 / 2,478 / 1,434 / 1,302 / 0,906. Quel est le résultat ?",
+        "options": [
+          { "id": "a", "text": "0,022110₃" },
+          { "id": "b", "text": "0,011220₃" },
+          { "id": "c", "text": "0,942826₃" },
+          { "id": "d", "text": "0,314₃" }
+        ],
+        "correct": "a",
+        "explanation": "On conserve la partie entière de chaque produit, dans l'ordre : 0, 2, 2, 1, 1, 0. C'est l'exemple de la diapositive 20.",
+        "perDistractorExplanation": [
+          { "optionId": "b", "why": "Les chiffres sont lus à l'envers. Contrairement aux restes des divisions, les parties entières se lisent dans l'ordre où elles sortent." },
+          { "optionId": "c", "why": "Ce sont les produits complets, pas leurs parties entières — et 9, 4, 8 ne sont même pas des symboles valides en base 3." },
+          { "optionId": "d", "why": "Les chiffres décimaux d'origine recopiés : aucune conversion n'a eu lieu." }
+        ],
+        "source": { "file": "Chapitre 1.pdf", "page": 20 }
+      },
+      {
+        "id": "t1-12",
+        "objectiveId": "obj1-capacite",
+        "bloomLevel": "understand",
+        "type": "true-false",
+        "difficulty": 2,
+        "prompt": "Sur un nombre fixe de symboles, une base plus grande permet de représenter de plus grandes valeurs.",
+        "options": [
+          { "id": "v", "text": "Vrai" },
+          { "id": "f", "text": "Faux" }
+        ],
+        "correct": "v",
+        "explanation": "Max(B, n) = Bⁿ − 1 croît avec B. L'exercice 8 le montre sur 8 symboles : base 2 donne 255, base 5 donne 390 624, base 16 donne 4 294 967 295, base 20 donne 25 599 999 999.",
+        "perDistractorExplanation": [
+          { "optionId": "f", "why": "Ce serait vrai si la formule était linéaire en B, mais c'est une puissance : chaque symbole supplémentaire multiplie la capacité par B." }
+        ],
+        "source": { "file": "Exchap1-sol.pdf", "page": 7, "locator": "Exercice 8" }
+      },
+      {
+        "id": "t1-13",
+        "objectiveId": "obj1-groupement",
+        "bloomLevel": "apply",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Éclater 6A,C₁₆ en binaire donne :",
+        "options": [
+          { "id": "a", "text": "1101010,11₂" },
+          { "id": "b", "text": "110101,1100₂" },
+          { "id": "c", "text": "0110101011₂" },
+          { "id": "d", "text": "1101010,1100₂ uniquement, les zéros finaux étant obligatoires" }
+        ],
+        "correct": "a",
+        "explanation": "6 → 0110, A → 1010, C → 1100. On obtient 0110 1010 , 1100₂, et les zéros de tête comme les zéros de queue peuvent être retirés sans changer la valeur : 1101010,11₂.",
+        "perDistractorExplanation": [
+          { "optionId": "b", "why": "Un bit manque dans la partie entière : 6A vaut 7 bits significatifs (1101010), pas 6." },
+          { "optionId": "c", "why": "La virgule a disparu : la partie fractionnaire a été collée à la partie entière, ce qui multiplie la valeur." },
+          { "optionId": "d", "why": "Les zéros de queue après la virgule ne changent pas la valeur, exactement comme en décimal : 0,1100 = 0,11." }
+        ],
+        "source": { "file": "Chapitre 1.pdf", "page": 28 }
+      },
+      {
+        "id": "t1-14",
+        "objectiveId": "obj1-systemes",
+        "bloomLevel": "understand",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Que vaut un symbole a placé à la i-ième position dans un système de base B ?",
+        "options": [
+          { "id": "a", "text": "a × Bⁱ" },
+          { "id": "b", "text": "a + Bⁱ" },
+          { "id": "c", "text": "aⁱ × B" },
+          { "id": "d", "text": "a × i × B" }
+        ],
+        "correct": "a",
+        "explanation": "C'est la définition même du système positionnel, diapositive 5. Elle vaut aussi pour les positions négatives : le premier chiffre après la virgule est multiplié par B⁻¹.",
+        "perDistractorExplanation": [
+          { "optionId": "b", "why": "Une addition ne produirait pas la croissance exponentielle des positions : 545 vaudrait 5+100 + 4+10 + 5+1." },
+          { "optionId": "c", "why": "C'est le symbole qui est multiplié par la puissance de la base, pas l'inverse." },
+          { "optionId": "d", "why": "Une croissance linéaire en i ; la position doit intervenir comme exposant." }
+        ],
+        "source": { "file": "Chapitre 1.pdf", "page": 5 }
+      },
+      {
+        "id": "t1-15",
+        "objectiveId": "obj1-groupement",
+        "bloomLevel": "analyze",
+        "type": "code-output",
+        "difficulty": 3,
+        "prompt": "Convertir ce nombre hexadécimal en octal. (avec la virgule, sans indiquer la base)",
+        "code": {
+          "lang": "text",
+          "value": "4F,A3₁₆"
+        },
+        "correct": "117,506",
+        "acceptableAnswers": ["117.506", "117,506₈"],
+        "explanation": "Éclatement par 4 : 0100 1111 , 1010 0011₂. Regroupement par 3 depuis la virgule : 001 001 111 , 101 000 110₂ → 1 1 7 , 5 0 6. C'est l'exemple de la diapositive 30.",
+        "source": { "file": "Chapitre 1.pdf", "page": 30 }
+      },
+      {
+        "id": "t1-16",
+        "objectiveId": "obj1-depuis-decimal",
+        "bloomLevel": "apply",
+        "type": "short-answer",
+        "difficulty": 2,
+        "prompt": "Convertir la partie entière 71 en base 3. (la suite de chiffres, sans indiquer la base)",
+        "correct": "2122",
+        "acceptableAnswers": ["2122₃"],
+        "explanation": "71 ÷ 3 = 23 r 2 ; 23 ÷ 3 = 7 r 2 ; 7 ÷ 3 = 2 r 1 ; 2 ÷ 3 = 0 r 2. Lecture de bas en haut : 2122. Vérification : 2×27 + 1×9 + 2×3 + 2 = 54+9+6+2 = 71. C'est l'exercice 4b du professeur.",
+        "source": { "file": "Exchap1-sol.pdf", "page": 3, "locator": "Exercice 4b" }
+      },
+      {
+        "id": "t1-17",
+        "objectiveId": "obj1-vers-decimal",
+        "bloomLevel": "understand",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "À quoi sert le schéma de Horner dans ce chapitre ?",
+        "options": [
+          { "id": "a", "text": "Il factorise la somme de l'expansion et fonde l'algorithme des divisions successives." },
+          { "id": "b", "text": "Il permet de grouper les symboles entre bases puissances." },
+          { "id": "c", "text": "Il calcule la capacité maximale d'une base." },
+          { "id": "d", "text": "Il convertit directement entre deux bases quelconques." }
+        ],
+        "correct": "a",
+        "explanation": "Les notes présentent le schéma de Horner juste après l'expansion, puis s'en servent explicitement pour trouver l'algorithme de conversion depuis la base 10 : « On peut se baser sur le schéma de Horner pour trouver l'algorithme ».",
+        "perDistractorExplanation": [
+          { "optionId": "b", "why": "Le groupement repose sur la relation Bᵐ entre les bases, pas sur une factorisation de la somme." },
+          { "optionId": "c", "why": "La capacité se calcule par Max(B,n) = Bⁿ−1, sans passer par Horner." },
+          { "optionId": "d", "why": "La conversion entre deux bases quelconques se fait par expansion dans la base cible ou par la base 10." }
+        ],
+        "source": { "file": "Chapitre 1.pdf", "page": 16 }
+      },
+      {
+        "id": "t1-18",
+        "objectiveId": "obj1-groupement",
+        "bloomLevel": "analyze",
+        "type": "multi",
+        "difficulty": 3,
+        "prompt": "Pour convertir 1010111,11₂ vers les bases 3, 4 et 9, quelles affirmations sont correctes ? (plusieurs réponses)",
+        "options": [
+          { "id": "a", "text": "Vers la base 4 : groupement direct par 2, car 4 = 2²." },
+          { "id": "b", "text": "Vers la base 3 : il faut passer par la base 10." },
+          { "id": "c", "text": "Vers la base 9 : groupement par 2 à partir du résultat en base 3." },
+          { "id": "d", "text": "Vers la base 9 : groupement par 3 à partir du binaire." }
+        ],
+        "correct": ["a", "b", "c"],
+        "explanation": "C'est l'exercice 7 du professeur, et son intérêt est que les trois cibles demandent trois procédures différentes. La base 9 n'a aucun lien avec la base 2, mais 9 = 3² : le résultat en base 3 déjà calculé sert une seconde fois.",
+        "perDistractorExplanation": [
+          { "optionId": "d", "why": "9 n'est pas une puissance de 2 : il n'existe aucun entier m tel que 2ᵐ = 9. Le groupement doit partir de la base 3, pas de la base 2." }
+        ],
+        "source": { "file": "Exchap1-sol.pdf", "page": 6, "locator": "Exercice 7" }
+      },
+      {
+        "id": "t1-19",
+        "objectiveId": "obj1-systemes",
+        "bloomLevel": "recall",
+        "type": "mcq",
+        "difficulty": 1,
+        "prompt": "Sur quoi repose la représentation d'un nombre ORDINAL, selon les notes ?",
+        "options": [
+          { "id": "a", "text": "Une valeur de base (0), un principe de succession et un principe de correspondance." },
+          { "id": "b", "text": "Un symbole étalon répété autant de fois que nécessaire." },
+          { "id": "c", "text": "Une base B et un ensemble de symboles." },
+          { "id": "d", "text": "Un ensemble de règles d'écriture." }
+        ],
+        "correct": "a",
+        "explanation": "Diapositive 3 : succ(0) est le nombre suivant 0, et à chaque valeur est associé un symbole (:=). Un nombre ordinal indique un rang dans un ensemble ordonné.",
+        "perDistractorExplanation": [
+          { "optionId": "b", "why": "C'est le nombre CARDINAL de la diapositive 2 : IIIIIIII représente 8." },
+          { "optionId": "c", "why": "C'est le système positionnel, introduit plus loin." },
+          { "optionId": "d", "why": "Les règles font partie du système de numération, pas de la définition d'un ordinal." }
+        ],
+        "source": { "file": "Chapitre 1.pdf", "page": 3 }
+      },
+      {
+        "id": "t1-20",
+        "objectiveId": "obj1-capacite",
+        "bloomLevel": "analyze",
+        "type": "mcq",
+        "difficulty": 3,
+        "prompt": "En base 20, le symbole maximal est J. Pourquoi la solution du professeur écrit-elle JJJJJJJJ₂₀ = 100000000₂₀ − 1 ?",
+        "options": [
+          { "id": "a", "text": "Parce que ajouter 1 au plus grand nombre sur n symboles produit un 1 suivi de n zéros." },
+          { "id": "b", "text": "Parce que J vaut 1 en base 20." },
+          { "id": "c", "text": "Parce que la base 20 utilise les mêmes règles que la base 10." },
+          { "id": "d", "text": "Parce qu'il faut toujours retirer 1 au résultat d'une conversion." }
+        ],
+        "correct": "a",
+        "explanation": "C'est le même phénomène qu'en décimal : 99999999 + 1 = 100000000. Le report se propage sur toutes les positions, d'où Max(B, n) = Bⁿ − 1. Ici 20⁸ − 1 = 25 599 999 999.",
+        "perDistractorExplanation": [
+          { "optionId": "b", "why": "J est le vingtième symbole, donc J = 19 — la valeur maximale d'un symbole en base 20, soit B−1." },
+          { "optionId": "c", "why": "Toutes les bases positionnelles partagent les mêmes règles ; ce n'est pas propre à la base 20 et cela n'explique pas le −1." },
+          { "optionId": "d", "why": "Aucune règle de ce genre n'existe : le −1 vient du report, pas d'un ajustement systématique." }
+        ],
+        "source": { "file": "Exchap1-sol.pdf", "page": 7, "locator": "Exercice 8" }
+      }
+    ]
+  },
+  "flashcards": [
+    {
+      "id": "f1-01",
+      "objectiveId": "obj1-systemes",
+      "front": "De quoi est composé un système de numération ?",
+      "back": "D'un couple : un ensemble de symboles S et un ensemble de règles R.",
+      "extra": "Le système POSITIONNEL y ajoute une base B."
+    },
+    {
+      "id": "f1-02",
+      "objectiveId": "obj1-systemes",
+      "front": "Les trois propriétés d'un système positionnel de base B ?",
+      "back": "|S| = B · valeur maximale d'un symbole = B−1 · un symbole a à la position i vaut a × Bⁱ.",
+      "source": { "file": "Chapitre 1.pdf", "page": 5 }
+    },
+    {
+      "id": "f1-03",
+      "objectiveId": "obj1-vers-decimal",
+      "front": "Formule de l'expansion vers la base 10 ?",
+      "back": "Y₁₀ = Σ sᵢ × Bⁱ, pour i de −m à n.",
+      "extra": "Les positions après la virgule utilisent des exposants négatifs."
+    },
+    {
+      "id": "f1-04",
+      "objectiveId": "obj1-depuis-decimal",
+      "front": "Partie entière vers la base B : quelle procédure, et dans quel sens lit-on ?",
+      "back": "Divisions entières successives par B ; on lit les restes DE BAS EN HAUT — le premier reste est le chiffre le moins significatif."
+    },
+    {
+      "id": "f1-05",
+      "objectiveId": "obj1-depuis-decimal",
+      "front": "Partie fractionnaire vers la base B : quelle procédure, et dans quel sens lit-on ?",
+      "back": "Multiplications successives par B ; on lit les parties entières DANS L'ORDRE où elles sortent — la première est le chiffre le plus significatif après la virgule."
+    },
+    {
+      "id": "f1-06",
+      "objectiveId": "obj1-groupement",
+      "front": "Groupement : quelle règle de départ pour chaque partie ?",
+      "back": "Partie entière : on part de la DROITE. Partie fractionnaire : on part de la GAUCHE. Dans les deux cas, depuis la virgule vers l'extérieur, en complétant par des zéros."
+    },
+    {
+      "id": "f1-07",
+      "objectiveId": "obj1-groupement",
+      "front": "Quand le groupement est-il possible ?",
+      "back": "Seulement si l'une des bases est une puissance entière de l'autre : 8 = 2³, 16 = 2⁴, 9 = 3², 4 = 2².",
+      "extra": "Entre la base 3 et la base 5, aucun groupement — il faut l'expansion ou la base 10."
+    },
+    {
+      "id": "f1-08",
+      "objectiveId": "obj1-capacite",
+      "front": "Plus grande valeur sur n symboles en base B ?",
+      "back": "Max(B, n) = Bⁿ − 1",
+      "extra": "Sur 8 bits : 2⁸ − 1 = 255. Sur 8 symboles hexadécimaux : 16⁸ − 1 = 4 294 967 295."
+    },
+    {
+      "id": "f1-09",
+      "objectiveId": "obj1-vers-decimal",
+      "front": "En base 36, que valent J, K et R ?",
+      "back": "J = 19, K = 20, R = 27. Les symboles sont {0…9, A…Z}, donc A = 10.",
+      "source": { "file": "Exchap1-sol.pdf", "page": 1 }
+    },
+    {
+      "id": "f1-10",
+      "objectiveId": "obj1-groupement",
+      "front": "Combien de bits vaut un symbole octal ? un symbole hexadécimal ?",
+      "back": "Octal : 3 bits (8 = 2³). Hexadécimal : 4 bits (16 = 2⁴)."
+    },
+    {
+      "id": "f1-11",
+      "objectiveId": "obj1-capacite",
+      "front": "Kilo en décimal et Kilo en octets ?",
+      "back": "Décimal : 10³. Octets en informatique : 2¹⁰.",
+      "extra": "Mega : 10⁶ / 2²⁰ — Giga : 10⁹ / 2³⁰."
+    },
+    {
+      "id": "f1-12",
+      "objectiveId": "obj1-systemes",
+      "front": "Cardinal ou ordinal ?",
+      "back": "Cardinal : un symbole étalon répété (IIIIIIII = 8). Ordinal : une valeur de base 0, un principe de succession succ(), et une correspondance valeur ↔ symbole. L'ordinal indique un rang."
+    }
+  ],
+  "exercises": [
+    {
+      "id": "e1-01",
+      "objectiveId": "obj1-vers-decimal",
+      "difficulty": 2,
+      "mode": "trace",
+      "language": "text",
+      "title": "Expansion depuis une base inhabituelle",
+      "statement": "D'après l'exercice 1 du professeur. Convertir J1K,2R1₃₆ en décimal.\n\nDonner d'abord la valeur décimale de chaque symbole, puis poser l'expansion terme par terme, puis le total.",
+      "starterCode": "En base 36, les symboles sont : d = {0...9, A...Z}\n\nJ1K,2R1 (base 36)  ->  ?  (base 10)\n\nFormule :   Y10 = somme des di x B^i",
+      "hints": [
+        "Les dix premiers symboles sont les chiffres 0 à 9, donc A vaut 10, B vaut 11, et ainsi de suite.",
+        "J est la dixième lettre : 10 + 9 = 19. Poursuivre pour K et R.",
+        "Les positions avant la virgule sont 2, 1, 0 ; celles après la virgule sont −1, −2, −3."
+      ],
+      "solution": "24680,07642",
+      "expectedOutput": "Valeur des symboles :\n    J = 19,   K = 20,   R = 27\n    (A = 10, donc J est la 10e lettre -> 10 + 9 = 19)\n\nExpansion :\n    J x 36^2  +  1 x 36^1  +  K x 36^0  +  2 x 36^-1  +  R x 36^-2  +  1 x 36^-3\n\n  = 19 x 1296  +  1 x 36  +  20 x 1  +  2 x 0,027777  +  27 x 0,000772  +  1 x 0,000021\n\n  = 24624  +  36  +  20  +  0,055555  +  0,020844  +  0,000021\n\n  = 24680,07642\n\nCe qu'il faut retenir : la methode ne change PAS avec la base. Seul le\ndecodage des symboles demande de l'attention, et c'est la que se font les\nerreurs — confondre la position d'une lettre dans l'alphabet avec sa valeur.",
+      "solutionExplanation": "Le piège est de compter J comme la 10ᵉ lettre et de lui donner la valeur 10. Il faut se rappeler que A = 10 et non A = 1 : les dix premières valeurs sont occupées par les chiffres. D'où J = 9 + 10 = 19. Une vérification rapide : le symbole maximal en base 36 est Z = 35 = B − 1, ce qui est cohérent.",
+      "source": { "file": "Exchap1-sol.pdf", "page": 1, "locator": "Exercice 1" }
+    },
+    {
+      "id": "e1-02",
+      "objectiveId": "obj1-depuis-decimal",
+      "difficulty": 2,
+      "mode": "trace",
+      "language": "text",
+      "title": "Convertir partie entière et partie fractionnaire",
+      "statement": "D'après l'exercice 4 du professeur. Convertir 71,107 en base 2, en s'arrêtant à 6 symboles après la virgule.\n\nTraiter séparément la partie entière et la partie fractionnaire, puis recoller les deux.",
+      "starterCode": "71,107 (base 10)  ->  ? (base 2)\n\nPartie entiere : divisions successives par 2, lire les restes\nPartie fractionnaire : multiplications successives par 2, lire les parties entieres\n\n   di <= 1   (les seuls symboles en base 2 sont 0 et 1)",
+      "hints": [
+        "Pour la partie entière : 71 ÷ 2 = 35 reste 1. Poursuivre jusqu'à obtenir un quotient nul.",
+        "Pour la partie fractionnaire : 0,107 × 2 = 0,214, donc le premier chiffre après la virgule est 0. Continuer avec 0,214.",
+        "Attention au sens de lecture : les restes se lisent de bas en haut, les parties entières dans l'ordre où elles sortent."
+      ],
+      "solution": "1000111,000110₂",
+      "expectedOutput": "PARTIE ENTIERE — divisions successives\n\n    71 / 2 = 35  reste 1\n    35 / 2 = 17  reste 1\n    17 / 2 =  8  reste 1\n     8 / 2 =  4  reste 0\n     4 / 2 =  2  reste 0\n     2 / 2 =  1  reste 0\n     1 / 2 =  0  reste 1\n\n    Lecture DE BAS EN HAUT :  1000111\n    Verification : 64 + 4 + 2 + 1 = 71\n\nPARTIE FRACTIONNAIRE — multiplications successives\n\n    0,107 x 2 = 0,214   ->  0\n    0,214 x 2 = 0,428   ->  0\n    0,428 x 2 = 0,856   ->  0\n    0,856 x 2 = 1,712   ->  1\n    0,712 x 2 = 1,424   ->  1\n    0,424 x 2 = 0,848   ->  0\n\n    Lecture DANS L'ORDRE :  000110\n\nRESULTAT :  1000111,000110 (base 2)\n\nNoter que l'on s'arrete a 6 symboles par consigne, pas parce que le\ndeveloppement se termine : 0,107 n'a pas de representation binaire finie.",
+      "solutionExplanation": "Les deux moitiés se lisent en sens inverse l'une de l'autre, et c'est l'erreur la plus fréquente. Une façon de s'en souvenir : les divisions extraient les chiffres en partant de la virgule vers la gauche, les multiplications en partant de la virgule vers la droite. Dans les deux cas on s'éloigne de la virgule, donc la lecture suit toujours le sens de production — sauf qu'à gauche, s'éloigner veut dire remonter.",
+      "source": { "file": "Exchap1-sol.pdf", "page": 2, "locator": "Exercice 4a" }
+    },
+    {
+      "id": "e1-03",
+      "objectiveId": "obj1-groupement",
+      "difficulty": 2,
+      "mode": "fill-blank",
+      "language": "text",
+      "title": "Compléter un groupement et un éclatement",
+      "statement": "Compléter les trous, en respectant le sens de départ des groupes et les zéros de complément.",
+      "starterCode": "(a) GROUPEMENT — 101011,100101 (base 2) vers l'octal\n    8 = 2^____                            (1) l'exposant\n    groupes de ____ symboles              (2)\n    ___ ___ , ___ ___    ->   ____        (3) le resultat\n\n(b) ECLATEMENT — 6A,C (base 16) vers le binaire\n    16 = 2^____                           (4)\n    6 -> ____    A -> ____    C -> ____   (5) chaque symbole sur 4 bits\n    resultat : ____                       (6)",
+      "hints": [
+        "Pour (1) et (4), chercher la puissance de 2 qui donne 8, puis celle qui donne 16.",
+        "Le nombre de symboles par groupe est exactement cet exposant.",
+        "Pour (5), chaque symbole hexadécimal produit exactement 4 bits — y compris les zéros de tête : 6 ne donne pas 110 mais 0110."
+      ],
+      "solution": "3 ; 3 ; 53,45 ; 4 ; 0110 1010 1100 ; 1101010,11",
+      "expectedOutput": "(a) GROUPEMENT vers l'octal\n    (1) 8 = 2^3\n    (2) groupes de 3 symboles\n    (3) 101 011 , 100 101\n          5   3  ,   4   5\n        ->  53,45 (base 8)\n\n(b) ECLATEMENT vers le binaire\n    (4) 16 = 2^4\n    (5) 6 -> 0110     A -> 1010     C -> 1100\n    (6) 0110 1010 , 1100 (base 2)\n        ->  1101010,11 (base 2)\n\n        Les zeros de TETE de la partie entiere et les zeros de QUEUE de la\n        partie fractionnaire peuvent etre retires : ils ne changent pas la\n        valeur, exactement comme en decimal (0,1100 = 0,11).\n\nPoint de vigilance : a l'eclatement, chaque symbole donne EXACTEMENT m bits.\nEcrire 6 -> 110 (3 bits au lieu de 4) decalerait tout le reste du nombre.",
+      "solutionExplanation": "Les zéros se comportent de façon asymétrique, et c'est ce qui trompe. À l'intérieur du nombre ils sont obligatoires — le A de 6A,C donne 1010 et non 101. Aux extrémités ils sont facultatifs, pour la même raison qu'en décimal. La règle sûre est donc : produire tous les bits, puis n'élaguer qu'aux deux bouts.",
+      "source": { "file": "Exchap1-sol.pdf", "page": 4, "locator": "Exercice 5a ; Chapitre 1, diapositive 28" }
+    },
+    {
+      "id": "e1-04",
+      "objectiveId": "obj1-groupement",
+      "difficulty": 3,
+      "mode": "trace",
+      "language": "text",
+      "title": "Choisir la procédure la plus appropriée",
+      "statement": "D'après l'exercice 7 du professeur. Convertir 1010111,11₂ vers les bases 3, 4 et 9.\n\nPour chaque cible : dire quelle procédure s'applique et pourquoi, puis donner le résultat. L'ordre dans lequel on traite les trois cibles n'est pas indifférent.",
+      "starterCode": "1010111,11 (base 2)  ->  X (base 3)\n1010111,11 (base 2)  ->  Y (base 4)\n1010111,11 (base 2)  ->  Z (base 9)\n\nRappel des relations entre bases :\n    4 = 2^2      9 = 3^2      3 = ?",
+      "hints": [
+        "Commencer par examiner chaque cible : laquelle est une puissance de 2 ? laquelle ne l'est pas ?",
+        "La base 3 n'a aucun lien avec la base 2 : il faut passer par la base 10. Commencer par elle, le résultat servira deux fois.",
+        "9 = 3², donc un groupement par 2 est possible — mais à partir de la base 3, pas de la base 2."
+      ],
+      "solution": "base 3 : 10020,202020 · base 4 : 1113,3 · base 9 : 106,666",
+      "expectedOutput": "(a) VERS LA BASE 3 — aucune relation avec la base 2\n    Procedure : binaire -> decimal -> ternaire.\n\n    Expansion :\n      1x2^6 + 0 + 1x2^4 + 0 + 1x2^2 + 1x2^1 + 1x2^0 + 1x2^-1 + 1x2^-2\n      = 64 + 16 + 4 + 2 + 1 + 0,5 + 0,25  =  87,75\n\n    87 / 3 = 29 r 0        0,75 x 3 = 2,25  -> 2\n    29 / 3 =  9 r 2        0,25 x 3 = 0,75  -> 0\n     9 / 3 =  3 r 0        0,75 x 3 = 2,25  -> 2\n     3 / 3 =  1 r 0        0,25 x 3 = 0,75  -> 0\n     1 / 3 =  0 r 1        0,75 x 3 = 2,25  -> 2\n                           0,25 x 3 = 0,75  -> 0\n    -> 10020                -> 0,202020\n\n    RESULTAT : 10020,202020 (base 3)\n\n(b) VERS LA BASE 4 — 4 = 2^2, groupement par 2 depuis le binaire\n\n    01 01 01 11 , 11\n     1  1  1  3 ,  3\n\n    RESULTAT : 1113,3 (base 4)\n\n(c) VERS LA BASE 9 — 9 = 3^2, groupement par 2 depuis la BASE 3\n\n    On reutilise le resultat de (a) : 10020,202020 (base 3)\n\n    01 00 20 , 20 20 20\n     1  0  6 ,  6  6  6\n\n    RESULTAT : 106,666 (base 9)\n\nLE POINT DE L'EXERCICE : trois cibles, trois procedures. Et l'ordre compte —\ntraiter (a) en premier fournit gratuitement la matiere premiere de (c).\nAttaquer (c) directement depuis le binaire est impossible : 9 n'est pas une\npuissance de 2.",
+      "solutionExplanation": "C'est ce que veut dire l'énoncé du professeur par « la procédure de conversion la plus appropriée ». Il ne s'agit pas seulement de choisir entre expansion et groupement, mais de voir qu'un résultat intermédiaire peut servir de point de départ à une autre conversion. La base 3 est le pivot : sans elle, la base 9 exigerait un second passage complet par la base 10.",
+      "source": { "file": "Exchap1-sol.pdf", "page": 6, "locator": "Exercice 7" }
+    },
+    {
+      "id": "e1-05",
+      "objectiveId": "obj1-capacite",
+      "difficulty": 2,
+      "mode": "find-bug",
+      "language": "text",
+      "title": "Trouver l'erreur — capacité d'une base",
+      "statement": "Un étudiant calcule la plus grande valeur représentable sur 8 symboles dans quatre bases. Deux de ses quatre réponses sont fausses. Les identifier et corriger, en donnant le raisonnement de la solution du professeur.",
+      "starterCode": "Base 5  : symbole maximal = 4\n          plus grand nombre = 44444444 (base 5)\n          = 5^8 = 390625                       <-- (a)\n\nBase 2  : symbole maximal = 1\n          plus grand nombre = 11111111 (base 2)\n          = 2^8 - 1 = 255                      <-- (b)\n\nBase 20 : symbole maximal = 20\n          plus grand nombre = 20202020 (base 20)\n          = 20^8 - 1 = 25599999999             <-- (c)\n\nBase 16 : symbole maximal = F\n          plus grand nombre = FFFFFFFF (base 16)\n          = 16^8 - 1 = 4294967295              <-- (d)",
+      "hints": [
+        "Appliquer Max(B, n) = Bⁿ − 1 à chaque ligne et comparer au résultat annoncé.",
+        "Pour la base 20, se demander ce que peut être le symbole maximal : quelle est la valeur maximale d'un symbole en base B ?",
+        "Deux lignes sont correctes. Les deux autres se trompent, l'une sur la formule, l'autre sur les symboles."
+      ],
+      "solution": "(a) doit être 5⁸ − 1 = 390624 ; (c) le symbole maximal est J = 19, donc JJJJJJJJ₂₀",
+      "expectedOutput": "(a) BASE 5 — FAUX\n    Erreur : le -1 a ete oublie.\n    44444444 (base 5) = 100000000 (base 5) - 1 = 5^8 - 1\n                      = 390625 - 1 = 390624\n    390625 est le NOMBRE de valeurs representables (de 0 a 390624),\n    pas la plus grande d'entre elles.\n\n(b) BASE 2 — CORRECT\n    11111111 (base 2) = 2^8 - 1 = 255.\n\n(c) BASE 20 — FAUX\n    Erreur : le symbole maximal n'est pas 20.\n    En base B, la valeur maximale d'un SYMBOLE est B-1, donc 19 ici.\n    Et 19 doit s'ecrire avec UN seul symbole : en base 20 on utilise\n    les lettres, comme en hexadecimal. 19 s'ecrit J.\n    Le plus grand nombre est donc JJJJJJJJ (base 20).\n    Ecrire 20202020 (base 20) n'a aucun sens : le symbole 20 n'existe pas,\n    exactement comme il n'existe pas de chiffre valant 10 en base 10.\n    La valeur, elle, etait juste : 20^8 - 1 = 25599999999.\n\n(d) BASE 16 — CORRECT\n    FFFFFFFF (base 16) = 16^8 - 1 = 4294967295.\n\nLes deux erreurs sont de nature differente : (a) est une erreur de formule,\n(c) une erreur sur la nature des symboles.",
+      "solutionExplanation": "L'erreur (c) est la plus instructive parce qu'elle est invisible dans le résultat numérique : la valeur 25 599 999 999 était correcte. Ce qui était faux, c'est l'écriture du nombre. Cela rappelle la règle de la diapositive 5 — la valeur maximale d'un symbole est B−1 — et pourquoi les bases supérieures à 10 empruntent des lettres : il faut un symbole unique par valeur.",
+      "source": { "file": "Exchap1-sol.pdf", "page": 7, "locator": "Exercice 8" }
+    }
+  ]
+}

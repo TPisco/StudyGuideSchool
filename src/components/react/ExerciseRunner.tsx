@@ -18,6 +18,7 @@ const LANG_LABELS: Record<string, string> = {
   c: 'C',
   cpp: 'C++',
   java: 'Java',
+  asm: 'Assembleur ARMv8',
   pseudocode: 'Pseudo-code',
   text: 'Texte',
 };
