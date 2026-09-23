@@ -6,11 +6,11 @@
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
-    "build": "node --experimental-strip-types --disable-warning=ExperimentalWarning scripts/validate-content.mjs && astro check && astro build",
+    "build": "node --experimental-strip-types --disable-warning=ExperimentalWarning scripts/validate-content.mjs && node scripts/check-math.mjs && astro check && astro build",
     "build:fast": "node --experimental-strip-types --disable-warning=ExperimentalWarning scripts/validate-content.mjs && astro build",
     "preview": "astro preview",
     "typecheck": "astro check",
-    "validate": "node --experimental-strip-types --disable-warning=ExperimentalWarning scripts/validate-content.mjs",
+    "validate": "node --experimental-strip-types --disable-warning=ExperimentalWarning scripts/validate-content.mjs && node scripts/check-math.mjs",
     "astro": "astro"
   },
   "dependencies": {

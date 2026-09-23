@@ -5,6 +5,7 @@ import type { CardState } from '../../lib/progress';
 import { GRADES, buildQueue, formatInterval, newCard, previewIntervals, queueCounts, review } from '../../lib/srs';
 import { useHydrated, useProgress } from '../../lib/useProgress';
 import { cx } from '../../lib/utils';
+import MathText from './MathText';
 
 interface Props {
   cards: StudyCard[];
@@ -244,7 +245,7 @@ export default function Flashcards({ cards, courses, focusKey }: Props) {
               {state.customCards.map((c) => (
                 <li key={c.id} className="flex items-start justify-between gap-3 rounded-lg border p-2.5 text-sm" style={{ borderColor: 'var(--border)' }}>
                   <div className="min-w-0">
-                    <p className="font-medium">{c.front}</p>
+                    <p className="font-medium"><MathText text={c.front} /></p>
                     <p className="truncate text-xs" style={{ color: 'var(--text-faint)' }}>
                       {c.back}
                     </p>
@@ -304,7 +305,7 @@ export default function Flashcards({ cards, courses, focusKey }: Props) {
           {current.chapterNumber > 0 && ` · Ch. ${current.chapterNumber} — ${current.chapterTitle}`}
         </p>
 
-        <p className="whitespace-pre-wrap text-lg font-medium leading-relaxed">{current.front}</p>
+        <p className="whitespace-pre-wrap text-lg font-medium leading-relaxed"><MathText text={current.front} /></p>
 
         {!revealed ? (
           <div className="mt-8 text-center">
@@ -317,7 +318,7 @@ export default function Flashcards({ cards, courses, focusKey }: Props) {
           </div>
         ) : (
           <div className="mt-5 border-t pt-5" style={{ borderColor: 'var(--border)' }}>
-            <p className="whitespace-pre-wrap text-[1.02rem] leading-relaxed">{current.back}</p>
+            <p className="whitespace-pre-wrap text-[1.02rem] leading-relaxed"><MathText text={current.back} /></p>
             {current.extra && (
               <p className="mt-3 whitespace-pre-wrap text-[0.88rem] leading-relaxed" style={{ color: 'var(--text-muted)' }}>
                 {current.extra}

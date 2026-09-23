@@ -4,6 +4,7 @@ import { exerciseKey, setExerciseState } from '../../lib/progress';
 import { useHydrated, useProgress } from '../../lib/useProgress';
 import { EXERCISE_MODE_LABELS, cx } from '../../lib/utils';
 import { RUNTIME_LABELS, disposeRunners, isRunnable, run, type RunResult } from '../../lib/runners';
+import MathText from './MathText';
 
 interface Props {
   exercise: Exercise;
@@ -132,7 +133,7 @@ export default function ExerciseRunner({ exercise: ex, courseId }: Props) {
       </header>
 
       <div className="space-y-5 p-4 sm:p-5">
-        <p className="whitespace-pre-wrap text-[0.95rem] leading-relaxed">{ex.statement}</p>
+        <p className="whitespace-pre-wrap text-[0.95rem] leading-relaxed"><MathText text={ex.statement} /></p>
 
         {!runnable && (
           <p
@@ -229,7 +230,7 @@ export default function ExerciseRunner({ exercise: ex, courseId }: Props) {
             {ex.starterCode && (
               <div>
                 <p className="mb-1.5 text-xs font-medium" style={{ color: 'var(--text-muted)' }}>
-                  Code à analyser
+                  {ex.language === 'text' ? 'Données' : 'Code à analyser'}
                 </p>
                 <pre
                   className="overflow-x-auto rounded-lg border p-3.5 font-mono text-[0.82rem] leading-relaxed"
@@ -289,7 +290,7 @@ export default function ExerciseRunner({ exercise: ex, courseId }: Props) {
                   <span className="font-semibold" style={{ color: 'var(--warn)' }}>
                     Indice {i + 1}.{' '}
                   </span>
-                  {h}
+                  <MathText text={h} />
                 </li>
               ))}
             </ol>
@@ -305,7 +306,7 @@ export default function ExerciseRunner({ exercise: ex, courseId }: Props) {
 
             {ex.expectedOutput ? (
               <pre className="overflow-x-auto whitespace-pre-wrap font-mono text-[0.82rem] leading-relaxed">
-                {ex.expectedOutput}
+                <MathText text={ex.expectedOutput} />
               </pre>
             ) : (
               <pre className="overflow-x-auto font-mono text-[0.82rem] leading-relaxed">
@@ -326,7 +327,7 @@ export default function ExerciseRunner({ exercise: ex, courseId }: Props) {
 
             {ex.solutionExplanation && (
               <p className="mt-3 border-t pt-3 text-[0.88rem] leading-relaxed" style={{ borderColor: 'var(--border)' }}>
-                {ex.solutionExplanation}
+                <MathText text={ex.solutionExplanation} />
               </p>
             )}
 

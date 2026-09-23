@@ -14,6 +14,7 @@ import {
   mulberry32,
   shuffle,
 } from '../../lib/utils';
+import MathText from './MathText';
 
 export interface EngineQuestion extends Question {
   chapterKey: string;
@@ -592,7 +593,7 @@ function QuestionCard({
         )}
       </header>
 
-      <p className="whitespace-pre-wrap text-[1.02rem] leading-relaxed">{q.prompt}</p>
+      <p className="whitespace-pre-wrap text-[1.02rem] leading-relaxed"><MathText text={q.prompt} /></p>
 
       {q.code && (
         <figure className="mt-4">
@@ -663,13 +664,13 @@ function QuestionCard({
                   >
                     {showCorrect ? '✓' : showWrong ? '✗' : selected ? '●' : i + 1}
                   </span>
-                  <span className="whitespace-pre-wrap">{opt.text}</span>
+                  <span className="whitespace-pre-wrap"><MathText text={opt.text} /></span>
                 </button>
 
                 {revealed && !isCorrect && distractorWhy.has(opt.id) && (
                   <p className="mt-1 pl-11 pr-2 text-[0.85rem] leading-relaxed" style={{ color: 'var(--text-muted)' }}>
                     <span style={{ color: 'var(--bad)' }}>Pourquoi c’est faux&nbsp;:</span>{' '}
-                    {distractorWhy.get(opt.id)}
+                    <MathText text={distractorWhy.get(opt.id) ?? ''} />
                   </p>
                 )}
               </div>
@@ -698,7 +699,7 @@ function QuestionCard({
             {revealed && !correctAnswer && (
               <p className="mt-2 text-sm">
                 <span style={{ color: 'var(--text-muted)' }}>Réponse attendue&nbsp;: </span>
-                <code style={{ color: 'var(--ok)' }}>{String(q.correct)}</code>
+                <code style={{ color: 'var(--ok)' }}><MathText text={String(q.correct)} /></code>
               </p>
             )}
           </div>
@@ -710,7 +711,7 @@ function QuestionCard({
           <p className="mb-1.5 text-xs font-semibold uppercase tracking-wide" style={{ color: 'var(--accent)' }}>
             Explication
           </p>
-          <p className="text-[0.92rem] leading-relaxed">{q.explanation}</p>
+          <p className="text-[0.92rem] leading-relaxed"><MathText text={q.explanation} /></p>
           {q.source && (
             <p className="mt-3 text-xs" style={{ color: 'var(--text-faint)' }}>
               Source&nbsp;: {q.source.file}

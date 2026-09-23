@@ -5,6 +5,7 @@ import { openChapter, setChapterStatus } from '../../lib/progress';
 import { useHydrated, useProgress } from '../../lib/useProgress';
 import { STATUS_LABELS, cx, pct } from '../../lib/utils';
 import { scoreColor } from './QuizEngine';
+import MathText from './MathText';
 
 interface Props {
   chapterKey: string;
@@ -70,7 +71,7 @@ export default function ChapterTools({ chapterKey, objectives, trackOpen = false
           return (
             <li key={o.id} id={`objectif-${o.id}`} className="scroll-mt-24">
               <div className="flex items-start justify-between gap-3">
-                <p className="text-[0.92rem] leading-snug">{o.text}</p>
+                <p className="text-[0.92rem] leading-snug"><MathText text={o.text} /></p>
                 {hydrated && (
                   <span
                     className={cx('chip shrink-0 tabular-nums')}

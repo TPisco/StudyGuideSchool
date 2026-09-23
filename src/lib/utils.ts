@@ -8,9 +8,27 @@ export function normalizeAnswer(s: string): string {
     .replace(/[̀-ͯ]/g, '')
     .toLowerCase()
     .replace(/[’']/g, "'")
+    .replace(/[−–]/g, '-') // typographic minus and en dash
     .replace(/\s+/g, ' ')
     .replace(/[.;:!?]+$/g, '')
     .trim();
+}
+
+/**
+ * A plain number — thousands separators, decimal comma or point, or a
+ * fraction a/b. Anything else (e.g. "x = 2") gives null and stays a string.
+ */
+export function parseNumber(s: string): number | null {
+  const t = s
+    .replace(/[\s'  ]/g, '')
+    .replace(/[−–]/g, '-')
+    .replace(/(\d),(\d)/g, '$1.$2');
+  const frac = t.match(/^(-?\d+(?:\.\d+)?)\/(-?\d+(?:\.\d+)?)$/);
+  if (frac) {
+    const den = Number(frac[2]);
+    return den === 0 ? null : Number(frac[1]) / den;
+  }
+  return /^-?\d+(?:\.\d+)?$/.test(t) ? Number(t) : null;
 }
 
 /**
@@ -27,11 +45,16 @@ export function answersMatch(given: string, correct: string, acceptable: string[
   const candidates = [correct, ...acceptable].map(normalizeAnswer);
   if (candidates.includes(g)) return true;
 
-  // Numbers: ignore spaces, apostrophes and non-breaking spaces used as
-  // thousands separators, so "499 500" matches "499500".
-  const numeric = (s: string) => s.replace(/[\s'  ]/g, '');
-  const gn = numeric(g);
-  if (/^-?\d+$/.test(gn) && candidates.some((c) => numeric(c) === gn)) return true;
+  // Numbers compare by value: "499 500" = "499500", "2,5" = "2.5" = "5/2".
+  const gv = parseNumber(g);
+  if (
+    gv !== null &&
+    candidates.some((c) => {
+      const cv = parseNumber(c);
+      return cv !== null && Math.abs(cv - gv) < 1e-9;
+    })
+  )
+    return true;
 
   // Accept the bare value when the expected answer carries a unit or a word,
   // e.g. "11 itérations" vs "11".

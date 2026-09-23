@@ -48,6 +48,14 @@ function zodLines(where, error) {
   }
 }
 
+/** Every string in a parsed JSON value, with its path. */
+function* stringsIn(value, path = '') {
+  if (typeof value === 'string') yield [path || '(root)', value];
+  else if (Array.isArray(value)) for (const [i, v] of value.entries()) yield* stringsIn(v, `${path}[${i}]`);
+  else if (value && typeof value === 'object')
+    for (const [k, v] of Object.entries(value)) yield* stringsIn(v, path ? `${path}.${k}` : k);
+}
+
 /** Split `---\nyaml\n---\nbody` into [frontmatter, body]. */
 function splitFrontmatter(raw) {
   const text = raw.replace(/^﻿/, '');
@@ -160,6 +168,14 @@ async function validateCourse(dirName) {
       continue;
     }
     const arts = dataParsed.data;
+
+    /* A tab or form feed inside a string is almost always a LaTeX command whose
+       backslash was eaten (\t-imes, \f-rac) — invisible in review, wrong on screen. */
+    for (const [path, text] of stringsIn(data)) {
+      const bad = [...text].filter((ch) => ch < ' ' && ch !== '\n');
+      if (bad.length)
+        err(`${cwhere}.json`, `${path} contains control character(s) ${bad.map((c) => `U+${c.charCodeAt(0).toString(16).padStart(4, '0')}`).join(', ')} — an escaped LaTeX command lost its backslash?`);
+    }
 
     /* cross-file coherence */
     if (front.course !== course.code) err(`${cwhere}.mdx`, `course "${front.course}" should be "${course.code}"`);

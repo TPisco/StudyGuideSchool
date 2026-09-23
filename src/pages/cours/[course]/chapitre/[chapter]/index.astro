@@ -9,6 +9,7 @@ import ChapterTools from '../../../../../components/react/ChapterTools';
 import SortableTable from '../../../../../components/react/SortableTable';
 import { getAllBundles } from '../../../../../lib/content';
 import { routes } from '../../../../../lib/paths';
+import MathText from '../../../../../components/react/MathText';
 
 export async function getStaticPaths() {
   const bundles = await getAllBundles();
@@ -121,8 +122,8 @@ const runnable = data.exercises.filter((e) => e.mode === 'run').length;
       {
         data.concepts.map((c) => (
           <article id={`concept-${c.id}`} class="card scroll-mt-24 p-4 sm:p-5">
-            <h3 class="text-[1.05rem] font-semibold tracking-tight">{c.term}</h3>
-            <p class="mt-1.5 text-[0.95rem] leading-relaxed">{c.definition}</p>
+            <h3 class="text-[1.05rem] font-semibold tracking-tight"><MathText text={c.term} /></h3>
+            <p class="mt-1.5 text-[0.95rem] leading-relaxed"><MathText text={c.definition} /></p>
 
             <dl class="mt-3 space-y-2 text-[0.88rem]">
               <div>
@@ -130,7 +131,7 @@ const runnable = data.exercises.filter((e) => e.mode === 'run').length;
                   Pourquoi c'est important&nbsp;:
                 </dt>
                 <dd class="ml-1 inline" style="color: var(--text-muted);">
-                  {c.whyItMatters}
+                  <MathText text={c.whyItMatters} />
                 </dd>
               </div>
               <div>
@@ -138,7 +139,7 @@ const runnable = data.exercises.filter((e) => e.mode === 'run').length;
                   Piège courant&nbsp;:
                 </dt>
                 <dd class="ml-1 inline" style="color: var(--text-muted);">
-                  {c.commonMisconception}
+                  <MathText text={c.commonMisconception} />
                 </dd>
               </div>
             </dl>

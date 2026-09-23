@@ -1,6 +1,7 @@
 import { useMemo, useState } from 'react';
 import type { SummaryTable } from '../../lib/schemas';
 import { cx } from '../../lib/utils';
+import MathText from './MathText';
 
 const KIND_LABELS: Record<string, string> = {
   comparison: 'Comparaison',
@@ -125,7 +126,7 @@ export default function SortableTable({ table }: { table: SummaryTable }) {
                     className={cx('px-3 py-2.5 align-top', col.mono && 'font-mono text-[0.82rem]')}
                     style={col.mono ? { color: 'var(--accent)' } : undefined}
                   >
-                    {String(row[col.key] ?? '')}
+                    <MathText text={String(row[col.key] ?? '')} />
                   </td>
                 ))}
               </tr>
