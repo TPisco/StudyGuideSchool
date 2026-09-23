@@ -1,0 +1,1886 @@
+{
+  "course": "INF203",
+  "chapter": 2,
+  "concepts": [
+    {
+      "id": "c2-obiter",
+      "term": "Obiter dictum",
+      "definition": "Ce qui est dit « en passant » dans un jugement : un éclaircissement, qui ne fait pas partie de l'essentiel de la décision.",
+      "whyItMatters": "Le distinguer du ratio decidendi permet de savoir ce qui, dans un jugement, a valeur de précédent.",
+      "commonMisconception": "Confondre obiter dictum et ratio decidendi : le second est l'essentiel de la décision.",
+      "objectiveId": "obj2-portee",
+      "source": {
+        "file": "23.33 2026-3 S03 ResponsabilitéCivile.pdf",
+        "page": 5,
+        "locator": "Diapositives 5 et 10"
+      }
+    },
+    {
+      "id": "c2-ratio",
+      "term": "Ratio decidendi",
+      "definition": "Les motifs d'un jugement : l'essentiel de la décision.",
+      "whyItMatters": "C'est la partie du jugement qui porte la décision.",
+      "commonMisconception": "Croire que tout ce qu'écrit le juge a la même portée.",
+      "objectiveId": "obj2-portee",
+      "source": {
+        "file": "23.33 2026-3 S03 ResponsabilitéCivile.pdf",
+        "page": 5,
+        "locator": "Diapositives 5 et 10"
+      }
+    },
+    {
+      "id": "c2-stare",
+      "term": "Stare decisis et distinguishing",
+      "definition": "Stare decisis : la règle du précédent (ou a fortiori). Distinguishing : la distinction (ou a contrario).",
+      "whyItMatters": "Ce sont les deux façons dont la jurisprudence agit sur une nouvelle affaire : suivre le précédent, ou montrer que la situation en diffère.",
+      "commonMisconception": "Rattacher ces deux termes au jugement lui-même : les diapositives les placent sous la jurisprudence.",
+      "objectiveId": "obj2-portee",
+      "source": {
+        "file": "23.33 2026-3 S03 ResponsabilitéCivile.pdf",
+        "page": 5,
+        "locator": "Diapositive 5"
+      }
+    },
+    {
+      "id": "c2-1457",
+      "term": "Article 1457 C.c.Q.",
+      "definition": "Toute personne a le devoir de respecter les règles de conduite qui s'imposent à elle de manière à ne pas causer de préjudice à autrui ; douée de raison, elle répare le préjudice corporel, moral ou matériel qu'elle cause par sa faute.",
+      "whyItMatters": "C'est la source de la responsabilité civile extracontractuelle.",
+      "commonMisconception": "Oublier le troisième alinéa : on peut aussi répondre du fait d'une autre personne ou des biens sous sa garde.",
+      "objectiveId": "obj2-elements",
+      "source": {
+        "file": "23.33 2026-3 S03 ResponsabilitéCivile.pdf",
+        "page": 17,
+        "locator": "Diapositive 17"
+      }
+    },
+    {
+      "id": "c2-elements",
+      "term": "Éléments constitutifs de la responsabilité",
+      "definition": "1. être douée de raison ; 2. une faute ; 3. un préjudice résultant des actes ou omissions ; 4. un lien de causalité entre la faute et le dommage.",
+      "whyItMatters": "Les quatre doivent être réunis : il suffit qu'un seul manque pour qu'il n'y ait pas de responsabilité selon l'article 1457.",
+      "commonMisconception": "Croire qu'une faute suffit, même sans préjudice ou sans lien de causalité.",
+      "objectiveId": "obj2-elements",
+      "source": {
+        "file": "23.33 2026-3 S03 ResponsabilitéCivile.pdf",
+        "page": 18,
+        "locator": "Diapositive 18"
+      }
+    },
+    {
+      "id": "c2-fardeau",
+      "term": "Fardeau de la preuve",
+      "definition": "Il revient à la personne qui demande réparation, selon la prépondérance de la preuve, avec des présomptions de fait possibles.",
+      "whyItMatters": "C'est la victime qui doit démontrer les éléments constitutifs.",
+      "commonMisconception": "Croire que c'est à l'auteur présumé de prouver son innocence.",
+      "objectiveId": "obj2-elements",
+      "source": {
+        "file": "23.33 2026-3 S03 ResponsabilitéCivile.pdf",
+        "page": 19,
+        "locator": "Diapositive 19"
+      }
+    },
+    {
+      "id": "c2-partage",
+      "term": "Partage de la responsabilité",
+      "definition": "En proportion de la gravité de la faute respective (art. 1478) ; une partie exonérée reporte sa part sur les autres de façon égale (art. 1481).",
+      "whyItMatters": "Plusieurs personnes peuvent être responsables d'un même préjudice.",
+      "commonMisconception": "Supposer un partage toujours égal : la règle est la proportion de la gravité des fautes.",
+      "objectiveId": "obj2-limites",
+      "source": {
+        "file": "23.33 2026-3 S03 ResponsabilitéCivile.pdf",
+        "page": 23,
+        "locator": "Diapositive 23"
+      }
+    },
+    {
+      "id": "c2-diffamation",
+      "term": "Diffamation",
+      "definition": "Dire des choses désagréables ou donner des renseignements défavorables sur autrui que l'on sait fausses, que l'on devrait savoir fausses, ou même vraies lorsqu'on le fait sans justes motifs.",
+      "whyItMatters": "Elle marque la limite de la liberté d'expression garantie par les chartes.",
+      "commonMisconception": "Croire que la vérité est toujours une défense : des faits vrais diffusés sans justes motifs peuvent être diffamatoires.",
+      "objectiveId": "obj2-expression",
+      "source": {
+        "file": "23.33 2026-3 S03 ResponsabilitéCivile.pdf",
+        "page": 26,
+        "locator": "Diapositive 26"
+      }
+    }
+  ],
+  "tables": [
+    {
+      "id": "t2-limites",
+      "title": "Portée et limites de la responsabilité",
+      "kind": "cheatsheet",
+      "columns": [
+        {
+          "key": "cat",
+          "label": "Catégorie"
+        },
+        {
+          "key": "circ",
+          "label": "Circonstances"
+        }
+      ],
+      "rows": [
+        {
+          "cat": "Comportement de la victime",
+          "circ": "faute de la victime ; acceptation des risques (art. 1477) ; refus de minimiser les dommages"
+        },
+        {
+          "cat": "Comportement de l'auteur",
+          "circ": "absence de faute lourde ou intentionnelle (art. 1471) ; motif légitime (art. 1472) ; légitime défense ; provocation"
+        },
+        {
+          "cat": "Autres éléments disculpatoires",
+          "circ": "force majeure (art. 1470) ; novus actus interveniens ; faute d'un tiers"
+        },
+        {
+          "cat": "Avis d'exclusion ou de limitation",
+          "circ": "connaissance (art. 1473, 1475, 1476) ; faute lourde ou intentionnelle ; mais : préjudice corporel ou moral (art. 1474)"
+        }
+      ],
+      "source": {
+        "file": "23.33 2026-3 S03 ResponsabilitéCivile.pdf",
+        "page": 21,
+        "locator": "Diapositives 21 et 22"
+      }
+    },
+    {
+      "id": "t2-premiere-instance",
+      "title": "Tribunaux de première instance",
+      "kind": "comparison",
+      "columns": [
+        {
+          "key": "mat",
+          "label": "Matière"
+        },
+        {
+          "key": "cq",
+          "label": "Cour du Québec"
+        },
+        {
+          "key": "cs",
+          "label": "Cour supérieure du Québec"
+        }
+      ],
+      "rows": [
+        {
+          "mat": "criminelle",
+          "cq": "crimes sommaires ou procès sans jury",
+          "cs": "crimes graves ou procès avec jury"
+        },
+        {
+          "mat": "civile",
+          "cq": "petites créances : 15 000 \\$ et moins ; chambre civile : 15 000 \\$ à 100 000 \\$",
+          "cs": "100 000 \\$ et plus ; divorces, faillites, recours collectifs"
+        }
+      ],
+      "source": {
+        "file": "23.33 2026-3 S03 ResponsabilitéCivile.pdf",
+        "page": 6,
+        "locator": "Diapositive 6"
+      },
+      "caption": "La diapositive mentionne aussi un choix lorsque le litige est entre 75 000 \\$ et 100 000 \\$."
+    }
+  ],
+  "quiz": {
+    "title": "Quiz — vérification rapide",
+    "estimatedMinutes": 12,
+    "questions": [
+      {
+        "id": "q2-01",
+        "objectiveId": "obj2-portee",
+        "bloomLevel": "recall",
+        "type": "mcq",
+        "difficulty": 1,
+        "prompt": "Que désigne le ratio decidendi d'un jugement ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "L'essentiel de la décision : ses motifs"
+          },
+          {
+            "id": "b",
+            "text": "Ce qui est dit en passant"
+          },
+          {
+            "id": "c",
+            "text": "La règle du précédent"
+          },
+          {
+            "id": "d",
+            "text": "Le dispositif seul"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Diapositives 5 et 10.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "C'est l'obiter dictum."
+          },
+          {
+            "optionId": "c",
+            "why": "C'est le stare decisis."
+          },
+          {
+            "optionId": "d",
+            "why": "Le dispositif est la décision ; le ratio en est l'essentiel des motifs."
+          }
+        ],
+        "source": {
+          "file": "23.33 2026-3 S03 ResponsabilitéCivile.pdf",
+          "page": 5,
+          "locator": "Diapositives 5 et 10"
+        }
+      },
+      {
+        "id": "q2-02",
+        "objectiveId": "obj2-portee",
+        "bloomLevel": "understand",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Un tribunal montre que l'affaire dont il est saisi diffère du précédent invoqué. Quel terme décrit cette démarche ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Distinguishing"
+          },
+          {
+            "id": "b",
+            "text": "Stare decisis"
+          },
+          {
+            "id": "c",
+            "text": "Obiter dictum"
+          },
+          {
+            "id": "d",
+            "text": "Ratio decidendi"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Diapositives 5 et 10 : distinguishing, la distinction (a contrario).",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "C'est suivre le précédent."
+          },
+          {
+            "optionId": "c",
+            "why": "C'est une remarque en passant."
+          },
+          {
+            "optionId": "d",
+            "why": "C'est l'essentiel d'une décision."
+          }
+        ],
+        "source": {
+          "file": "23.33 2026-3 S03 ResponsabilitéCivile.pdf",
+          "page": 10,
+          "locator": "Diapositive 10"
+        }
+      },
+      {
+        "id": "q2-03",
+        "objectiveId": "obj2-tribunaux",
+        "bloomLevel": "apply",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Un litige civil de 12 000 \\$ relève en première instance de…",
+        "options": [
+          {
+            "id": "a",
+            "text": "la Cour du Québec, division des petites créances"
+          },
+          {
+            "id": "b",
+            "text": "la Cour supérieure du Québec"
+          },
+          {
+            "id": "c",
+            "text": "la Cour du Québec, chambre civile"
+          },
+          {
+            "id": "d",
+            "text": "la Cour suprême du Canada"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Diapositive 6 : petites créances pour 15 000 \\$ et moins.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Elle entend les litiges de 100 000 \\$ et plus."
+          },
+          {
+            "optionId": "c",
+            "why": "Elle entend les litiges entre 15 000 \\$ et 100 000 \\$."
+          },
+          {
+            "optionId": "d",
+            "why": "Ce n'est pas un tribunal de première instance."
+          }
+        ],
+        "source": {
+          "file": "23.33 2026-3 S03 ResponsabilitéCivile.pdf",
+          "page": 6,
+          "locator": "Diapositive 6"
+        }
+      },
+      {
+        "id": "q2-04",
+        "objectiveId": "obj2-tribunaux",
+        "bloomLevel": "recall",
+        "type": "mcq",
+        "difficulty": 1,
+        "prompt": "Quel tribunal est au sommet de la hiérarchie présentée ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "La Cour suprême du Canada"
+          },
+          {
+            "id": "b",
+            "text": "La Cour d'appel du Québec"
+          },
+          {
+            "id": "c",
+            "text": "La Cour supérieure du Québec"
+          },
+          {
+            "id": "d",
+            "text": "La Cour fédérale"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Diapositive 5.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Elle est sous la Cour suprême."
+          },
+          {
+            "optionId": "c",
+            "why": "Elle est sous la Cour d'appel du Québec."
+          },
+          {
+            "optionId": "d",
+            "why": "Elle est sous la Cour d'appel fédérale."
+          }
+        ],
+        "source": {
+          "file": "23.33 2026-3 S03 ResponsabilitéCivile.pdf",
+          "page": 5,
+          "locator": "Diapositive 5"
+        }
+      },
+      {
+        "id": "q2-05",
+        "objectiveId": "obj2-elements",
+        "bloomLevel": "recall",
+        "type": "mcq",
+        "difficulty": 1,
+        "prompt": "Selon l'article 1457 C.c.Q., quels préjudices doivent être réparés ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Corporel, moral ou matériel"
+          },
+          {
+            "id": "b",
+            "text": "Matériel seulement"
+          },
+          {
+            "id": "c",
+            "text": "Corporel et matériel, pas moral"
+          },
+          {
+            "id": "d",
+            "text": "Économique et social"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Diapositive 17.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "L'article en nomme trois."
+          },
+          {
+            "optionId": "c",
+            "why": "Le préjudice moral est aussi nommé."
+          },
+          {
+            "optionId": "d",
+            "why": "Ces termes ne sont pas dans l'article."
+          }
+        ],
+        "source": {
+          "file": "23.33 2026-3 S03 ResponsabilitéCivile.pdf",
+          "page": 17,
+          "locator": "Diapositive 17"
+        }
+      },
+      {
+        "id": "q2-06",
+        "objectiveId": "obj2-elements",
+        "bloomLevel": "recall",
+        "type": "multi",
+        "difficulty": 2,
+        "prompt": "Quels sont les éléments constitutifs de la responsabilité ? (plusieurs réponses)",
+        "options": [
+          {
+            "id": "a",
+            "text": "Être douée de raison"
+          },
+          {
+            "id": "b",
+            "text": "Une faute"
+          },
+          {
+            "id": "c",
+            "text": "Un préjudice"
+          },
+          {
+            "id": "d",
+            "text": "Un lien de causalité"
+          },
+          {
+            "id": "e",
+            "text": "Un contrat entre les parties"
+          }
+        ],
+        "correct": [
+          "a",
+          "b",
+          "c",
+          "d"
+        ],
+        "explanation": "Diapositive 18.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "e",
+            "why": "La responsabilité étudiée est extracontractuelle."
+          }
+        ],
+        "source": {
+          "file": "23.33 2026-3 S03 ResponsabilitéCivile.pdf",
+          "page": 18,
+          "locator": "Diapositive 18"
+        }
+      },
+      {
+        "id": "q2-07",
+        "objectiveId": "obj2-elements",
+        "bloomLevel": "apply",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Un stagiaire publie par erreur une clé d'accès, mais personne ne l'utilise et aucun dommage ne survient. Quel élément constitutif manque ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Le préjudice"
+          },
+          {
+            "id": "b",
+            "text": "La faute"
+          },
+          {
+            "id": "c",
+            "text": "La capacité de discerner"
+          },
+          {
+            "id": "d",
+            "text": "Aucun"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Diapositive 18 : il faut un préjudice. Situation imaginée par la plateforme.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Publier la clé par erreur peut être une faute."
+          },
+          {
+            "optionId": "c",
+            "why": "Rien n'indique que le stagiaire ne soit pas doué de raison."
+          },
+          {
+            "optionId": "d",
+            "why": "Sans dommage, il n'y a pas de préjudice à réparer."
+          }
+        ],
+        "source": {
+          "file": "23.33 2026-3 S03 ResponsabilitéCivile.pdf",
+          "page": 18,
+          "locator": "Diapositive 18"
+        }
+      },
+      {
+        "id": "q2-08",
+        "objectiveId": "obj2-elements",
+        "bloomLevel": "understand",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "À qui revient le fardeau de la preuve ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "À la personne qui demande réparation"
+          },
+          {
+            "id": "b",
+            "text": "À la personne accusée de la faute"
+          },
+          {
+            "id": "c",
+            "text": "Au tribunal"
+          },
+          {
+            "id": "d",
+            "text": "Aux deux parties à parts égales"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Diapositive 19.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Ce n'est pas à elle de prouver son innocence."
+          },
+          {
+            "optionId": "c",
+            "why": "Le tribunal tranche, il ne prouve pas."
+          },
+          {
+            "optionId": "d",
+            "why": "Diapositive 19 : à la personne qui demande réparation."
+          }
+        ],
+        "source": {
+          "file": "23.33 2026-3 S03 ResponsabilitéCivile.pdf",
+          "page": 19,
+          "locator": "Diapositive 19"
+        }
+      },
+      {
+        "id": "q2-09",
+        "objectiveId": "obj2-limites",
+        "bloomLevel": "analyze",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Dans quelle catégorie les diapositives placent-elles la force majeure (art. 1470) ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Autres éléments disculpatoires"
+          },
+          {
+            "id": "b",
+            "text": "Comportement de la victime"
+          },
+          {
+            "id": "c",
+            "text": "Comportement de l'auteur"
+          },
+          {
+            "id": "d",
+            "text": "Avis d'exclusion"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Diapositive 22.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Cette catégorie regroupe la faute de la victime, l'acceptation des risques…"
+          },
+          {
+            "optionId": "c",
+            "why": "Cette catégorie regroupe le motif légitime, la légitime défense…"
+          },
+          {
+            "optionId": "d",
+            "why": "Ceux-ci renvoient aux art. 1473 à 1476."
+          }
+        ],
+        "source": {
+          "file": "23.33 2026-3 S03 ResponsabilitéCivile.pdf",
+          "page": 22,
+          "locator": "Diapositive 22"
+        }
+      },
+      {
+        "id": "q2-10",
+        "objectiveId": "obj2-limites",
+        "bloomLevel": "analyze",
+        "type": "mcq",
+        "difficulty": 3,
+        "prompt": "Deux personnes ont causé ensemble un préjudice, l'une par une faute plus grave. Comment la responsabilité se partage-t-elle selon l'art. 1478 ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "En proportion de la gravité de la faute respective"
+          },
+          {
+            "id": "b",
+            "text": "À parts égales dans tous les cas"
+          },
+          {
+            "id": "c",
+            "text": "Entièrement sur la faute la plus grave"
+          },
+          {
+            "id": "d",
+            "text": "Selon les revenus de chacun"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Diapositive 23.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Le partage égal vise le report de la part d'une partie exonérée (art. 1481)."
+          },
+          {
+            "optionId": "c",
+            "why": "La règle est proportionnelle."
+          },
+          {
+            "optionId": "d",
+            "why": "Ce critère n'apparaît pas."
+          }
+        ],
+        "source": {
+          "file": "23.33 2026-3 S03 ResponsabilitéCivile.pdf",
+          "page": 23,
+          "locator": "Diapositive 23"
+        }
+      },
+      {
+        "id": "q2-11",
+        "objectiveId": "obj2-expression",
+        "bloomLevel": "understand",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Selon la diapositive 26, peut-on diffamer quelqu'un en disant des choses vraies ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Oui, lorsqu'on le fait sans justes motifs"
+          },
+          {
+            "id": "b",
+            "text": "Non, jamais"
+          },
+          {
+            "id": "c",
+            "text": "Oui, mais seulement par écrit"
+          },
+          {
+            "id": "d",
+            "text": "Non, sauf si c'est publié dans la presse"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Diapositive 26, cas c).",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Le cas c) vise justement des renseignements vrais."
+          },
+          {
+            "optionId": "c",
+            "why": "La forme n'est pas un critère."
+          },
+          {
+            "optionId": "d",
+            "why": "La presse est protégée par la liberté d'expression."
+          }
+        ],
+        "source": {
+          "file": "23.33 2026-3 S03 ResponsabilitéCivile.pdf",
+          "page": 26,
+          "locator": "Diapositive 26"
+        }
+      },
+      {
+        "id": "q2-12",
+        "objectiveId": "obj2-tp1",
+        "bloomLevel": "recall",
+        "type": "mcq",
+        "difficulty": 1,
+        "prompt": "Combien d'outils d'IA générative différents le TP1 demande-t-il d'utiliser ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Trois"
+          },
+          {
+            "id": "b",
+            "text": "Un"
+          },
+          {
+            "id": "c",
+            "text": "Deux"
+          },
+          {
+            "id": "d",
+            "text": "Aucun"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Diapositive 39.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Diapositive 39 : non pas une seule, mais trois."
+          },
+          {
+            "optionId": "c",
+            "why": "Il en faut trois."
+          },
+          {
+            "optionId": "d",
+            "why": "Le TP1 repose justement sur les IAg."
+          }
+        ],
+        "source": {
+          "file": "23.33 2026-3 S03 ResponsabilitéCivile.pdf",
+          "page": 39,
+          "locator": "Diapositive 39"
+        }
+      }
+    ]
+  },
+  "test": {
+    "title": "Test du chapitre 2",
+    "instructions": "21 questions couvrant tout le chapitre. Plus long et plus difficile que le quiz.",
+    "estimatedMinutes": 30,
+    "questions": [
+      {
+        "id": "t2-01",
+        "objectiveId": "obj2-portee",
+        "bloomLevel": "recall",
+        "type": "mcq",
+        "difficulty": 1,
+        "prompt": "Que désigne l'obiter dictum ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Ce qui est dit en passant, un éclaircissement"
+          },
+          {
+            "id": "b",
+            "text": "L'essentiel de la décision"
+          },
+          {
+            "id": "c",
+            "text": "La règle du précédent"
+          },
+          {
+            "id": "d",
+            "text": "Les motifs dissidents"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Diapositives 5 et 10.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "C'est le ratio decidendi."
+          },
+          {
+            "optionId": "c",
+            "why": "C'est le stare decisis."
+          },
+          {
+            "optionId": "d",
+            "why": "Ils viennent d'un juge en désaccord."
+          }
+        ],
+        "source": {
+          "file": "23.33 2026-3 S03 ResponsabilitéCivile.pdf",
+          "page": 5,
+          "locator": "Diapositive 5"
+        }
+      },
+      {
+        "id": "t2-02",
+        "objectiveId": "obj2-portee",
+        "bloomLevel": "recall",
+        "type": "mcq",
+        "difficulty": 1,
+        "prompt": "Que désigne le stare decisis ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "La règle du précédent"
+          },
+          {
+            "id": "b",
+            "text": "La distinction"
+          },
+          {
+            "id": "c",
+            "text": "Ce qui est dit en passant"
+          },
+          {
+            "id": "d",
+            "text": "Le dispositif d'un jugement"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Diapositive 5.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "C'est le distinguishing."
+          },
+          {
+            "optionId": "c",
+            "why": "C'est l'obiter dictum."
+          },
+          {
+            "optionId": "d",
+            "why": "Le dispositif est la décision."
+          }
+        ],
+        "source": {
+          "file": "23.33 2026-3 S03 ResponsabilitéCivile.pdf",
+          "page": 5,
+          "locator": "Diapositive 5"
+        }
+      },
+      {
+        "id": "t2-03",
+        "objectiveId": "obj2-portee",
+        "bloomLevel": "understand",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Quelle partie d'un jugement contient la décision elle-même ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Le dispositif"
+          },
+          {
+            "id": "b",
+            "text": "Les faits"
+          },
+          {
+            "id": "c",
+            "text": "L'état du droit"
+          },
+          {
+            "id": "d",
+            "text": "L'historique des procédures"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Diapositive 10 : dispositif (décision).",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Ils exposent la situation des deux parties."
+          },
+          {
+            "optionId": "c",
+            "why": "Il expose les règles applicables."
+          },
+          {
+            "optionId": "d",
+            "why": "Il résume les étapes antérieures."
+          }
+        ],
+        "source": {
+          "file": "23.33 2026-3 S03 ResponsabilitéCivile.pdf",
+          "page": 10,
+          "locator": "Diapositive 10"
+        }
+      },
+      {
+        "id": "t2-04",
+        "objectiveId": "obj2-portee",
+        "bloomLevel": "understand",
+        "type": "true-false",
+        "difficulty": 2,
+        "prompt": "Selon les diapositives, stare decisis et distinguishing se rattachent à la jurisprudence.",
+        "options": [
+          {
+            "id": "v",
+            "text": "Vrai"
+          },
+          {
+            "id": "f",
+            "text": "Faux"
+          }
+        ],
+        "correct": "v",
+        "explanation": "Diapositive 5 : sous « Jurisprudence ».",
+        "perDistractorExplanation": [
+          {
+            "optionId": "f",
+            "why": "Obiter dictum et ratio decidendi, eux, se rattachent au jugement."
+          }
+        ],
+        "source": {
+          "file": "23.33 2026-3 S03 ResponsabilitéCivile.pdf",
+          "page": 5,
+          "locator": "Diapositive 5"
+        }
+      },
+      {
+        "id": "t2-05",
+        "objectiveId": "obj2-tribunaux",
+        "bloomLevel": "apply",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Un litige civil de 50 000 \\$ relève en première instance de…",
+        "options": [
+          {
+            "id": "a",
+            "text": "la Cour du Québec, chambre civile"
+          },
+          {
+            "id": "b",
+            "text": "la division des petites créances"
+          },
+          {
+            "id": "c",
+            "text": "la Cour supérieure du Québec"
+          },
+          {
+            "id": "d",
+            "text": "la Cour d'appel du Québec"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Diapositive 6.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Elle entend 15 000 \\$ et moins."
+          },
+          {
+            "optionId": "c",
+            "why": "Elle entend 100 000 \\$ et plus."
+          },
+          {
+            "optionId": "d",
+            "why": "Ce n'est pas une première instance."
+          }
+        ],
+        "source": {
+          "file": "23.33 2026-3 S03 ResponsabilitéCivile.pdf",
+          "page": 6,
+          "locator": "Diapositive 6"
+        }
+      },
+      {
+        "id": "t2-06",
+        "objectiveId": "obj2-tribunaux",
+        "bloomLevel": "apply",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Un recours collectif est entendu en première instance par…",
+        "options": [
+          {
+            "id": "a",
+            "text": "la Cour supérieure du Québec"
+          },
+          {
+            "id": "b",
+            "text": "la Cour du Québec"
+          },
+          {
+            "id": "c",
+            "text": "les petites créances"
+          },
+          {
+            "id": "d",
+            "text": "le Tribunal des professions"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Diapositive 6 : divorces, faillites, recours collectifs.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "La diapositive place les recours collectifs sous la Cour supérieure."
+          },
+          {
+            "optionId": "c",
+            "why": "Elles traitent des montants de 15 000 \\$ et moins."
+          },
+          {
+            "optionId": "d",
+            "why": "Il n'est pas cité pour les recours collectifs."
+          }
+        ],
+        "source": {
+          "file": "23.33 2026-3 S03 ResponsabilitéCivile.pdf",
+          "page": 6,
+          "locator": "Diapositive 6"
+        }
+      },
+      {
+        "id": "t2-07",
+        "objectiveId": "obj2-tribunaux",
+        "bloomLevel": "understand",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Un procès criminel avec jury se tient devant…",
+        "options": [
+          {
+            "id": "a",
+            "text": "la Cour supérieure du Québec"
+          },
+          {
+            "id": "b",
+            "text": "la Cour du Québec"
+          },
+          {
+            "id": "c",
+            "text": "les cours municipales"
+          },
+          {
+            "id": "d",
+            "text": "la Cour suprême du Canada"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Diapositive 6.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Elle entend les crimes sommaires ou procès sans jury."
+          },
+          {
+            "optionId": "c",
+            "why": "Elles ne sont pas citées pour les procès avec jury."
+          },
+          {
+            "optionId": "d",
+            "why": "Elle n'est pas une première instance."
+          }
+        ],
+        "source": {
+          "file": "23.33 2026-3 S03 ResponsabilitéCivile.pdf",
+          "page": 6,
+          "locator": "Diapositive 6"
+        }
+      },
+      {
+        "id": "t2-08",
+        "objectiveId": "obj2-tribunaux",
+        "bloomLevel": "recall",
+        "type": "mcq",
+        "difficulty": 1,
+        "prompt": "Dans la hiérarchie de la diapositive 5, de quel tribunal relève directement la Cour fédérale ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "La Cour d'appel fédérale"
+          },
+          {
+            "id": "b",
+            "text": "La Cour d'appel du Québec"
+          },
+          {
+            "id": "c",
+            "text": "La Cour supérieure du Québec"
+          },
+          {
+            "id": "d",
+            "text": "Le Tribunal des professions"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Diapositive 5.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Elle chapeaute la Cour supérieure du Québec."
+          },
+          {
+            "optionId": "c",
+            "why": "La Cour fédérale est dans la branche fédérale."
+          },
+          {
+            "optionId": "d",
+            "why": "Il est dans la branche québécoise."
+          }
+        ],
+        "source": {
+          "file": "23.33 2026-3 S03 ResponsabilitéCivile.pdf",
+          "page": 5,
+          "locator": "Diapositive 5"
+        }
+      },
+      {
+        "id": "t2-09",
+        "objectiveId": "obj2-expression",
+        "bloomLevel": "recall",
+        "type": "multi",
+        "difficulty": 2,
+        "prompt": "Quels exemples de portée internationale les diapositives citent-elles ? (plusieurs réponses)",
+        "options": [
+          {
+            "id": "a",
+            "text": "ITAR (États-Unis)"
+          },
+          {
+            "id": "b",
+            "text": "GDPR (Union européenne)"
+          },
+          {
+            "id": "c",
+            "text": "Les extraditions"
+          },
+          {
+            "id": "d",
+            "text": "Le Code civil du Québec"
+          },
+          {
+            "id": "e",
+            "text": "La Charte québécoise"
+          }
+        ],
+        "correct": [
+          "a",
+          "b",
+          "c"
+        ],
+        "explanation": "Diapositive 9.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "d",
+            "why": "Il est québécois."
+          },
+          {
+            "optionId": "e",
+            "why": "Elle est québécoise."
+          }
+        ],
+        "source": {
+          "file": "23.33 2026-3 S03 ResponsabilitéCivile.pdf",
+          "page": 9,
+          "locator": "Diapositive 9"
+        }
+      },
+      {
+        "id": "t2-10",
+        "objectiveId": "obj2-elements",
+        "bloomLevel": "recall",
+        "type": "mcq",
+        "difficulty": 1,
+        "prompt": "Selon l'article 1457, qui est responsable du préjudice qu'il cause par sa faute ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Toute personne douée de raison qui manque à son devoir"
+          },
+          {
+            "id": "b",
+            "text": "Seulement les professionnels"
+          },
+          {
+            "id": "c",
+            "text": "Seulement les entreprises"
+          },
+          {
+            "id": "d",
+            "text": "Toute personne, même incapable de discerner"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Diapositive 17.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "L'article vise toute personne."
+          },
+          {
+            "optionId": "c",
+            "why": "L'article vise toute personne."
+          },
+          {
+            "optionId": "d",
+            "why": "Il faut être douée de raison."
+          }
+        ],
+        "source": {
+          "file": "23.33 2026-3 S03 ResponsabilitéCivile.pdf",
+          "page": 17,
+          "locator": "Diapositive 17"
+        }
+      },
+      {
+        "id": "t2-11",
+        "objectiveId": "obj2-elements",
+        "bloomLevel": "understand",
+        "type": "true-false",
+        "difficulty": 2,
+        "prompt": "Selon l'article 1457, on peut devoir réparer un préjudice causé par le fait des biens que l'on a sous sa garde.",
+        "options": [
+          {
+            "id": "v",
+            "text": "Vrai"
+          },
+          {
+            "id": "f",
+            "text": "Faux"
+          }
+        ],
+        "correct": "v",
+        "explanation": "Troisième alinéa de l'article 1457 (diapositive 17).",
+        "perDistractorExplanation": [
+          {
+            "optionId": "f",
+            "why": "Il vise aussi le fait ou la faute d'une autre personne."
+          }
+        ],
+        "source": {
+          "file": "23.33 2026-3 S03 ResponsabilitéCivile.pdf",
+          "page": 17,
+          "locator": "Diapositive 17"
+        }
+      },
+      {
+        "id": "t2-12",
+        "objectiveId": "obj2-elements",
+        "bloomLevel": "apply",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Une panne de serveur cause une perte à un client, mais elle vient d'un orage et non de la faute de l'administrateur. Quel élément constitutif manque pour engager sa responsabilité ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "La faute"
+          },
+          {
+            "id": "b",
+            "text": "Le préjudice"
+          },
+          {
+            "id": "c",
+            "text": "La capacité de discerner"
+          },
+          {
+            "id": "d",
+            "text": "Aucun"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Diapositive 18. Situation imaginée par la plateforme ; la force majeure est aussi citée comme élément disculpatoire (art. 1470).",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Le client a subi une perte."
+          },
+          {
+            "optionId": "c",
+            "why": "Rien n'indique le contraire."
+          },
+          {
+            "optionId": "d",
+            "why": "Sans faute de l'administrateur, l'article 1457 ne s'applique pas à lui."
+          }
+        ],
+        "source": {
+          "file": "23.33 2026-3 S03 ResponsabilitéCivile.pdf",
+          "page": 18,
+          "locator": "Diapositive 18"
+        }
+      },
+      {
+        "id": "t2-13",
+        "objectiveId": "obj2-elements",
+        "bloomLevel": "analyze",
+        "type": "mcq",
+        "difficulty": 3,
+        "prompt": "Un développeur commet une faute, et un client subit un dommage — mais causé par un tout autre événement, sans rapport avec la faute. Quel élément manque ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Le lien de causalité"
+          },
+          {
+            "id": "b",
+            "text": "La faute"
+          },
+          {
+            "id": "c",
+            "text": "Le préjudice"
+          },
+          {
+            "id": "d",
+            "text": "Aucun"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Diapositive 18, élément 4. Situation imaginée par la plateforme.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Elle existe."
+          },
+          {
+            "optionId": "c",
+            "why": "Le dommage existe."
+          },
+          {
+            "optionId": "d",
+            "why": "Il faut que le dommage résulte de la faute."
+          }
+        ],
+        "source": {
+          "file": "23.33 2026-3 S03 ResponsabilitéCivile.pdf",
+          "page": 18,
+          "locator": "Diapositive 18"
+        }
+      },
+      {
+        "id": "t2-14",
+        "objectiveId": "obj2-elements",
+        "bloomLevel": "understand",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Quelle norme de preuve s'applique ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "La prépondérance de la preuve"
+          },
+          {
+            "id": "b",
+            "text": "Hors de tout doute raisonnable"
+          },
+          {
+            "id": "c",
+            "text": "La preuve absolue"
+          },
+          {
+            "id": "d",
+            "text": "Aucune : le tribunal présume la faute"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Diapositive 19.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Cette norme n'apparaît pas dans les diapositives."
+          },
+          {
+            "optionId": "c",
+            "why": "Elle n'est pas exigée."
+          },
+          {
+            "optionId": "d",
+            "why": "Des présomptions de fait peuvent aider, mais la norme est la prépondérance."
+          }
+        ],
+        "source": {
+          "file": "23.33 2026-3 S03 ResponsabilitéCivile.pdf",
+          "page": 19,
+          "locator": "Diapositive 19"
+        }
+      },
+      {
+        "id": "t2-15",
+        "objectiveId": "obj2-limites",
+        "bloomLevel": "apply",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "L'acceptation des risques par la victime (art. 1477) fait partie de quelle catégorie ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Le comportement de la victime"
+          },
+          {
+            "id": "b",
+            "text": "Le comportement de l'auteur"
+          },
+          {
+            "id": "c",
+            "text": "Les autres éléments disculpatoires"
+          },
+          {
+            "id": "d",
+            "text": "Les avis d'exclusion"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Diapositive 21.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Cette catégorie concerne l'auteur du préjudice."
+          },
+          {
+            "optionId": "c",
+            "why": "Ceux-ci : force majeure, novus actus interveniens, faute d'un tiers."
+          },
+          {
+            "optionId": "d",
+            "why": "Ceux-ci renvoient aux art. 1473 à 1476."
+          }
+        ],
+        "source": {
+          "file": "23.33 2026-3 S03 ResponsabilitéCivile.pdf",
+          "page": 21,
+          "locator": "Diapositive 21"
+        }
+      },
+      {
+        "id": "t2-16",
+        "objectiveId": "obj2-limites",
+        "bloomLevel": "apply",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Dans quelle catégorie se range la faute d'un tiers ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Les autres éléments disculpatoires"
+          },
+          {
+            "id": "b",
+            "text": "Le comportement de la victime"
+          },
+          {
+            "id": "c",
+            "text": "Le comportement de l'auteur"
+          },
+          {
+            "id": "d",
+            "text": "Le partage de la responsabilité"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Diapositive 22.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Le tiers n'est pas la victime."
+          },
+          {
+            "optionId": "c",
+            "why": "Le tiers n'est pas l'auteur."
+          },
+          {
+            "optionId": "d",
+            "why": "La faute d'un tiers est listée comme élément disculpatoire."
+          }
+        ],
+        "source": {
+          "file": "23.33 2026-3 S03 ResponsabilitéCivile.pdf",
+          "page": 22,
+          "locator": "Diapositive 22"
+        }
+      },
+      {
+        "id": "t2-17",
+        "objectiveId": "obj2-limites",
+        "bloomLevel": "analyze",
+        "type": "mcq",
+        "difficulty": 3,
+        "prompt": "Selon la diapositive 22, quelle réserve accompagne les avis d'exclusion ou de limitation de responsabilité ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Le préjudice corporel ou moral (art. 1474)"
+          },
+          {
+            "id": "b",
+            "text": "La force majeure (art. 1470)"
+          },
+          {
+            "id": "c",
+            "text": "La légitime défense"
+          },
+          {
+            "id": "d",
+            "text": "Le refus de minimiser les dommages"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Diapositive 22 : « MAIS : préjudice corporel ou moral (art. 1474) ».",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "C'est un élément disculpatoire, pas une réserve aux avis."
+          },
+          {
+            "optionId": "c",
+            "why": "Elle relève du comportement de l'auteur."
+          },
+          {
+            "optionId": "d",
+            "why": "Il relève du comportement de la victime."
+          }
+        ],
+        "source": {
+          "file": "23.33 2026-3 S03 ResponsabilitéCivile.pdf",
+          "page": 22,
+          "locator": "Diapositive 22"
+        }
+      },
+      {
+        "id": "t2-18",
+        "objectiveId": "obj2-limites",
+        "bloomLevel": "understand",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Selon l'art. 1481, que devient la part d'une partie exonérée ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Elle est reportée sur les autres de façon égale"
+          },
+          {
+            "id": "b",
+            "text": "Elle disparaît"
+          },
+          {
+            "id": "c",
+            "text": "Elle est payée par la victime"
+          },
+          {
+            "id": "d",
+            "text": "Elle est reportée sur la faute la plus grave"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Diapositive 23.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Elle est reportée."
+          },
+          {
+            "optionId": "c",
+            "why": "Elle est reportée sur les autres responsables."
+          },
+          {
+            "optionId": "d",
+            "why": "Le report se fait de façon égale."
+          }
+        ],
+        "source": {
+          "file": "23.33 2026-3 S03 ResponsabilitéCivile.pdf",
+          "page": 23,
+          "locator": "Diapositive 23"
+        }
+      },
+      {
+        "id": "t2-19",
+        "objectiveId": "obj2-expression",
+        "bloomLevel": "understand",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Quel article de la Charte canadienne garantit la liberté d'expression, y compris la liberté de la presse ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "L'article 2 b)"
+          },
+          {
+            "id": "b",
+            "text": "L'article 3"
+          },
+          {
+            "id": "c",
+            "text": "L'article 1457"
+          },
+          {
+            "id": "d",
+            "text": "L'article 4"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Diapositive 25.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "C'est l'article de la Charte québécoise."
+          },
+          {
+            "optionId": "c",
+            "why": "C'est un article du Code civil du Québec."
+          },
+          {
+            "optionId": "d",
+            "why": "La diapositive 25 coupe cette ligne ; elle ne concerne pas la Charte canadienne."
+          }
+        ],
+        "source": {
+          "file": "23.33 2026-3 S03 ResponsabilitéCivile.pdf",
+          "page": 25,
+          "locator": "Diapositive 25"
+        }
+      },
+      {
+        "id": "t2-20",
+        "objectiveId": "obj2-expression",
+        "bloomLevel": "recall",
+        "type": "fill-blank",
+        "difficulty": 1,
+        "prompt": "Compléter : il y a diffamation même si les renseignements sont vrais, lorsqu'on les donne sans justes ____.",
+        "correct": "motifs",
+        "acceptableAnswers": [
+          "motif"
+        ],
+        "explanation": "Diapositive 26, cas c).",
+        "source": {
+          "file": "23.33 2026-3 S03 ResponsabilitéCivile.pdf",
+          "page": 26,
+          "locator": "Diapositive 26"
+        }
+      },
+      {
+        "id": "t2-21",
+        "objectiveId": "obj2-tp1",
+        "bloomLevel": "recall",
+        "type": "mcq",
+        "difficulty": 1,
+        "prompt": "Au TP1, quelle longueur minimale est exigée pour les commentaires et observations ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "500 mots"
+          },
+          {
+            "id": "b",
+            "text": "100 mots"
+          },
+          {
+            "id": "c",
+            "text": "1000 mots"
+          },
+          {
+            "id": "d",
+            "text": "Aucune"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Diapositive 44.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "C'est l'explication du choix du thème, environ."
+          },
+          {
+            "optionId": "c",
+            "why": "Le minimum est 500 mots."
+          },
+          {
+            "optionId": "d",
+            "why": "Il y a un minimum, sans maximum."
+          }
+        ],
+        "source": {
+          "file": "23.33 2026-3 S03 ResponsabilitéCivile.pdf",
+          "page": 44,
+          "locator": "Diapositive 44"
+        }
+      }
+    ]
+  },
+  "flashcards": [
+    {
+      "id": "f2-01",
+      "objectiveId": "obj2-portee",
+      "front": "Obiter dictum ?",
+      "back": "Ce qui est dit en passant : un éclaircissement."
+    },
+    {
+      "id": "f2-02",
+      "objectiveId": "obj2-portee",
+      "front": "Ratio decidendi ?",
+      "back": "Les motifs : l'essentiel de la décision."
+    },
+    {
+      "id": "f2-03",
+      "objectiveId": "obj2-portee",
+      "front": "Stare decisis ? Distinguishing ?",
+      "back": "La règle du précédent ; la distinction."
+    },
+    {
+      "id": "f2-04",
+      "objectiveId": "obj2-tribunaux",
+      "front": "Petites créances ?",
+      "back": "Cour du Québec, 15 000 \\$ et moins."
+    },
+    {
+      "id": "f2-05",
+      "objectiveId": "obj2-tribunaux",
+      "front": "100 000 \\$ et plus ?",
+      "back": "Cour supérieure du Québec (aussi divorces, faillites, recours collectifs)."
+    },
+    {
+      "id": "f2-06",
+      "objectiveId": "obj2-elements",
+      "front": "Quatre éléments constitutifs ?",
+      "back": "Douée de raison ; faute ; préjudice ; lien de causalité."
+    },
+    {
+      "id": "f2-07",
+      "objectiveId": "obj2-elements",
+      "front": "Préjudices de l'art. 1457 ?",
+      "back": "Corporel, moral, matériel."
+    },
+    {
+      "id": "f2-08",
+      "objectiveId": "obj2-elements",
+      "front": "Fardeau de la preuve ?",
+      "back": "La personne qui demande réparation ; prépondérance de la preuve."
+    },
+    {
+      "id": "f2-09",
+      "objectiveId": "obj2-limites",
+      "front": "Autres éléments disculpatoires ?",
+      "back": "Force majeure (1470), novus actus interveniens, faute d'un tiers."
+    },
+    {
+      "id": "f2-10",
+      "objectiveId": "obj2-limites",
+      "front": "Partage de la responsabilité ?",
+      "back": "Selon la gravité des fautes (1478) ; part d'un exonéré reportée également (1481)."
+    },
+    {
+      "id": "f2-11",
+      "objectiveId": "obj2-expression",
+      "front": "Trois cas de diffamation ?",
+      "back": "Faux et on le sait ; faux et on devrait le savoir ; vrai mais sans justes motifs."
+    },
+    {
+      "id": "f2-12",
+      "objectiveId": "obj2-tp1",
+      "front": "TP1 en une phrase ?",
+      "back": "Obtenir un enjeu légal de trois IAg, comparer, valider, commenter (équipe de 4 à 6)."
+    }
+  ],
+  "exercises": [
+    {
+      "id": "e2-01",
+      "objectiveId": "obj2-elements",
+      "difficulty": 2,
+      "mode": "trace",
+      "language": "text",
+      "title": "Vérifier les quatre éléments",
+      "statement": "Pour chaque situation, vérifier un à un les quatre éléments constitutifs (diapositive 18) et dire lequel manque, s'il en manque un. Situations imaginées par la plateforme.",
+      "starterCode": "a) Un employé efface par négligence la base de données d'un client ; le client perd une semaine de ventes.\nb) Un employé commet la même erreur, mais une sauvegarde restaure tout sans aucune perte.\nc) Le client perd des ventes à cause d'une panne d'électricité régionale, le jour même où l'employé commet une erreur sans conséquence.",
+      "hints": [
+        "Les quatre éléments : doué de raison, faute, préjudice, lien de causalité.",
+        "b) Y a-t-il un dommage ?",
+        "c) La perte vient-elle de la faute ?"
+      ],
+      "solution": "a) rien ne manque · b) le préjudice · c) le lien de causalité",
+      "expectedOutput": "            raison   faute   préjudice   causalité\na)          oui      oui     oui         oui       → les quatre sont réunis\nb)          oui      oui     NON         —         → pas de préjudice\nc)          oui      oui     oui         NON       → la perte vient de la panne, pas de la faute",
+      "solutionExplanation": "Les limites de la diapositive 21 (faute de la victime, force majeure…) viendraient ensuite. Cet exercice n'applique que la liste des éléments constitutifs.",
+      "source": {
+        "file": "23.33 2026-3 S03 ResponsabilitéCivile.pdf",
+        "page": 18,
+        "locator": "Diapositive 18"
+      }
+    },
+    {
+      "id": "e2-02",
+      "objectiveId": "obj2-limites",
+      "difficulty": 2,
+      "mode": "predict-output",
+      "language": "text",
+      "title": "Classer les limites de la responsabilité",
+      "statement": "Classer chaque circonstance dans l'une des quatre catégories de la diapositive 21-22.",
+      "starterCode": "force majeure · légitime défense · faute de la victime · novus actus interveniens · refus de minimiser les dommages · motif légitime · faute d'un tiers · acceptation des risques · provocation",
+      "hints": [
+        "Quatre catégories : victime, auteur, autres éléments disculpatoires, avis d'exclusion.",
+        "Qui agit dans chaque circonstance ?",
+        "Trois circonstances ne dépendent ni de la victime ni de l'auteur."
+      ],
+      "solution": "Victime : faute de la victime, refus de minimiser, acceptation des risques · Auteur : légitime défense, motif légitime, provocation · Autres : force majeure, novus actus interveniens, faute d'un tiers",
+      "expectedOutput": "Comportement de la victime   : faute de la victime ; acceptation des risques (1477) ; refus de minimiser les dommages\nComportement de l'auteur     : motif légitime (1472) ; légitime défense ; provocation\nAutres éléments disculpatoires : force majeure (1470) ; novus actus interveniens ; faute d'un tiers",
+      "solutionExplanation": "La quatrième catégorie, les avis d'exclusion ou de limitation, n'a pas d'élément dans la liste.",
+      "source": {
+        "file": "23.33 2026-3 S03 ResponsabilitéCivile.pdf",
+        "page": 21,
+        "locator": "Diapositives 21 et 22"
+      }
+    },
+    {
+      "id": "e2-03",
+      "objectiveId": "obj2-elements",
+      "difficulty": 1,
+      "mode": "fill-blank",
+      "language": "text",
+      "title": "Compléter — l'article 1457",
+      "statement": "Compléter l'article 1457 du Code civil du Québec (diapositive 17).",
+      "starterCode": "Toute personne a le devoir de respecter les règles de ____ qui, suivant les circonstances, les usages ou la loi, s'imposent à elle, de manière à ne pas causer de ____ à autrui.\nElle est, lorsqu'elle est douée de ____ et qu'elle manque à ce devoir, responsable du préjudice qu'elle cause par cette ____ à autrui et tenue de réparer ce préjudice, qu'il soit corporel, ____ ou matériel.",
+      "hints": [
+        "Le premier mot manquant concerne le comportement attendu.",
+        "Le troisième : la capacité de discerner le bien du mal.",
+        "Trois préjudices : corporel, ?, matériel."
+      ],
+      "solution": "conduite · préjudice · raison · faute · moral",
+      "expectedOutput": "conduite — préjudice — raison — faute — moral",
+      "solutionExplanation": "L'article est reproduit tel quel à la diapositive 17.",
+      "source": {
+        "file": "23.33 2026-3 S03 ResponsabilitéCivile.pdf",
+        "page": 17,
+        "locator": "Diapositive 17"
+      }
+    },
+    {
+      "id": "e2-04",
+      "objectiveId": "obj2-tribunaux",
+      "difficulty": 2,
+      "mode": "predict-output",
+      "language": "text",
+      "title": "Quel tribunal de première instance ?",
+      "statement": "Pour chaque litige, nommer le tribunal de première instance selon la diapositive 6.",
+      "starterCode": "a) réclamation civile de 8 000 $\nb) réclamation civile de 40 000 $\nc) réclamation civile de 250 000 $\nd) procès criminel avec jury\ne) faillite",
+      "hints": [
+        "Trois seuils civils : 15 000 \\$ et 100 000 \\$.",
+        "Criminel : avec ou sans jury.",
+        "Certaines matières vont toujours à la Cour supérieure."
+      ],
+      "solution": "a) petites créances · b) Cour du Québec, chambre civile · c) Cour supérieure · d) Cour supérieure · e) Cour supérieure",
+      "expectedOutput": "a) Cour du Québec, petites créances (15 000 \\$ et moins)\nb) Cour du Québec, chambre civile (15 000 \\$ à 100 000 \\$)\nc) Cour supérieure du Québec (100 000 \\$ et plus)\nd) Cour supérieure du Québec (crimes graves ou procès avec jury)\ne) Cour supérieure du Québec (divorces, faillites, recours collectifs)",
+      "solutionExplanation": "Entre 75 000 \\$ et 100 000 \\$, la diapositive indique un « choix » sans le détailler : cet exercice évite cette zone.",
+      "source": {
+        "file": "23.33 2026-3 S03 ResponsabilitéCivile.pdf",
+        "page": 6,
+        "locator": "Diapositive 6"
+      }
+    },
+    {
+      "id": "e2-05",
+      "objectiveId": "obj2-expression",
+      "difficulty": 2,
+      "mode": "trace",
+      "language": "text",
+      "title": "Diffamation ou pas ?",
+      "statement": "Pour chaque publication, dire à quel cas de la diapositive 26 elle correspond, s'il y en a un. Situations imaginées par la plateforme.",
+      "starterCode": "a) Publier sur un forum qu'un collègue a volé du code, en sachant que c'est faux.\nb) Relayer une rumeur défavorable sur un fournisseur sans vérifier, alors qu'une simple recherche aurait montré qu'elle était fausse.\nc) Révéler publiquement une vieille erreur, vraie, d'un collègue, sans aucune raison valable.",
+      "hints": [
+        "Trois cas : on sait que c'est faux ; on devrait savoir que c'est faux ; c'est vrai mais sans justes motifs.",
+        "b) La personne aurait pu savoir.",
+        "c) La vérité ne suffit pas."
+      ],
+      "solution": "a) cas a) · b) cas b) · c) cas c)",
+      "expectedOutput": "a) faux, et on le sait                      → cas a)\nb) faux, et on devrait le savoir            → cas b)\nc) vrai, mais sans justes motifs            → cas c)",
+      "solutionExplanation": "Les diapositives opposent ces cas à la liberté d'expression des chartes (art. 2 b) canadienne, art. 3 québécoise) ; ce qui constitue un « juste motif » est discuté en classe.",
+      "source": {
+        "file": "23.33 2026-3 S03 ResponsabilitéCivile.pdf",
+        "page": 26,
+        "locator": "Diapositives 25 et 26"
+      }
+    }
+  ]
+}
