@@ -1,0 +1,343 @@
+---
+course: MAT199
+number: 1
+title: Polynômes et opérations matricielles
+summary: >-
+  Un rappel sur les racines et la factorisation des polynômes réels, puis
+  l'algèbre des matrices réelles : types, somme, produit — et surtout le
+  produit par colonnes —, matrice identité, transposée, matrices symétriques.
+  Les couleurs numériques RVB servent de première application.
+estimatedMinutes: 180
+prerequisites:
+  - "Calcul algébrique : fractions, radicaux (prérequis externe, voir le parcours)"
+objectives:
+  - id: obj1-polynomes
+    text: Factoriser un polynôme réel à l'aide de ses racines, du discriminant et des diviseurs du terme constant.
+    bloom: apply
+  - id: obj1-operations
+    text: Dire si une somme ou un produit de matrices est défini, en donner le type et le calculer.
+    bloom: apply
+  - id: obj1-colonnes
+    text: Calculer un produit colonne par colonne, et multiplier par une matrice diagonale sans calcul inutile.
+    bloom: apply
+  - id: obj1-proprietes
+    text: Utiliser les propriétés du produit et de la transposée — et reconnaître celles qui sont fausses.
+    bloom: analyze
+  - id: obj1-couleurs
+    text: Représenter une couleur numérique par ses coordonnées RVB et calculer un mélange.
+    bloom: apply
+sources:
+  - file: "2026-03-MAT199-ChapI.pdf"
+    page: 1
+    locator: "Chapitre I — Algèbre matricielle, sections 1.1 et 1.2 (p. 1 à 14)"
+  - file: "2026-03_MAT199_ex.pdf"
+    page: 2
+    locator: "Banque d'exercices, sections 1.1 et 1.2"
+---
+
+Les notes de ce cours sont une adaptation, par Myriam Chabot, des notes du
+Pr. Shiping Liu. Elles laissent en blanc la solution de chaque exercice, à
+compléter en classe : **les solutions données ici ont été calculées et
+vérifiées par la plateforme**, pas recopiées d'un corrigé.
+
+Partout, $\mathbb{Z}$ désigne les entiers, $\mathbb{Q}$ les rationnels et
+$\mathbb{R}$ les réels.
+
+## 1. Polynômes : un rappel
+
+### 1.1 Degré, coefficients, racines
+
+Un **polynôme réel de degré $n$** est une expression formelle
+
+$$
+f(x) = a_n x^n + \cdots + a_1 x + a_0, \qquad a_0, \dots, a_n \in \mathbb{R}.
+$$
+
+- Si $a_n \neq 0$, $n$ est le **degré** et $a_n$ le **coefficient
+  directeur**.
+- Si $f(a) = 0$, le réel $a$ est une **racine** de $f(x)$.
+
+**Proposition 1.1.2.** $a$ est une racine de $f(x)$ **si, et seulement si,**
+$f(x) = (x - a)\,g(x)$ avec $g$ de degré $n - 1$. Par conséquent :
+
+1. $f(x)$ admet **au plus $n$ racines réelles** ;
+2. $f(x)$ admet $n$ racines réelles $a_1, \dots, a_n$ (avec multiplicités)
+   si, et seulement si, $f(x) = c\,(x - a_1)\cdots(x - a_n)$, où $c$ est le
+   coefficient directeur. On dit alors que $f$ est **totalement factorisable
+   sur $\mathbb{R}$**.
+
+Par exemple, $f(x) = 5(x-2)^2(x-3)$ est totalement factorisable, de racines
+2, 2 et 3.
+
+### 1.2 Deux outils pour trouver des racines
+
+Il n'y a **pas de règle générale** pour trouver les racines d'un polynôme.
+Les notes en donnent deux.
+
+**Le discriminant (degré deux).** Pour $f(x) = ax^2 + bx + c$, on pose
+$\Delta = b^2 - 4ac$. Il existe une racine réelle si, et seulement si,
+$\Delta \geq 0$, et alors
+
+$$
+x_1 = \frac{-b + \sqrt{\Delta}}{2a}, \qquad x_2 = \frac{-b - \sqrt{\Delta}}{2a}.
+$$
+
+**Les diviseurs du terme constant (proposition 1.1.4).** Si
+$f(x) = x^n + a_{n-1}x^{n-1} + \cdots + a_0$ est à **coefficients entiers et
+de coefficient directeur 1**, toute racine rationnelle de $f$ est **un entier
+qui divise $a_0$**.
+
+<Callout type="example" title="Exercice des notes, p. 3 — factoriser x³ − 4x² + x + 6">
+Les racines rationnelles possibles sont les diviseurs de 6 :
+$\pm 1, \pm 2, \pm 3, \pm 6$. On teste :
+
+- $f(-1) = -1 - 4 - 1 + 6 = 0$ ✓
+- $f(2) = 8 - 16 + 2 + 6 = 0$ ✓
+- $f(3) = 27 - 36 + 3 + 6 = 0$ ✓
+
+Trois racines pour un degré 3 : c'est fini, et le coefficient directeur vaut 1.
+
+$$
+x^3 - 4x^2 + x + 6 = (x + 1)(x - 2)(x - 3).
+$$
+</Callout>
+
+<Callout type="misconception" title="Erreur classique">
+Conclure qu'un polynôme « ne se factorise pas » parce que $\Delta < 0$ pour
+**un** de ses facteurs. $x^3 + x^2 - 2 = (x - 1)(x^2 + 2x + 2)$ se factorise
+partiellement ; c'est seulement le facteur $x^2 + 2x + 2$, de discriminant
+$4 - 8 = -4$, qui ne se factorise plus sur $\mathbb{R}$.
+</Callout>
+
+<Source file="2026-03-MAT199-ChapI.pdf" page={2} locator="Section 1.1, propositions 1.1.2 à 1.1.4" />
+
+## 2. Les matrices et leurs opérations
+
+### 2.1 Vocabulaire
+
+Une **matrice réelle de type $m \times n$** est un tableau de $mn$ réels sur
+**$m$ lignes et $n$ colonnes**. Le nombre $a_{ij}$ est le **$(i, j)$-terme** :
+$i$ est l'indice de **ligne**, $j$ l'indice de **colonne**.
+
+| Nom | Condition |
+| --- | --- |
+| matrice **nulle** $0_{m \times n}$ | tous les termes valent 0 |
+| **matrice-ligne** | $m = 1$ |
+| **matrice-colonne** | $n = 1$ |
+| **carrée d'ordre $n$** | $m = n$ ; ses termes $a_{11}, \dots, a_{nn}$ sont les **termes diagonaux** |
+| **diagonale** | carrée, et $a_{ij} = 0$ dès que $i \neq j$ |
+
+On note $M_{m \times n}(\mathbb{R})$ l'ensemble des matrices réelles de type
+$m \times n$, et $M_n(\mathbb{R})$ celui des matrices carrées d'ordre $n$.
+Deux matrices sont **égales** si elles sont **du même type** et que leurs
+termes de même position sont égaux.
+
+### 2.2 Somme et multiplication par un réel
+
+Pour $A = (a_{ij})$ et $B = (b_{ij})$ **de même type** et $a \in \mathbb{R}$ :
+$aA = (a\,a_{ij})$, $-A = (-a_{ij})$, $A + B = (a_{ij} + b_{ij})$,
+$A - B = (a_{ij} - b_{ij})$.
+
+<Callout type="warning" title="Une condition de type">
+Si $A$ et $B$ ne sont pas du même type, **ni $A + B$ ni $A - B$ n'est
+définie**. Ces opérations vérifient les huit axiomes de la proposition 1.2.4
+(commutativité, associativité, neutre $0_{m\times n}$, etc.) — les mêmes que
+ceux des espaces vectoriels du chapitre 5.
+</Callout>
+
+### 2.3 Le produit
+
+Le produit d'une **matrice-ligne $1 \times n$** par une **matrice-colonne
+$n \times 1$** est un nombre :
+
+$$
+(a_1 \;\cdots\; a_n)\begin{pmatrix} b_1 \\ \vdots \\ b_n \end{pmatrix} = \sum_{k=1}^{n} a_k b_k .
+$$
+
+En général, si $A \in M_{m \times n}(\mathbb{R})$ et $B \in M_{n \times p}(\mathbb{R})$,
+le produit $AB$ est **de type $m \times p$**, et son $(i, j)$-terme est le
+produit de la **ligne $i$ de $A$** par la **colonne $j$ de $B$** :
+
+$$
+c_{ij} = \sum_{k=1}^{n} a_{ik}\, b_{kj}.
+$$
+
+<Callout type="warning" title="Un indice à corriger dans la définition 1.2.5">
+Dans les notes, la colonne $j$ de $B$ est écrite $(b_{1j}, \dots, b_{jn})^T$ ; son
+dernier terme est en réalité $b_{nj}$ (ligne $n$, colonne $j$). La somme
+$\sum_k a_{ik} b_{kj}$ qui suit est, elle, correcte.
+</Callout>
+
+<Callout type="note" title="La règle des types">
+$(m \times \mathbf{n}) \cdot (\mathbf{n} \times p) = m \times p$. Les deux
+nombres « intérieurs » doivent être égaux ; les deux « extérieurs » donnent le
+type du résultat.
+</Callout>
+
+L'exemple des notes est la note finale du MAT199, où les pondérations des
+tests, de l'intra et du final sont 15 %, 35 % et 50 % :
+
+$$
+(80,\; 56,\; 75)\begin{pmatrix} 0{,}15 \\ 0{,}35 \\ 0{,}50 \end{pmatrix} = 80 \times 0{,}15 + 56 \times 0{,}35 + 75 \times 0{,}50 = 69{,}1 .
+$$
+
+<Callout type="example" title="Exercice des notes, p. 7 — deux termes de AB">
+$$
+A = \begin{pmatrix} 2 & 3 & \sqrt2 \\ -2 & 0 & 0 \\ 1 & \sqrt3 & 2 \end{pmatrix}, \quad
+B = \begin{pmatrix} 2 & 2 \\ 0 & 3 \\ 0 & \sqrt2 \end{pmatrix}.
+$$
+
+$AB$ est de type $3 \times 2$. On ne calcule que ce qu'on demande :
+
+- $(1, 2)$-terme : ligne 1 de $A$ × colonne 2 de $B$ $= 2 \cdot 2 + 3 \cdot 3 + \sqrt2 \cdot \sqrt2 = 4 + 9 + 2 = 15$ ;
+- $(3, 1)$-terme : ligne 3 de $A$ × colonne 1 de $B$ $= 1 \cdot 2 + \sqrt3 \cdot 0 + 2 \cdot 0 = 2$.
+</Callout>
+
+La **matrice identité** $I_n$ a des 1 sur la diagonale et des 0 ailleurs.
+
+**Proposition 1.2.7.** Quand les produits sont définis :
+$(AB)C = A(BC)$ ; $(aA)(bB) = (ab)(AB)$ ; $A(B + C) = AB + AC$ ;
+$(A + B)C = AC + BC$ ; et, pour $A$ de type $m \times n$,
+$I_m A = A = A I_n$.
+
+<Callout type="misconception" title="Deux réflexes du calcul sur les nombres qui sont faux ici">
+**La multiplication n'est pas commutative.** Avec deux matrices des notes
+(p. 20) :
+
+$$
+\begin{pmatrix} 1 & 1 \\ 0 & 1 \end{pmatrix}\begin{pmatrix} 1 & 1 \\ 1 & 2 \end{pmatrix} = \begin{pmatrix} 2 & 3 \\ 1 & 2 \end{pmatrix}
+\quad\text{mais}\quad
+\begin{pmatrix} 1 & 1 \\ 1 & 2 \end{pmatrix}\begin{pmatrix} 1 & 1 \\ 0 & 1 \end{pmatrix} = \begin{pmatrix} 1 & 2 \\ 1 & 3 \end{pmatrix}.
+$$
+
+**Le produit $AB$ peut être nul sans que $A$ ou $B$ le soit :**
+
+$$
+\begin{pmatrix} 1 & 0 \\ 0 & 0 \end{pmatrix}\begin{pmatrix} 0 & 0 \\ 0 & 1 \end{pmatrix} = \begin{pmatrix} 0 & 0 \\ 0 & 0 \end{pmatrix}.
+$$
+
+Les notes énoncent ces deux faits et laissent l'exemple en blanc ; ces deux-ci
+sont choisis par la plateforme.
+</Callout>
+
+<Source file="2026-03-MAT199-ChapI.pdf" page={6} locator="Définitions 1.2.1 à 1.2.6, proposition 1.2.7" />
+
+### 2.4 Le produit par colonnes
+
+C'est l'outil le plus utile du chapitre : il évite de calculer tout un produit.
+
+**Proposition 1.2.8.** Si $A$ a pour colonnes $A_1, \dots, A_n$ :
+
+$$
+A\begin{pmatrix} a_1 \\ \vdots \\ a_n \end{pmatrix} = a_1 A_1 + a_2 A_2 + \cdots + a_n A_n .
+$$
+
+**Proposition 1.2.9.** Si $B$ a pour colonnes $B_1, \dots, B_p$ :
+
+$$
+AB = A(B_1 \; B_2 \; \cdots \; B_p) = (AB_1 \;\; AB_2 \;\; \cdots \;\; AB_p),
+$$
+
+c'est-à-dire que **la $j$-ième colonne de $AB$ est $A$ fois la $j$-ième
+colonne de $B$**.
+
+<Callout type="example" title="Exercices des notes, p. 10 et 11">
+Avec $A = \begin{pmatrix} 1 & 0 & -1 \\ 1 & 0 & 1 \\ 0 & 1 & 1 \end{pmatrix}$ :
+
+- $A\begin{pmatrix} 3 \\ 4 \\ -1 \end{pmatrix} = 3A_1 + 4A_2 - A_3 = \begin{pmatrix} 3 \\ 3 \\ 0 \end{pmatrix} + \begin{pmatrix} 0 \\ 0 \\ 4 \end{pmatrix} - \begin{pmatrix} -1 \\ 1 \\ 1 \end{pmatrix} = \begin{pmatrix} 4 \\ 2 \\ 3 \end{pmatrix}$ ;
+- $A\begin{pmatrix} 0 \\ 1 \\ 0 \end{pmatrix} = A_2 = \begin{pmatrix} 0 \\ 0 \\ 1 \end{pmatrix}$ : multiplier par $e_j$ **extrait la colonne $j$**.
+
+Et pour $\begin{pmatrix} 1 & 2 & 3 \\ -1 & 4 & 5 \end{pmatrix}\begin{pmatrix} 0 & 0 & 1 \\ 1 & 0 & 0 \\ 0 & 1 & 0 \end{pmatrix}$,
+les colonnes de $B$ sont $e_2, e_3, e_1$ : le produit est formé des colonnes
+2, 3 puis 1 de $A$, soit $\begin{pmatrix} 2 & 3 & 1 \\ 4 & 5 & -1 \end{pmatrix}$.
+</Callout>
+
+**Proposition 1.2.11.** Multiplier **à droite** par une matrice diagonale
+multiplie **chaque colonne** par le terme diagonal correspondant :
+
+$$
+(A_1 \; \cdots \; A_n)\begin{pmatrix} a_1 & & 0 \\ & \ddots & \\ 0 & & a_n \end{pmatrix} = (a_1 A_1 \;\; \cdots \;\; a_n A_n).
+$$
+
+Ainsi, exercice de la p. 12 :
+
+$$
+\begin{pmatrix} 2 & \sqrt2 & 1 \\ 3 & \sqrt3 & 2 \end{pmatrix}\begin{pmatrix} 2 & 0 & 0 \\ 0 & 3 & 0 \\ 0 & 0 & 4 \end{pmatrix} = \begin{pmatrix} 4 & 3\sqrt2 & 4 \\ 6 & 3\sqrt3 & 8 \end{pmatrix}.
+$$
+
+<Source file="2026-03-MAT199-ChapI.pdf" page={9} locator="Propositions 1.2.8, 1.2.9 et 1.2.11" />
+
+### 2.5 La transposée et les matrices symétriques
+
+La **transposée** de $A = (a_{ij})_{m \times n}$ est $A^T = (a'_{ij})_{n \times m}$
+avec $a'_{ij} = a_{ji}$ : **la $i$-ième ligne de $A^T$ est la $i$-ième colonne de
+$A$**, couchée.
+
+**Proposition 1.2.13.** $(A^T)^T = A$ ; $(aA)^T = aA^T$ ;
+$(A + B)^T = A^T + B^T$ ; et, si $AB$ est défini,
+
+$$
+(AB)^T = B^T A^T .
+$$
+
+<Callout type="misconception" title="L'ordre s'inverse">
+$(AB)^T$ n'est **pas** $A^T B^T$. L'exemple des notes le montre avec
+$A = \begin{pmatrix} 0 & 1 & 0 \\ 0 & 0 & 1 \end{pmatrix}$ et
+$B = \begin{pmatrix} 1 & 0 \\ 0 & 1 \\ 0 & 0 \end{pmatrix}$ : $(AB)^T$ est de
+type $2 \times 2$, alors que $A^T B^T$ est de type $3 \times 3$. Ils ne peuvent
+même pas être égaux.
+</Callout>
+
+Une matrice carrée est **symétrique** si $A^T = A$, c'est-à-dire
+$a_{ji} = a_{ij}$ : elle est « en miroir » par rapport à sa diagonale. Toute
+matrice diagonale est symétrique.
+
+Exercice de la p. 14 : parmi
+
+$$
+A = \begin{pmatrix} 1 & 2 & 3 \\ 2 & 5 & 4 \\ 3 & 4 & 6 \end{pmatrix}, \qquad
+B = \begin{pmatrix} 1 & 2 & 3 \\ 2 & 5 & 4 \\ 3 & -4 & 6 \end{pmatrix},
+$$
+
+seule $A$ est symétrique : dans $B$, le $(3, 2)$-terme vaut $-4$ alors que le
+$(2, 3)$-terme vaut $4$.
+
+<Source file="2026-03-MAT199-ChapI.pdf" page={13} locator="Définitions 1.2.12 et 1.2.14, proposition 1.2.13" />
+
+## 3. Application : les couleurs numériques
+
+Une **couleur numérique** $C$ mélange le rouge, le vert et le bleu
+d'intensités $r, v, b \in [0, 1]$. On appelle $\{r; v; b\}$ ses **coordonnées
+RVB** et on l'identifie à la matrice-colonne $\begin{pmatrix} r \\ v \\ b \end{pmatrix}$.
+
+| Couleur | r | v | b |
+| --- | --- | --- | --- |
+| rouge | 1 | 0 | 0 |
+| vert | 0 | 1 | 0 |
+| bleu | 0 | 0 | 1 |
+| blanc | 1 | 1 | 1 |
+| noir | 0 | 0 | 0 |
+| cyan | 0 | 1 | 1 |
+| magenta | 1 | 0 | 1 |
+| jaune | 1 | 1 | 0 |
+| gris | 1/3 | 1/3 | 1/3 |
+| pourpre | 0,6 | 0 | 1 |
+
+Un mélange est un **produit par colonnes** : les couleurs de base forment les
+colonnes, les pourcentages forment la colonne de droite. L'exemple des notes
+(30 % de magenta, 20 % de blanc, 15 % de jaune, 35 % de pourpre) :
+
+$$
+\begin{pmatrix} 1 & 1 & 1 & 0{,}6 \\ 0 & 1 & 1 & 0 \\ 1 & 1 & 0 & 1 \end{pmatrix}
+\begin{pmatrix} 0{,}3 \\ 0{,}2 \\ 0{,}15 \\ 0{,}35 \end{pmatrix}
+= \begin{pmatrix} 0{,}86 \\ 0{,}35 \\ 0{,}85 \end{pmatrix}.
+$$
+
+<Callout type="tip" title="Le lien avec la suite du cours">
+Ce calcul est exactement la proposition 1.2.8. Au chapitre 5, la même idée
+devient la notion de **combinaison linéaire**, et la question « peut-on
+obtenir telle couleur en mélangeant celles-ci ? » devient un **système
+d'équations linéaires**.
+</Callout>
+
+<Source file="2026-03-MAT199-ChapI.pdf" page={5} locator="Définition 1.2.2 et tableau des couleurs ; exemple p. 10" />

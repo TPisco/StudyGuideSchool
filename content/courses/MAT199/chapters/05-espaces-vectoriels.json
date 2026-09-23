@@ -1,0 +1,1850 @@
+{
+  "course": "MAT199",
+  "chapter": 5,
+  "concepts": [
+    {
+      "id": "c5-espace",
+      "term": "Espace vectoriel réel",
+      "definition": "Un ensemble $E$ muni d'une addition et d'une multiplication par des scalaires réels vérifiant huit axiomes (associativités, neutralité de 1, commutativité, vecteur nul $0_E$, opposé, deux distributivités). Exemple fondamental : $\\mathbb{R}^n$, l'espace vectoriel canonique.",
+      "whyItMatters": "La même théorie s'applique d'un coup à toutes les quantités vectorielles : forces, couleurs, matrices-colonnes.",
+      "commonMisconception": "Croire que tout sous-ensemble de $\\mathbb{R}^3$ est un espace vectoriel : l'ensemble des couleurs n'est stable ni par addition ni par multiplication par un scalaire.",
+      "objectiveId": "obj5-axiomes",
+      "source": {
+        "file": "2026-03-MAT199-ChapIV-partie1.pdf",
+        "page": 2,
+        "locator": "Définition 4.1.1, proposition 4.1.2"
+      }
+    },
+    {
+      "id": "c5-combinaison",
+      "term": "Combinaison linéaire",
+      "definition": "$u = a_1u_1 + \\cdots + a_nu_n$ pour des réels $a_i$, les coefficients. Dans $\\mathbb{R}^m$, $u$ est combinaison linéaire des $u_i$ si, et seulement si, le système $(u_1 \\cdots u_n)X = u$ est compatible, et les coefficients sont ses solutions.",
+      "whyItMatters": "Tout le chapitre se ramène à ce système : décider, c'est comparer deux rangs ; trouver les coefficients, c'est le résoudre.",
+      "commonMisconception": "Croire que les coefficients sont toujours uniques : pour u = (1, 5, 1) des notes, il y en a une infinité.",
+      "objectiveId": "obj5-combinaison",
+      "source": {
+        "file": "2026-03-MAT199-ChapIV-partie1.pdf",
+        "page": 5,
+        "locator": "Définition 4.1.4, théorème 4.1.6, proposition 4.1.7"
+      }
+    },
+    {
+      "id": "c5-melange",
+      "term": "Mélange de couleurs",
+      "definition": "Une couleur $C$ s'obtient en mélangeant $C_1, \\dots, C_n$ si, et seulement si, $C = a_1C_1 + \\cdots + a_nC_n$ avec $0 \\leq a_i \\leq 1$.",
+      "whyItMatters": "Une combinaison linéaire ne suffit pas : les coefficients doivent être des intensités.",
+      "commonMisconception": "Conclure qu'une couleur est un mélange dès qu'elle est combinaison linéaire : $D = \\frac12 J + \\frac12 M - \\frac14 C$ ne l'est pas, à cause du coefficient négatif.",
+      "objectiveId": "obj5-combinaison",
+      "source": {
+        "file": "2026-03-MAT199-ChapIV-partie1.pdf",
+        "page": 6,
+        "locator": "Proposition 4.1.5"
+      }
+    },
+    {
+      "id": "c5-libre",
+      "term": "Famille libre, famille liée",
+      "definition": "$\\{u_1, \\dots, u_n\\}$ est liée s'il existe des $a_i$ non tous nuls avec $\\sum a_iu_i = 0_E$ ; libre sinon. Dans $\\mathbb{R}^m$ : libre $\\iff \\operatorname{rg}(u_1 \\cdots u_n) = n$.",
+      "whyItMatters": "Libre signifie qu'aucun vecteur n'est combinaison des autres, et que toute combinaison linéaire s'écrit de façon unique.",
+      "commonMisconception": "Comparer le rang à la dimension $m$ de l'espace : c'est au NOMBRE DE VECTEURS $n$ qu'il faut le comparer.",
+      "objectiveId": "obj5-libre",
+      "source": {
+        "file": "2026-03-MAT199-ChapIV-partie1.pdf",
+        "page": 9,
+        "locator": "Définition 4.1.8, théorème 4.1.10"
+      }
+    },
+    {
+      "id": "c5-petites",
+      "term": "Familles d'un ou deux vecteurs",
+      "definition": "$\\{u\\}$ est liée si, et seulement si, $u = 0_E$. $\\{u, v\\}$ est liée si, et seulement si, l'un est un multiple de l'autre.",
+      "whyItMatters": "Pour une ou deux vecteurs, on conclut à l'œil, sans calculer de rang.",
+      "commonMisconception": "Étendre la règle à trois vecteurs : trois vecteurs peuvent être liés sans qu'aucun ne soit multiple d'un autre.",
+      "objectiveId": "obj5-libre",
+      "source": {
+        "file": "2026-03-MAT199-ChapIV-partie1.pdf",
+        "page": 10,
+        "locator": "Lemme 4.1.9"
+      }
+    },
+    {
+      "id": "c5-base",
+      "term": "Base et dimension",
+      "definition": "Une base est une famille ordonnée libre dont tout vecteur de $E$ est combinaison linéaire. Toutes les bases ont le même nombre de vecteurs, la dimension ; $\\dim \\mathbb{R}^n = n$, de base canonique $\\{e_1, \\dots, e_n\\}$.",
+      "whyItMatters": "Si $\\dim E = n$, toute famille libre de $n$ vecteurs est une base, et toute famille de plus de $n$ vecteurs est liée : souvent, compter suffit.",
+      "commonMisconception": "Oublier qu'une base est ORDONNÉE : {e₂, e₁} est une autre base que {e₁, e₂}, et les coordonnées changent d'ordre.",
+      "objectiveId": "obj5-base",
+      "source": {
+        "file": "2026-03-MAT199-ChapIV-partie1.pdf",
+        "page": 13,
+        "locator": "Définition 4.1.12, théorèmes 4.1.14 et 4.1.15"
+      }
+    },
+    {
+      "id": "c5-coordonnees",
+      "term": "Coordonnées dans une base",
+      "definition": "Si $\\{u_1, \\dots, u_n\\}$ est une base, tout $u$ s'écrit de façon unique $a_1u_1 + \\cdots + a_nu_n$ ; $(a_1, \\dots, a_n)^T$ est la colonne des coordonnées. Dans la base canonique de $\\mathbb{R}^n$, elle coïncide avec $u$.",
+      "whyItMatters": "Les coordonnées s'obtiennent en résolvant le système (u₁ ⋯ uₙ)X = u, qui a une seule solution puisque la famille est une base.",
+      "commonMisconception": "Donner les coordonnées dans la base canonique quand on demande celles dans une autre base.",
+      "objectiveId": "obj5-coordonnees",
+      "source": {
+        "file": "2026-03-MAT199-ChapIV-partie1.pdf",
+        "page": 16,
+        "locator": "Définition 4.2.1, lemme 4.2.2"
+      }
+    },
+    {
+      "id": "c5-passage",
+      "term": "Matrice des coordonnées et matrice de passage",
+      "definition": "$P^{\\{v_j\\}}_{\\{u_i\\}}$ a pour $j$-ième COLONNE les coordonnées de $v_j$ dans $\\{u_i\\}$. Entre deux bases, c'est la matrice de passage ; elle est inversible, et le passage inverse est $P^{-1}$. Depuis la base canonique, c'est $(u_1 \\cdots u_n)$.",
+      "whyItMatters": "Elle permet de changer de base : $P^{\\{w\\}}_{\\{v\\}} = P^{-1}A$, et le passage de $\\{v\\}$ à $\\{w\\}$ est $P^{-1}Q$.",
+      "commonMisconception": "Ranger les coordonnées en LIGNES : la matrice obtenue est la transposée, et décrit d'autres vecteurs.",
+      "objectiveId": "obj5-coordonnees",
+      "source": {
+        "file": "2026-03-MAT199-ChapIV-partie1.pdf",
+        "page": 19,
+        "locator": "Définitions 4.2.3 et 4.2.7, théorèmes 4.2.9 et 4.2.10"
+      }
+    }
+  ],
+  "tables": [
+    {
+      "id": "t5-criteres",
+      "title": "Décider par le rang (vecteurs de ℝᵐ)",
+      "kind": "cheatsheet",
+      "columns": [
+        {
+          "key": "question",
+          "label": "Question"
+        },
+        {
+          "key": "outil",
+          "label": "Outil"
+        },
+        {
+          "key": "critere",
+          "label": "Critère"
+        }
+      ],
+      "rows": [
+        {
+          "question": "$u$ est-il combinaison linéaire des $u_i$ ?",
+          "outil": "système $(u_1 \\cdots u_n)X = u$",
+          "critere": "$\\operatorname{rg}(u_1 \\cdots u_n) = \\operatorname{rg}(u_1 \\cdots u_n \\mid u)$"
+        },
+        {
+          "question": "$\\{u_1, \\dots, u_n\\}$ est-elle libre ?",
+          "outil": "système homogène $(u_1 \\cdots u_n)X = 0$",
+          "critere": "$\\operatorname{rg}(u_1 \\cdots u_n) = n$"
+        },
+        {
+          "question": "$n$ vecteurs de $\\mathbb{R}^n$ forment-ils une base ?",
+          "outil": "matrice carrée $(u_1 \\cdots u_n)$",
+          "critere": "inversible, soit $\\det \\neq 0$"
+        },
+        {
+          "question": "plus de $m$ vecteurs dans $\\mathbb{R}^m$",
+          "outil": "aucun calcul",
+          "critere": "toujours liée"
+        }
+      ],
+      "source": {
+        "file": "2026-03-MAT199-ChapIV-partie1.pdf",
+        "page": 6,
+        "locator": "Théorèmes 4.1.6, 4.1.10, 4.1.15 ; corollaire 4.2.6"
+      }
+    },
+    {
+      "id": "t5-passage",
+      "title": "Matrices des coordonnées et de passage",
+      "kind": "reference",
+      "columns": [
+        {
+          "key": "objet",
+          "label": "Objet"
+        },
+        {
+          "key": "formule",
+          "label": "Formule"
+        },
+        {
+          "key": "ref",
+          "label": "Référence"
+        }
+      ],
+      "rows": [
+        {
+          "objet": "coordonnées canoniques de u",
+          "formule": "u lui-même",
+          "ref": "lemme 4.2.2"
+        },
+        {
+          "objet": "$P^{\\{v_1, \\dots, v_m\\}}_{\\{e_1, \\dots, e_n\\}}$",
+          "formule": "$(v_1 \\cdots v_m)$",
+          "ref": "lemme 4.2.4"
+        },
+        {
+          "objet": "passage de la base canonique à {u}",
+          "formule": "$(u_1 \\cdots u_n)$",
+          "ref": "lemme 4.2.8"
+        },
+        {
+          "objet": "passage de {v} à {u}",
+          "formule": "$P^{-1}$",
+          "ref": "théorème 4.2.10(1)"
+        },
+        {
+          "objet": "passage de {v} à {w}",
+          "formule": "$P^{-1}Q$",
+          "ref": "théorème 4.2.10(2)"
+        },
+        {
+          "objet": "coordonnées des w dans {v}",
+          "formule": "$P^{-1}A$",
+          "ref": "théorème 4.2.9"
+        }
+      ],
+      "source": {
+        "file": "2026-03-MAT199-ChapIV-partie1.pdf",
+        "page": 25,
+        "locator": "Lemmes 4.2.2, 4.2.4, 4.2.8 ; théorèmes 4.2.9 et 4.2.10"
+      }
+    }
+  ],
+  "quiz": {
+    "title": "Quiz — vérification rapide",
+    "estimatedMinutes": 15,
+    "questions": [
+      {
+        "id": "q5-01",
+        "objectiveId": "obj5-axiomes",
+        "bloomLevel": "recall",
+        "type": "mcq",
+        "difficulty": 1,
+        "prompt": "Lequel de ces énoncés est l'un des huit axiomes d'un espace vectoriel réel ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "$(a + b) \\cdot u = a \\cdot u + b \\cdot u$"
+          },
+          {
+            "id": "b",
+            "text": "$u \\cdot v = v \\cdot u$ pour deux vecteurs"
+          },
+          {
+            "id": "c",
+            "text": "$a \\cdot u = u$ pour tout scalaire $a$"
+          },
+          {
+            "id": "d",
+            "text": "$u + v = 0_E$ pour tous $u, v$"
+          }
+        ],
+        "correct": "a",
+        "explanation": "C'est l'axiome (8), la seconde distributivité.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Un espace vectoriel n'a pas de produit de deux vecteurs ; seulement un produit par un scalaire."
+          },
+          {
+            "optionId": "c",
+            "why": "L'axiome (2) ne concerne que le scalaire 1 : 1 · u = u."
+          },
+          {
+            "optionId": "d",
+            "why": "L'axiome (6) dit que CHAQUE u a un opposé, pas que toute somme est nulle."
+          }
+        ],
+        "source": {
+          "file": "2026-03-MAT199-ChapIV-partie1.pdf",
+          "page": 2,
+          "locator": "Définition 4.1.1"
+        }
+      },
+      {
+        "id": "q5-02",
+        "objectiveId": "obj5-combinaison",
+        "bloomLevel": "apply",
+        "type": "short-answer",
+        "difficulty": 1,
+        "prompt": "Pour $u = (1, 2)^T$ et $v = (2, 1)^T$, quelle est la DEUXIÈME coordonnée de $w = 2u + 3v$ ?",
+        "correct": "7",
+        "acceptableAnswers": [],
+        "explanation": "$w = 2(1, 2)^T + 3(2, 1)^T = (2, 4)^T + (6, 3)^T = (8, 7)^T$ (exercice p. 5).",
+        "source": {
+          "file": "2026-03-MAT199-ChapIV-partie1.pdf",
+          "page": 5,
+          "locator": "Exercice p. 5"
+        }
+      },
+      {
+        "id": "q5-03",
+        "objectiveId": "obj5-combinaison",
+        "bloomLevel": "understand",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "D'après le théorème 4.1.6, $u$ est combinaison linéaire de $u_1, \\dots, u_n \\in \\mathbb{R}^m$ si, et seulement si :",
+        "options": [
+          {
+            "id": "a",
+            "text": "$\\operatorname{rg}(u_1 \\cdots u_n) = \\operatorname{rg}(u_1 \\cdots u_n \\mid u)$"
+          },
+          {
+            "id": "b",
+            "text": "$\\operatorname{rg}(u_1 \\cdots u_n) = n$"
+          },
+          {
+            "id": "c",
+            "text": "$\\operatorname{rg}(u_1 \\cdots u_n \\mid u) = m$"
+          },
+          {
+            "id": "d",
+            "text": "$\\det(u_1 \\cdots u_n) \\neq 0$"
+          }
+        ],
+        "correct": "a",
+        "explanation": "C'est la compatibilité du système $(u_1 \\cdots u_n)X = u$, lue par le théorème du rang du chapitre 4.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "C'est le critère d'une famille LIBRE (théorème 4.1.10)."
+          },
+          {
+            "optionId": "c",
+            "why": "Le rang de la matrice augmentée seul ne dit rien : il faut le comparer à celui des u_i."
+          },
+          {
+            "optionId": "d",
+            "why": "La matrice n'est pas forcément carrée, et le critère porte sur la compatibilité d'un système."
+          }
+        ],
+        "source": {
+          "file": "2026-03-MAT199-ChapIV-partie1.pdf",
+          "page": 6,
+          "locator": "Théorème 4.1.6"
+        }
+      },
+      {
+        "id": "q5-04",
+        "objectiveId": "obj5-combinaison",
+        "bloomLevel": "apply",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "$v = (2, -1, 1)^T$ est-il combinaison linéaire de $v_1 = (1, 3, 1)^T$ et $v_2 = (3, 2, -4)^T$ ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Non : le rang passe de 2 à 3 quand on ajoute la colonne $v$"
+          },
+          {
+            "id": "b",
+            "text": "Oui : $v = -v_1 + v_2$"
+          },
+          {
+            "id": "c",
+            "text": "Oui, car deux vecteurs non colinéaires engendrent tout ℝ³"
+          },
+          {
+            "id": "d",
+            "text": "On ne peut pas savoir sans connaître une base de ℝ³"
+          }
+        ],
+        "correct": "a",
+        "explanation": "En échelonnant $(v_1\\ v_2 \\mid v)$, on obtient une ligne $(0\\ 0 \\mid 6)$ : $\\operatorname{rg}(v_1\\ v_2) = 2 < 3$ (exercice p. 7).",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "$-v_1 + v_2 = (2, -1, -5)^T$ : la troisième coordonnée ne correspond pas."
+          },
+          {
+            "optionId": "c",
+            "why": "Deux vecteurs engendrent au plus un plan ; il en faut trois pour ℝ³."
+          },
+          {
+            "optionId": "d",
+            "why": "Le théorème 4.1.6 décide directement par les rangs."
+          }
+        ],
+        "source": {
+          "file": "2026-03-MAT199-ChapIV-partie1.pdf",
+          "page": 7,
+          "locator": "Exercice p. 7"
+        }
+      },
+      {
+        "id": "q5-05",
+        "objectiveId": "obj5-libre",
+        "bloomLevel": "recall",
+        "type": "mcq",
+        "difficulty": 1,
+        "prompt": "Selon le lemme 4.1.9, quand la famille $\\{u, v\\}$ est-elle liée ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Quand l'un des deux vecteurs est un multiple de l'autre"
+          },
+          {
+            "id": "b",
+            "text": "Quand les deux vecteurs sont différents"
+          },
+          {
+            "id": "c",
+            "text": "Quand aucun des deux n'est nul"
+          },
+          {
+            "id": "d",
+            "text": "Jamais : deux vecteurs forment toujours une famille libre"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Lemme 4.1.9(2). En particulier, une famille contenant le vecteur nul est liée, puisque 0 = 0 · u.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Deux vecteurs différents peuvent être liés, comme (1, 2) et (2, 4)."
+          },
+          {
+            "optionId": "c",
+            "why": "Des vecteurs non nuls peuvent être liés ou libres ; le critère est la proportionnalité."
+          },
+          {
+            "optionId": "d",
+            "why": "(1, 2) et (2, 4) sont liés : le second est le double du premier."
+          }
+        ],
+        "source": {
+          "file": "2026-03-MAT199-ChapIV-partie1.pdf",
+          "page": 10,
+          "locator": "Lemme 4.1.9"
+        }
+      },
+      {
+        "id": "q5-06",
+        "objectiveId": "obj5-libre",
+        "bloomLevel": "apply",
+        "type": "mcq",
+        "difficulty": 1,
+        "prompt": "Quatre vecteurs $v_1, v_2, v_3, v_4$ de $\\mathbb{R}^3$ forment-ils une famille libre ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Non, jamais : plus de 3 vecteurs dans un espace de dimension 3 sont liés"
+          },
+          {
+            "id": "b",
+            "text": "Oui, si aucun n'est multiple d'un autre"
+          },
+          {
+            "id": "c",
+            "text": "Cela dépend des vecteurs : il faut calculer le rang"
+          },
+          {
+            "id": "d",
+            "text": "Oui, si leur déterminant est non nul"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Théorème 4.1.15(2), ou théorème 4.1.10 : $\\operatorname{rg}(v_1 \\cdots v_4) \\leq 3 < 4$ (exercice p. 10).",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Le lemme 4.1.9 ne vaut que pour deux vecteurs ; ici on en a quatre."
+          },
+          {
+            "optionId": "c",
+            "why": "Le rang d'une matrice $3 \\times 4$ est au plus 3 < 4 : la réponse est connue d'avance."
+          },
+          {
+            "optionId": "d",
+            "why": "Le déterminant n'est défini que pour une matrice carrée ; (v₁ ⋯ v₄) est 3 × 4."
+          }
+        ],
+        "source": {
+          "file": "2026-03-MAT199-ChapIV-partie1.pdf",
+          "page": 10,
+          "locator": "Exercice p. 10 (1)"
+        }
+      },
+      {
+        "id": "q5-07",
+        "objectiveId": "obj5-libre",
+        "bloomLevel": "understand",
+        "type": "true-false",
+        "difficulty": 1,
+        "prompt": "Une famille libre peut contenir le vecteur nul.",
+        "options": [
+          {
+            "id": "v",
+            "text": "Vrai"
+          },
+          {
+            "id": "f",
+            "text": "Faux"
+          }
+        ],
+        "correct": "f",
+        "explanation": "Remarque après la proposition 4.1.11 : dans une famille libre, $u_i \\neq 0_E$ pour tout $i$.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "v",
+            "why": "Si $u_1 = 0_E$, alors $1 \\cdot u_1 + 0 \\cdot u_2 + \\cdots = 0_E$ avec un coefficient non nul : la famille est liée."
+          }
+        ],
+        "source": {
+          "file": "2026-03-MAT199-ChapIV-partie1.pdf",
+          "page": 12,
+          "locator": "Remarque après la proposition 4.1.11"
+        }
+      },
+      {
+        "id": "q5-08",
+        "objectiveId": "obj5-base",
+        "bloomLevel": "apply",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Laquelle de ces familles est une base de $\\mathbb{R}^2$ ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "$\\{(1, 1)^T, (1, -1)^T\\}$"
+          },
+          {
+            "id": "b",
+            "text": "$\\{(1, 2)^T, (2, 4)^T\\}$"
+          },
+          {
+            "id": "c",
+            "text": "$\\{(1, 0)^T\\}$"
+          },
+          {
+            "id": "d",
+            "text": "$\\{(1, 0)^T, (0, 1)^T, (1, 1)^T\\}$"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Libre (aucun n'est multiple de l'autre) et 2 vecteurs dans un espace de dimension 2 : théorème 4.1.15(1). C'est l'exercice p. 13.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Le second vecteur est le double du premier : la famille est liée."
+          },
+          {
+            "optionId": "c",
+            "why": "Un seul vecteur ne peut pas engendrer $\\mathbb{R}^2$, qui est de dimension 2."
+          },
+          {
+            "optionId": "d",
+            "why": "Trois vecteurs de ℝ² sont toujours liés."
+          }
+        ],
+        "source": {
+          "file": "2026-03-MAT199-ChapIV-partie1.pdf",
+          "page": 13,
+          "locator": "Exercice p. 13"
+        }
+      },
+      {
+        "id": "q5-09",
+        "objectiveId": "obj5-coordonnees",
+        "bloomLevel": "apply",
+        "type": "short-answer",
+        "difficulty": 2,
+        "prompt": "Dans la base $u_1 = (1, 1)^T$, $u_2 = (1, -1)^T$, quelle est la PREMIÈRE coordonnée de $u = (2, 3)^T$ ? (une fraction)",
+        "correct": "5/2",
+        "acceptableAnswers": [
+          "2,5",
+          "2.5"
+        ],
+        "explanation": "$au_1 + bu_2 = (a + b,\\ a - b)^T = (2, 3)^T$ donne $a = \\frac52$, $b = -\\frac12$ (exercice p. 17).",
+        "source": {
+          "file": "2026-03-MAT199-ChapIV-partie1.pdf",
+          "page": 17,
+          "locator": "Exercice p. 17 (2.1)"
+        }
+      },
+      {
+        "id": "q5-10",
+        "objectiveId": "obj5-base",
+        "bloomLevel": "recall",
+        "type": "mcq",
+        "difficulty": 1,
+        "prompt": "Que vaut $\\dim(\\mathbb{R}^n)$ ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "$n$"
+          },
+          {
+            "id": "b",
+            "text": "$n^2$"
+          },
+          {
+            "id": "c",
+            "text": "$1$"
+          },
+          {
+            "id": "d",
+            "text": "Elle dépend de la base choisie"
+          }
+        ],
+        "correct": "a",
+        "explanation": "La base canonique $\\{e_1, \\dots, e_n\\}$ a $n$ vecteurs.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "C'est le nombre de termes d'une matrice $n \\times n$, pas la dimension de $\\mathbb{R}^n$."
+          },
+          {
+            "optionId": "c",
+            "why": "ℝ¹ = ℝ est de dimension 1, mais ℝⁿ en général est de dimension n."
+          },
+          {
+            "optionId": "d",
+            "why": "Théorème 4.1.14 : toutes les bases ont le même nombre de vecteurs."
+          }
+        ],
+        "source": {
+          "file": "2026-03-MAT199-ChapIV-partie1.pdf",
+          "page": 15,
+          "locator": "Théorème 4.1.14 et exemple"
+        }
+      },
+      {
+        "id": "q5-11",
+        "objectiveId": "obj5-combinaison",
+        "bloomLevel": "analyze",
+        "type": "mcq",
+        "difficulty": 3,
+        "prompt": "On trouve $D = (1, \\frac14, \\frac14)^T = \\frac12 J + \\frac12 M - \\frac14 C$ (jaune, magenta, cyan). Peut-on obtenir $D$ en mélangeant ces trois couleurs ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Non : le coefficient de C est négatif, et un mélange exige des coefficients entre 0 et 1"
+          },
+          {
+            "id": "b",
+            "text": "Oui : D est une combinaison linéaire de J, M et C"
+          },
+          {
+            "id": "c",
+            "text": "Oui, en prenant 1/4 de cyan au lieu de −1/4"
+          },
+          {
+            "id": "d",
+            "text": "Non, car J, M et C ne forment pas une base de ℝ³"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Comme $\\{J, M, C\\}$ est une base, les coefficients sont uniques ; l'un est négatif, donc $D$ n'est pas un mélange (exercice p. 26).",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Combinaison linéaire ne suffit pas : la proposition 4.1.5 exige des coefficients dans [0, 1]."
+          },
+          {
+            "optionId": "c",
+            "why": "Les coordonnées dans une base sont uniques : avec $+\\frac14$, on obtiendrait une autre couleur."
+          },
+          {
+            "optionId": "d",
+            "why": "Ils en forment une : $\\det(J\\ M\\ C) = -2 \\neq 0$."
+          }
+        ],
+        "source": {
+          "file": "2026-03-MAT199-ChapIV-partie1.pdf",
+          "page": 26,
+          "locator": "Exercice p. 26"
+        }
+      },
+      {
+        "id": "q5-12",
+        "objectiveId": "obj5-coordonnees",
+        "bloomLevel": "understand",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Quelles sont les coordonnées de $u = (2, 3)^T$ dans la base $\\{e_2, e_1\\}$ ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "$(3, 2)$"
+          },
+          {
+            "id": "b",
+            "text": "$(2, 3)$"
+          },
+          {
+            "id": "c",
+            "text": "$(\\frac52, -\\frac12)$"
+          },
+          {
+            "id": "d",
+            "text": "$(-3, -2)$"
+          }
+        ],
+        "correct": "a",
+        "explanation": "$u = 3e_2 + 2e_1$ : dans la base ordonnée $\\{e_2, e_1\\}$, les coordonnées sont $3, 2$ (exercice p. 17 (2.3)).",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Ce sont les coordonnées dans {e₁, e₂} ; une base est ordonnée."
+          },
+          {
+            "optionId": "c",
+            "why": "Ce sont les coordonnées dans la base {u₁, u₂} de l'exercice."
+          },
+          {
+            "optionId": "d",
+            "why": "Échanger l'ordre des vecteurs ne change pas les signes."
+          }
+        ],
+        "source": {
+          "file": "2026-03-MAT199-ChapIV-partie1.pdf",
+          "page": 17,
+          "locator": "Exercice p. 17 (2.3)"
+        }
+      }
+    ]
+  },
+  "test": {
+    "title": "Test du chapitre 5",
+    "instructions": "22 questions couvrant tout le chapitre. Plus long et plus difficile que le quiz.",
+    "estimatedMinutes": 45,
+    "questions": [
+      {
+        "id": "t5-01",
+        "objectiveId": "obj5-axiomes",
+        "bloomLevel": "recall",
+        "type": "mcq",
+        "difficulty": 1,
+        "prompt": "Que dit l'axiome (5) de la définition 4.1.1 ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Il existe un vecteur nul $0_E$ tel que $u + 0_E = u$"
+          },
+          {
+            "id": "b",
+            "text": "Tout $u$ admet un opposé $-u$"
+          },
+          {
+            "id": "c",
+            "text": "$1 \\cdot u = u$"
+          },
+          {
+            "id": "d",
+            "text": "$u + v = v + u$"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Définition 4.1.1, axiome (5).",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "C'est l'axiome (6)."
+          },
+          {
+            "optionId": "c",
+            "why": "C'est l'axiome (2), la neutralité."
+          },
+          {
+            "optionId": "d",
+            "why": "C'est l'axiome (3), la commutativité."
+          }
+        ],
+        "source": {
+          "file": "2026-03-MAT199-ChapIV-partie1.pdf",
+          "page": 2,
+          "locator": "Définition 4.1.1"
+        }
+      },
+      {
+        "id": "t5-02",
+        "objectiveId": "obj5-axiomes",
+        "bloomLevel": "understand",
+        "type": "multi",
+        "difficulty": 2,
+        "prompt": "Lesquels de ces vecteurs de $\\mathbb{R}^3$ représentent une couleur numérique ? (plusieurs réponses)",
+        "options": [
+          {
+            "id": "a",
+            "text": "$(0{,}50;\\ 0{,}20;\\ 0{,}15)^T$"
+          },
+          {
+            "id": "b",
+            "text": "$(\\frac13;\\ \\frac13;\\ \\frac13)^T$"
+          },
+          {
+            "id": "c",
+            "text": "$(0;\\ 2;\\ 0{,}1)^T$"
+          },
+          {
+            "id": "d",
+            "text": "$(1;\\ 0{,}2;\\ -2)^T$"
+          }
+        ],
+        "correct": [
+          "a",
+          "b"
+        ],
+        "explanation": "Exemple (4) de la p. 4 : les coordonnées RVB doivent être entre 0 et 1. Le second est le gris.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "c",
+            "why": "L'intensité du vert, 2, dépasse 1."
+          },
+          {
+            "optionId": "d",
+            "why": "Une intensité négative n'a pas de sens."
+          }
+        ],
+        "source": {
+          "file": "2026-03-MAT199-ChapIV-partie1.pdf",
+          "page": 4,
+          "locator": "Exemple (4) p. 4"
+        }
+      },
+      {
+        "id": "t5-03",
+        "objectiveId": "obj5-axiomes",
+        "bloomLevel": "understand",
+        "type": "true-false",
+        "difficulty": 2,
+        "prompt": "Dans un espace vectoriel, $au = 0_E$ si, et seulement si, $a = 0$ ou $u = 0_E$.",
+        "options": [
+          {
+            "id": "v",
+            "text": "Vrai"
+          },
+          {
+            "id": "f",
+            "text": "Faux"
+          }
+        ],
+        "correct": "v",
+        "explanation": "Proposition 4.1.3(2).",
+        "perDistractorExplanation": [
+          {
+            "optionId": "f",
+            "why": "Pour un scalaire et un vecteur, la règle du produit nul est vraie — contrairement au produit de deux matrices."
+          }
+        ],
+        "source": {
+          "file": "2026-03-MAT199-ChapIV-partie1.pdf",
+          "page": 4,
+          "locator": "Proposition 4.1.3"
+        }
+      },
+      {
+        "id": "t5-04",
+        "objectiveId": "obj5-combinaison",
+        "bloomLevel": "apply",
+        "type": "multi",
+        "difficulty": 2,
+        "prompt": "Avec $u_1 = (2, 3, 2)^T$, $u_2 = (1, 0, 1)^T$, $u_3 = (0, 1, 0)^T$, quels triplets $(a_1, a_2, a_3)$ vérifient $a_1u_1 + a_2u_2 + a_3u_3 = (1, 5, 1)^T$ ? (plusieurs réponses)",
+        "options": [
+          {
+            "id": "a",
+            "text": "$(1, -1, 2)$"
+          },
+          {
+            "id": "b",
+            "text": "$(0, 1, 5)$"
+          },
+          {
+            "id": "c",
+            "text": "$(2, 1, 1)$"
+          },
+          {
+            "id": "d",
+            "text": "$(1, 1, 2)$"
+          }
+        ],
+        "correct": [
+          "a",
+          "b"
+        ],
+        "explanation": "Les notes (p. 8) donnent ces deux écritures ; en fait toutes les $\\left(\\frac{5-c}{3}, \\frac{2c-7}{3}, c\\right)$ conviennent.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "c",
+            "why": "$2u_1 + u_2 + u_3 = (5, 7, 5)^T$."
+          },
+          {
+            "optionId": "d",
+            "why": "$u_1 + u_2 + 2u_3 = (3, 5, 3)^T$."
+          }
+        ],
+        "source": {
+          "file": "2026-03-MAT199-ChapIV-partie1.pdf",
+          "page": 8,
+          "locator": "Exercice p. 8"
+        }
+      },
+      {
+        "id": "t5-05",
+        "objectiveId": "obj5-libre",
+        "bloomLevel": "analyze",
+        "type": "mcq",
+        "difficulty": 3,
+        "prompt": "Le vecteur $(1, 5, 1)^T$ s'écrit de deux façons différentes comme combinaison linéaire de $u_1, u_2, u_3$. Qu'en déduire ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "La famille $\\{u_1, u_2, u_3\\}$ est liée"
+          },
+          {
+            "id": "b",
+            "text": "Les coefficients ont été mal calculés, puisqu'ils devraient être uniques"
+          },
+          {
+            "id": "c",
+            "text": "$(1, 5, 1)^T$ n'est pas combinaison linéaire des $u_i$"
+          },
+          {
+            "id": "d",
+            "text": "$\\{u_1, u_2, u_3\\}$ est une base de $\\mathbb{R}^3$"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Proposition 4.1.11(4) : une famille est libre si, et seulement si, toute combinaison linéaire s'écrit de façon unique. D'ailleurs $u_1 = 2u_2 + 3u_3$ (exemple p. 12).",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Ils ne sont uniques que si la famille est libre ; les deux écritures sont justes."
+          },
+          {
+            "optionId": "c",
+            "why": "Il l'est — de deux façons même."
+          },
+          {
+            "optionId": "d",
+            "why": "Une base donne des coordonnées uniques ; ici elles ne le sont pas."
+          }
+        ],
+        "source": {
+          "file": "2026-03-MAT199-ChapIV-partie1.pdf",
+          "page": 12,
+          "locator": "Proposition 4.1.11 et exemple"
+        }
+      },
+      {
+        "id": "t5-06",
+        "objectiveId": "obj5-libre",
+        "bloomLevel": "apply",
+        "type": "multi",
+        "difficulty": 1,
+        "prompt": "Lesquelles de ces familles de $\\mathbb{R}^2$ sont libres ? (plusieurs réponses)",
+        "options": [
+          {
+            "id": "a",
+            "text": "$\\{(1, 2)^T\\}$"
+          },
+          {
+            "id": "b",
+            "text": "$\\{(2, 0)^T, (0, 3)^T\\}$"
+          },
+          {
+            "id": "c",
+            "text": "$\\{(0, 0)^T\\}$"
+          },
+          {
+            "id": "d",
+            "text": "$\\{(1, 2)^T, (2, 4)^T\\}$"
+          }
+        ],
+        "correct": [
+          "a",
+          "b"
+        ],
+        "explanation": "Lemme 4.1.9, appliqué aux familles de l'exercice p. 10.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "c",
+            "why": "Une famille réduite au vecteur nul est liée (lemme 4.1.9(1))."
+          },
+          {
+            "optionId": "d",
+            "why": "(2, 4) est le double de (1, 2)."
+          }
+        ],
+        "source": {
+          "file": "2026-03-MAT199-ChapIV-partie1.pdf",
+          "page": 10,
+          "locator": "Exercice p. 10"
+        }
+      },
+      {
+        "id": "t5-07",
+        "objectiveId": "obj5-libre",
+        "bloomLevel": "recall",
+        "type": "mcq",
+        "difficulty": 1,
+        "prompt": "Pour $u_1, \\dots, u_n \\in \\mathbb{R}^m$, la famille est libre si, et seulement si :",
+        "options": [
+          {
+            "id": "a",
+            "text": "$\\operatorname{rg}(u_1 \\cdots u_n) = n$"
+          },
+          {
+            "id": "b",
+            "text": "$\\operatorname{rg}(u_1 \\cdots u_n) = m$"
+          },
+          {
+            "id": "c",
+            "text": "$n = m$"
+          },
+          {
+            "id": "d",
+            "text": "$\\det(u_1 \\cdots u_n) = 0$"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Théorème 4.1.10(3).",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "On compare le rang au nombre de VECTEURS n, pas à la dimension m."
+          },
+          {
+            "optionId": "c",
+            "why": "Le nombre de vecteurs ne décide pas à lui seul."
+          },
+          {
+            "optionId": "d",
+            "why": "Un déterminant nul signifierait au contraire une famille liée (quand n = m)."
+          }
+        ],
+        "source": {
+          "file": "2026-03-MAT199-ChapIV-partie1.pdf",
+          "page": 10,
+          "locator": "Théorème 4.1.10"
+        }
+      },
+      {
+        "id": "t5-08",
+        "objectiveId": "obj5-libre",
+        "bloomLevel": "apply",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "$u_1 = (2, 3, 2, 1)^T$, $u_2 = (1, 0, 1, 2)^T$, $u_3 = (0, 1, 0, 1)^T$ dans $\\mathbb{R}^4$ : libre ou liée ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Libre, car $\\operatorname{rg}(u_1\\ u_2\\ u_3) = 3$"
+          },
+          {
+            "id": "b",
+            "text": "Liée, car 3 vecteurs ne peuvent pas engendrer $\\mathbb{R}^4$"
+          },
+          {
+            "id": "c",
+            "text": "Liée, car $u_1 = 2u_2 + 3u_3$"
+          },
+          {
+            "id": "d",
+            "text": "On ne peut pas conclure, la matrice n'est pas carrée"
+          }
+        ],
+        "correct": "a",
+        "explanation": "La matrice $4 \\times 3$ est de rang 3 = nombre de vecteurs (exercice p. 10 (2)).",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Engendrer et être libre sont deux choses différentes : une famille libre peut ne pas engendrer l'espace."
+          },
+          {
+            "optionId": "c",
+            "why": "C'est vrai dans $\\mathbb{R}^3$ pour d'autres vecteurs ; ici $2u_2 + 3u_3 = (2, 3, 2, 7)^T \\neq u_1$."
+          },
+          {
+            "optionId": "d",
+            "why": "Le théorème 4.1.10 utilise le rang, défini pour toute matrice."
+          }
+        ],
+        "source": {
+          "file": "2026-03-MAT199-ChapIV-partie1.pdf",
+          "page": 10,
+          "locator": "Exercice p. 10 (2)"
+        }
+      },
+      {
+        "id": "t5-09",
+        "objectiveId": "obj5-libre",
+        "bloomLevel": "understand",
+        "type": "true-false",
+        "difficulty": 1,
+        "prompt": "Par convention, la famille vide est libre.",
+        "options": [
+          {
+            "id": "v",
+            "text": "Vrai"
+          },
+          {
+            "id": "f",
+            "text": "Faux"
+          }
+        ],
+        "correct": "v",
+        "explanation": "Remarque (2) après la définition 4.1.8. C'est ce qui permet de dire que la famille vide est la base de {0_E}.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "f",
+            "why": "Aucune combinaison à coefficients non tous nuls n'existe dans la famille vide."
+          }
+        ],
+        "source": {
+          "file": "2026-03-MAT199-ChapIV-partie1.pdf",
+          "page": 9,
+          "locator": "Remarque après la définition 4.1.8"
+        }
+      },
+      {
+        "id": "t5-10",
+        "objectiveId": "obj5-libre",
+        "bloomLevel": "apply",
+        "type": "mcq",
+        "difficulty": 1,
+        "prompt": "Pourquoi aucune des trois couleurs rouge, vert, bleu n'est-elle un mélange des deux autres ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Parce que $\\{e_1, e_2, e_3\\}$ est libre : la matrice $(e_1\\ e_2\\ e_3) = I_3$ est de rang 3"
+          },
+          {
+            "id": "b",
+            "text": "Parce que ce sont des couleurs pures, par définition"
+          },
+          {
+            "id": "c",
+            "text": "Parce que leurs coordonnées sont toutes positives"
+          },
+          {
+            "id": "d",
+            "text": "Parce que le noir vaut (0, 0, 0)"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Proposition 4.1.11(3) : aucun vecteur d'une famille libre n'est combinaison linéaire des autres (exercice p. 12).",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Il faut une justification mathématique : c'est l'indépendance linéaire."
+          },
+          {
+            "optionId": "c",
+            "why": "Le jaune, le cyan et le magenta ont aussi des coordonnées positives, et le blanc en est un mélange."
+          },
+          {
+            "optionId": "d",
+            "why": "Le noir n'intervient pas dans la question."
+          }
+        ],
+        "source": {
+          "file": "2026-03-MAT199-ChapIV-partie1.pdf",
+          "page": 12,
+          "locator": "Exercice p. 12"
+        }
+      },
+      {
+        "id": "t5-11",
+        "objectiveId": "obj5-base",
+        "bloomLevel": "recall",
+        "type": "mcq",
+        "difficulty": 1,
+        "prompt": "Une famille ordonnée $\\{u_1, \\dots, u_n\\}$ de $E \\neq \\{0_E\\}$ est une base si…",
+        "options": [
+          {
+            "id": "a",
+            "text": "elle est libre et tout vecteur de E en est une combinaison linéaire"
+          },
+          {
+            "id": "b",
+            "text": "elle est libre"
+          },
+          {
+            "id": "c",
+            "text": "tout vecteur de E en est une combinaison linéaire"
+          },
+          {
+            "id": "d",
+            "text": "elle contient les vecteurs de la base canonique"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Définition 4.1.12 : (i) libre et (ii) génératrice.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Il faut aussi qu'elle engendre $E$ : $\\{e_1\\}$ est libre sans être une base de $\\mathbb{R}^2$."
+          },
+          {
+            "optionId": "c",
+            "why": "Il faut aussi qu'elle soit libre : $\\{e_1, e_2, e_1 + e_2\\}$ engendre $\\mathbb{R}^2$ sans être une base."
+          },
+          {
+            "optionId": "d",
+            "why": "Une base n'a pas à contenir les eᵢ : {(1, 1), (1, −1)} est une base de ℝ²."
+          }
+        ],
+        "source": {
+          "file": "2026-03-MAT199-ChapIV-partie1.pdf",
+          "page": 13,
+          "locator": "Définition 4.1.12"
+        }
+      },
+      {
+        "id": "t5-12",
+        "objectiveId": "obj5-base",
+        "bloomLevel": "analyze",
+        "type": "mcq",
+        "difficulty": 3,
+        "prompt": "On a vérifié que $\\{u_1, u_2, u_3\\}$ est libre dans $\\mathbb{R}^3$. Faut-il encore vérifier que tout vecteur de $\\mathbb{R}^3$ en est combinaison linéaire pour conclure que c'est une base ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Non : $\\dim \\mathbb{R}^3 = 3$ et toute famille libre de 3 vecteurs est une base"
+          },
+          {
+            "id": "b",
+            "text": "Oui : la définition exige les deux conditions, toujours vérifiées séparément"
+          },
+          {
+            "id": "c",
+            "text": "Oui, en calculant leur déterminant"
+          },
+          {
+            "id": "d",
+            "text": "Non, car toute famille libre est une base"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Théorème 4.1.15(1) : si dim(E) = n, toute famille libre de n vecteurs est une base.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Le théorème 4.1.15(1) dispense de la seconde quand le nombre de vecteurs égale la dimension."
+          },
+          {
+            "optionId": "c",
+            "why": "Le déterminant ne ferait que confirmer l'indépendance déjà établie."
+          },
+          {
+            "optionId": "d",
+            "why": "$\\{e_1\\}$ est libre sans être une base de $\\mathbb{R}^3$ : il faut exactement $\\dim E$ vecteurs."
+          }
+        ],
+        "source": {
+          "file": "2026-03-MAT199-ChapIV-partie1.pdf",
+          "page": 15,
+          "locator": "Théorème 4.1.15"
+        }
+      },
+      {
+        "id": "t5-13",
+        "objectiveId": "obj5-base",
+        "bloomLevel": "apply",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "$\\{(1, 1, 0)^T, (2, 1, 0)^T, (0, 3, 1)^T\\}$ est-elle une base de $\\mathbb{R}^3$ ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Oui : le déterminant de la matrice de ces colonnes vaut $-1 \\neq 0$"
+          },
+          {
+            "id": "b",
+            "text": "Non : deux vecteurs ont une troisième coordonnée nulle"
+          },
+          {
+            "id": "c",
+            "text": "Non : le déterminant est négatif"
+          },
+          {
+            "id": "d",
+            "text": "Oui, car aucun vecteur n'est multiple d'un autre"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Corollaire 4.2.6 : les colonnes forment une base si, et seulement si, la matrice est inversible. Ici $\\det = -1$ (exercice p. 16).",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Deux vecteurs dans le plan z = 0 plus un troisième hors de ce plan peuvent former une base."
+          },
+          {
+            "optionId": "c",
+            "why": "Seul compte qu'il soit non nul (corollaire 4.2.6)."
+          },
+          {
+            "optionId": "d",
+            "why": "Pour trois vecteurs, ce critère ne suffit pas ; il faut le rang ou le déterminant."
+          }
+        ],
+        "source": {
+          "file": "2026-03-MAT199-ChapIV-partie1.pdf",
+          "page": 16,
+          "locator": "Exercice p. 16"
+        }
+      },
+      {
+        "id": "t5-14",
+        "objectiveId": "obj5-coordonnees",
+        "bloomLevel": "apply",
+        "type": "short-answer",
+        "difficulty": 2,
+        "prompt": "Dans la base $u_1 = (1, 1)^T$, $u_2 = (1, -1)^T$, quelle est la DEUXIÈME coordonnée de $(2, 3)^T$ ? (une fraction)",
+        "correct": "-1/2",
+        "acceptableAnswers": [
+          "−1/2",
+          "-0,5",
+          "-0.5"
+        ],
+        "explanation": "$a + b = 2$, $a - b = 3$ : $a = \\frac52$, $b = -\\frac12$.",
+        "source": {
+          "file": "2026-03-MAT199-ChapIV-partie1.pdf",
+          "page": 17,
+          "locator": "Exercice p. 17 (2.1)"
+        }
+      },
+      {
+        "id": "t5-15",
+        "objectiveId": "obj5-coordonnees",
+        "bloomLevel": "apply",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Quel vecteur a pour coordonnées $\\sqrt2, \\sqrt3$ dans la base $u_1 = (1, 1)^T$, $u_2 = (1, -1)^T$ ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "$(\\sqrt2 + \\sqrt3,\\ \\sqrt2 - \\sqrt3)^T$"
+          },
+          {
+            "id": "b",
+            "text": "$(\\sqrt2,\\ \\sqrt3)^T$"
+          },
+          {
+            "id": "c",
+            "text": "$(\\sqrt2 + \\sqrt3,\\ \\sqrt3 - \\sqrt2)^T$"
+          },
+          {
+            "id": "d",
+            "text": "$(2\\sqrt2,\\ 0)^T$"
+          }
+        ],
+        "correct": "a",
+        "explanation": "$\\sqrt2\\,u_1 + \\sqrt3\\,u_2 = (\\sqrt2 + \\sqrt3,\\ \\sqrt2 - \\sqrt3)^T$ (exercice p. 17 (1)).",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Ce serait le cas dans la base canonique seulement."
+          },
+          {
+            "optionId": "c",
+            "why": "Signe inversé : la seconde composante est $\\sqrt2 \\cdot 1 + \\sqrt3 \\cdot (-1)$."
+          },
+          {
+            "optionId": "d",
+            "why": "On a pris $\\sqrt2$ pour les deux coordonnées."
+          }
+        ],
+        "source": {
+          "file": "2026-03-MAT199-ChapIV-partie1.pdf",
+          "page": 17,
+          "locator": "Exercice p. 17 (1)"
+        }
+      },
+      {
+        "id": "t5-16",
+        "objectiveId": "obj5-coordonnees",
+        "bloomLevel": "apply",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Dans la base $u_1 = (1, 1)^T$, $u_2 = (1, -1)^T$, la famille $\\{v_1, v_2, v_3\\}$ a pour matrice des coordonnées $\\begin{pmatrix} 1 & 2 & 1 \\\\ 2 & 1 & 1 \\end{pmatrix}$. Que vaut $v_1$ ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "$(3, -1)^T$"
+          },
+          {
+            "id": "b",
+            "text": "$(1, 2)^T$"
+          },
+          {
+            "id": "c",
+            "text": "$(3, 1)^T$"
+          },
+          {
+            "id": "d",
+            "text": "$(2, 0)^T$"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Première colonne : $v_1 = 1 \\cdot u_1 + 2 \\cdot u_2 = (1 + 2,\\ 1 - 2)^T = (3, -1)^T$ (exercice p. 20).",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "C'est la colonne des coordonnées de v₁, pas v₁ lui-même."
+          },
+          {
+            "optionId": "c",
+            "why": "C'est $v_2 = 2u_1 + u_2$ ; $v_1 = u_1 + 2u_2$."
+          },
+          {
+            "optionId": "d",
+            "why": "C'est $v_3 = u_1 + u_2$, donné par la TROISIÈME colonne ; $v_1$ correspond à la première."
+          }
+        ],
+        "source": {
+          "file": "2026-03-MAT199-ChapIV-partie1.pdf",
+          "page": 20,
+          "locator": "Exercice p. 20"
+        }
+      },
+      {
+        "id": "t5-17",
+        "objectiveId": "obj5-coordonnees",
+        "bloomLevel": "understand",
+        "type": "mcq",
+        "difficulty": 1,
+        "prompt": "Que vaut $P^{\\{v_1, \\dots, v_m\\}}_{\\{e_1, \\dots, e_n\\}}$ pour des vecteurs de $\\mathbb{R}^n$ ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "$(v_1 \\cdots v_m)$, la matrice dont les colonnes sont les $v_j$"
+          },
+          {
+            "id": "b",
+            "text": "$I_n$"
+          },
+          {
+            "id": "c",
+            "text": "la matrice dont les LIGNES sont les $v_j$"
+          },
+          {
+            "id": "d",
+            "text": "$(v_1 \\cdots v_m)^{-1}$"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Lemme 4.2.4, conséquence du lemme 4.2.2.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "C'est la matrice de passage de la base canonique à elle-même."
+          },
+          {
+            "optionId": "c",
+            "why": "Les coordonnées sont toujours rangées en colonnes."
+          },
+          {
+            "optionId": "d",
+            "why": "Aucune inversion : les coordonnées canoniques d'un vecteur sont ses propres termes."
+          }
+        ],
+        "source": {
+          "file": "2026-03-MAT199-ChapIV-partie1.pdf",
+          "page": 20,
+          "locator": "Lemme 4.2.4"
+        }
+      },
+      {
+        "id": "t5-18",
+        "objectiveId": "obj5-base",
+        "bloomLevel": "apply",
+        "type": "mcq",
+        "difficulty": 3,
+        "prompt": "Avec $u_1, u_2, u_3$ une base de $\\mathbb{R}^3$, posons $v_1 = u_1 - u_2$, $v_2 = u_2 - u_3$, $v_3 = u_1 - u_3$. $\\{v_1, v_2, v_3\\}$ est-elle une base ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Non : $\\det P^{\\{v_1, v_2, v_3\\}}_{\\{u_1, u_2, u_3\\}} = 0$, et en effet $v_3 = v_1 + v_2$"
+          },
+          {
+            "id": "b",
+            "text": "Oui, puisque $\\{u_1, u_2, u_3\\}$ en est une"
+          },
+          {
+            "id": "c",
+            "text": "Oui, car aucun vᵢ n'est multiple d'un autre"
+          },
+          {
+            "id": "d",
+            "text": "On ne peut pas le savoir sans les coordonnées canoniques des uᵢ"
+          }
+        ],
+        "correct": "a",
+        "explanation": "$P = \\begin{pmatrix} 1 & 0 & 1 \\\\ -1 & 1 & 0 \\\\ 0 & -1 & -1 \\end{pmatrix}$ a un déterminant nul : non inversible, donc pas une base (théorème 4.2.5, exercice p. 22).",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Des vecteurs construits à partir d'une base ne forment pas forcément une base."
+          },
+          {
+            "optionId": "c",
+            "why": "Pour trois vecteurs, la non-proportionnalité deux à deux ne suffit pas."
+          },
+          {
+            "optionId": "d",
+            "why": "Le théorème 4.2.5 conclut à partir de la matrice des coordonnées dans la base {uᵢ}."
+          }
+        ],
+        "source": {
+          "file": "2026-03-MAT199-ChapIV-partie1.pdf",
+          "page": 22,
+          "locator": "Exercice p. 22 (2)"
+        }
+      },
+      {
+        "id": "t5-19",
+        "objectiveId": "obj5-coordonnees",
+        "bloomLevel": "apply",
+        "type": "mcq",
+        "difficulty": 1,
+        "prompt": "Quelle est la matrice de passage de la base $\\{u_1, u_2\\}$ à la base $\\{u_2, u_1\\}$ ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "$\\begin{pmatrix} 0 & 1 \\\\ 1 & 0 \\end{pmatrix}$"
+          },
+          {
+            "id": "b",
+            "text": "$I_2$"
+          },
+          {
+            "id": "c",
+            "text": "$\\begin{pmatrix} 1 & 1 \\\\ 1 & -1 \\end{pmatrix}$"
+          },
+          {
+            "id": "d",
+            "text": "$\\begin{pmatrix} 0 & -1 \\\\ -1 & 0 \\end{pmatrix}$"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Nouveau premier vecteur $u_2 = 0u_1 + 1u_2$ : colonne $(0, 1)$ ; nouveau second $u_1$ : colonne $(1, 0)$ (exercice p. 24).",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "C'est la matrice de passage de {u₁, u₂} à elle-même."
+          },
+          {
+            "optionId": "c",
+            "why": "Ce sont les vecteurs u₁, u₂ eux-mêmes, pas leurs coordonnées."
+          },
+          {
+            "optionId": "d",
+            "why": "Changer l'ordre ne change pas les signes."
+          }
+        ],
+        "source": {
+          "file": "2026-03-MAT199-ChapIV-partie1.pdf",
+          "page": 24,
+          "locator": "Exercice p. 24 (1)"
+        }
+      },
+      {
+        "id": "t5-20",
+        "objectiveId": "obj5-coordonnees",
+        "bloomLevel": "analyze",
+        "type": "mcq",
+        "difficulty": 3,
+        "prompt": "$P$ et $Q$ sont les matrices de passage de $\\{u_i\\}$ à $\\{v_i\\}$ et à $\\{w_i\\}$. Quelle est la matrice de passage de $\\{v_i\\}$ à $\\{w_i\\}$ ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "$P^{-1}Q$"
+          },
+          {
+            "id": "b",
+            "text": "$QP^{-1}$"
+          },
+          {
+            "id": "c",
+            "text": "$PQ$"
+          },
+          {
+            "id": "d",
+            "text": "$Q - P$"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Théorème 4.2.10(2), illustré par le diagramme commutatif des notes.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "L'ordre compte : on revient d'abord de {vᵢ} à {uᵢ} (P⁻¹), puis on va vers {wᵢ} (Q) — la matrice s'écrit P⁻¹Q."
+          },
+          {
+            "optionId": "c",
+            "why": "Il faut d'abord revenir en arrière, donc inverser P."
+          },
+          {
+            "optionId": "d",
+            "why": "Les changements de base se composent par produit, pas par différence."
+          }
+        ],
+        "source": {
+          "file": "2026-03-MAT199-ChapIV-partie1.pdf",
+          "page": 28,
+          "locator": "Théorème 4.2.10"
+        }
+      },
+      {
+        "id": "t5-21",
+        "objectiveId": "obj5-coordonnees",
+        "bloomLevel": "apply",
+        "type": "short-answer",
+        "difficulty": 3,
+        "prompt": "Avec $u_1 = (1, 1, 0)^T$, $u_2 = (2, 1, 0)^T$, $u_3 = (3, 0, 1)^T$ et $v_1 = (0, 1, 1)^T$, $v_2 = (1, 0, 1)^T$, $v_3 = (1, 1, 1)^T$, quelle est la TROISIÈME coordonnée de $v = u_1 - u_2$ dans $\\{v_1, v_2, v_3\\}$ ?",
+        "correct": "-1",
+        "acceptableAnswers": [
+          "−1"
+        ],
+        "explanation": "$v = (-1, 0, 0)^T = 1 \\cdot v_1 + 0 \\cdot v_2 - 1 \\cdot v_3$ : coordonnées $(1, 0, -1)$ (exercice p. 28).",
+        "source": {
+          "file": "2026-03-MAT199-ChapIV-partie1.pdf",
+          "page": 28,
+          "locator": "Exercice p. 28 (2)"
+        }
+      },
+      {
+        "id": "t5-22",
+        "objectiveId": "obj5-axiomes",
+        "bloomLevel": "understand",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Pourquoi l'ensemble des couleurs numériques n'est-il pas un sous-espace vectoriel de $\\mathbb{R}^3$ ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Il n'est stable ni par addition ni par multiplication par un scalaire"
+          },
+          {
+            "id": "b",
+            "text": "Il ne contient pas le vecteur nul, condition de tout sous-espace"
+          },
+          {
+            "id": "c",
+            "text": "Il est vide, alors qu'un sous-espace doit être non vide"
+          },
+          {
+            "id": "d",
+            "text": "Il contient des vecteurs non nuls comme le rouge ou le bleu"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Exemple (2) après la définition 4.3.1 : blanc + blanc $= (2, 2, 2)^T$ et $2 \\times$ blanc sortent de l'ensemble.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Le noir $(0, 0, 0)^T$ est une couleur : l'ensemble contient bien $0$."
+          },
+          {
+            "optionId": "c",
+            "why": "Il contient toutes les couleurs, dont le rouge, le vert, le bleu…"
+          },
+          {
+            "optionId": "d",
+            "why": "Tout sous-espace non trivial en contient."
+          }
+        ],
+        "source": {
+          "file": "2026-03-MAT199-ChapIV-partie1.pdf",
+          "page": 30,
+          "locator": "Exemple après la définition 4.3.1"
+        }
+      }
+    ]
+  },
+  "flashcards": [
+    {
+      "id": "f5-01",
+      "objectiveId": "obj5-axiomes",
+      "front": "Espace vectoriel canonique ?",
+      "back": "$\\mathbb{R}^n$, avec addition et multiplication par un scalaire terme à terme (proposition 4.1.2)."
+    },
+    {
+      "id": "f5-02",
+      "objectiveId": "obj5-combinaison",
+      "front": "u est-il combinaison linéaire de u₁, …, uₙ ?",
+      "back": "Oui $\\iff (u_1 \\cdots u_n)X = u$ est compatible $\\iff \\operatorname{rg}(u_1 \\cdots u_n) = \\operatorname{rg}(u_1 \\cdots u_n \\mid u)$."
+    },
+    {
+      "id": "f5-03",
+      "objectiveId": "obj5-combinaison",
+      "front": "Mélange de couleurs ?",
+      "back": "Une combinaison linéaire à coefficients entre 0 et 1 (proposition 4.1.5)."
+    },
+    {
+      "id": "f5-04",
+      "objectiveId": "obj5-libre",
+      "front": "Famille liée ?",
+      "back": "Il existe des $a_i$ non tous nuls avec $\\sum a_iu_i = 0_E$."
+    },
+    {
+      "id": "f5-05",
+      "objectiveId": "obj5-libre",
+      "front": "Libre, par le rang ?",
+      "back": "$\\operatorname{rg}(u_1 \\cdots u_n) = n$, le nombre de vecteurs (théorème 4.1.10)."
+    },
+    {
+      "id": "f5-06",
+      "objectiveId": "obj5-libre",
+      "front": "{u, v} liée ?",
+      "back": "Si, et seulement si, l'un est un multiple de l'autre (lemme 4.1.9)."
+    },
+    {
+      "id": "f5-07",
+      "objectiveId": "obj5-base",
+      "front": "Base ?",
+      "back": "Famille ordonnée, libre, dont tout vecteur de E est combinaison linéaire."
+    },
+    {
+      "id": "f5-08",
+      "objectiveId": "obj5-base",
+      "front": "dim(E) = n : deux conséquences ?",
+      "back": "Toute famille libre de n vecteurs est une base ; toute famille de plus de n vecteurs est liée."
+    },
+    {
+      "id": "f5-09",
+      "objectiveId": "obj5-base",
+      "front": "Colonnes de A ∈ Mₙ(ℝ) : base de ℝⁿ ?",
+      "back": "Si, et seulement si, $A$ est inversible, soit $\\det(A) \\neq 0$ (corollaire 4.2.6)."
+    },
+    {
+      "id": "f5-10",
+      "objectiveId": "obj5-coordonnees",
+      "front": "Coordonnées canoniques de u ∈ ℝⁿ ?",
+      "back": "Ses propres termes : la colonne des coordonnées coïncide avec u (lemme 4.2.2)."
+    },
+    {
+      "id": "f5-11",
+      "objectiveId": "obj5-coordonnees",
+      "front": "$P^{\\{v_j\\}}_{\\{u_i\\}}$ ?",
+      "back": "Colonne j = coordonnées de vⱼ dans {uᵢ}. Depuis la base canonique : (v₁ ⋯ vₘ)."
+    },
+    {
+      "id": "f5-12",
+      "objectiveId": "obj5-coordonnees",
+      "front": "Passage de {v} à {w}, connaissant P (u → v) et Q (u → w) ?",
+      "back": "$P^{-1}Q$ ; et de $\\{v\\}$ à $\\{u\\}$ : $P^{-1}$ (théorème 4.2.10)."
+    }
+  ],
+  "exercises": [
+    {
+      "id": "e5-01",
+      "objectiveId": "obj5-combinaison",
+      "difficulty": 2,
+      "mode": "trace",
+      "language": "text",
+      "title": "Combinaison linéaire : décider, puis trouver les coefficients",
+      "statement": "(1) Déterminer si v est combinaison linéaire de v₁ et v₂ (exercice p. 7).\n(2) Exprimer, si possible, u comme combinaison linéaire de u₁, u₂, u₃ (exercice p. 8), et décrire TOUTES les écritures possibles.",
+      "starterCode": "(1) v₁ = (1, 3, 1)ᵀ   v₂ = (3, 2, −4)ᵀ   v = (2, −1, 1)ᵀ\n\n(2) u₁ = (2, 3, 2)ᵀ   u₂ = (1, 0, 1)ᵀ   u₃ = (0, 1, 0)ᵀ   u = (1, 5, 1)ᵀ",
+      "hints": [
+        "Écrire la matrice augmentée (v₁ v₂ | v), puis (u₁ u₂ u₃ | u), avec les vecteurs en COLONNES.",
+        "Théorème 4.1.6 : comparer rg(v₁ v₂) et rg(v₁ v₂ | v).",
+        "Pour (2), la première et la troisième équation sont identiques : il restera une inconnue libre."
+      ],
+      "solution": "(1) non (rangs 2 et 3) · (2) u = ((5 − c)/3) u₁ + ((2c − 7)/3) u₂ + c u₃, par exemple 1u₁ − u₂ + 2u₃ ou 0u₁ + u₂ + 5u₃",
+      "expectedOutput": "(1)  $\\left(\\begin{array}{cc|c} 1 & 3 & 2 \\\\ 3 & 2 & -1 \\\\ 1 & -4 & 1 \\end{array}\\right)\\xrightarrow[L_3 - L_1]{L_2 - 3L_1}\\left(\\begin{array}{cc|c} 1 & 3 & 2 \\\\ 0 & -7 & -7 \\\\ 0 & -7 & -1 \\end{array}\\right)\\xrightarrow{L_3 - L_2}\\left(\\begin{array}{cc|c} 1 & 3 & 2 \\\\ 0 & -7 & -7 \\\\ 0 & 0 & 6 \\end{array}\\right)$\n     $\\operatorname{rg}(v_1\\ v_2) = 2 < 3 = \\operatorname{rg}(v_1\\ v_2 \\mid v)$ : $v$ n'est PAS combinaison linéaire.\n\n(2)  Système $2a + b = 1$, $3a + c = 5$, $2a + b = 1$ : la 3e équation répète la 1re.\n     Avec $c$ libre : $a = \\frac{5 - c}{3}$, puis $b = 1 - 2a = \\frac{2c - 7}{3}$.\n     $c = 2$ : $(1, -1, 2)$ ;  $c = 5$ : $(0, 1, 5)$ — les deux écritures des notes.\n     Vérification ($c = 2$) : $(2, 3, 2) - (1, 0, 1) + 2\\,(0, 1, 0) = (1, 5, 1)$ ✓",
+      "solutionExplanation": "En (2), l'infinité d'écritures n'est pas un accident : elle révèle que $\\{u_1, u_2, u_3\\}$ est liée (proposition 4.1.11(4)). Et la relation $u_1 = 2u_2 + 3u_3$ se lit sur la différence des deux écritures : $(1, -1, 2) - (0, 1, 5) = (1, -2, -3)$, c'est-à-dire $u_1 - 2u_2 - 3u_3 = 0$.",
+      "source": {
+        "file": "2026-03-MAT199-ChapIV-partie1.pdf",
+        "page": 7,
+        "locator": "Exercices p. 7 et 8"
+      }
+    },
+    {
+      "id": "e5-02",
+      "objectiveId": "obj5-libre",
+      "difficulty": 2,
+      "mode": "predict-output",
+      "language": "text",
+      "title": "Libre ou liée ? Répondre sans calcul quand c'est possible",
+      "statement": "Pour chaque famille, dire si elle est libre ou liée, en choisissant l'argument le plus court : lemme 4.1.9, nombre de vecteurs, ou rang.",
+      "starterCode": "(a) {(0, 0)ᵀ}                              dans ℝ²\n(b) {(1, 2)ᵀ}                              dans ℝ²\n(c) {(2, 0)ᵀ, (0, 3)ᵀ}                     dans ℝ²\n(d) {(1, 1, 0)ᵀ, (1, 0, 1)ᵀ, (0, 1, 1)ᵀ, (1, 1, 1)ᵀ}   dans ℝ³\n(e) {(2, 3, 2, 1)ᵀ, (1, 0, 1, 2)ᵀ, (0, 1, 0, 1)ᵀ}      dans ℝ⁴",
+      "hints": [
+        "Pour un ou deux vecteurs : le lemme 4.1.9 suffit.",
+        "Pour (d) : combien de vecteurs, dans quel espace ?",
+        "Pour (e) : trois vecteurs de ℝ⁴ peuvent être libres ; il faut échelonner (u₁ u₂ u₃) et compter les pivots."
+      ],
+      "solution": "(a) liée · (b) libre · (c) libre · (d) liée · (e) libre",
+      "expectedOutput": "(a) liée : c'est le vecteur nul (lemme 4.1.9(1)).\n(b) libre : un seul vecteur, non nul.\n(c) libre : aucun des deux n'est multiple de l'autre (lemme 4.1.9(2)).\n(d) liée : 4 vecteurs dans $\\mathbb{R}^3$, qui est de dimension 3 (théorème 4.1.15(2)) — aucun calcul.\n(e) $(u_1\\ u_2\\ u_3) = \\begin{pmatrix} 2 & 1 & 0 \\\\ 3 & 0 & 1 \\\\ 2 & 1 & 0 \\\\ 1 & 2 & 1 \\end{pmatrix}$\n    La ligne 3 égale la ligne 1 ; en échelonnant on trouve 3 pivots.\n    $\\operatorname{rg} = 3$ = nombre de vecteurs : libre (théorème 4.1.10).",
+      "solutionExplanation": "Le réflexe à prendre est de chercher l'argument sans calcul AVANT d'échelonner. Pour (e), l'argument de dimension ne s'applique pas (3 < 4) : il faut calculer. Remarquer que la famille (e) est libre sans être une base de ℝ⁴ — il lui manque un vecteur.",
+      "source": {
+        "file": "2026-03-MAT199-ChapIV-partie1.pdf",
+        "page": 10,
+        "locator": "Exercices p. 9 et 10"
+      }
+    },
+    {
+      "id": "e5-03",
+      "objectiveId": "obj5-coordonnees",
+      "difficulty": 2,
+      "mode": "trace",
+      "language": "text",
+      "title": "Coordonnées dans une base et matrice des coordonnées",
+      "statement": "Avec la base u₁ = (1, 1)ᵀ, u₂ = (1, −1)ᵀ de ℝ² :\n(1) donner les coordonnées de u = (2, 3)ᵀ dans {u₁, u₂}, dans {e₁, e₂} et dans {e₂, e₁} ;\n(2) trouver la famille {v₁, v₂, v₃} dont la matrice des coordonnées dans {u₁, u₂} est A ci-dessous (exercices p. 17 et 20).",
+      "starterCode": "A = ( 1  2  1 )\n    ( 2  1  1 )",
+      "hints": [
+        "Les coordonnées dans {u₁, u₂} sont la solution du système (u₁ u₂)X = u.",
+        "Dans la base canonique, les coordonnées sont les termes de u ; dans {e₂, e₁}, l'ordre change.",
+        "La colonne j de A donne les coefficients de vⱼ : v₁ = 1·u₁ + 2·u₂, etc."
+      ],
+      "solution": "(1) (5/2, −1/2) · (2, 3) · (3, 2) · (2) v₁ = (3, −1)ᵀ, v₂ = (3, 1)ᵀ, v₃ = (2, 0)ᵀ",
+      "expectedOutput": "(1)  $au_1 + bu_2 = (a + b,\\ a - b)^T = (2, 3)^T$ : $a = \\frac52$, $b = -\\frac12$.\n     Dans $\\{e_1, e_2\\}$ : $(2, 3)$ (lemme 4.2.2).\n     Dans $\\{e_2, e_1\\}$ : $u = 3e_2 + 2e_1$, donc $(3, 2)$.\n     Vérification : $\\frac52(1, 1) - \\frac12(1, -1) = (2, 3)$ ✓\n\n(2)  $(v_1\\ v_2\\ v_3) = (u_1\\ u_2)\\,A = \\begin{pmatrix} 1 & 1 \\\\ 1 & -1 \\end{pmatrix}\\begin{pmatrix} 1 & 2 & 1 \\\\ 2 & 1 & 1 \\end{pmatrix} = \\begin{pmatrix} 3 & 3 & 2 \\\\ -1 & 1 & 0 \\end{pmatrix}$\n     $v_1 = u_1 + 2u_2 = (3, -1)^T$,  $v_2 = 2u_1 + u_2 = (3, 1)^T$,  $v_3 = u_1 + u_2 = (2, 0)^T$.",
+      "solutionExplanation": "Deux sens de lecture à maîtriser : des vecteurs aux coordonnées, on RÉSOUT un système ; des coordonnées aux vecteurs, on MULTIPLIE par (u₁ ⋯ uₙ). La formule (v₁, …, vₘ) = (u₁, …, uₙ)·P de la définition 4.2.3 résume le second sens.",
+      "source": {
+        "file": "2026-03-MAT199-ChapIV-partie1.pdf",
+        "page": 17,
+        "locator": "Exercices p. 17 et 20"
+      }
+    },
+    {
+      "id": "e5-04",
+      "objectiveId": "obj5-coordonnees",
+      "difficulty": 3,
+      "mode": "find-bug",
+      "language": "text",
+      "title": "Trouver l'erreur — une matrice de passage lue à l'envers",
+      "statement": "Un étudiant doit donner la base {v₁, v₂} à laquelle la matrice de passage depuis {u₁, u₂} est P (exercice p. 24). Trouver l'erreur et corriger.",
+      "starterCode": "u₁ = (1, 1)ᵀ   u₂ = (1, −1)ᵀ        P = ( 2  4 )\n                                        ( 3  1 )\n\n« La première ligne de P donne v₁ : v₁ = 2u₁ + 4u₂ = (6, −2)ᵀ\n  La deuxième ligne donne v₂ :       v₂ = 3u₁ + 1u₂ = (4, 2)ᵀ »",
+      "hints": [
+        "Relire la définition 4.2.3 : où sont rangées les coordonnées de vⱼ ?",
+        "La première COLONNE de P est (2, 3).",
+        "v₁ = 2u₁ + 3u₂."
+      ],
+      "solution": "v₁ = 2u₁ + 3u₂ = (5, −1)ᵀ, v₂ = 4u₁ + u₂ = (5, 3)ᵀ",
+      "expectedOutput": "L'ERREUR\n    Les coordonnées de $v_j$ sont la $j$-ième COLONNE de la matrice de passage\n    (définitions 4.2.3 et 4.2.7). L'étudiant a lu les lignes : il a utilisé $P^T$.\n\nLA CORRECTION\n    $v_1 = 2u_1 + 3u_2 = (2 + 3,\\ 2 - 3)^T = (5, -1)^T$\n    $v_2 = 4u_1 + 1u_2 = (4 + 1,\\ 4 - 1)^T = (5, 3)^T$\n\n    Soit $(v_1\\ v_2) = (u_1\\ u_2)\\,P = \\begin{pmatrix} 1 & 1 \\\\ 1 & -1 \\end{pmatrix}\\begin{pmatrix} 2 & 4 \\\\ 3 & 1 \\end{pmatrix} = \\begin{pmatrix} 5 & 5 \\\\ -1 & 3 \\end{pmatrix}$.\n\nCONTRÔLE\n    $\\det P = 2 - 12 = -10 \\neq 0$ : P est inversible, donc $\\{v_1, v_2\\}$ est bien une base (théorème 4.2.5).",
+      "solutionExplanation": "La formule $(v_1, \\dots, v_n) = (u_1, \\dots, u_n)\\,P$ évite l'erreur : c'est un produit « ligne de vecteurs × matrice », qui combine les $u_i$ avec les coefficients de chaque COLONNE de P — exactement la proposition 1.2.9 du chapitre 1.",
+      "source": {
+        "file": "2026-03-MAT199-ChapIV-partie1.pdf",
+        "page": 24,
+        "locator": "Exercice p. 24 (2)"
+      }
+    },
+    {
+      "id": "e5-05",
+      "objectiveId": "obj5-coordonnees",
+      "difficulty": 3,
+      "mode": "trace",
+      "language": "text",
+      "title": "Changer de base dans ℝ³ (exercice p. 28)",
+      "statement": "(1) Trouver la matrice de passage P de {u₁, u₂, u₃} à {v₁, v₂, v₃}.\n(2) Pour v = u₁ − u₂, trouver ses coordonnées dans {v₁, v₂, v₃}.",
+      "starterCode": "u₁ = (1, 1, 0)ᵀ   u₂ = (2, 1, 0)ᵀ   u₃ = (3, 0, 1)ᵀ\nv₁ = (0, 1, 1)ᵀ   v₂ = (1, 0, 1)ᵀ   v₃ = (1, 1, 1)ᵀ",
+      "hints": [
+        "Passer par la base canonique : U = (u₁ u₂ u₃) et V = (v₁ v₂ v₃) sont les matrices de passage depuis {e₁, e₂, e₃} (lemme 4.2.8).",
+        "Théorème 4.2.10(2) : le passage de {u} à {v} est U⁻¹V. Calculer U⁻¹ par (U | I₃).",
+        "Pour (2), les coordonnées de v dans {u} sont (1, −1, 0) ; le théorème 4.2.9 donne celles dans {v} : P⁻¹(1, −1, 0)ᵀ. Ou plus simplement : résoudre (v₁ v₂ v₃)X = v."
+      ],
+      "solution": "P = (5 2 4 ; −4 −2 −3 ; 1 1 1) · coordonnées de v : (1, 0, −1)",
+      "expectedOutput": "(1)  $U = \\begin{pmatrix} 1 & 2 & 3 \\\\ 1 & 1 & 0 \\\\ 0 & 0 & 1 \\end{pmatrix}$,  $V = \\begin{pmatrix} 0 & 1 & 1 \\\\ 1 & 0 & 1 \\\\ 1 & 1 & 1 \\end{pmatrix}$\n\n     $(U \\mid I_3) \\to (I_3 \\mid U^{-1})$ donne $U^{-1} = \\begin{pmatrix} -1 & 2 & 3 \\\\ 1 & -1 & -3 \\\\ 0 & 0 & 1 \\end{pmatrix}$\n\n     $P = U^{-1}V = \\begin{pmatrix} 5 & 2 & 4 \\\\ -4 & -2 & -3 \\\\ 1 & 1 & 1 \\end{pmatrix}$\n\n     Vérification : $5u_1 - 4u_2 + u_3 = (5 - 8 + 3,\\ 5 - 4,\\ 1) = (0, 1, 1) = v_1$ ✓\n\n(2)  $v = u_1 - u_2 = (-1, 0, 0)^T$.\n     Dans $\\{v_1, v_2, v_3\\}$ : $av_1 + bv_2 + cv_3 = (b + c,\\ a + c,\\ a + b + c) = (-1, 0, 0)$\n     donne $a + b + c = 0$ et $b + c = -1$, donc $a = 1$ ; puis $c = -a = -1$, $b = 0$.\n     Coordonnées : $(1, 0, -1)$.  Contrôle : $v_1 - v_3 = (-1, 0, 0)$ ✓\n     (Et par le théorème 4.2.9 : $P^{-1}(1, -1, 0)^T = (1, 0, -1)^T$, avec $P^{-1} = \\begin{pmatrix} -1 & -2 & -2 \\\\ -1 & -1 & 1 \\\\ 2 & 3 & 2 \\end{pmatrix}$.)",
+      "solutionExplanation": "Le détour par la base canonique est la méthode générale : dans ℝⁿ, les matrices de passage depuis {eᵢ} sont gratuites (on écrit les vecteurs en colonnes), et le théorème 4.2.10 fait le reste. Les deux méthodes de (2) doivent donner le même résultat — c'est une vérification croisée.",
+      "source": {
+        "file": "2026-03-MAT199-ChapIV-partie1.pdf",
+        "page": 28,
+        "locator": "Exercice p. 28"
+      }
+    }
+  ]
+}

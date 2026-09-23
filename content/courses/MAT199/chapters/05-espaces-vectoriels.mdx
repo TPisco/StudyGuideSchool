@@ -1,0 +1,442 @@
+---
+course: MAT199
+number: 5
+title: "Espaces vectoriels : base, dimension, coordonnées"
+summary: >-
+  La notion abstraite d'espace vectoriel, puis ses outils : combinaison
+  linéaire, familles libres et liées, base et dimension, coordonnées d'un
+  vecteur dans une base, matrice des coordonnées et matrice de passage. Tout
+  se ramène à un système ou à un rang — les chapitres 2 à 4 au travail.
+estimatedMinutes: 210
+prerequisites:
+  - "Chapitre 4 — systèmes, théorème du rang, systèmes homogènes"
+  - "Chapitre 3 — critère det(A) ≠ 0"
+objectives:
+  - id: obj5-axiomes
+    text: Reconnaître un espace vectoriel et ses opérations, en particulier ℝⁿ.
+    bloom: recall
+  - id: obj5-combinaison
+    text: Décider si un vecteur est combinaison linéaire d'autres vecteurs et trouver les coefficients.
+    bloom: apply
+  - id: obj5-libre
+    text: Décider si une famille est libre ou liée, par le rang ou par les lemmes pour une ou deux vecteurs.
+    bloom: apply
+  - id: obj5-base
+    text: Vérifier qu'une famille est une base et utiliser la dimension pour conclure sans calcul.
+    bloom: analyze
+  - id: obj5-coordonnees
+    text: Calculer des coordonnées, une matrice des coordonnées et une matrice de passage entre deux bases.
+    bloom: apply
+sources:
+  - file: "2026-03-MAT199-ChapIV-partie1.pdf"
+    page: 1
+    locator: "Chapitre IV — Espaces vectoriels, partie 1 (p. 1 à 30)"
+---
+
+Ce document est une impression de notes (sans couche de texte) : chaque page a
+été lue visuellement. Il s'arrête au tout début de la section 4.3 ;
+**la suite du chapitre IV n'a pas été fournie**. Comme ailleurs, **les
+solutions des exercices sont calculées et vérifiées par la plateforme**.
+
+## 1. Qu'est-ce qu'un espace vectoriel ?
+
+Certaines quantités — la chaleur, la température — tiennent en un nombre.
+D'autres — la **force**, la **couleur numérique** — exigent plusieurs
+variables : ce sont des **quantités vectorielles**. Elles se multiplient par
+une constante et s'additionnent entre elles ; la notion d'espace vectoriel
+capture exactement cela.
+
+Dans le plan $\mathbb{R}^2$, on additionne composante par composante et on
+multiplie chaque composante par le réel :
+
+$$
+\begin{pmatrix} x \\ y \end{pmatrix} + \begin{pmatrix} x' \\ y' \end{pmatrix} = \begin{pmatrix} x + x' \\ y + y' \end{pmatrix},
+\qquad
+a\begin{pmatrix} x \\ y \end{pmatrix} = \begin{pmatrix} ax \\ ay \end{pmatrix}.
+$$
+
+<Figure caption="L'addition géométrique (règle du parallélogramme) et la multiplication par un scalaire, comme dans les schémas des notes (p. 3 et 4).">
+<svg viewBox="0 0 640 250" role="img" aria-label="À gauche, u + v est la diagonale du parallélogramme construit sur u et v. À droite, au est un vecteur de même direction que u, et −bu de sens opposé.">
+  <g transform="translate(20,210)">
+    <line x1="0" y1="0" x2="270" y2="0" stroke="currentColor" opacity="0.4" />
+    <line x1="0" y1="0" x2="0" y2="-190" stroke="currentColor" opacity="0.4" />
+    <line x1="0" y1="0" x2="60" y2="-110" stroke="#38bdf8" stroke-width="2.5" />
+    <line x1="0" y1="0" x2="150" y2="-50" stroke="#fbbf24" stroke-width="2.5" />
+    <line x1="60" y1="-110" x2="210" y2="-160" stroke="#fbbf24" stroke-width="1.5" stroke-dasharray="6 5" />
+    <line x1="150" y1="-50" x2="210" y2="-160" stroke="#38bdf8" stroke-width="1.5" stroke-dasharray="6 5" />
+    <line x1="0" y1="0" x2="210" y2="-160" stroke="#34d399" stroke-width="3" />
+    <text x="22" y="-66" font-size="15" fill="#38bdf8" font-style="italic">u</text>
+    <text x="84" y="-14" font-size="15" fill="#fbbf24" font-style="italic">v</text>
+    <text x="214" y="-164" font-size="15" fill="#34d399" font-style="italic">u + v</text>
+  </g>
+  <g transform="translate(470,140)">
+    <line x1="-130" y1="0" x2="150" y2="0" stroke="currentColor" opacity="0.4" />
+    <line x1="0" y1="95" x2="0" y2="-120" stroke="currentColor" opacity="0.4" />
+    <line x1="0" y1="0" x2="100" y2="-100" stroke="#a78bfa" stroke-width="2" />
+    <line x1="0" y1="0" x2="40" y2="-40" stroke="#38bdf8" stroke-width="3.5" />
+    <line x1="0" y1="0" x2="-60" y2="60" stroke="#fb7185" stroke-width="2.5" />
+    <text x="30" y="-48" font-size="15" fill="#38bdf8" font-style="italic">u</text>
+    <text x="104" y="-102" font-size="15" fill="#a78bfa" font-style="italic">au</text>
+    <text x="-110" y="76" font-size="15" fill="#fb7185" font-style="italic">−bu</text>
+  </g>
+</svg>
+</Figure>
+
+**Définition 4.1.1.** Les réels s'appellent des **scalaires**. Un ensemble
+$E$, dont les éléments s'appellent des **vecteurs**, est un **espace
+vectoriel réel** s'il est muni d'une multiplication par scalaires
+$(a, u) \mapsto a \cdot u$ et d'une addition $(u, v) \mapsto u + v$ vérifiant,
+pour tous $a, b \in \mathbb{R}$ et $u, v, w \in E$ :
+
+| | Axiome |
+| --- | --- |
+| (1) associativité | $a \cdot (b \cdot u) = (ab) \cdot u$ |
+| (2) neutralité | $1 \cdot u = u$ |
+| (3) commutativité | $u + v = v + u$ |
+| (4) associativité | $u + (v + w) = (u + v) + w$ |
+| (5) vecteur nul | il existe $0_E$ tel que $u + 0_E = u$ |
+| (6) opposé | $u$ admet $-u$ tel que $u + (-u) = 0_E$ |
+| (7) distributivité | $a \cdot (u + v) = a \cdot u + a \cdot v$ |
+| (8) distributivité | $(a + b) \cdot u = a \cdot u + b \cdot u$ |
+
+$E$ est **nul** si $E = \{0_E\}$ ; par exemple $\{0\}$ avec $0 + 0 = 0$ et
+$a \cdot 0 = 0$.
+
+**Proposition 4.1.2.** Pour tout $n \geq 1$, $\mathbb{R}^n$ — les
+matrices-colonnes à $n$ termes réels, avec les opérations terme à terme — est
+un espace vectoriel réel, appelé **espace vectoriel canonique**.
+
+<Callout type="example" title="Les couleurs dans ℝ³">
+Une couleur de coordonnées RVB $\{r; v; b\}$ est représentée par le vecteur
+$(r, v, b)^T \in \mathbb{R}^3$ ; ainsi $(0{,}50;\ 0{,}20;\ 0{,}15)^T$ est une
+couleur. Mais **tous les vecteurs de $\mathbb{R}^3$ ne sont pas des
+couleurs** : $(0;\ 2;\ 0{,}1)^T$ et $(1;\ 0{,}2;\ -2)^T$ n'en représentent
+aucune, car une intensité est entre 0 et 1.
+</Callout>
+
+**Proposition 4.1.3.** Dans tout espace vectoriel : si $u + v = u + w$, alors
+$v = w$ ; $au = 0_E$ si, et seulement si, $a = 0$ ou $u = 0_E$ ;
+$(-1)u = -u$ ; $a(u - v) = au - av$ ; $-(-u) = u$ ; $-(u + v) = -u - v$ ;
+$u + v = w \iff u = w - v$.
+
+<Callout type="note" title="Ce que dit « au = 0 ⟺ a = 0 ou u = 0 »">
+Pour les **vecteurs** multipliés par un **scalaire**, la règle du produit nul
+est vraie — contrairement au produit de deux **matrices** du chapitre 1, qui
+peut être nul sans qu'aucun facteur ne le soit.
+</Callout>
+
+<Source file="2026-03-MAT199-ChapIV-partie1.pdf" page={2} locator="Définition 4.1.1, propositions 4.1.2 et 4.1.3" />
+
+## 2. Combinaisons linéaires
+
+**Définition 4.1.4.** $u$ est une **combinaison linéaire** de
+$u_1, \dots, u_n$ s'il existe des réels $a_1, \dots, a_n$ — les
+**coefficients** — tels que $u = a_1u_1 + \cdots + a_nu_n$. Pour $n = 1$, on
+parle de **multiple** $au_1$. Le vecteur nul est toujours combinaison
+linéaire : $0_E = 0 \cdot u_1 + \cdots + 0 \cdot u_n$.
+
+Exercice p. 5 : pour $u = (1, 2)^T$, $v = (2, 1)^T$, la combinaison à
+coefficients 2 et 3 est $w = 2u + 3v = (2, 4)^T + (6, 3)^T = (8, 7)^T$.
+
+**Proposition 4.1.5.** Une couleur $C$ s'obtient en mélangeant
+$C_1, \dots, C_n$ si, et seulement si, $C$ est une combinaison linéaire des
+$C_i$ **à coefficients compris entre 0 et 1**. (Exercice p. 6 : le mélange
+30 % magenta, 20 % blanc, 15 % jaune, 35 % pourpre donne
+$(0{,}86;\ 0{,}35;\ 0{,}85)$, comme au chapitre 1.)
+
+**Théorème 4.1.6.** Pour $u_1, \dots, u_n, u \in \mathbb{R}^m$, sont
+équivalents :
+
+1. $u$ est une combinaison linéaire de $u_1, \dots, u_n$ ;
+2. le système $(u_1 \cdots u_n)X = u$ est compatible ;
+3. $\operatorname{rg}(u_1 \cdots u_n) = \operatorname{rg}(u_1 \cdots u_n \mid u)$.
+
+**Proposition 4.1.7.** De plus, $u = a_1u_1 + \cdots + a_nu_n$ si, et
+seulement si, $(a_1, \dots, a_n)^T$ est une solution du système
+$(u_1 \cdots u_n)X = u$ : **les coefficients sont les solutions du système**.
+
+<Callout type="example" title="Exercices des notes, p. 7 et 8">
+**Oui ou non ?** $v = (2, -1, 1)^T$ est-il combinaison linéaire de
+$v_1 = (1, 3, 1)^T$ et $v_2 = (3, 2, -4)^T$ ?
+
+$$
+\left(\begin{array}{cc|c} 1 & 3 & 2 \\ 3 & 2 & -1 \\ 1 & -4 & 1 \end{array}\right)
+\xrightarrow[L_3 - L_1]{L_2 - 3L_1}
+\left(\begin{array}{cc|c} 1 & 3 & 2 \\ 0 & -7 & -7 \\ 0 & -7 & -1 \end{array}\right)
+\xrightarrow{L_3 - L_2}
+\left(\begin{array}{cc|c} 1 & 3 & 2 \\ 0 & -7 & -7 \\ 0 & 0 & 6 \end{array}\right)
+$$
+
+$\operatorname{rg}(v_1\ v_2) = 2 < 3 = \operatorname{rg}(v_1\ v_2 \mid v)$ :
+**non**.
+
+**Trouver les coefficients.** Pour $u = (1, 5, 1)^T$, $u_1 = (2, 3, 2)^T$,
+$u_2 = (1, 0, 1)^T$, $u_3 = (0, 1, 0)^T$, le système
+$(u_1\ u_2\ u_3)X = u$ a une infinité de solutions
+$\left(\frac{5 - c}{3},\ \frac{2c - 7}{3},\ c\right)$. Les notes en citent
+deux :
+
+$$
+u = 1 \cdot u_1 + (-1) \cdot u_2 + 2 \cdot u_3 = 0 \cdot u_1 + 1 \cdot u_2 + 5 \cdot u_3 .
+$$
+
+**Les coefficients d'une combinaison linéaire ne sont pas uniques en
+général.**
+</Callout>
+
+<Source file="2026-03-MAT199-ChapIV-partie1.pdf" page={6} locator="Définition 4.1.4, proposition 4.1.5, théorème 4.1.6, proposition 4.1.7" />
+
+## 3. Familles libres et liées
+
+**Définition 4.1.8.** $u_1, \dots, u_n$ sont **linéairement dépendants** (la
+famille est **liée**) s'il existe des $a_i$ **non tous nuls** tels que
+$a_1u_1 + \cdots + a_nu_n = 0_E$ ; **linéairement indépendants** (la famille
+est **libre**) sinon, c'est-à-dire si cette égalité entraîne
+$a_1 = \cdots = a_n = 0$. Par convention, la famille vide est libre.
+
+Autrement dit, avec l'équation homogène $x_1u_1 + \cdots + x_nu_n = 0_E$ :
+la famille est **liée** si elle a une solution non nulle, **libre** si elle
+n'a que la solution nulle.
+
+**Lemme 4.1.9.** $\{u\}$ est liée si, et seulement si, $u = 0_E$. $\{u, v\}$
+est liée si, et seulement si, **l'un est un multiple de l'autre**.
+
+**Théorème 4.1.10.** Pour $u_1, \dots, u_n \in \mathbb{R}^m$, sont
+équivalents : la famille est libre ; le système homogène
+$(u_1 \cdots u_n)X = 0$ n'a que la solution nulle ;
+$\operatorname{rg}(u_1 \cdots u_n) = n$, **le nombre de vecteurs**.
+
+<Callout type="example" title="Exercices des notes, p. 9 et 10">
+- $\{(1,1)^T, (1,0)^T\}$ : aucun n'est multiple de l'autre → **libre**.
+- $\{(0,0)^T\}$ → **liée** (c'est le vecteur nul) ; $\{(1,2)^T\}$ → **libre** ;
+  $\{(2,0)^T, (0,3)^T\}$ → **libre**.
+- $v_1, v_2, v_3, v_4 \in \mathbb{R}^3$ : **quatre** vecteurs dans
+  $\mathbb{R}^3$, donc $\operatorname{rg} \leq 3 < 4$ → **liée**, sans calcul.
+- $u_1 = (2,3,2,1)^T$, $u_2 = (1,0,1,2)^T$, $u_3 = (0,1,0,1)^T$ : la matrice
+  $(u_1\ u_2\ u_3)$ est de rang 3 → **libre**.
+</Callout>
+
+**Proposition 4.1.11.** Sont équivalents : la famille est libre ; toute
+sous-famille est libre ; **aucun** vecteur n'est combinaison linéaire des
+autres ; toute combinaison linéaire des $u_i$ s'écrit **de façon unique**.
+En particulier, dans une famille libre, aucun vecteur n'est nul et les
+vecteurs sont deux à deux distincts.
+
+<Callout type="tip" title="L'unicité révèle la dépendance">
+L'exemple des notes (p. 12) retourne l'exercice de la p. 8 : puisque
+$u = (1,5,1)^T$ s'écrit de **deux** façons avec $u_1, u_2, u_3$, la
+proposition 4.1.11(4) dit que $\{u_1, u_2, u_3\}$ est **liée**. Et en effet
+$u_1 = 2u_2 + 3u_3$.
+</Callout>
+
+L'exercice de la p. 12 le vérifie pour les couleurs : aucune des trois
+couleurs rouge, vert, bleu n'est un mélange des deux autres, puisque
+$(e_1\ e_2\ e_3) = I_3$ est de rang 3 : la famille est libre.
+
+<Source file="2026-03-MAT199-ChapIV-partie1.pdf" page={9} locator="Définition 4.1.8, lemme 4.1.9, théorème 4.1.10, proposition 4.1.11" />
+
+## 4. Base et dimension
+
+**Définition 4.1.12.** Si $E \neq \{0_E\}$, une famille **ordonnée**
+$\{u_1, \dots, u_n\}$ est une **base** de $E$ si (i) elle est **libre** et
+(ii) **tout** vecteur de $E$ en est une combinaison linéaire. La seule base
+de $\{0_E\}$ est la famille vide.
+
+**Proposition 4.1.13.** $\mathbb{R}^n$ a pour **base canonique**
+$\{e_1, \dots, e_n\}$, où $e_j$ a un 1 en position $j$ et des 0 ailleurs.
+
+**Théorème 4.1.14.** Toutes les bases de $E$ ont le même nombre de vecteurs :
+la **dimension** de $E$, notée $\dim(E)$. Ainsi $\dim(\mathbb{R}^n) = n$, et
+$\dim(E) = 0$ si, et seulement si, $E = \{0_E\}$.
+
+**Théorème 4.1.15.** Si $\dim(E) = n$ :
+
+1. **toute famille libre de $n$ vecteurs est une base** ;
+2. **toute famille de plus de $n$ vecteurs est liée**.
+
+<Callout type="example" title="Exemples et exercices des notes, p. 13 à 16">
+- $\{u_1 = (1, 1)^T, u_2 = (1, -1)^T\}$ est une base de $\mathbb{R}^2$ :
+  libre (aucun n'est multiple de l'autre) et formée de $2 = \dim \mathbb{R}^2$
+  vecteurs.
+- $\{(1, 2)^T, (2, 4)^T\}$ n'est **pas** une base de $\mathbb{R}^2$ : le
+  second est le double du premier, la famille est liée.
+- Quatre vecteurs de $\mathbb{R}^3$, comme
+  $(\sqrt2, \sqrt3, 1)^T, (\sqrt3, \sqrt5, 0)^T, (\sqrt5, \sqrt7, 1)^T, (1, 1, 1)^T$,
+  sont **toujours** liés (théorème 4.1.15(2)).
+- $\{(1, 1, 0)^T, (2, 1, 0)^T, (0, 3, 1)^T\}$ est une base de $\mathbb{R}^3$ :
+  $\det\begin{pmatrix} 1 & 2 & 0 \\ 1 & 1 & 3 \\ 0 & 0 & 1 \end{pmatrix} = -1 \neq 0$,
+  donc le rang vaut 3 et la famille est libre ; trois vecteurs libres dans un
+  espace de dimension 3 forment une base.
+</Callout>
+
+<Callout type="warning" title="Une incohérence de notation (p. 16)">
+L'énoncé demande de vérifier que « $\{v_1, v_2, v_3\}$ est une base », puis
+définit les vecteurs sous les noms $u_1, u_2, u_3$. Il s'agit évidemment des
+mêmes vecteurs.
+</Callout>
+
+<Source file="2026-03-MAT199-ChapIV-partie1.pdf" page={13} locator="Définition 4.1.12, proposition 4.1.13, théorèmes 4.1.14 et 4.1.15" />
+
+## 5. Coordonnées et matrices de passage
+
+### 5.1 Coordonnées dans une base
+
+**Définition 4.2.1.** Si $\{u_1, \dots, u_n\}$ est une base de $E$, tout
+$u \in E$ s'écrit **de façon unique** $u = a_1u_1 + \cdots + a_nu_n$. Les
+$a_i$ sont les **coordonnées** de $u$ dans cette base, et
+$(a_1, \dots, a_n)^T$ sa **colonne des coordonnées**.
+
+**Lemme 4.2.2.** Dans la base canonique de $\mathbb{R}^n$, les coordonnées de
+$u$ sont ses propres termes : **la colonne des coordonnées canoniques de $u$
+coïncide avec $u$**.
+
+<Callout type="example" title="Exercice des notes, p. 17">
+Base $u_1 = (1, 1)^T$, $u_2 = (1, -1)^T$.
+
+1. Le vecteur de coordonnées $\sqrt2, \sqrt3$ est
+   $v = \sqrt2\,u_1 + \sqrt3\,u_2 = (\sqrt2 + \sqrt3,\ \sqrt2 - \sqrt3)^T$.
+2. Pour $u = (2, 3)^T$ :
+   - dans $\{u_1, u_2\}$ : $a + b = 2$ et $a - b = 3$, donc $(a, b) = \left(\frac52, -\frac12\right)$ ;
+   - dans $\{e_1, e_2\}$ : $(2, 3)$ ;
+   - dans $\{e_2, e_1\}$ : $(3, 2)$ — **une base est ordonnée**, changer
+     l'ordre change les coordonnées.
+</Callout>
+
+### 5.2 Matrice des coordonnées
+
+**Définition 4.2.3.** Si $A_j$ est la colonne des coordonnées de $v_j$ dans
+la base $\{u_1, \dots, u_n\}$, la matrice $(A_1 \cdots A_m)$ est la **matrice
+des coordonnées** de $\{v_1, \dots, v_m\}$ dans $\{u_1, \dots, u_n\}$, notée
+$P^{\{v_1, \dots, v_m\}}_{\{u_1, \dots, u_n\}}$. Formellement,
+
+$$
+(v_1, \dots, v_m) = (u_1, \dots, u_n)\,P^{\{v_1, \dots, v_m\}}_{\{u_1, \dots, u_n\}} .
+$$
+
+**Lemme 4.2.4.** Dans la base canonique, c'est simplement
+$P^{\{v_1, \dots, v_m\}}_{\{e_1, \dots, e_n\}} = (v_1 \cdots v_m)$.
+
+<Callout type="example" title="Exercices des notes, p. 20">
+**De la matrice aux vecteurs.** Dans la base $u_1 = (1,1)^T$, $u_2 = (1,-1)^T$,
+la famille de matrice des coordonnées
+$\begin{pmatrix} 1 & 2 & 1 \\ 2 & 1 & 1 \end{pmatrix}$ est
+$v_1 = u_1 + 2u_2 = (3, -1)^T$, $v_2 = 2u_1 + u_2 = (3, 1)^T$,
+$v_3 = u_1 + u_2 = (2, 0)^T$ — c'est le produit
+$(u_1\ u_2)\begin{pmatrix} 1 & 2 & 1 \\ 2 & 1 & 1 \end{pmatrix}$.
+
+**Des vecteurs à la matrice.** Avec $u_1 = (1,0,2)^T$, $u_2 = (2,1,0)^T$,
+$u_3 = (0,1,2)^T$ et $v_1 = u_1 - u_2$, $v_2 = u_2 - u_3$, $v_3 = u_1 - u_3$,
+$v_4 = u_3$ :
+
+$$
+P^{\{v_1, \dots, v_4\}}_{\{u_1, u_2, u_3\}} = \begin{pmatrix} 1 & 0 & 1 & 0 \\ -1 & 1 & 0 & 0 \\ 0 & -1 & -1 & 1 \end{pmatrix},
+\qquad
+P^{\{v_1, \dots, v_4\}}_{\{e_1, e_2, e_3\}} = \begin{pmatrix} -1 & 2 & 1 & 0 \\ -1 & 0 & -1 & 1 \\ 2 & -2 & 0 & 2 \end{pmatrix}.
+$$
+
+La première se lit directement sur les définitions des $v_j$ ; la seconde
+demande de calculer les $v_j$ (lemme 4.2.4).
+</Callout>
+
+### 5.3 Reconnaître une base
+
+**Théorème 4.2.5.** Si $\{u_1, \dots, u_n\}$ est une base de $E$, alors
+$n$ vecteurs $v_1, \dots, v_n$ forment une base si, et seulement si,
+$P^{\{v_1, \dots, v_n\}}_{\{u_1, \dots, u_n\}}$ est **inversible**.
+
+**Corollaire 4.2.6.** Les colonnes de $A \in M_n(\mathbb{R})$ forment une base
+de $\mathbb{R}^n$ si, et seulement si, $A$ est inversible — ce qui se teste
+par $\det(A) \neq 0$ (chapitre 3).
+
+<Callout type="example" title="Exercices des notes, p. 22 et 23">
+- $u_1 = (1,0,2)^T$, $u_2 = (2,1,0)^T$, $u_3 = (0,1,2)^T$ :
+  $\det(u_1\ u_2\ u_3) = 6 \neq 0$ → **base** de $\mathbb{R}^3$.
+- $v_1 = u_1 - u_2$, $v_2 = u_2 - u_3$, $v_3 = u_1 - u_3$ :
+  $\det P = \det\begin{pmatrix} 1 & 0 & 1 \\ -1 & 1 & 0 \\ 0 & -1 & -1 \end{pmatrix} = 0$
+  → **pas une base**. En effet $v_3 = v_1 + v_2$.
+- $(1,4,7)^T, (2,5,8)^T, (3,6,9)^T$ : le déterminant vaut 0 → **pas une
+  base**.
+</Callout>
+
+### 5.4 Matrice de passage
+
+**Définition 4.2.7.** Pour deux bases de $E$, la **matrice de passage** de
+$\{u_1, \dots, u_n\}$ à $\{v_1, \dots, v_n\}$ est
+$P^{\{v_1, \dots, v_n\}}_{\{u_1, \dots, u_n\}}$ : les coordonnées des **nouveaux**
+vecteurs $v_j$ dans l'**ancienne** base, en colonnes.
+
+**Lemme 4.2.8.** La matrice de passage de la base canonique à une base
+$\{u_1, \dots, u_n\}$ de $\mathbb{R}^n$ est $(u_1 \cdots u_n)$.
+
+**Théorème 4.2.9.** Si $P$ est la matrice de passage de $\{u_i\}$ à $\{v_i\}$
+et $A = P^{\{w_1, \dots, w_m\}}_{\{u_1, \dots, u_n\}}$, alors
+
+$$
+P^{\{w_1, \dots, w_m\}}_{\{v_1, \dots, v_n\}} = P^{-1}A .
+$$
+
+**Théorème 4.2.10.** Si $P$ et $Q$ sont les matrices de passage de
+$\{u_i\}$ à $\{v_i\}$ et à $\{w_i\}$ : la matrice de passage de $\{v_i\}$ à
+$\{u_i\}$ est $P^{-1}$, et celle de $\{v_i\}$ à $\{w_i\}$ est $P^{-1}Q$.
+
+<Mermaid caption="Le diagramme commutatif du théorème 4.2.10 : pour aller de {vᵢ} à {wᵢ}, on revient à {uᵢ} (P⁻¹) puis on repart vers {wᵢ} (Q)." chart={`
+flowchart LR
+  U["{u₁, …, uₙ}"] -->|"P"| V["{v₁, …, vₙ}"]
+  U -->|"Q"| W["{w₁, …, wₙ}"]
+  V -.->|"P⁻¹Q"| W
+`} />
+
+<Callout type="example" title="Exercices des notes, p. 24, 26 et 28">
+**p. 24.** De $\{u_1, u_2\}$ à $\{u_1, u_2\}$ : $I_2$. De $\{u_1, u_2\}$ à
+$\{u_2, u_1\}$ : $\begin{pmatrix} 0 & 1 \\ 1 & 0 \end{pmatrix}$. Et la base
+$\{v_1, v_2\}$ de matrice de passage
+$\begin{pmatrix} 2 & 4 \\ 3 & 1 \end{pmatrix}$ depuis $u_1 = (1,1)^T$,
+$u_2 = (1,-1)^T$ est $v_1 = 2u_1 + 3u_2 = (5, -1)^T$,
+$v_2 = 4u_1 + u_2 = (5, 3)^T$.
+
+**p. 26 — les couleurs.** Jaune $J = (1,1,0)^T$, magenta $M = (1,0,1)^T$,
+cyan $C = (0,1,1)^T$ : $\det(J\ M\ C) = -2 \neq 0$, c'est une base de
+$\mathbb{R}^3$. Pour $D = (1, \frac14, \frac14)^T$, l'unique solution est
+
+$$
+D = \tfrac12 J + \tfrac12 M - \tfrac14 C .
+$$
+
+Le coefficient de $C$ est **négatif** : d'après la proposition 4.1.5, **on ne
+peut pas obtenir $D$ en mélangeant** jaune, magenta et cyan — même si $D$ est
+bien une combinaison linéaire de ces trois couleurs.
+
+**p. 28.** Avec $u_1 = (1,1,0)^T$, $u_2 = (2,1,0)^T$, $u_3 = (3,0,1)^T$ et
+$v_1 = (0,1,1)^T$, $v_2 = (1,0,1)^T$, $v_3 = (1,1,1)^T$, le lemme 4.2.8 et
+le théorème 4.2.10 (en passant par la base canonique) donnent la matrice de
+passage
+$P = (u_1\ u_2\ u_3)^{-1}(v_1\ v_2\ v_3) = \begin{pmatrix} 5 & 2 & 4 \\ -4 & -2 & -3 \\ 1 & 1 & 1 \end{pmatrix}$.
+On vérifie : $5u_1 - 4u_2 + u_3 = (0, 1, 1)^T = v_1$. Le vecteur
+$v = u_1 - u_2 = (-1, 0, 0)^T$ a pour coordonnées $(1, 0, -1)$ dans
+$\{v_1, v_2, v_3\}$ : $v_1 - v_3 = (-1, 0, 0)^T$ ✓.
+</Callout>
+
+<Source file="2026-03-MAT199-ChapIV-partie1.pdf" page={24} locator="Définitions 4.2.1, 4.2.3, 4.2.7 ; théorèmes 4.2.5, 4.2.9, 4.2.10" />
+
+## 6. Sous-espaces vectoriels — le début
+
+**Définition 4.3.1.** Un sous-ensemble **non vide** $F$ de $E$ est un
+**sous-espace vectoriel** s'il est stable : si $u \in F$ et $a \in \mathbb{R}$,
+alors $au \in F$ ; si $u, v \in F$, alors $u + v \in F$.
+
+- $\{0_E\}$ et $E$ sont les **sous-espaces triviaux**.
+- L'ensemble des **couleurs numériques n'est pas** un sous-espace de
+  $\mathbb{R}^3$ : il n'est stable ni par addition (blanc + blanc $= (2,2,2)^T$)
+  ni par multiplication par un scalaire (2 × blanc aussi).
+- Le plan $P_{x,y} = \{(x, y, 0)^T\}$ de $\mathbb{R}^3$ **est** un sous-espace
+  (exercice p. 30) : il contient $0$, et
+  $a(x, y, 0)^T = (ax, ay, 0)^T$, $(x, y, 0)^T + (x', y', 0)^T = (x + x', y + y', 0)^T$
+  restent dans le plan.
+
+<Callout type="warning" title="La suite n'a pas été fournie">
+Le document « partie 1 » s'arrête ici. La suite de la section 4.3 — et
+probablement la suite du chapitre IV — manque ; le chapitre sera à compléter
+dès que la partie 2 sera disponible.
+</Callout>
+
+<Source file="2026-03-MAT199-ChapIV-partie1.pdf" page={30} locator="Définition 4.3.1, exercice p. 30" />
