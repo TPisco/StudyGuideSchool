@@ -1,0 +1,253 @@
+---
+course: MAT098
+number: 2
+title: Les fonctions
+summary: >-
+  Domaine, image, signe et croissance d'une fonction ; composition de
+  fonctions et domaine d'une composée ; puis le catalogue des fonctions
+  usuelles — polynomiales, rationnelles, racine carrée, exponentielles,
+  logarithmiques et trigonométriques — avec les équations qu'on résout pour
+  chacune.
+estimatedMinutes: 210
+prerequisites:
+  - "Chapitre 1 — exposants, radicaux, inéquations"
+objectives:
+  - id: obj2-domaine
+    text: Déterminer le domaine, l'image, le signe et les intervalles de croissance d'une fonction.
+    bloom: understand
+  - id: obj2-composition
+    text: Calculer une fonction composée et son domaine, en gardant les restrictions de la fonction intérieure.
+    bloom: apply
+  - id: obj2-algebriques
+    text: Travailler avec les fonctions polynomiales, rationnelles et racine carrée — pente, sommet, division de polynômes, équations avec radical.
+    bloom: apply
+  - id: obj2-explog
+    text: Résoudre une équation exponentielle ou logarithmique à l'aide des propriétés des logarithmes.
+    bloom: apply
+  - id: obj2-trigo
+    text: Utiliser le cercle trigonométrique et les identités trigonométriques pour résoudre une équation.
+    bloom: analyze
+sources:
+  - file: "1-rappels_calcul_differentiel.pdf"
+    page: 50
+    locator: "Chapitre 1, section Les fonctions (diapositives 50 à 101)"
+  - file: "noteChapitre1.txt"
+    page: 1
+    locator: "Notes en ligne, sections 1.2.1 à 1.2.7"
+---
+
+Comme au chapitre 1, les exercices des diapositives n'ont pas de réponse
+publiée : **celles de la plateforme sont calculées par elle et vérifiées
+par calcul symbolique.**
+
+## 1. Caractéristiques des fonctions
+
+Une **fonction** $f(x)$ associe à chaque $x$ de son domaine au plus un
+$y \in \mathbb{R}$, **l'image** de $x$ ; $x$ est la variable indépendante et
+$y$ la variable dépendante.
+
+- Le **domaine** $\mathrm{Dom}_f$ est l'ensemble des réels qui ont une image.
+  On peut toujours additionner, soustraire et multiplier ; on ne peut pas
+  **diviser par 0** ; on ne peut extraire une **racine paire** que d'un
+  nombre positif ou nul ; une racine impaire, de n'importe quel réel.
+- L'**image** $\mathrm{Ima}_f$ est l'ensemble des valeurs prises par $f$.
+  Un $x$ n'a qu'une image, mais plusieurs $x$ peuvent avoir la même.
+- Faire l'**étude du signe**, c'est trouver où $f(x) < 0$, $f(x) = 0$ et
+  $f(x) > 0$ : $f$ est positive là où son graphique est **au-dessus** de
+  l'axe des $x$, nulle en ses **zéros**, négative là où il est
+  **au-dessous**.
+- $f$ est **croissante** sur $[a, b]$ si $x_1 < x_2 \implies f(x_1) < f(x_2)$,
+  **décroissante** si $x_1 < x_2 \implies f(x_1) > f(x_2)$, **constante**
+  si $f(x_1) = f(x_2)$.
+
+<Callout type="warning" title="« Au-dessus » deux fois sur la diapositive 55">
+La diapositive 55 dit qu'une fonction est positive là où son graphique est
+« au dessus de l'axe des x », puis qu'elle est négative là où il est
+« **au-dessus** de l'axe des x ». Pour le signe négatif, il faut lire
+**au-dessous**.
+</Callout>
+
+<Source file="1-rappels_calcul_differentiel.pdf" page={52} locator="Caractéristiques des fonctions (diapositives 52 à 57)" />
+
+## 2. Composition de fonctions
+
+**Définition 1.23.** $(g \circ f)(x) = g\big(f(x)\big)$ : on remplace
+l'entrée de la fonction extérieure par l'expression de la fonction
+intérieure. La composition **n'est pas commutative** : en général
+$g \circ f \neq f \circ g$.
+
+Pour que $g(f(x))$ existe, il faut $x \in \mathrm{Dom}_f$ **et**
+$f(x) \in \mathrm{Dom}_g$ :
+
+$$
+\mathrm{Dom}_{g \circ f} = \{x \in \mathrm{Dom}_f \mid f(x) \in \mathrm{Dom}_g\}.
+$$
+
+<Callout type="example" title="Exemple 1.25 — la restriction de la fonction intérieure reste">
+$f(x) = \frac{1}{x^2 - 1}$ et $g(x) = \sqrt{x - 2}$. D'abord
+$\mathrm{Dom}_g = [2, \infty[$. Ensuite
+
+$$
+(f \circ g)(x) = \frac{1}{\left(\sqrt{x - 2}\right)^2 - 1} = \frac{1}{x - 3},
+$$
+
+d'où $x \neq 3$. Au total $\mathrm{Dom}_{f \circ g} = [2, 3[\ \cup\ ]3, \infty[$.
+**Même si $(f \circ g)(x)$ ne contient plus de radical, la restriction
+$x \ge 2$ doit être conservée.**
+</Callout>
+
+<Callout type="example" title="Exercice 1.26 — réponses de la plateforme">
+- $f(x) = x^2 - x$, $h(x) = 3x + 2$ : $h(f(2)) = h(2) = 8$ et $h(f(-2)) = h(6) = 20$.
+- $f(x) = 2x + 1$, $g(x) = 3 - x$ : $(f \circ g)(x) = 7 - 2x$ et $(g \circ f)(x) = 2 - 2x$ — elles ne sont **pas** égales.
+- $f(x) = \frac{1}{x - 2}$, $g(x) = \sqrt{x + 4}$ : $\mathrm{Dom}_{f \circ g} = [-4, 0[\ \cup\ ]0, \infty[$, car $\sqrt{x + 4} = 2$ lorsque $x = 0$.
+</Callout>
+
+<Source file="1-rappels_calcul_differentiel.pdf" page={58} locator="Définition 1.23, exemples 1.24 et 1.25, exercice 1.26 (diapositives 58 à 63)" />
+
+## 3. Fonctions polynomiales, rationnelles et racine carrée
+
+Une **fonction polynomiale** de degré $n$ s'écrit
+$f(x) = a_n x^n + a_{n-1}x^{n-1} + \dots + a_1 x + a_0$ avec $a_n \neq 0$.
+
+| Fonction | Forme | À retenir |
+| --- | --- | --- |
+| **linéaire** (degré 1) | $f(x) = ax + b$, $a \neq 0$ | droite de **pente** $a = \frac{\Delta y}{\Delta x} = \frac{y_2 - y_1}{x_2 - x_1}$ et d'**ordonnée à l'origine** $b$ ; croissante si $a > 0$ |
+| **constante** (degré 0) | $f(x) = b$ | cas $a = 0$ |
+| **quadratique** (degré 2) | $f(x) = ax^2 + bx + c$, $a \neq 0$ | parabole de **sommet** $(h, k)$ avec $h = -\frac{b}{2a}$ et $k = f(h)$ ; zéros par la formule quadratique |
+
+Le point d'intersection de deux droites se trouve en résolvant le système de
+leurs équations : pour $y = -3x + 8$ et $y = 2x - 1$ (exercice 1.27),
+$-3x + 8 = 2x - 1$ donne $x = \frac95$, puis $y = \frac{13}{5}$.
+
+Une **fonction rationnelle** $\frac{P}{Q}$ ($P$, $Q$ polynômes) a pour
+domaine les réels où $Q \neq 0$. Elle est **propre** si
+$\deg P < \deg Q$, **impropre** sinon. La **division de polynômes**
+transforme une fonction impropre en polynôme plus fonction propre :
+
+$$
+\frac{P}{Q} = S + \frac{R}{Q}, \qquad R = 0 \text{ ou } \deg R < \deg Q.
+$$
+
+<Callout type="example" title="Exercice 1.29 c — une division (réponse de la plateforme)">
+$$
+\frac{2x^3 - 5x^2 + 3x - 1}{x^2 + 1} = 2x - 5 + \frac{x + 4}{x^2 + 1}
+$$
+car $(x^2 + 1)(2x - 5) = 2x^3 - 5x^2 + 2x - 5$, et il reste
+$(3x - 1) - (2x - 5) = x + 4$, de degré $1 < 2$.
+</Callout>
+
+La **fonction racine carrée** $f(x) = \sqrt{x}$ est croissante ; son
+domaine et son image sont les réels positifs ou nuls, $[0, \infty[$ (les
+diapositives écrivent $\mathbb{R}_+$ ; $0$ en fait partie puisque
+$\sqrt0 = 0$). Pour résoudre une équation avec radical, on **isole la
+racine**, puis on **élève au carré** — et on vérifie : une telle équation
+n'a pas toujours de solution.
+
+<Callout type="example" title="Exercice 1.31 — réponses de la plateforme">
+- $2\sqrt{3x + 1} - 1 = 7 \iff \sqrt{3x + 1} = 4 \iff 3x + 1 = 16 \iff x = 5$.
+- $4\sqrt{7 - 2x} + 3 = -5 \iff \sqrt{7 - 2x} = -2$ : **aucune solution**, une racine carrée n'est jamais négative.
+</Callout>
+
+<Source file="1-rappels_calcul_differentiel.pdf" page={65} locator="Fonctions polynomiales, rationnelles et racine carrée, exercices 1.27 à 1.31 (diapositives 65 à 79)" />
+
+## 4. Fonctions exponentielles et logarithmiques
+
+Une **fonction exponentielle** est $f(x) = b^x$ avec une **base** $b > 0$,
+$b \neq 1$ : $\mathrm{Dom}_f = \mathbb{R}$ et $\mathrm{Ima}_f = \,]0, \infty[$.
+Ne pas la confondre avec $y = x^b$, où c'est l'exposant qui est constant. La
+base $e \approx 2{,}718$ est la **constante de Neper**, et $e \in \mathbb{Q}'$.
+
+La **fonction logarithmique** est sa réciproque :
+
+$$
+y = \log_b x \iff x = b^y, \qquad \mathrm{Dom} = \,]0, \infty[, \quad \mathrm{Ima} = \mathbb{R}.
+$$
+
+On ne peut pas prendre le logarithme d'un nombre négatif ou nul. On note
+$\log x = \log_{10} x$ (logarithme **décimal**) et $\ln x = \log_e x$
+(logarithme **naturel** ou **népérien**), et $\log_b x = \frac{\ln x}{\ln b}$.
+
+**Théorème 1.34** (bases positives différentes de 1, $u, v > 0$) :
+
+$$
+\log_x 1 = 0 \quad \log_x x = 1 \quad \log_x(uv) = \log_x u + \log_x v \quad \log_x\frac{u}{v} = \log_x u - \log_x v
+$$
+$$
+\log_x u^n = n \log_x u \quad \log_x x^n = n \quad x^{\log_x u} = u \quad \log_x u = \frac{\log_y u}{\log_y x}
+$$
+
+<Callout type="warning" title="Deux coquilles dans l'énoncé du théorème 1.34">
+La diapositive 87 écrit « si $x$ et $y \in \mathbb{R} \setminus \{1\}$ » : une
+base de logarithme doit aussi être **positive** ($x, y > 0$, $x, y \neq 1$),
+comme le dit la diapositive 84. Et la propriété 7 est écrite
+$x^{\log_b u} = u$ : l'égalité n'est vraie qu'avec la **même** base,
+$x^{\log_x u} = u$.
+</Callout>
+
+**Méthodes de résolution :**
+
+- **même base** des deux côtés : $b^u = b^v \iff u = v$ ;
+- sinon, **isoler** le terme exponentiel puis appliquer un logarithme des
+  deux côtés et la propriété 5 ;
+- pour un logarithme égal à une constante : $\log_b M = m \iff b^m = M$.
+
+<Callout type="example" title="Exemple 1.35 et exercices 1.32 à 1.36">
+- $4^{2x - 1} = 11 \implies (2x - 1)\ln 4 = \ln 11 \implies x = \frac12\left(1 + \frac{\ln 11}{\ln 4}\right) \approx 1{,}365$ (exemple 1.35).
+- $5^{4 - x} = 125 = 5^3 \implies x = 1$, et $\left(\frac12\right)^{2x - 5} = 64 = \left(\frac12\right)^{-6} \implies x = -\frac12$.
+- $e^{3 - x/4} = 29 \implies 3 - \frac{x}{4} = \ln 29 \implies x = 12 - 4\ln 29 \approx -1{,}469$.
+- $\log_6(4x + 1) = 2 \implies 4x + 1 = 36 \implies x = \frac{35}{4}$.
+
+(Réponses des exercices calculées par la plateforme.)
+</Callout>
+
+<Source file="1-rappels_calcul_differentiel.pdf" page={81} locator="Fonctions exponentielles et logarithmiques, théorème 1.34, exemple 1.35 (diapositives 81 à 90)" />
+
+## 5. Fonctions trigonométriques
+
+On mesure les angles en **degrés** ou en **radians** :
+$\pi \text{ rad} = 180^\circ$, donc $1^\circ = \frac{\pi}{180}$ rad. Un angle
+est positif dans le sens contraire des aiguilles d'une montre. Le **cercle
+trigonométrique** est le cercle de rayon 1 centré à l'origine ; si $P(\theta)
+= (x, y)$ est le point associé à $\theta$, alors $x = \cos\theta$ et
+$y = \sin\theta$.
+
+$$
+\tan\theta = \frac{\sin\theta}{\cos\theta} \qquad \cot\theta = \frac{\cos\theta}{\sin\theta} \qquad \sec\theta = \frac{1}{\cos\theta} \qquad \csc\theta = \frac{1}{\sin\theta}
+$$
+
+| | $\sin x$ | $\cos x$ |
+| --- | --- | --- |
+| domaine, image | $\mathbb{R}$, $[-1, 1]$ | $\mathbb{R}$, $[-1, 1]$ |
+| période | $2\pi$ | $2\pi$ |
+| ordonnée à l'origine | $0$ | $1$ |
+| zéros | $x = k\pi$, $k \in \mathbb{Z}$ | $x = \frac{\pi}{2} + k\pi$, $k \in \mathbb{Z}$ |
+
+<Callout type="warning" title="Sinus pour cosinus sur la diapositive 97">
+En présentant la fonction cosinus, la diapositive 97 écrit « $\sin x$ est
+l'abscisse du point $P(x)$ ». C'est **$\cos x$** qui est l'abscisse ;
+$\sin x$ est l'ordonnée (diapositives 95 et 96).
+</Callout>
+
+**Identités (théorème 1.38)** — les plus utilisées :
+
+$$
+\cos^2\theta + \sin^2\theta = 1 \qquad 1 + \tan^2\theta = \sec^2\theta \qquad \cot^2\theta + 1 = \csc^2\theta
+$$
+$$
+\sin(2\theta) = 2\sin\theta\cos\theta \qquad \cos(2\theta) = \cos^2\theta - \sin^2\theta = 2\cos^2\theta - 1 = 1 - 2\sin^2\theta
+$$
+$$
+\sin^2\theta = \tfrac12\big(1 - \cos(2\theta)\big) \qquad \cos^2\theta = \tfrac12\big(1 + \cos(2\theta)\big)
+$$
+
+ainsi que $\cos(\alpha \pm \beta) = \cos\alpha\cos\beta \mp \sin\alpha\sin\beta$
+et $\sin(\alpha \pm \beta) = \sin\alpha\cos\beta \pm \cos\alpha\sin\beta$.
+
+<Callout type="example" title="Exercice 1.37 c — factoriser avant de résoudre (réponse de la plateforme)">
+Sur $[0^\circ, 360^\circ[$ : $2\sin^2 x - \sin x = 0 \iff \sin x\,(2\sin x - 1) = 0$.
+Donc $\sin x = 0$ ($x = 0^\circ$ ou $180^\circ$) ou $\sin x = \frac12$
+($x = 30^\circ$ ou $150^\circ$). **Diviser par $\sin x$ aurait perdu les
+solutions $0^\circ$ et $180^\circ$.**
+</Callout>
+
+<Source file="1-rappels_calcul_differentiel.pdf" page={92} locator="Fonctions trigonométriques, théorème 1.38, exercices 1.37 et 1.39 (diapositives 92 à 101)" />

@@ -1,0 +1,1873 @@
+{
+  "course": "MAT098",
+  "chapter": 4,
+  "concepts": [
+    {
+      "id": "c4-derivee-point",
+      "term": "Dérivée en un point",
+      "definition": "$f'(a) = \\lim_{\\Delta x \\to 0} \\frac{f(a + \\Delta x) - f(a)}{\\Delta x}$, lorsque la limite existe : le taux de variation instantané de $f$ en $a$.",
+      "whyItMatters": "C'est la pente de la tangente à la courbe au point $(a, f(a))$.",
+      "commonMisconception": "Remplacer $\\Delta x$ par 0 avant de simplifier : on obtient $\\frac00$.",
+      "objectiveId": "obj4-definition",
+      "source": {
+        "file": "1-rappels_calcul_differentiel.pdf",
+        "page": 153,
+        "locator": "Définition 1.49"
+      }
+    },
+    {
+      "id": "c4-fonction-derivee",
+      "term": "Fonction dérivée",
+      "definition": "$f'(x) = \\frac{df}{dx} = \\frac{dy}{dx} = y' = \\lim_{\\Delta x \\to 0} \\frac{f(x + \\Delta x) - f(x)}{\\Delta x}$.",
+      "whyItMatters": "Une seule limite donne la pente de la tangente en tout point.",
+      "commonMisconception": "Lire $\\frac{dy}{dx}$ comme une fraction ; $\\frac{d}{dx}$ est un opérateur.",
+      "objectiveId": "obj4-definition",
+      "source": {
+        "file": "1-rappels_calcul_differentiel.pdf",
+        "page": 155,
+        "locator": "Définition 1.50"
+      }
+    },
+    {
+      "id": "c4-derivabilite",
+      "term": "Dérivabilité et continuité",
+      "definition": "Si f est dérivable en a, elle est continue en a (théorème 1.52). La réciproque est fausse.",
+      "whyItMatters": "Par contraposée, une discontinuité interdit la dérivabilité ; un point anguleux aussi.",
+      "commonMisconception": "Croire qu'une fonction continue est dérivable : $|x|$ est continue en 0 sans y être dérivable.",
+      "objectiveId": "obj4-continuite",
+      "source": {
+        "file": "1-rappels_calcul_differentiel.pdf",
+        "page": 158,
+        "locator": "Théorème 1.52"
+      }
+    },
+    {
+      "id": "c4-produit",
+      "term": "Dérivée du produit",
+      "definition": "$\\frac{d}{dx}[uv] = u\\frac{dv}{dx} + v\\frac{du}{dx}$.",
+      "whyItMatters": "Elle évite de développer des produits longs.",
+      "commonMisconception": "Écrire $\\frac{d}{dx}[uv] = \\frac{du}{dx}\\cdot\\frac{dv}{dx}$.",
+      "objectiveId": "obj4-regles",
+      "source": {
+        "file": "1-rappels_calcul_differentiel.pdf",
+        "page": 170,
+        "locator": "Théorème 1.59"
+      }
+    },
+    {
+      "id": "c4-quotient",
+      "term": "Dérivée du quotient",
+      "definition": "$\\frac{d}{dx}\\left[\\frac{u}{v}\\right] = \\frac{v\\,u' - u\\,v'}{v^2}$, avec $v \\neq 0$.",
+      "whyItMatters": "L'ordre des termes du numérateur compte : l'inverser change le signe.",
+      "commonMisconception": "Écrire $u\\,v' - v\\,u'$ au numérateur, ou oublier le carré du dénominateur.",
+      "objectiveId": "obj4-regles",
+      "source": {
+        "file": "1-rappels_calcul_differentiel.pdf",
+        "page": 171,
+        "locator": "Théorème 1.60"
+      }
+    },
+    {
+      "id": "c4-signe",
+      "term": "Signe de la dérivée",
+      "definition": "$f' > 0$ sur un intervalle : $f$ croissante ; $f' < 0$ : $f$ décroissante ; $f'$ change de $+$ à $-$ en $a$ : maximum relatif.",
+      "whyItMatters": "Le tableau des signes de f′ donne d'un coup les intervalles de croissance et les extremums relatifs.",
+      "commonMisconception": "Conclure à un extremum dès que $f'(a) = 0$ sans vérifier que le signe change.",
+      "objectiveId": "obj4-signe",
+      "source": {
+        "file": "1-rappels_calcul_differentiel.pdf",
+        "page": 177,
+        "locator": "Diapositives 177 à 182"
+      }
+    },
+    {
+      "id": "c4-derivee-seconde",
+      "term": "Dérivée seconde",
+      "definition": "$\\frac{d^2f}{dx^2} = f''(x) = f^{(2)}(x)$ ; plus généralement $f^{(n)}(x)$, la dérivée d'ordre $n$.",
+      "whyItMatters": "Son signe renseigne sur la croissance de f′, donc sur la concavité de f.",
+      "commonMisconception": "Confondre $f^{(2)}(x)$ avec $f(x)^2$.",
+      "objectiveId": "obj4-regles",
+      "source": {
+        "file": "1-rappels_calcul_differentiel.pdf",
+        "page": 183,
+        "locator": "Diapositives 183 et 184"
+      }
+    },
+    {
+      "id": "c4-chaine",
+      "term": "Dérivation en chaîne",
+      "definition": "Si $y = f(u)$ et $u = u(x)$ sont dérivables, $\\frac{dy}{dx} = \\frac{dy}{du}\\cdot\\frac{du}{dx}$ ; en particulier $\\frac{d}{dx}[u^n] = nu^{n-1}\\frac{du}{dx}$.",
+      "whyItMatters": "Toutes les dérivées des fonctions transcendantes du cours s'écrivent avec ce facteur du/dx.",
+      "commonMisconception": "Oublier le facteur $\\frac{du}{dx}$ : $\\frac{d}{dx}[(x^2 + 1)^3] \\neq 3(x^2 + 1)^2$.",
+      "objectiveId": "obj4-chaine",
+      "source": {
+        "file": "1-rappels_calcul_differentiel.pdf",
+        "page": 189,
+        "locator": "Théorèmes 1.65 et 1.66"
+      }
+    }
+  ],
+  "tables": [
+    {
+      "id": "t4-regles",
+      "title": "Règles de dérivation",
+      "kind": "cheatsheet",
+      "columns": [
+        {
+          "key": "fonction",
+          "label": "Fonction"
+        },
+        {
+          "key": "derivee",
+          "label": "Dérivée"
+        }
+      ],
+      "rows": [
+        {
+          "fonction": "$k$",
+          "derivee": "0"
+        },
+        {
+          "fonction": "$x^n$",
+          "derivee": "$nx^{n-1}$"
+        },
+        {
+          "fonction": "$ku$",
+          "derivee": "$ku'$"
+        },
+        {
+          "fonction": "$u \\pm v$",
+          "derivee": "$u' \\pm v'$"
+        },
+        {
+          "fonction": "$uv$",
+          "derivee": "$uv' + vu'$"
+        },
+        {
+          "fonction": "$\\frac{u}{v}$",
+          "derivee": "$\\frac{vu' - uv'}{v^2}$"
+        },
+        {
+          "fonction": "$u^n$",
+          "derivee": "$nu^{n-1}u'$"
+        }
+      ],
+      "source": {
+        "file": "1-rappels_calcul_differentiel.pdf",
+        "page": 166,
+        "locator": "Théorèmes 1.55 à 1.61 et 1.65"
+      }
+    },
+    {
+      "id": "t4-transcendantes",
+      "title": "Dérivées des fonctions transcendantes",
+      "kind": "cheatsheet",
+      "columns": [
+        {
+          "key": "fonction",
+          "label": "Fonction"
+        },
+        {
+          "key": "derivee",
+          "label": "Dérivée"
+        }
+      ],
+      "rows": [
+        {
+          "fonction": "$e^u$",
+          "derivee": "$e^u u'$"
+        },
+        {
+          "fonction": "$b^u$",
+          "derivee": "$b^u \\ln b \\, u'$"
+        },
+        {
+          "fonction": "$\\ln u$",
+          "derivee": "$\\frac{u'}{u}$"
+        },
+        {
+          "fonction": "$\\log_b u$",
+          "derivee": "$\\frac{u'}{u\\ln b}$"
+        },
+        {
+          "fonction": "$\\sin u$",
+          "derivee": "$\\cos u \\, u'$"
+        },
+        {
+          "fonction": "$\\cos u$",
+          "derivee": "$-\\sin u \\, u'$"
+        },
+        {
+          "fonction": "$\\tan u$",
+          "derivee": "$\\sec^2 u \\, u'$"
+        },
+        {
+          "fonction": "$\\cot u$",
+          "derivee": "$-\\csc^2 u \\, u'$"
+        },
+        {
+          "fonction": "$\\sec u$",
+          "derivee": "$\\sec u \\tan u \\, u'$"
+        },
+        {
+          "fonction": "$\\csc u$",
+          "derivee": "$-\\csc u \\cot u \\, u'$"
+        }
+      ],
+      "source": {
+        "file": "1-rappels_calcul_differentiel.pdf",
+        "page": 193,
+        "locator": "Théorèmes 1.68, 1.69, 1.71 et 1.72"
+      }
+    }
+  ],
+  "quiz": {
+    "title": "Quiz — vérification rapide",
+    "estimatedMinutes": 15,
+    "questions": [
+      {
+        "id": "q4-01",
+        "objectiveId": "obj4-definition",
+        "bloomLevel": "recall",
+        "type": "mcq",
+        "difficulty": 1,
+        "prompt": "Quelle expression définit $f'(a)$ ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "$\\lim_{\\Delta x \\to 0} \\frac{f(a + \\Delta x) - f(a)}{\\Delta x}$"
+          },
+          {
+            "id": "b",
+            "text": "$\\frac{f(b) - f(a)}{b - a}$"
+          },
+          {
+            "id": "c",
+            "text": "$\\lim_{\\Delta x \\to 0} \\big(f(a + \\Delta x) - f(a)\\big)$"
+          },
+          {
+            "id": "d",
+            "text": "$\\lim_{x \\to a} f(x)$"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Définition 1.49.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "C'est le taux de variation MOYEN sur [a, b]."
+          },
+          {
+            "optionId": "c",
+            "why": "Sans division par $\\Delta x$, cette limite vaut 0 pour une fonction continue."
+          },
+          {
+            "optionId": "d",
+            "why": "C'est une limite de f, pas de son taux de variation."
+          }
+        ],
+        "source": {
+          "file": "1-rappels_calcul_differentiel.pdf",
+          "page": 153,
+          "locator": "Définition 1.49"
+        }
+      },
+      {
+        "id": "q4-02",
+        "objectiveId": "obj4-definition",
+        "bloomLevel": "apply",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Avec la définition, que vaut $\\frac{dy}{dx}$ pour $y = 3x^2$ ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "$6x$"
+          },
+          {
+            "id": "b",
+            "text": "$6x + 3\\Delta x$"
+          },
+          {
+            "id": "c",
+            "text": "$3x$"
+          },
+          {
+            "id": "d",
+            "text": "$0$"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Exercice 1.51 a, réponse de la plateforme.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "C'est le quotient avant de faire tendre $\\Delta x$ vers 0."
+          },
+          {
+            "optionId": "c",
+            "why": "$3(x + \\Delta x)^2 - 3x^2 = 6x\\Delta x + 3(\\Delta x)^2$."
+          },
+          {
+            "optionId": "d",
+            "why": "Remplacer Δx par 0 trop tôt donne 0/0, pas 0."
+          }
+        ],
+        "source": {
+          "file": "1-rappels_calcul_differentiel.pdf",
+          "page": 157,
+          "locator": "Exercice 1.51 a"
+        }
+      },
+      {
+        "id": "q4-03",
+        "objectiveId": "obj4-continuite",
+        "bloomLevel": "understand",
+        "type": "true-false",
+        "difficulty": 1,
+        "prompt": "Toute fonction continue en un point est dérivable en ce point.",
+        "options": [
+          {
+            "id": "v",
+            "text": "Vrai"
+          },
+          {
+            "id": "f",
+            "text": "Faux"
+          }
+        ],
+        "correct": "f",
+        "explanation": "Théorème 1.52 et exemple 1.53 : |x| est continue en 0 mais n'y est pas dérivable. Seule l'implication inverse est vraie.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "v",
+            "why": "Continuité ⇏ dérivabilité (diapositive 159)."
+          }
+        ],
+        "source": {
+          "file": "1-rappels_calcul_differentiel.pdf",
+          "page": 159,
+          "locator": "Diapositive 159 ; exercice 1.54 c"
+        }
+      },
+      {
+        "id": "q4-04",
+        "objectiveId": "obj4-continuite",
+        "bloomLevel": "understand",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Pourquoi $f(x) = |x|$ n'est-elle pas dérivable en 0 ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Pentes −1 à gauche et 1 à droite"
+          },
+          {
+            "id": "b",
+            "text": "Elle n'est pas continue en 0"
+          },
+          {
+            "id": "c",
+            "text": "$f(0)$ n'est pas définie"
+          },
+          {
+            "id": "d",
+            "text": "Sa dérivée vaut 0 en 0"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Exemple 1.53.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Elle est continue : $\\lim_{x \\to 0} |x| = 0 = |0|$."
+          },
+          {
+            "optionId": "c",
+            "why": "$|0| = 0$."
+          },
+          {
+            "optionId": "d",
+            "why": "La dérivée n'existe pas en 0."
+          }
+        ],
+        "source": {
+          "file": "1-rappels_calcul_differentiel.pdf",
+          "page": 160,
+          "locator": "Exemple 1.53"
+        }
+      },
+      {
+        "id": "q4-05",
+        "objectiveId": "obj4-regles",
+        "bloomLevel": "apply",
+        "type": "mcq",
+        "difficulty": 1,
+        "prompt": "Dériver $g(x) = x^6 - 2x^4 - \\pi^2$.",
+        "options": [
+          {
+            "id": "a",
+            "text": "$6x^5 - 8x^3$"
+          },
+          {
+            "id": "b",
+            "text": "$6x^5 - 8x^3 - 2\\pi$"
+          },
+          {
+            "id": "c",
+            "text": "$6x^5 - 2x^3$"
+          },
+          {
+            "id": "d",
+            "text": "$x^5 - 2x^3$"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Exercice 1.62 b, réponse de la plateforme.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "$\\pi^2$ est une constante : sa dérivée est 0."
+          },
+          {
+            "optionId": "c",
+            "why": "$\\frac{d}{dx}[2x^4] = 8x^3$."
+          },
+          {
+            "optionId": "d",
+            "why": "L'exposant descend en facteur."
+          }
+        ],
+        "source": {
+          "file": "1-rappels_calcul_differentiel.pdf",
+          "page": 173,
+          "locator": "Exercice 1.62 b"
+        }
+      },
+      {
+        "id": "q4-06",
+        "objectiveId": "obj4-regles",
+        "bloomLevel": "analyze",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Un étudiant dérive $(x^2 + x)(x^2 - x)$ et obtient $(2x + 1)(2x - 1)$. Qu'en penser ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Faux : il a multiplié les dérivées ; la bonne dérivée est $4x^3 - 2x$"
+          },
+          {
+            "id": "b",
+            "text": "Juste : c'est la règle du produit"
+          },
+          {
+            "id": "c",
+            "text": "Faux : il fallait trouver $4x^2 - 1$"
+          },
+          {
+            "id": "d",
+            "text": "Juste, car $x^2 + x$ et $x^2 - x$ sont des polynômes"
+          }
+        ],
+        "correct": "a",
+        "explanation": "$(x^2 + x)(x^2 - x) = x^4 - x^2$, dérivée $4x^3 - 2x$ (exercice 1.62 d, réponse de la plateforme).",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "La règle du produit est $uv' + vu'$."
+          },
+          {
+            "optionId": "c",
+            "why": "$(2x + 1)(2x - 1) = 4x^2 - 1$ : c'est la même erreur."
+          },
+          {
+            "optionId": "d",
+            "why": "La règle du produit vaut aussi pour les polynômes."
+          }
+        ],
+        "source": {
+          "file": "1-rappels_calcul_differentiel.pdf",
+          "page": 170,
+          "locator": "Théorème 1.59 ; exercice 1.62 d"
+        }
+      },
+      {
+        "id": "q4-07",
+        "objectiveId": "obj4-regles",
+        "bloomLevel": "apply",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Que vaut $\\frac{d^2}{dx^2}\\left(4x^6 - 2x^5 + 3x - 1\\right)$ ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "$120x^4 - 40x^3$"
+          },
+          {
+            "id": "b",
+            "text": "$24x^5 - 10x^4 + 3$"
+          },
+          {
+            "id": "c",
+            "text": "$120x^4 - 40x^3 + 3$"
+          },
+          {
+            "id": "d",
+            "text": "$144x^4 - 50x^3$"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Exercice 1.64, réponse de la plateforme.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "C'est la dérivée première."
+          },
+          {
+            "optionId": "c",
+            "why": "Le terme $3x$ disparaît à la seconde dérivation."
+          },
+          {
+            "optionId": "d",
+            "why": "$\\frac{d}{dx}[24x^5] = 120x^4$."
+          }
+        ],
+        "source": {
+          "file": "1-rappels_calcul_differentiel.pdf",
+          "page": 186,
+          "locator": "Exercice 1.64"
+        }
+      },
+      {
+        "id": "q4-08",
+        "objectiveId": "obj4-signe",
+        "bloomLevel": "understand",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "$f'(x) > 0$ sur $]-\\infty, 1[$ et sur $]3, \\infty[$, et $f'(x) < 0$ sur $]1, 3[$. Que se passe-t-il en $x = 1$ ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "f admet un maximum relatif"
+          },
+          {
+            "id": "b",
+            "text": "f admet un minimum relatif"
+          },
+          {
+            "id": "c",
+            "text": "f n'est pas définie"
+          },
+          {
+            "id": "d",
+            "text": "f change de concavité"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Diapositive 177.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "f cesse d'AUGMENTER en 1 pour diminuer : c'est un maximum."
+          },
+          {
+            "optionId": "c",
+            "why": "Rien n'indique que f soit indéfinie."
+          },
+          {
+            "optionId": "d",
+            "why": "C'est le signe de f″ qui renseigne sur la concavité."
+          }
+        ],
+        "source": {
+          "file": "1-rappels_calcul_differentiel.pdf",
+          "page": 177,
+          "locator": "Diapositive 177"
+        }
+      },
+      {
+        "id": "q4-09",
+        "objectiveId": "obj4-chaine",
+        "bloomLevel": "apply",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Dériver $f(x) = (x^2 + 1)^3$.",
+        "options": [
+          {
+            "id": "a",
+            "text": "$6x(x^2 + 1)^2$"
+          },
+          {
+            "id": "b",
+            "text": "$3(x^2 + 1)^2$"
+          },
+          {
+            "id": "c",
+            "text": "$3(2x)^2$"
+          },
+          {
+            "id": "d",
+            "text": "$6x(x^2 + 1)^3$"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Théorème 1.65 (exercice 1.62 f, réponse de la plateforme).",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Il manque le facteur $\\frac{d}{dx}[x^2 + 1] = 2x$."
+          },
+          {
+            "optionId": "c",
+            "why": "On dérive l'extérieur en gardant l'intérieur intact."
+          },
+          {
+            "optionId": "d",
+            "why": "L'exposant diminue de 1."
+          }
+        ],
+        "source": {
+          "file": "1-rappels_calcul_differentiel.pdf",
+          "page": 189,
+          "locator": "Théorème 1.65 ; exercice 1.62 f"
+        }
+      },
+      {
+        "id": "q4-10",
+        "objectiveId": "obj4-chaine",
+        "bloomLevel": "apply",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "$f(4) = 4$, $f'(2) = -2$, $g(4) = 2$, $g'(4) = -1$. Si $F(x) = f(g(x))$, que vaut $F'(4)$ ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "2"
+          },
+          {
+            "id": "b",
+            "text": "−3"
+          },
+          {
+            "id": "c",
+            "text": "−2"
+          },
+          {
+            "id": "d",
+            "text": "3"
+          }
+        ],
+        "correct": "a",
+        "explanation": "$F'(4) = f'(g(4))\\,g'(4) = (-2)(-1) = 2$ (exercice 1.67 a, réponse de la plateforme).",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "C'est $f'(4)\\,g'(4)$ : il faut évaluer $f'$ en $g(4) = 2$."
+          },
+          {
+            "optionId": "c",
+            "why": "Il manque le facteur g′(4) = −1."
+          },
+          {
+            "optionId": "d",
+            "why": "$f'(g(4))\\,g'(4) = f'(2)\\cdot(-1)$."
+          }
+        ],
+        "source": {
+          "file": "1-rappels_calcul_differentiel.pdf",
+          "page": 191,
+          "locator": "Exercice 1.67 a"
+        }
+      },
+      {
+        "id": "q4-11",
+        "objectiveId": "obj4-chaine",
+        "bloomLevel": "apply",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Dériver $g(x) = x^3 \\ln x$.",
+        "options": [
+          {
+            "id": "a",
+            "text": "$3x^2\\ln x + x^2$"
+          },
+          {
+            "id": "b",
+            "text": "$3x^2 \\cdot \\frac1x$"
+          },
+          {
+            "id": "c",
+            "text": "$3x^2\\ln x$"
+          },
+          {
+            "id": "d",
+            "text": "$3x^2\\ln x + x^3$"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Règle du produit (exercice 1.70 b, réponse de la plateforme).",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Le produit ne se dérive pas facteur par facteur."
+          },
+          {
+            "optionId": "c",
+            "why": "Il manque $x^3 \\cdot \\frac1x$."
+          },
+          {
+            "optionId": "d",
+            "why": "$x^3 \\cdot \\frac{1}{x} = x^2$."
+          }
+        ],
+        "source": {
+          "file": "1-rappels_calcul_differentiel.pdf",
+          "page": 195,
+          "locator": "Exercice 1.70 b"
+        }
+      },
+      {
+        "id": "q4-12",
+        "objectiveId": "obj4-chaine",
+        "bloomLevel": "analyze",
+        "type": "mcq",
+        "difficulty": 3,
+        "prompt": "Dériver $h(\\theta) = \\cos^3(\\sin 4\\theta)$.",
+        "options": [
+          {
+            "id": "a",
+            "text": "$-12\\cos^2(\\sin 4\\theta)\\sin(\\sin 4\\theta)\\cos 4\\theta$"
+          },
+          {
+            "id": "b",
+            "text": "$-3\\cos^2(\\sin 4\\theta)\\sin(\\sin 4\\theta)\\cos 4\\theta$"
+          },
+          {
+            "id": "c",
+            "text": "$3\\cos^2(\\sin 4\\theta)\\sin(\\sin 4\\theta)\\cdot 4\\cos 4\\theta$"
+          },
+          {
+            "id": "d",
+            "text": "$-12\\cos^2(\\cos 4\\theta)\\sin 4\\theta$"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Trois couches, trois facteurs (exercice 1.73 c, réponse de la plateforme).",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Il manque le facteur 4 de $\\frac{d}{d\\theta}[4\\theta]$."
+          },
+          {
+            "optionId": "c",
+            "why": "La dérivée de $\\cos$ est $-\\sin$."
+          },
+          {
+            "optionId": "d",
+            "why": "Les fonctions intérieures ont été dérivées à la place."
+          }
+        ],
+        "source": {
+          "file": "1-rappels_calcul_differentiel.pdf",
+          "page": 198,
+          "locator": "Exercice 1.73 c"
+        }
+      }
+    ]
+  },
+  "test": {
+    "title": "Test du chapitre 4",
+    "instructions": "21 questions couvrant tout le chapitre. Plus long et plus difficile que le quiz.",
+    "estimatedMinutes": 45,
+    "questions": [
+      {
+        "id": "t4-01",
+        "objectiveId": "obj4-definition",
+        "bloomLevel": "recall",
+        "type": "mcq",
+        "difficulty": 1,
+        "prompt": "Que représente $f'(a)$ graphiquement ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "La pente de la tangente à la courbe au point $(a, f(a))$"
+          },
+          {
+            "id": "b",
+            "text": "La pente d'une sécante"
+          },
+          {
+            "id": "c",
+            "text": "L'ordonnée du point"
+          },
+          {
+            "id": "d",
+            "text": "L'aire sous la courbe jusqu'à a"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Diapositive 154.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "C'est le taux moyen, avant la limite."
+          },
+          {
+            "optionId": "c",
+            "why": "C'est $f(a)$."
+          },
+          {
+            "optionId": "d",
+            "why": "Ce sera l'intégrale."
+          }
+        ],
+        "source": {
+          "file": "1-rappels_calcul_differentiel.pdf",
+          "page": 154,
+          "locator": "Diapositive 154"
+        }
+      },
+      {
+        "id": "t4-02",
+        "objectiveId": "obj4-definition",
+        "bloomLevel": "apply",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Avec la définition, que vaut $\\frac{dy}{dx}$ pour $y = x^3 - 1$ ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "$3x^2$"
+          },
+          {
+            "id": "b",
+            "text": "$3x^2 - 1$"
+          },
+          {
+            "id": "c",
+            "text": "$3x^2 + 3x\\Delta x$"
+          },
+          {
+            "id": "d",
+            "text": "$x^2$"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Exercice 1.51 c, réponse de la plateforme.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "La constante −1 disparaît dans f(x + Δx) − f(x)."
+          },
+          {
+            "optionId": "c",
+            "why": "Il faut encore faire tendre $\\Delta x$ vers 0."
+          },
+          {
+            "optionId": "d",
+            "why": "$(x + \\Delta x)^3 - x^3 = 3x^2\\Delta x + \\dots$"
+          }
+        ],
+        "source": {
+          "file": "1-rappels_calcul_differentiel.pdf",
+          "page": 157,
+          "locator": "Exercice 1.51 c"
+        }
+      },
+      {
+        "id": "t4-03",
+        "objectiveId": "obj4-definition",
+        "bloomLevel": "understand",
+        "type": "true-false",
+        "difficulty": 2,
+        "prompt": "Si $f(x) = 2x$, alors $f'(2) = f(2)$.",
+        "options": [
+          {
+            "id": "v",
+            "text": "Vrai"
+          },
+          {
+            "id": "f",
+            "text": "Faux"
+          }
+        ],
+        "correct": "f",
+        "explanation": "$f'(2) = 2$ mais $f(2) = 4$ (exercice 1.54 a, réponse de la plateforme).",
+        "perDistractorExplanation": [
+          {
+            "optionId": "v",
+            "why": "La dérivée d'une fonction linéaire est sa pente, constante."
+          }
+        ],
+        "source": {
+          "file": "1-rappels_calcul_differentiel.pdf",
+          "page": 163,
+          "locator": "Exercice 1.54 a"
+        }
+      },
+      {
+        "id": "t4-04",
+        "objectiveId": "obj4-definition",
+        "bloomLevel": "analyze",
+        "type": "true-false",
+        "difficulty": 3,
+        "prompt": "Si $f(3) = 0$ et $f'(3) = 5$, alors $\\lim_{h \\to 0} \\frac{f(3 + h)}{h} = 5$.",
+        "options": [
+          {
+            "id": "v",
+            "text": "Vrai"
+          },
+          {
+            "id": "f",
+            "text": "Faux"
+          }
+        ],
+        "correct": "v",
+        "explanation": "Comme $f(3) = 0$, $\\frac{f(3 + h)}{h} = \\frac{f(3 + h) - f(3)}{h}$, dont la limite est $f'(3) = 5$ (exercice 1.54 b, réponse de la plateforme).",
+        "perDistractorExplanation": [
+          {
+            "optionId": "f",
+            "why": "Il suffit de reconnaître la définition 1.49 avec Δx = h."
+          }
+        ],
+        "source": {
+          "file": "1-rappels_calcul_differentiel.pdf",
+          "page": 163,
+          "locator": "Exercice 1.54 b"
+        }
+      },
+      {
+        "id": "t4-05",
+        "objectiveId": "obj4-continuite",
+        "bloomLevel": "understand",
+        "type": "true-false",
+        "difficulty": 1,
+        "prompt": "Toute fonction dérivable en un point est continue en ce point.",
+        "options": [
+          {
+            "id": "v",
+            "text": "Vrai"
+          },
+          {
+            "id": "f",
+            "text": "Faux"
+          }
+        ],
+        "correct": "v",
+        "explanation": "Théorème 1.52 (exercice 1.54 d).",
+        "perDistractorExplanation": [
+          {
+            "optionId": "f",
+            "why": "C'est l'implication Dérivabilité ⟹ Continuité."
+          }
+        ],
+        "source": {
+          "file": "1-rappels_calcul_differentiel.pdf",
+          "page": 158,
+          "locator": "Théorème 1.52"
+        }
+      },
+      {
+        "id": "t4-06",
+        "objectiveId": "obj4-continuite",
+        "bloomLevel": "understand",
+        "type": "true-false",
+        "difficulty": 2,
+        "prompt": "Si $f(a) = g(a)$, alors $f'(a) = g'(a)$.",
+        "options": [
+          {
+            "id": "v",
+            "text": "Vrai"
+          },
+          {
+            "id": "f",
+            "text": "Faux"
+          }
+        ],
+        "correct": "f",
+        "explanation": "$f(x) = x$ et $g(x) = x^2$ valent 1 en $a = 1$, mais $f'(1) = 1 \\neq 2 = g'(1)$ (exercice 1.54 e, réponse de la plateforme).",
+        "perDistractorExplanation": [
+          {
+            "optionId": "v",
+            "why": "Deux courbes peuvent se croiser avec des pentes différentes."
+          }
+        ],
+        "source": {
+          "file": "1-rappels_calcul_differentiel.pdf",
+          "page": 163,
+          "locator": "Exercice 1.54 e"
+        }
+      },
+      {
+        "id": "t4-07",
+        "objectiveId": "obj4-continuite",
+        "bloomLevel": "analyze",
+        "type": "mcq",
+        "difficulty": 3,
+        "prompt": "$f(x) = 2x^2 + 1$ si $x \\le 1$ et $3x$ si $x > 1$. En $x = 1$, $f$ est…",
+        "options": [
+          {
+            "id": "a",
+            "text": "continue mais non dérivable : les pentes valent 4 et 3"
+          },
+          {
+            "id": "b",
+            "text": "dérivable, car elle est continue"
+          },
+          {
+            "id": "c",
+            "text": "discontinue"
+          },
+          {
+            "id": "d",
+            "text": "dérivable, de dérivée 3"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Notes, exercice 1 de 1.4.6 : les deux branches se rejoignent (3 = 3), mais avec des pentes 4 et 3 (réponse de la plateforme).",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "La continuité n'entraîne pas la dérivabilité."
+          },
+          {
+            "optionId": "c",
+            "why": "$f(1) = 3$ et les deux branches valent 3 en 1."
+          },
+          {
+            "optionId": "d",
+            "why": "La pente à gauche vaut 4."
+          }
+        ],
+        "source": {
+          "file": "noteChapitre1.txt",
+          "page": 1,
+          "locator": "Section 1.4.6, exercice 1"
+        }
+      },
+      {
+        "id": "t4-08",
+        "objectiveId": "obj4-regles",
+        "bloomLevel": "recall",
+        "type": "mcq",
+        "difficulty": 1,
+        "prompt": "Quelle est la dérivée de $\\frac{u}{v}$ ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "$\\frac{v\\,u' - u\\,v'}{v^2}$"
+          },
+          {
+            "id": "b",
+            "text": "$\\frac{u\\,v' - v\\,u'}{v^2}$"
+          },
+          {
+            "id": "c",
+            "text": "$\\frac{u'}{v'}$"
+          },
+          {
+            "id": "d",
+            "text": "$\\frac{v\\,u' - u\\,v'}{v}$"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Théorème 1.60.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Les termes du numérateur sont inversés : le signe change."
+          },
+          {
+            "optionId": "c",
+            "why": "Le quotient ne se dérive pas terme à terme."
+          },
+          {
+            "optionId": "d",
+            "why": "Le dénominateur est le carré de v."
+          }
+        ],
+        "source": {
+          "file": "1-rappels_calcul_differentiel.pdf",
+          "page": 171,
+          "locator": "Théorème 1.60"
+        }
+      },
+      {
+        "id": "t4-09",
+        "objectiveId": "obj4-regles",
+        "bloomLevel": "apply",
+        "type": "mcq",
+        "difficulty": 1,
+        "prompt": "Dériver $f(x) = \\frac{-x + x^4 + 2}{4}$.",
+        "options": [
+          {
+            "id": "a",
+            "text": "$x^3 - \\frac14$"
+          },
+          {
+            "id": "b",
+            "text": "$\\frac{4x^3 - 1 + 2}{4}$"
+          },
+          {
+            "id": "c",
+            "text": "$4x^3 - 1$"
+          },
+          {
+            "id": "d",
+            "text": "$x^3 - 1$"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Exercice 1.62 c, réponse de la plateforme.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "La dérivée de la constante 2 est 0."
+          },
+          {
+            "optionId": "c",
+            "why": "Le facteur $\\frac14$ reste en facteur (théorème 1.57)."
+          },
+          {
+            "optionId": "d",
+            "why": "Le facteur $\\frac14$ s'applique aussi à $-1$."
+          }
+        ],
+        "source": {
+          "file": "1-rappels_calcul_differentiel.pdf",
+          "page": 173,
+          "locator": "Exercice 1.62 c"
+        }
+      },
+      {
+        "id": "t4-10",
+        "objectiveId": "obj4-regles",
+        "bloomLevel": "apply",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Que vaut $\\frac{d^2}{dx^2}\\left[(x^3 - 5)(2x + 3)\\right]$ ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "$24x^2 + 18x$"
+          },
+          {
+            "id": "b",
+            "text": "$8x^3 + 9x^2 - 10$"
+          },
+          {
+            "id": "c",
+            "text": "$24x^2 + 9x$"
+          },
+          {
+            "id": "d",
+            "text": "$24x^2 + 18x - 10$"
+          }
+        ],
+        "correct": "a",
+        "explanation": "$(x^3 - 5)(2x + 3) = 2x^4 + 3x^3 - 10x - 15$ (notes, exercice 3 de 1.4.6, réponse de la plateforme).",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "C'est la dérivée première."
+          },
+          {
+            "optionId": "c",
+            "why": "$\\frac{d}{dx}[9x^2] = 18x$."
+          },
+          {
+            "optionId": "d",
+            "why": "La constante −10 disparaît à la seconde dérivation."
+          }
+        ],
+        "source": {
+          "file": "noteChapitre1.txt",
+          "page": 1,
+          "locator": "Section 1.4.6, exercice 3"
+        }
+      },
+      {
+        "id": "t4-11",
+        "objectiveId": "obj4-regles",
+        "bloomLevel": "apply",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Où la courbe de $f(x) = 3x^4 - 16x^3 + 5$ a-t-elle une tangente horizontale ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "En $x = 0$ et $x = 4$"
+          },
+          {
+            "id": "b",
+            "text": "En $x = 4$ seulement"
+          },
+          {
+            "id": "c",
+            "text": "En $x = 0$ et $x = \\frac{16}{3}$"
+          },
+          {
+            "id": "d",
+            "text": "En $x = \\pm 2$"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Tangente horizontale : $f'(x) = 0$ (notes, exercice 5 de 1.4.6, réponse de la plateforme).",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "$12x^2(x - 4) = 0$ a aussi la solution $x = 0$."
+          },
+          {
+            "optionId": "c",
+            "why": "$f'(x) = 12x^3 - 48x^2$, pas $12x^3 - 64x^2$."
+          },
+          {
+            "optionId": "d",
+            "why": "$f'(x) = 12x^2(x - 4)$."
+          }
+        ],
+        "source": {
+          "file": "noteChapitre1.txt",
+          "page": 1,
+          "locator": "Section 1.4.6, exercice 5"
+        }
+      },
+      {
+        "id": "t4-12",
+        "objectiveId": "obj4-signe",
+        "bloomLevel": "apply",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Sur quel ensemble $P(x) = 2x^2 - 5x - 3$ est-il négatif ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "$\\left]-\\frac12, 3\\right[$"
+          },
+          {
+            "id": "b",
+            "text": "$\\left]-\\infty, -\\frac12\\right[\\ \\cup\\ ]3, \\infty[$"
+          },
+          {
+            "id": "c",
+            "text": "$\\left]-3, \\frac12\\right[$"
+          },
+          {
+            "id": "d",
+            "text": "$\\left[-\\frac12, 3\\right]$"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Exemple 1.63.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "C'est là que P est positif."
+          },
+          {
+            "optionId": "c",
+            "why": "$P(x) = 2\\left(x + \\frac12\\right)(x - 3)$ : racines $-\\frac12$ et $3$."
+          },
+          {
+            "optionId": "d",
+            "why": "En −1/2 et 3, P est nul, pas négatif."
+          }
+        ],
+        "source": {
+          "file": "1-rappels_calcul_differentiel.pdf",
+          "page": 179,
+          "locator": "Exemple 1.63"
+        }
+      },
+      {
+        "id": "t4-13",
+        "objectiveId": "obj4-signe",
+        "bloomLevel": "analyze",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Pourquoi une fonction croissante sur $[a, a + \\Delta x]$ a-t-elle $f'(a) \\ge 0$ ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Numérateur et $\\Delta x$ du taux sont positifs"
+          },
+          {
+            "id": "b",
+            "text": "Parce que $f(a)$ est positif"
+          },
+          {
+            "id": "c",
+            "text": "Parce que $f''(a)$ est positive"
+          },
+          {
+            "id": "d",
+            "text": "Parce que $\\Delta x$ est négatif"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Diapositive 181.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Une fonction croissante peut être négative."
+          },
+          {
+            "optionId": "c",
+            "why": "La dérivée seconde parle de la croissance de f′."
+          },
+          {
+            "optionId": "d",
+            "why": "Par hypothèse, $\\Delta x > 0$."
+          }
+        ],
+        "source": {
+          "file": "1-rappels_calcul_differentiel.pdf",
+          "page": 181,
+          "locator": "Diapositive 181"
+        }
+      },
+      {
+        "id": "t4-14",
+        "objectiveId": "obj4-chaine",
+        "bloomLevel": "recall",
+        "type": "mcq",
+        "difficulty": 1,
+        "prompt": "Que dit la dérivation en chaîne ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "$\\frac{dy}{dx} = \\frac{dy}{du}\\cdot\\frac{du}{dx}$"
+          },
+          {
+            "id": "b",
+            "text": "$\\frac{dy}{dx} = \\frac{dy}{du} + \\frac{du}{dx}$"
+          },
+          {
+            "id": "c",
+            "text": "$\\frac{dy}{dx} = \\frac{dy}{du}$"
+          },
+          {
+            "id": "d",
+            "text": "$\\frac{dy}{dx} = \\frac{du}{dy}\\cdot\\frac{du}{dx}$"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Théorème 1.66.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Les dérivées se multiplient."
+          },
+          {
+            "optionId": "c",
+            "why": "Il manque la dérivée de la fonction intérieure."
+          },
+          {
+            "optionId": "d",
+            "why": "La première dérivée est inversée."
+          }
+        ],
+        "source": {
+          "file": "1-rappels_calcul_differentiel.pdf",
+          "page": 190,
+          "locator": "Théorème 1.66"
+        }
+      },
+      {
+        "id": "t4-15",
+        "objectiveId": "obj4-chaine",
+        "bloomLevel": "apply",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "$g(4) = 2$, $g'(4) = -1$. Si $F(x) = (g(x))^2$, que vaut $F'(4)$ ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "−4"
+          },
+          {
+            "id": "b",
+            "text": "−2"
+          },
+          {
+            "id": "c",
+            "text": "4"
+          },
+          {
+            "id": "d",
+            "text": "1"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Théorème 1.65 (exercice 1.67 b, réponse de la plateforme).",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Il manque le facteur 2 de $\\frac{d}{du}[u^2] = 2u$."
+          },
+          {
+            "optionId": "c",
+            "why": "$2g(4)g'(4) = 2\\cdot 2\\cdot(-1)$ est négatif."
+          },
+          {
+            "optionId": "d",
+            "why": "C'est $g'(4)^2$ ; il faut $2g(4)g'(4)$."
+          }
+        ],
+        "source": {
+          "file": "1-rappels_calcul_differentiel.pdf",
+          "page": 191,
+          "locator": "Exercice 1.67 b"
+        }
+      },
+      {
+        "id": "t4-16",
+        "objectiveId": "obj4-chaine",
+        "bloomLevel": "apply",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "$f(4) = 4$ et $f'(4) = 3$. Si $F(x) = x f(x)$, que vaut $F'(4)$ ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "16"
+          },
+          {
+            "id": "b",
+            "text": "12"
+          },
+          {
+            "id": "c",
+            "text": "3"
+          },
+          {
+            "id": "d",
+            "text": "7"
+          }
+        ],
+        "correct": "a",
+        "explanation": "$F'(4) = f(4) + 4f'(4) = 4 + 12$ (notes, exercice 2 de 1.4.6, réponse de la plateforme).",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Il manque le terme $f(4) = 4$ de la règle du produit."
+          },
+          {
+            "optionId": "c",
+            "why": "$F'(x) = f(x) + xf'(x)$, pas $f'(x)$."
+          },
+          {
+            "optionId": "d",
+            "why": "$4 \\cdot 3 + 4 = 16$ : le facteur x doit multiplier f′."
+          }
+        ],
+        "source": {
+          "file": "noteChapitre1.txt",
+          "page": 1,
+          "locator": "Section 1.4.6, exercice 2"
+        }
+      },
+      {
+        "id": "t4-17",
+        "objectiveId": "obj4-chaine",
+        "bloomLevel": "apply",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Dériver $h(x) = 2^{\\sqrt x}$.",
+        "options": [
+          {
+            "id": "a",
+            "text": "$2^{\\sqrt x}\\ln 2 \\cdot \\frac{1}{2\\sqrt x}$"
+          },
+          {
+            "id": "b",
+            "text": "$\\sqrt x \\cdot 2^{\\sqrt x - 1}$"
+          },
+          {
+            "id": "c",
+            "text": "$2^{\\sqrt x}\\ln 2$"
+          },
+          {
+            "id": "d",
+            "text": "$2^{\\sqrt x} \\cdot \\frac{1}{2\\sqrt x}$"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Théorème 1.68 (exercice 1.70 c, réponse de la plateforme).",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "$2^{\\sqrt x}$ est une exponentielle, pas une puissance de x."
+          },
+          {
+            "optionId": "c",
+            "why": "Il manque $\\frac{d}{dx}[\\sqrt x]$."
+          },
+          {
+            "optionId": "d",
+            "why": "Pour une base $b \\neq e$, il faut le facteur $\\ln b$."
+          }
+        ],
+        "source": {
+          "file": "1-rappels_calcul_differentiel.pdf",
+          "page": 195,
+          "locator": "Exercice 1.70 c"
+        }
+      },
+      {
+        "id": "t4-18",
+        "objectiveId": "obj4-chaine",
+        "bloomLevel": "apply",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Dériver $f(x) = x\\cos x$.",
+        "options": [
+          {
+            "id": "a",
+            "text": "$\\cos x - x\\sin x$"
+          },
+          {
+            "id": "b",
+            "text": "$-\\sin x$"
+          },
+          {
+            "id": "c",
+            "text": "$\\cos x + x\\sin x$"
+          },
+          {
+            "id": "d",
+            "text": "$-x\\sin x$"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Exercice 1.73 a, réponse de la plateforme.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Règle du produit oubliée."
+          },
+          {
+            "optionId": "c",
+            "why": "La dérivée de $\\cos x$ est $-\\sin x$."
+          },
+          {
+            "optionId": "d",
+            "why": "Il manque $\\cos x \\cdot \\frac{d}{dx}[x]$."
+          }
+        ],
+        "source": {
+          "file": "1-rappels_calcul_differentiel.pdf",
+          "page": 198,
+          "locator": "Exercice 1.73 a"
+        }
+      },
+      {
+        "id": "t4-19",
+        "objectiveId": "obj4-chaine",
+        "bloomLevel": "apply",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Dériver $g(x) = \\csc(2x)$.",
+        "options": [
+          {
+            "id": "a",
+            "text": "$-2\\csc(2x)\\cot(2x)$"
+          },
+          {
+            "id": "b",
+            "text": "$-\\csc(2x)\\cot(2x)$"
+          },
+          {
+            "id": "c",
+            "text": "$2\\csc(2x)\\cot(2x)$"
+          },
+          {
+            "id": "d",
+            "text": "$-2\\csc^2(2x)$"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Théorème 1.72 (exercice 1.73 b, réponse de la plateforme).",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Il manque le facteur 2 de la fonction intérieure."
+          },
+          {
+            "optionId": "c",
+            "why": "$\\frac{d}{du}[\\csc u] = -\\csc u\\cot u$."
+          },
+          {
+            "optionId": "d",
+            "why": "C'est la forme de la dérivée de $\\cot$."
+          }
+        ],
+        "source": {
+          "file": "1-rappels_calcul_differentiel.pdf",
+          "page": 197,
+          "locator": "Exercice 1.73 b"
+        }
+      },
+      {
+        "id": "t4-20",
+        "objectiveId": "obj4-chaine",
+        "bloomLevel": "analyze",
+        "type": "mcq",
+        "difficulty": 3,
+        "prompt": "$f(1) = 4$ et $f'(1) = \\frac1{16}$. Quelle est la tangente à $g(x) = \\sqrt x + (f(x))^2$ en $x = 1$ ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "$y = x + 16$"
+          },
+          {
+            "id": "b",
+            "text": "$y = 17x$"
+          },
+          {
+            "id": "c",
+            "text": "$y = \\frac12 x + \\frac{33}{2}$"
+          },
+          {
+            "id": "d",
+            "text": "$y = x + 17$"
+          }
+        ],
+        "correct": "a",
+        "explanation": "$g(1) = 1 + 16 = 17$ ; $g'(1) = \\frac{1}{2} + 2 \\cdot 4 \\cdot \\frac{1}{16} = 1$ (notes, exercice 8 de 1.4.6, réponse de la plateforme).",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "La pente vaut 1 et la droite passe par $(1, 17)$."
+          },
+          {
+            "optionId": "c",
+            "why": "Il manque le terme $2f(1)f'(1) = \\frac12$ dans la pente."
+          },
+          {
+            "optionId": "d",
+            "why": "Au point $x = 1$, $y = 17$ : l'ordonnée à l'origine est $16$."
+          }
+        ],
+        "source": {
+          "file": "noteChapitre1.txt",
+          "page": 1,
+          "locator": "Section 1.4.6, exercice 8"
+        }
+      },
+      {
+        "id": "t4-21",
+        "objectiveId": "obj4-regles",
+        "bloomLevel": "recall",
+        "type": "fill-blank",
+        "difficulty": 1,
+        "prompt": "Compléter : si $n$ est un nombre réel, $\\frac{d}{dx}[x^n] = $ ____.",
+        "correct": "nx^(n-1)",
+        "acceptableAnswers": [
+          "n x^(n-1)",
+          "nx^{n-1}",
+          "n*x^(n-1)",
+          "nxⁿ⁻¹"
+        ],
+        "explanation": "Théorème 1.61 : $nx^{n-1}$, là où cette dérivée existe.",
+        "source": {
+          "file": "1-rappels_calcul_differentiel.pdf",
+          "page": 172,
+          "locator": "Théorème 1.61"
+        }
+      }
+    ]
+  },
+  "flashcards": [
+    {
+      "id": "f4-01",
+      "objectiveId": "obj4-definition",
+      "front": "Définition de f′(a) ?",
+      "back": "$\\lim_{\\Delta x \\to 0} \\frac{f(a + \\Delta x) - f(a)}{\\Delta x}$."
+    },
+    {
+      "id": "f4-02",
+      "objectiveId": "obj4-definition",
+      "front": "Sens géométrique de f′(a) ?",
+      "back": "Pente de la tangente en (a, f(a))."
+    },
+    {
+      "id": "f4-03",
+      "objectiveId": "obj4-continuite",
+      "front": "Dérivable ⟹ ? ; continue ⟹ ?",
+      "back": "Dérivable ⟹ continue. Continue ⟹ rien (|x| en 0)."
+    },
+    {
+      "id": "f4-04",
+      "objectiveId": "obj4-continuite",
+      "front": "Point anguleux ?",
+      "back": "Pas de tangente : fonction non dérivable en ce point."
+    },
+    {
+      "id": "f4-05",
+      "objectiveId": "obj4-regles",
+      "front": "Dérivée d'un produit ?",
+      "back": "$uv' + vu'$."
+    },
+    {
+      "id": "f4-06",
+      "objectiveId": "obj4-regles",
+      "front": "Dérivée d'un quotient ?",
+      "back": "$\\frac{vu' - uv'}{v^2}$."
+    },
+    {
+      "id": "f4-07",
+      "objectiveId": "obj4-regles",
+      "front": "Notations de la dérivée seconde ?",
+      "back": "$\\frac{d^2f}{dx^2} = f''(x) = f^{(2)}(x)$."
+    },
+    {
+      "id": "f4-08",
+      "objectiveId": "obj4-signe",
+      "front": "f′ passe de + à − en a ?",
+      "back": "Maximum relatif en a."
+    },
+    {
+      "id": "f4-09",
+      "objectiveId": "obj4-chaine",
+      "front": "$\\frac{d}{dx}[u^n]$ ?",
+      "back": "$nu^{n-1}\\frac{du}{dx}$."
+    },
+    {
+      "id": "f4-10",
+      "objectiveId": "obj4-chaine",
+      "front": "$\\frac{d}{dx}[b^u]$ ?",
+      "back": "$b^u \\ln b \\cdot u'$."
+    },
+    {
+      "id": "f4-11",
+      "objectiveId": "obj4-chaine",
+      "front": "$\\frac{d}{dx}[\\ln u]$ ?",
+      "back": "$\\frac{u'}{u}$."
+    },
+    {
+      "id": "f4-12",
+      "objectiveId": "obj4-chaine",
+      "front": "$\\frac{d}{dx}[\\tan u]$ et $\\frac{d}{dx}[\\sec u]$ ?",
+      "back": "$\\sec^2 u \\cdot u'$ et $\\sec u\\tan u \\cdot u'$."
+    }
+  ],
+  "exercises": [
+    {
+      "id": "e4-01",
+      "objectiveId": "obj4-definition",
+      "difficulty": 2,
+      "mode": "trace",
+      "language": "text",
+      "title": "Dériver par la définition (exercice 1.51 c)",
+      "statement": "Utiliser la définition de la dérivée pour déterminer dy/dx si y = x³ − 1.",
+      "starterCode": "y = x³ − 1",
+      "hints": [
+        "Écrire f(x + Δx) − f(x) : la constante −1 disparaît.",
+        "(x + Δx)³ = x³ + 3x²Δx + 3x(Δx)² + (Δx)³.",
+        "Diviser par Δx, puis faire tendre Δx vers 0."
+      ],
+      "solution": "dy/dx = 3x²",
+      "expectedOutput": "  f(x + Δx) − f(x) = (x + Δx)³ − 1 − (x³ − 1)\n                   = 3x²Δx + 3x(Δx)² + (Δx)³\n\n  [f(x + Δx) − f(x)] / Δx = 3x² + 3xΔx + (Δx)²\n\n  lim_{Δx→0} (3x² + 3xΔx + (Δx)²) = 3x²",
+      "solutionExplanation": "On retrouve la règle de la puissance, théorème 1.61, avec n = 3. Réponse de la plateforme, vérifiée par calcul symbolique.",
+      "source": {
+        "file": "1-rappels_calcul_differentiel.pdf",
+        "page": 157,
+        "locator": "Exercice 1.51 c"
+      }
+    },
+    {
+      "id": "e4-02",
+      "objectiveId": "obj4-chaine",
+      "difficulty": 3,
+      "mode": "trace",
+      "language": "text",
+      "title": "Dériver un logarithme de quotient (exercice 1.70 a)",
+      "statement": "Déterminer la dérivée de f(x) = ln(x / (1 + x²)) pour x > 0, puis simplifier.",
+      "starterCode": "f(x) = ln( x / (1 + x²) )",
+      "hints": [
+        "Deux chemins : la règle d/dx[ln u] = u′/u avec u = x/(1 + x²), ou d'abord ln(x) − ln(1 + x²).",
+        "Avec la seconde forme : 1/x − 2x/(1 + x²).",
+        "Mettre au même dénominateur x(1 + x²)."
+      ],
+      "solution": "f′(x) = (1 − x²) / (x(1 + x²))",
+      "expectedOutput": "  f(x) = ln x − ln(1 + x²)                (théorème 1.34, propriété 4)\n  f′(x) = 1/x − 2x/(1 + x²)               (théorème 1.69)\n        = [(1 + x²) − 2x²] / (x(1 + x²))\n        = (1 − x²) / (x(1 + x²))",
+      "solutionExplanation": "Transformer d'abord le logarithme d'un quotient en différence de logarithmes évite une règle du quotient. Réponse de la plateforme, vérifiée par calcul symbolique.",
+      "source": {
+        "file": "1-rappels_calcul_differentiel.pdf",
+        "page": 195,
+        "locator": "Exercice 1.70 a"
+      }
+    },
+    {
+      "id": "e4-03",
+      "objectiveId": "obj4-chaine",
+      "difficulty": 3,
+      "mode": "find-bug",
+      "language": "text",
+      "title": "Trouver l'erreur — une dérivée à trois couches",
+      "statement": "Un étudiant dérive h(θ) = cos³(sin 4θ) (exercice 1.73 c). Trouver l'erreur.",
+      "starterCode": "h′(θ) = 3cos²(sin 4θ) · (−sin(sin 4θ)) · cos 4θ\n      = −3 cos²(sin 4θ) sin(sin 4θ) cos 4θ",
+      "hints": [
+        "Compter les couches : puissance 3, cosinus, sinus, puis 4θ.",
+        "Chaque couche fournit un facteur.",
+        "Il manque la dérivée de la couche la plus intérieure, 4θ."
+      ],
+      "solution": "Il manque le facteur 4 : h′(θ) = −12 cos²(sin 4θ) sin(sin 4θ) cos 4θ",
+      "expectedOutput": "Couches :  u³  →  cos v  →  sin w  →  w = 4θ\nFacteurs : 3cos²(sin 4θ) · (−sin(sin 4θ)) · cos(4θ) · 4\n\nh′(θ) = −12 cos²(sin 4θ) sin(sin 4θ) cos 4θ",
+      "solutionExplanation": "Écrire la liste des couches avant de dériver évite d'en oublier une. Réponse de la plateforme, vérifiée par calcul symbolique.",
+      "source": {
+        "file": "1-rappels_calcul_differentiel.pdf",
+        "page": 198,
+        "locator": "Exercice 1.73 c"
+      }
+    },
+    {
+      "id": "e4-04",
+      "objectiveId": "obj4-regles",
+      "difficulty": 2,
+      "mode": "trace",
+      "language": "text",
+      "title": "Équation d'une tangente",
+      "statement": "Déterminer l'équation de la droite tangente à f(x) = (x + 3)/(x + 1) en x = −2.",
+      "starterCode": "f(x) = (x + 3)/(x + 1),   x = −2",
+      "hints": [
+        "Le point de tangence : f(−2).",
+        "La pente : f′(−2), avec la règle du quotient.",
+        "Écrire y = ax + b et trouver b avec le point."
+      ],
+      "solution": "y = −2x − 5",
+      "expectedOutput": "Point : f(−2) = 1/(−1) = −1  →  (−2, −1)\nf′(x) = [(x + 1) − (x + 3)] / (x + 1)² = −2/(x + 1)²   →  f′(−2) = −2\ny = −2x + b ;  −1 = −2(−2) + b  ⇒  b = −5\nTangente : y = −2x − 5",
+      "solutionExplanation": "La pente de la tangente est f′(a) (diapositive 154) ; l'ordonnée à l'origine se trouve comme pour toute droite (diapositive 67). Exercice 6 de la section 1.4.6 des notes ; réponse de la plateforme.",
+      "source": {
+        "file": "noteChapitre1.txt",
+        "page": 1,
+        "locator": "Section 1.4.6, exercice 6"
+      }
+    },
+    {
+      "id": "e4-05",
+      "objectiveId": "obj4-continuite",
+      "difficulty": 3,
+      "mode": "trace",
+      "language": "text",
+      "title": "Continue mais pas dérivable",
+      "statement": "Soit f(x) = 2x² + 1 si x ≤ 1 et f(x) = 3x si x > 1. Montrer que f est continue en x = 1, puis, avec la définition, qu'elle n'y est pas dérivable.",
+      "starterCode": "f(x) = 2x² + 1 (x ≤ 1) ;  3x (x > 1)",
+      "hints": [
+        "Continuité : f(1), limite à gauche, limite à droite.",
+        "Dérivabilité : calculer le taux de variation à gauche (Δx < 0) et à droite (Δx > 0) en a = 1.",
+        "À gauche : [2(1 + Δx)² + 1 − 3]/Δx = 4 + 2Δx ; à droite : [3(1 + Δx) − 3]/Δx = 3."
+      ],
+      "solution": "Continue (tout vaut 3) ; limites du taux : 4 à gauche, 3 à droite → non dérivable",
+      "expectedOutput": "Continuité en 1 :\n  f(1) = 3 ;  lim⁻ = 2 + 1 = 3 ;  lim⁺ = 3  → continue\n\nTaux de variation en 1 :\n  Δx → 0⁻ : [2(1 + Δx)² + 1 − 3]/Δx = (4Δx + 2Δx²)/Δx = 4 + 2Δx → 4\n  Δx → 0⁺ : [3(1 + Δx) − 3]/Δx = 3 → 3\n  4 ≠ 3 : la limite n'existe pas, f′(1) n'existe pas.",
+      "solutionExplanation": "Même situation que |x| en 0 (exemple 1.53) : un point anguleux. Exercice 1 de la section 1.4.6 des notes ; réponse de la plateforme.",
+      "source": {
+        "file": "noteChapitre1.txt",
+        "page": 1,
+        "locator": "Section 1.4.6, exercice 1"
+      }
+    }
+  ]
+}

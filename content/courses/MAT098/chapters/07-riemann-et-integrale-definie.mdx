@@ -1,0 +1,152 @@
+---
+course: MAT098
+number: 7
+title: Somme de Riemann et intégrale définie
+summary: >-
+  La méthode des rectangles rendue formelle : partition d'un intervalle,
+  somme de Riemann, définition de l'intégrale définie comme limite, ses
+  propriétés, et le théorème fondamental du calcul intégral qui ramène son
+  calcul à la recherche d'une primitive.
+estimatedMinutes: 150
+prerequisites:
+  - "Chapitre 6 — notation sigma, sommes de rectangles"
+  - "Chapitre 4 — dérivées"
+objectives:
+  - id: obj7-riemann
+    text: Définir une partition, une partition régulière et une somme de Riemann.
+    bloom: recall
+  - id: obj7-definition
+    text: Expliquer la définition de l'intégrale définie comme limite de sommes de Riemann et son lien avec l'aire.
+    bloom: understand
+  - id: obj7-proprietes
+    text: Calculer une intégrale définie à partir d'autres à l'aide des propriétés (linéarité, bornes, additivité).
+    bloom: apply
+  - id: obj7-tfc
+    text: Appliquer le théorème fondamental du calcul intégral et relier deux primitives d'une même fonction.
+    bloom: analyze
+sources:
+  - file: "2-integrale_definie.pdf"
+    page: 24
+    locator: "Chapitre 2, section Somme de Riemann et intégrale définie (diapositives 24 à 35)"
+  - file: "noteChapitre2.txt"
+    page: 1
+    locator: "Notes en ligne, section 2.3 (définitions 2.5 à 2.7, théorèmes 2.8 à 2.12)"
+---
+
+## 1. Partitions et sommes de Riemann
+
+**Définition 2.5.** Une **partition** $P$ de $[a, b]$ est une suite de réels
+$x_0, x_1, \dots, x_n$ tels que $a = x_0 < x_1 < \dots < x_{n-1} < x_n = b$.
+Chaque sous-intervalle a pour longueur $\Delta x_k = x_k - x_{k-1}$. La
+partition est **régulière** lorsque $\Delta x_1 = \Delta x_2 = \dots = \Delta x_n = \Delta x$,
+et alors
+
+$$
+\Delta x = \frac{b - a}{n}.
+$$
+
+**Définition 2.6.** Si $x_k^* \in [x_{k-1}, x_k]$ est un point du $k$-ième
+sous-intervalle, une **somme de Riemann** de $f$ sur $[a, b]$ est
+
+$$
+\sum_{k=1}^{n} f(x_k^*)\,\Delta x_k.
+$$
+
+Les sommes $\underline{S_n}$ et $\overline{S_n}$ du chapitre 6 en sont deux
+cas particuliers : $x_k^*$ au début ou à la fin de chaque sous-intervalle.
+
+<Source file="2-integrale_definie.pdf" page={25} locator="Définitions 2.5 et 2.6 des notes (diapositives 25 à 27)" />
+
+## 2. L'intégrale définie
+
+**Définition 2.7.**
+
+$$
+\int_a^b f(x)\,dx = \lim_{\substack{n \to \infty \\ \max \Delta x_k \to 0}} \sum_{k=1}^{n} f(x_k^*)\,\Delta x_k.
+$$
+
+Lorsque cette limite existe, $f$ est **intégrable au sens de Riemann** sur
+$[a, b]$, et l'intégrale est un **nombre réel**. $a$ et $b$ sont la **borne
+inférieure** et la **borne supérieure**. **Toute fonction continue sur
+$[a, b]$ y est intégrable.**
+
+<Callout type="tip" title="Pourquoi « max Δxₖ → 0 » et pas seulement n → ∞">
+Avec une partition qui n'est pas régulière, on pourrait multiplier les
+sous-intervalles dans une petite zone en laissant un grand sous-intervalle
+ailleurs. Exiger que la **plus grande** largeur tende vers 0 garantit que
+tous les rectangles s'amincissent. (Explication de la plateforme.)
+</Callout>
+
+<Source file="2-integrale_definie.pdf" page={28} locator="Définition 2.7 des notes (diapositive 28)" />
+
+## 3. Propriétés de l'intégrale définie
+
+**Théorème 2.8 des notes** — $f$ et $g$ intégrables, $k_1$ et $k_2$ constantes :
+
+| | Propriété | Formule |
+| --- | --- | --- |
+| 1 | variable d'intégration **muette** | $\int_a^b f(x)\,dx = \int_a^b f(t)\,dt = \int_a^b f(u)\,du$ |
+| 2 | intervalle de longueur nulle | $\int_a^a f(x)\,dx = 0$ |
+| 3 | inversion des bornes | $\int_a^b f(x)\,dx = -\int_b^a f(x)\,dx$ |
+| 4 | **linéarité** | $\int_a^b \big(k_1f(x) + k_2g(x)\big)\,dx = k_1\int_a^b f(x)\,dx + k_2\int_a^b g(x)\,dx$ |
+| 5 | **additivité** de l'intervalle | $\int_a^b f(x)\,dx + \int_b^c f(x)\,dx = \int_a^c f(x)\,dx$ |
+
+<Callout type="example" title="Exercice 2.9 (1.4 sur les diapositives) — réponse de la plateforme">
+On sait que $\int_2^7 f(x)\,dx = 9$, $\int_2^{-1} g(x)\,dx = -5$ et
+$\int_{-1}^7 g(x)\,dx = 13$. Par **additivité**,
+
+$$
+\int_2^7 g(x)\,dx = \int_2^{-1} g(x)\,dx + \int_{-1}^7 g(x)\,dx = -5 + 13 = 8,
+$$
+
+puis par **linéarité**,
+$\int_2^7 \big(3f(x) - 2g(x)\big)\,dx = 3 \cdot 9 - 2 \cdot 8 = 11$.
+</Callout>
+
+<Callout type="misconception" title="L'additivité ne demande pas b entre a et c">
+La propriété 5 vaut même si $b$ n'est pas entre $a$ et $c$ — ici
+$b = -1$ est à gauche de $a = 2$. C'est justement ce qui permet
+d'enchaîner $\int_2^{-1}$ et $\int_{-1}^7$.
+</Callout>
+
+<Source file="2-integrale_definie.pdf" page={30} locator="Théorème 2.8 des notes, exercice 2.9 (diapositives 29 à 31)" />
+
+## 4. Le théorème fondamental du calcul intégral
+
+Calculer une intégrale par la limite d'une somme est laborieux pour un
+polynôme et **impraticable** dès que la fonction se complexifie. Le
+théorème fondamental relie l'intégrale aux **primitives** : $F$ est une
+**primitive** de $f$ si $F'(x) = f(x)$.
+
+**Théorème 2.10 (théorème fondamental).** Si $f$ est continue sur $[a, b]$
+et si $F'(x) = f(x)$ pour tout $x \in [a, b]$, alors
+
+$$
+\int_a^b f(x)\,dx = F(b) - F(a).
+$$
+
+**Théorème 2.11** (énoncé sans démonstration). Si $F$ et $G$ sont continues
+sur $[a, b]$ et si $F'(x) = G'(x)$ pour tout $x \in \,]a, b[$, alors
+$F(x) = G(x) + C$, où $C$ est une constante. Deux primitives d'une même
+fonction ne diffèrent que d'une constante.
+
+**Deux propriétés de plus (théorème 2.12)** :
+
+6. Si $F'$ est continue sur $[a, b]$, $\int_a^b F'(x)\,dx = F(b) - F(a)$.
+7. Si $f$ est continue et $f(x) \ge 0$ sur $[a, b]$, $\int_a^b f(x)\,dx$ est
+   **l'aire** de la surface sous la courbe, au-dessus de $[a, b]$.
+
+<Callout type="example" title="Retour sur l'exercice 2.4 (plateforme)">
+Au chapitre 6, l'aire sous $y = 2x^3$ sur $[0, 2]$ valait $8$ après un
+passage à la limite. Avec $F(x) = \frac{x^4}{2}$, qui vérifie
+$F'(x) = 2x^3$ : $\int_0^2 2x^3\,dx = F(2) - F(0) = 8 - 0 = 8$. Même
+résultat, sans somme.
+</Callout>
+
+<Callout type="tip" title="La constante C n'influence pas le résultat">
+Avec $G(x) = F(x) + C$ : $G(b) - G(a) = F(b) + C - F(a) - C = F(b) - F(a)$.
+N'importe quelle primitive convient pour appliquer le théorème fondamental
+(conséquence du théorème 2.11, rédigée par la plateforme).
+</Callout>
+
+<Source file="2-integrale_definie.pdf" page={32} locator="Théorèmes 2.10 à 2.12 des notes (diapositives 32 à 35)" />

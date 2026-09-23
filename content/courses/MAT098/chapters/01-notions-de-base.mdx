@@ -1,0 +1,226 @@
+---
+course: MAT098
+number: 1
+title: Notions de base
+summary: >-
+  Les outils de base du calcul : les ensembles de nombres ℕ, ℤ, ℚ, ℚ′ et ℝ, la
+  notation des intervalles, les propriétés des exposants et des radicaux, la
+  valeur absolue, puis la résolution d'équations quadratiques par le
+  discriminant et d'inéquations linéaires et quadratiques.
+estimatedMinutes: 150
+prerequisites: []
+objectives:
+  - id: obj1-ensembles
+    text: Classer un nombre dans les ensembles ℕ, ℤ, ℚ, ℚ′ et ℝ, et décrire un ensemble en compréhension ou en extension.
+    bloom: understand
+  - id: obj1-intervalles
+    text: Écrire un ensemble de réels sous forme d'intervalle, avec des crochets corrects aux bornes et à l'infini.
+    bloom: apply
+  - id: obj1-exposants
+    text: Simplifier une expression à l'aide des propriétés des exposants, des radicaux et de la valeur absolue.
+    bloom: apply
+  - id: obj1-quadratique
+    text: Résoudre une équation quadratique avec le discriminant et la formule quadratique.
+    bloom: apply
+  - id: obj1-inequations
+    text: Résoudre une inéquation linéaire ou quadratique et repérer une erreur de sens d'inégalité.
+    bloom: analyze
+sources:
+  - file: "1-rappels_calcul_differentiel.pdf"
+    page: 4
+    locator: "Chapitre 1, section Notions de base (diapositives 4 à 49)"
+  - file: "noteChapitre1.txt"
+    page: 1
+    locator: "Notes en ligne, sections 1.1.1 à 1.1.7"
+---
+
+Ce premier chapitre est un **rappel** : il reprend les notions de base
+qu'utilise tout le reste du cours. Les diapositives posent de nombreux
+exercices sans en donner la réponse ; **les réponses données sur cette
+plateforme ont été calculées par elle et vérifiées par calcul symbolique.**
+
+## 1. Les ensembles de nombres
+
+| Ensemble | Symbole | Contenu |
+| --- | --- | --- |
+| nombres naturels | $\mathbb{N} = \{0, 1, 2, 3, 4, \dots\}$ | entiers positifs ou nuls ; $\mathbb{N}^* = \{1, 2, 3, \dots\}$ exclut 0 |
+| nombres entiers | $\mathbb{Z} = \{\dots, -2, -1, 0, 1, 2, \dots\}$ | $\mathbb{Z}^*$ exclut 0 ; $\mathbb{Z}_+ = \{1, 2, 3, \dots\} = \mathbb{N}^*$ ; $\mathbb{Z}_- = \{\dots, -2, -1\}$ |
+| nombres rationnels | $\mathbb{Q} = \left\{ \dfrac{p}{q} \mid p \in \mathbb{Z} \text{ et } q \in \mathbb{Z}^* \right\}$ | représentation décimale **finie** ou **infinie périodique** |
+| nombres irrationnels | $\mathbb{Q}'$ | représentation décimale **infinie et non périodique** ; aucun nombre n'est à la fois dans $\mathbb{Q}$ et $\mathbb{Q}'$ |
+| nombres réels | $\mathbb{R} = \mathbb{Q} \cup \mathbb{Q}'$ | remplit toute la droite numérique : $\mathbb{R}$ forme un ensemble **continu** |
+
+On a $\mathbb{N} \subset \mathbb{Z} \subset \mathbb{Q} \subset \mathbb{R}$.
+Le symbole $\in$ indique qu'un nombre **appartient** à un ensemble, et
+$\notin$ qu'il n'y appartient pas.
+
+Décrire les éléments d'un ensemble plutôt que les énumérer, comme pour
+$\mathbb{Q}$, s'appelle une **définition en compréhension** ; les énumérer,
+comme pour $\mathbb{N}$, une **définition en extension**.
+
+<Callout type="example" title="Exemples 1.3 et 1.5">
+- $8 \in \mathbb{N}$, $0 \notin \mathbb{N}^*$, $0 \notin \mathbb{Z}_+$, $-5 \in \mathbb{Z}_-$, $0{,}25 \notin \mathbb{Z}$.
+- $-\frac{11}{8} \in \mathbb{Q}$, $\sqrt{49} = 7 \notin \mathbb{Q}'$, $\sqrt{\frac{25}{64}} = \frac{5}{8} \in \mathbb{Q}$, mais $\sqrt[3]{10} \in \mathbb{Q}'$.
+</Callout>
+
+<Callout type="misconception" title="Un radical n'est pas forcément irrationnel">
+$\sqrt{49}$ et $\sqrt{\frac{25}{64}}$ s'écrivent avec un radical, mais valent
+$7$ et $\frac{5}{8}$ : ce sont des rationnels. Il faut **simplifier avant de
+classer**.
+</Callout>
+
+<Source file="1-rappels_calcul_differentiel.pdf" page={5} locator="Définitions 1.1 à 1.6, exemples 1.3 et 1.5 (diapositives 5 à 14)" />
+
+## 2. Les intervalles
+
+Un **intervalle** contient tous les réels compris entre deux bornes $a$ et
+$b$, incluses ou exclues :
+
+| Notation | Ensemble | Type |
+| --- | --- | --- |
+| $[a, b]$ | $\{x \in \mathbb{R} \mid a \le x \le b\}$ | fermé : crochets tournés vers l'intérieur |
+| $]a, b[$ | $\{x \in \mathbb{R} \mid a < x < b\}$ | ouvert : crochets tournés vers l'extérieur |
+| $[a, b[$, $]a, b]$ | | semi-ouvert |
+| $[a, \infty[$ | $\{x \in \mathbb{R} \mid x \ge a\}$ | non borné à droite |
+| $]-\infty, b]$ | $\{x \in \mathbb{R} \mid x \le b\}$ | non borné à gauche |
+
+$-\infty$ et $\infty$ ne sont **pas des nombres réels** : l'intervalle est
+**toujours ouvert du côté de l'infini**.
+
+<Callout type="example" title="Exemple 1.7 — vrai ou faux ?">
+- $\mathbb{R}_- = \,]-\infty, 0[$ : **vrai**.
+- $-\frac{13}{4} \in [-3, 1]$ : **faux**, car $-\frac{13}{4} < -3$.
+- $[-1, 1] = \{-1, 0, 1\}$ : **faux** — l'intervalle contient aussi $\frac12$.
+- $\{-1, 2\} \subseteq \,]-\sqrt{2}, \pi[$ : **vrai**, car $-\sqrt2 < -1$ et $2 < \pi$.
+- $\mathbb{N} = [0, \infty[$ : **faux** — l'intervalle contient $\frac12$.
+</Callout>
+
+<Source file="1-rappels_calcul_differentiel.pdf" page={16} locator="Intervalles, exemple 1.7 (diapositives 16 à 19)" />
+
+## 3. Exposants, valeur absolue et radicaux
+
+**Théorème 1.8.** Pour $a, b \in \mathbb{R}$ et $m, n \in \mathbb{Z}$,
+lorsque les expressions sont définies :
+
+$$
+a^0 = 1 \qquad a^m a^n = a^{m+n} \qquad \frac{a^m}{a^n} = a^{m-n} \qquad (a^m)^n = a^{mn}
+$$
+$$
+(ab)^n = a^n b^n \qquad \left(\frac{a}{b}\right)^n = \frac{a^n}{b^n} \qquad a^{-n} = \frac{1}{a^n}
+$$
+
+Une base doit être non nulle sous un exposant négatif ou au dénominateur, et
+**$0^0$ n'est pas défini**. Une puissance paire d'un $a \neq 0$ est toujours
+positive ; une puissance impaire a le signe de $a$.
+
+La **valeur absolue** est la distance entre $a$ et $0$ :
+$|a| = a$ si $a \ge 0$, et $|a| = -a$ si $a < 0$. Elle n'est jamais
+négative : l'équation $|x| = -4$ n'a **aucune** solution.
+
+**Radicaux (définition 1.12, théorème 1.13).** La racine $n$-ième de $a$ est
+un $b$ tel que $b^n = a$. Si $n$ est **impair**, tout réel a une seule racine
+$n$-ième, de même signe que lui ; si $n$ est **pair**, un réel négatif n'en a
+pas dans $\mathbb{R}$, et $\sqrt[n]{a}$ désigne la racine positive.
+
+$$
+\sqrt[n]{x} = x^{1/n} \qquad \sqrt[n]{x^m} = x^{m/n} = \left(\sqrt[n]{x}\right)^m \qquad
+\sqrt[n]{x^n} = \begin{cases} x & \text{si } n \text{ est impair} \\ |x| & \text{si } n \text{ est pair} \end{cases}
+$$
+$$
+\sqrt[n]{xy} = \sqrt[n]{x}\,\sqrt[n]{y} \qquad \sqrt[n]{\frac{x}{y}} = \frac{\sqrt[n]{x}}{\sqrt[n]{y}} \ (y \neq 0) \qquad \sqrt[m]{\sqrt[n]{x}} = \sqrt[mn]{x}
+$$
+
+<Callout type="misconception" title="√(x²) n'est pas toujours x">
+Pour $x = -3$ : $\sqrt{(-3)^2} = \sqrt{9} = 3 = |-3|$. Avec un indice pair,
+$\sqrt[n]{x^n} = |x|$.
+</Callout>
+
+<Callout type="example" title="Exercices 1.9 et 1.14 — quelques réponses (calculées par la plateforme)">
+- $\left(-2a^3b^{-1}\right)\left(5a^{-2}b^2\right) = -10ab$
+- $\dfrac{\left(3w^2\right)^5}{\left(6w^{-2}\right)^2} = \dfrac{243w^{10}}{36w^{-4}} = \dfrac{27w^{14}}{4}$
+- $32^{2/5} = \left(\sqrt[5]{32}\right)^2 = 2^2 = 4$, et $8^{2/3} = 4$
+- $\dfrac{\sqrt[3]{x}}{\sqrt{x}} = x^{1/3 - 1/2} = x^{-1/6} = \dfrac{1}{\sqrt[6]{x}}$
+</Callout>
+
+<Source file="1-rappels_calcul_differentiel.pdf" page={21} locator="Théorèmes 1.8 et 1.13, définitions 1.10 et 1.12, exercices 1.9, 1.11 et 1.14 (diapositives 21 à 32)" />
+
+## 4. Équations
+
+Une **équation** est une égalité qui contient des variables ; les valeurs
+qui la rendent vraie forment son **ensemble solution**. Une équation vraie
+pour toutes les valeurs de son domaine est une **identité** ; une équation
+dont l'ensemble solution est vide est une **contradiction**.
+
+Une **équation quadratique** se ramène à $ax^2 + bx + c = 0$ avec
+$a \neq 0$. Ses solutions, les **zéros** ou **racines**, sont données par la
+**formule quadratique** :
+
+$$
+x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a}, \qquad \Delta = b^2 - 4ac \text{ (le discriminant)}.
+$$
+
+| Discriminant | Solutions réelles |
+| --- | --- |
+| $\Delta > 0$ | deux racines distinctes |
+| $\Delta = 0$ | une seule racine, $x = -\frac{b}{2a}$ |
+| $\Delta < 0$ | aucune racine : $\sqrt{\Delta}$ n'est pas définie dans $\mathbb{R}$ |
+
+<Callout type="example" title="Exemple 1.16 — les trois cas">
+- $x^2 + 8x + 7 = 0$ : $\Delta = 64 - 28 = 36$, $x = \frac{-8 \pm 6}{2}$, ensemble solution $\{-7, -1\}$.
+- $2x^2 + 4x + 2 = 0$ : $\Delta = 16 - 16 = 0$, une seule solution $x = -1$.
+- $x^2 + x + 3 = 0$ : $\Delta = 1 - 12 = -11 < 0$, aucune solution réelle.
+</Callout>
+
+<Source file="1-rappels_calcul_differentiel.pdf" page={34} locator="Théorème 1.15, formule quadratique, exemple 1.16, exercice 1.17 (diapositives 34 à 40)" />
+
+## 5. Inéquations
+
+Pour isoler la variable d'une **inéquation linéaire**, on ajoute, soustrait,
+multiplie ou divise les deux membres (théorème 1.18) — mais :
+
+$$
+x \le y \text{ et } z < 0 \implies xz \ge yz \text{ et } \frac{x}{z} \ge \frac{y}{z}.
+$$
+
+**Multiplier ou diviser par un nombre négatif inverse le sens de
+l'inégalité.** Une inéquation composée $A \le B \le C$ se sépare en
+$A \le B$ et $B \le C$ ; l'ensemble solution est l'**intersection** des deux.
+
+<Callout type="example" title="Exemple 1.19">
+$-3x - 7 \le 0 \iff -3x \le 7 \iff x \ge -\frac{7}{3}$ (division par $-3$ :
+le sens s'inverse). Ensemble solution : $\left[-\frac73, \infty\right[$.
+</Callout>
+
+<Callout type="warning" title="Une variable qui disparaît sur la diapositive 44">
+La dernière ligne de l'exemple 1.19 est écrite
+« $\frac{-3x}{-3} \ge \frac{7}{-3} \implies\ \ge -\frac73$ » : il manque le
+$x$ à gauche du dernier $\ge$. Il faut lire $x \ge -\frac73$, ce que confirme
+l'ensemble solution donné juste après.
+</Callout>
+
+Pour une **inéquation quadratique** comme $ax^2 + bx + c \ge 0$ :
+
+1. trouver les racines de l'équation associée avec la formule quadratique ;
+2. elles découpent la droite réelle en intervalles ;
+3. tester une valeur dans chaque intervalle pour connaître le signe ;
+4. garder les intervalles qui conviennent, **en incluant les racines** si
+   l'inégalité est large ($\le$, $\ge$).
+
+<Callout type="example" title="Exemple 1.21 — −x² + 6x + 7 ≥ 0">
+$\Delta = 36 + 28 = 64$, racines $x = \frac{-6 \pm 8}{-2}$, soit $-1$ et $7$.
+
+| $x$ | $]-\infty, -1[$ | $-1$ | $]-1, 7[$ | $7$ | $]7, \infty[$ |
+| --- | --- | --- | --- | --- | --- |
+| test | $x = -3$ : $-20$ | | $x = 0$ : $7$ | | $x = 10$ : $-33$ |
+| signe | $-$ | $0$ | $+$ | $0$ | $-$ |
+
+Donc $-x^2 + 6x + 7 \ge 0$ lorsque $x \in [-1, 7]$.
+</Callout>
+
+<Callout type="tip" title="Quand Δ ≤ 0">
+Si $\Delta = 0$, le trinôme est un carré au signe de $a$ près : par exemple
+$9x^2 + 30x + 25 = (3x + 5)^2 \ge 0$, donc $9x^2 + 30x + 25 \le 0$ n'a qu'une
+solution, $x = -\frac53$, et $4x^2 - 4x + 1 > 0$ est vraie partout sauf en
+$x = \frac12$ (exercice 1.22, réponses calculées par la plateforme).
+</Callout>
+
+<Source file="1-rappels_calcul_differentiel.pdf" page={41} locator="Théorème 1.18, exemples 1.19 et 1.21, exercices 1.20 et 1.22 (diapositives 41 à 49)" />

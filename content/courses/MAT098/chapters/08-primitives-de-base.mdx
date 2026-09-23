@@ -1,0 +1,122 @@
+---
+course: MAT098
+number: 8
+title: Primitives de base
+summary: >-
+  Le théorème fondamental ramène l'intégrale définie à la recherche d'une
+  primitive. La table des primitives de base — puissances, fonctions
+  trigonométriques, exponentielle — et son utilisation pour calculer la
+  valeur exacte d'intégrales définies.
+estimatedMinutes: 120
+prerequisites:
+  - "Chapitre 7 — théorème fondamental du calcul intégral"
+  - "Chapitre 4 — dérivées des fonctions transcendantes"
+objectives:
+  - id: obj8-table
+    text: Connaître la table des primitives de base et vérifier une primitive en la dérivant.
+    bloom: recall
+  - id: obj8-reecrire
+    text: Réécrire une fonction (exposant fractionnaire, sécante, exponentielle négative) pour la faire correspondre à une ligne de la table.
+    bloom: understand
+  - id: obj8-primitive
+    text: Trouver une primitive d'une fonction de la forme f(kx) en tenant compte du facteur 1/k.
+    bloom: apply
+  - id: obj8-integrale
+    text: Calculer la valeur exacte d'une intégrale définie avec une primitive et le théorème fondamental, et repérer une erreur de calcul.
+    bloom: analyze
+sources:
+  - file: "2-integrale_definie.pdf"
+    page: 36
+    locator: "Chapitre 2, section Primitives de base (diapositives 36 à 40)"
+  - file: "noteChapitre2.txt"
+    page: 1
+    locator: "Notes en ligne, section 2.4 (exercices 2.13 et 2.14)"
+---
+
+## 1. Pourquoi une table
+
+Le théorème fondamental ramène l'évaluation d'une intégrale définie au
+problème de trouver **une primitive** $F$ de la fonction à intégrer : il
+suffit ensuite de soustraire $F(b) - F(a)$. Les techniques d'intégration
+plus avancées viennent au chapitre suivant du cours ; pour l'instant, on
+utilise des **correspondances simples** entre fonctions et primitives. On
+convertit une primitive en **famille de primitives** en lui ajoutant une
+constante arbitraire $C$.
+
+<Source file="2-integrale_definie.pdf" page={37} locator="Diapositive 37" />
+
+## 2. La table des primitives de base (avec $k \neq 0$)
+
+| Fonction $f(x)$ | Une primitive $F(x)$ |
+| --- | --- |
+| $1$ | $x$ |
+| $x^n$, $n \neq -1$ | $\dfrac{x^{n+1}}{n + 1}$ |
+| $\sin(kx)$ | $-\dfrac{\cos(kx)}{k}$ |
+| $\cos(kx)$ | $\dfrac{\sin(kx)}{k}$ |
+| $\sec^2(kx)$ | $\dfrac{\tan(kx)}{k}$ |
+| $\csc^2(kx)$ | $-\dfrac{\cot(kx)}{k}$ |
+| $\sec(kx)\tan(kx)$ | $\dfrac{\sec(kx)}{k}$ |
+| $\csc(kx)\cot(kx)$ | $-\dfrac{\csc(kx)}{k}$ |
+| $e^{kx}$ | $\dfrac{e^{kx}}{k}$ |
+
+<Callout type="tip" title="Vérifier une primitive : la dériver">
+Chaque ligne se vérifie avec les dérivées du chapitre 4 : par exemple
+$\frac{d}{dx}\left[-\frac{\cos(kx)}{k}\right] = -\frac{-\sin(kx)\cdot k}{k} = \sin(kx)$.
+Le facteur $\frac1k$ compense le facteur $k$ que produit la dérivation en
+chaîne.
+</Callout>
+
+<Callout type="misconception" title="Le facteur 1/k se divise, il ne se multiplie pas">
+Une primitive de $\cos(3x)$ est $\frac{\sin(3x)}{3}$, pas $3\sin(3x)$ :
+en dérivant $3\sin(3x)$, on obtient $9\cos(3x)$.
+</Callout>
+
+<Callout type="note" title="La table exclut n = −1">
+La formule $\frac{x^{n+1}}{n + 1}$ divise par $0$ si $n = -1$ : la table ne
+donne **pas** de primitive de $\frac1x$ à cette étape.
+</Callout>
+
+<Source file="2-integrale_definie.pdf" page={38} locator="Primitives de base, diapositive 38" />
+
+## 3. Réécrire avant de chercher
+
+Beaucoup de fonctions ne ressemblent à une ligne de la table qu'après
+réécriture. Réponses de l'exercice 2.13 (1.5 sur les diapositives),
+calculées par la plateforme et vérifiées en dérivant :
+
+| Fonction | Réécriture | Une primitive |
+| --- | --- | --- |
+| $x^{5/2}$ | $n = \frac52$ | $\frac{2}{7}x^{7/2}$ |
+| $\dfrac{1}{\sqrt[4]{x^3}}$ | $x^{-3/4}$ | $4x^{1/4}$ |
+| $\sin(3x)$ | $k = 3$ | $-\frac{\cos(3x)}{3}$ |
+| $\sec^2(4x)$ | $k = 4$ | $\frac{\tan(4x)}{4}$ |
+| $\dfrac{1}{\cos^2(7x)}$ | $\sec^2(7x)$ | $\frac{\tan(7x)}{7}$ |
+| $\dfrac{1}{e^{5x}}$ | $e^{-5x}$, $k = -5$ | $-\frac{e^{-5x}}{5}$ |
+
+## 4. Valeurs exactes d'intégrales (exercice 2.14, ou 1.6)
+
+Réponses calculées par la plateforme et vérifiées par calcul symbolique.
+
+$$
+\int_2^3 \left(\frac{3}{x^2} + 6x^2\right)dx = \left[-\frac{3}{x} + 2x^3\right]_2^3 = (-1 + 54) - \left(-\frac32 + 16\right) = \frac{77}{2}
+$$
+
+$$
+\int_0^2 e^{-3x}\,dx = \left[-\frac{e^{-3x}}{3}\right]_0^2 = \frac{1 - e^{-6}}{3}
+\qquad
+\int_0^{\pi/6} \cos(3x)\,dx = \left[\frac{\sin(3x)}{3}\right]_0^{\pi/6} = \frac{1}{3}
+$$
+
+$$
+\int_0^{3\pi/4} \sec^2\left(\frac{x}{3}\right)dx = \left[3\tan\left(\frac{x}{3}\right)\right]_0^{3\pi/4} = 3\tan\frac{\pi}{4} = 3
+$$
+
+<Callout type="misconception" title="k peut être une fraction">
+Dans $\sec^2\left(\frac{x}{3}\right)$, $k = \frac13$ : diviser par $k$
+revient à **multiplier par 3**. La primitive est $3\tan\left(\frac{x}{3}\right)$.
+</Callout>
+
+La notation $\left[F(x)\right]_a^b$ signifie $F(b) - F(a)$ ; elle n'apparaît
+pas dans les diapositives, et cette page s'en sert seulement pour abréger.
+
+<Source file="2-integrale_definie.pdf" page={39} locator="Exercices 2.13 et 2.14 (1.5 et 1.6), diapositives 39 et 40" />

@@ -1,0 +1,1896 @@
+{
+  "course": "MAT098",
+  "chapter": 2,
+  "concepts": [
+    {
+      "id": "c2-domaine",
+      "term": "Domaine d'une fonction",
+      "definition": "Ensemble des réels auxquels la fonction associe une image, noté $\\mathrm{Dom}_f$. On exclut les divisions par 0 et les racines paires de nombres négatifs.",
+      "whyItMatters": "C'est la première étape de toute étude de fonction et de tout calcul de composée.",
+      "commonMisconception": "Chercher le domaine sur la formule simplifiée : une restriction disparue du calcul reste une restriction.",
+      "objectiveId": "obj2-domaine",
+      "source": {
+        "file": "1-rappels_calcul_differentiel.pdf",
+        "page": 53,
+        "locator": "Diapositive 53"
+      }
+    },
+    {
+      "id": "c2-croissance",
+      "term": "Fonction croissante, décroissante, constante",
+      "definition": "Croissante sur $[a, b]$ si $x_1 < x_2 \\implies f(x_1) < f(x_2)$ ; décroissante si $x_1 < x_2 \\implies f(x_1) > f(x_2)$ ; constante si $f(x_1) = f(x_2)$.",
+      "whyItMatters": "Le signe de la dérivée, au chapitre 4, servira à trouver ces intervalles.",
+      "commonMisconception": "Confondre « $f$ décroissante » et « $f$ négative » : $f(x) = -x + 10$ est décroissante mais positive pour $x < 10$.",
+      "objectiveId": "obj2-domaine",
+      "source": {
+        "file": "1-rappels_calcul_differentiel.pdf",
+        "page": 56,
+        "locator": "Diapositives 56 et 57"
+      }
+    },
+    {
+      "id": "c2-composition",
+      "term": "Composition de fonctions",
+      "definition": "$(g \\circ f)(x) = g(f(x))$ ; $\\mathrm{Dom}_{g \\circ f} = \\{x \\in \\mathrm{Dom}_f \\mid f(x) \\in \\mathrm{Dom}_g\\}$.",
+      "whyItMatters": "La dérivation en chaîne (chapitre 4) dérive exactement ces fonctions composées.",
+      "commonMisconception": "Croire que $g \\circ f = f \\circ g$ : avec $f(x) = 2x + 1$ et $g(x) = 3 - x$, on obtient $2 - 2x$ et $7 - 2x$.",
+      "objectiveId": "obj2-composition",
+      "source": {
+        "file": "1-rappels_calcul_differentiel.pdf",
+        "page": 58,
+        "locator": "Définition 1.23"
+      }
+    },
+    {
+      "id": "c2-rationnelle",
+      "term": "Fonction rationnelle propre ou impropre",
+      "definition": "$\\frac{P}{Q}$ est propre si $\\deg P < \\deg Q$, impropre sinon ; la division de polynômes donne $\\frac{P}{Q} = S + \\frac{R}{Q}$ avec $\\deg R < \\deg Q$.",
+      "whyItMatters": "Écrire une fraction impropre comme polynôme + fraction propre prépare son intégration.",
+      "commonMisconception": "Arrêter la division alors que le degré du reste est encore supérieur ou égal à celui du diviseur.",
+      "objectiveId": "obj2-algebriques",
+      "source": {
+        "file": "1-rappels_calcul_differentiel.pdf",
+        "page": 72,
+        "locator": "Diapositives 72 et 74"
+      }
+    },
+    {
+      "id": "c2-exponentielle",
+      "term": "Fonction exponentielle",
+      "definition": "$f(x) = b^x$ avec $b > 0$, $b \\neq 1$ ; $\\mathrm{Dom}_f = \\mathbb{R}$, $\\mathrm{Ima}_f = \\,]0, \\infty[$. La base $e \\approx 2{,}718$ est la constante de Neper.",
+      "whyItMatters": "La propriété $b^u = b^v \\iff u = v$ résout les équations dont les deux membres ont la même base.",
+      "commonMisconception": "Confondre $b^x$ (exposant variable) et $x^b$ (exposant constant, fonction polynomiale).",
+      "objectiveId": "obj2-explog",
+      "source": {
+        "file": "1-rappels_calcul_differentiel.pdf",
+        "page": 81,
+        "locator": "Diapositives 81 et 82"
+      }
+    },
+    {
+      "id": "c2-logarithme",
+      "term": "Fonction logarithmique",
+      "definition": "$y = \\log_b x \\iff x = b^y$ ; $\\mathrm{Dom} = \\,]0, \\infty[$, $\\mathrm{Ima} = \\mathbb{R}$ ; $\\log x = \\log_{10} x$ et $\\ln x = \\log_e x$.",
+      "whyItMatters": "$\\log_x u^n = n\\log_x u$ fait descendre une inconnue placée en exposant.",
+      "commonMisconception": "Écrire $\\log(u + v) = \\log u + \\log v$ : c'est $\\log(uv)$ qui vaut $\\log u + \\log v$.",
+      "objectiveId": "obj2-explog",
+      "source": {
+        "file": "1-rappels_calcul_differentiel.pdf",
+        "page": 84,
+        "locator": "Diapositives 84 à 87"
+      }
+    },
+    {
+      "id": "c2-radian",
+      "term": "Radian",
+      "definition": "Angle au centre qui intercepte un arc de longueur égale au rayon ; $\\pi \\text{ rad} = 180^\\circ$.",
+      "whyItMatters": "Les formules de dérivation des fonctions trigonométriques supposent des angles en radians.",
+      "commonMisconception": "Convertir avec $\\frac{180}{\\pi}$ dans le mauvais sens : $1^\\circ = \\frac{\\pi}{180}$ rad.",
+      "objectiveId": "obj2-trigo",
+      "source": {
+        "file": "1-rappels_calcul_differentiel.pdf",
+        "page": 93,
+        "locator": "Diapositive 93"
+      }
+    },
+    {
+      "id": "c2-cercle",
+      "term": "Cercle trigonométrique",
+      "definition": "Cercle de rayon 1 centré à l'origine ; le point $P(\\theta)$ a pour coordonnées $(\\cos\\theta, \\sin\\theta)$.",
+      "whyItMatters": "Il donne les valeurs remarquables et les signes de $\\sin$ et $\\cos$ dans chaque quadrant.",
+      "commonMisconception": "Inverser abscisse et ordonnée : $\\cos\\theta$ est l'abscisse, $\\sin\\theta$ l'ordonnée.",
+      "objectiveId": "obj2-trigo",
+      "source": {
+        "file": "1-rappels_calcul_differentiel.pdf",
+        "page": 94,
+        "locator": "Diapositives 94 et 95"
+      }
+    },
+    {
+      "id": "c2-identites",
+      "term": "Identités trigonométriques",
+      "definition": "$\\cos^2\\theta + \\sin^2\\theta = 1$, $1 + \\tan^2\\theta = \\sec^2\\theta$, $\\sin(2\\theta) = 2\\sin\\theta\\cos\\theta$, $\\cos^2\\theta = \\frac12(1 + \\cos 2\\theta)$…",
+      "whyItMatters": "Elles remplacent une expression par une autre équivalente, souvent pour n'avoir qu'un seul rapport trigonométrique.",
+      "commonMisconception": "Écrire $\\sin(2\\theta) = 2\\sin\\theta$ : le facteur $\\cos\\theta$ est indispensable.",
+      "objectiveId": "obj2-trigo",
+      "source": {
+        "file": "1-rappels_calcul_differentiel.pdf",
+        "page": 100,
+        "locator": "Théorème 1.38"
+      }
+    }
+  ],
+  "tables": [
+    {
+      "id": "t2-fonctions",
+      "title": "Domaine et image des fonctions usuelles",
+      "kind": "cheatsheet",
+      "columns": [
+        {
+          "key": "f",
+          "label": "Fonction"
+        },
+        {
+          "key": "dom",
+          "label": "Domaine"
+        },
+        {
+          "key": "ima",
+          "label": "Image"
+        }
+      ],
+      "rows": [
+        {
+          "f": "$ax + b$, $a \\neq 0$",
+          "dom": "$\\mathbb{R}$",
+          "ima": "$\\mathbb{R}$"
+        },
+        {
+          "f": "$\\sqrt{x}$",
+          "dom": "$[0, \\infty[$",
+          "ima": "$[0, \\infty[$"
+        },
+        {
+          "f": "$b^x$",
+          "dom": "$\\mathbb{R}$",
+          "ima": "$]0, \\infty[$"
+        },
+        {
+          "f": "$\\log_b x$",
+          "dom": "$]0, \\infty[$",
+          "ima": "$\\mathbb{R}$"
+        },
+        {
+          "f": "$\\sin x$, $\\cos x$",
+          "dom": "$\\mathbb{R}$",
+          "ima": "$[-1, 1]$"
+        },
+        {
+          "f": "$\\tan x$",
+          "dom": "$\\cos x \\neq 0$",
+          "ima": "$\\mathbb{R}$"
+        }
+      ],
+      "source": {
+        "file": "1-rappels_calcul_differentiel.pdf",
+        "page": 66,
+        "locator": "Diapositives 66, 78, 81, 84, 96 à 98"
+      },
+      "caption": "L'image de tan x n'est pas donnée dans les diapositives (ajout de la plateforme) ; [0, ∞[ correspond au ℝ₊ des diapositives, 0 compris."
+    },
+    {
+      "id": "t2-logs",
+      "title": "Propriétés des logarithmes (théorème 1.34)",
+      "kind": "cheatsheet",
+      "columns": [
+        {
+          "key": "p",
+          "label": "Propriété"
+        },
+        {
+          "key": "f",
+          "label": "Formule"
+        }
+      ],
+      "rows": [
+        {
+          "p": "produit",
+          "f": "$\\log_x(uv) = \\log_x u + \\log_x v$"
+        },
+        {
+          "p": "quotient",
+          "f": "$\\log_x \\frac{u}{v} = \\log_x u - \\log_x v$"
+        },
+        {
+          "p": "puissance",
+          "f": "$\\log_x u^n = n \\log_x u$"
+        },
+        {
+          "p": "réciproques",
+          "f": "$\\log_x x^n = n$ et $x^{\\log_x u} = u$"
+        },
+        {
+          "p": "changement de base",
+          "f": "$\\log_x u = \\frac{\\log_y u}{\\log_y x}$"
+        },
+        {
+          "p": "valeurs",
+          "f": "$\\log_x 1 = 0$, $\\log_x x = 1$"
+        }
+      ],
+      "source": {
+        "file": "1-rappels_calcul_differentiel.pdf",
+        "page": 87,
+        "locator": "Théorème 1.34"
+      }
+    }
+  ],
+  "quiz": {
+    "title": "Quiz — vérification rapide",
+    "estimatedMinutes": 15,
+    "questions": [
+      {
+        "id": "q2-01",
+        "objectiveId": "obj2-domaine",
+        "bloomLevel": "recall",
+        "type": "mcq",
+        "difficulty": 1,
+        "prompt": "Qu'est-ce que le domaine d'une fonction ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "L'ensemble des réels auxquels la fonction associe une image"
+          },
+          {
+            "id": "b",
+            "text": "L'ensemble des valeurs prises par la fonction"
+          },
+          {
+            "id": "c",
+            "text": "L'ensemble des zéros de la fonction"
+          },
+          {
+            "id": "d",
+            "text": "L'intervalle où la fonction est croissante"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Diapositive 53.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "C'est l'image."
+          },
+          {
+            "optionId": "c",
+            "why": "Ce sont les x où f(x) = 0."
+          },
+          {
+            "optionId": "d",
+            "why": "C'est une autre caractéristique."
+          }
+        ],
+        "source": {
+          "file": "1-rappels_calcul_differentiel.pdf",
+          "page": 53,
+          "locator": "Diapositive 53"
+        }
+      },
+      {
+        "id": "q2-02",
+        "objectiveId": "obj2-domaine",
+        "bloomLevel": "understand",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Quel est le domaine de $h(x) = \\sqrt{x + 2}$ ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "$[-2, \\infty[$"
+          },
+          {
+            "id": "b",
+            "text": "$]-2, \\infty[$"
+          },
+          {
+            "id": "c",
+            "text": "$[2, \\infty[$"
+          },
+          {
+            "id": "d",
+            "text": "$\\mathbb{R}$"
+          }
+        ],
+        "correct": "a",
+        "explanation": "$x + 2 \\ge 0 \\iff x \\ge -2$ (notes, exercice 2 de 1.2.7, réponse de la plateforme).",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "$x = -2$ donne $\\sqrt0 = 0$, qui est défini."
+          },
+          {
+            "optionId": "c",
+            "why": "Il faut $x + 2 \\ge 0$, soit $x \\ge -2$."
+          },
+          {
+            "optionId": "d",
+            "why": "Une racine paire exige un radicande positif ou nul."
+          }
+        ],
+        "source": {
+          "file": "noteChapitre1.txt",
+          "page": 1,
+          "locator": "Section 1.2.7, exercice 2"
+        }
+      },
+      {
+        "id": "q2-03",
+        "objectiveId": "obj2-composition",
+        "bloomLevel": "apply",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Avec $f(x) = 2x + 1$ et $g(x) = 3 - x$, que vaut $(f \\circ g)(x)$ ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "$7 - 2x$"
+          },
+          {
+            "id": "b",
+            "text": "$2 - 2x$"
+          },
+          {
+            "id": "c",
+            "text": "$5 - x$"
+          },
+          {
+            "id": "d",
+            "text": "$4 - 2x$"
+          }
+        ],
+        "correct": "a",
+        "explanation": "$f(g(x)) = 2(3 - x) + 1 = 7 - 2x$ (exercice 1.26, réponse de la plateforme).",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "C'est $(g \\circ f)(x)$."
+          },
+          {
+            "optionId": "c",
+            "why": "Les deux fonctions ont été additionnées."
+          },
+          {
+            "optionId": "d",
+            "why": "$2(3 - x) + 1 = 7 - 2x$ : le +1 a été oublié ou mal distribué."
+          }
+        ],
+        "source": {
+          "file": "1-rappels_calcul_differentiel.pdf",
+          "page": 63,
+          "locator": "Exercice 1.26 (2)"
+        }
+      },
+      {
+        "id": "q2-04",
+        "objectiveId": "obj2-composition",
+        "bloomLevel": "analyze",
+        "type": "mcq",
+        "difficulty": 3,
+        "prompt": "$f(x) = \\frac{1}{x^2 - 1}$, $g(x) = \\sqrt{x - 2}$ et $(f \\circ g)(x) = \\frac{1}{x - 3}$. Quel est $\\mathrm{Dom}_{f \\circ g}$ ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "$[2, 3[\\ \\cup\\ ]3, \\infty[$"
+          },
+          {
+            "id": "b",
+            "text": "$\\mathbb{R} \\setminus \\{3\\}$"
+          },
+          {
+            "id": "c",
+            "text": "$[2, \\infty[$"
+          },
+          {
+            "id": "d",
+            "text": "$\\mathbb{R} \\setminus \\{-1, 1\\}$"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Exemple 1.25 : même si le radical disparaît du résultat, sa restriction reste.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "La restriction $x \\ge 2$ venant de $g$ doit être conservée."
+          },
+          {
+            "optionId": "c",
+            "why": "En $x = 3$, le dénominateur s'annule."
+          },
+          {
+            "optionId": "d",
+            "why": "C'est le domaine de f seule, pas de la composée."
+          }
+        ],
+        "source": {
+          "file": "1-rappels_calcul_differentiel.pdf",
+          "page": 62,
+          "locator": "Exemple 1.25"
+        }
+      },
+      {
+        "id": "q2-05",
+        "objectiveId": "obj2-algebriques",
+        "bloomLevel": "recall",
+        "type": "mcq",
+        "difficulty": 1,
+        "prompt": "Quel est le sommet de la parabole $f(x) = ax^2 + bx + c$ ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "$(h, k)$ avec $h = -\\frac{b}{2a}$ et $k = f(h)$"
+          },
+          {
+            "id": "b",
+            "text": "$(h, k)$ avec $h = \\frac{b}{2a}$ et $k = f(h)$"
+          },
+          {
+            "id": "c",
+            "text": "$(0, c)$"
+          },
+          {
+            "id": "d",
+            "text": "$\\left(-\\frac{b}{a}, 0\\right)$"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Diapositive 69.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Le signe moins a été oublié."
+          },
+          {
+            "optionId": "c",
+            "why": "C'est l'ordonnée à l'origine."
+          },
+          {
+            "optionId": "d",
+            "why": "Ce n'est ni le sommet ni forcément un zéro."
+          }
+        ],
+        "source": {
+          "file": "1-rappels_calcul_differentiel.pdf",
+          "page": 69,
+          "locator": "Diapositive 69"
+        }
+      },
+      {
+        "id": "q2-06",
+        "objectiveId": "obj2-algebriques",
+        "bloomLevel": "apply",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Écrire $\\frac{2x^3 - 5x^2 + 3x - 1}{x^2 + 1}$ comme polynôme plus fraction propre.",
+        "options": [
+          {
+            "id": "a",
+            "text": "$2x - 5 + \\frac{x + 4}{x^2 + 1}$"
+          },
+          {
+            "id": "b",
+            "text": "$2x - 5 + \\frac{3x - 1}{x^2 + 1}$"
+          },
+          {
+            "id": "c",
+            "text": "$2x - 5$"
+          },
+          {
+            "id": "d",
+            "text": "$2x + 5 + \\frac{x + 4}{x^2 + 1}$"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Exercice 1.29 c, réponse de la plateforme vérifiée par division symbolique.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Le reste doit tenir compte de $(x^2 + 1)(2x - 5)$, qui contient $2x - 5$."
+          },
+          {
+            "optionId": "c",
+            "why": "Le reste n'est pas nul."
+          },
+          {
+            "optionId": "d",
+            "why": "Le second terme du quotient est $-5$."
+          }
+        ],
+        "source": {
+          "file": "1-rappels_calcul_differentiel.pdf",
+          "page": 75,
+          "locator": "Exercice 1.29 c"
+        }
+      },
+      {
+        "id": "q2-07",
+        "objectiveId": "obj2-algebriques",
+        "bloomLevel": "analyze",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Combien de solutions a $4\\sqrt{7 - 2x} + 3 = -5$ ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Aucune"
+          },
+          {
+            "id": "b",
+            "text": "Une : $x = \\frac32$"
+          },
+          {
+            "id": "c",
+            "text": "Deux"
+          },
+          {
+            "id": "d",
+            "text": "Une : $x = \\frac72$"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Isoler la racine donne $\\sqrt{7 - 2x} = -2$, impossible : une racine carrée n'est jamais négative (exercice 1.31 b, réponse de la plateforme).",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "En élevant au carré, on trouve $x = \\frac32$, mais $4\\sqrt4 + 3 = 11 \\neq -5$."
+          },
+          {
+            "optionId": "c",
+            "why": "Isoler la racine donne une valeur négative : aucune solution."
+          },
+          {
+            "optionId": "d",
+            "why": "$x = \\frac72$ donne $3 \\neq -5$."
+          }
+        ],
+        "source": {
+          "file": "1-rappels_calcul_differentiel.pdf",
+          "page": 79,
+          "locator": "Exercice 1.31 b"
+        }
+      },
+      {
+        "id": "q2-08",
+        "objectiveId": "obj2-explog",
+        "bloomLevel": "apply",
+        "type": "mcq",
+        "difficulty": 1,
+        "prompt": "Résoudre $5^{4 - x} = 125$.",
+        "options": [
+          {
+            "id": "a",
+            "text": "$x = 1$"
+          },
+          {
+            "id": "b",
+            "text": "$x = 7$"
+          },
+          {
+            "id": "c",
+            "text": "$x = -1$"
+          },
+          {
+            "id": "d",
+            "text": "$x = 25$"
+          }
+        ],
+        "correct": "a",
+        "explanation": "$125 = 5^3$, donc $4 - x = 3$ (exercice 1.32 a, réponse de la plateforme).",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "$4 - x = 3$ donne $x = 1$, pas $4 + 3$."
+          },
+          {
+            "optionId": "c",
+            "why": "$4 - (-1) = 5 \\neq 3$."
+          },
+          {
+            "optionId": "d",
+            "why": "Il faut écrire 125 comme une puissance de 5."
+          }
+        ],
+        "source": {
+          "file": "1-rappels_calcul_differentiel.pdf",
+          "page": 83,
+          "locator": "Exercice 1.32 a"
+        }
+      },
+      {
+        "id": "q2-09",
+        "objectiveId": "obj2-explog",
+        "bloomLevel": "apply",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Résoudre $\\log_6(4x + 1) = 2$.",
+        "options": [
+          {
+            "id": "a",
+            "text": "$x = \\frac{35}{4}$"
+          },
+          {
+            "id": "b",
+            "text": "$x = \\frac{11}{4}$"
+          },
+          {
+            "id": "c",
+            "text": "$x = \\frac14$"
+          },
+          {
+            "id": "d",
+            "text": "$x = \\frac{37}{4}$"
+          }
+        ],
+        "correct": "a",
+        "explanation": "$\\log_b M = m \\iff b^m = M$ : $4x + 1 = 36$ (exercice 1.36 a, réponse de la plateforme).",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "$6^2 = 36$, pas $12$."
+          },
+          {
+            "optionId": "c",
+            "why": "$\\log_6 M = 2$ donne $M = 36$, pas $M = 2$."
+          },
+          {
+            "optionId": "d",
+            "why": "$4x = 36 - 1 = 35$."
+          }
+        ],
+        "source": {
+          "file": "1-rappels_calcul_differentiel.pdf",
+          "page": 90,
+          "locator": "Exercice 1.36 a"
+        }
+      },
+      {
+        "id": "q2-10",
+        "objectiveId": "obj2-explog",
+        "bloomLevel": "understand",
+        "type": "true-false",
+        "difficulty": 1,
+        "prompt": "$\\log(u + v) = \\log u + \\log v$.",
+        "options": [
+          {
+            "id": "v",
+            "text": "Vrai"
+          },
+          {
+            "id": "f",
+            "text": "Faux"
+          }
+        ],
+        "correct": "f",
+        "explanation": "Théorème 1.34 : c'est $\\log(uv) = \\log u + \\log v$. Pour $u = v = 1$ : $\\log 2 \\neq 0$.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "v",
+            "why": "Le logarithme transforme un produit en somme, pas une somme en somme."
+          }
+        ],
+        "source": {
+          "file": "1-rappels_calcul_differentiel.pdf",
+          "page": 87,
+          "locator": "Théorème 1.34"
+        }
+      },
+      {
+        "id": "q2-11",
+        "objectiveId": "obj2-trigo",
+        "bloomLevel": "recall",
+        "type": "mcq",
+        "difficulty": 1,
+        "prompt": "Combien vaut $1^\\circ$ en radians ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "$\\frac{\\pi}{180}$ rad"
+          },
+          {
+            "id": "b",
+            "text": "$\\frac{180}{\\pi}$ rad"
+          },
+          {
+            "id": "c",
+            "text": "$\\pi$ rad"
+          },
+          {
+            "id": "d",
+            "text": "$\\frac{\\pi}{360}$ rad"
+          }
+        ],
+        "correct": "a",
+        "explanation": "$\\pi$ rad $= 180^\\circ$, donc $1^\\circ = \\frac{\\pi}{180}$ rad (diapositive 93).",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "C'est la valeur de 1 rad en degrés."
+          },
+          {
+            "optionId": "c",
+            "why": "$\\pi$ rad $= 180^\\circ$."
+          },
+          {
+            "optionId": "d",
+            "why": "Un tour complet vaut $2\\pi$, pas $\\pi$."
+          }
+        ],
+        "source": {
+          "file": "1-rappels_calcul_differentiel.pdf",
+          "page": 93,
+          "locator": "Diapositive 93"
+        }
+      },
+      {
+        "id": "q2-12",
+        "objectiveId": "obj2-trigo",
+        "bloomLevel": "analyze",
+        "type": "mcq",
+        "difficulty": 3,
+        "prompt": "Sur $[0^\\circ, 360^\\circ[$, quelles sont les solutions de $2\\sin^2 x - \\sin x = 0$ ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "$0^\\circ$, $30^\\circ$, $150^\\circ$, $180^\\circ$"
+          },
+          {
+            "id": "b",
+            "text": "$30^\\circ$ et $150^\\circ$"
+          },
+          {
+            "id": "c",
+            "text": "$0^\\circ$, $30^\\circ$, $180^\\circ$, $330^\\circ$"
+          },
+          {
+            "id": "d",
+            "text": "$0^\\circ$ et $180^\\circ$"
+          }
+        ],
+        "correct": "a",
+        "explanation": "$\\sin x\\,(2\\sin x - 1) = 0$ (exercice 1.37 c, réponse de la plateforme).",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Diviser par $\\sin x$ perd les solutions de $\\sin x = 0$."
+          },
+          {
+            "optionId": "c",
+            "why": "$\\sin 330^\\circ = -\\frac12$, pas $\\frac12$."
+          },
+          {
+            "optionId": "d",
+            "why": "Il manque les solutions de $\\sin x = \\frac12$."
+          }
+        ],
+        "source": {
+          "file": "1-rappels_calcul_differentiel.pdf",
+          "page": 98,
+          "locator": "Exercice 1.37 c"
+        }
+      }
+    ]
+  },
+  "test": {
+    "title": "Test du chapitre 2",
+    "instructions": "21 questions couvrant tout le chapitre. Plus long et plus difficile que le quiz.",
+    "estimatedMinutes": 45,
+    "questions": [
+      {
+        "id": "t2-01",
+        "objectiveId": "obj2-domaine",
+        "bloomLevel": "recall",
+        "type": "true-false",
+        "difficulty": 1,
+        "prompt": "Plusieurs valeurs de x peuvent avoir la même image par une fonction.",
+        "options": [
+          {
+            "id": "v",
+            "text": "Vrai"
+          },
+          {
+            "id": "f",
+            "text": "Faux"
+          }
+        ],
+        "correct": "v",
+        "explanation": "Diapositive 54 : un x n'a qu'une image, mais plusieurs x peuvent partager la même.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "f",
+            "why": "$f(x) = x^2$ donne $f(-2) = f(2) = 4$."
+          }
+        ],
+        "source": {
+          "file": "1-rappels_calcul_differentiel.pdf",
+          "page": 54,
+          "locator": "Diapositive 54"
+        }
+      },
+      {
+        "id": "t2-02",
+        "objectiveId": "obj2-domaine",
+        "bloomLevel": "understand",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Quelle est l'image de $f(x) = 3 - x^2$ ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "$]-\\infty, 3]$"
+          },
+          {
+            "id": "b",
+            "text": "$\\mathbb{R}$"
+          },
+          {
+            "id": "c",
+            "text": "$[3, \\infty[$"
+          },
+          {
+            "id": "d",
+            "text": "$]-\\infty, 3[$"
+          }
+        ],
+        "correct": "a",
+        "explanation": "$x^2 \\ge 0$ donc $3 - x^2 \\le 3$, avec égalité en 0 (notes, exercice 2 de 1.2.7, réponse de la plateforme).",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "$-x^2 \\le 0$, donc $f(x) \\le 3$."
+          },
+          {
+            "optionId": "c",
+            "why": "Le terme −x² fait diminuer f, il ne l'augmente pas."
+          },
+          {
+            "optionId": "d",
+            "why": "$f(0) = 3$ est atteint."
+          }
+        ],
+        "source": {
+          "file": "noteChapitre1.txt",
+          "page": 1,
+          "locator": "Section 1.2.7, exercice 2"
+        }
+      },
+      {
+        "id": "t2-03",
+        "objectiveId": "obj2-domaine",
+        "bloomLevel": "understand",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Où une fonction est-elle négative ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Sur les intervalles où son graphique est au-dessous de l'axe des x"
+          },
+          {
+            "id": "b",
+            "text": "Sur les intervalles où son graphique est au-dessus de l'axe des x"
+          },
+          {
+            "id": "c",
+            "text": "Sur les intervalles où elle est décroissante"
+          },
+          {
+            "id": "d",
+            "text": "En ses zéros"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Diapositive 55, corrigée : négative au-dessous de l'axe des x.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "C'est là qu'elle est positive — la diapositive 55 contient cette coquille."
+          },
+          {
+            "optionId": "c",
+            "why": "Décroissante ne veut pas dire négative."
+          },
+          {
+            "optionId": "d",
+            "why": "Aux zéros, elle est nulle."
+          }
+        ],
+        "source": {
+          "file": "1-rappels_calcul_differentiel.pdf",
+          "page": 55,
+          "locator": "Diapositive 55"
+        }
+      },
+      {
+        "id": "t2-04",
+        "objectiveId": "obj2-composition",
+        "bloomLevel": "apply",
+        "type": "mcq",
+        "difficulty": 1,
+        "prompt": "Avec $f(x) = x^2 - x$ et $h(x) = 3x + 2$, que vaut $h(f(-2))$ ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "20"
+          },
+          {
+            "id": "b",
+            "text": "−4"
+          },
+          {
+            "id": "c",
+            "text": "2"
+          },
+          {
+            "id": "d",
+            "text": "56"
+          }
+        ],
+        "correct": "a",
+        "explanation": "$f(-2) = 6$, puis $h(6) = 20$ (exercice 1.26 b, réponse de la plateforme).",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "C'est $h(-2)$ : il faut d'abord calculer $f(-2) = 6$."
+          },
+          {
+            "optionId": "c",
+            "why": "$f(-2) = 4 + 2 = 6$, pas $4 - 2$."
+          },
+          {
+            "optionId": "d",
+            "why": "C'est $f(h(-2))$ : l'ordre de composition est inversé."
+          }
+        ],
+        "source": {
+          "file": "1-rappels_calcul_differentiel.pdf",
+          "page": 63,
+          "locator": "Exercice 1.26 (1b)"
+        }
+      },
+      {
+        "id": "t2-05",
+        "objectiveId": "obj2-composition",
+        "bloomLevel": "apply",
+        "type": "mcq",
+        "difficulty": 3,
+        "prompt": "Avec $f(x) = \\frac{1}{x - 2}$ et $g(x) = \\sqrt{x + 4}$, quel est $\\mathrm{Dom}_{f \\circ g}$ ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "$[-4, 0[\\ \\cup\\ ]0, \\infty[$"
+          },
+          {
+            "id": "b",
+            "text": "$[-4, \\infty[$"
+          },
+          {
+            "id": "c",
+            "text": "$\\mathbb{R} \\setminus \\{2\\}$"
+          },
+          {
+            "id": "d",
+            "text": "$[-4, 2[\\ \\cup\\ ]2, \\infty[$"
+          }
+        ],
+        "correct": "a",
+        "explanation": "$x \\ge -4$ pour $g$, puis $\\sqrt{x + 4} \\neq 2 \\iff x \\neq 0$ (exercice 1.26 (3), réponse de la plateforme).",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Pour $x = 0$, $\\sqrt4 - 2 = 0$ annule le dénominateur."
+          },
+          {
+            "optionId": "c",
+            "why": "C'est $\\mathrm{Dom}_f$ ; il faut composer."
+          },
+          {
+            "optionId": "d",
+            "why": "On exclut les $x$ où $g(x) = 2$, pas où $x = 2$."
+          }
+        ],
+        "source": {
+          "file": "1-rappels_calcul_differentiel.pdf",
+          "page": 63,
+          "locator": "Exercice 1.26 (3)"
+        }
+      },
+      {
+        "id": "t2-06",
+        "objectiveId": "obj2-composition",
+        "bloomLevel": "understand",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Quelle décomposition donne $f(x) = \\frac{4}{3 - \\sqrt{4 + x^2}}$ comme composée $g \\circ u$ ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "$u(x) = \\sqrt{4 + x^2}$ et $g(t) = \\frac{4}{3 - t}$"
+          },
+          {
+            "id": "b",
+            "text": "$u(x) = \\frac{4}{3 - x}$ et $g(t) = \\sqrt{4 + t^2}$"
+          },
+          {
+            "id": "c",
+            "text": "$u(x) = 4 + x^2$ et $g(t) = \\frac{4}{3 - t}$"
+          },
+          {
+            "id": "d",
+            "text": "$u(x) = 3 - x$ et $g(t) = \\frac{4}{\\sqrt{4 + t^2}}$"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Exercice 1.26 (4) : la fonction intérieure est ce qu'on calcule en premier. D'autres décompositions sont possibles (réponse de la plateforme).",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "C'est $u \\circ g$ : l'ordre est inversé."
+          },
+          {
+            "optionId": "c",
+            "why": "Il manque la racine : $g(u(x)) = \\frac{4}{3 - 4 - x^2}$."
+          },
+          {
+            "optionId": "d",
+            "why": "$g(u(x)) = \\frac{4}{\\sqrt{4 + (3 - x)^2}} \\neq f(x)$."
+          }
+        ],
+        "source": {
+          "file": "1-rappels_calcul_differentiel.pdf",
+          "page": 63,
+          "locator": "Exercice 1.26 (4)"
+        }
+      },
+      {
+        "id": "t2-07",
+        "objectiveId": "obj2-algebriques",
+        "bloomLevel": "apply",
+        "type": "mcq",
+        "difficulty": 1,
+        "prompt": "Quel est le point d'intersection des droites $y = -3x + 8$ et $y = 2x - 1$ ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "$\\left(\\frac95, \\frac{13}{5}\\right)$"
+          },
+          {
+            "id": "b",
+            "text": "$\\left(\\frac75, \\frac{19}{5}\\right)$"
+          },
+          {
+            "id": "c",
+            "text": "$(9, 17)$"
+          },
+          {
+            "id": "d",
+            "text": "$\\left(\\frac95, \\frac{17}{5}\\right)$"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Exercice 1.27, réponse de la plateforme.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "$-3x + 8 = 2x - 1$ donne $5x = 9$."
+          },
+          {
+            "optionId": "c",
+            "why": "Il faut diviser par 5."
+          },
+          {
+            "optionId": "d",
+            "why": "$2 \\cdot \\frac95 - 1 = \\frac{13}{5}$."
+          }
+        ],
+        "source": {
+          "file": "1-rappels_calcul_differentiel.pdf",
+          "page": 68,
+          "locator": "Exercice 1.27"
+        }
+      },
+      {
+        "id": "t2-08",
+        "objectiveId": "obj2-algebriques",
+        "bloomLevel": "apply",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Quel est le sommet de $f(x) = 2x^2 - 8x + 5$ ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "$(2, -3)$"
+          },
+          {
+            "id": "b",
+            "text": "$(-2, 29)$"
+          },
+          {
+            "id": "c",
+            "text": "$(4, 5)$"
+          },
+          {
+            "id": "d",
+            "text": "$(2, 5)$"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Diapositive 69 : $h = 2$, $k = f(2) = -3$ (exemple de la plateforme).",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "$h = -\\frac{b}{2a} = -\\frac{-8}{4} = 2$."
+          },
+          {
+            "optionId": "c",
+            "why": "$h = -\\frac{b}{2a}$, pas $-\\frac{b}{a}$."
+          },
+          {
+            "optionId": "d",
+            "why": "$k = f(2) = 8 - 16 + 5 = -3$."
+          }
+        ],
+        "source": {
+          "file": "1-rappels_calcul_differentiel.pdf",
+          "page": 69,
+          "locator": "Diapositive 69"
+        }
+      },
+      {
+        "id": "t2-09",
+        "objectiveId": "obj2-algebriques",
+        "bloomLevel": "apply",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Dans l'exercice 1.30, le volume $3x^4 - 3x^3 - 33x^2 + 54x$ d'un prisme de longueur $3x$ et de largeur $x - 2$ donne une hauteur de…",
+        "options": [
+          {
+            "id": "a",
+            "text": "$x^2 + x - 9$"
+          },
+          {
+            "id": "b",
+            "text": "$x^3 - x^2 - 11x + 18$"
+          },
+          {
+            "id": "c",
+            "text": "$3x^2 + 3x - 27$"
+          },
+          {
+            "id": "d",
+            "text": "$x^2 - x - 9$"
+          }
+        ],
+        "correct": "a",
+        "explanation": "$\\frac{3x^4 - 3x^3 - 33x^2 + 54x}{3x^2 - 6x} = x^2 + x - 9$, reste 0 (réponse de la plateforme).",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "C'est le volume divisé par 3x seulement."
+          },
+          {
+            "optionId": "c",
+            "why": "On divise par $3x(x - 2) = 3x^2 - 6x$ : le 3 disparaît."
+          },
+          {
+            "optionId": "d",
+            "why": "Le quotient est $x^2 + x - 9$ ; le signe du terme en $x$ a été inversé."
+          }
+        ],
+        "source": {
+          "file": "1-rappels_calcul_differentiel.pdf",
+          "page": 76,
+          "locator": "Exercice 1.30"
+        }
+      },
+      {
+        "id": "t2-10",
+        "objectiveId": "obj2-algebriques",
+        "bloomLevel": "understand",
+        "type": "mcq",
+        "difficulty": 1,
+        "prompt": "La fonction rationnelle $\\frac{x}{x^4 + 1}$ est…",
+        "options": [
+          {
+            "id": "a",
+            "text": "propre, car le degré du numérateur est inférieur à celui du dénominateur"
+          },
+          {
+            "id": "b",
+            "text": "impropre, car le dénominateur contient une puissance 4"
+          },
+          {
+            "id": "c",
+            "text": "propre, car elle est définie sur ℝ"
+          },
+          {
+            "id": "d",
+            "text": "impropre, car elle ne se simplifie pas"
+          }
+        ],
+        "correct": "a",
+        "explanation": "$\\deg P = 1 < 4 = \\deg Q$ (diapositive 72 ; notes, exercice 3 de 1.2.7).",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "C'est la comparaison des degrés qui compte."
+          },
+          {
+            "optionId": "c",
+            "why": "Le domaine ne décide pas de la propreté."
+          },
+          {
+            "optionId": "d",
+            "why": "Propre ou impropre dépend seulement des degrés."
+          }
+        ],
+        "source": {
+          "file": "1-rappels_calcul_differentiel.pdf",
+          "page": 72,
+          "locator": "Diapositive 72"
+        }
+      },
+      {
+        "id": "t2-11",
+        "objectiveId": "obj2-algebriques",
+        "bloomLevel": "apply",
+        "type": "short-answer",
+        "difficulty": 1,
+        "prompt": "Résoudre $2\\sqrt{3x + 1} - 1 = 7$. (x = ?)",
+        "correct": "5",
+        "acceptableAnswers": [
+          "x = 5",
+          "x=5"
+        ],
+        "explanation": "$\\sqrt{3x + 1} = 4 \\Rightarrow 3x + 1 = 16 \\Rightarrow x = 5$ ; vérification : $2 \\cdot 4 - 1 = 7$ (exercice 1.31 a, réponse de la plateforme).",
+        "source": {
+          "file": "1-rappels_calcul_differentiel.pdf",
+          "page": 79,
+          "locator": "Exercice 1.31 a"
+        }
+      },
+      {
+        "id": "t2-12",
+        "objectiveId": "obj2-explog",
+        "bloomLevel": "recall",
+        "type": "mcq",
+        "difficulty": 1,
+        "prompt": "Quel est le domaine de $f(x) = \\log_b x$ ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "$]0, \\infty[$"
+          },
+          {
+            "id": "b",
+            "text": "$\\mathbb{R}$"
+          },
+          {
+            "id": "c",
+            "text": "$[0, \\infty[$"
+          },
+          {
+            "id": "d",
+            "text": "$]1, \\infty[$"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Diapositive 84 : on ne peut pas évaluer le logarithme d'un nombre négatif ou nul.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "C'est son image."
+          },
+          {
+            "optionId": "c",
+            "why": "$\\log_b 0$ n'est pas défini."
+          },
+          {
+            "optionId": "d",
+            "why": "$\\log_b x$ existe aussi pour $0 < x < 1$ (il est alors négatif si $b > 1$)."
+          }
+        ],
+        "source": {
+          "file": "1-rappels_calcul_differentiel.pdf",
+          "page": 84,
+          "locator": "Diapositive 84"
+        }
+      },
+      {
+        "id": "t2-13",
+        "objectiveId": "obj2-explog",
+        "bloomLevel": "apply",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Résoudre $\\left(\\frac12\\right)^{2x - 5} = 64$.",
+        "options": [
+          {
+            "id": "a",
+            "text": "$x = -\\frac12$"
+          },
+          {
+            "id": "b",
+            "text": "$x = \\frac{11}{2}$"
+          },
+          {
+            "id": "c",
+            "text": "$x = \\frac12$"
+          },
+          {
+            "id": "d",
+            "text": "Aucune solution"
+          }
+        ],
+        "correct": "a",
+        "explanation": "$2x - 5 = -6$ (exercice 1.32 b, réponse de la plateforme).",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "$64 = \\left(\\frac12\\right)^{-6}$, pas $\\left(\\frac12\\right)^{6}$."
+          },
+          {
+            "optionId": "c",
+            "why": "$2x - 5 = -6$ donne $x = -\\frac12$."
+          },
+          {
+            "optionId": "d",
+            "why": "Une exponentielle de base 1/2 prend toutes les valeurs positives."
+          }
+        ],
+        "source": {
+          "file": "1-rappels_calcul_differentiel.pdf",
+          "page": 83,
+          "locator": "Exercice 1.32 b"
+        }
+      },
+      {
+        "id": "t2-14",
+        "objectiveId": "obj2-explog",
+        "bloomLevel": "apply",
+        "type": "mcq",
+        "difficulty": 3,
+        "prompt": "Résoudre $e^{3 - x/4} = 29$.",
+        "options": [
+          {
+            "id": "a",
+            "text": "$x = 12 - 4\\ln 29 \\approx -1{,}469$"
+          },
+          {
+            "id": "b",
+            "text": "$x = 3 - 4\\ln 29 \\approx -10{,}469$"
+          },
+          {
+            "id": "c",
+            "text": "$x = 4\\ln 29 - 12 \\approx 1{,}469$"
+          },
+          {
+            "id": "d",
+            "text": "$x = \\frac{12 - \\ln 29}{4} \\approx 2{,}158$"
+          }
+        ],
+        "correct": "a",
+        "explanation": "$3 - \\frac{x}{4} = \\ln 29 \\iff x = 4(3 - \\ln 29)$ (exercice 1.33 b, réponse de la plateforme).",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Le 3 doit aussi être multiplié par 4."
+          },
+          {
+            "optionId": "c",
+            "why": "Le signe : $\\frac{x}{4} = 3 - \\ln 29$."
+          },
+          {
+            "optionId": "d",
+            "why": "$\\ln 29$ doit aussi être multiplié par 4."
+          }
+        ],
+        "source": {
+          "file": "1-rappels_calcul_differentiel.pdf",
+          "page": 86,
+          "locator": "Exercice 1.33 b"
+        }
+      },
+      {
+        "id": "t2-15",
+        "objectiveId": "obj2-explog",
+        "bloomLevel": "analyze",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Que vaut $\\ln 10 \\cdot \\log 7 - \\ln 7$ ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "0"
+          },
+          {
+            "id": "b",
+            "text": "$\\ln 3$"
+          },
+          {
+            "id": "c",
+            "text": "$\\log 7$"
+          },
+          {
+            "id": "d",
+            "text": "$\\ln 70 - \\ln 7$"
+          }
+        ],
+        "correct": "a",
+        "explanation": "$\\log 7 = \\frac{\\ln 7}{\\ln 10}$, donc $\\ln 10 \\cdot \\log 7 = \\ln 7$ (notes, exercice 6 de 1.2.7, réponse de la plateforme).",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "On ne soustrait pas les arguments."
+          },
+          {
+            "optionId": "c",
+            "why": "$\\ln 10 \\cdot \\log 7 = \\ln 7$ par changement de base."
+          },
+          {
+            "optionId": "d",
+            "why": "Le produit $\\ln 10 \\cdot \\log 7$ n'est pas $\\ln 70$."
+          }
+        ],
+        "source": {
+          "file": "noteChapitre1.txt",
+          "page": 1,
+          "locator": "Section 1.2.7, exercice 6"
+        }
+      },
+      {
+        "id": "t2-16",
+        "objectiveId": "obj2-explog",
+        "bloomLevel": "analyze",
+        "type": "mcq",
+        "difficulty": 3,
+        "prompt": "Dans le théorème 1.34, la propriété 7 est écrite $x^{\\log_b u} = u$. Qu'en penser ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Il faut la même base : $x^{\\log_x u} = u$"
+          },
+          {
+            "id": "b",
+            "text": "Elle est juste pour toute base b"
+          },
+          {
+            "id": "c",
+            "text": "Elle est juste si $u > 0$"
+          },
+          {
+            "id": "d",
+            "text": "Il faut lire $\\log_b x^u = u$"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Diapositive 87 : coquille sur l'indice de base. La réciproque exponentielle-logarithme exige la même base.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Pour $x = 10$, $b = e$, $u = e$ : $10^{1} = 10 \\neq e$."
+          },
+          {
+            "optionId": "c",
+            "why": "La condition sur u ne suffit pas : il faut la même base."
+          },
+          {
+            "optionId": "d",
+            "why": "$\\log_b x^u = u\\log_b x$ en général."
+          }
+        ],
+        "source": {
+          "file": "1-rappels_calcul_differentiel.pdf",
+          "page": 87,
+          "locator": "Théorème 1.34 (7)"
+        }
+      },
+      {
+        "id": "t2-17",
+        "objectiveId": "obj2-trigo",
+        "bloomLevel": "understand",
+        "type": "mcq",
+        "difficulty": 1,
+        "prompt": "Quels sont les zéros de $\\cos x$ ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "$x = \\frac{\\pi}{2} + k\\pi$, $k \\in \\mathbb{Z}$"
+          },
+          {
+            "id": "b",
+            "text": "$x = k\\pi$, $k \\in \\mathbb{Z}$"
+          },
+          {
+            "id": "c",
+            "text": "$x = 2k\\pi$, $k \\in \\mathbb{Z}$"
+          },
+          {
+            "id": "d",
+            "text": "$x = \\frac{\\pi}{2} + 2k\\pi$, $k \\in \\mathbb{Z}$"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Diapositive 97.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Ce sont les zéros de $\\sin x$."
+          },
+          {
+            "optionId": "c",
+            "why": "$\\cos(2k\\pi) = 1$."
+          },
+          {
+            "optionId": "d",
+            "why": "Il manque $\\frac{3\\pi}{2}$, $-\\frac{\\pi}{2}$…"
+          }
+        ],
+        "source": {
+          "file": "1-rappels_calcul_differentiel.pdf",
+          "page": 97,
+          "locator": "Diapositive 97"
+        }
+      },
+      {
+        "id": "t2-18",
+        "objectiveId": "obj2-trigo",
+        "bloomLevel": "apply",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Sur $[0^\\circ, 360^\\circ[$, résoudre $\\sin x = -\\frac{\\sqrt3}{2}$.",
+        "options": [
+          {
+            "id": "a",
+            "text": "$240^\\circ$ et $300^\\circ$"
+          },
+          {
+            "id": "b",
+            "text": "$60^\\circ$ et $120^\\circ$"
+          },
+          {
+            "id": "c",
+            "text": "$210^\\circ$ et $330^\\circ$"
+          },
+          {
+            "id": "d",
+            "text": "$150^\\circ$ et $210^\\circ$"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Le sinus est négatif aux troisième et quatrième quadrants ; angle de référence 60° (exercice 1.37 a, réponse de la plateforme).",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Ce sont les solutions de $\\sin x = +\\frac{\\sqrt3}{2}$."
+          },
+          {
+            "optionId": "c",
+            "why": "$\\sin 210^\\circ = -\\frac12$."
+          },
+          {
+            "optionId": "d",
+            "why": "$\\sin 150^\\circ > 0$."
+          }
+        ],
+        "source": {
+          "file": "1-rappels_calcul_differentiel.pdf",
+          "page": 98,
+          "locator": "Exercice 1.37 a"
+        }
+      },
+      {
+        "id": "t2-19",
+        "objectiveId": "obj2-trigo",
+        "bloomLevel": "apply",
+        "type": "mcq",
+        "difficulty": 3,
+        "prompt": "Sur $[0, 2\\pi]$, résoudre $2\\cos^2\\theta + 7\\cos\\theta + 3 = 0$.",
+        "options": [
+          {
+            "id": "a",
+            "text": "$\\theta = \\frac{2\\pi}{3}$ ou $\\frac{4\\pi}{3}$"
+          },
+          {
+            "id": "b",
+            "text": "$\\theta = \\frac{\\pi}{3}$ ou $\\frac{5\\pi}{3}$"
+          },
+          {
+            "id": "c",
+            "text": "$\\theta = \\frac{2\\pi}{3}$, $\\frac{4\\pi}{3}$ et l'angle où $\\cos\\theta = -3$"
+          },
+          {
+            "id": "d",
+            "text": "Aucune solution"
+          }
+        ],
+        "correct": "a",
+        "explanation": "$(2\\cos\\theta + 1)(\\cos\\theta + 3) = 0$ ; seul $\\cos\\theta = -\\frac12$ est possible (notes, exercice 4 de 1.2.7, réponse de la plateforme).",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Ce sont les solutions de $\\cos\\theta = +\\frac12$."
+          },
+          {
+            "optionId": "c",
+            "why": "$\\cos\\theta = -3$ est impossible : $\\cos$ est dans $[-1, 1]$."
+          },
+          {
+            "optionId": "d",
+            "why": "$\\cos\\theta = -\\frac12$ a deux solutions."
+          }
+        ],
+        "source": {
+          "file": "noteChapitre1.txt",
+          "page": 1,
+          "locator": "Section 1.2.7, exercice 4"
+        }
+      },
+      {
+        "id": "t2-20",
+        "objectiveId": "obj2-trigo",
+        "bloomLevel": "recall",
+        "type": "mcq",
+        "difficulty": 1,
+        "prompt": "Quelle identité est correcte ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "$1 + \\tan^2\\theta = \\sec^2\\theta$"
+          },
+          {
+            "id": "b",
+            "text": "$1 + \\tan^2\\theta = \\csc^2\\theta$"
+          },
+          {
+            "id": "c",
+            "text": "$\\sin(2\\theta) = 2\\sin\\theta$"
+          },
+          {
+            "id": "d",
+            "text": "$\\cos(2\\theta) = 1 - 2\\cos^2\\theta$"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Théorème 1.38.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "C'est $\\cot^2\\theta + 1 = \\csc^2\\theta$."
+          },
+          {
+            "optionId": "c",
+            "why": "$\\sin(2\\theta) = 2\\sin\\theta\\cos\\theta$."
+          },
+          {
+            "optionId": "d",
+            "why": "C'est $2\\cos^2\\theta - 1$, ou $1 - 2\\sin^2\\theta$."
+          }
+        ],
+        "source": {
+          "file": "1-rappels_calcul_differentiel.pdf",
+          "page": 100,
+          "locator": "Théorème 1.38"
+        }
+      },
+      {
+        "id": "t2-21",
+        "objectiveId": "obj2-trigo",
+        "bloomLevel": "recall",
+        "type": "fill-blank",
+        "difficulty": 1,
+        "prompt": "Compléter : sur le cercle trigonométrique, $\\cos\\theta$ est ____ du point $P(\\theta)$.",
+        "correct": "l'abscisse",
+        "acceptableAnswers": [
+          "abscisse",
+          "la coordonnée x",
+          "x"
+        ],
+        "explanation": "Diapositive 95 : x est le cosinus, y le sinus (la diapositive 97 écrit par erreur « sin x est l'abscisse »).",
+        "source": {
+          "file": "1-rappels_calcul_differentiel.pdf",
+          "page": 95,
+          "locator": "Diapositive 95"
+        }
+      }
+    ]
+  },
+  "flashcards": [
+    {
+      "id": "f2-01",
+      "objectiveId": "obj2-domaine",
+      "front": "Trois règles pour le domaine ?",
+      "back": "Pas de division par 0 ; pas de racine paire d'un négatif ; + − × toujours permis."
+    },
+    {
+      "id": "f2-02",
+      "objectiveId": "obj2-composition",
+      "front": "$\\mathrm{Dom}_{g \\circ f}$ ?",
+      "back": "$\\{x \\in \\mathrm{Dom}_f \\mid f(x) \\in \\mathrm{Dom}_g\\}$."
+    },
+    {
+      "id": "f2-03",
+      "objectiveId": "obj2-composition",
+      "front": "$g \\circ f = f \\circ g$ ?",
+      "back": "Non : la composition n'est pas commutative."
+    },
+    {
+      "id": "f2-04",
+      "objectiveId": "obj2-algebriques",
+      "front": "Pente passant par P₁ et P₂ ?",
+      "back": "$a = \\frac{y_2 - y_1}{x_2 - x_1}$."
+    },
+    {
+      "id": "f2-05",
+      "objectiveId": "obj2-algebriques",
+      "front": "Sommet de ax² + bx + c ?",
+      "back": "$h = -\\frac{b}{2a}$, $k = f(h)$."
+    },
+    {
+      "id": "f2-06",
+      "objectiveId": "obj2-algebriques",
+      "front": "Rationnelle propre ?",
+      "back": "deg P < deg Q ; sinon impropre, et on divise."
+    },
+    {
+      "id": "f2-07",
+      "objectiveId": "obj2-algebriques",
+      "front": "Équation avec racine carrée ?",
+      "back": "Isoler la racine, élever au carré, vérifier la solution."
+    },
+    {
+      "id": "f2-08",
+      "objectiveId": "obj2-explog",
+      "front": "$\\log_b M = m$ ?",
+      "back": "$b^m = M$."
+    },
+    {
+      "id": "f2-09",
+      "objectiveId": "obj2-explog",
+      "front": "$\\log_x u^n$ ?",
+      "back": "$n \\log_x u$."
+    },
+    {
+      "id": "f2-10",
+      "objectiveId": "obj2-explog",
+      "front": "Domaine et image de log_b x ?",
+      "back": "]0, ∞[ et ℝ."
+    },
+    {
+      "id": "f2-11",
+      "objectiveId": "obj2-trigo",
+      "front": "cos θ et sin θ sur le cercle ?",
+      "back": "Abscisse et ordonnée du point P(θ)."
+    },
+    {
+      "id": "f2-12",
+      "objectiveId": "obj2-trigo",
+      "front": "$\\cos(2\\theta)$ : trois formes ?",
+      "back": "$\\cos^2\\theta - \\sin^2\\theta = 2\\cos^2\\theta - 1 = 1 - 2\\sin^2\\theta$."
+    }
+  ],
+  "exercises": [
+    {
+      "id": "e2-01",
+      "objectiveId": "obj2-composition",
+      "difficulty": 2,
+      "mode": "trace",
+      "language": "text",
+      "title": "Le domaine d'une composée (exercice 1.26, n° 3)",
+      "statement": "Soit f(x) = 1/(x − 2) et g(x) = √(x + 4). Calculer (f ∘ g)(x) et déterminer son domaine.",
+      "starterCode": "f(x) = 1/(x − 2)      g(x) = √(x + 4)",
+      "hints": [
+        "Commencer par le domaine de la fonction intérieure g.",
+        "Puis exiger que g(x) soit dans le domaine de f : g(x) ≠ 2.",
+        "√(x + 4) = 2 ⇔ x + 4 = 4 ⇔ x = 0."
+      ],
+      "solution": "(f ∘ g)(x) = 1/(√(x + 4) − 2) ; Dom = [−4, 0[ ∪ ]0, ∞[",
+      "expectedOutput": "1) Dom_g : x + 4 ≥ 0  ⇔  x ≥ −4\n2) (f ∘ g)(x) = f(√(x + 4)) = 1 / (√(x + 4) − 2)\n3) Dénominateur non nul : √(x + 4) ≠ 2  ⇔  x + 4 ≠ 4  ⇔  x ≠ 0\n4) Dom_{f∘g} = [−4, 0[ ∪ ]0, ∞[",
+      "solutionExplanation": "On suit exactement la méthode de l'exemple 1.25 : restriction de la fonction intérieure, puis restriction venant de la fonction extérieure. Réponse de la plateforme.",
+      "source": {
+        "file": "1-rappels_calcul_differentiel.pdf",
+        "page": 63,
+        "locator": "Exercice 1.26 (3)"
+      }
+    },
+    {
+      "id": "e2-02",
+      "objectiveId": "obj2-algebriques",
+      "difficulty": 2,
+      "mode": "trace",
+      "language": "text",
+      "title": "Division de polynômes (exercice 1.29 b)",
+      "statement": "La fonction (6x³ + 11x² − 31x + 15)/(3x − 2) est-elle propre ou impropre ? Si elle est impropre, l'écrire comme polynôme plus fraction propre.",
+      "starterCode": "(6x³ + 11x² − 31x + 15) ÷ (3x − 2)",
+      "hints": [
+        "deg P = 3 ≥ deg Q = 1 : elle est impropre.",
+        "Diviser 6x³ par 3x donne 2x² ; soustraire 2x²(3x − 2), puis recommencer.",
+        "Quotient 2x² + 5x − 7 ; il reste une constante."
+      ],
+      "solution": "2x² + 5x − 7 + 1/(3x − 2)",
+      "expectedOutput": "  6x³ + 11x² − 31x + 15\n− (6x³ −  4x²)              ← 2x² · (3x − 2)\n  ─────────────\n        15x² − 31x\n      − (15x² − 10x)          ← 5x · (3x − 2)\n        ────────────\n              −21x + 15\n            − (−21x + 14)     ← −7 · (3x − 2)\n              ──────────\n                      1\n\nDonc (6x³ + 11x² − 31x + 15)/(3x − 2) = 2x² + 5x − 7 + 1/(3x − 2)",
+      "solutionExplanation": "Vérification : (3x − 2)(2x² + 5x − 7) + 1 = 6x³ + 11x² − 31x + 14 + 1. Réponse calculée par la plateforme et vérifiée par division symbolique.",
+      "source": {
+        "file": "1-rappels_calcul_differentiel.pdf",
+        "page": 75,
+        "locator": "Exercice 1.29 b"
+      }
+    },
+    {
+      "id": "e2-03",
+      "objectiveId": "obj2-explog",
+      "difficulty": 2,
+      "mode": "trace",
+      "language": "text",
+      "title": "Deux équations exponentielles",
+      "statement": "Résoudre a) 10^(x − 1) = 731 et b) 1/(17 − eˣ) = 4, en valeur exacte puis arrondie au millième.",
+      "starterCode": "a) 10^(x − 1) = 731\nb) 1/(17 − eˣ) = 4",
+      "hints": [
+        "a) Le terme exponentiel est isolé : appliquer log (base 10).",
+        "b) Commencer par inverser : 17 − eˣ = 1/4.",
+        "b) eˣ = 67/4, puis appliquer ln."
+      ],
+      "solution": "a) x = 1 + log 731 ≈ 3,864 · b) x = ln(67/4) ≈ 2,818",
+      "expectedOutput": "a) x − 1 = log 731  ⇒  x = 1 + log 731 ≈ 3,864\n\nb) 17 − eˣ = 1/4  ⇒  eˣ = 17 − 1/4 = 67/4  ⇒  x = ln(67/4) ≈ 2,818",
+      "solutionExplanation": "Exercice 1.33 a et exercice 7 de la section 1.2.7 des notes. Réponses calculées par la plateforme.",
+      "source": {
+        "file": "1-rappels_calcul_differentiel.pdf",
+        "page": 86,
+        "locator": "Exercice 1.33 a ; notes, section 1.2.7, exercice 7"
+      }
+    },
+    {
+      "id": "e2-04",
+      "objectiveId": "obj2-trigo",
+      "difficulty": 3,
+      "mode": "trace",
+      "language": "text",
+      "title": "Une équation avec un angle double (exercice 1.37 b)",
+      "statement": "Trouver les valeurs de x ∈ [0°, 360°[ telles que cos(2x + 60°) = 1/2.",
+      "starterCode": "cos(2x + 60°) = 1/2,   x ∈ [0°, 360°[",
+      "hints": [
+        "Poser u = 2x + 60° : si x parcourt [0°, 360°[, u parcourt [60°, 780°[.",
+        "cos u = 1/2 pour u = 60°, 300°, puis ces valeurs + 360°.",
+        "u ∈ {60°, 300°, 420°, 660°} ; revenir à x = (u − 60°)/2."
+      ],
+      "solution": "x ∈ {0°, 120°, 180°, 300°}",
+      "expectedOutput": "u = 2x + 60° ∈ [60°, 780°[\ncos u = 1/2  ⇔  u = 60° + 360°k  ou  u = 300° + 360°k\nDans [60°, 780°[ : u = 60°, 300°, 420°, 660°\nx = (u − 60°)/2 : x = 0°, 120°, 180°, 300°",
+      "solutionExplanation": "L'erreur fréquente est de ne chercher u que sur un tour : l'angle double fait parcourir deux tours à u, d'où quatre solutions. Réponse de la plateforme, vérifiée numériquement.",
+      "source": {
+        "file": "1-rappels_calcul_differentiel.pdf",
+        "page": 98,
+        "locator": "Exercice 1.37 b"
+      }
+    },
+    {
+      "id": "e2-05",
+      "objectiveId": "obj2-trigo",
+      "difficulty": 2,
+      "mode": "find-bug",
+      "language": "text",
+      "title": "Trouver l'erreur — une preuve d'identité",
+      "statement": "Un étudiant démontre cos⁴θ − sin⁴θ = cos(2θ) (exercice 1.39 f). Trouver la ligne fausse et la corriger.",
+      "starterCode": "  cos⁴θ − sin⁴θ\n= (cos²θ − sin²θ)(cos²θ + sin²θ)\n= (cos²θ − sin²θ) · 0\n= 0",
+      "hints": [
+        "Quelle identité fondamentale porte sur cos²θ + sin²θ ?",
+        "Théorème 1.38, point 1.",
+        "cos²θ − sin²θ est l'une des formes de cos(2θ) (point 9)."
+      ],
+      "solution": "Ligne 3 : cos²θ + sin²θ = 1, pas 0. Alors cos⁴θ − sin⁴θ = cos²θ − sin²θ = cos(2θ).",
+      "expectedOutput": "  cos⁴θ − sin⁴θ\n= (cos²θ − sin²θ)(cos²θ + sin²θ)     (différence de carrés)\n= (cos²θ − sin²θ) · 1                 (théorème 1.38, point 1)\n= cos(2θ)                             (théorème 1.38, point 9)",
+      "solutionExplanation": "La factorisation de la ligne 2 est juste ; seule la valeur de cos²θ + sin²θ est fausse. Correction rédigée par la plateforme et vérifiée symboliquement.",
+      "source": {
+        "file": "1-rappels_calcul_differentiel.pdf",
+        "page": 101,
+        "locator": "Exercice 1.39 f"
+      }
+    }
+  ]
+}

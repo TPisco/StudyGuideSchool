@@ -1,0 +1,1876 @@
+{
+  "course": "MAT098",
+  "chapter": 6,
+  "concepts": [
+    {
+      "id": "c6-exhaustion",
+      "term": "Méthode d'exhaustion",
+      "definition": "Évaluer l'aire d'une figure en y inscrivant des polygones de plus en plus de côtés : $A = \\lim_{n \\to \\infty} A_n$.",
+      "whyItMatters": "C'est l'idée que le calcul intégral reprend avec des rectangles sous une courbe.",
+      "commonMisconception": "Croire qu'un nombre fini de polygones donne l'aire exacte : il faut passer à la limite.",
+      "objectiveId": "obj6-rectangles",
+      "source": {
+        "file": "2-integrale_definie.pdf",
+        "page": 5,
+        "locator": "Diapositives 4 et 5"
+      }
+    },
+    {
+      "id": "c6-sigma",
+      "term": "Notation sigma",
+      "definition": "$\\sum_{k=m}^{n} a_k = a_m + a_{m+1} + \\dots + a_n$ : $a_k$ est le terme général, $k$ l'indice de sommation, $m$ et $n$ les bornes inférieure et supérieure.",
+      "whyItMatters": "Elle écrit en une ligne la somme des aires de n rectangles.",
+      "commonMisconception": "Compter $n - m$ termes au lieu de $n - m + 1$ : de $k = 25$ à $125$, il y a 101 termes.",
+      "objectiveId": "obj6-sigma",
+      "source": {
+        "file": "2-integrale_definie.pdf",
+        "page": 8,
+        "locator": "Diapositive 8"
+      }
+    },
+    {
+      "id": "c6-telescopique",
+      "term": "Somme télescopique",
+      "definition": "$\\sum_{k=1}^{n} (a_k - a_{k-1}) = a_n - a_0$ : les termes intermédiaires s'annulent deux à deux.",
+      "whyItMatters": "Elle se calcule sans formule de somme, en regardant seulement le premier et le dernier terme.",
+      "commonMisconception": "Oublier que le terme soustrait est $a_0$, pas $a_1$.",
+      "objectiveId": "obj6-proprietes",
+      "source": {
+        "file": "2-integrale_definie.pdf",
+        "page": 11,
+        "locator": "Propriété 8"
+      }
+    },
+    {
+      "id": "c6-sommes-puissances",
+      "term": "Sommes des entiers, des carrés et des cubes",
+      "definition": "$\\sum_{k=1}^{n} k = \\frac{n(n+1)}{2}$, $\\sum_{k=1}^{n} k^2 = \\frac{n(n+1)(2n+1)}{6}$, $\\sum_{k=1}^{n} k^3 = \\frac{n^2(n+1)^2}{4}$.",
+      "whyItMatters": "Ce sont elles qui transforment une somme de rectangles en expression de n dont on peut prendre la limite.",
+      "commonMisconception": "Les appliquer à une somme qui ne commence pas à k = 1 sans la séparer d'abord.",
+      "objectiveId": "obj6-proprietes",
+      "source": {
+        "file": "2-integrale_definie.pdf",
+        "page": 12,
+        "locator": "Propriétés 9 à 11"
+      }
+    },
+    {
+      "id": "c6-partition",
+      "term": "Partition d'un intervalle",
+      "definition": "Suite $a = x_0 < x_1 < \\dots < x_n = b$ qui découpe $[a, b]$ en sous-intervalles $[x_{k-1}, x_k]$ de largeur $\\Delta x_k = x_k - x_{k-1}$.",
+      "whyItMatters": "Avec une largeur commune $\\Delta x = \\frac{b - a}{n}$, on a $x_k = a + k\\Delta x$.",
+      "commonMisconception": "Écrire $x_k = k\\Delta x$ en oubliant la borne $a$ quand $a \\neq 0$.",
+      "objectiveId": "obj6-partition",
+      "source": {
+        "file": "2-integrale_definie.pdf",
+        "page": 16,
+        "locator": "Diapositive 16"
+      }
+    },
+    {
+      "id": "c6-inscrits",
+      "term": "Rectangles inscrits et circonscrits",
+      "definition": "Pour $f$ positive et croissante : $x_k^*$ au début du sous-intervalle donne $\\underline{S_n}$ (rectangles sous la courbe), $x_k^*$ à la fin donne $\\overline{S_n}$ (rectangles au-dessus).",
+      "whyItMatters": "Ils encadrent l'aire : $\\underline{S_n} \\le A \\le \\overline{S_n}$.",
+      "commonMisconception": "Associer « début du sous-intervalle » à circonscrit : pour une fonction croissante, la hauteur minimale est à gauche.",
+      "objectiveId": "obj6-rectangles",
+      "source": {
+        "file": "2-integrale_definie.pdf",
+        "page": 21,
+        "locator": "Diapositives 21 et 22"
+      }
+    },
+    {
+      "id": "c6-aire-limite",
+      "term": "L'aire comme limite",
+      "definition": "L'aire exacte est la limite commune de $\\underline{S_n}$ et $\\overline{S_n}$ quand $n \\to \\infty$.",
+      "whyItMatters": "C'est la définition de l'intégrale définie qui vient au chapitre 7.",
+      "commonMisconception": "S'arrêter à une valeur de n, même grande : elle ne donne qu'une approximation.",
+      "objectiveId": "obj6-rectangles",
+      "source": {
+        "file": "2-integrale_definie.pdf",
+        "page": 23,
+        "locator": "Exercice 2.4 (1.3) e"
+      }
+    }
+  ],
+  "tables": [
+    {
+      "id": "t6-proprietes",
+      "title": "Propriétés des sommations",
+      "kind": "cheatsheet",
+      "columns": [
+        {
+          "key": "n",
+          "label": "N°"
+        },
+        {
+          "key": "prop",
+          "label": "Propriété"
+        },
+        {
+          "key": "f",
+          "label": "Formule"
+        }
+      ],
+      "rows": [
+        {
+          "n": "4",
+          "prop": "n termes égaux",
+          "f": "$\\sum_{k=1}^{n} C = nC$"
+        },
+        {
+          "n": "5",
+          "prop": "n − m + 1 termes égaux",
+          "f": "$\\sum_{k=m}^{n} C = (n - m + 1)C$"
+        },
+        {
+          "n": "6",
+          "prop": "mise en évidence",
+          "f": "$\\sum Ca_k = C\\sum a_k$"
+        },
+        {
+          "n": "7",
+          "prop": "somme de sommes",
+          "f": "$\\sum (a_k + b_k) = \\sum a_k + \\sum b_k$"
+        },
+        {
+          "n": "8",
+          "prop": "télescopique",
+          "f": "$\\sum_{k=1}^{n} (a_k - a_{k-1}) = a_n - a_0$"
+        },
+        {
+          "n": "9",
+          "prop": "entiers",
+          "f": "$\\frac{n(n+1)}{2}$"
+        },
+        {
+          "n": "10",
+          "prop": "carrés",
+          "f": "$\\frac{n(n+1)(2n+1)}{6}$"
+        },
+        {
+          "n": "11",
+          "prop": "cubes",
+          "f": "$\\frac{n^2(n+1)^2}{4}$"
+        },
+        {
+          "n": "12",
+          "prop": "géométrique",
+          "f": "$\\sum_{k=1}^{n} r^k = \\frac{r^{n+1} - r}{r - 1}$"
+        }
+      ],
+      "source": {
+        "file": "2-integrale_definie.pdf",
+        "page": 10,
+        "locator": "Diapositives 10 à 12 ; théorème 2.1 des notes"
+      }
+    },
+    {
+      "id": "t6-encadrement",
+      "title": "Exercice 2.4 (1.3) : l'aire sous y = 2x³ sur [0, 2]",
+      "kind": "comparison",
+      "columns": [
+        {
+          "key": "n",
+          "label": "n"
+        },
+        {
+          "key": "inf",
+          "label": "Inscrits"
+        },
+        {
+          "key": "sup",
+          "label": "Circonscrits"
+        }
+      ],
+      "rows": [
+        {
+          "n": "8",
+          "inf": "$\\underline{S_8} = 6{,}125$",
+          "sup": "$\\overline{S_8} = 10{,}125$"
+        },
+        {
+          "n": "$n$",
+          "inf": "$\\frac{8(n - 1)^2}{n^2}$",
+          "sup": "$\\frac{8(n + 1)^2}{n^2}$"
+        },
+        {
+          "n": "$n \\to \\infty$",
+          "inf": "8",
+          "sup": "8"
+        }
+      ],
+      "source": {
+        "file": "2-integrale_definie.pdf",
+        "page": 23,
+        "locator": "Exercice 2.4 (1.3)"
+      },
+      "caption": "Valeurs calculées par la plateforme et vérifiées par calcul symbolique."
+    }
+  ],
+  "quiz": {
+    "title": "Quiz — vérification rapide",
+    "estimatedMinutes": 15,
+    "questions": [
+      {
+        "id": "q6-01",
+        "objectiveId": "obj6-sigma",
+        "bloomLevel": "recall",
+        "type": "mcq",
+        "difficulty": 1,
+        "prompt": "Dans $\\sum_{k=m}^{n} a_k$, comment s'appelle $a_k$ ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Le terme général"
+          },
+          {
+            "id": "b",
+            "text": "L'indice de sommation"
+          },
+          {
+            "id": "c",
+            "text": "La borne supérieure"
+          },
+          {
+            "id": "d",
+            "text": "La somme partielle"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Diapositive 8.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "C'est k."
+          },
+          {
+            "optionId": "c",
+            "why": "C'est n."
+          },
+          {
+            "optionId": "d",
+            "why": "La somme partielle est le résultat, pas le terme."
+          }
+        ],
+        "source": {
+          "file": "2-integrale_definie.pdf",
+          "page": 8,
+          "locator": "Diapositive 8"
+        }
+      },
+      {
+        "id": "q6-02",
+        "objectiveId": "obj6-sigma",
+        "bloomLevel": "understand",
+        "type": "mcq",
+        "difficulty": 1,
+        "prompt": "Combien de termes compte $\\sum_{k=25}^{125} a_k$ ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "101"
+          },
+          {
+            "id": "b",
+            "text": "100"
+          },
+          {
+            "id": "c",
+            "text": "125"
+          },
+          {
+            "id": "d",
+            "text": "150"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Propriété 5 : n − m + 1 termes.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Les deux bornes sont incluses : 125 − 25 + 1."
+          },
+          {
+            "optionId": "c",
+            "why": "La somme ne commence pas à 1."
+          },
+          {
+            "optionId": "d",
+            "why": "On soustrait les bornes, on ne les additionne pas."
+          }
+        ],
+        "source": {
+          "file": "2-integrale_definie.pdf",
+          "page": 11,
+          "locator": "Propriété 5"
+        }
+      },
+      {
+        "id": "q6-03",
+        "objectiveId": "obj6-proprietes",
+        "bloomLevel": "apply",
+        "type": "mcq",
+        "difficulty": 1,
+        "prompt": "Que vaut $\\sum_{k=1}^{40} 3k$ ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "2460"
+          },
+          {
+            "id": "b",
+            "text": "820"
+          },
+          {
+            "id": "c",
+            "text": "4920"
+          },
+          {
+            "id": "d",
+            "text": "120"
+          }
+        ],
+        "correct": "a",
+        "explanation": "$3 \\cdot \\frac{40 \\cdot 41}{2}$ (exercice 2.2 a, réponse de la plateforme).",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "C'est la somme sans le facteur 3."
+          },
+          {
+            "optionId": "c",
+            "why": "$\\frac{40 \\cdot 41}{2} = 820$, pas 1640."
+          },
+          {
+            "optionId": "d",
+            "why": "C'est $3 \\cdot 40$ : on a additionné 3 quarante fois."
+          }
+        ],
+        "source": {
+          "file": "2-integrale_definie.pdf",
+          "page": 13,
+          "locator": "Exercice 2.2 (1.1) a"
+        }
+      },
+      {
+        "id": "q6-04",
+        "objectiveId": "obj6-proprietes",
+        "bloomLevel": "apply",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Que vaut $\\sum_{k=1}^{30} (2k - 7)$ ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "720"
+          },
+          {
+            "id": "b",
+            "text": "923"
+          },
+          {
+            "id": "c",
+            "text": "903"
+          },
+          {
+            "id": "d",
+            "text": "1860"
+          }
+        ],
+        "correct": "a",
+        "explanation": "$2 \\cdot 465 - 30 \\cdot 7 = 720$ (exercice 2.2 c, réponse de la plateforme).",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Le −7 est additionné 30 fois, pas une seule."
+          },
+          {
+            "optionId": "c",
+            "why": "$\\sum 7 = 30 \\cdot 7 = 210$."
+          },
+          {
+            "optionId": "d",
+            "why": "$2\\sum k = 2 \\cdot 465 = 930$."
+          }
+        ],
+        "source": {
+          "file": "2-integrale_definie.pdf",
+          "page": 13,
+          "locator": "Exercice 2.2 (1.1) c"
+        }
+      },
+      {
+        "id": "q6-05",
+        "objectiveId": "obj6-proprietes",
+        "bloomLevel": "analyze",
+        "type": "mcq",
+        "difficulty": 3,
+        "prompt": "Que vaut $\\sum_{k=1}^{8} \\left(\\frac{1}{2^k} - \\frac{1}{2^{k-1}}\\right)$ ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "$-\\frac{255}{256}$"
+          },
+          {
+            "id": "b",
+            "text": "$\\frac{255}{256}$"
+          },
+          {
+            "id": "c",
+            "text": "$-\\frac{127}{128}$"
+          },
+          {
+            "id": "d",
+            "text": "0"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Somme télescopique avec $a_k = \\frac{1}{2^k}$ (exercice 2.2 f, réponse de la plateforme).",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "$a_n - a_0 = \\frac{1}{256} - 1$ est négatif."
+          },
+          {
+            "optionId": "c",
+            "why": "Le terme soustrait est $a_0 = 1$ et le dernier $a_8 = \\frac{1}{256}$."
+          },
+          {
+            "optionId": "d",
+            "why": "Seuls les termes intermédiaires s'annulent."
+          }
+        ],
+        "source": {
+          "file": "2-integrale_definie.pdf",
+          "page": 13,
+          "locator": "Exercice 2.2 (1.1) f"
+        }
+      },
+      {
+        "id": "q6-06",
+        "objectiveId": "obj6-proprietes",
+        "bloomLevel": "recall",
+        "type": "mcq",
+        "difficulty": 1,
+        "prompt": "Que vaut $\\sum_{k=1}^{n} k^2$ ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "$\\frac{n(n + 1)(2n + 1)}{6}$"
+          },
+          {
+            "id": "b",
+            "text": "$\\frac{n(n + 1)}{2}$"
+          },
+          {
+            "id": "c",
+            "text": "$\\frac{n^2(n + 1)^2}{4}$"
+          },
+          {
+            "id": "d",
+            "text": "$\\left(\\frac{n(n + 1)}{2}\\right)^2 - n$"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Propriété 10.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "C'est la somme des entiers."
+          },
+          {
+            "optionId": "c",
+            "why": "C'est la somme des cubes."
+          },
+          {
+            "optionId": "d",
+            "why": "Aucune formule de ce type dans le cours."
+          }
+        ],
+        "source": {
+          "file": "2-integrale_definie.pdf",
+          "page": 12,
+          "locator": "Propriété 10"
+        }
+      },
+      {
+        "id": "q6-07",
+        "objectiveId": "obj6-partition",
+        "bloomLevel": "apply",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "On partage $[2, 10]$ en $n$ sous-intervalles égaux. Que vaut $x_k$ ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "$2 + \\frac{8k}{n}$"
+          },
+          {
+            "id": "b",
+            "text": "$\\frac{8k}{n}$"
+          },
+          {
+            "id": "c",
+            "text": "$2 + \\frac{10k}{n}$"
+          },
+          {
+            "id": "d",
+            "text": "$\\frac{2k}{n}$"
+          }
+        ],
+        "correct": "a",
+        "explanation": "$x_k = a + k\\Delta x$ avec $\\Delta x = \\frac8n$ (exercice 2.3 f, réponse de la plateforme).",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Il faut partir de la borne a = 2."
+          },
+          {
+            "optionId": "c",
+            "why": "$\\Delta x = \\frac{10 - 2}{n}$."
+          },
+          {
+            "optionId": "d",
+            "why": "La largeur de l'intervalle est 8, pas 2."
+          }
+        ],
+        "source": {
+          "file": "2-integrale_definie.pdf",
+          "page": 20,
+          "locator": "Exercice 2.3 (1.2) f"
+        }
+      },
+      {
+        "id": "q6-08",
+        "objectiveId": "obj6-partition",
+        "bloomLevel": "apply",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Avec $f(x) = x^2 + 3$ et $x_k = 2 + \\frac{8k}{n}$, que vaut $f(x_k)$ ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "$7 + \\frac{32k}{n} + \\frac{64k^2}{n^2}$"
+          },
+          {
+            "id": "b",
+            "text": "$4 + \\frac{64k^2}{n^2} + 3$"
+          },
+          {
+            "id": "c",
+            "text": "$7 + \\frac{16k}{n} + \\frac{64k^2}{n^2}$"
+          },
+          {
+            "id": "d",
+            "text": "$7 + \\frac{32k}{n} + \\frac{8k^2}{n^2}$"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Exercice 2.3 g, réponse de la plateforme.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "$(a + b)^2 \\neq a^2 + b^2$ : il manque le double produit."
+          },
+          {
+            "optionId": "c",
+            "why": "Le double produit vaut $2 \\cdot 2 \\cdot \\frac{8k}{n} = \\frac{32k}{n}$."
+          },
+          {
+            "optionId": "d",
+            "why": "$\\left(\\frac{8k}{n}\\right)^2 = \\frac{64k^2}{n^2}$."
+          }
+        ],
+        "source": {
+          "file": "2-integrale_definie.pdf",
+          "page": 20,
+          "locator": "Exercice 2.3 (1.2) g"
+        }
+      },
+      {
+        "id": "q6-09",
+        "objectiveId": "obj6-rectangles",
+        "bloomLevel": "understand",
+        "type": "true-false",
+        "difficulty": 1,
+        "prompt": "Pour une fonction positive et croissante, choisir $x_k^*$ au début de chaque sous-intervalle donne des rectangles inscrits.",
+        "options": [
+          {
+            "id": "v",
+            "text": "Vrai"
+          },
+          {
+            "id": "f",
+            "text": "Faux"
+          }
+        ],
+        "correct": "v",
+        "explanation": "Diapositive 21 : la hauteur est la plus petite valeur de f sur le sous-intervalle, les rectangles restent sous la courbe.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "f",
+            "why": "Au début du sous-intervalle, f est à son minimum puisqu'elle croît."
+          }
+        ],
+        "source": {
+          "file": "2-integrale_definie.pdf",
+          "page": 21,
+          "locator": "Diapositive 21"
+        }
+      },
+      {
+        "id": "q6-10",
+        "objectiveId": "obj6-rectangles",
+        "bloomLevel": "apply",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Pour $y = 2x^3$ sur $[0, 2]$ avec 8 rectangles circonscrits, que vaut $\\overline{S_8}$ ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "10,125"
+          },
+          {
+            "id": "b",
+            "text": "6,125"
+          },
+          {
+            "id": "c",
+            "text": "8"
+          },
+          {
+            "id": "d",
+            "text": "40,5"
+          }
+        ],
+        "correct": "a",
+        "explanation": "$\\sum_{k=1}^{8} \\frac{k^3}{128} = \\frac{1296}{128}$ (exercice 2.4 b, réponse de la plateforme).",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "C'est $\\underline{S_8}$, avec les rectangles inscrits."
+          },
+          {
+            "optionId": "c",
+            "why": "C'est l'aire exacte, limite des deux sommes."
+          },
+          {
+            "optionId": "d",
+            "why": "Il faut multiplier par $\\Delta x = \\frac14$."
+          }
+        ],
+        "source": {
+          "file": "2-integrale_definie.pdf",
+          "page": 23,
+          "locator": "Exercice 2.4 (1.3) b"
+        }
+      },
+      {
+        "id": "q6-11",
+        "objectiveId": "obj6-rectangles",
+        "bloomLevel": "analyze",
+        "type": "mcq",
+        "difficulty": 3,
+        "prompt": "$\\overline{S_n} = \\frac{8(n + 1)^2}{n^2}$ pour $y = 2x^3$ sur $[0, 2]$. Que vaut l'aire exacte ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "8"
+          },
+          {
+            "id": "b",
+            "text": "16"
+          },
+          {
+            "id": "c",
+            "text": "$\\infty$"
+          },
+          {
+            "id": "d",
+            "text": "10,125"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Exercice 2.4 e, réponse de la plateforme.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "$\\frac{(n + 1)^2}{n^2} \\to 1$."
+          },
+          {
+            "optionId": "c",
+            "why": "Le numérateur et le dénominateur ont le même degré."
+          },
+          {
+            "optionId": "d",
+            "why": "C'est $\\overline{S_8}$ ; il faut faire tendre $n$ vers l'infini."
+          }
+        ],
+        "source": {
+          "file": "2-integrale_definie.pdf",
+          "page": 23,
+          "locator": "Exercice 2.4 (1.3) e"
+        }
+      },
+      {
+        "id": "q6-12",
+        "objectiveId": "obj6-sigma",
+        "bloomLevel": "understand",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Quel est l'effet du facteur $(-1)^k$ dans $\\sum_{k=m}^{n} (-1)^k a_k$ ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Il fait alterner les signes des termes"
+          },
+          {
+            "id": "b",
+            "text": "Il rend tous les termes négatifs"
+          },
+          {
+            "id": "c",
+            "text": "Il inverse l'ordre des termes"
+          },
+          {
+            "id": "d",
+            "text": "Il annule la somme"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Diapositive 9.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Pour $k$ pair, $(-1)^k = 1$."
+          },
+          {
+            "optionId": "c",
+            "why": "L'ordre ne change pas."
+          },
+          {
+            "optionId": "d",
+            "why": "$\\sum_{k=1}^{4} (-1)^k k = 2 \\neq 0$."
+          }
+        ],
+        "source": {
+          "file": "2-integrale_definie.pdf",
+          "page": 9,
+          "locator": "Diapositive 9"
+        }
+      }
+    ]
+  },
+  "test": {
+    "title": "Test du chapitre 6",
+    "instructions": "21 questions couvrant tout le chapitre. Plus long et plus difficile que le quiz.",
+    "estimatedMinutes": 45,
+    "questions": [
+      {
+        "id": "t6-01",
+        "objectiveId": "obj6-rectangles",
+        "bloomLevel": "recall",
+        "type": "mcq",
+        "difficulty": 1,
+        "prompt": "Sur quoi reposait la méthode d'exhaustion ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Inscrire des polygones de plus en plus de côtés"
+          },
+          {
+            "id": "b",
+            "text": "Tracer des tangentes à la courbe"
+          },
+          {
+            "id": "c",
+            "text": "Mesurer la figure avec une règle graduée"
+          },
+          {
+            "id": "d",
+            "text": "Additionner des carrés de même taille"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Diapositives 4 et 5.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "C'est l'idée de la dérivée."
+          },
+          {
+            "optionId": "c",
+            "why": "C'est une mesure, pas une méthode de calcul."
+          },
+          {
+            "optionId": "d",
+            "why": "Les pièces sont des triangles et des polygones inscrits."
+          }
+        ],
+        "source": {
+          "file": "2-integrale_definie.pdf",
+          "page": 4,
+          "locator": "Diapositives 4 et 5"
+        }
+      },
+      {
+        "id": "t6-02",
+        "objectiveId": "obj6-sigma",
+        "bloomLevel": "understand",
+        "type": "mcq",
+        "difficulty": 1,
+        "prompt": "Laquelle de ces écritures est égale à $\\sum_{i=1}^{n} a_i$ ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "$\\sum_{j=1}^{n} a_j$"
+          },
+          {
+            "id": "b",
+            "text": "$\\sum_{i=0}^{n} a_i$"
+          },
+          {
+            "id": "c",
+            "text": "$\\sum_{i=1}^{n} a_n$"
+          },
+          {
+            "id": "d",
+            "text": "$n \\cdot a_i$"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Propriété 1 : l'indice de sommation peut être renommé.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Elle ajoute le terme $a_0$."
+          },
+          {
+            "optionId": "c",
+            "why": "C'est $n\\,a_n$ : le terme ne dépend plus de l'indice."
+          },
+          {
+            "optionId": "d",
+            "why": "L'indice n'est pas une variable libre."
+          }
+        ],
+        "source": {
+          "file": "2-integrale_definie.pdf",
+          "page": 10,
+          "locator": "Propriété 1"
+        }
+      },
+      {
+        "id": "t6-03",
+        "objectiveId": "obj6-sigma",
+        "bloomLevel": "apply",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Que vaut $\\sum_{k=m}^{n} a_k$ après déphasage de l'indice ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "$\\sum_{k=1}^{n-m+1} a_{k+m-1}$"
+          },
+          {
+            "id": "b",
+            "text": "$\\sum_{k=1}^{n-m} a_{k+m}$"
+          },
+          {
+            "id": "c",
+            "text": "$\\sum_{k=1}^{n} a_{k+m}$"
+          },
+          {
+            "id": "d",
+            "text": "$\\sum_{k=0}^{n} a_{k-m}$"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Propriété 2.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Il manque un terme : la somme a n − m + 1 termes."
+          },
+          {
+            "optionId": "c",
+            "why": "La borne supérieure doit diminuer."
+          },
+          {
+            "optionId": "d",
+            "why": "Le décalage est dans le mauvais sens."
+          }
+        ],
+        "source": {
+          "file": "2-integrale_definie.pdf",
+          "page": 10,
+          "locator": "Propriété 2"
+        }
+      },
+      {
+        "id": "t6-04",
+        "objectiveId": "obj6-proprietes",
+        "bloomLevel": "apply",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Que vaut $\\sum_{k=25}^{125} \\frac{k}{5}$ ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "1515"
+          },
+          {
+            "id": "b",
+            "text": "1575"
+          },
+          {
+            "id": "c",
+            "text": "1500"
+          },
+          {
+            "id": "d",
+            "text": "7575"
+          }
+        ],
+        "correct": "a",
+        "explanation": "$\\frac15\\left(\\sum_{k=1}^{125} k - \\sum_{k=1}^{24} k\\right) = \\frac{7875 - 300}{5}$ (exercice 2.2 b, réponse de la plateforme).",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "C'est $\\frac{7875}{5}$ : il faut retirer $\\sum_{k=1}^{24} k = 300$."
+          },
+          {
+            "optionId": "c",
+            "why": "$\\frac{7575}{5} = 1515$."
+          },
+          {
+            "optionId": "d",
+            "why": "Il manque le facteur 1/5."
+          }
+        ],
+        "source": {
+          "file": "2-integrale_definie.pdf",
+          "page": 13,
+          "locator": "Exercice 2.2 (1.1) b"
+        }
+      },
+      {
+        "id": "t6-05",
+        "objectiveId": "obj6-proprietes",
+        "bloomLevel": "apply",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Que vaut $\\sum_{k=1}^{n} (3k + 2)$ ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "$\\frac{3n^2 + 7n}{2}$"
+          },
+          {
+            "id": "b",
+            "text": "$\\frac{3n(n + 1)}{2} + 2$"
+          },
+          {
+            "id": "c",
+            "text": "$\\frac{3n^2 + 3n}{2}$"
+          },
+          {
+            "id": "d",
+            "text": "$3n^2 + 2n$"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Exercice 2.2 d, réponse de la plateforme.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Le 2 est additionné $n$ fois : $\\sum 2 = 2n$."
+          },
+          {
+            "optionId": "c",
+            "why": "Il manque la somme des 2."
+          },
+          {
+            "optionId": "d",
+            "why": "$\\sum k = \\frac{n(n+1)}{2}$, pas $n^2$."
+          }
+        ],
+        "source": {
+          "file": "2-integrale_definie.pdf",
+          "page": 13,
+          "locator": "Exercice 2.2 (1.1) d"
+        }
+      },
+      {
+        "id": "t6-06",
+        "objectiveId": "obj6-proprietes",
+        "bloomLevel": "apply",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Que vaut $\\sum_{k=1}^{3n} k$ ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "$\\frac{3n(3n + 1)}{2}$"
+          },
+          {
+            "id": "b",
+            "text": "$\\frac{3n(n + 1)}{2}$"
+          },
+          {
+            "id": "c",
+            "text": "$\\frac{n(n + 1)}{2}$"
+          },
+          {
+            "id": "d",
+            "text": "$\\frac{9n^2}{2}$"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Formule 9 avec 3n à la place de n (exercice 2.2 e, réponse de la plateforme).",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "C'est $3\\sum_{k=1}^{n} k$ ; ici la borne est $3n$."
+          },
+          {
+            "optionId": "c",
+            "why": "La borne supérieure est 3n."
+          },
+          {
+            "optionId": "d",
+            "why": "Il manque le terme $\\frac{3n}{2}$."
+          }
+        ],
+        "source": {
+          "file": "2-integrale_definie.pdf",
+          "page": 13,
+          "locator": "Exercice 2.2 (1.1) e"
+        }
+      },
+      {
+        "id": "t6-07",
+        "objectiveId": "obj6-proprietes",
+        "bloomLevel": "understand",
+        "type": "true-false",
+        "difficulty": 2,
+        "prompt": "$\\sum_{k=1}^{n} a_k b_k = \\left(\\sum_{k=1}^{n} a_k\\right)\\left(\\sum_{k=1}^{n} b_k\\right)$.",
+        "options": [
+          {
+            "id": "v",
+            "text": "Vrai"
+          },
+          {
+            "id": "f",
+            "text": "Faux"
+          }
+        ],
+        "correct": "f",
+        "explanation": "Aucune propriété ne le dit. Pour $n = 2$, $a = b = (1, 1)$ : $1 + 1 = 2$ alors que $2 \\cdot 2 = 4$.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "v",
+            "why": "La propriété 7 porte sur une somme de termes, pas sur un produit."
+          }
+        ],
+        "source": {
+          "file": "2-integrale_definie.pdf",
+          "page": 11,
+          "locator": "Propriétés 6 et 7"
+        }
+      },
+      {
+        "id": "t6-08",
+        "objectiveId": "obj6-proprietes",
+        "bloomLevel": "recall",
+        "type": "mcq",
+        "difficulty": 1,
+        "prompt": "Que vaut $\\sum_{k=1}^{n} r^k$ pour $r \\neq 1$ ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "$\\frac{r^{n+1} - r}{r - 1}$"
+          },
+          {
+            "id": "b",
+            "text": "$\\frac{r^n - 1}{r - 1}$"
+          },
+          {
+            "id": "c",
+            "text": "$nr$"
+          },
+          {
+            "id": "d",
+            "text": "$\\frac{r^{n+1}}{r - 1}$"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Propriété 12.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Cette forme correspond à une somme qui commence à k = 0 et finit à n − 1."
+          },
+          {
+            "optionId": "c",
+            "why": "Ce serait vrai pour des termes égaux à r."
+          },
+          {
+            "optionId": "d",
+            "why": "Il manque le −r."
+          }
+        ],
+        "source": {
+          "file": "2-integrale_definie.pdf",
+          "page": 12,
+          "locator": "Propriété 12"
+        }
+      },
+      {
+        "id": "t6-09",
+        "objectiveId": "obj6-proprietes",
+        "bloomLevel": "recall",
+        "type": "fill-blank",
+        "difficulty": 1,
+        "prompt": "Compléter : $\\sum_{k=1}^{n} (a_k - a_{k-1}) = a_n - $ ____.",
+        "correct": "a_0",
+        "acceptableAnswers": [
+          "a0",
+          "a₀"
+        ],
+        "explanation": "Propriété 8 : somme télescopique.",
+        "source": {
+          "file": "2-integrale_definie.pdf",
+          "page": 11,
+          "locator": "Propriété 8"
+        }
+      },
+      {
+        "id": "t6-10",
+        "objectiveId": "obj6-partition",
+        "bloomLevel": "recall",
+        "type": "mcq",
+        "difficulty": 1,
+        "prompt": "Pour une partition régulière de $[a, b]$ en $n$ sous-intervalles, que vaut $\\Delta x$ ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "$\\frac{b - a}{n}$"
+          },
+          {
+            "id": "b",
+            "text": "$\\frac{b + a}{n}$"
+          },
+          {
+            "id": "c",
+            "text": "$\\frac{n}{b - a}$"
+          },
+          {
+            "id": "d",
+            "text": "$b - a$"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Diapositive 26 (formalisé au chapitre 7) ; exercice 2.3 e.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "La largeur est une différence."
+          },
+          {
+            "optionId": "c",
+            "why": "Le quotient est inversé."
+          },
+          {
+            "optionId": "d",
+            "why": "C'est la largeur totale, à partager en n."
+          }
+        ],
+        "source": {
+          "file": "2-integrale_definie.pdf",
+          "page": 26,
+          "locator": "Diapositive 26"
+        }
+      },
+      {
+        "id": "t6-11",
+        "objectiveId": "obj6-partition",
+        "bloomLevel": "apply",
+        "type": "mcq",
+        "difficulty": 1,
+        "prompt": "Pour $f(x) = x^2 + 3$ sur $[2, 10]$, que vaut $f(x_n)$ ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "103"
+          },
+          {
+            "id": "b",
+            "text": "7"
+          },
+          {
+            "id": "c",
+            "text": "100"
+          },
+          {
+            "id": "d",
+            "text": "13"
+          }
+        ],
+        "correct": "a",
+        "explanation": "$x_n = 10$ (exercice 2.3 d, réponse de la plateforme).",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "C'est $f(x_0) = f(2)$."
+          },
+          {
+            "optionId": "c",
+            "why": "Il faut ajouter 3."
+          },
+          {
+            "optionId": "d",
+            "why": "$10^2 + 3$, pas $10 + 3$."
+          }
+        ],
+        "source": {
+          "file": "2-integrale_definie.pdf",
+          "page": 20,
+          "locator": "Exercice 2.3 (1.2) d"
+        }
+      },
+      {
+        "id": "t6-12",
+        "objectiveId": "obj6-rectangles",
+        "bloomLevel": "recall",
+        "type": "mcq",
+        "difficulty": 1,
+        "prompt": "Quelle somme correspond aux rectangles circonscrits d'une fonction positive et croissante ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "$\\overline{S_n} = \\sum_{k=1}^{n} f(x_k)\\,\\Delta x_k$"
+          },
+          {
+            "id": "b",
+            "text": "$\\underline{S_n} = \\sum_{k=0}^{n-1} f(x_k)\\,\\Delta x_{k+1}$"
+          },
+          {
+            "id": "c",
+            "text": "$\\sum_{k=1}^{n} f(x_k)$"
+          },
+          {
+            "id": "d",
+            "text": "$\\sum_{k=0}^{n} f(x_k)\\,\\Delta x_k$"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Diapositive 22.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Ce sont les rectangles inscrits."
+          },
+          {
+            "optionId": "c",
+            "why": "Il manque les largeurs $\\Delta x_k$."
+          },
+          {
+            "optionId": "d",
+            "why": "Il n'y a pas de $\\Delta x_0$."
+          }
+        ],
+        "source": {
+          "file": "2-integrale_definie.pdf",
+          "page": 22,
+          "locator": "Diapositive 22"
+        }
+      },
+      {
+        "id": "t6-13",
+        "objectiveId": "obj6-rectangles",
+        "bloomLevel": "apply",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Pour $y = 2x^3$ sur $[0, 2]$ avec 8 rectangles inscrits, que vaut $\\underline{S_8}$ ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "6,125"
+          },
+          {
+            "id": "b",
+            "text": "10,125"
+          },
+          {
+            "id": "c",
+            "text": "7"
+          },
+          {
+            "id": "d",
+            "text": "24,5"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Exercice 2.4 b, réponse de la plateforme.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Ce sont les rectangles circonscrits."
+          },
+          {
+            "optionId": "c",
+            "why": "$\\sum_{k=0}^{7} k^3 = 784$ et $\\frac{784}{128} = 6{,}125$."
+          },
+          {
+            "optionId": "d",
+            "why": "Il faut multiplier chaque hauteur par $\\Delta x = \\frac14$."
+          }
+        ],
+        "source": {
+          "file": "2-integrale_definie.pdf",
+          "page": 23,
+          "locator": "Exercice 2.4 (1.3) b"
+        }
+      },
+      {
+        "id": "t6-14",
+        "objectiveId": "obj6-rectangles",
+        "bloomLevel": "analyze",
+        "type": "mcq",
+        "difficulty": 3,
+        "prompt": "Pour $y = 2x^3$ sur $[0, 2]$, pourquoi $\\underline{S_n} = \\frac{8(n - 1)^2}{n^2}$ contient-il $(n - 1)^2$ ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "La somme va de $k = 0$ à $n - 1$ : on applique la formule des cubes avec $n - 1$"
+          },
+          {
+            "id": "b",
+            "text": "Parce que le premier rectangle est plus large"
+          },
+          {
+            "id": "c",
+            "text": "Parce que $f(0) = -1$"
+          },
+          {
+            "id": "d",
+            "text": "C'est une erreur : il faut (n + 1)²"
+          }
+        ],
+        "correct": "a",
+        "explanation": "$\\sum_{k=0}^{n-1} k^3 = \\frac{(n - 1)^2n^2}{4}$ (réponse de la plateforme).",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Tous les rectangles ont la même largeur 2/n."
+          },
+          {
+            "optionId": "c",
+            "why": "$f(0) = 0$."
+          },
+          {
+            "optionId": "d",
+            "why": "$(n + 1)^2$ correspond à $\\overline{S_n}$."
+          }
+        ],
+        "source": {
+          "file": "2-integrale_definie.pdf",
+          "page": 23,
+          "locator": "Exercice 2.4 (1.3) c"
+        }
+      },
+      {
+        "id": "t6-15",
+        "objectiveId": "obj6-rectangles",
+        "bloomLevel": "understand",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Pourquoi a-t-on $\\underline{S_n} \\le A \\le \\overline{S_n}$ pour une fonction positive et croissante ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Les rectangles inscrits restent sous la courbe, les circonscrits la dépassent"
+          },
+          {
+            "id": "b",
+            "text": "Parce que $\\underline{S_n}$ a moins de termes"
+          },
+          {
+            "id": "c",
+            "text": "Parce que l'aire est toujours plus petite que 1"
+          },
+          {
+            "id": "d",
+            "text": "Parce que $\\Delta x$ est plus petit dans $\\underline{S_n}$"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Diapositives 21 et 22.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Les deux sommes ont n termes."
+          },
+          {
+            "optionId": "c",
+            "why": "L'aire n'est pas bornée par 1."
+          },
+          {
+            "optionId": "d",
+            "why": "La largeur est la même."
+          }
+        ],
+        "source": {
+          "file": "2-integrale_definie.pdf",
+          "page": 21,
+          "locator": "Diapositives 21 et 22"
+        }
+      },
+      {
+        "id": "t6-16",
+        "objectiveId": "obj6-rectangles",
+        "bloomLevel": "apply",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Pour $f(x) = x^2$ sur $[0, 2]$ avec 4 rectangles de même largeur, que vaut $\\overline{S_4}$ ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "$\\frac{15}{4}$"
+          },
+          {
+            "id": "b",
+            "text": "$\\frac74$"
+          },
+          {
+            "id": "c",
+            "text": "15"
+          },
+          {
+            "id": "d",
+            "text": "$\\frac83$"
+          }
+        ],
+        "correct": "a",
+        "explanation": "$\\frac12\\left(\\frac14 + 1 + \\frac94 + 4\\right) = \\frac{15}{4}$ (exemple de la plateforme).",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "C'est $\\underline{S_4}$."
+          },
+          {
+            "optionId": "c",
+            "why": "Il faut multiplier par $\\Delta x = \\frac12$ et utiliser $x_k = \\frac{k}{2}$."
+          },
+          {
+            "optionId": "d",
+            "why": "C'est l'aire exacte, pas la somme de 4 rectangles."
+          }
+        ],
+        "source": {
+          "file": "2-integrale_definie.pdf",
+          "page": 22,
+          "locator": "Diapositive 22"
+        }
+      },
+      {
+        "id": "t6-17",
+        "objectiveId": "obj6-rectangles",
+        "bloomLevel": "understand",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Pour obtenir l'aire exacte à partir des sommes de rectangles, il faut…",
+        "options": [
+          {
+            "id": "a",
+            "text": "faire tendre le nombre n de rectangles vers l'infini"
+          },
+          {
+            "id": "b",
+            "text": "prendre la moyenne des sommes inscrite et circonscrite"
+          },
+          {
+            "id": "c",
+            "text": "choisir n = 1000"
+          },
+          {
+            "id": "d",
+            "text": "prendre des rectangles de largeur 1"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Exercice 2.4 e et diapositive 6.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "La moyenne reste une approximation."
+          },
+          {
+            "optionId": "c",
+            "why": "Une grande valeur de n reste une approximation."
+          },
+          {
+            "optionId": "d",
+            "why": "Il faut que la largeur tende vers 0."
+          }
+        ],
+        "source": {
+          "file": "2-integrale_definie.pdf",
+          "page": 23,
+          "locator": "Exercice 2.4 (1.3) e"
+        }
+      },
+      {
+        "id": "t6-18",
+        "objectiveId": "obj6-sigma",
+        "bloomLevel": "apply",
+        "type": "mcq",
+        "difficulty": 2,
+        "prompt": "Que vaut $\\sum_{k=1}^{4} (-1)^k k$ ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "2"
+          },
+          {
+            "id": "b",
+            "text": "−2"
+          },
+          {
+            "id": "c",
+            "text": "10"
+          },
+          {
+            "id": "d",
+            "text": "0"
+          }
+        ],
+        "correct": "a",
+        "explanation": "$-1 + 2 - 3 + 4$ (diapositive 9 ; exemple de la plateforme).",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "$-1 + 2 - 3 + 4 = 2$."
+          },
+          {
+            "optionId": "c",
+            "why": "Les signes alternent."
+          },
+          {
+            "optionId": "d",
+            "why": "Les termes ne s'annulent pas deux à deux."
+          }
+        ],
+        "source": {
+          "file": "2-integrale_definie.pdf",
+          "page": 9,
+          "locator": "Diapositive 9"
+        }
+      },
+      {
+        "id": "t6-19",
+        "objectiveId": "obj6-proprietes",
+        "bloomLevel": "analyze",
+        "type": "mcq",
+        "difficulty": 3,
+        "prompt": "Un étudiant écrit $\\sum_{k=25}^{125} k = \\frac{100 \\cdot 101}{2}$. Pourquoi est-ce faux ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "La formule 9 exige de partir de k = 1"
+          },
+          {
+            "id": "b",
+            "text": "Il fallait écrire 101 · 102 / 2"
+          },
+          {
+            "id": "c",
+            "text": "C'est juste"
+          },
+          {
+            "id": "d",
+            "text": "Il fallait multiplier par 25"
+          }
+        ],
+        "correct": "a",
+        "explanation": "$\\sum_{k=25}^{125} k = 7875 - 300 = 7575$ (propriété 3, réponse de la plateforme).",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "Ce serait $\\sum_{k=1}^{101} k$ : toujours une somme qui part de 1."
+          },
+          {
+            "optionId": "c",
+            "why": "Le résultat donne 5050, alors que la somme vaut 7575."
+          },
+          {
+            "optionId": "d",
+            "why": "La somme commence à 25, elle n'est pas multipliée par 25."
+          }
+        ],
+        "source": {
+          "file": "2-integrale_definie.pdf",
+          "page": 10,
+          "locator": "Propriété 3"
+        }
+      },
+      {
+        "id": "t6-20",
+        "objectiveId": "obj6-partition",
+        "bloomLevel": "understand",
+        "type": "mcq",
+        "difficulty": 1,
+        "prompt": "Que désigne $x_k^*$ ?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Un point choisi dans le sous-intervalle $[x_{k-1}, x_k]$"
+          },
+          {
+            "id": "b",
+            "text": "La borne droite de l'intervalle total"
+          },
+          {
+            "id": "c",
+            "text": "La largeur du $k$-ième rectangle"
+          },
+          {
+            "id": "d",
+            "text": "La dérivée de x_k"
+          }
+        ],
+        "correct": "a",
+        "explanation": "Diapositive 17.",
+        "perDistractorExplanation": [
+          {
+            "optionId": "b",
+            "why": "C'est $x_n = b$."
+          },
+          {
+            "optionId": "c",
+            "why": "C'est $\\Delta x_k$."
+          },
+          {
+            "optionId": "d",
+            "why": "Aucune dérivée ici."
+          }
+        ],
+        "source": {
+          "file": "2-integrale_definie.pdf",
+          "page": 17,
+          "locator": "Diapositive 17"
+        }
+      },
+      {
+        "id": "t6-21",
+        "objectiveId": "obj6-proprietes",
+        "bloomLevel": "apply",
+        "type": "short-answer",
+        "difficulty": 2,
+        "prompt": "Calculer $\\sum_{k=1}^{5} k^3$ à l'aide de la formule des cubes.",
+        "correct": "225",
+        "acceptableAnswers": [],
+        "explanation": "$\\frac{5^2 \\cdot 6^2}{4} = \\frac{900}{4} = 225$ (propriété 11 ; exemple de la plateforme).",
+        "source": {
+          "file": "2-integrale_definie.pdf",
+          "page": 12,
+          "locator": "Propriété 11"
+        }
+      }
+    ]
+  },
+  "flashcards": [
+    {
+      "id": "f6-01",
+      "objectiveId": "obj6-sigma",
+      "front": "$\\sum_{k=m}^{n} a_k$ : vocabulaire ?",
+      "back": "a_k terme général ; k indice ; m et n bornes inférieure et supérieure."
+    },
+    {
+      "id": "f6-02",
+      "objectiveId": "obj6-sigma",
+      "front": "Nombre de termes de k = m à n ?",
+      "back": "n − m + 1."
+    },
+    {
+      "id": "f6-03",
+      "objectiveId": "obj6-proprietes",
+      "front": "$\\sum_{k=1}^{n} k$ ?",
+      "back": "$\\frac{n(n+1)}{2}$."
+    },
+    {
+      "id": "f6-04",
+      "objectiveId": "obj6-proprietes",
+      "front": "$\\sum_{k=1}^{n} k^2$ ?",
+      "back": "$\\frac{n(n+1)(2n+1)}{6}$."
+    },
+    {
+      "id": "f6-05",
+      "objectiveId": "obj6-proprietes",
+      "front": "$\\sum_{k=1}^{n} k^3$ ?",
+      "back": "$\\frac{n^2(n+1)^2}{4}$."
+    },
+    {
+      "id": "f6-06",
+      "objectiveId": "obj6-proprietes",
+      "front": "Somme télescopique ?",
+      "back": "$\\sum_{k=1}^{n} (a_k - a_{k-1}) = a_n - a_0$."
+    },
+    {
+      "id": "f6-07",
+      "objectiveId": "obj6-proprietes",
+      "front": "Somme qui commence à m > 1 ?",
+      "back": "Séparer : somme de 1 à n moins somme de 1 à m − 1."
+    },
+    {
+      "id": "f6-08",
+      "objectiveId": "obj6-partition",
+      "front": "Partition régulière de [a, b] ?",
+      "back": "$\\Delta x = \\frac{b - a}{n}$ et $x_k = a + k\\Delta x$."
+    },
+    {
+      "id": "f6-09",
+      "objectiveId": "obj6-rectangles",
+      "front": "Rectangles inscrits (f croissante) ?",
+      "back": "x*ₖ au début : S̲ₙ, sous la courbe."
+    },
+    {
+      "id": "f6-10",
+      "objectiveId": "obj6-rectangles",
+      "front": "Rectangles circonscrits (f croissante) ?",
+      "back": "x*ₖ à la fin : S̄ₙ, au-dessus de la courbe."
+    },
+    {
+      "id": "f6-11",
+      "objectiveId": "obj6-rectangles",
+      "front": "Aire exacte ?",
+      "back": "La limite commune de S̲ₙ et S̄ₙ quand n → ∞."
+    },
+    {
+      "id": "f6-12",
+      "objectiveId": "obj6-rectangles",
+      "front": "Aire sous 2x³ sur [0, 2] ?",
+      "back": "8 (limite de 8(n ± 1)²/n²)."
+    }
+  ],
+  "exercises": [
+    {
+      "id": "e6-01",
+      "objectiveId": "obj6-rectangles",
+      "difficulty": 3,
+      "mode": "trace",
+      "language": "text",
+      "title": "L'aire sous y = 2x³ par les rectangles circonscrits (exercice 2.4, ou 1.3)",
+      "statement": "Pour la région sous y = 2x³ entre x = 0 et x = 2, établir la formule de S̄ₙ (n rectangles circonscrits de même largeur), la simplifier, puis trouver l'aire exacte.",
+      "starterCode": "y = 2x³ sur [0, 2]",
+      "hints": [
+        "Δx = 2/n et xₖ = 2k/n ; la fonction est croissante, donc on évalue à la fin des sous-intervalles.",
+        "f(xₖ) Δx = 2(2k/n)³ · 2/n = 32k³/n⁴.",
+        "Utiliser la formule des cubes, puis faire tendre n vers l'infini."
+      ],
+      "solution": "S̄ₙ = 8(n + 1)²/n² ; A = 8",
+      "expectedOutput": "Δx = 2/n,  xₖ = 2k/n,  f(xₖ) = 2(2k/n)³ = 16k³/n³\n\nS̄ₙ = Σ_{k=1}^{n} (16k³/n³)(2/n) = (32/n⁴) Σ_{k=1}^{n} k³\n   = (32/n⁴) · n²(n + 1)²/4\n   = 8(n + 1)²/n²\n\nA = lim_{n→∞} 8(n + 1)²/n² = 8 · 1 = 8",
+      "solutionExplanation": "Avec les rectangles inscrits, on obtient S̲ₙ = 8(n − 1)²/n², qui tend aussi vers 8 : l'encadrement se referme. Réponse de la plateforme, vérifiée par calcul symbolique.",
+      "source": {
+        "file": "2-integrale_definie.pdf",
+        "page": 23,
+        "locator": "Exercice 2.4 (1.3) d, e"
+      }
+    },
+    {
+      "id": "e6-02",
+      "objectiveId": "obj6-proprietes",
+      "difficulty": 2,
+      "mode": "fill-blank",
+      "language": "text",
+      "title": "Compléter — évaluer des sommes",
+      "statement": "Compléter chaque calcul à l'aide des propriétés des sommations.",
+      "starterCode": "a) Σ_{k=1}^{40} 3k = 3 · (40 · ____)/2 = ____\nb) Σ_{k=1}^{30} (2k − 7) = 2 · ____ − 30 · 7 = ____\nc) Σ_{k=25}^{125} k = Σ_{k=1}^{125} k − Σ_{k=1}^{____} k = 7875 − ____ = 7575",
+      "hints": [
+        "Formule 9 : n(n + 1)/2.",
+        "b) Σ k de 1 à 30 = 465.",
+        "c) On retire la somme de 1 à 24."
+      ],
+      "solution": "41 · 2460 · 465 · 720 · 24 · 300",
+      "expectedOutput": "a) 3 · (40 · 41)/2 = 3 · 820 = 2460\nb) 2 · 465 − 210 = 720\nc) 7875 − Σ_{k=1}^{24} k = 7875 − 300 = 7575",
+      "solutionExplanation": "Exercice 2.2 a, b, c ; réponses de la plateforme.",
+      "source": {
+        "file": "2-integrale_definie.pdf",
+        "page": 13,
+        "locator": "Exercice 2.2 (1.1)"
+      }
+    },
+    {
+      "id": "e6-03",
+      "objectiveId": "obj6-partition",
+      "difficulty": 2,
+      "mode": "trace",
+      "language": "text",
+      "title": "Une partition régulière (exercice 2.3, ou 1.2)",
+      "statement": "Pour f(x) = x² + 3 et [2, 10] partagé en n sous-intervalles égaux : donner x₀, f(x₀), xₙ, f(xₙ), Δx, xₖ et f(xₖ).",
+      "starterCode": "f(x) = x² + 3 sur [2, 10]",
+      "hints": [
+        "x₀ = a et xₙ = b.",
+        "Δx = (b − a)/n.",
+        "Développer (2 + 8k/n)² avec le double produit."
+      ],
+      "solution": "x₀ = 2, f = 7 ; xₙ = 10, f = 103 ; Δx = 8/n ; xₖ = 2 + 8k/n ; f(xₖ) = 7 + 32k/n + 64k²/n²",
+      "expectedOutput": "a) x₀ = 2           b) f(x₀) = 4 + 3 = 7\nc) xₙ = 10          d) f(xₙ) = 100 + 3 = 103\ne) Δx = (10 − 2)/n = 8/n\nf) xₖ = 2 + 8k/n\ng) f(xₖ) = (2 + 8k/n)² + 3 = 4 + 32k/n + 64k²/n² + 3 = 7 + 32k/n + 64k²/n²",
+      "solutionExplanation": "Avec cette expression, une somme de rectangles se calcule par les formules 4, 9 et 10. Réponses de la plateforme.",
+      "source": {
+        "file": "2-integrale_definie.pdf",
+        "page": 20,
+        "locator": "Exercice 2.3 (1.2)"
+      }
+    },
+    {
+      "id": "e6-04",
+      "objectiveId": "obj6-proprietes",
+      "difficulty": 3,
+      "mode": "find-bug",
+      "language": "text",
+      "title": "Trouver l'erreur — une somme télescopique",
+      "statement": "Un étudiant évalue l'exercice 2.2 f. Trouver l'erreur.",
+      "starterCode": "Σ_{k=1}^{8} (1/2^k − 1/2^(k−1))\n= a₈ − a₁        avec aₖ = 1/2^k\n= 1/256 − 1/2\n= −127/256",
+      "hints": [
+        "Relire la propriété 8 : quel terme est soustrait ?",
+        "Pour k = 1, le terme est a₁ − a₀.",
+        "a₀ = 1/2⁰ = 1."
+      ],
+      "solution": "La propriété 8 donne aₙ − a₀, pas aₙ − a₁ : la somme vaut 1/256 − 1 = −255/256.",
+      "expectedOutput": "Σ_{k=1}^{8} (aₖ − aₖ₋₁) = (a₁ − a₀) + (a₂ − a₁) + … + (a₈ − a₇) = a₈ − a₀\n= 1/256 − 1 = −255/256",
+      "solutionExplanation": "Écrire les deux premiers et le dernier terme de la somme montre immédiatement ce qui reste. Réponse de la plateforme.",
+      "source": {
+        "file": "2-integrale_definie.pdf",
+        "page": 13,
+        "locator": "Exercice 2.2 (1.1) f"
+      }
+    },
+    {
+      "id": "e6-05",
+      "objectiveId": "obj6-rectangles",
+      "difficulty": 2,
+      "mode": "predict-output",
+      "language": "text",
+      "title": "Encadrer l'aire avec 8 rectangles (exercice 2.4 b)",
+      "statement": "Pour y = 2x³ sur [0, 2] partagé en 8 sous-intervalles égaux, calculer S̲₈ et S̄₈ et en déduire un encadrement de l'aire.",
+      "starterCode": "y = 2x³, [0, 2], n = 8",
+      "hints": [
+        "Δx = 1/4 et xₖ = k/4.",
+        "f(xₖ)Δx = 2(k/4)³ · 1/4 = k³/128.",
+        "Σ_{k=0}^{7} k³ = 784 ; Σ_{k=1}^{8} k³ = 1296."
+      ],
+      "solution": "S̲₈ = 6,125 ; S̄₈ = 10,125 ; 6,125 ≤ A ≤ 10,125",
+      "expectedOutput": "S̲₈ = Σ_{k=0}^{7} k³/128 = 784/128 = 6,125\nS̄₈ = Σ_{k=1}^{8} k³/128 = 1296/128 = 10,125\nDonc 6,125 ≤ A ≤ 10,125",
+      "solutionExplanation": "L'écart entre les deux sommes est le dernier rectangle moins le premier : (f(2) − f(0)) · Δx = 16 · 1/4 = 4. Réponse de la plateforme.",
+      "source": {
+        "file": "2-integrale_definie.pdf",
+        "page": 23,
+        "locator": "Exercice 2.4 (1.3) b"
+      }
+    }
+  ]
+}

@@ -1,0 +1,150 @@
+{
+  "code": "MAT098",
+  "title": "Compléments de calcul intégral",
+  "term": "Automne 2026",
+  "language": "fr",
+  "accent": "teal",
+  "sample": false,
+  "description": "Un long rappel de calcul différentiel — ensembles de nombres, exposants et radicaux, fonctions usuelles, limites, continuité, dérivation et étude complète d'une fonction —, puis l'entrée dans le calcul intégral : notation sigma, approximation d'une aire par des rectangles, somme de Riemann, intégrale définie et ses propriétés, théorème fondamental du calcul intégral et primitives de base.",
+  "chapters": [
+    { "number": 1, "slug": "01-notions-de-base", "title": "Notions de base" },
+    { "number": 2, "slug": "02-fonctions", "title": "Les fonctions" },
+    { "number": 3, "slug": "03-limites-et-continuite", "title": "Limites et continuité" },
+    { "number": 4, "slug": "04-derivation", "title": "Dérivation et applications" },
+    { "number": 5, "slug": "05-etude-d-une-fonction", "title": "Étude d'une fonction" },
+    { "number": 6, "slug": "06-sommation-et-aire", "title": "Notation sigma et approximation d'une aire" },
+    { "number": 7, "slug": "07-riemann-et-integrale-definie", "title": "Somme de Riemann et intégrale définie" },
+    { "number": 8, "slug": "08-primitives-de-base", "title": "Primitives de base" }
+  ],
+  "roadmap": {
+    "title": "Parcours d'apprentissage",
+    "steps": [
+      {
+        "id": "ch1",
+        "title": "Notions de base",
+        "description": "Ensembles de nombres, intervalles, exposants, valeur absolue, radicaux, équations quadratiques et inéquations.",
+        "chapter": 1,
+        "estimatedMinutes": 150,
+        "prerequisites": []
+      },
+      {
+        "id": "ch1-check",
+        "title": "Point de contrôle — une inéquation quadratique complète",
+        "description": "Résoudre une inéquation quadratique : discriminant, racines, tableau de signes, et réponse écrite en intervalles avec les bons crochets.",
+        "estimatedMinutes": 30,
+        "prerequisites": ["ch1"],
+        "checkpoint": true
+      },
+      {
+        "id": "ch2",
+        "title": "Les fonctions",
+        "description": "Domaine et image, composition, fonctions polynomiales, rationnelles, racine carrée, exponentielles, logarithmiques et trigonométriques.",
+        "chapter": 2,
+        "estimatedMinutes": 210,
+        "prerequisites": ["ch1-check"]
+      },
+      {
+        "id": "ch2-check",
+        "title": "Point de contrôle — le domaine d'une composée",
+        "description": "Trouver le domaine de f ∘ g en gardant les restrictions de la fonction intérieure, et résoudre une équation exponentielle avec un logarithme.",
+        "estimatedMinutes": 40,
+        "prerequisites": ["ch2"],
+        "checkpoint": true
+      },
+      {
+        "id": "ch3",
+        "title": "Limites et continuité",
+        "description": "Limites à gauche et à droite, limites infinies et à l'infini, asymptotes, formes c/0, formes indéterminées, continuité en un point et sur un intervalle.",
+        "chapter": 3,
+        "estimatedMinutes": 180,
+        "prerequisites": ["ch2-check"]
+      },
+      {
+        "id": "ch3-check",
+        "title": "Point de contrôle — lever une indétermination",
+        "description": "Lever une forme 0/0 par factorisation ou par le conjugué, et une forme ∞/∞ par le terme dominant.",
+        "estimatedMinutes": 40,
+        "prerequisites": ["ch3"],
+        "checkpoint": true
+      },
+      {
+        "id": "ch4",
+        "title": "Dérivation et applications",
+        "description": "Définition de la dérivée, dérivabilité et continuité, règles de dérivation, signe de la dérivée, dérivée seconde, dérivation en chaîne, fonctions transcendantes.",
+        "chapter": 4,
+        "estimatedMinutes": 210,
+        "prerequisites": ["ch3-check"]
+      },
+      {
+        "id": "ch4-check",
+        "title": "Point de contrôle — dériver en chaîne",
+        "description": "Dériver une composée de trois fonctions (puissance, trigonométrique, polynôme) sans oublier de facteur.",
+        "estimatedMinutes": 35,
+        "prerequisites": ["ch4"],
+        "checkpoint": true
+      },
+      {
+        "id": "ch5",
+        "title": "Étude d'une fonction",
+        "description": "Les six étapes de l'étude : domaine, asymptotes, zéros, valeurs critiques, points d'inflexion, tableau des signes ; concavité.",
+        "chapter": 5,
+        "estimatedMinutes": 150,
+        "prerequisites": ["ch4-check"]
+      },
+      {
+        "id": "ch5-check",
+        "title": "Point de contrôle — une étude complète",
+        "description": "Faire l'étude complète d'un polynôme de degré 3 ou 4 et en tirer l'esquisse du graphique.",
+        "estimatedMinutes": 45,
+        "prerequisites": ["ch5"],
+        "checkpoint": true
+      },
+      {
+        "id": "ch6",
+        "title": "Notation sigma et approximation d'une aire",
+        "description": "Propriétés des sommations, sommes des entiers, des carrés et des cubes, partition d'un intervalle, rectangles inscrits et circonscrits.",
+        "chapter": 6,
+        "estimatedMinutes": 150,
+        "prerequisites": ["ch5-check"]
+      },
+      {
+        "id": "ch7",
+        "title": "Somme de Riemann et intégrale définie",
+        "description": "Partition régulière, somme de Riemann, intégrale définie, ses propriétés, théorème fondamental du calcul intégral.",
+        "chapter": 7,
+        "estimatedMinutes": 150,
+        "prerequisites": ["ch6"]
+      },
+      {
+        "id": "ch8",
+        "title": "Primitives de base",
+        "description": "La table des primitives de base et le calcul exact d'intégrales définies par le théorème fondamental.",
+        "chapter": 8,
+        "estimatedMinutes": 120,
+        "prerequisites": ["ch7"]
+      },
+      {
+        "id": "ch8-check",
+        "title": "Point de contrôle — de la somme à l'intégrale",
+        "description": "Calculer une aire comme limite de S̄ₙ, puis retrouver la même valeur avec une primitive et le théorème fondamental.",
+        "estimatedMinutes": 45,
+        "prerequisites": ["ch8"],
+        "checkpoint": true
+      },
+      {
+        "id": "revision",
+        "title": "Révision finale",
+        "description": "Examen blanc chronométré couvrant les huit chapitres, pondéré vers les objectifs faibles détectés par la plateforme.",
+        "estimatedMinutes": 120,
+        "prerequisites": ["ch1-check", "ch2-check", "ch3-check", "ch4-check", "ch5-check", "ch8-check"],
+        "checkpoint": true
+      }
+    ]
+  },
+  "exam": {
+    "defaultMinutes": 90,
+    "defaultQuestionCount": 30,
+    "mirrorsPastExam": false,
+    "formatNote": "Aucun plan de cours ni examen antérieur n'a été fourni pour ce cours : ni la pondération ni la forme des évaluations ne sont connues. Les diapositives et les notes ne donnent pas les réponses de leurs exercices ; celles de la plateforme ont été calculées et vérifiées par calcul symbolique. Le format (30 questions, 90 minutes) est une convention de la plateforme."
+  }
+}
